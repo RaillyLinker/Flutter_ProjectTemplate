@@ -1,0 +1,181 @@
+// (external)
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+// (page)
+import 'page_business.dart' as page_business;
+
+// (all)
+import '../../../global_classes/gc_template_classes.dart'
+    as gc_template_classes;
+
+// [페이지 화면 위젯 작성 파일]
+// 페이지 화면 구현을 담당합니다.
+// 로직 처리는 pageBusiness 객체에 위임하세요.
+
+//------------------------------------------------------------------------------
+// (페이지 UI 위젯)
+// !!!세부 화면 정의!!
+class PageView extends StatelessWidget {
+  const PageView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    // pageBusiness 객체
+    page_business.PageBusiness pageBusiness =
+        BlocProvider.of<gc_template_classes.BlocPageInfo>(context)
+            .state
+            .pageBusiness;
+
+    // Mobile 앱 status bar 색상 변경
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      statusBarColor: Colors.blue,
+      statusBarIconBrightness: Brightness.dark,
+      statusBarBrightness: Brightness.dark,
+    ));
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          "Crypt Sample",
+          style: TextStyle(color: Colors.white),
+        ),
+        automaticallyImplyLeading: true,
+        backgroundColor: Colors.blue,
+        iconTheme: const IconThemeData(
+          color: Colors.white, //change your color here
+        ),
+      ),
+      backgroundColor: const Color(0xFFFFFFFF),
+      body: SingleChildScrollView(
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.only(top: 50),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Center(
+                  child: Container(
+                    constraints: const BoxConstraints(maxWidth: 400),
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Expanded(
+                                flex: 20,
+                                child: TextFormField(
+                                  controller: pageBusiness
+                                      .pageViewModel.encryptTextController,
+                                  decoration: const InputDecoration(
+                                      labelText: 'to ciphertext',
+                                      hintText:
+                                          "Enter the text to be encrypted."),
+                                )),
+                            const Expanded(child: SizedBox()),
+                            Expanded(
+                                flex: 10,
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    pageBusiness.doEncrypt();
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.blue,
+                                  ),
+                                  child: const Center(
+                                    child: Text(
+                                      "Encrypt",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ),
+                                )),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Expanded(flex: 20, child: Text("Result :")),
+                            const Expanded(child: SizedBox()),
+                            Expanded(
+                                flex: 80,
+                                child: BlocBuilder<
+                                    page_business.BlocEncryptResultText, bool>(
+                                  builder: (c, s) {
+                                    return SelectableText(pageBusiness
+                                        .pageViewModel.encryptResultText);
+                                  },
+                                )),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 30,
+                        ),
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Expanded(
+                                flex: 20,
+                                child: TextFormField(
+                                  controller: pageBusiness
+                                      .pageViewModel.decryptTextController,
+                                  decoration: const InputDecoration(
+                                      labelText: 'from ciphertext',
+                                      hintText:
+                                          "Enter the text to be decrypted."),
+                                )),
+                            const Expanded(child: SizedBox()),
+                            Expanded(
+                                flex: 10,
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    pageBusiness.doDecrypt();
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.blue,
+                                  ),
+                                  child: const Center(
+                                    child: Text(
+                                      "Decrypt",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ),
+                                )),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Expanded(flex: 20, child: Text("Result :")),
+                            const Expanded(child: SizedBox()),
+                            Expanded(
+                                flex: 80,
+                                child: BlocBuilder<
+                                    page_business.BlocDecryptResultText, bool>(
+                                  builder: (c, s) {
+                                    return SelectableText(pageBusiness
+                                        .pageViewModel.decryptResultText);
+                                  },
+                                )),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
