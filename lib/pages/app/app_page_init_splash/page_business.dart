@@ -27,8 +27,6 @@ import '../../../pages/all/all_page_home/page_entrance.dart' as all_page_home;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
 import '../../../global_data/gd_const_config.dart' as gd_const_config;
-import '../../../../repositories/spws/spw_program_start_first_time.dart'
-    as spw_program_start_first_time;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
 
@@ -323,7 +321,7 @@ class PageBusiness {
         // login_user_info SPW 비우기
         spw_sign_in_member_info.SharedPreferenceWrapper.set(null);
 
-        await _checkProgramFirstTimeAsync();
+        _appInitLogicThreadConfluenceObj.threadComplete();
       } else {
         var postAutoLoginOutputVo = await api_main_server.postReissueAsync(
             api_main_server.PostReissueAsyncRequestHeaderVo(
@@ -377,7 +375,7 @@ class PageBusiness {
             spw_sign_in_member_info.SharedPreferenceWrapper.set(
                 signInMemberInfo);
 
-            await _checkProgramFirstTimeAsync();
+            _appInitLogicThreadConfluenceObj.threadComplete();
           } else {
             // 액세스 토큰 재발급 비정상 응답
             if (networkResponseObjectOk.responseHeaders.apiErrorCodes == null) {
@@ -399,7 +397,7 @@ class PageBusiness {
 
                 // login_user_info SSW 비우기 (= 로그아웃 처리)
                 spw_sign_in_member_info.SharedPreferenceWrapper.set(null);
-                await _checkProgramFirstTimeAsync();
+                _appInitLogicThreadConfluenceObj.threadComplete();
                 return;
               }
 
@@ -439,7 +437,7 @@ class PageBusiness {
 
                 // login_user_info SSW 비우기 (= 로그아웃 처리)
                 spw_sign_in_member_info.SharedPreferenceWrapper.set(null);
-                await _checkProgramFirstTimeAsync();
+                _appInitLogicThreadConfluenceObj.threadComplete();
               } else {
                 // 알 수 없는 에러 코드일 때
                 throw Exception("unKnown Error Code");
@@ -463,7 +461,7 @@ class PageBusiness {
 
             // login_user_info SSW 비우기 (= 로그아웃 처리)
             spw_sign_in_member_info.SharedPreferenceWrapper.set(null);
-            await _checkProgramFirstTimeAsync();
+            _appInitLogicThreadConfluenceObj.threadComplete();
             return;
           }
 
@@ -495,31 +493,6 @@ class PageBusiness {
       }
     } else {
       // 자동 로그인 불필요
-      await _checkProgramFirstTimeAsync();
-    }
-  }
-
-  // (프로그램 최초 실행 여부 체크)
-  Future<void> _checkProgramFirstTimeAsync() async {
-    var programStartFirstTimeValueMap =
-        spw_program_start_first_time.SharedPreferenceWrapper.get();
-
-    if (programStartFirstTimeValueMap == null ||
-        programStartFirstTimeValueMap.value) {
-      // 프로그램이 디바이스에서 처음 실행된 경우
-
-      // 앱 최초 실행 여부 플래그를 false로 변경
-      spw_program_start_first_time.SharedPreferenceWrapper.set(
-          spw_program_start_first_time.SharedPreferenceWrapperVo(false));
-
-      // !!프로그램 최초 실행 작업 수행!!
-
-      // 초기화 작업 완료 (스레드 합류)
-      _appInitLogicThreadConfluenceObj.threadComplete();
-    } else {
-      // 프로그램이 디바이스에서 처음 실행되지 않은 경우
-
-      // 초기화 작업 완료 (스레드 합류)
       _appInitLogicThreadConfluenceObj.threadComplete();
     }
   }
