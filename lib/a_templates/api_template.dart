@@ -33,12 +33,16 @@ Future<
 
   // !!!Request Object 를 Map 으로 만들기!!
   requestQueryParams["queryParamString"] = requestQueryVo.queryParamString;
-  requestQueryParams["queryParamStringNullable"] =
-      requestQueryVo.queryParamStringNullable;
+  if (requestQueryVo.queryParamStringNullable != null) {
+    requestQueryParams["queryParamStringNullable"] =
+        requestQueryVo.queryParamStringNullable;
+  }
   requestQueryParams["queryParamStringList"] =
       requestQueryVo.queryParamStringList;
-  requestQueryParams["queryParamStringListNullable"] =
-      requestQueryVo.queryParamStringListNullable;
+  if (requestQueryVo.queryParamStringListNullable != null) {
+    requestQueryParams["queryParamStringListNullable"] =
+        requestQueryVo.queryParamStringListNullable;
+  }
 
   // baseUrl + Request path + QueryParam
   String requestUrlAndParam = gf_my_functions.mergeNetworkQueryParam(
@@ -54,26 +58,33 @@ Future<
         ));
 
     int statusCode = response.statusCode!;
-    // Map<String, dynamic> responseHeaderMap = response.headers.map;
+    Map<String, dynamic> responseHeaderMap = response.headers.map;
 
     GetRequestSampleAsyncResponseHeaderVo responseHeader;
     GetRequestSampleAsyncResponseBodyVo? responseBody;
 
     // !!!Response Map 을 Response Object 로 변경!!
-    responseHeader = GetRequestSampleAsyncResponseHeaderVo();
-    if (statusCode == 200) {
-      // responseBody 가 반환되는 조건
-      Map<String, dynamic> responseBodyMap = response.data;
+    responseHeader = GetRequestSampleAsyncResponseHeaderVo(
+        responseHeaderMap["api-result-code"]);
 
-      responseBody = GetRequestSampleAsyncResponseBodyVo(
-        responseBodyMap["responseBodyString"],
-        responseBodyMap["responseBodyStringNullable"],
-        List<String>.from(responseBodyMap["responseBodyStringList"]),
-        (responseBodyMap["responseBodyStringListNullable"] == null)
-            ? null
-            : List<String>.from(
-                responseBodyMap["responseBodyStringListNullable"]),
-      );
+    // !!!responseBody 가 반환되는 조건 처리!!
+    // 여기서는 서버에서 api-result-code 를 내려준다고 가정
+    switch (responseHeader.apiResultCode) {
+      case "0":
+        {
+          Map<String, dynamic> responseBodyMap = response.data;
+
+          responseBody = GetRequestSampleAsyncResponseBodyVo(
+            responseBodyMap["responseBodyString"],
+            responseBodyMap["responseBodyStringNullable"],
+            List<String>.from(responseBodyMap["responseBodyStringList"]),
+            (responseBodyMap["responseBodyStringListNullable"] == null)
+                ? null
+                : List<String>.from(
+                    responseBodyMap["responseBodyStringListNullable"]),
+          );
+        }
+        break;
     }
 
     return gc_my_classes.NetworkResponseObject(
@@ -101,7 +112,10 @@ class GetRequestSampleAsyncRequestQueryVo {
 }
 
 class GetRequestSampleAsyncResponseHeaderVo {
-  GetRequestSampleAsyncResponseHeaderVo();
+  // (api-result-code)
+  // 0 : 정상 동작
+  String apiResultCode; // api 결과 코드
+  GetRequestSampleAsyncResponseHeaderVo(this.apiResultCode);
 }
 
 class GetRequestSampleAsyncResponseBodyVo {
@@ -134,11 +148,15 @@ Future<
 
   // !!!Request Object 를 Map 으로 만들기!!
   requestBody["requestBodyString"] = requestBodyVo.requestBodyString;
-  requestBody["requestBodyStringNullable"] =
-      requestBodyVo.requestBodyStringNullable;
+  if (requestBodyVo.requestBodyStringNullable != null) {
+    requestBody["requestBodyStringNullable"] =
+        requestBodyVo.requestBodyStringNullable;
+  }
   requestBody["requestBodyStringList"] = requestBodyVo.requestBodyStringList;
-  requestBody["requestBodyStringListNullable"] =
-      requestBodyVo.requestBodyStringListNullable;
+  if (requestBodyVo.requestBodyStringListNullable != null) {
+    requestBody["requestBodyStringListNullable"] =
+        requestBodyVo.requestBodyStringListNullable;
+  }
 
   // baseUrl + Request path + QueryParam
   String requestUrlAndParam = gf_my_functions.mergeNetworkQueryParam(
@@ -155,26 +173,33 @@ Future<
         data: requestBody);
 
     int statusCode = response.statusCode!;
-    // Map<String, dynamic> responseHeaderMap = response.headers.map;
+    Map<String, dynamic> responseHeaderMap = response.headers.map;
 
     PostRequestSampleAsyncResponseHeaderVo responseHeader;
     PostRequestSampleAsyncResponseBodyVo? responseBody;
 
     // !!!Response Map 을 Response Object 로 변경!!
-    responseHeader = PostRequestSampleAsyncResponseHeaderVo();
-    if (statusCode == 200) {
-      // responseBody 가 반환되는 조건
-      Map<String, dynamic> responseBodyMap = response.data;
+    responseHeader = PostRequestSampleAsyncResponseHeaderVo(
+        responseHeaderMap["api-result-code"]);
 
-      responseBody = PostRequestSampleAsyncResponseBodyVo(
-        responseBodyMap["responseBodyString"],
-        responseBodyMap["responseBodyStringNullable"],
-        List<String>.from(responseBodyMap["responseBodyStringList"]),
-        (responseBodyMap["responseBodyStringListNullable"] == null)
-            ? null
-            : List<String>.from(
-                responseBodyMap["responseBodyStringListNullable"]),
-      );
+    // !!!responseBody 가 반환되는 조건 처리!!
+    // 여기서는 서버에서 api-result-code 를 내려준다고 가정
+    switch (responseHeader.apiResultCode) {
+      case "0":
+        {
+          Map<String, dynamic> responseBodyMap = response.data;
+
+          responseBody = PostRequestSampleAsyncResponseBodyVo(
+            responseBodyMap["responseBodyString"],
+            responseBodyMap["responseBodyStringNullable"],
+            List<String>.from(responseBodyMap["responseBodyStringList"]),
+            (responseBodyMap["responseBodyStringListNullable"] == null)
+                ? null
+                : List<String>.from(
+                    responseBodyMap["responseBodyStringListNullable"]),
+          );
+        }
+        break;
     }
 
     return gc_my_classes.NetworkResponseObject(
@@ -202,7 +227,10 @@ class PostRequestSampleAsyncRequestBodyVo {
 }
 
 class PostRequestSampleAsyncResponseHeaderVo {
-  PostRequestSampleAsyncResponseHeaderVo();
+  // (api-result-code)
+  // 0 : 정상 동작
+  String apiResultCode; // api 결과 코드
+  PostRequestSampleAsyncResponseHeaderVo(this.apiResultCode);
 }
 
 class PostRequestSampleAsyncResponseBodyVo {
@@ -238,11 +266,15 @@ Future<
 
   // !!!Request Object 를 Map 으로 만들기!!
   requestBody["requestFormString"] = requestBodyVo.requestFormString;
-  requestBody["requestFormStringNullable"] =
-      requestBodyVo.requestFormStringNullable;
+  if (requestBodyVo.requestFormStringNullable != null) {
+    requestBody["requestFormStringNullable"] =
+        requestBodyVo.requestFormStringNullable;
+  }
   requestBody["requestFormStringList"] = requestBodyVo.requestFormStringList;
-  requestBody["requestFormStringListNullable"] =
-      requestBodyVo.requestFormStringListNullable;
+  if (requestBodyVo.requestFormStringListNullable != null) {
+    requestBody["requestFormStringListNullable"] =
+        requestBodyVo.requestFormStringListNullable;
+  }
 
   // baseUrl + Request path + QueryParam
   String requestUrlAndParam = gf_my_functions.mergeNetworkQueryParam(
@@ -260,26 +292,33 @@ Future<
         data: requestBody);
 
     int statusCode = response.statusCode!;
-    // Map<String, dynamic> responseHeaderMap = response.headers.map;
+    Map<String, dynamic> responseHeaderMap = response.headers.map;
 
     PostRequestSampleXwfuAsyncResponseHeaderVo responseHeader;
     PostRequestSampleXwfuAsyncResponseBodyVo? responseBody;
 
     // !!!Response Map 을 Response Object 로 변경!!
-    responseHeader = PostRequestSampleXwfuAsyncResponseHeaderVo();
-    if (statusCode == 200) {
-      // responseBody 가 반환되는 조건
-      Map<String, dynamic> responseBodyMap = response.data;
+    responseHeader = PostRequestSampleXwfuAsyncResponseHeaderVo(
+        responseHeaderMap["api-result-code"]);
 
-      responseBody = PostRequestSampleXwfuAsyncResponseBodyVo(
-        responseBodyMap["responseBodyString"],
-        responseBodyMap["responseBodyStringNullable"],
-        List<String>.from(responseBodyMap["responseBodyStringList"]),
-        (responseBodyMap["responseBodyStringListNullable"] == null)
-            ? null
-            : List<String>.from(
-                responseBodyMap["responseBodyStringListNullable"]),
-      );
+    // !!!responseBody 가 반환되는 조건 처리!!
+    // 여기서는 서버에서 api-result-code 를 내려준다고 가정
+    switch (responseHeader.apiResultCode) {
+      case "0":
+        {
+          Map<String, dynamic> responseBodyMap = response.data;
+
+          responseBody = PostRequestSampleXwfuAsyncResponseBodyVo(
+            responseBodyMap["responseBodyString"],
+            responseBodyMap["responseBodyStringNullable"],
+            List<String>.from(responseBodyMap["responseBodyStringList"]),
+            (responseBodyMap["responseBodyStringListNullable"] == null)
+                ? null
+                : List<String>.from(
+                    responseBodyMap["responseBodyStringListNullable"]),
+          );
+        }
+        break;
     }
 
     return gc_my_classes.NetworkResponseObject(
@@ -307,7 +346,10 @@ class PostRequestSampleXwfuAsyncRequestBodyVo {
 }
 
 class PostRequestSampleXwfuAsyncResponseHeaderVo {
-  PostRequestSampleXwfuAsyncResponseHeaderVo();
+  // (api-result-code)
+  // 0 : 정상 동작
+  String apiResultCode; // api 결과 코드
+  PostRequestSampleXwfuAsyncResponseHeaderVo(this.apiResultCode);
 }
 
 class PostRequestSampleXwfuAsyncResponseBodyVo {
@@ -376,26 +418,33 @@ Future<
         data: requestBody);
 
     int statusCode = response.statusCode!;
-    // Map<String, dynamic> responseHeaderMap = response.headers.map;
+    Map<String, dynamic> responseHeaderMap = response.headers.map;
 
     PostRequestSampleMultipartFormDataAsyncResponseHeaderVo responseHeader;
     PostRequestSampleMultipartFormDataAsyncResponseBodyVo? responseBody;
 
     // !!!Response Map 을 Response Object 로 변경!!
-    responseHeader = PostRequestSampleMultipartFormDataAsyncResponseHeaderVo();
-    if (statusCode == 200) {
-      // responseBody 가 반환되는 조건
-      Map<String, dynamic> responseBodyMap = response.data;
+    responseHeader = PostRequestSampleMultipartFormDataAsyncResponseHeaderVo(
+        responseHeaderMap["api-result-code"]);
 
-      responseBody = PostRequestSampleMultipartFormDataAsyncResponseBodyVo(
-        responseBodyMap["responseBodyString"],
-        responseBodyMap["responseBodyStringNullable"],
-        List<String>.from(responseBodyMap["responseBodyStringList"]),
-        (responseBodyMap["responseBodyStringListNullable"] == null)
-            ? null
-            : List<String>.from(
-                responseBodyMap["responseBodyStringListNullable"]),
-      );
+    // !!!responseBody 가 반환되는 조건 처리!!
+    // 여기서는 서버에서 api-result-code 를 내려준다고 가정
+    switch (responseHeader.apiResultCode) {
+      case "0":
+        {
+          Map<String, dynamic> responseBodyMap = response.data;
+
+          responseBody = PostRequestSampleMultipartFormDataAsyncResponseBodyVo(
+            responseBodyMap["responseBodyString"],
+            responseBodyMap["responseBodyStringNullable"],
+            List<String>.from(responseBodyMap["responseBodyStringList"]),
+            (responseBodyMap["responseBodyStringListNullable"] == null)
+                ? null
+                : List<String>.from(
+                    responseBodyMap["responseBodyStringListNullable"]),
+          );
+        }
+        break;
     }
 
     return gc_my_classes.NetworkResponseObject(
@@ -428,7 +477,10 @@ class PostRequestSampleMultipartFormDataAsyncRequestBodyVo {
 }
 
 class PostRequestSampleMultipartFormDataAsyncResponseHeaderVo {
-  PostRequestSampleMultipartFormDataAsyncResponseHeaderVo();
+  // (api-result-code)
+  // 0 : 정상 동작
+  String apiResultCode; // api 결과 코드
+  PostRequestSampleMultipartFormDataAsyncResponseHeaderVo(this.apiResultCode);
 }
 
 class PostRequestSampleMultipartFormDataAsyncResponseBodyVo {
@@ -439,127 +491,6 @@ class PostRequestSampleMultipartFormDataAsyncResponseBodyVo {
       responseBodyStringListNullable; // 입력한 StringList 쿼리 파라미터 Nullable
 
   PostRequestSampleMultipartFormDataAsyncResponseBodyVo(
-      this.responseBodyString,
-      this.responseBodyStringNullable,
-      this.responseBodyStringList,
-      this.responseBodyStringListNullable);
-}
-
-////
-// (Post 요청 샘플 (multipart/form-data - JsonString))
-Future<
-        gc_my_classes.NetworkResponseObject<
-            PostRequestSampleMultipartFormDataJsonStringAsyncResponseHeaderVo,
-            PostRequestSampleMultipartFormDataJsonStringAsyncResponseBodyVo>>
-    postRequestSampleMultipartFormDataJsonStringAsync(
-        PostRequestSampleMultipartFormDataJsonStringAsyncRequestBodyVo
-            requestBodyVo) async {
-  // !!!개발 / 배포 모드별 요청 Path 지정!!
-  String devServerUrl =
-      "/tk/ra/test/request/post-request-multipart-form-data-json";
-  String prodServerUrl =
-      "/tk/ra/test/request/post-request-multipart-form-data-json";
-  Map<String, dynamic> requestHeaders = {};
-  Map<String, dynamic> requestQueryParams = {};
-  FormData requestBody;
-
-  // !!!Request Object 를 Map 으로 만들기!!
-  if (requestBodyVo.multipartFileNullable == null) {
-    requestBody = FormData.fromMap({
-      "jsonString": requestBodyVo.jsonString,
-      "multipartFile": requestBodyVo.multipartFile,
-    });
-  } else {
-    requestBody = FormData.fromMap({
-      "jsonString": requestBodyVo.jsonString,
-      "multipartFile": requestBodyVo.multipartFile,
-      "multipartFileNullable": requestBodyVo.multipartFileNullable,
-    });
-  }
-
-  // baseUrl + Request path + QueryParam
-  String requestUrlAndParam = gf_my_functions.mergeNetworkQueryParam(
-      requestQueryParams,
-      (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
-
-  try {
-    // !!!네트워크 요청 설정!!
-    // requestPathAndParam, headers 설정 외 세부 설정
-    var response = await serverDioObject.post(requestUrlAndParam,
-        options: Options(
-          headers: requestHeaders,
-        ),
-        data: requestBody);
-
-    int statusCode = response.statusCode!;
-    // Map<String, dynamic> responseHeaderMap = response.headers.map;
-
-    PostRequestSampleMultipartFormDataJsonStringAsyncResponseHeaderVo
-        responseHeader;
-    PostRequestSampleMultipartFormDataJsonStringAsyncResponseBodyVo?
-        responseBody;
-
-    // !!!Response Map 을 Response Object 로 변경!!
-    responseHeader =
-        PostRequestSampleMultipartFormDataJsonStringAsyncResponseHeaderVo();
-    if (statusCode == 200) {
-      // responseBody 가 반환되는 조건
-      Map<String, dynamic> responseBodyMap = response.data;
-
-      responseBody =
-          PostRequestSampleMultipartFormDataJsonStringAsyncResponseBodyVo(
-        responseBodyMap["responseBodyString"],
-        responseBodyMap["responseBodyStringNullable"],
-        List<String>.from(responseBodyMap["responseBodyStringList"]),
-        (responseBodyMap["responseBodyStringListNullable"] == null)
-            ? null
-            : List<String>.from(
-                responseBodyMap["responseBodyStringListNullable"]),
-      );
-    }
-
-    return gc_my_classes.NetworkResponseObject(
-        gc_my_classes.NetworkResponseObjectOk(
-            statusCode, responseHeader, responseBody),
-        null);
-  } on DioException catch (e) {
-    // 서버에 리퀘스트가 도달하지 못한 에러 + Dio 가 에러로 규정한 Status Code
-    //  = 클라이언트 입장에선 그냥 네트워크 에러로 처리
-    return gc_my_classes.NetworkResponseObject(null, e);
-  }
-}
-
-class PostRequestSampleMultipartFormDataJsonStringAsyncRequestBodyVo {
-  // "jsonString" 형식 :
-  // {
-  // "requestFormString" :	String, // String 바디 파라미터
-  // "requestFormStringNullable" :	String?, // String 바디 파라미터 Nullable
-  // "requestFormStringList" : List<String>, // StringList 바디 파라미터
-  // "requestFormStringListNullable" : List<String>?, // StringList 바디 파라미터 Nullable
-  // }
-  String jsonString; // json 형식 String
-  MultipartFile multipartFile; // 멀티 파트 파일
-  MultipartFile? multipartFileNullable; // 멀티 파트 파일 Nullable
-
-  PostRequestSampleMultipartFormDataJsonStringAsyncRequestBodyVo(
-    this.jsonString,
-    this.multipartFile,
-    this.multipartFileNullable,
-  );
-}
-
-class PostRequestSampleMultipartFormDataJsonStringAsyncResponseHeaderVo {
-  PostRequestSampleMultipartFormDataJsonStringAsyncResponseHeaderVo();
-}
-
-class PostRequestSampleMultipartFormDataJsonStringAsyncResponseBodyVo {
-  String responseBodyString; // 입력한 String 쿼리 파라미터
-  String? responseBodyStringNullable; // 입력한 String 쿼리 파라미터 Nullable
-  List<String> responseBodyStringList; // 입력한 StringList 쿼리 파라미터
-  List<String>?
-      responseBodyStringListNullable; // 입력한 StringList 쿼리 파라미터 Nullable
-
-  PostRequestSampleMultipartFormDataJsonStringAsyncResponseBodyVo(
       this.responseBodyString,
       this.responseBodyStringNullable,
       this.responseBodyStringList,
@@ -596,17 +527,23 @@ Future<
         ));
 
     int statusCode = response.statusCode!;
-    // Map<String, dynamic> responseHeaderMap = response.headers.map;
+    Map<String, dynamic> responseHeaderMap = response.headers.map;
 
     GetRequestReturnTextStringAsyncResponseHeaderVo responseHeader;
     String? responseBody;
 
     // !!!Response Map 을 Response Object 로 변경!!
-    responseHeader = GetRequestReturnTextStringAsyncResponseHeaderVo();
-    if (statusCode == 200) {
-      // responseBody 가 반환되는 조건
+    responseHeader = GetRequestReturnTextStringAsyncResponseHeaderVo(
+        responseHeaderMap["api-result-code"]);
 
-      responseBody = response.data;
+    // !!!responseBody 가 반환되는 조건 처리!!
+    // 여기서는 서버에서 api-result-code 를 내려준다고 가정
+    switch (responseHeader.apiResultCode) {
+      case "0":
+        {
+          responseBody = response.data;
+        }
+        break;
     }
 
     return gc_my_classes.NetworkResponseObject(
@@ -621,11 +558,10 @@ Future<
 }
 
 class GetRequestReturnTextStringAsyncResponseHeaderVo {
-  GetRequestReturnTextStringAsyncResponseHeaderVo();
-}
-
-class GetRequestReturnTextStringAsyncResponseBodyVo {
-  GetRequestReturnTextStringAsyncResponseBodyVo();
+  // (api-result-code)
+  // 0 : 정상 동작
+  String apiResultCode; // api 결과 코드
+  GetRequestReturnTextStringAsyncResponseHeaderVo(this.apiResultCode);
 }
 
 ////
@@ -658,17 +594,23 @@ Future<
         ));
 
     int statusCode = response.statusCode!;
-    // Map<String, dynamic> responseHeaderMap = response.headers.map;
+    Map<String, dynamic> responseHeaderMap = response.headers.map;
 
     GetRequestReturnTextHtmlAsyncResponseHeaderVo responseHeader;
     String? responseBody;
 
     // !!!Response Map 을 Response Object 로 변경!!
-    responseHeader = GetRequestReturnTextHtmlAsyncResponseHeaderVo();
-    if (statusCode == 200) {
-      // responseBody 가 반환되는 조건
+    responseHeader = GetRequestReturnTextHtmlAsyncResponseHeaderVo(
+        responseHeaderMap["api-result-code"]);
 
-      responseBody = response.data;
+    // !!!responseBody 가 반환되는 조건 처리!!
+    // 여기서는 서버에서 api-result-code 를 내려준다고 가정
+    switch (responseHeader.apiResultCode) {
+      case "0":
+        {
+          responseBody = response.data;
+        }
+        break;
     }
 
     return gc_my_classes.NetworkResponseObject(
@@ -683,9 +625,8 @@ Future<
 }
 
 class GetRequestReturnTextHtmlAsyncResponseHeaderVo {
-  GetRequestReturnTextHtmlAsyncResponseHeaderVo();
-}
-
-class GetRequestReturnTextHtmlAsyncResponseBodyVo {
-  GetRequestReturnTextHtmlAsyncResponseBodyVo();
+  // (api-result-code)
+  // 0 : 정상 동작
+  String apiResultCode; // api 결과 코드
+  GetRequestReturnTextHtmlAsyncResponseHeaderVo(this.apiResultCode);
 }
