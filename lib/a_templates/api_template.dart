@@ -65,26 +65,21 @@ Future<
 
     // !!!Response Map 을 Response Object 로 변경!!
     responseHeader = GetRequestSampleAsyncResponseHeaderVo(
-        responseHeaderMap["api-result-code"]);
+        responseHeaderMap["content-type"]);
 
-    // !!!responseBody 가 반환되는 조건 처리!!
-    // 여기서는 서버에서 api-result-code 를 내려준다고 가정
-    switch (responseHeader.apiResultCode) {
-      case "0":
-        {
-          Map<String, dynamic> responseBodyMap = response.data;
+    // responseBody 가 반환되는 조건
+    if (statusCode == 200) {
+      Map<String, dynamic> responseBodyMap = response.data;
 
-          responseBody = GetRequestSampleAsyncResponseBodyVo(
-            responseBodyMap["responseBodyString"],
-            responseBodyMap["responseBodyStringNullable"],
-            List<String>.from(responseBodyMap["responseBodyStringList"]),
-            (responseBodyMap["responseBodyStringListNullable"] == null)
-                ? null
-                : List<String>.from(
-                    responseBodyMap["responseBodyStringListNullable"]),
-          );
-        }
-        break;
+      responseBody = GetRequestSampleAsyncResponseBodyVo(
+        responseBodyMap["responseBodyString"],
+        responseBodyMap["responseBodyStringNullable"],
+        List<String>.from(responseBodyMap["responseBodyStringList"]),
+        (responseBodyMap["responseBodyStringListNullable"] == null)
+            ? null
+            : List<String>.from(
+                responseBodyMap["responseBodyStringListNullable"]),
+      );
     }
 
     return gc_my_classes.NetworkResponseObject(
@@ -112,10 +107,10 @@ class GetRequestSampleAsyncRequestQueryVo {
 }
 
 class GetRequestSampleAsyncResponseHeaderVo {
-  // (api-result-code)
-  // 0 : 정상 동작
-  String apiResultCode; // api 결과 코드
-  GetRequestSampleAsyncResponseHeaderVo(this.apiResultCode);
+  // content-type : ResponseHeader 예시용
+  String contentType;
+
+  GetRequestSampleAsyncResponseHeaderVo(this.contentType);
 }
 
 class GetRequestSampleAsyncResponseBodyVo {
@@ -180,26 +175,21 @@ Future<
 
     // !!!Response Map 을 Response Object 로 변경!!
     responseHeader = PostRequestSampleAsyncResponseHeaderVo(
-        responseHeaderMap["api-result-code"]);
+        responseHeaderMap["content-type"]);
 
-    // !!!responseBody 가 반환되는 조건 처리!!
-    // 여기서는 서버에서 api-result-code 를 내려준다고 가정
-    switch (responseHeader.apiResultCode) {
-      case "0":
-        {
-          Map<String, dynamic> responseBodyMap = response.data;
+    // responseBody 가 반환되는 조건
+    if (statusCode == 200) {
+      Map<String, dynamic> responseBodyMap = response.data;
 
-          responseBody = PostRequestSampleAsyncResponseBodyVo(
-            responseBodyMap["responseBodyString"],
-            responseBodyMap["responseBodyStringNullable"],
-            List<String>.from(responseBodyMap["responseBodyStringList"]),
-            (responseBodyMap["responseBodyStringListNullable"] == null)
-                ? null
-                : List<String>.from(
-                    responseBodyMap["responseBodyStringListNullable"]),
-          );
-        }
-        break;
+      responseBody = PostRequestSampleAsyncResponseBodyVo(
+        responseBodyMap["responseBodyString"],
+        responseBodyMap["responseBodyStringNullable"],
+        List<String>.from(responseBodyMap["responseBodyStringList"]),
+        (responseBodyMap["responseBodyStringListNullable"] == null)
+            ? null
+            : List<String>.from(
+                responseBodyMap["responseBodyStringListNullable"]),
+      );
     }
 
     return gc_my_classes.NetworkResponseObject(
@@ -227,10 +217,10 @@ class PostRequestSampleAsyncRequestBodyVo {
 }
 
 class PostRequestSampleAsyncResponseHeaderVo {
-  // (api-result-code)
-  // 0 : 정상 동작
-  String apiResultCode; // api 결과 코드
-  PostRequestSampleAsyncResponseHeaderVo(this.apiResultCode);
+  // content-type : ResponseHeader 예시용
+  String contentType;
+
+  PostRequestSampleAsyncResponseHeaderVo(this.contentType);
 }
 
 class PostRequestSampleAsyncResponseBodyVo {
@@ -299,26 +289,21 @@ Future<
 
     // !!!Response Map 을 Response Object 로 변경!!
     responseHeader = PostRequestSampleXwfuAsyncResponseHeaderVo(
-        responseHeaderMap["api-result-code"]);
+        responseHeaderMap["content-type"]);
 
-    // !!!responseBody 가 반환되는 조건 처리!!
-    // 여기서는 서버에서 api-result-code 를 내려준다고 가정
-    switch (responseHeader.apiResultCode) {
-      case "0":
-        {
-          Map<String, dynamic> responseBodyMap = response.data;
+    // responseBody 가 반환되는 조건
+    if (statusCode == 200) {
+      Map<String, dynamic> responseBodyMap = response.data;
 
-          responseBody = PostRequestSampleXwfuAsyncResponseBodyVo(
-            responseBodyMap["responseBodyString"],
-            responseBodyMap["responseBodyStringNullable"],
-            List<String>.from(responseBodyMap["responseBodyStringList"]),
-            (responseBodyMap["responseBodyStringListNullable"] == null)
-                ? null
-                : List<String>.from(
-                    responseBodyMap["responseBodyStringListNullable"]),
-          );
-        }
-        break;
+      responseBody = PostRequestSampleXwfuAsyncResponseBodyVo(
+        responseBodyMap["responseBodyString"],
+        responseBodyMap["responseBodyStringNullable"],
+        List<String>.from(responseBodyMap["responseBodyStringList"]),
+        (responseBodyMap["responseBodyStringListNullable"] == null)
+            ? null
+            : List<String>.from(
+                responseBodyMap["responseBodyStringListNullable"]),
+      );
     }
 
     return gc_my_classes.NetworkResponseObject(
@@ -346,10 +331,10 @@ class PostRequestSampleXwfuAsyncRequestBodyVo {
 }
 
 class PostRequestSampleXwfuAsyncResponseHeaderVo {
-  // (api-result-code)
-  // 0 : 정상 동작
-  String apiResultCode; // api 결과 코드
-  PostRequestSampleXwfuAsyncResponseHeaderVo(this.apiResultCode);
+  // content-type : ResponseHeader 예시용
+  String contentType;
+
+  PostRequestSampleXwfuAsyncResponseHeaderVo(this.contentType);
 }
 
 class PostRequestSampleXwfuAsyncResponseBodyVo {
@@ -425,26 +410,21 @@ Future<
 
     // !!!Response Map 을 Response Object 로 변경!!
     responseHeader = PostRequestSampleMultipartFormDataAsyncResponseHeaderVo(
-        responseHeaderMap["api-result-code"]);
+        responseHeaderMap["content-type"]);
 
-    // !!!responseBody 가 반환되는 조건 처리!!
-    // 여기서는 서버에서 api-result-code 를 내려준다고 가정
-    switch (responseHeader.apiResultCode) {
-      case "0":
-        {
-          Map<String, dynamic> responseBodyMap = response.data;
+    // responseBody 가 반환되는 조건
+    if (statusCode == 200) {
+      Map<String, dynamic> responseBodyMap = response.data;
 
-          responseBody = PostRequestSampleMultipartFormDataAsyncResponseBodyVo(
-            responseBodyMap["responseBodyString"],
-            responseBodyMap["responseBodyStringNullable"],
-            List<String>.from(responseBodyMap["responseBodyStringList"]),
-            (responseBodyMap["responseBodyStringListNullable"] == null)
-                ? null
-                : List<String>.from(
-                    responseBodyMap["responseBodyStringListNullable"]),
-          );
-        }
-        break;
+      responseBody = PostRequestSampleMultipartFormDataAsyncResponseBodyVo(
+        responseBodyMap["responseBodyString"],
+        responseBodyMap["responseBodyStringNullable"],
+        List<String>.from(responseBodyMap["responseBodyStringList"]),
+        (responseBodyMap["responseBodyStringListNullable"] == null)
+            ? null
+            : List<String>.from(
+                responseBodyMap["responseBodyStringListNullable"]),
+      );
     }
 
     return gc_my_classes.NetworkResponseObject(
@@ -477,10 +457,10 @@ class PostRequestSampleMultipartFormDataAsyncRequestBodyVo {
 }
 
 class PostRequestSampleMultipartFormDataAsyncResponseHeaderVo {
-  // (api-result-code)
-  // 0 : 정상 동작
-  String apiResultCode; // api 결과 코드
-  PostRequestSampleMultipartFormDataAsyncResponseHeaderVo(this.apiResultCode);
+  // content-type : ResponseHeader 예시용
+  String contentType;
+
+  PostRequestSampleMultipartFormDataAsyncResponseHeaderVo(this.contentType);
 }
 
 class PostRequestSampleMultipartFormDataAsyncResponseBodyVo {
@@ -534,16 +514,11 @@ Future<
 
     // !!!Response Map 을 Response Object 로 변경!!
     responseHeader = GetRequestReturnTextStringAsyncResponseHeaderVo(
-        responseHeaderMap["api-result-code"]);
+        responseHeaderMap["content-type"]);
 
-    // !!!responseBody 가 반환되는 조건 처리!!
-    // 여기서는 서버에서 api-result-code 를 내려준다고 가정
-    switch (responseHeader.apiResultCode) {
-      case "0":
-        {
-          responseBody = response.data;
-        }
-        break;
+    // responseBody 가 반환되는 조건
+    if (statusCode == 200) {
+      responseBody = response.data;
     }
 
     return gc_my_classes.NetworkResponseObject(
@@ -558,10 +533,10 @@ Future<
 }
 
 class GetRequestReturnTextStringAsyncResponseHeaderVo {
-  // (api-result-code)
-  // 0 : 정상 동작
-  String apiResultCode; // api 결과 코드
-  GetRequestReturnTextStringAsyncResponseHeaderVo(this.apiResultCode);
+  // content-type : ResponseHeader 예시용
+  String contentType;
+
+  GetRequestReturnTextStringAsyncResponseHeaderVo(this.contentType);
 }
 
 ////
@@ -601,16 +576,11 @@ Future<
 
     // !!!Response Map 을 Response Object 로 변경!!
     responseHeader = GetRequestReturnTextHtmlAsyncResponseHeaderVo(
-        responseHeaderMap["api-result-code"]);
+        responseHeaderMap["content-type"]);
 
-    // !!!responseBody 가 반환되는 조건 처리!!
-    // 여기서는 서버에서 api-result-code 를 내려준다고 가정
-    switch (responseHeader.apiResultCode) {
-      case "0":
-        {
-          responseBody = response.data;
-        }
-        break;
+    // responseBody 가 반환되는 조건
+    if (statusCode == 200) {
+      responseBody = response.data;
     }
 
     return gc_my_classes.NetworkResponseObject(
@@ -625,8 +595,8 @@ Future<
 }
 
 class GetRequestReturnTextHtmlAsyncResponseHeaderVo {
-  // (api-result-code)
-  // 0 : 정상 동작
-  String apiResultCode; // api 결과 코드
-  GetRequestReturnTextHtmlAsyncResponseHeaderVo(this.apiResultCode);
+  // content-type : ResponseHeader 예시용
+  String contentType;
+
+  GetRequestReturnTextHtmlAsyncResponseHeaderVo(this.contentType);
 }
