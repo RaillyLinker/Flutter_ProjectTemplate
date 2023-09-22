@@ -25,8 +25,8 @@ Future<
         GetRequestTestAsyncResponseBodyVo>> getRequestTestAsync(
     GetRequestTestAsyncRequestQueryVo requestQueryVo) async {
   // !!!개발 / 배포 모드별 요청 Path 지정!!
-  String devServerUrl = "/tk/ra/test/request/get-request";
-  String prodServerUrl = "/tk/ra/test/request/get-request";
+  String devServerUrl = "/tk/request-test/get-request";
+  String prodServerUrl = "/tk/request-test/get-request";
 
   Map<String, dynamic> requestHeaders = {};
   Map<String, dynamic> requestQueryParams = {};
@@ -75,19 +75,19 @@ Future<
       Map<String, dynamic> responseBodyMap = response.data;
 
       responseBody = GetRequestTestAsyncResponseBodyVo(
-        responseBodyMap["responseBodyString"],
-        responseBodyMap["responseBodyStringNullable"],
-        responseBodyMap["responseBodyInt"],
-        responseBodyMap["responseBodyIntNullable"],
-        responseBodyMap["responseBodyDouble"],
-        responseBodyMap["responseBodyDoubleNullable"],
-        responseBodyMap["responseBodyBoolean"],
-        responseBodyMap["responseBodyBooleanNullable"],
-        List<String>.from(responseBodyMap["responseBodyStringList"]),
-        (responseBodyMap["responseBodyStringListNullable"] == null)
+        responseBodyMap["queryParamString"],
+        responseBodyMap["queryParamStringNullable"],
+        responseBodyMap["queryParamInt"],
+        responseBodyMap["queryParamIntNullable"],
+        responseBodyMap["queryParamDouble"],
+        responseBodyMap["queryParamDoubleNullable"],
+        responseBodyMap["queryParamBoolean"],
+        responseBodyMap["queryParamBooleanNullable"],
+        List<String>.from(responseBodyMap["queryParamStringList"]),
+        (responseBodyMap["queryParamStringListNullable"] == null)
             ? null
             : List<String>.from(
-                responseBodyMap["responseBodyStringListNullable"]),
+                responseBodyMap["queryParamStringListNullable"]),
       );
     }
 
@@ -132,42 +132,42 @@ class GetRequestTestAsyncResponseHeaderVo {
 }
 
 class GetRequestTestAsyncResponseBodyVo {
-  String responseBodyString; // 입력한 String 쿼리 파라미터
-  String? responseBodyStringNullable; // 입력한 String 쿼리 파라미터 Nullable
-  int responseBodyInt; // 입력한 int 쿼리 파라미터
-  int? responseBodyIntNullable; // 입력한 int 쿼리 파라미터 Nullable
-  double responseBodyDouble; // 입력한 double 쿼리 파라미터
-  double? responseBodyDoubleNullable; // 입력한 double 쿼리 파라미터 Nullable
-  bool responseBodyBoolean; // 입력한 bool 쿼리 파라미터
-  bool? responseBodyBooleanNullable; // 입력한 bool 쿼리 파라미터 Nullable
-  List<String> responseBodyStringList; // 입력한 StringList 쿼리 파라미터
+  String queryParamString; // 입력한 String 쿼리 파라미터
+  String? queryParamStringNullable; // 입력한 String 쿼리 파라미터 Nullable
+  int queryParamInt; // 입력한 int 쿼리 파라미터
+  int? queryParamIntNullable; // 입력한 int 쿼리 파라미터 Nullable
+  double queryParamDouble; // 입력한 double 쿼리 파라미터
+  double? queryParamDoubleNullable; // 입력한 double 쿼리 파라미터 Nullable
+  bool queryParamBoolean; // 입력한 bool 쿼리 파라미터
+  bool? queryParamBooleanNullable; // 입력한 bool 쿼리 파라미터 Nullable
+  List<String> queryParamStringList; // 입력한 StringList 쿼리 파라미터
   List<String>?
-      responseBodyStringListNullable; // 입력한 StringList 쿼리 파라미터 Nullable
+  queryParamStringListNullable; // 입력한 StringList 쿼리 파라미터 Nullable
 
   GetRequestTestAsyncResponseBodyVo(
-      this.responseBodyString,
-      this.responseBodyStringNullable,
-      this.responseBodyInt,
-      this.responseBodyIntNullable,
-      this.responseBodyDouble,
-      this.responseBodyDoubleNullable,
-      this.responseBodyBoolean,
-      this.responseBodyBooleanNullable,
-      this.responseBodyStringList,
-      this.responseBodyStringListNullable);
+      this.queryParamString,
+      this.queryParamStringNullable,
+      this.queryParamInt,
+      this.queryParamIntNullable,
+      this.queryParamDouble,
+      this.queryParamDoubleNullable,
+      this.queryParamBoolean,
+      this.queryParamBooleanNullable,
+      this.queryParamStringList,
+      this.queryParamStringListNullable);
 
   @override
   String toString() {
-    return "responseBodyString : $responseBodyString, "
-        "responseBodyStringNullable : $responseBodyStringNullable, "
-        "responseBodyInt : $responseBodyInt, "
-        "responseBodyIntNullable : $responseBodyIntNullable, "
-        "responseBodyDouble : $responseBodyDouble, "
-        "responseBodyDoubleNullable : $responseBodyDoubleNullable, "
-        "responseBodyBoolean : $responseBodyBoolean, "
-        "responseBodyBooleanNullable : $responseBodyBooleanNullable, "
-        "responseBodyStringList : $responseBodyStringList, "
-        "responseBodyStringListNullable : $responseBodyStringListNullable, ";
+    return "queryParamString : $queryParamString, "
+        "queryParamStringNullable : $queryParamStringNullable, "
+        "queryParamInt : $queryParamInt, "
+        "queryParamIntNullable : $queryParamIntNullable, "
+        "queryParamDouble : $queryParamDouble, "
+        "queryParamDoubleNullable : $queryParamDoubleNullable, "
+        "queryParamBoolean : $queryParamBoolean, "
+        "queryParamBooleanNullable : $queryParamBooleanNullable, "
+        "queryParamStringList : $queryParamStringList, "
+        "queryParamStringListNullable : $queryParamStringListNullable, ";
   }
 }
 
