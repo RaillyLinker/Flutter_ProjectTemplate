@@ -429,7 +429,7 @@
   ),
   )
   속성의 style 은, html 에서의 태그 종류를 설정하는 것인데,
-  기본인 paragraph 는 <p>, header1 은 <h1>, 이런식입니다.
+  기본인 paragraph 는 p 태그, header1 은 h1 태그, 이런식입니다.
 - LinkRenderer : 화면 내에 버튼을 눌렀을 때 다른 주소로 이동하는 기믹(href 태그)이 있다면 이를 추가해줍니다.
   LinkRenderer(
   text: 'Try Flutter',
