@@ -23,31 +23,31 @@ import 'package:sync/semaphore.dart';
 // 를 해줍니다.
 // 여기선 threadConfluenceObj.threadComplete(); 가 2번 동작하면 합류 객체에 넘겨준 콜백이 실행되는 것입니다.
 class ThreadConfluenceObj {
-  late int numberOfThreadsBeingJoinedMbr;
+  late int numberOfThreadsBeingJoined;
   late final void Function() _onComplete;
 
-  int _threadAccessCountMbr = 0;
-  final Semaphore _threadAccessCountSemaphoreMbr = Semaphore(1);
+  int _threadAccessCount = 0;
+  final Semaphore _threadAccessCountSemaphore = Semaphore(1);
 
-  ThreadConfluenceObj(this.numberOfThreadsBeingJoinedMbr, this._onComplete);
+  ThreadConfluenceObj(this.numberOfThreadsBeingJoined, this._onComplete);
 
   void threadComplete() {
     () async {
-      _threadAccessCountSemaphoreMbr.acquire();
-      if (_threadAccessCountMbr < 0) {
+      _threadAccessCountSemaphore.acquire();
+      if (_threadAccessCount < 0) {
         // 오버플로우 방지
         return;
       }
 
       // 스레드 접근 카운트 +1
-      ++_threadAccessCountMbr;
+      ++_threadAccessCount;
 
-      if (_threadAccessCountMbr != numberOfThreadsBeingJoinedMbr) {
+      if (_threadAccessCount != numberOfThreadsBeingJoined) {
         // 접근 카운트가 합류 총 개수를 넘었을 때 or 접근 카운트가 합류 총 개수에 미치지 못했을 때
-        _threadAccessCountSemaphoreMbr.release();
+        _threadAccessCountSemaphore.release();
       } else {
         // 접근 카운트가 합류 총 개수에 다다랐을 때
-        _threadAccessCountSemaphoreMbr.release();
+        _threadAccessCountSemaphore.release();
         _onComplete();
       }
     }();
