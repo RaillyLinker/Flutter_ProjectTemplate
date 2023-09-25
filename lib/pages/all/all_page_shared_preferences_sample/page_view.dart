@@ -59,12 +59,12 @@ class PageView extends StatelessWidget {
                       child: Text("Key : ",
                           style: TextStyle(
                               color: Colors.black,
-                              fontFamily: "Inter",
+                              fontFamily: "SeoulNamsan",
                               fontWeight: FontWeight.bold))),
                   Expanded(
                       child: Text("\"${pageBusiness.pageViewModel.spwKey}\"",
                           style: const TextStyle(
-                              color: Colors.black, fontFamily: "Inter")))
+                              color: Colors.black, fontFamily: "SeoulNamsan")))
                 ],
               ),
               Container(
@@ -74,7 +74,7 @@ class PageView extends StatelessWidget {
                     Text("Value : ",
                         style: TextStyle(
                             color: Colors.black,
-                            fontFamily: "Inter",
+                            fontFamily: "SeoulNamsan",
                             fontWeight: FontWeight.bold)),
                   ],
                 ),
@@ -86,14 +86,14 @@ class PageView extends StatelessWidget {
                     const Expanded(
                         child: Text("    {\"sampleInt\" : ",
                             style: TextStyle(
-                                color: Colors.black, fontFamily: "Inter"))),
+                                color: Colors.black, fontFamily: "SeoulNamsan"))),
                     BlocBuilder<page_business.BlocSampleInt, bool>(
                         builder: (c, s) {
                       return Expanded(
                           child: Text(
                               "${pageBusiness.pageViewModel.sampleInt},",
                               style: const TextStyle(
-                                  color: Colors.black, fontFamily: "Inter")));
+                                  color: Colors.black, fontFamily: "SeoulNamsan")));
                     }),
                   ],
                 ),
@@ -105,14 +105,14 @@ class PageView extends StatelessWidget {
                     const Expanded(
                         child: Text("    \"sampleString\" : ",
                             style: TextStyle(
-                                color: Colors.black, fontFamily: "Inter"))),
+                                color: Colors.black, fontFamily: "SeoulNamsan"))),
                     BlocBuilder<page_business.BlocSampleString, bool>(
                         builder: (c, s) {
                       return Expanded(
                           child: Text(
                               "${pageBusiness.pageViewModel.sampleString}}",
                               style: const TextStyle(
-                                  color: Colors.black, fontFamily: "Inter")));
+                                  color: Colors.black, fontFamily: "SeoulNamsan")));
                     }),
                   ],
                 ),
@@ -124,7 +124,7 @@ class PageView extends StatelessWidget {
                     Text("Input : ",
                         style: TextStyle(
                             color: Colors.black,
-                            fontFamily: "Inter",
+                            fontFamily: "SeoulNamsan",
                             fontWeight: FontWeight.bold)),
                   ],
                 ),

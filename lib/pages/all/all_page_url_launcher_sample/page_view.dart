@@ -61,7 +61,7 @@ class PageView extends StatelessWidget {
                       Text("Input : ",
                           style: TextStyle(
                               color: Colors.black,
-                              fontFamily: "Inter",
+                              fontFamily: "SeoulNamsan",
                               fontWeight: FontWeight.bold)),
                     ],
                   ),

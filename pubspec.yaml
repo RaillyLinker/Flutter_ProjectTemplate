@@ -102,54 +102,71 @@ flutter:
   # weight :
   # 100 : thin, 200 : extraLight, 300 : light, 400 : regular, 500 : medium, 600 : semiBold, 700 : bold, 800 : extraBold, 900 : heavy
   fonts:
-    - family: NanumGothic
+    - family: MaruBuri
       fonts:
-        - asset: lib/assets/fonts/NanumGothic/NanumGothicLight.ttf
-          weight: 300
-        - asset: lib/assets/fonts/NanumGothic/NanumGothic.ttf
-          weight: 400
-        - asset: lib/assets/fonts/NanumGothic/NanumGothicBold.ttf
+        - asset: lib/assets/fonts/maru_buri/MaruBuri-Regular.otf
+        - asset: lib/assets/fonts/maru_buri/MaruBuri-Regular.ttf
+        - asset: lib/assets/fonts/maru_buri/MaruBuri-Bold.otf
           weight: 700
-        - asset: lib/assets/fonts/NanumGothic/NanumGothicExtraBold.ttf
-          weight: 800
-
-    - family: NanumMyeongjo
-      fonts:
-        - asset: lib/assets/fonts/NanumMyeongjo/NanumMyeongjo.ttf
-          weight: 400
-        - asset: lib/assets/fonts/NanumMyeongjo/NanumMyeongjoBold.ttf
+        - asset: lib/assets/fonts/maru_buri/MaruBuri-Bold.ttf
           weight: 700
-        - asset: lib/assets/fonts/NanumMyeongjo/NanumMyeongjoExtraBold.ttf
-          weight: 800
-
-    - family: NanumSquare
-      fonts:
-        - asset: lib/assets/fonts/NanumSquare/NanumSquareL.ttf
-          weight: 300
-        - asset: lib/assets/fonts/NanumSquare/NanumSquareR.ttf
-          weight: 400
-        - asset: lib/assets/fonts/NanumSquare/NanumSquareB.ttf
-          weight: 700
-        - asset: lib/assets/fonts/NanumSquare/NanumSquareEB.ttf
-          weight: 800
-
-    - family: Inter
-      fonts:
-        - asset: lib/assets/fonts/Inter/Inter-Thin.ttf
-          weight: 100
-        - asset: lib/assets/fonts/Inter/Inter-ExtraLight.ttf
+        - asset: lib/assets/fonts/maru_buri/MaruBuri-ExtraLight.otf
           weight: 200
-        - asset: lib/assets/fonts/Inter/Inter-Light.ttf
+        - asset: lib/assets/fonts/maru_buri/MaruBuri-ExtraLight.ttf
+          weight: 200
+        - asset: lib/assets/fonts/maru_buri/MaruBuri-Light.otf
           weight: 300
-        - asset: lib/assets/fonts/Inter/Inter-Regular.ttf
-          weight: 400
-        - asset: lib/assets/fonts/Inter/Inter-Medium.ttf
-          weight: 500
-        - asset: lib/assets/fonts/Inter/Inter-SemiBold.ttf
+        - asset: lib/assets/fonts/maru_buri/MaruBuri-Light.ttf
+          weight: 300
+        - asset: lib/assets/fonts/maru_buri/MaruBuri-SemiBold.otf
           weight: 600
-        - asset: lib/assets/fonts/Inter/Inter-Bold.ttf
+        - asset: lib/assets/fonts/maru_buri/MaruBuri-SemiBold.ttf
+          weight: 600
+
+    - family: SeoulHangang
+      fonts:
+        - asset: lib/assets/fonts/seoul_hangang/SeoulHangangB.ttf
           weight: 700
-        - asset: lib/assets/fonts/Inter/Inter-ExtraBold.ttf
+        - asset: lib/assets/fonts/seoul_hangang/SeoulHangangEB.ttf
           weight: 800
-        - asset: lib/assets/fonts/Inter/Inter-Black.ttf
+        - asset: lib/assets/fonts/seoul_hangang/SeoulHangangL.ttf
+          weight: 300
+        - asset: lib/assets/fonts/seoul_hangang/SeoulHangangM.ttf
+          weight: 500
+
+    - family: SeoulHangangZang
+      fonts:
+        - asset: lib/assets/fonts/seoul_hangang_zang/SeoulHangangZangL.ttf
+          weight: 300
+        - asset: lib/assets/fonts/seoul_hangang_zang/SeoulHangangZangM.ttf
+          weight: 500
+        - asset: lib/assets/fonts/seoul_hangang_zang/SeoulHangangZangB.ttf
+          weight: 700
+        - asset: lib/assets/fonts/seoul_hangang_zang/SeoulHangangZangEB.ttf
+          weight: 800
+        - asset: lib/assets/fonts/seoul_hangang_zang/SeoulHangangZangBL.ttf
+          weight: 900
+
+    - family: SeoulNamsan
+      fonts:
+        - asset: lib/assets/fonts/seoul_namsan/SeoulNamsanL.ttf
+          weight: 300
+        - asset: lib/assets/fonts/seoul_namsan/SeoulNamsanM.ttf
+          weight: 500
+        - asset: lib/assets/fonts/seoul_namsan/SeoulNamsanB.ttf
+          weight: 700
+        - asset: lib/assets/fonts/seoul_namsan/SeoulNamsanEB.ttf
+          weight: 800
+
+    - family: SeoulNamsanZang
+      fonts:
+        - asset: lib/assets/fonts/seoul_namsan_zang/SeoulNamsanZangL.ttf
+          weight: 300
+        - asset: lib/assets/fonts/seoul_namsan_zang/SeoulNamsanZangM.ttf
+          weight: 500
+        - asset: lib/assets/fonts/seoul_namsan_zang/SeoulNamsanZangB.ttf
+          weight: 700
+        - asset: lib/assets/fonts/seoul_namsan_zang/SeoulNamsanZangEB.ttf
+          weight: 800
+        - asset: lib/assets/fonts/seoul_namsan_zang/SeoulNamsanZangBL.ttf
           weight: 900

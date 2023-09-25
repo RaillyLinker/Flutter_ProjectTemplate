@@ -68,7 +68,7 @@ class PageView extends StatelessWidget {
                           style: const TextStyle(
                               fontSize: 20,
                               color: Colors.black,
-                              fontFamily: "Inter"));
+                              fontFamily: "SeoulNamsan"));
                     },
                   ),
                 ),
