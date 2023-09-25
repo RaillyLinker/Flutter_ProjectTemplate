@@ -39,7 +39,7 @@ class PageView extends StatelessWidget {
       appBar: AppBar(
         title: const Text(
           'SharedPreferences Sample',
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: Colors.white, fontFamily: "MaruBuri"),
         ),
         automaticallyImplyLeading: true,
         backgroundColor: Colors.blue,
@@ -59,12 +59,12 @@ class PageView extends StatelessWidget {
                       child: Text("Key : ",
                           style: TextStyle(
                               color: Colors.black,
-                              fontFamily: "SeoulNamsan",
+                              fontFamily: "MaruBuri",
                               fontWeight: FontWeight.bold))),
                   Expanded(
                       child: Text("\"${pageBusiness.pageViewModel.spwKey}\"",
                           style: const TextStyle(
-                              color: Colors.black, fontFamily: "SeoulNamsan")))
+                              color: Colors.black, fontFamily: "MaruBuri")))
                 ],
               ),
               Container(
@@ -74,7 +74,7 @@ class PageView extends StatelessWidget {
                     Text("Value : ",
                         style: TextStyle(
                             color: Colors.black,
-                            fontFamily: "SeoulNamsan",
+                            fontFamily: "MaruBuri",
                             fontWeight: FontWeight.bold)),
                   ],
                 ),
@@ -86,14 +86,15 @@ class PageView extends StatelessWidget {
                     const Expanded(
                         child: Text("    {\"sampleInt\" : ",
                             style: TextStyle(
-                                color: Colors.black, fontFamily: "SeoulNamsan"))),
+                                color: Colors.black, fontFamily: "MaruBuri"))),
                     BlocBuilder<page_business.BlocSampleInt, bool>(
                         builder: (c, s) {
                       return Expanded(
                           child: Text(
                               "${pageBusiness.pageViewModel.sampleInt},",
                               style: const TextStyle(
-                                  color: Colors.black, fontFamily: "SeoulNamsan")));
+                                  color: Colors.black,
+                                  fontFamily: "MaruBuri")));
                     }),
                   ],
                 ),
@@ -105,14 +106,15 @@ class PageView extends StatelessWidget {
                     const Expanded(
                         child: Text("    \"sampleString\" : ",
                             style: TextStyle(
-                                color: Colors.black, fontFamily: "SeoulNamsan"))),
+                                color: Colors.black, fontFamily: "MaruBuri"))),
                     BlocBuilder<page_business.BlocSampleString, bool>(
                         builder: (c, s) {
                       return Expanded(
                           child: Text(
                               "${pageBusiness.pageViewModel.sampleString}}",
                               style: const TextStyle(
-                                  color: Colors.black, fontFamily: "SeoulNamsan")));
+                                  color: Colors.black,
+                                  fontFamily: "MaruBuri")));
                     }),
                   ],
                 ),
@@ -124,7 +126,7 @@ class PageView extends StatelessWidget {
                     Text("Input : ",
                         style: TextStyle(
                             color: Colors.black,
-                            fontFamily: "SeoulNamsan",
+                            fontFamily: "MaruBuri",
                             fontWeight: FontWeight.bold)),
                   ],
                 ),
@@ -197,7 +199,8 @@ class PageView extends StatelessWidget {
                     ),
                     child: const Text(
                       "Change SP Value",
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(
+                          color: Colors.white, fontFamily: "MaruBuri"),
                     ),
                   ),
                 ),
@@ -214,7 +217,8 @@ class PageView extends StatelessWidget {
                     ),
                     child: const Text(
                       "Delete SP Value",
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(
+                          color: Colors.white, fontFamily: "MaruBuri"),
                     ),
                   ),
                 ),

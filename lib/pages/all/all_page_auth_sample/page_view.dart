@@ -44,7 +44,7 @@ class PageView extends StatelessWidget {
             centerTitle: false,
             title: Text(
               'Auth Sample',
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(color: Colors.white, fontFamily: "MaruBuri"),
             ),
             backgroundColor: Colors.blue,
             iconTheme: IconThemeData(
@@ -58,9 +58,9 @@ class PageView extends StatelessWidget {
               const Text(
                 'Member Info',
                 style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: "MaruBuri"),
               ),
               const SizedBox(height: 10.0),
               Row(
@@ -70,8 +70,8 @@ class PageView extends StatelessWidget {
                       child: Text(
                         '    - memberUid : ',
                         style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
+                            fontWeight: FontWeight.bold,
+                            fontFamily: "MaruBuri"),
                       )),
                   Expanded(
                       flex: 3,
@@ -83,7 +83,10 @@ class PageView extends StatelessWidget {
                         String text = (signInMemberInfo == null)
                             ? "null"
                             : signInMemberInfo.memberUid;
-                        return Text(text);
+                        return Text(
+                          text,
+                          style: const TextStyle(fontFamily: "MaruBuri"),
+                        );
                       })),
                 ],
               ),
@@ -95,8 +98,8 @@ class PageView extends StatelessWidget {
                       child: Text(
                         '    - nickName : ',
                         style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
+                            fontWeight: FontWeight.bold,
+                            fontFamily: "MaruBuri"),
                       )),
                   Expanded(
                       flex: 3,
@@ -108,7 +111,10 @@ class PageView extends StatelessWidget {
                         String text = (signInMemberInfo == null)
                             ? "null"
                             : signInMemberInfo.nickName;
-                        return Text(text);
+                        return Text(
+                          text,
+                          style: const TextStyle(fontFamily: "MaruBuri"),
+                        );
                       })),
                 ],
               ),
@@ -120,8 +126,8 @@ class PageView extends StatelessWidget {
                       child: Text(
                         '    - roleCodeList : ',
                         style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
+                            fontWeight: FontWeight.bold,
+                            fontFamily: "MaruBuri"),
                       )),
                   Expanded(
                       flex: 3,
@@ -133,7 +139,10 @@ class PageView extends StatelessWidget {
                         String text = (signInMemberInfo == null)
                             ? "null"
                             : signInMemberInfo.roleCodeList.toString();
-                        return Text(text);
+                        return Text(
+                          text,
+                          style: const TextStyle(fontFamily: "MaruBuri"),
+                        );
                       })),
                 ],
               ),
@@ -145,8 +154,8 @@ class PageView extends StatelessWidget {
                       child: Text(
                         '    - tokenType : ',
                         style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
+                            fontWeight: FontWeight.bold,
+                            fontFamily: "MaruBuri"),
                       )),
                   Expanded(
                       flex: 3,
@@ -158,7 +167,10 @@ class PageView extends StatelessWidget {
                         String text = (signInMemberInfo == null)
                             ? "null"
                             : signInMemberInfo.tokenType;
-                        return Text(text);
+                        return Text(
+                          text,
+                          style: const TextStyle(fontFamily: "MaruBuri"),
+                        );
                       })),
                 ],
               ),
@@ -170,8 +182,8 @@ class PageView extends StatelessWidget {
                       child: Text(
                         '    - accessToken : ',
                         style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
+                            fontWeight: FontWeight.bold,
+                            fontFamily: "MaruBuri"),
                       )),
                   Expanded(
                       flex: 3,
@@ -187,6 +199,7 @@ class PageView extends StatelessWidget {
                           width: 200,
                           child: Text(
                             text,
+                            style: const TextStyle(fontFamily: "MaruBuri"),
                           ),
                         );
                       })),
@@ -200,8 +213,8 @@ class PageView extends StatelessWidget {
                       child: Text(
                         '    - accessTokenExpireWhen : ',
                         style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
+                            fontWeight: FontWeight.bold,
+                            fontFamily: "MaruBuri"),
                       )),
                   Expanded(
                       flex: 3,
@@ -213,7 +226,10 @@ class PageView extends StatelessWidget {
                         String text = (signInMemberInfo == null)
                             ? "null"
                             : signInMemberInfo.accessTokenExpireWhen;
-                        return Text(text);
+                        return Text(
+                          text,
+                          style: const TextStyle(fontFamily: "MaruBuri"),
+                        );
                       })),
                 ],
               ),
@@ -225,8 +241,8 @@ class PageView extends StatelessWidget {
                       child: Text(
                         '    - refreshToken : ',
                         style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
+                            fontWeight: FontWeight.bold,
+                            fontFamily: "MaruBuri"),
                       )),
                   Expanded(
                       flex: 3,
@@ -242,6 +258,7 @@ class PageView extends StatelessWidget {
                           width: 200,
                           child: Text(
                             text,
+                            style: const TextStyle(fontFamily: "MaruBuri"),
                           ),
                         );
                       })),
@@ -255,8 +272,8 @@ class PageView extends StatelessWidget {
                       child: Text(
                         '    - refreshTokenExpireWhen : ',
                         style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
+                            fontWeight: FontWeight.bold,
+                            fontFamily: "MaruBuri"),
                       )),
                   Expanded(
                       flex: 3,
@@ -268,7 +285,10 @@ class PageView extends StatelessWidget {
                         String text = (signInMemberInfo == null)
                             ? "null"
                             : signInMemberInfo.refreshTokenExpireWhen;
-                        return Text(text);
+                        return Text(
+                          text,
+                          style: const TextStyle(fontFamily: "MaruBuri"),
+                        );
                       })),
                 ],
               ),
@@ -280,8 +300,8 @@ class PageView extends StatelessWidget {
                       child: Text(
                         '    - myEmailList : ',
                         style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
+                            fontWeight: FontWeight.bold,
+                            fontFamily: "MaruBuri"),
                       )),
                   Expanded(
                     flex: 3,
@@ -293,7 +313,10 @@ class PageView extends StatelessWidget {
                       String text = (signInMemberInfo == null)
                           ? "null"
                           : signInMemberInfo.myEmailList.toString();
-                      return Text(text);
+                      return Text(
+                        text,
+                        style: const TextStyle(fontFamily: "MaruBuri"),
+                      );
                     }),
                   ),
                 ],
@@ -306,8 +329,8 @@ class PageView extends StatelessWidget {
                       child: Text(
                         '    - myPhoneNumberList : ',
                         style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
+                            fontWeight: FontWeight.bold,
+                            fontFamily: "MaruBuri"),
                       )),
                   Expanded(
                     flex: 3,
@@ -319,7 +342,10 @@ class PageView extends StatelessWidget {
                       String text = (signInMemberInfo == null)
                           ? "null"
                           : signInMemberInfo.myPhoneNumberList.toString();
-                      return Text(text);
+                      return Text(
+                        text,
+                        style: const TextStyle(fontFamily: "MaruBuri"),
+                      );
                     }),
                   ),
                 ],
@@ -332,8 +358,8 @@ class PageView extends StatelessWidget {
                       child: Text(
                         '    - myOAuth2List : ',
                         style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
+                            fontWeight: FontWeight.bold,
+                            fontFamily: "MaruBuri"),
                       )),
                   Expanded(
                     flex: 3,
@@ -360,7 +386,10 @@ class PageView extends StatelessWidget {
                       }
 
                       String text = valueTxt;
-                      return Text(text);
+                      return Text(
+                        text,
+                        style: const TextStyle(fontFamily: "MaruBuri"),
+                      );
                     }),
                   ),
                 ],
@@ -369,9 +398,9 @@ class PageView extends StatelessWidget {
               const Text(
                 'Auth Samples',
                 style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: "MaruBuri"),
               ),
               const SizedBox(height: 10.0),
             ]),
@@ -388,10 +417,16 @@ class PageView extends StatelessWidget {
                     child: Column(
                       children: [
                         ListTile(
-                          title: Text(pageBusiness.pageViewModel
-                              .allSampleList[index].sampleItemTitle),
-                          subtitle: Text(pageBusiness.pageViewModel
-                              .allSampleList[index].sampleItemDescription),
+                          title: Text(
+                            pageBusiness.pageViewModel.allSampleList[index]
+                                .sampleItemTitle,
+                            style: const TextStyle(fontFamily: "MaruBuri"),
+                          ),
+                          subtitle: Text(
+                            pageBusiness.pageViewModel.allSampleList[index]
+                                .sampleItemDescription,
+                            style: const TextStyle(fontFamily: "MaruBuri"),
+                          ),
                           trailing: const Icon(Icons.chevron_right),
                         ),
                         const Divider(

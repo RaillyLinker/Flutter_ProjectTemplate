@@ -39,7 +39,7 @@ class PageView extends StatelessWidget {
       appBar: AppBar(
         title: const Text(
           "Crypt Sample",
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: Colors.white, fontFamily: "MaruBuri"),
         ),
         automaticallyImplyLeading: true,
         backgroundColor: Colors.blue,
@@ -87,7 +87,9 @@ class PageView extends StatelessWidget {
                                     child: Text(
                                       "Encrypt",
                                       textAlign: TextAlign.center,
-                                      style: TextStyle(color: Colors.white),
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontFamily: "MaruBuri"),
                                     ),
                                   ),
                                 )),
@@ -99,15 +101,24 @@ class PageView extends StatelessWidget {
                         Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            const Expanded(flex: 20, child: Text("Result :")),
+                            const Expanded(
+                                flex: 20,
+                                child: Text(
+                                  "Result :",
+                                  style: TextStyle(fontFamily: "MaruBuri"),
+                                )),
                             const Expanded(child: SizedBox()),
                             Expanded(
                                 flex: 80,
                                 child: BlocBuilder<
                                     page_business.BlocEncryptResultText, bool>(
                                   builder: (c, s) {
-                                    return SelectableText(pageBusiness
-                                        .pageViewModel.encryptResultText);
+                                    return SelectableText(
+                                      pageBusiness
+                                          .pageViewModel.encryptResultText,
+                                      style: const TextStyle(
+                                          fontFamily: "MaruBuri"),
+                                    );
                                   },
                                 )),
                           ],
@@ -142,7 +153,9 @@ class PageView extends StatelessWidget {
                                     child: Text(
                                       "Decrypt",
                                       textAlign: TextAlign.center,
-                                      style: TextStyle(color: Colors.white),
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontFamily: "MaruBuri"),
                                     ),
                                   ),
                                 )),
@@ -154,15 +167,24 @@ class PageView extends StatelessWidget {
                         Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            const Expanded(flex: 20, child: Text("Result :")),
+                            const Expanded(
+                                flex: 20,
+                                child: Text(
+                                  "Result :",
+                                  style: TextStyle(fontFamily: "MaruBuri"),
+                                )),
                             const Expanded(child: SizedBox()),
                             Expanded(
                                 flex: 80,
                                 child: BlocBuilder<
                                     page_business.BlocDecryptResultText, bool>(
                                   builder: (c, s) {
-                                    return SelectableText(pageBusiness
-                                        .pageViewModel.decryptResultText);
+                                    return SelectableText(
+                                      pageBusiness
+                                          .pageViewModel.decryptResultText,
+                                      style: const TextStyle(
+                                          fontFamily: "MaruBuri"),
+                                    );
                                   },
                                 )),
                           ],

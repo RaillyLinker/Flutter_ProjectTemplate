@@ -39,7 +39,7 @@ class PageView extends StatelessWidget {
       appBar: AppBar(
         title: const Text(
           'Get Request Sample',
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: Colors.white, fontFamily: "MaruBuri"),
         ),
         automaticallyImplyLeading: true,
         backgroundColor: Colors.blue,
@@ -66,14 +66,18 @@ class PageView extends StatelessWidget {
                     Expanded(
                       child: Text(
                         "Name",
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontFamily: "MaruBuri"),
                       ),
                     ),
                     Expanded(
                         flex: 2,
                         child: Text(
                           "Description",
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontFamily: "MaruBuri"),
                         ))
                   ],
                 ),
@@ -88,17 +92,29 @@ class PageView extends StatelessWidget {
                         children: [
                           const Text(
                             "queryParamString",
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontFamily: "MaruBuri"),
                           ),
                           Container(
                             constraints: const BoxConstraints(maxWidth: 250),
                             child: const Row(
                               children: [
-                                Expanded(child: Text("(Query ")),
+                                Expanded(
+                                    child: Text(
+                                  "(Query ",
+                                  style: TextStyle(fontFamily: "MaruBuri"),
+                                )),
                                 Expanded(
                                     child: Text("String",
-                                        style: TextStyle(color: Colors.red))),
-                                Expanded(child: Text(")"))
+                                        style: TextStyle(
+                                            color: Colors.red,
+                                            fontFamily: "MaruBuri"))),
+                                Expanded(
+                                    child: Text(
+                                  ")",
+                                  style: TextStyle(fontFamily: "MaruBuri"),
+                                ))
                               ],
                             ),
                           )
@@ -110,7 +126,10 @@ class PageView extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text("String Query Parameter"),
+                          const Text(
+                            "String Query Parameter",
+                            style: TextStyle(fontFamily: "MaruBuri"),
+                          ),
                           Container(
                             margin: const EdgeInsets.only(top: 10),
                             child: TextField(
@@ -137,17 +156,29 @@ class PageView extends StatelessWidget {
                         children: [
                           const Text(
                             "queryParamStringNullable",
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontFamily: "MaruBuri"),
                           ),
                           Container(
                             constraints: const BoxConstraints(maxWidth: 250),
                             child: const Row(
                               children: [
-                                Expanded(child: Text("(Query ")),
+                                Expanded(
+                                    child: Text(
+                                  "(Query ",
+                                  style: TextStyle(fontFamily: "MaruBuri"),
+                                )),
                                 Expanded(
                                     child: Text("String?",
-                                        style: TextStyle(color: Colors.black))),
-                                Expanded(child: Text(")"))
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontFamily: "MaruBuri"))),
+                                Expanded(
+                                    child: Text(
+                                  ")",
+                                  style: TextStyle(fontFamily: "MaruBuri"),
+                                ))
                               ],
                             ),
                           )
@@ -159,7 +190,10 @@ class PageView extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text("String Query Parameter Nullable"),
+                          const Text(
+                            "String Query Parameter Nullable",
+                            style: TextStyle(fontFamily: "MaruBuri"),
+                          ),
                           Container(
                             margin: const EdgeInsets.only(top: 10),
                             child: TextField(
@@ -186,17 +220,27 @@ class PageView extends StatelessWidget {
                         children: [
                           const Text(
                             "queryParamInt",
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontFamily: "MaruBuri"),
                           ),
                           Container(
                             constraints: const BoxConstraints(maxWidth: 250),
                             child: const Row(
                               children: [
-                                Expanded(child: Text("(Query ")),
+                                Expanded(
+                                    child: Text(
+                                  "(Query ",
+                                  style: TextStyle(fontFamily: "MaruBuri"),
+                                )),
                                 Expanded(
                                     child: Text("Int",
                                         style: TextStyle(color: Colors.red))),
-                                Expanded(child: Text(")"))
+                                Expanded(
+                                    child: Text(
+                                  ")",
+                                  style: TextStyle(fontFamily: "MaruBuri"),
+                                ))
                               ],
                             ),
                           )
@@ -208,7 +252,10 @@ class PageView extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text("Int Query Parameter"),
+                          const Text(
+                            "Int Query Parameter",
+                            style: TextStyle(fontFamily: "MaruBuri"),
+                          ),
                           Container(
                             margin: const EdgeInsets.only(top: 10),
                             child: TextField(
@@ -240,17 +287,29 @@ class PageView extends StatelessWidget {
                         children: [
                           const Text(
                             "queryParamIntNullable",
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontFamily: "MaruBuri"),
                           ),
                           Container(
                             constraints: const BoxConstraints(maxWidth: 250),
                             child: const Row(
                               children: [
-                                Expanded(child: Text("(Query ")),
+                                Expanded(
+                                    child: Text(
+                                  "(Query ",
+                                  style: TextStyle(fontFamily: "MaruBuri"),
+                                )),
                                 Expanded(
                                     child: Text("Int?",
-                                        style: TextStyle(color: Colors.black))),
-                                Expanded(child: Text(")"))
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontFamily: "MaruBuri"))),
+                                Expanded(
+                                    child: Text(
+                                  ")",
+                                  style: TextStyle(fontFamily: "MaruBuri"),
+                                ))
                               ],
                             ),
                           )
@@ -262,7 +321,10 @@ class PageView extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text("Int Query Parameter Nullable"),
+                          const Text(
+                            "Int Query Parameter Nullable",
+                            style: TextStyle(fontFamily: "MaruBuri"),
+                          ),
                           Container(
                             margin: const EdgeInsets.only(top: 10),
                             child: TextField(
@@ -295,17 +357,29 @@ class PageView extends StatelessWidget {
                         children: [
                           const Text(
                             "queryParamDouble",
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontFamily: "MaruBuri"),
                           ),
                           Container(
                             constraints: const BoxConstraints(maxWidth: 250),
                             child: const Row(
                               children: [
-                                Expanded(child: Text("(Query ")),
+                                Expanded(
+                                    child: Text(
+                                  "(Query ",
+                                  style: TextStyle(fontFamily: "MaruBuri"),
+                                )),
                                 Expanded(
                                     child: Text("Double",
-                                        style: TextStyle(color: Colors.red))),
-                                Expanded(child: Text(")"))
+                                        style: TextStyle(
+                                            color: Colors.red,
+                                            fontFamily: "MaruBuri"))),
+                                Expanded(
+                                    child: Text(
+                                  ")",
+                                  style: TextStyle(fontFamily: "MaruBuri"),
+                                ))
                               ],
                             ),
                           )
@@ -317,7 +391,10 @@ class PageView extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text("Double Query Parameter"),
+                          const Text(
+                            "Double Query Parameter",
+                            style: TextStyle(fontFamily: "MaruBuri"),
+                          ),
                           Container(
                             margin: const EdgeInsets.only(top: 10),
                             child: TextField(
@@ -359,17 +436,29 @@ class PageView extends StatelessWidget {
                         children: [
                           const Text(
                             "queryParamDoubleNullable",
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontFamily: "MaruBuri"),
                           ),
                           Container(
                             constraints: const BoxConstraints(maxWidth: 250),
                             child: const Row(
                               children: [
-                                Expanded(child: Text("(Query ")),
+                                Expanded(
+                                    child: Text(
+                                  "(Query ",
+                                  style: TextStyle(fontFamily: "MaruBuri"),
+                                )),
                                 Expanded(
                                     child: Text("Double?",
-                                        style: TextStyle(color: Colors.black))),
-                                Expanded(child: Text(")"))
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontFamily: "MaruBuri"))),
+                                Expanded(
+                                    child: Text(
+                                  ")",
+                                  style: TextStyle(fontFamily: "MaruBuri"),
+                                ))
                               ],
                             ),
                           )
@@ -381,7 +470,10 @@ class PageView extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text("Double Query Parameter Nullable"),
+                          const Text(
+                            "Double Query Parameter Nullable",
+                            style: TextStyle(fontFamily: "MaruBuri"),
+                          ),
                           Container(
                             margin: const EdgeInsets.only(top: 10),
                             child: TextField(
@@ -423,17 +515,29 @@ class PageView extends StatelessWidget {
                         children: [
                           const Text(
                             "queryParamBoolean",
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontFamily: "MaruBuri"),
                           ),
                           Container(
                             constraints: const BoxConstraints(maxWidth: 250),
                             child: const Row(
                               children: [
-                                Expanded(child: Text("(Query ")),
+                                Expanded(
+                                    child: Text(
+                                  "(Query ",
+                                  style: TextStyle(fontFamily: "MaruBuri"),
+                                )),
                                 Expanded(
                                     child: Text("Boolean",
-                                        style: TextStyle(color: Colors.red))),
-                                Expanded(child: Text(")"))
+                                        style: TextStyle(
+                                            color: Colors.red,
+                                            fontFamily: "MaruBuri"))),
+                                Expanded(
+                                    child: Text(
+                                  ")",
+                                  style: TextStyle(fontFamily: "MaruBuri"),
+                                ))
                               ],
                             ),
                           )
@@ -445,7 +549,10 @@ class PageView extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text("Boolean Query Parameter"),
+                          const Text(
+                            "Boolean Query Parameter",
+                            style: TextStyle(fontFamily: "MaruBuri"),
+                          ),
                           Container(
                             margin: const EdgeInsets.only(top: 10),
                             child: DropdownButton<bool>(
@@ -457,6 +564,8 @@ class PageView extends StatelessWidget {
                                   value: value,
                                   child: Text(
                                     "$value",
+                                    style:
+                                        const TextStyle(fontFamily: "MaruBuri"),
                                   ),
                                 );
                               }).toList(),
@@ -483,17 +592,29 @@ class PageView extends StatelessWidget {
                         children: [
                           const Text(
                             "queryParamBooleanNullable",
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontFamily: "MaruBuri"),
                           ),
                           Container(
                             constraints: const BoxConstraints(maxWidth: 250),
                             child: const Row(
                               children: [
-                                Expanded(child: Text("(Query ")),
+                                Expanded(
+                                    child: Text(
+                                  "(Query ",
+                                  style: TextStyle(fontFamily: "MaruBuri"),
+                                )),
                                 Expanded(
                                     child: Text("Boolean?",
-                                        style: TextStyle(color: Colors.black))),
-                                Expanded(child: Text(")"))
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontFamily: "MaruBuri"))),
+                                Expanded(
+                                    child: Text(
+                                  ")",
+                                  style: TextStyle(fontFamily: "MaruBuri"),
+                                ))
                               ],
                             ),
                           )
@@ -505,7 +626,10 @@ class PageView extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text("Boolean Query Parameter Nullable"),
+                          const Text(
+                            "Boolean Query Parameter Nullable",
+                            style: TextStyle(fontFamily: "MaruBuri"),
+                          ),
                           Container(
                             margin: const EdgeInsets.only(top: 10),
                             child: DropdownButton<bool?>(
@@ -517,6 +641,8 @@ class PageView extends StatelessWidget {
                                   value: value,
                                   child: Text(
                                     "$value",
+                                    style:
+                                        const TextStyle(fontFamily: "MaruBuri"),
                                   ),
                                 );
                               }).toList(),
@@ -543,17 +669,29 @@ class PageView extends StatelessWidget {
                         children: [
                           const Text(
                             "queryParamStringList",
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontFamily: "MaruBuri"),
                           ),
                           Container(
                             constraints: const BoxConstraints(maxWidth: 250),
                             child: const Row(
                               children: [
-                                Expanded(child: Text("(Query ")),
+                                Expanded(
+                                    child: Text(
+                                  "(Query ",
+                                  style: TextStyle(fontFamily: "MaruBuri"),
+                                )),
                                 Expanded(
                                     child: Text("array[string]",
-                                        style: TextStyle(color: Colors.red))),
-                                Expanded(child: Text(")"))
+                                        style: TextStyle(
+                                            color: Colors.red,
+                                            fontFamily: "MaruBuri"))),
+                                Expanded(
+                                    child: Text(
+                                  ")",
+                                  style: TextStyle(fontFamily: "MaruBuri"),
+                                ))
                               ],
                             ),
                           )
@@ -566,7 +704,10 @@ class PageView extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text("StringList Query Parameter"),
+                          const Text(
+                            "StringList Query Parameter",
+                            style: TextStyle(fontFamily: "MaruBuri"),
+                          ),
                           Container(
                             margin: const EdgeInsets.only(top: 10),
                             child: Column(
@@ -621,7 +762,8 @@ class PageView extends StatelessWidget {
                                               child: const Text(
                                                 "-",
                                                 style: TextStyle(
-                                                    color: Colors.white),
+                                                    color: Colors.white,
+                                                    fontFamily: "MaruBuri"),
                                               )),
                                         ));
                                       }
@@ -653,7 +795,9 @@ class PageView extends StatelessWidget {
                                       ),
                                       child: const Text(
                                         "Add List Item",
-                                        style: TextStyle(color: Colors.white),
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontFamily: "MaruBuri"),
                                       )),
                                 )
                               ],
@@ -675,17 +819,29 @@ class PageView extends StatelessWidget {
                         children: [
                           const Text(
                             "queryParamStringListNullable",
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontFamily: "MaruBuri"),
                           ),
                           Container(
                             constraints: const BoxConstraints(maxWidth: 250),
                             child: const Row(
                               children: [
-                                Expanded(child: Text("(Query ")),
+                                Expanded(
+                                    child: Text(
+                                  "(Query ",
+                                  style: TextStyle(fontFamily: "MaruBuri"),
+                                )),
                                 Expanded(
                                     child: Text("array[string]?",
-                                        style: TextStyle(color: Colors.black))),
-                                Expanded(child: Text(")"))
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontFamily: "MaruBuri"))),
+                                Expanded(
+                                    child: Text(
+                                  ")",
+                                  style: TextStyle(fontFamily: "MaruBuri"),
+                                ))
                               ],
                             ),
                           )
@@ -698,7 +854,10 @@ class PageView extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text("StringList Query Parameter Nullable"),
+                          const Text(
+                            "StringList Query Parameter Nullable",
+                            style: TextStyle(fontFamily: "MaruBuri"),
+                          ),
                           Container(
                             margin: const EdgeInsets.only(top: 10),
                             child: Column(
@@ -747,7 +906,8 @@ class PageView extends StatelessWidget {
                                             child: const Text(
                                               "-",
                                               style: TextStyle(
-                                                  color: Colors.white),
+                                                  color: Colors.white,
+                                                  fontFamily: "MaruBuri"),
                                             )),
                                       ));
 
@@ -763,7 +923,11 @@ class PageView extends StatelessWidget {
                                         .pageViewModel
                                         .networkRequestParamTextFieldValue10
                                         .isEmpty) {
-                                      widgetList.add(const Text("(Null)"));
+                                      widgetList.add(const Text(
+                                        "(Null)",
+                                        style:
+                                            TextStyle(fontFamily: "MaruBuri"),
+                                      ));
                                     }
 
                                     Column stringListColumn = Column(
@@ -785,7 +949,9 @@ class PageView extends StatelessWidget {
                                       ),
                                       child: const Text(
                                         "Add List Item",
-                                        style: TextStyle(color: Colors.white),
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontFamily: "MaruBuri"),
                                       )),
                                 )
                               ],
@@ -808,7 +974,8 @@ class PageView extends StatelessWidget {
                     ),
                     child: const Text(
                       "Network Request Test",
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(
+                          color: Colors.white, fontFamily: "MaruBuri"),
                     )),
               )
             ],

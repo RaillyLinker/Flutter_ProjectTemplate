@@ -58,25 +58,25 @@ class PageView extends StatelessWidget {
                   const Text(
                     'Welcome to',
                     style: TextStyle(
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.normal,
-                    ),
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.normal,
+                        fontFamily: "MaruBuri"),
                   ),
                   const Text(
                     'ProwdTemplate',
                     style: TextStyle(
-                      color: Colors.blue,
-                      fontSize: 24.0,
-                      fontWeight: FontWeight.bold,
-                    ),
+                        color: Colors.blue,
+                        fontSize: 24.0,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: "MaruBuri"),
                   ),
                   const SizedBox(height: 8.0),
                   const Text(
                     'Register with',
                     style: TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.normal,
-                    ),
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.normal,
+                        fontFamily: "MaruBuri"),
                   ),
                   const SizedBox(height: 16.0),
                   ElevatedButton(
@@ -102,7 +102,8 @@ class PageView extends StatelessWidget {
                             alignment: Alignment.center,
                             child: Text(
                               'Email',
-                              style: TextStyle(color: Colors.white),
+                              style: TextStyle(
+                                  color: Colors.white, fontFamily: "MaruBuri"),
                             ),
                           ),
                         ],
@@ -133,7 +134,8 @@ class PageView extends StatelessWidget {
                             alignment: Alignment.center,
                             child: Text(
                               'Phone',
-                              style: TextStyle(color: Colors.white),
+                              style: TextStyle(
+                                  color: Colors.white, fontFamily: "MaruBuri"),
                             ),
                           ),
                         ],

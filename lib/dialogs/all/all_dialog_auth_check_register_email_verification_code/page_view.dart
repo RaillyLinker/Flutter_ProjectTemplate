@@ -68,9 +68,9 @@ class PageView extends StatelessWidget {
                       child: Text(
                         'Email sending Complete',
                         style: TextStyle(
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.normal,
-                        ),
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.normal,
+                            fontFamily: "MaruBuri"),
                       ),
                     ),
                   ),
@@ -78,10 +78,10 @@ class PageView extends StatelessWidget {
                   const Text(
                     'Email Code Verification',
                     style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 24.0,
-                      fontWeight: FontWeight.bold,
-                    ),
+                        color: Colors.black,
+                        fontSize: 24.0,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: "MaruBuri"),
                   ),
                   const SizedBox(height: 8.0),
                   SizedBox(
@@ -89,9 +89,9 @@ class PageView extends StatelessWidget {
                     child: Text(
                       'We have sent the member registration email verification code to\n${pageBusiness.pageViewModel.pageInputVo.emailAddress}.',
                       style: const TextStyle(
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.normal,
-                      ),
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.normal,
+                          fontFamily: "MaruBuri"),
                     ),
                   ),
                   const SizedBox(height: 8.0),
@@ -100,9 +100,9 @@ class PageView extends StatelessWidget {
                     child: Text(
                       'Please enter the verification code sent to your email within 10 minutes.',
                       style: TextStyle(
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.normal,
-                      ),
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.normal,
+                          fontFamily: "MaruBuri"),
                     ),
                   ),
                   const SizedBox(height: 20.0),
@@ -142,9 +142,9 @@ class PageView extends StatelessWidget {
                         child: Text(
                           'Resend email',
                           style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.blue,
-                          ),
+                              fontWeight: FontWeight.bold,
+                              color: Colors.blue,
+                              fontFamily: "MaruBuri"),
                         ),
                       ),
                     ),
@@ -159,10 +159,13 @@ class PageView extends StatelessWidget {
                         borderRadius:
                             const BorderRadius.all(Radius.circular(5))),
                     child: const Text(
-                      'If you do not receive an email,\n- Make sure the email address you entered is correct.\n- Check your spam folder.\n- Check if the mailbox has enough space.',
+                      'If you do not receive an email,\n'
+                      '- Make sure the email address you entered is correct.\n'
+                      '- Check your spam folder.\n'
+                      '- Check if the mailbox has enough space.',
                       style: TextStyle(
-                        fontWeight: FontWeight.normal,
-                      ),
+                          fontWeight: FontWeight.normal,
+                          fontFamily: "MaruBuri"),
                     ),
                   ),
                   const SizedBox(height: 40.0),
@@ -179,7 +182,8 @@ class PageView extends StatelessWidget {
                       child: Center(
                         child: Text(
                           'Check',
-                          style: TextStyle(color: Colors.white),
+                          style: TextStyle(
+                              color: Colors.white, fontFamily: "MaruBuri"),
                         ),
                       ),
                     ),

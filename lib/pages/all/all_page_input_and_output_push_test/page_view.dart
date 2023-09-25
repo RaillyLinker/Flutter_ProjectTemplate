@@ -39,7 +39,7 @@ class PageView extends StatelessWidget {
       appBar: AppBar(
         title: const Text(
           'Page Input And Output Sample',
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: Colors.white, fontFamily: "MaruBuri"),
         ),
         automaticallyImplyLeading: true,
         backgroundColor: Colors.blue,
@@ -89,7 +89,10 @@ class PageView extends StatelessWidget {
                       margin: const EdgeInsets.only(top: 8, bottom: 8),
                       child: const Text(
                         "Return Value",
-                        style: TextStyle(fontSize: 15, color: Colors.white),
+                        style: TextStyle(
+                            fontSize: 15,
+                            color: Colors.white,
+                            fontFamily: "MaruBuri"),
                       ),
                     )),
               )

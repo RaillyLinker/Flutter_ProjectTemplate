@@ -39,7 +39,7 @@ class PageView extends StatelessWidget {
       appBar: AppBar(
         title: const Text(
           'Find Password with PhoneNumber',
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: Colors.white, fontFamily: "MaruBuri"),
         ),
         backgroundColor: Colors.blue,
         iconTheme: const IconThemeData(
@@ -101,7 +101,9 @@ class PageView extends StatelessWidget {
                                     child: Text(
                                       "Send\nSMS",
                                       textAlign: TextAlign.center,
-                                      style: TextStyle(color: Colors.white),
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontFamily: "MaruBuri"),
                                     ),
                                   ),
                                 )),
@@ -149,7 +151,8 @@ class PageView extends StatelessWidget {
                   ),
                   child: const Text(
                     'Find Password',
-                    style: TextStyle(color: Colors.white),
+                    style:
+                        TextStyle(color: Colors.white, fontFamily: "MaruBuri"),
                   ),
                 ),
                 const SizedBox(height: 30.0),
@@ -163,8 +166,7 @@ class PageView extends StatelessWidget {
                   child: const Text(
                     'Please enter the Verification Code sent to the Phone Number you entered within 10 minutes after pressing the Send SMS button.\n\nIf you do not receive an SMS,\n- Make sure the PhoneNumber you entered is correct.\n- Check your spam folder.\n- Check if the message box has enough space.',
                     style: TextStyle(
-                      fontWeight: FontWeight.normal,
-                    ),
+                        fontWeight: FontWeight.normal, fontFamily: "MaruBuri"),
                   ),
                 ),
               ],

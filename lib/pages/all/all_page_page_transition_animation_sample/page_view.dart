@@ -44,7 +44,7 @@ class PageView extends StatelessWidget {
             centerTitle: false,
             title: const Text(
               'Page Transition Animation Sample',
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(color: Colors.white, fontFamily: "MaruBuri"),
             ),
             backgroundColor: Colors.blue,
             iconTheme: const IconThemeData(
@@ -82,10 +82,16 @@ class PageView extends StatelessWidget {
                     child: Column(
                       children: [
                         ListTile(
-                          title: Text(pageBusiness.pageViewModel
-                              .filteredSampleList[index].sampleItemTitle),
-                          subtitle: Text(pageBusiness.pageViewModel
-                              .filteredSampleList[index].sampleItemDescription),
+                          title: Text(
+                            pageBusiness.pageViewModel.filteredSampleList[index]
+                                .sampleItemTitle,
+                            style: const TextStyle(fontFamily: "MaruBuri"),
+                          ),
+                          subtitle: Text(
+                            pageBusiness.pageViewModel.filteredSampleList[index]
+                                .sampleItemDescription,
+                            style: const TextStyle(fontFamily: "MaruBuri"),
+                          ),
                           trailing: const Icon(Icons.chevron_right),
                         ),
                         const Divider(

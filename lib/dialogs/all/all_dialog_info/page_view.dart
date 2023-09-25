@@ -53,7 +53,7 @@ class PageView extends StatelessWidget {
                       pageBusiness.pageViewModel.pageInputVo.dialogTitle,
                       style: const TextStyle(
                           fontSize: 17,
-                          fontFamily: "SeoulNamsan",
+                          fontFamily: "MaruBuri",
                           color: Colors.white,
                           fontWeight: FontWeight.bold),
                     ),
@@ -70,7 +70,7 @@ class PageView extends StatelessWidget {
                       child: Text(
                         pageBusiness.pageViewModel.pageInputVo.dialogContent,
                         style: const TextStyle(
-                            fontFamily: "SeoulNamsan", color: Colors.black),
+                            fontFamily: "MaruBuri", color: Colors.black),
                         textAlign: TextAlign.center,
                       ),
                     ),
@@ -103,7 +103,8 @@ class PageView extends StatelessWidget {
                         ),
                         child: Text(
                           pageBusiness.pageViewModel.pageInputVo.checkBtnTitle,
-                          style: const TextStyle(color: Colors.white),
+                          style: const TextStyle(
+                              color: Colors.white, fontFamily: "MaruBuri"),
                         )),
                   ),
                 ),

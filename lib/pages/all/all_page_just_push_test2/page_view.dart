@@ -39,7 +39,7 @@ class PageView extends StatelessWidget {
       appBar: AppBar(
         title: const Text(
           'Just Push Test2',
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: Colors.white, fontFamily: "MaruBuri"),
         ),
         automaticallyImplyLeading: true,
         backgroundColor: Colors.blue,
@@ -68,7 +68,7 @@ class PageView extends StatelessWidget {
                           style: const TextStyle(
                               fontSize: 20,
                               color: Colors.black,
-                              fontFamily: "SeoulNamsan"));
+                              fontFamily: "MaruBuri"));
                     },
                   ),
                 ),
@@ -82,7 +82,8 @@ class PageView extends StatelessWidget {
                   ),
                   child: const Text(
                     "Push To Test1 Page",
-                    style: TextStyle(color: Colors.white),
+                    style:
+                        TextStyle(color: Colors.white, fontFamily: "MaruBuri"),
                   )),
               const SizedBox(
                 height: 10,
@@ -96,7 +97,8 @@ class PageView extends StatelessWidget {
                   ),
                   child: const Text(
                     "Push To Test2 Page",
-                    style: TextStyle(color: Colors.white),
+                    style:
+                        TextStyle(color: Colors.white, fontFamily: "MaruBuri"),
                   )),
               const SizedBox(
                 height: 30,

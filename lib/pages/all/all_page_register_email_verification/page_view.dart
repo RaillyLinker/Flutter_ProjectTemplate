@@ -39,7 +39,7 @@ class PageView extends StatelessWidget {
       appBar: AppBar(
         title: const Text(
           'Member Join : Email Verification',
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: Colors.white, fontFamily: "MaruBuri"),
         ),
         automaticallyImplyLeading: true,
         backgroundColor: Colors.blue,
@@ -105,7 +105,8 @@ class PageView extends StatelessWidget {
                                         pageBusiness
                                             .pageViewModel.emailCheckBtn,
                                         style: const TextStyle(
-                                            color: Colors.white),
+                                            color: Colors.white,
+                                            fontFamily: "MaruBuri"),
                                         textAlign: TextAlign.center,
                                       ),
                                     ),
@@ -201,7 +202,8 @@ class PageView extends StatelessWidget {
                   ),
                   child: const Text(
                     'Next',
-                    style: TextStyle(color: Colors.white),
+                    style:
+                        TextStyle(color: Colors.white, fontFamily: "MaruBuri"),
                   ),
                 ),
                 Container(
@@ -243,9 +245,9 @@ class PageView extends StatelessWidget {
                         Text(
                           "Password generation rules",
                           style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                          ),
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                              fontFamily: "MaruBuri"),
                         ),
                         SizedBox(
                           height: 5,
@@ -261,8 +263,8 @@ class PageView extends StatelessWidget {
                           '6. Do not use the following special characters as they are vulnerable to security\n'
                           '<, >, (, ), #, ’, /, |',
                           style: TextStyle(
-                            fontWeight: FontWeight.normal,
-                          ),
+                              fontWeight: FontWeight.normal,
+                              fontFamily: "MaruBuri"),
                         )
                       ],
                     ),

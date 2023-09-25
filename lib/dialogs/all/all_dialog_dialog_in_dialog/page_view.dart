@@ -52,7 +52,8 @@ class PageView extends StatelessWidget {
                     ),
                     child: const Text(
                       "Show Info Dialog",
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(
+                          color: Colors.white, fontFamily: "MaruBuri"),
                     ),
                   ),
                   const SizedBox(
@@ -67,7 +68,8 @@ class PageView extends StatelessWidget {
                     ),
                     child: const Text(
                       "Show Loading Dialog",
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(
+                          color: Colors.white, fontFamily: "MaruBuri"),
                     ),
                   ),
                   const SizedBox(
@@ -82,7 +84,8 @@ class PageView extends StatelessWidget {
                     ),
                     child: const Text(
                       "Dialog in Dialog",
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(
+                          color: Colors.white, fontFamily: "MaruBuri"),
                     ),
                   )
                 ],

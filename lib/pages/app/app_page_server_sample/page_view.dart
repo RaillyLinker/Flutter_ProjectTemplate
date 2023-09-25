@@ -39,7 +39,7 @@ class PageView extends StatelessWidget {
       appBar: AppBar(
         title: const Text(
           'Server Sample',
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: Colors.white, fontFamily: "MaruBuri"),
         ),
         automaticallyImplyLeading: true,
         backgroundColor: Colors.blue,
@@ -58,7 +58,10 @@ class PageView extends StatelessWidget {
                 constraints: const BoxConstraints(maxWidth: 400),
                 child: Row(
                   children: [
-                    const Text('IP Address:'),
+                    const Text(
+                      'IP Address:',
+                      style: TextStyle(fontFamily: "MaruBuri"),
+                    ),
                     const SizedBox(width: 8.0),
                     Expanded(
                       child: BlocBuilder<page_business.BlocServerBtn, bool>(
@@ -102,7 +105,8 @@ class PageView extends StatelessWidget {
                         ),
                         child: Text(
                           pageBusiness.pageViewModel.serverBtn,
-                          style: const TextStyle(color: Colors.white),
+                          style: const TextStyle(
+                              color: Colors.white, fontFamily: "MaruBuri"),
                         ),
                       ));
                     }),
@@ -123,7 +127,10 @@ class PageView extends StatelessWidget {
                       itemBuilder: (context, index) {
                         String log = pageBusiness.pageViewModel.logList[index];
                         return ListTile(
-                          title: Text(log),
+                          title: Text(
+                            log,
+                            style: const TextStyle(fontFamily: "MaruBuri"),
+                          ),
                         );
                       },
                     );

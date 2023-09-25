@@ -39,7 +39,7 @@ class PageView extends StatelessWidget {
       appBar: AppBar(
         title: const Text(
           'Member Join : Member Info',
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: Colors.white, fontFamily: "MaruBuri"),
         ),
         automaticallyImplyLeading: true,
         backgroundColor: Colors.blue,
@@ -104,7 +104,9 @@ class PageView extends StatelessWidget {
                                 child: Text(
                                   pageBusiness.pageViewModel.nickNameCheckBtn,
                                   textAlign: TextAlign.center,
-                                  style: const TextStyle(color: Colors.white),
+                                  style: const TextStyle(
+                                      color: Colors.white,
+                                      fontFamily: "MaruBuri"),
                                 ),
                               );
                             })),
@@ -123,7 +125,8 @@ class PageView extends StatelessWidget {
                   ),
                   child: const Text(
                     'register membership',
-                    style: TextStyle(color: Colors.white),
+                    style:
+                        TextStyle(color: Colors.white, fontFamily: "MaruBuri"),
                   ),
                 ),
                 const SizedBox(height: 20.0),
@@ -166,9 +169,9 @@ class PageView extends StatelessWidget {
                         Text(
                           "Nickname generation rules",
                           style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                          ),
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                              fontFamily: "MaruBuri"),
                         ),
                         SizedBox(
                           height: 5,
@@ -180,8 +183,8 @@ class PageView extends StatelessWidget {
                           '<, >, (, ), #, ’, /, |\n'
                           '4. If you use an inappropriate nickname such as abusive language or sexual content, you may be forced to change your nickname.',
                           style: TextStyle(
-                            fontWeight: FontWeight.normal,
-                          ),
+                              fontWeight: FontWeight.normal,
+                              fontFamily: "MaruBuri"),
                         )
                       ],
                     ),

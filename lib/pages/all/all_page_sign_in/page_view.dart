@@ -43,10 +43,10 @@ class PageView extends StatelessWidget {
         title: const Text(
           'Sign in',
           style: TextStyle(
-            color: Colors.white,
-            fontSize: 24.0,
-            fontWeight: FontWeight.bold,
-          ),
+              color: Colors.white,
+              fontSize: 24.0,
+              fontWeight: FontWeight.bold,
+              fontFamily: "MaruBuri"),
         ),
         iconTheme: const IconThemeData(
           color: Colors.white, //change your color here
@@ -230,14 +230,13 @@ class PageView extends StatelessWidget {
                           'different account type',
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            color: Colors.white,
-                          ),
+                              color: Colors.white, fontFamily: "MaruBuri"),
                         )),
                         Text(
                           '✓',
                           style: TextStyle(
-                            color: Colors.yellowAccent,
-                          ),
+                              color: Colors.yellowAccent,
+                              fontFamily: "MaruBuri"),
                         )
                       ],
                     ),
@@ -261,14 +260,13 @@ class PageView extends StatelessWidget {
                           'Forgot Your Password?',
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            color: Colors.white,
-                          ),
+                              color: Colors.white, fontFamily: "MaruBuri"),
                         )),
                         Text(
                           '✓',
                           style: TextStyle(
-                            color: Colors.yellowAccent,
-                          ),
+                              color: Colors.yellowAccent,
+                              fontFamily: "MaruBuri"),
                         )
                       ],
                     ),
@@ -286,7 +284,10 @@ class PageView extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
                     )),
-                child: const Text('Sign in with Account'),
+                child: const Text(
+                  'Sign in with Account',
+                  style: TextStyle(fontFamily: "MaruBuri"),
+                ),
               ),
               const SizedBox(height: 30.0),
               GestureDetector(
@@ -304,14 +305,13 @@ class PageView extends StatelessWidget {
                             child: Text(
                           'Not a member?',
                           style: TextStyle(
-                            color: Colors.white,
-                          ),
+                              color: Colors.white, fontFamily: "MaruBuri"),
                         )),
                         Text(
                           'Register now',
                           style: TextStyle(
-                            color: Colors.yellowAccent,
-                          ),
+                              color: Colors.yellowAccent,
+                              fontFamily: "MaruBuri"),
                         )
                       ],
                     ),

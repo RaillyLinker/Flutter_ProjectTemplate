@@ -70,6 +70,7 @@ class PageView extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 20.0,
                           fontWeight: FontWeight.normal,
+                            fontFamily: "MaruBuri"
                         ),
                       ),
                     ),
@@ -81,6 +82,7 @@ class PageView extends StatelessWidget {
                       color: Colors.black,
                       fontSize: 24.0,
                       fontWeight: FontWeight.bold,
+                        fontFamily: "MaruBuri"
                     ),
                   ),
                   const SizedBox(height: 8.0),
@@ -91,6 +93,7 @@ class PageView extends StatelessWidget {
                       style: const TextStyle(
                         fontSize: 16.0,
                         fontWeight: FontWeight.normal,
+                          fontFamily: "MaruBuri"
                       ),
                     ),
                   ),
@@ -102,6 +105,7 @@ class PageView extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 16.0,
                         fontWeight: FontWeight.normal,
+                          fontFamily: "MaruBuri"
                       ),
                     ),
                   ),
@@ -144,6 +148,7 @@ class PageView extends StatelessWidget {
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Colors.blue,
+                              fontFamily: "MaruBuri"
                           ),
                         ),
                       ),
@@ -162,6 +167,7 @@ class PageView extends StatelessWidget {
                       'If you do not receive an SMS,\n- Make sure the PhoneNumber you entered is correct.\n- Check your spam folder.\n- Check if the message box has enough space.',
                       style: TextStyle(
                         fontWeight: FontWeight.normal,
+                          fontFamily: "MaruBuri"
                       ),
                     ),
                   ),
@@ -179,7 +185,7 @@ class PageView extends StatelessWidget {
                       child: Center(
                         child: Text(
                           'Check',
-                          style: TextStyle(color: Colors.white),
+                          style: TextStyle(color: Colors.white, fontFamily: "MaruBuri"),
                         ),
                       ),
                     ),

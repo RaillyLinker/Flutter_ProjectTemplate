@@ -61,6 +61,7 @@ class PageView extends StatelessWidget {
                       color: Colors.blue,
                       fontSize: 24.0,
                       fontWeight: FontWeight.bold,
+                        fontFamily: "MaruBuri"
                     ),
                   ),
                   const SizedBox(height: 8.0),
@@ -69,6 +70,7 @@ class PageView extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 16.0,
                       fontWeight: FontWeight.normal,
+                        fontFamily: "MaruBuri"
                     ),
                   ),
                   const SizedBox(height: 16.0),
@@ -95,7 +97,7 @@ class PageView extends StatelessWidget {
                             alignment: Alignment.center,
                             child: Text(
                               'Email',
-                              style: TextStyle(color: Colors.white),
+                              style: TextStyle(color: Colors.white, fontFamily: "MaruBuri"),
                             ),
                           ),
                         ],
@@ -126,7 +128,7 @@ class PageView extends StatelessWidget {
                             alignment: Alignment.center,
                             child: Text(
                               'Phone',
-                              style: TextStyle(color: Colors.white),
+                              style: TextStyle(color: Colors.white, fontFamily: "MaruBuri"),
                             ),
                           ),
                         ],

@@ -44,7 +44,7 @@ class PageView extends StatelessWidget {
             centerTitle: false,
             title: const Text(
               'Page And Router Test Sample',
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(color: Colors.white, fontFamily: "MaruBuri"),
             ),
             backgroundColor: Colors.blue,
             iconTheme: const IconThemeData(
@@ -82,22 +82,31 @@ class PageView extends StatelessWidget {
                   listTile = Column(
                     children: [
                       ListTile(
-                        title: Text(pageBusiness.pageViewModel
-                            .filteredSampleList[index].sampleItemTitle),
+                        title: Text(
+                          pageBusiness.pageViewModel.filteredSampleList[index]
+                              .sampleItemTitle,
+                          style: const TextStyle(fontFamily: "MaruBuri"),
+                        ),
                         subtitle: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(pageBusiness
-                                .pageViewModel
-                                .filteredSampleList[index]
-                                .sampleItemDescription),
+                            Text(
+                              pageBusiness
+                                  .pageViewModel
+                                  .filteredSampleList[index]
+                                  .sampleItemDescription,
+                              style: const TextStyle(fontFamily: "MaruBuri"),
+                            ),
                             const SizedBox(
                               height: 5,
                             ),
                             Row(
                               children: [
                                 const Expanded(
-                                    child: Text("( Input Page Parameter : ")),
+                                    child: Text(
+                                  "( Input Page Parameter : ",
+                                  style: TextStyle(fontFamily: "MaruBuri"),
+                                )),
                                 Expanded(child: BlocBuilder<
                                     page_business.BlocInputParamTextField,
                                     bool>(
@@ -142,7 +151,10 @@ class PageView extends StatelessWidget {
                                     );
                                   },
                                 )),
-                                const Text(" )"),
+                                const Text(
+                                  " )",
+                                  style: TextStyle(fontFamily: "MaruBuri"),
+                                ),
                               ],
                             ),
                           ],
@@ -159,10 +171,16 @@ class PageView extends StatelessWidget {
                   listTile = Column(
                     children: [
                       ListTile(
-                        title: Text(pageBusiness.pageViewModel
-                            .filteredSampleList[index].sampleItemTitle),
-                        subtitle: Text(pageBusiness.pageViewModel
-                            .filteredSampleList[index].sampleItemDescription),
+                        title: Text(
+                          pageBusiness.pageViewModel.filteredSampleList[index]
+                              .sampleItemTitle,
+                          style: const TextStyle(fontFamily: "MaruBuri"),
+                        ),
+                        subtitle: Text(
+                          pageBusiness.pageViewModel.filteredSampleList[index]
+                              .sampleItemDescription,
+                          style: const TextStyle(fontFamily: "MaruBuri"),
+                        ),
                         trailing: const Icon(Icons.chevron_right),
                       ),
                       const Divider(

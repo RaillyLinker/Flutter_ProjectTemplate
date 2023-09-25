@@ -40,7 +40,7 @@ class PageView extends StatelessWidget {
       appBar: AppBar(
         title: const Text(
           'Global Variable State Test Sample',
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: Colors.white, fontFamily: "MaruBuri"),
         ),
         automaticallyImplyLeading: true,
         backgroundColor: Colors.blue,
@@ -75,7 +75,7 @@ class PageView extends StatelessWidget {
                             style: const TextStyle(
                                 fontSize: 20,
                                 color: Colors.black,
-                                fontFamily: "SeoulNamsan"));
+                                fontFamily: "MaruBuri"));
                       },
                     ),
                   ),

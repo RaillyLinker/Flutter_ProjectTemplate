@@ -39,7 +39,7 @@ class PageView extends StatelessWidget {
       appBar: AppBar(
         title: const Text(
           'Url Launcher Sample',
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: Colors.white, fontFamily: "MaruBuri"),
         ),
         automaticallyImplyLeading: true,
         backgroundColor: Colors.blue,
@@ -61,7 +61,7 @@ class PageView extends StatelessWidget {
                       Text("Input : ",
                           style: TextStyle(
                               color: Colors.black,
-                              fontFamily: "SeoulNamsan",
+                              fontFamily: "MaruBuri",
                               fontWeight: FontWeight.bold)),
                     ],
                   ),
@@ -102,7 +102,8 @@ class PageView extends StatelessWidget {
                       ),
                       child: const Text(
                         "Launch Url In App",
-                        style: TextStyle(color: Colors.white),
+                        style: TextStyle(
+                            color: Colors.white, fontFamily: "MaruBuri"),
                       ),
                     ),
                   ),
@@ -119,7 +120,8 @@ class PageView extends StatelessWidget {
                       ),
                       child: const Text(
                         "Launch Url In Browser",
-                        style: TextStyle(color: Colors.white),
+                        style: TextStyle(
+                            color: Colors.white, fontFamily: "MaruBuri"),
                       ),
                     ),
                   ),
