@@ -67,7 +67,7 @@ Future<
     responseHeader = GetRequestSampleAsyncResponseHeaderVo(
         responseHeaderMap["content-type"]);
 
-    // responseBody 가 반환되는 조건
+    // !!!responseBody 가 반환되는 조건!!
     if (statusCode == 200) {
       Map<String, dynamic> responseBodyMap = response.data;
 
@@ -177,7 +177,7 @@ Future<
     responseHeader = PostRequestSampleAsyncResponseHeaderVo(
         responseHeaderMap["content-type"]);
 
-    // responseBody 가 반환되는 조건
+    // !!!responseBody 가 반환되는 조건!!
     if (statusCode == 200) {
       Map<String, dynamic> responseBodyMap = response.data;
 
@@ -291,7 +291,7 @@ Future<
     responseHeader = PostRequestSampleXwfuAsyncResponseHeaderVo(
         responseHeaderMap["content-type"]);
 
-    // responseBody 가 반환되는 조건
+    // !!!responseBody 가 반환되는 조건!!
     if (statusCode == 200) {
       Map<String, dynamic> responseBodyMap = response.data;
 
@@ -412,7 +412,7 @@ Future<
     responseHeader = PostRequestSampleMultipartFormDataAsyncResponseHeaderVo(
         responseHeaderMap["content-type"]);
 
-    // responseBody 가 반환되는 조건
+    // !!!responseBody 가 반환되는 조건!!
     if (statusCode == 200) {
       Map<String, dynamic> responseBodyMap = response.data;
 
@@ -516,7 +516,7 @@ Future<
     responseHeader = GetRequestReturnTextStringAsyncResponseHeaderVo(
         responseHeaderMap["content-type"]);
 
-    // responseBody 가 반환되는 조건
+    // !!!responseBody 가 반환되는 조건!!
     if (statusCode == 200) {
       responseBody = response.data;
     }
@@ -578,7 +578,7 @@ Future<
     responseHeader = GetRequestReturnTextHtmlAsyncResponseHeaderVo(
         responseHeaderMap["content-type"]);
 
-    // responseBody 가 반환되는 조건
+    // !!!responseBody 가 반환되는 조건!!
     if (statusCode == 200) {
       responseBody = response.data;
     }
