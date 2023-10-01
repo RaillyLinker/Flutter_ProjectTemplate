@@ -38,7 +38,7 @@ class PageView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          "Template Page",
+          "페이지 템플릿",
           style: TextStyle(color: Colors.white),
         ),
         automaticallyImplyLeading: true,
@@ -49,7 +49,7 @@ class PageView extends StatelessWidget {
       ),
       backgroundColor: const Color(0xFFFFFFFF),
       body: const Center(
-        child: Text("This is Template Page"),
+        child: Text("페이지 템플릿입니다."),
       ),
     );
   }

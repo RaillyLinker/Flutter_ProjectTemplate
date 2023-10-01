@@ -5,8 +5,9 @@ import 'package:dio/dio.dart';
 import 'package:flutter_project_template/repositories/network/network_repositories.dart'
     as network_repositories;
 import '../../../global_data/gd_const_config.dart' as gd_const_config;
-import '../../../global_functions/gf_my_functions.dart' as gf_my_functions;
-import '../../../global_classes/gc_my_classes.dart' as gc_my_classes;
+import '../../../global_functions/gf_template_functions.dart'
+as gf_template_functions;
+import '../../../global_classes/gc_template_classes.dart' as gc_template_classes;
 
 // [네트워크 API 파일]
 // 하나의 Dio 에 대응하는 API 함수 모음 파일
@@ -21,7 +22,7 @@ final serverDioObject = network_repositories.mainServerDio;
 
 // (Get 요청 테스트 (Query Parameter))
 Future<
-    gc_my_classes.NetworkResponseObject<GetRequestTestAsyncResponseHeaderVo,
+    gc_template_classes.NetworkResponseObject<GetRequestTestAsyncResponseHeaderVo,
         GetRequestTestAsyncResponseBodyVo>> getRequestTestAsync(
     GetRequestTestAsyncRequestQueryVo requestQueryVo) async {
   // !!!개발 / 배포 모드별 요청 Path 지정!!
@@ -50,7 +51,7 @@ Future<
       requestQueryVo.queryParamStringListNullable;
 
   // baseUrl + Request path + QueryParam
-  String requestUrlAndParam = gf_my_functions.mergeNetworkQueryParam(
+  String requestUrlAndParam = gf_template_functions.mergeNetworkQueryParam(
       requestQueryParams,
       (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
 
@@ -74,6 +75,10 @@ Future<
       // responseBody 가 반환되는 조건
       Map<String, dynamic> responseBodyMap = response.data;
 
+      // responseBody 로 List 타입이 넘어오면 List<>.from 으로 받고,
+      // Object 타입이 넘어오면 Map<String, dynamic> 으로 받고,
+      // Object List 타입이 넘어오면 List<Map<String, dynamic>> 으로 받아서 처리
+
       responseBody = GetRequestTestAsyncResponseBodyVo(
         responseBodyMap["queryParamString"],
         responseBodyMap["queryParamStringNullable"],
@@ -91,14 +96,14 @@ Future<
       );
     }
 
-    return gc_my_classes.NetworkResponseObject(
-        gc_my_classes.NetworkResponseObjectOk(
+    return gc_template_classes.NetworkResponseObject(
+        gc_template_classes.NetworkResponseObjectOk(
             statusCode, responseHeader, responseBody),
         null);
   } on DioException catch (e) {
     // 서버에 리퀘스트가 도달하지 못한 에러 + Dio 가 에러로 규정한 Status Code
     //  = 클라이언트 입장에선 그냥 네트워크 에러로 처리
-    return gc_my_classes.NetworkResponseObject(null, e);
+    return gc_template_classes.NetworkResponseObject(null, e);
   }
 }
 
@@ -174,7 +179,7 @@ class GetRequestTestAsyncResponseBodyVo {
 ////
 // (Post 요청 테스트 (Request Body))
 Future<
-    gc_my_classes.NetworkResponseObject<PostRequestTestAsyncResponseHeaderVo,
+    gc_template_classes.NetworkResponseObject<PostRequestTestAsyncResponseHeaderVo,
         PostRequestTestAsyncResponseBodyVo>> postRequestTestAsync(
     PostRequestTestAsyncRequestBodyVo requestBodyVo) async {
   // !!!개발 / 배포 모드별 요청 Path 지정!!
@@ -202,7 +207,7 @@ Future<
       requestBodyVo.requestBodyStringListNullable;
 
   // baseUrl + Request path + QueryParam
-  String requestUrlAndParam = gf_my_functions.mergeNetworkQueryParam(
+  String requestUrlAndParam = gf_template_functions.mergeNetworkQueryParam(
       requestQueryParams,
       (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
 
@@ -227,6 +232,10 @@ Future<
       // responseBody 가 반환되는 조건
       Map<String, dynamic> responseBodyMap = response.data;
 
+      // responseBody 로 List 타입이 넘어오면 List<>.from 으로 받고,
+      // Object 타입이 넘어오면 Map<String, dynamic> 으로 받고,
+      // Object List 타입이 넘어오면 List<Map<String, dynamic>> 으로 받아서 처리
+
       responseBody = PostRequestTestAsyncResponseBodyVo(
         responseBodyMap["responseBodyString"],
         responseBodyMap["responseBodyStringNullable"],
@@ -244,14 +253,14 @@ Future<
       );
     }
 
-    return gc_my_classes.NetworkResponseObject(
-        gc_my_classes.NetworkResponseObjectOk(
+    return gc_template_classes.NetworkResponseObject(
+        gc_template_classes.NetworkResponseObjectOk(
             statusCode, responseHeader, responseBody),
         null);
   } on DioException catch (e) {
     // 서버에 리퀘스트가 도달하지 못한 에러 + Dio 가 에러로 규정한 Status Code
     //  = 클라이언트 입장에선 그냥 네트워크 에러로 처리
-    return gc_my_classes.NetworkResponseObject(null, e);
+    return gc_template_classes.NetworkResponseObject(null, e);
   }
 }
 
@@ -327,7 +336,7 @@ class PostRequestTestAsyncResponseBodyVo {
 ////
 // (Post 요청 테스트 (x-www-form-urlencoded))
 Future<
-    gc_my_classes.NetworkResponseObject<
+    gc_template_classes.NetworkResponseObject<
         PostRequestTestXwfuAsyncResponseHeaderVo,
         PostRequestTestXwfuAsyncResponseBodyVo>> postRequestTestXwfuAsync(
     PostRequestTestXwfuAsyncRequestBodyVo requestBodyVo) async {
@@ -358,7 +367,7 @@ Future<
       requestBodyVo.requestFormStringListNullable;
 
   // baseUrl + Request path + QueryParam
-  String requestUrlAndParam = gf_my_functions.mergeNetworkQueryParam(
+  String requestUrlAndParam = gf_template_functions.mergeNetworkQueryParam(
       requestQueryParams,
       (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
 
@@ -384,6 +393,10 @@ Future<
       // responseBody 가 반환되는 조건
       Map<String, dynamic> responseBodyMap = response.data;
 
+      // responseBody 로 List 타입이 넘어오면 List<>.from 으로 받고,
+      // Object 타입이 넘어오면 Map<String, dynamic> 으로 받고,
+      // Object List 타입이 넘어오면 List<Map<String, dynamic>> 으로 받아서 처리
+
       responseBody = PostRequestTestXwfuAsyncResponseBodyVo(
         responseBodyMap["responseBodyString"],
         responseBodyMap["responseBodyStringNullable"],
@@ -401,14 +414,14 @@ Future<
       );
     }
 
-    return gc_my_classes.NetworkResponseObject(
-        gc_my_classes.NetworkResponseObjectOk(
+    return gc_template_classes.NetworkResponseObject(
+        gc_template_classes.NetworkResponseObjectOk(
             statusCode, responseHeader, responseBody),
         null);
   } on DioException catch (e) {
     // 서버에 리퀘스트가 도달하지 못한 에러 + Dio 가 에러로 규정한 Status Code
     //  = 클라이언트 입장에선 그냥 네트워크 에러로 처리
-    return gc_my_classes.NetworkResponseObject(null, e);
+    return gc_template_classes.NetworkResponseObject(null, e);
   }
 }
 
@@ -484,7 +497,7 @@ class PostRequestTestXwfuAsyncResponseBodyVo {
 ////
 // (Post 요청 테스트 (multipart/form-data))
 Future<
-        gc_my_classes.NetworkResponseObject<
+        gc_template_classes.NetworkResponseObject<
             PostRequestTestMultipartFormDataAsyncResponseHeaderVo,
             PostRequestTestMultipartFormDataAsyncResponseBodyVo>>
     postRequestTestMultipartFormDataAsync(
@@ -534,7 +547,7 @@ Future<
   FormData requestBody = FormData.fromMap(requestFormDataMap);
 
   // baseUrl + Request path + QueryParam
-  String requestUrlAndParam = gf_my_functions.mergeNetworkQueryParam(
+  String requestUrlAndParam = gf_template_functions.mergeNetworkQueryParam(
       requestQueryParams,
       (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
 
@@ -559,6 +572,10 @@ Future<
       // responseBody 가 반환되는 조건
       Map<String, dynamic> responseBodyMap = response.data;
 
+      // responseBody 로 List 타입이 넘어오면 List<>.from 으로 받고,
+      // Object 타입이 넘어오면 Map<String, dynamic> 으로 받고,
+      // Object List 타입이 넘어오면 List<Map<String, dynamic>> 으로 받아서 처리
+
       responseBody = PostRequestTestMultipartFormDataAsyncResponseBodyVo(
         responseBodyMap["responseBodyString"],
         responseBodyMap["responseBodyStringNullable"],
@@ -576,14 +593,14 @@ Future<
       );
     }
 
-    return gc_my_classes.NetworkResponseObject(
-        gc_my_classes.NetworkResponseObjectOk(
+    return gc_template_classes.NetworkResponseObject(
+        gc_template_classes.NetworkResponseObjectOk(
             statusCode, responseHeader, responseBody),
         null);
   } on DioException catch (e) {
     // 서버에 리퀘스트가 도달하지 못한 에러 + Dio 가 에러로 규정한 Status Code
     //  = 클라이언트 입장에선 그냥 네트워크 에러로 처리
-    return gc_my_classes.NetworkResponseObject(null, e);
+    return gc_template_classes.NetworkResponseObject(null, e);
   }
 }
 
@@ -664,7 +681,7 @@ class PostRequestTestMultipartFormDataAsyncResponseBodyVo {
 ////
 // (Post 요청 테스트 (multipart/form-data - JsonString))
 Future<
-        gc_my_classes.NetworkResponseObject<
+        gc_template_classes.NetworkResponseObject<
             PostRequestTestMultipartFormDataJsonStringAsyncResponseHeaderVo,
             PostRequestTestMultipartFormDataJsonStringAsyncResponseBodyVo>>
     postRequestTestMultipartFormDataJsonStringAsync(
@@ -694,7 +711,7 @@ Future<
   }
 
   // baseUrl + Request path + QueryParam
-  String requestUrlAndParam = gf_my_functions.mergeNetworkQueryParam(
+  String requestUrlAndParam = gf_template_functions.mergeNetworkQueryParam(
       requestQueryParams,
       (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
 
@@ -721,6 +738,10 @@ Future<
       // responseBody 가 반환되는 조건
       Map<String, dynamic> responseBodyMap = response.data;
 
+      // responseBody 로 List 타입이 넘어오면 List<>.from 으로 받고,
+      // Object 타입이 넘어오면 Map<String, dynamic> 으로 받고,
+      // Object List 타입이 넘어오면 List<Map<String, dynamic>> 으로 받아서 처리
+
       responseBody =
           PostRequestTestMultipartFormDataJsonStringAsyncResponseBodyVo(
         responseBodyMap["responseBodyString"],
@@ -739,14 +760,14 @@ Future<
       );
     }
 
-    return gc_my_classes.NetworkResponseObject(
-        gc_my_classes.NetworkResponseObjectOk(
+    return gc_template_classes.NetworkResponseObject(
+        gc_template_classes.NetworkResponseObjectOk(
             statusCode, responseHeader, responseBody),
         null);
   } on DioException catch (e) {
     // 서버에 리퀘스트가 도달하지 못한 에러 + Dio 가 에러로 규정한 Status Code
     //  = 클라이언트 입장에선 그냥 네트워크 에러로 처리
-    return gc_my_classes.NetworkResponseObject(null, e);
+    return gc_template_classes.NetworkResponseObject(null, e);
   }
 }
 
@@ -823,7 +844,7 @@ class PostRequestTestMultipartFormDataJsonStringAsyncResponseBodyVo {
 // (인위적 에러 수신 테스트)
 // 서버에서 송신하는 인위적 에러 수신 테스트
 Future<
-        gc_my_classes.NetworkResponseObject<
+        gc_template_classes.NetworkResponseObject<
             PostReceiveErrorTestAsyncResponseHeaderVo,
             PostReceiveErrorTestAsyncResponseBodyVo>>
     postReceiveErrorTestAsync() async {
@@ -838,7 +859,7 @@ Future<
   // !!!Request Object 를 Map 으로 만들기!!
 
   // baseUrl + Request path + QueryParam
-  String requestUrlAndParam = gf_my_functions.mergeNetworkQueryParam(
+  String requestUrlAndParam = gf_template_functions.mergeNetworkQueryParam(
       requestQueryParams,
       (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
 
@@ -859,14 +880,14 @@ Future<
 
     // !!!Response Map 을 Response Object 로 변경!!
     responseHeader = PostReceiveErrorTestAsyncResponseHeaderVo();
-    return gc_my_classes.NetworkResponseObject(
-        gc_my_classes.NetworkResponseObjectOk(
+    return gc_template_classes.NetworkResponseObject(
+        gc_template_classes.NetworkResponseObjectOk(
             statusCode, responseHeader, responseBody),
         null);
   } on DioException catch (e) {
     // 서버에 리퀘스트가 도달하지 못한 에러 + Dio 가 에러로 규정한 Status Code
     //  = 클라이언트 입장에선 그냥 네트워크 에러로 처리
-    return gc_my_classes.NetworkResponseObject(null, e);
+    return gc_template_classes.NetworkResponseObject(null, e);
   }
 }
 
@@ -880,7 +901,7 @@ class PostReceiveErrorTestAsyncResponseBodyVo {}
 // (text/string 반환 샘플)
 // Response Body 가 text/string 타입입니다.
 Future<
-    gc_my_classes.NetworkResponseObject<
+    gc_template_classes.NetworkResponseObject<
         GetRequestReturnTextStringAsyncResponseHeaderVo,
         String>> getRequestReturnTextStringAsync() async {
   // !!!개발 / 배포 모드별 요청 Path 지정!!
@@ -893,7 +914,7 @@ Future<
   // !!!Request Object 를 Map 으로 만들기!!
 
   // baseUrl + Request path + QueryParam
-  String requestUrlAndParam = gf_my_functions.mergeNetworkQueryParam(
+  String requestUrlAndParam = gf_template_functions.mergeNetworkQueryParam(
       requestQueryParams,
       (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
 
@@ -916,17 +937,21 @@ Future<
     if (statusCode == 200) {
       // responseBody 가 반환되는 조건
 
+      // responseBody 로 List 타입이 넘어오면 List<>.from 으로 받고,
+      // Object 타입이 넘어오면 Map<String, dynamic> 으로 받고,
+      // Object List 타입이 넘어오면 List<Map<String, dynamic>> 으로 받아서 처리
+
       responseBody = response.data;
     }
 
-    return gc_my_classes.NetworkResponseObject(
-        gc_my_classes.NetworkResponseObjectOk(
+    return gc_template_classes.NetworkResponseObject(
+        gc_template_classes.NetworkResponseObjectOk(
             statusCode, responseHeader, responseBody),
         null);
   } on DioException catch (e) {
     // 서버에 리퀘스트가 도달하지 못한 에러 + Dio 가 에러로 규정한 Status Code
     //  = 클라이언트 입장에선 그냥 네트워크 에러로 처리
-    return gc_my_classes.NetworkResponseObject(null, e);
+    return gc_template_classes.NetworkResponseObject(null, e);
   }
 }
 
@@ -942,7 +967,7 @@ class GetRequestReturnTextStringAsyncResponseBodyVo {
 // (text/html 반환 샘플)
 // Response Body 가 text/html 타입입니다.
 Future<
-    gc_my_classes.NetworkResponseObject<
+    gc_template_classes.NetworkResponseObject<
         GetRequestReturnTextHtmlAsyncResponseHeaderVo,
         String>> getRequestReturnTextHtmlAsync() async {
   // !!!개발 / 배포 모드별 요청 Path 지정!!
@@ -955,7 +980,7 @@ Future<
   // !!!Request Object 를 Map 으로 만들기!!
 
   // baseUrl + Request path + QueryParam
-  String requestUrlAndParam = gf_my_functions.mergeNetworkQueryParam(
+  String requestUrlAndParam = gf_template_functions.mergeNetworkQueryParam(
       requestQueryParams,
       (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
 
@@ -978,17 +1003,21 @@ Future<
     if (statusCode == 200) {
       // responseBody 가 반환되는 조건
 
+      // responseBody 로 List 타입이 넘어오면 List<>.from 으로 받고,
+      // Object 타입이 넘어오면 Map<String, dynamic> 으로 받고,
+      // Object List 타입이 넘어오면 List<Map<String, dynamic>> 으로 받아서 처리
+
       responseBody = response.data;
     }
 
-    return gc_my_classes.NetworkResponseObject(
-        gc_my_classes.NetworkResponseObjectOk(
+    return gc_template_classes.NetworkResponseObject(
+        gc_template_classes.NetworkResponseObjectOk(
             statusCode, responseHeader, responseBody),
         null);
   } on DioException catch (e) {
     // 서버에 리퀘스트가 도달하지 못한 에러 + Dio 가 에러로 규정한 Status Code
     //  = 클라이언트 입장에선 그냥 네트워크 에러로 처리
-    return gc_my_classes.NetworkResponseObject(null, e);
+    return gc_template_classes.NetworkResponseObject(null, e);
   }
 }
 
@@ -1003,14 +1032,14 @@ class GetRequestReturnTextHtmlAsyncResponseBodyVo {
 ////
 // (서버에 저장된 어플리케이션 버전 정보 가져오기)
 Future<
-        gc_my_classes.NetworkResponseObject<
+        gc_template_classes.NetworkResponseObject<
             GetMobileAppVersionInfoAsyncResponseHeaderVo,
             GetMobileAppVersionInfoAsyncResponseBodyVo>>
     getClientApplicationVersionInfoAsync(
         GetMobileAppVersionInfoAsyncRequestQueryVo requestQueryVo) async {
   // !!!서버 API 가 준비되면 더미 데이터 return 제거!!
-  return gc_my_classes.NetworkResponseObject(
-      gc_my_classes.NetworkResponseObjectOk(
+  return gc_template_classes.NetworkResponseObject(
+      gc_template_classes.NetworkResponseObjectOk(
           200,
           GetMobileAppVersionInfoAsyncResponseHeaderVo(),
           GetMobileAppVersionInfoAsyncResponseBodyVo("1.0.0", "1.0.0")),
@@ -1027,7 +1056,7 @@ Future<
   requestQueryParams["platformCode"] = requestQueryVo.platformCode;
 
   // baseUrl + Request path + QueryParam
-  String requestUrlAndParam = gf_my_functions.mergeNetworkQueryParam(
+  String requestUrlAndParam = gf_template_functions.mergeNetworkQueryParam(
       requestQueryParams,
       (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
 
@@ -1051,19 +1080,23 @@ Future<
       // responseBody 가 반환되는 조건
       Map<String, dynamic> responseBodyMap = response.data;
 
+      // responseBody 로 List 타입이 넘어오면 List<>.from 으로 받고,
+      // Object 타입이 넘어오면 Map<String, dynamic> 으로 받고,
+      // Object List 타입이 넘어오면 List<Map<String, dynamic>> 으로 받아서 처리
+
       responseBody = GetMobileAppVersionInfoAsyncResponseBodyVo(
           responseBodyMap["minUpgradeVersion"],
           responseBodyMap["latestVersion"]);
     }
 
-    return gc_my_classes.NetworkResponseObject(
-        gc_my_classes.NetworkResponseObjectOk(
+    return gc_template_classes.NetworkResponseObject(
+        gc_template_classes.NetworkResponseObjectOk(
             statusCode, responseHeader, responseBody),
         null);
   } on DioException catch (e) {
     // 서버에 리퀘스트가 도달하지 못한 에러 + Dio 가 에러로 규정한 Status Code
     //  = 클라이언트 입장에선 그냥 네트워크 에러로 처리
-    return gc_my_classes.NetworkResponseObject(null, e);
+    return gc_template_classes.NetworkResponseObject(null, e);
   }
 }
 
@@ -1092,7 +1125,7 @@ class GetMobileAppVersionInfoAsyncResponseBodyVo {
 // (로그인 요청 with password)
 // 서버 로그인 검증 요청 후 인증 정보 수신
 Future<
-    gc_my_classes.NetworkResponseObject<
+    gc_template_classes.NetworkResponseObject<
         PostSignInWithPasswordAsyncResponseHeaderVo,
         PostSignInWithPasswordAsyncResponseBodyVo>> postSignInWithPasswordAsync(
     PostSignInWithPasswordAsyncRequestBodyVo requestBodyVo) async {
@@ -1110,7 +1143,7 @@ Future<
   requestBody["password"] = requestBodyVo.password;
 
   // baseUrl + Request path + QueryParam
-  String requestUrlAndParam = gf_my_functions.mergeNetworkQueryParam(
+  String requestUrlAndParam = gf_template_functions.mergeNetworkQueryParam(
       requestQueryParams,
       (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
 
@@ -1139,6 +1172,10 @@ Future<
       // responseBody 가 반환되는 조건
       Map<String, dynamic> responseBodyMap = response.data;
 
+      // responseBody 로 List 타입이 넘어오면 List<>.from 으로 받고,
+      // Object 타입이 넘어오면 Map<String, dynamic> 으로 받고,
+      // Object List 타입이 넘어오면 List<Map<String, dynamic>> 으로 받아서 처리
+
       var oAuth2List =
           List<Map<String, dynamic>>.from(responseBodyMap["myOAuth2List"]);
       List<PostSignInWithPasswordAsyncResponseBodyVoOAuth2Info>
@@ -1163,14 +1200,14 @@ Future<
           oAuth2ObjectList);
     }
 
-    return gc_my_classes.NetworkResponseObject(
-        gc_my_classes.NetworkResponseObjectOk(
+    return gc_template_classes.NetworkResponseObject(
+        gc_template_classes.NetworkResponseObjectOk(
             statusCode, responseHeader, responseBody),
         null);
   } on DioException catch (e) {
     // 서버에 리퀘스트가 도달하지 못한 에러 + Dio 가 에러로 규정한 Status Code
     //  = 클라이언트 입장에선 그냥 네트워크 에러로 처리
-    return gc_my_classes.NetworkResponseObject(null, e);
+    return gc_template_classes.NetworkResponseObject(null, e);
   }
 }
 
@@ -1235,7 +1272,7 @@ class PostSignInWithPasswordAsyncResponseBodyVoOAuth2Info {
 // (로그아웃 요청 <>)
 // 서버 로그인 검증 요청 후 인증 정보 수신
 Future<
-    gc_my_classes.NetworkResponseObject<PostSignOutAsyncResponseHeaderVo,
+    gc_template_classes.NetworkResponseObject<PostSignOutAsyncResponseHeaderVo,
         PostSignOutAsyncResponseBodyVo>> postSignOutAsync(
     PostSignOutAsyncRequestHeaderVo requestHeaderVo) async {
   // !!!개발 / 배포 모드별 요청 Path 지정!!
@@ -1250,7 +1287,7 @@ Future<
   requestHeaders["Authorization"] = requestHeaderVo.authorization;
 
   // baseUrl + Request path + QueryParam
-  String requestUrlAndParam = gf_my_functions.mergeNetworkQueryParam(
+  String requestUrlAndParam = gf_template_functions.mergeNetworkQueryParam(
       requestQueryParams,
       (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
 
@@ -1271,14 +1308,14 @@ Future<
 
     // !!!Response Map 을 Response Object 로 변경!!
     responseHeader = PostSignOutAsyncResponseHeaderVo();
-    return gc_my_classes.NetworkResponseObject(
-        gc_my_classes.NetworkResponseObjectOk(
+    return gc_template_classes.NetworkResponseObject(
+        gc_template_classes.NetworkResponseObjectOk(
             statusCode, responseHeader, responseBody),
         null);
   } on DioException catch (e) {
     // 서버에 리퀘스트가 도달하지 못한 에러 + Dio 가 에러로 규정한 Status Code
     //  = 클라이언트 입장에선 그냥 네트워크 에러로 처리
-    return gc_my_classes.NetworkResponseObject(null, e);
+    return gc_template_classes.NetworkResponseObject(null, e);
   }
 }
 
@@ -1299,7 +1336,7 @@ class PostSignOutAsyncResponseBodyVo {}
 // (토큰 재발급 요청 <>)
 // 엑세스 토큰 및 리플레시 토큰 재발행
 Future<
-    gc_my_classes.NetworkResponseObject<PostReissueAsyncResponseHeaderVo,
+    gc_template_classes.NetworkResponseObject<PostReissueAsyncResponseHeaderVo,
         PostReissueAsyncResponseBodyVo>> postReissueAsync(
     PostReissueAsyncRequestHeaderVo requestHeaderVo,
     PostReissueAsyncRequestBodyVo requestBodyVo) async {
@@ -1316,7 +1353,7 @@ Future<
   requestBody["refreshToken"] = requestBodyVo.refreshToken;
 
   // baseUrl + Request path + QueryParam
-  String requestUrlAndParam = gf_my_functions.mergeNetworkQueryParam(
+  String requestUrlAndParam = gf_template_functions.mergeNetworkQueryParam(
       requestQueryParams,
       (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
 
@@ -1345,6 +1382,10 @@ Future<
       // responseBody 가 반환되는 조건
       Map<String, dynamic> responseBodyMap = response.data;
 
+      // responseBody 로 List 타입이 넘어오면 List<>.from 으로 받고,
+      // Object 타입이 넘어오면 Map<String, dynamic> 으로 받고,
+      // Object List 타입이 넘어오면 List<Map<String, dynamic>> 으로 받아서 처리
+
       var oAuth2List =
           List<Map<String, dynamic>>.from(responseBodyMap["myOAuth2List"]);
       List<PostReissueAsyncResponseBodyVoOAuth2Info> oAuth2ObjectList = [];
@@ -1367,14 +1408,14 @@ Future<
           oAuth2ObjectList);
     }
 
-    return gc_my_classes.NetworkResponseObject(
-        gc_my_classes.NetworkResponseObjectOk(
+    return gc_template_classes.NetworkResponseObject(
+        gc_template_classes.NetworkResponseObjectOk(
             statusCode, responseHeader, responseBody),
         null);
   } on DioException catch (e) {
     // 서버에 리퀘스트가 도달하지 못한 에러 + Dio 가 에러로 규정한 Status Code
     //  = 클라이언트 입장에선 그냥 네트워크 에러로 처리
-    return gc_my_classes.NetworkResponseObject(null, e);
+    return gc_template_classes.NetworkResponseObject(null, e);
   }
 }
 
@@ -1445,7 +1486,7 @@ class PostReissueAsyncResponseBodyVoOAuth2Info {
 ////
 // (서버 접속 테스트)
 Future<
-    gc_my_classes.NetworkResponseObject<GetTestConnectAsyncResponseHeaderVo,
+    gc_template_classes.NetworkResponseObject<GetTestConnectAsyncResponseHeaderVo,
         GetTestConnectAsyncResponseBodyVo>> getTestConnectAsync() async {
   // !!!개발 / 배포 모드별 요청 Path 지정!!
   String devServerUrl = "/tk/ra/test/connect";
@@ -1457,7 +1498,7 @@ Future<
   // !!!Request Object 를 Map 으로 만들기!!
 
   // baseUrl + Request path + QueryParam
-  String requestUrlAndParam = gf_my_functions.mergeNetworkQueryParam(
+  String requestUrlAndParam = gf_template_functions.mergeNetworkQueryParam(
       requestQueryParams,
       (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
 
@@ -1481,18 +1522,22 @@ Future<
       // responseBody 가 반환되는 조건
       Map<String, dynamic> responseBodyMap = response.data;
 
+      // responseBody 로 List 타입이 넘어오면 List<>.from 으로 받고,
+      // Object 타입이 넘어오면 Map<String, dynamic> 으로 받고,
+      // Object List 타입이 넘어오면 List<Map<String, dynamic>> 으로 받아서 처리
+
       responseBody =
           GetTestConnectAsyncResponseBodyVo(responseBodyMap["result"]);
     }
 
-    return gc_my_classes.NetworkResponseObject(
-        gc_my_classes.NetworkResponseObjectOk(
+    return gc_template_classes.NetworkResponseObject(
+        gc_template_classes.NetworkResponseObjectOk(
             statusCode, responseHeader, responseBody),
         null);
   } on DioException catch (e) {
     // 서버에 리퀘스트가 도달하지 못한 에러 + Dio 가 에러로 규정한 Status Code
     //  = 클라이언트 입장에선 그냥 네트워크 에러로 처리
-    return gc_my_classes.NetworkResponseObject(null, e);
+    return gc_template_classes.NetworkResponseObject(null, e);
   }
 }
 
@@ -1515,7 +1560,7 @@ class GetTestConnectAsyncResponseBodyVo {
 // (무권한 로그인 진입 테스트 <>)
 // Authorization null 이라면 401 에러 반환
 Future<
-        gc_my_classes.NetworkResponseObject<
+        gc_template_classes.NetworkResponseObject<
             GetTestConnectForSignedInAsyncResponseHeaderVo,
             GetTestConnectForSignedInAsyncResponseBodyVo>>
     getTestConnectForSignedInAsync(
@@ -1533,7 +1578,7 @@ Future<
   }
 
   // baseUrl + Request path + QueryParam
-  String requestUrlAndParam = gf_my_functions.mergeNetworkQueryParam(
+  String requestUrlAndParam = gf_template_functions.mergeNetworkQueryParam(
       requestQueryParams,
       (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
 
@@ -1557,18 +1602,22 @@ Future<
       // responseBody 가 반환되는 조건
       Map<String, dynamic> responseBodyMap = response.data;
 
+      // responseBody 로 List 타입이 넘어오면 List<>.from 으로 받고,
+      // Object 타입이 넘어오면 Map<String, dynamic> 으로 받고,
+      // Object List 타입이 넘어오면 List<Map<String, dynamic>> 으로 받아서 처리
+
       responseBody = GetTestConnectForSignedInAsyncResponseBodyVo(
           responseBodyMap["result"]);
     }
 
-    return gc_my_classes.NetworkResponseObject(
-        gc_my_classes.NetworkResponseObjectOk(
+    return gc_template_classes.NetworkResponseObject(
+        gc_template_classes.NetworkResponseObjectOk(
             statusCode, responseHeader, responseBody),
         null);
   } on DioException catch (e) {
     // 서버에 리퀘스트가 도달하지 못한 에러 + Dio 가 에러로 규정한 Status Code
     //  = 클라이언트 입장에선 그냥 네트워크 에러로 처리
-    return gc_my_classes.NetworkResponseObject(null, e);
+    return gc_template_classes.NetworkResponseObject(null, e);
   }
 }
 
@@ -1593,7 +1642,7 @@ class GetTestConnectForSignedInAsyncResponseBodyVo {
 // (DEVELOPER 권한 진입 테스트 <'ADMIN' or 'DEVELOPER'>)
 // Authorization null 이라면 401 에러 반환
 Future<
-        gc_my_classes.NetworkResponseObject<
+        gc_template_classes.NetworkResponseObject<
             GetTestConnectForDeveloperAsyncResponseHeaderVo,
             GetTestConnectForDeveloperAsyncResponseBodyVo>>
     getTestConnectForDeveloperAsync(
@@ -1611,7 +1660,7 @@ Future<
   }
 
   // baseUrl + Request path + QueryParam
-  String requestUrlAndParam = gf_my_functions.mergeNetworkQueryParam(
+  String requestUrlAndParam = gf_template_functions.mergeNetworkQueryParam(
       requestQueryParams,
       (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
 
@@ -1635,18 +1684,22 @@ Future<
       // responseBody 가 반환되는 조건
       Map<String, dynamic> responseBodyMap = response.data;
 
+      // responseBody 로 List 타입이 넘어오면 List<>.from 으로 받고,
+      // Object 타입이 넘어오면 Map<String, dynamic> 으로 받고,
+      // Object List 타입이 넘어오면 List<Map<String, dynamic>> 으로 받아서 처리
+
       responseBody = GetTestConnectForDeveloperAsyncResponseBodyVo(
           responseBodyMap["result"]);
     }
 
-    return gc_my_classes.NetworkResponseObject(
-        gc_my_classes.NetworkResponseObjectOk(
+    return gc_template_classes.NetworkResponseObject(
+        gc_template_classes.NetworkResponseObjectOk(
             statusCode, responseHeader, responseBody),
         null);
   } on DioException catch (e) {
     // 서버에 리퀘스트가 도달하지 못한 에러 + Dio 가 에러로 규정한 Status Code
     //  = 클라이언트 입장에선 그냥 네트워크 에러로 처리
-    return gc_my_classes.NetworkResponseObject(null, e);
+    return gc_template_classes.NetworkResponseObject(null, e);
   }
 }
 
@@ -1671,7 +1724,7 @@ class GetTestConnectForDeveloperAsyncResponseBodyVo {
 // (ADMIN 권한 진입 테스트 <'ADMIN'>)
 // Authorization null 이라면 401 에러 반환
 Future<
-    gc_my_classes.NetworkResponseObject<
+    gc_template_classes.NetworkResponseObject<
         GetTestConnectForAdminAsyncResponseHeaderVo,
         GetTestConnectForAdminAsyncResponseBodyVo>> getTestConnectForAdminAsync(
     GetTestConnectForAdminAsyncRequestHeaderVo requestHeaderVo) async {
@@ -1688,7 +1741,7 @@ Future<
   }
 
   // baseUrl + Request path + QueryParam
-  String requestUrlAndParam = gf_my_functions.mergeNetworkQueryParam(
+  String requestUrlAndParam = gf_template_functions.mergeNetworkQueryParam(
       requestQueryParams,
       (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
 
@@ -1712,18 +1765,22 @@ Future<
       // responseBody 가 반환되는 조건
       Map<String, dynamic> responseBodyMap = response.data;
 
+      // responseBody 로 List 타입이 넘어오면 List<>.from 으로 받고,
+      // Object 타입이 넘어오면 Map<String, dynamic> 으로 받고,
+      // Object List 타입이 넘어오면 List<Map<String, dynamic>> 으로 받아서 처리
+
       responseBody =
           GetTestConnectForAdminAsyncResponseBodyVo(responseBodyMap["result"]);
     }
 
-    return gc_my_classes.NetworkResponseObject(
-        gc_my_classes.NetworkResponseObjectOk(
+    return gc_template_classes.NetworkResponseObject(
+        gc_template_classes.NetworkResponseObjectOk(
             statusCode, responseHeader, responseBody),
         null);
   } on DioException catch (e) {
     // 서버에 리퀘스트가 도달하지 못한 에러 + Dio 가 에러로 규정한 Status Code
     //  = 클라이언트 입장에선 그냥 네트워크 에러로 처리
-    return gc_my_classes.NetworkResponseObject(null, e);
+    return gc_template_classes.NetworkResponseObject(null, e);
   }
 }
 
@@ -1747,7 +1804,7 @@ class GetTestConnectForAdminAsyncResponseBodyVo {
 ////
 // (닉네임 중복 검사)
 Future<
-        gc_my_classes.NetworkResponseObject<
+        gc_template_classes.NetworkResponseObject<
             GetNicknameDuplicateCheckAsyncResponseHeaderVo,
             GetNicknameDuplicateCheckAsyncResponseBodyVo>>
     getNicknameDuplicateCheckAsync(
@@ -1763,7 +1820,7 @@ Future<
   requestQueryParams["nickName"] = requestQueryVo.nickName;
 
   // baseUrl + Request path + QueryParam
-  String requestUrlAndParam = gf_my_functions.mergeNetworkQueryParam(
+  String requestUrlAndParam = gf_template_functions.mergeNetworkQueryParam(
       requestQueryParams,
       (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
 
@@ -1787,19 +1844,23 @@ Future<
       // responseBody 가 반환되는 조건
       Map<String, dynamic> responseBodyMap = response.data;
 
+      // responseBody 로 List 타입이 넘어오면 List<>.from 으로 받고,
+      // Object 타입이 넘어오면 Map<String, dynamic> 으로 받고,
+      // Object List 타입이 넘어오면 List<Map<String, dynamic>> 으로 받아서 처리
+
       responseBody = GetNicknameDuplicateCheckAsyncResponseBodyVo(
         responseBodyMap["duplicated"],
       );
     }
 
-    return gc_my_classes.NetworkResponseObject(
-        gc_my_classes.NetworkResponseObjectOk(
+    return gc_template_classes.NetworkResponseObject(
+        gc_template_classes.NetworkResponseObjectOk(
             statusCode, responseHeader, responseBody),
         null);
   } on DioException catch (e) {
     // 서버에 리퀘스트가 도달하지 못한 에러 + Dio 가 에러로 규정한 Status Code
     //  = 클라이언트 입장에선 그냥 네트워크 에러로 처리
-    return gc_my_classes.NetworkResponseObject(null, e);
+    return gc_template_classes.NetworkResponseObject(null, e);
   }
 }
 
@@ -1826,7 +1887,7 @@ class GetNicknameDuplicateCheckAsyncResponseBodyVo {
 ////
 // (이메일 회원가입 본인 검증 이메일 보내기)
 Future<
-        gc_my_classes.NetworkResponseObject<
+        gc_template_classes.NetworkResponseObject<
             PostRegisterWithEmailVerificationAsyncResponseHeaderVo,
             PostRegisterWithEmailVerificationAsyncResponseBodyVo>>
     postRegisterWithEmailVerificationAsync(
@@ -1844,7 +1905,7 @@ Future<
   requestBody["email"] = requestBodyVo.email;
 
   // baseUrl + Request path + QueryParam
-  String requestUrlAndParam = gf_my_functions.mergeNetworkQueryParam(
+  String requestUrlAndParam = gf_template_functions.mergeNetworkQueryParam(
       requestQueryParams,
       (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
 
@@ -1874,19 +1935,23 @@ Future<
       // responseBody 가 반환되는 조건
       Map<String, dynamic> responseBodyMap = response.data;
 
+      // responseBody 로 List 타입이 넘어오면 List<>.from 으로 받고,
+      // Object 타입이 넘어오면 Map<String, dynamic> 으로 받고,
+      // Object List 타입이 넘어오면 List<Map<String, dynamic>> 으로 받아서 처리
+
       responseBody = PostRegisterWithEmailVerificationAsyncResponseBodyVo(
         responseBodyMap["expireWhen"],
       );
     }
 
-    return gc_my_classes.NetworkResponseObject(
-        gc_my_classes.NetworkResponseObjectOk(
+    return gc_template_classes.NetworkResponseObject(
+        gc_template_classes.NetworkResponseObjectOk(
             statusCode, responseHeader, responseBody),
         null);
   } on DioException catch (e) {
     // 서버에 리퀘스트가 도달하지 못한 에러 + Dio 가 에러로 규정한 Status Code
     //  = 클라이언트 입장에선 그냥 네트워크 에러로 처리
-    return gc_my_classes.NetworkResponseObject(null, e);
+    return gc_template_classes.NetworkResponseObject(null, e);
   }
 }
 
@@ -1916,7 +1981,7 @@ class PostRegisterWithEmailVerificationAsyncResponseBodyVo {
 ////
 // (이메일 회원가입 본인 확인 이메일에서 받은 코드 검증하기)
 Future<
-        gc_my_classes.NetworkResponseObject<
+        gc_template_classes.NetworkResponseObject<
             GetRegisterWithEmailVerificationCheckAsyncResponseHeaderVo,
             GetRegisterWithEmailVerificationCheckAsyncResponseBodyVo>>
     getRegisterWithEmailVerificationCheckAsync(
@@ -1934,7 +1999,7 @@ Future<
   requestQueryParams["verificationCode"] = requestQueryVo.verificationCode;
 
   // baseUrl + Request path + QueryParam
-  String requestUrlAndParam = gf_my_functions.mergeNetworkQueryParam(
+  String requestUrlAndParam = gf_template_functions.mergeNetworkQueryParam(
       requestQueryParams,
       (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
 
@@ -1961,6 +2026,10 @@ Future<
       // responseBody 가 반환되는 조건
       Map<String, dynamic> responseBodyMap = response.data;
 
+      // responseBody 로 List 타입이 넘어오면 List<>.from 으로 받고,
+      // Object 타입이 넘어오면 Map<String, dynamic> 으로 받고,
+      // Object List 타입이 넘어오면 List<Map<String, dynamic>> 으로 받아서 처리
+
       responseBody = GetRegisterWithEmailVerificationCheckAsyncResponseBodyVo(
         responseBodyMap["isVerified"],
         (responseBodyMap.containsKey("expireWhen"))
@@ -1969,14 +2038,14 @@ Future<
       );
     }
 
-    return gc_my_classes.NetworkResponseObject(
-        gc_my_classes.NetworkResponseObjectOk(
+    return gc_template_classes.NetworkResponseObject(
+        gc_template_classes.NetworkResponseObjectOk(
             statusCode, responseHeader, responseBody),
         null);
   } on DioException catch (e) {
     // 서버에 리퀘스트가 도달하지 못한 에러 + Dio 가 에러로 규정한 Status Code
     //  = 클라이언트 입장에선 그냥 네트워크 에러로 처리
-    return gc_my_classes.NetworkResponseObject(null, e);
+    return gc_template_classes.NetworkResponseObject(null, e);
   }
 }
 
@@ -2013,7 +2082,7 @@ class GetRegisterWithEmailVerificationCheckAsyncResponseBodyVo {
 ////
 // (Email 회원가입)
 Future<
-    gc_my_classes.NetworkResponseObject<
+    gc_template_classes.NetworkResponseObject<
         PostRegisterWithEmailAsyncResponseHeaderVo,
         PostRegisterWithEmailAsyncResponseBodyVo>> postRegisterWithEmailAsync(
     PostRegisterWithEmailAsyncRequestBodyVo requestBodyVo) async {
@@ -2032,7 +2101,7 @@ Future<
   requestBody["verificationCode"] = requestBodyVo.verificationCode;
 
   // baseUrl + Request path + QueryParam
-  String requestUrlAndParam = gf_my_functions.mergeNetworkQueryParam(
+  String requestUrlAndParam = gf_template_functions.mergeNetworkQueryParam(
       requestQueryParams,
       (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
 
@@ -2061,14 +2130,14 @@ Future<
       responseBody = PostRegisterWithEmailAsyncResponseBodyVo();
     }
 
-    return gc_my_classes.NetworkResponseObject(
-        gc_my_classes.NetworkResponseObjectOk(
+    return gc_template_classes.NetworkResponseObject(
+        gc_template_classes.NetworkResponseObjectOk(
             statusCode, responseHeader, responseBody),
         null);
   } on DioException catch (e) {
     // 서버에 리퀘스트가 도달하지 못한 에러 + Dio 가 에러로 규정한 Status Code
     //  = 클라이언트 입장에선 그냥 네트워크 에러로 처리
-    return gc_my_classes.NetworkResponseObject(null, e);
+    return gc_template_classes.NetworkResponseObject(null, e);
   }
 }
 
@@ -2103,7 +2172,7 @@ class PostRegisterWithEmailAsyncResponseBodyVo {}
 ////
 // (전화번호 회원가입 본인 검증 문자 보내기)
 Future<
-        gc_my_classes.NetworkResponseObject<
+        gc_template_classes.NetworkResponseObject<
             PostRegisterWithPhoneNumberVerificationAsyncResponseHeaderVo,
             PostRegisterWithPhoneNumberVerificationAsyncResponseBodyVo>>
     postRegisterWithPhoneNumberVerificationAsync(
@@ -2121,7 +2190,7 @@ Future<
   requestBody["phoneNumber"] = requestBodyVo.phoneNumber;
 
   // baseUrl + Request path + QueryParam
-  String requestUrlAndParam = gf_my_functions.mergeNetworkQueryParam(
+  String requestUrlAndParam = gf_template_functions.mergeNetworkQueryParam(
       requestQueryParams,
       (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
 
@@ -2157,14 +2226,14 @@ Future<
       );
     }
 
-    return gc_my_classes.NetworkResponseObject(
-        gc_my_classes.NetworkResponseObjectOk(
+    return gc_template_classes.NetworkResponseObject(
+        gc_template_classes.NetworkResponseObjectOk(
             statusCode, responseHeader, responseBody),
         null);
   } on DioException catch (e) {
     // 서버에 리퀘스트가 도달하지 못한 에러 + Dio 가 에러로 규정한 Status Code
     //  = 클라이언트 입장에선 그냥 네트워크 에러로 처리
-    return gc_my_classes.NetworkResponseObject(null, e);
+    return gc_template_classes.NetworkResponseObject(null, e);
   }
 }
 
@@ -2195,7 +2264,7 @@ class PostRegisterWithPhoneNumberVerificationAsyncResponseBodyVo {
 ////
 // (전화번호 회원가입 본인 확인 문자에서 받은 코드 검증하기)
 Future<
-        gc_my_classes.NetworkResponseObject<
+        gc_template_classes.NetworkResponseObject<
             GetRegisterWithPhoneNumberVerificationCheckAsyncResponseHeaderVo,
             GetRegisterWithPhoneNumberVerificationCheckAsyncResponseBodyVo>>
     getRegisterWithPhoneNumberVerificationCheckAsync(
@@ -2215,7 +2284,7 @@ Future<
   requestQueryParams["verificationCode"] = requestQueryVo.verificationCode;
 
   // baseUrl + Request path + QueryParam
-  String requestUrlAndParam = gf_my_functions.mergeNetworkQueryParam(
+  String requestUrlAndParam = gf_template_functions.mergeNetworkQueryParam(
       requestQueryParams,
       (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
 
@@ -2254,14 +2323,14 @@ Future<
       );
     }
 
-    return gc_my_classes.NetworkResponseObject(
-        gc_my_classes.NetworkResponseObjectOk(
+    return gc_template_classes.NetworkResponseObject(
+        gc_template_classes.NetworkResponseObjectOk(
             statusCode, responseHeader, responseBody),
         null);
   } on DioException catch (e) {
     // 서버에 리퀘스트가 도달하지 못한 에러 + Dio 가 에러로 규정한 Status Code
     //  = 클라이언트 입장에선 그냥 네트워크 에러로 처리
-    return gc_my_classes.NetworkResponseObject(null, e);
+    return gc_template_classes.NetworkResponseObject(null, e);
   }
 }
 
@@ -2298,7 +2367,7 @@ class GetRegisterWithPhoneNumberVerificationCheckAsyncResponseBodyVo {
 ////
 // (전화번호 회원가입)
 Future<
-        gc_my_classes.NetworkResponseObject<
+        gc_template_classes.NetworkResponseObject<
             PostRegisterWithPhoneNumberAsyncResponseHeaderVo,
             PostRegisterWithPhoneNumberAsyncResponseBodyVo>>
     postRegisterWithPhoneNumberAsync(
@@ -2318,7 +2387,7 @@ Future<
   requestBody["verificationCode"] = requestBodyVo.verificationCode;
 
   // baseUrl + Request path + QueryParam
-  String requestUrlAndParam = gf_my_functions.mergeNetworkQueryParam(
+  String requestUrlAndParam = gf_template_functions.mergeNetworkQueryParam(
       requestQueryParams,
       (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
 
@@ -2347,14 +2416,14 @@ Future<
       responseBody = PostRegisterWithPhoneNumberAsyncResponseBodyVo();
     }
 
-    return gc_my_classes.NetworkResponseObject(
-        gc_my_classes.NetworkResponseObjectOk(
+    return gc_template_classes.NetworkResponseObject(
+        gc_template_classes.NetworkResponseObjectOk(
             statusCode, responseHeader, responseBody),
         null);
   } on DioException catch (e) {
     // 서버에 리퀘스트가 도달하지 못한 에러 + Dio 가 에러로 규정한 Status Code
     //  = 클라이언트 입장에선 그냥 네트워크 에러로 처리
-    return gc_my_classes.NetworkResponseObject(null, e);
+    return gc_template_classes.NetworkResponseObject(null, e);
   }
 }
 
@@ -2389,7 +2458,7 @@ class PostRegisterWithPhoneNumberAsyncResponseBodyVo {}
 ////
 // (이메일 비밀번호 찾기 본인 검증 이메일 보내기)
 Future<
-        gc_my_classes.NetworkResponseObject<
+        gc_template_classes.NetworkResponseObject<
             PostFindPasswordWithEmailVerificationAsyncResponseHeaderVo,
             PostFindPasswordWithEmailVerificationAsyncResponseBodyVo>>
     postFindPasswordWithEmailVerificationAsync(
@@ -2407,7 +2476,7 @@ Future<
   requestBody["email"] = requestBodyVo.email;
 
   // baseUrl + Request path + QueryParam
-  String requestUrlAndParam = gf_my_functions.mergeNetworkQueryParam(
+  String requestUrlAndParam = gf_template_functions.mergeNetworkQueryParam(
       requestQueryParams,
       (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
 
@@ -2442,14 +2511,14 @@ Future<
       );
     }
 
-    return gc_my_classes.NetworkResponseObject(
-        gc_my_classes.NetworkResponseObjectOk(
+    return gc_template_classes.NetworkResponseObject(
+        gc_template_classes.NetworkResponseObjectOk(
             statusCode, responseHeader, responseBody),
         null);
   } on DioException catch (e) {
     // 서버에 리퀘스트가 도달하지 못한 에러 + Dio 가 에러로 규정한 Status Code
     //  = 클라이언트 입장에선 그냥 네트워크 에러로 처리
-    return gc_my_classes.NetworkResponseObject(null, e);
+    return gc_template_classes.NetworkResponseObject(null, e);
   }
 }
 
@@ -2480,7 +2549,7 @@ class PostFindPasswordWithEmailVerificationAsyncResponseBodyVo {
 ////
 // (전화번호 비밀번호 찾기 본인 검증 문자 보내기)
 Future<
-        gc_my_classes.NetworkResponseObject<
+        gc_template_classes.NetworkResponseObject<
             PostFindPasswordWithPhoneNumberVerificationAsyncResponseHeaderVo,
             PostFindPasswordWithPhoneNumberVerificationAsyncResponseBodyVo>>
     postFindPasswordWithPhoneNumberVerificationAsync(
@@ -2500,7 +2569,7 @@ Future<
   requestBody["phoneNumber"] = requestBodyVo.phoneNumber;
 
   // baseUrl + Request path + QueryParam
-  String requestUrlAndParam = gf_my_functions.mergeNetworkQueryParam(
+  String requestUrlAndParam = gf_template_functions.mergeNetworkQueryParam(
       requestQueryParams,
       (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
 
@@ -2539,14 +2608,14 @@ Future<
       );
     }
 
-    return gc_my_classes.NetworkResponseObject(
-        gc_my_classes.NetworkResponseObjectOk(
+    return gc_template_classes.NetworkResponseObject(
+        gc_template_classes.NetworkResponseObjectOk(
             statusCode, responseHeader, responseBody),
         null);
   } on DioException catch (e) {
     // 서버에 리퀘스트가 도달하지 못한 에러 + Dio 가 에러로 규정한 Status Code
     //  = 클라이언트 입장에선 그냥 네트워크 에러로 처리
-    return gc_my_classes.NetworkResponseObject(null, e);
+    return gc_template_classes.NetworkResponseObject(null, e);
   }
 }
 
@@ -2578,7 +2647,7 @@ class PostFindPasswordWithPhoneNumberVerificationAsyncResponseBodyVo {
 ////
 // (이메일 비밀번호 찾기 완료)
 Future<
-        gc_my_classes.NetworkResponseObject<
+        gc_template_classes.NetworkResponseObject<
             PostFindPasswordWithEmailAsyncResponseHeaderVo,
             PostFindPasswordWithEmailAsyncResponseBodyVo>>
     postFindPasswordWithEmailAsync(
@@ -2596,7 +2665,7 @@ Future<
   requestBody["verificationCode"] = requestBodyVo.verificationCode;
 
   // baseUrl + Request path + QueryParam
-  String requestUrlAndParam = gf_my_functions.mergeNetworkQueryParam(
+  String requestUrlAndParam = gf_template_functions.mergeNetworkQueryParam(
       requestQueryParams,
       (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
 
@@ -2629,14 +2698,14 @@ Future<
       responseBody = PostFindPasswordWithEmailAsyncResponseBodyVo();
     }
 
-    return gc_my_classes.NetworkResponseObject(
-        gc_my_classes.NetworkResponseObjectOk(
+    return gc_template_classes.NetworkResponseObject(
+        gc_template_classes.NetworkResponseObjectOk(
             statusCode, responseHeader, responseBody),
         null);
   } on DioException catch (e) {
     // 서버에 리퀘스트가 도달하지 못한 에러 + Dio 가 에러로 규정한 Status Code
     //  = 클라이언트 입장에선 그냥 네트워크 에러로 처리
-    return gc_my_classes.NetworkResponseObject(null, e);
+    return gc_template_classes.NetworkResponseObject(null, e);
   }
 }
 
@@ -2666,7 +2735,7 @@ class PostFindPasswordWithEmailAsyncResponseBodyVo {
 ////
 // (전화번호 비밀번호 찾기 완료)
 Future<
-        gc_my_classes.NetworkResponseObject<
+        gc_template_classes.NetworkResponseObject<
             PostFindPasswordWithPhoneNumberAsyncResponseHeaderVo,
             PostFindPasswordWithPhoneNumberAsyncResponseBodyVo>>
     postFindPasswordWithPhoneNumberAsync(
@@ -2684,7 +2753,7 @@ Future<
   requestBody["verificationCode"] = requestBodyVo.verificationCode;
 
   // baseUrl + Request path + QueryParam
-  String requestUrlAndParam = gf_my_functions.mergeNetworkQueryParam(
+  String requestUrlAndParam = gf_template_functions.mergeNetworkQueryParam(
       requestQueryParams,
       (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
 
@@ -2717,14 +2786,14 @@ Future<
       responseBody = PostFindPasswordWithPhoneNumberAsyncResponseBodyVo();
     }
 
-    return gc_my_classes.NetworkResponseObject(
-        gc_my_classes.NetworkResponseObjectOk(
+    return gc_template_classes.NetworkResponseObject(
+        gc_template_classes.NetworkResponseObjectOk(
             statusCode, responseHeader, responseBody),
         null);
   } on DioException catch (e) {
     // 서버에 리퀘스트가 도달하지 못한 에러 + Dio 가 에러로 규정한 Status Code
     //  = 클라이언트 입장에선 그냥 네트워크 에러로 처리
-    return gc_my_classes.NetworkResponseObject(null, e);
+    return gc_template_classes.NetworkResponseObject(null, e);
   }
 }
 
@@ -2754,7 +2823,7 @@ class PostFindPasswordWithPhoneNumberAsyncResponseBodyVo {
 ////
 // (회원탈퇴 요청 <>)
 Future<
-    gc_my_classes.NetworkResponseObject<PostWithdrawalAsyncResponseHeaderVo,
+    gc_template_classes.NetworkResponseObject<PostWithdrawalAsyncResponseHeaderVo,
         PostWithdrawalAsyncResponseBodyVo>> postWithdrawalAsync(
   PostWithdrawalAsyncRequestHeaderVo requestHeaderVo,
 ) async {
@@ -2770,7 +2839,7 @@ Future<
   requestHeaders["Authorization"] = requestHeaderVo.authorization;
 
   // baseUrl + Request path + QueryParam
-  String requestUrlAndParam = gf_my_functions.mergeNetworkQueryParam(
+  String requestUrlAndParam = gf_template_functions.mergeNetworkQueryParam(
       requestQueryParams,
       (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
 
@@ -2800,14 +2869,14 @@ Future<
       responseBody = PostWithdrawalAsyncResponseBodyVo();
     }
 
-    return gc_my_classes.NetworkResponseObject(
-        gc_my_classes.NetworkResponseObjectOk(
+    return gc_template_classes.NetworkResponseObject(
+        gc_template_classes.NetworkResponseObjectOk(
             statusCode, responseHeader, responseBody),
         null);
   } on DioException catch (e) {
     // 서버에 리퀘스트가 도달하지 못한 에러 + Dio 가 에러로 규정한 Status Code
     //  = 클라이언트 입장에선 그냥 네트워크 에러로 처리
-    return gc_my_classes.NetworkResponseObject(null, e);
+    return gc_template_classes.NetworkResponseObject(null, e);
   }
 }
 
@@ -2829,7 +2898,7 @@ class PostWithdrawalAsyncResponseBodyVo {
 ////
 // (비밀번호 변경 요청 <>)
 Future<
-        gc_my_classes.NetworkResponseObject<
+        gc_template_classes.NetworkResponseObject<
             PutChangeAccountPasswordAsyncResponseHeaderVo,
             PutChangeAccountPasswordAsyncResponseBodyVo>>
     putChangeAccountPasswordAsync(
@@ -2849,7 +2918,7 @@ Future<
   requestBody["newPassword"] = requestBodyVo.newPassword;
 
   // baseUrl + Request path + QueryParam
-  String requestUrlAndParam = gf_my_functions.mergeNetworkQueryParam(
+  String requestUrlAndParam = gf_template_functions.mergeNetworkQueryParam(
       requestQueryParams,
       (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
 
@@ -2882,14 +2951,14 @@ Future<
       responseBody = PutChangeAccountPasswordAsyncResponseBodyVo();
     }
 
-    return gc_my_classes.NetworkResponseObject(
-        gc_my_classes.NetworkResponseObjectOk(
+    return gc_template_classes.NetworkResponseObject(
+        gc_template_classes.NetworkResponseObjectOk(
             statusCode, responseHeader, responseBody),
         null);
   } on DioException catch (e) {
     // 서버에 리퀘스트가 도달하지 못한 에러 + Dio 가 에러로 규정한 Status Code
     //  = 클라이언트 입장에선 그냥 네트워크 에러로 처리
-    return gc_my_classes.NetworkResponseObject(null, e);
+    return gc_template_classes.NetworkResponseObject(null, e);
   }
 }
 

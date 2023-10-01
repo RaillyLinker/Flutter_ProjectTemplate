@@ -1,5 +1,4 @@
 // (external)
-import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:sync/semaphore.dart';
 
@@ -52,31 +51,6 @@ class ThreadConfluenceObj {
       }
     }();
   }
-}
-
-// (네트워크 응답 Vo)
-class NetworkResponseObject<ResponseHeaderVo, ResponseBodyVo> {
-  // Dio Error 가 나지 않은 경우 not null
-  NetworkResponseObjectOk? networkResponseObjectOk;
-
-  // Dio Error 가 난 경우에 not null
-  DioException? dioException;
-
-  NetworkResponseObject(this.networkResponseObjectOk, this.dioException);
-}
-
-class NetworkResponseObjectOk<ResponseHeaderVo, ResponseBodyVo> {
-  // Http Status Code
-  int responseStatusCode;
-
-  // Response Header Object
-  ResponseHeaderVo responseHeaders;
-
-  // Response Body Object (body 가 반환 되지 않는 조건에는 null)
-  ResponseBodyVo? responseBody;
-
-  NetworkResponseObjectOk(
-      this.responseStatusCode, this.responseHeaders, this.responseBody);
 }
 
 // (AnimatedSwitcher 설정)

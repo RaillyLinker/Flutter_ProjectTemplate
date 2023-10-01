@@ -39,7 +39,7 @@ class PageView extends StatelessWidget {
               shape: BoxShape.rectangle,
               borderRadius: BorderRadius.all(Radius.circular(16))),
           child: const Center(
-            child: Text("Template Dialog"),
+            child: Text("다이얼로그 템플릿"),
           ),
         ),
       ),

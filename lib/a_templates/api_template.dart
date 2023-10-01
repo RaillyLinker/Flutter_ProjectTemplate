@@ -4,8 +4,10 @@ import 'package:dio/dio.dart';
 // (all)
 import 'package:flutter_project_template/repositories/network/network_repositories.dart'
     as network_repositories;
-import '../../../global_functions/gf_my_functions.dart' as gf_my_functions;
-import '../../../global_classes/gc_my_classes.dart' as gc_my_classes;
+import '../../../global_functions/gf_template_functions.dart'
+    as gf_template_functions;
+import '../../../global_classes/gc_template_classes.dart'
+    as gc_template_classes;
 import '../../../global_data/gd_const_config.dart' as gd_const_config;
 
 // [네트워크 API 파일]
@@ -21,12 +23,13 @@ final serverDioObject = network_repositories.mainServerDio;
 
 // (Get 요청 샘플 (Query Parameter))
 Future<
-    gc_my_classes.NetworkResponseObject<GetRequestSampleAsyncResponseHeaderVo,
-        GetRequestSampleAsyncResponseBodyVo>> getRequestSampleAsync(
-    GetRequestSampleAsyncRequestQueryVo requestQueryVo) async {
+    gc_template_classes.NetworkResponseObject<
+        GetGetRequestSampleAsyncResponseHeaderVo,
+        GetGetRequestSampleAsyncResponseBodyVo>> getGetRequestSampleAsync(
+    GetGetRequestSampleAsyncRequestQueryVo requestQueryVo) async {
   // !!!개발 / 배포 모드별 요청 Path 지정!!
-  String devServerUrl = "/tk/ra/test/request/get-request";
-  String prodServerUrl = "/tk/ra/test/request/get-request";
+  String devServerUrl = "/get-request-sample";
+  String prodServerUrl = "/get-request-sample";
 
   Map<String, dynamic> requestHeaders = {};
   Map<String, dynamic> requestQueryParams = {};
@@ -45,7 +48,7 @@ Future<
   }
 
   // baseUrl + Request path + QueryParam
-  String requestUrlAndParam = gf_my_functions.mergeNetworkQueryParam(
+  String requestUrlAndParam = gf_template_functions.mergeNetworkQueryParam(
       requestQueryParams,
       (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
 
@@ -60,18 +63,22 @@ Future<
     int statusCode = response.statusCode!;
     Map<String, dynamic> responseHeaderMap = response.headers.map;
 
-    GetRequestSampleAsyncResponseHeaderVo responseHeader;
-    GetRequestSampleAsyncResponseBodyVo? responseBody;
+    GetGetRequestSampleAsyncResponseHeaderVo responseHeader;
+    GetGetRequestSampleAsyncResponseBodyVo? responseBody;
 
     // !!!Response Map 을 Response Object 로 변경!!
-    responseHeader = GetRequestSampleAsyncResponseHeaderVo(
+    responseHeader = GetGetRequestSampleAsyncResponseHeaderVo(
         responseHeaderMap["content-type"]);
 
     // !!!responseBody 가 반환되는 조건!!
     if (statusCode == 200) {
       Map<String, dynamic> responseBodyMap = response.data;
 
-      responseBody = GetRequestSampleAsyncResponseBodyVo(
+      // responseBody 로 List 타입이 넘어오면 List<>.from 으로 받고,
+      // Object 타입이 넘어오면 Map<String, dynamic> 으로 받고,
+      // Object List 타입이 넘어오면 List<Map<String, dynamic>> 으로 받아서 처리
+
+      responseBody = GetGetRequestSampleAsyncResponseBodyVo(
         responseBodyMap["responseBodyString"],
         responseBodyMap["responseBodyStringNullable"],
         List<String>.from(responseBodyMap["responseBodyStringList"]),
@@ -82,45 +89,45 @@ Future<
       );
     }
 
-    return gc_my_classes.NetworkResponseObject(
-        gc_my_classes.NetworkResponseObjectOk(
+    return gc_template_classes.NetworkResponseObject(
+        gc_template_classes.NetworkResponseObjectOk(
             statusCode, responseHeader, responseBody),
         null);
   } on DioException catch (e) {
     // 서버에 리퀘스트가 도달하지 못한 에러 + Dio 가 에러로 규정한 Status Code
     //  = 클라이언트 입장에선 그냥 네트워크 에러로 처리
-    return gc_my_classes.NetworkResponseObject(null, e);
+    return gc_template_classes.NetworkResponseObject(null, e);
   }
 }
 
-class GetRequestSampleAsyncRequestQueryVo {
+class GetGetRequestSampleAsyncRequestQueryVo {
   String queryParamString; // String 쿼리 파라미터
   String? queryParamStringNullable; // String 쿼리 파라미터 Nullable
   List<String> queryParamStringList; // StringList 쿼리 파라미터
   List<String>? queryParamStringListNullable; // StringList 쿼리 파라미터 Nullable
 
-  GetRequestSampleAsyncRequestQueryVo(
+  GetGetRequestSampleAsyncRequestQueryVo(
       this.queryParamString,
       this.queryParamStringNullable,
       this.queryParamStringList,
       this.queryParamStringListNullable);
 }
 
-class GetRequestSampleAsyncResponseHeaderVo {
+class GetGetRequestSampleAsyncResponseHeaderVo {
   // content-type : ResponseHeader 예시용
   String contentType;
 
-  GetRequestSampleAsyncResponseHeaderVo(this.contentType);
+  GetGetRequestSampleAsyncResponseHeaderVo(this.contentType);
 }
 
-class GetRequestSampleAsyncResponseBodyVo {
+class GetGetRequestSampleAsyncResponseBodyVo {
   String responseBodyString; // 입력한 String 쿼리 파라미터
   String? responseBodyStringNullable; // 입력한 String 쿼리 파라미터 Nullable
   List<String> responseBodyStringList; // 입력한 StringList 쿼리 파라미터
   List<String>?
       responseBodyStringListNullable; // 입력한 StringList 쿼리 파라미터 Nullable
 
-  GetRequestSampleAsyncResponseBodyVo(
+  GetGetRequestSampleAsyncResponseBodyVo(
       this.responseBodyString,
       this.responseBodyStringNullable,
       this.responseBodyStringList,
@@ -130,18 +137,20 @@ class GetRequestSampleAsyncResponseBodyVo {
 ////
 // (Post 요청 샘플 (Request Body))
 Future<
-    gc_my_classes.NetworkResponseObject<PostRequestSampleAsyncResponseHeaderVo,
-        PostRequestSampleAsyncResponseBodyVo>> postRequestSampleAsync(
-    PostRequestSampleAsyncRequestBodyVo requestBodyVo) async {
+    gc_template_classes.NetworkResponseObject<
+        PostPostRequestSampleAsyncResponseHeaderVo,
+        PostPostRequestSampleAsyncResponseBodyVo>> postPostRequestSampleAsync(
+    PostPostRequestSampleAsyncRequestBodyVo requestBodyVo) async {
   // !!!개발 / 배포 모드별 요청 Path 지정!!
-  String devServerUrl = "/tk/ra/test/request/post-request";
-  String prodServerUrl = "/tk/ra/test/request/post-request";
+  String devServerUrl = "/post-request-sample";
+  String prodServerUrl = "/post-request-sample";
 
   Map<String, dynamic> requestHeaders = {};
   Map<String, dynamic> requestQueryParams = {};
   Map<String, dynamic> requestBody = {};
 
   // !!!Request Object 를 Map 으로 만들기!!
+  // requestBody 에 Object 타입을 넣으려면, Map<String, dynamic> 로 넣기
   requestBody["requestBodyString"] = requestBodyVo.requestBodyString;
   if (requestBodyVo.requestBodyStringNullable != null) {
     requestBody["requestBodyStringNullable"] =
@@ -154,7 +163,7 @@ Future<
   }
 
   // baseUrl + Request path + QueryParam
-  String requestUrlAndParam = gf_my_functions.mergeNetworkQueryParam(
+  String requestUrlAndParam = gf_template_functions.mergeNetworkQueryParam(
       requestQueryParams,
       (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
 
@@ -170,18 +179,22 @@ Future<
     int statusCode = response.statusCode!;
     Map<String, dynamic> responseHeaderMap = response.headers.map;
 
-    PostRequestSampleAsyncResponseHeaderVo responseHeader;
-    PostRequestSampleAsyncResponseBodyVo? responseBody;
+    PostPostRequestSampleAsyncResponseHeaderVo responseHeader;
+    PostPostRequestSampleAsyncResponseBodyVo? responseBody;
 
     // !!!Response Map 을 Response Object 로 변경!!
-    responseHeader = PostRequestSampleAsyncResponseHeaderVo(
+    responseHeader = PostPostRequestSampleAsyncResponseHeaderVo(
         responseHeaderMap["content-type"]);
 
     // !!!responseBody 가 반환되는 조건!!
     if (statusCode == 200) {
       Map<String, dynamic> responseBodyMap = response.data;
 
-      responseBody = PostRequestSampleAsyncResponseBodyVo(
+      // responseBody 로 List 타입이 넘어오면 List<>.from 으로 받고,
+      // Object 타입이 넘어오면 Map<String, dynamic> 으로 받고,
+      // Object List 타입이 넘어오면 List<Map<String, dynamic>> 으로 받아서 처리
+
+      responseBody = PostPostRequestSampleAsyncResponseBodyVo(
         responseBodyMap["responseBodyString"],
         responseBodyMap["responseBodyStringNullable"],
         List<String>.from(responseBodyMap["responseBodyStringList"]),
@@ -192,45 +205,45 @@ Future<
       );
     }
 
-    return gc_my_classes.NetworkResponseObject(
-        gc_my_classes.NetworkResponseObjectOk(
+    return gc_template_classes.NetworkResponseObject(
+        gc_template_classes.NetworkResponseObjectOk(
             statusCode, responseHeader, responseBody),
         null);
   } on DioException catch (e) {
     // 서버에 리퀘스트가 도달하지 못한 에러 + Dio 가 에러로 규정한 Status Code
     //  = 클라이언트 입장에선 그냥 네트워크 에러로 처리
-    return gc_my_classes.NetworkResponseObject(null, e);
+    return gc_template_classes.NetworkResponseObject(null, e);
   }
 }
 
-class PostRequestSampleAsyncRequestBodyVo {
+class PostPostRequestSampleAsyncRequestBodyVo {
   String requestBodyString; // String 쿼리 파라미터
   String? requestBodyStringNullable; // String 쿼리 파라미터 Nullable
   List<String> requestBodyStringList; // StringList 쿼리 파라미터
   List<String>? requestBodyStringListNullable; // StringList 쿼리 파라미터 Nullable
 
-  PostRequestSampleAsyncRequestBodyVo(
+  PostPostRequestSampleAsyncRequestBodyVo(
       this.requestBodyString,
       this.requestBodyStringNullable,
       this.requestBodyStringList,
       this.requestBodyStringListNullable);
 }
 
-class PostRequestSampleAsyncResponseHeaderVo {
+class PostPostRequestSampleAsyncResponseHeaderVo {
   // content-type : ResponseHeader 예시용
   String contentType;
 
-  PostRequestSampleAsyncResponseHeaderVo(this.contentType);
+  PostPostRequestSampleAsyncResponseHeaderVo(this.contentType);
 }
 
-class PostRequestSampleAsyncResponseBodyVo {
+class PostPostRequestSampleAsyncResponseBodyVo {
   String responseBodyString; // 입력한 String 쿼리 파라미터
   String? responseBodyStringNullable; // 입력한 String 쿼리 파라미터 Nullable
   List<String> responseBodyStringList; // 입력한 StringList 쿼리 파라미터
   List<String>?
       responseBodyStringListNullable; // 입력한 StringList 쿼리 파라미터 Nullable
 
-  PostRequestSampleAsyncResponseBodyVo(
+  PostPostRequestSampleAsyncResponseBodyVo(
       this.responseBodyString,
       this.responseBodyStringNullable,
       this.responseBodyStringList,
@@ -240,15 +253,15 @@ class PostRequestSampleAsyncResponseBodyVo {
 ////
 // (Post 요청 샘플 (x-www-form-urlencoded))
 Future<
-    gc_my_classes.NetworkResponseObject<
-        PostRequestSampleXwfuAsyncResponseHeaderVo,
-        PostRequestSampleXwfuAsyncResponseBodyVo>> postRequestSampleXwfuAsync(
-    PostRequestSampleXwfuAsyncRequestBodyVo requestBodyVo) async {
+        gc_template_classes.NetworkResponseObject<
+            PostPostRequestSampleXWwwFormUrlencodedAsyncResponseHeaderVo,
+            PostPostRequestSampleXWwwFormUrlencodedAsyncResponseBodyVo>>
+    postPostRequestSampleXWwwFormUrlencodedAsync(
+        PostPostRequestSampleXWwwFormUrlencodedAsyncRequestBodyVo
+            requestBodyVo) async {
   // !!!개발 / 배포 모드별 요청 Path 지정!!
-  String devServerUrl =
-      "/tk/ra/test/request/post-request-x-www-form-urlencoded";
-  String prodServerUrl =
-      "/tk/ra/test/request/post-request-x-www-form-urlencoded";
+  String devServerUrl = "/post-request-sample-x-www-form-urlencoded";
+  String prodServerUrl = "/post-request-sample-x-www-form-urlencoded";
 
   Map<String, dynamic> requestHeaders = {};
   Map<String, dynamic> requestQueryParams = {};
@@ -267,7 +280,7 @@ Future<
   }
 
   // baseUrl + Request path + QueryParam
-  String requestUrlAndParam = gf_my_functions.mergeNetworkQueryParam(
+  String requestUrlAndParam = gf_template_functions.mergeNetworkQueryParam(
       requestQueryParams,
       (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
 
@@ -284,18 +297,23 @@ Future<
     int statusCode = response.statusCode!;
     Map<String, dynamic> responseHeaderMap = response.headers.map;
 
-    PostRequestSampleXwfuAsyncResponseHeaderVo responseHeader;
-    PostRequestSampleXwfuAsyncResponseBodyVo? responseBody;
+    PostPostRequestSampleXWwwFormUrlencodedAsyncResponseHeaderVo responseHeader;
+    PostPostRequestSampleXWwwFormUrlencodedAsyncResponseBodyVo? responseBody;
 
     // !!!Response Map 을 Response Object 로 변경!!
-    responseHeader = PostRequestSampleXwfuAsyncResponseHeaderVo(
-        responseHeaderMap["content-type"]);
+    responseHeader =
+        PostPostRequestSampleXWwwFormUrlencodedAsyncResponseHeaderVo(
+            responseHeaderMap["content-type"]);
 
     // !!!responseBody 가 반환되는 조건!!
     if (statusCode == 200) {
       Map<String, dynamic> responseBodyMap = response.data;
 
-      responseBody = PostRequestSampleXwfuAsyncResponseBodyVo(
+      // responseBody 로 List 타입이 넘어오면 List<>.from 으로 받고,
+      // Object 타입이 넘어오면 Map<String, dynamic> 으로 받고,
+      // Object List 타입이 넘어오면 List<Map<String, dynamic>> 으로 받아서 처리
+
+      responseBody = PostPostRequestSampleXWwwFormUrlencodedAsyncResponseBodyVo(
         responseBodyMap["responseBodyString"],
         responseBodyMap["responseBodyStringNullable"],
         List<String>.from(responseBodyMap["responseBodyStringList"]),
@@ -306,45 +324,46 @@ Future<
       );
     }
 
-    return gc_my_classes.NetworkResponseObject(
-        gc_my_classes.NetworkResponseObjectOk(
+    return gc_template_classes.NetworkResponseObject(
+        gc_template_classes.NetworkResponseObjectOk(
             statusCode, responseHeader, responseBody),
         null);
   } on DioException catch (e) {
     // 서버에 리퀘스트가 도달하지 못한 에러 + Dio 가 에러로 규정한 Status Code
     //  = 클라이언트 입장에선 그냥 네트워크 에러로 처리
-    return gc_my_classes.NetworkResponseObject(null, e);
+    return gc_template_classes.NetworkResponseObject(null, e);
   }
 }
 
-class PostRequestSampleXwfuAsyncRequestBodyVo {
+class PostPostRequestSampleXWwwFormUrlencodedAsyncRequestBodyVo {
   String requestFormString; // String 쿼리 파라미터
   String? requestFormStringNullable; // String 쿼리 파라미터 Nullable
   List<String> requestFormStringList; // StringList 쿼리 파라미터
   List<String>? requestFormStringListNullable; // StringList 쿼리 파라미터 Nullable
 
-  PostRequestSampleXwfuAsyncRequestBodyVo(
+  PostPostRequestSampleXWwwFormUrlencodedAsyncRequestBodyVo(
       this.requestFormString,
       this.requestFormStringNullable,
       this.requestFormStringList,
       this.requestFormStringListNullable);
 }
 
-class PostRequestSampleXwfuAsyncResponseHeaderVo {
+class PostPostRequestSampleXWwwFormUrlencodedAsyncResponseHeaderVo {
   // content-type : ResponseHeader 예시용
   String contentType;
 
-  PostRequestSampleXwfuAsyncResponseHeaderVo(this.contentType);
+  PostPostRequestSampleXWwwFormUrlencodedAsyncResponseHeaderVo(
+      this.contentType);
 }
 
-class PostRequestSampleXwfuAsyncResponseBodyVo {
+class PostPostRequestSampleXWwwFormUrlencodedAsyncResponseBodyVo {
   String responseBodyString; // 입력한 String 쿼리 파라미터
   String? responseBodyStringNullable; // 입력한 String 쿼리 파라미터 Nullable
   List<String> responseBodyStringList; // 입력한 StringList 쿼리 파라미터
   List<String>?
       responseBodyStringListNullable; // 입력한 StringList 쿼리 파라미터 Nullable
 
-  PostRequestSampleXwfuAsyncResponseBodyVo(
+  PostPostRequestSampleXWwwFormUrlencodedAsyncResponseBodyVo(
       this.responseBodyString,
       this.responseBodyStringNullable,
       this.responseBodyStringList,
@@ -354,15 +373,15 @@ class PostRequestSampleXwfuAsyncResponseBodyVo {
 ////
 // (Post 요청 샘플 (multipart/form-data))
 Future<
-        gc_my_classes.NetworkResponseObject<
-            PostRequestSampleMultipartFormDataAsyncResponseHeaderVo,
-            PostRequestSampleMultipartFormDataAsyncResponseBodyVo>>
-    postRequestSampleMultipartFormDataAsync(
-        PostRequestSampleMultipartFormDataAsyncRequestBodyVo
+        gc_template_classes.NetworkResponseObject<
+            PostPostRequestSampleMultipartFormDataAsyncResponseHeaderVo,
+            PostPostRequestSampleMultipartFormDataAsyncResponseBodyVo>>
+    postPostRequestSampleMultipartFormDataAsync(
+        PostPostRequestSampleMultipartFormDataAsyncRequestBodyVo
             requestBodyVo) async {
   // !!!개발 / 배포 모드별 요청 Path 지정!!
-  String devServerUrl = "/tk/ra/test/request/post-request-multipart-form-data";
-  String prodServerUrl = "/tk/ra/test/request/post-request-multipart-form-data";
+  String devServerUrl = "/post-request-sample-multipart-form-data";
+  String prodServerUrl = "/post-request-sample-multipart-form-data";
 
   Map<String, dynamic> requestHeaders = {};
   Map<String, dynamic> requestQueryParams = {};
@@ -389,7 +408,7 @@ Future<
   FormData requestBody = FormData.fromMap(requestFormDataMap);
 
   // baseUrl + Request path + QueryParam
-  String requestUrlAndParam = gf_my_functions.mergeNetworkQueryParam(
+  String requestUrlAndParam = gf_template_functions.mergeNetworkQueryParam(
       requestQueryParams,
       (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
 
@@ -405,18 +424,23 @@ Future<
     int statusCode = response.statusCode!;
     Map<String, dynamic> responseHeaderMap = response.headers.map;
 
-    PostRequestSampleMultipartFormDataAsyncResponseHeaderVo responseHeader;
-    PostRequestSampleMultipartFormDataAsyncResponseBodyVo? responseBody;
+    PostPostRequestSampleMultipartFormDataAsyncResponseHeaderVo responseHeader;
+    PostPostRequestSampleMultipartFormDataAsyncResponseBodyVo? responseBody;
 
     // !!!Response Map 을 Response Object 로 변경!!
-    responseHeader = PostRequestSampleMultipartFormDataAsyncResponseHeaderVo(
-        responseHeaderMap["content-type"]);
+    responseHeader =
+        PostPostRequestSampleMultipartFormDataAsyncResponseHeaderVo(
+            responseHeaderMap["content-type"]);
 
     // !!!responseBody 가 반환되는 조건!!
     if (statusCode == 200) {
       Map<String, dynamic> responseBodyMap = response.data;
 
-      responseBody = PostRequestSampleMultipartFormDataAsyncResponseBodyVo(
+      // responseBody 로 List 타입이 넘어오면 List<>.from 으로 받고,
+      // Object 타입이 넘어오면 Map<String, dynamic> 으로 받고,
+      // Object List 타입이 넘어오면 List<Map<String, dynamic>> 으로 받아서 처리
+
+      responseBody = PostPostRequestSampleMultipartFormDataAsyncResponseBodyVo(
         responseBodyMap["responseBodyString"],
         responseBodyMap["responseBodyStringNullable"],
         List<String>.from(responseBodyMap["responseBodyStringList"]),
@@ -427,18 +451,18 @@ Future<
       );
     }
 
-    return gc_my_classes.NetworkResponseObject(
-        gc_my_classes.NetworkResponseObjectOk(
+    return gc_template_classes.NetworkResponseObject(
+        gc_template_classes.NetworkResponseObjectOk(
             statusCode, responseHeader, responseBody),
         null);
   } on DioException catch (e) {
     // 서버에 리퀘스트가 도달하지 못한 에러 + Dio 가 에러로 규정한 Status Code
     //  = 클라이언트 입장에선 그냥 네트워크 에러로 처리
-    return gc_my_classes.NetworkResponseObject(null, e);
+    return gc_template_classes.NetworkResponseObject(null, e);
   }
 }
 
-class PostRequestSampleMultipartFormDataAsyncRequestBodyVo {
+class PostPostRequestSampleMultipartFormDataAsyncRequestBodyVo {
   String requestFormString; // String 쿼리 파라미터
   String? requestFormStringNullable; // String 쿼리 파라미터 Nullable
   List<String> requestFormStringList; // StringList 쿼리 파라미터
@@ -446,7 +470,7 @@ class PostRequestSampleMultipartFormDataAsyncRequestBodyVo {
   MultipartFile multipartFile; // 멀티 파트 파일
   MultipartFile? multipartFileNullable; // 멀티 파트 파일 Nullable
 
-  PostRequestSampleMultipartFormDataAsyncRequestBodyVo(
+  PostPostRequestSampleMultipartFormDataAsyncRequestBodyVo(
     this.requestFormString,
     this.requestFormStringNullable,
     this.requestFormStringList,
@@ -456,21 +480,21 @@ class PostRequestSampleMultipartFormDataAsyncRequestBodyVo {
   );
 }
 
-class PostRequestSampleMultipartFormDataAsyncResponseHeaderVo {
+class PostPostRequestSampleMultipartFormDataAsyncResponseHeaderVo {
   // content-type : ResponseHeader 예시용
   String contentType;
 
-  PostRequestSampleMultipartFormDataAsyncResponseHeaderVo(this.contentType);
+  PostPostRequestSampleMultipartFormDataAsyncResponseHeaderVo(this.contentType);
 }
 
-class PostRequestSampleMultipartFormDataAsyncResponseBodyVo {
+class PostPostRequestSampleMultipartFormDataAsyncResponseBodyVo {
   String responseBodyString; // 입력한 String 쿼리 파라미터
   String? responseBodyStringNullable; // 입력한 String 쿼리 파라미터 Nullable
   List<String> responseBodyStringList; // 입력한 StringList 쿼리 파라미터
   List<String>?
       responseBodyStringListNullable; // 입력한 StringList 쿼리 파라미터 Nullable
 
-  PostRequestSampleMultipartFormDataAsyncResponseBodyVo(
+  PostPostRequestSampleMultipartFormDataAsyncResponseBodyVo(
       this.responseBodyString,
       this.responseBodyStringNullable,
       this.responseBodyStringList,
@@ -481,12 +505,12 @@ class PostRequestSampleMultipartFormDataAsyncResponseBodyVo {
 // (text/string 반환 샘플)
 // Response Body 가 text/string 타입입니다.
 Future<
-    gc_my_classes.NetworkResponseObject<
-        GetRequestReturnTextStringAsyncResponseHeaderVo,
-        String>> getRequestReturnTextStringAsync() async {
+    gc_template_classes.NetworkResponseObject<
+        GetReturnTextStringSampleAsyncResponseHeaderVo,
+        String>> getReturnTextStringSampleAsync() async {
   // !!!개발 / 배포 모드별 요청 Path 지정!!
-  String devServerUrl = "/tk/ra/test/request/return-text-string";
-  String prodServerUrl = "/tk/ra/test/request/return-text-string";
+  String devServerUrl = "/return-text-string-sample";
+  String prodServerUrl = "/return-text-string-sample";
 
   Map<String, dynamic> requestHeaders = {};
   Map<String, dynamic> requestQueryParams = {};
@@ -494,7 +518,7 @@ Future<
   // !!!Request Object 를 Map 으로 만들기!!
 
   // baseUrl + Request path + QueryParam
-  String requestUrlAndParam = gf_my_functions.mergeNetworkQueryParam(
+  String requestUrlAndParam = gf_template_functions.mergeNetworkQueryParam(
       requestQueryParams,
       (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
 
@@ -509,11 +533,11 @@ Future<
     int statusCode = response.statusCode!;
     Map<String, dynamic> responseHeaderMap = response.headers.map;
 
-    GetRequestReturnTextStringAsyncResponseHeaderVo responseHeader;
+    GetReturnTextStringSampleAsyncResponseHeaderVo responseHeader;
     String? responseBody;
 
     // !!!Response Map 을 Response Object 로 변경!!
-    responseHeader = GetRequestReturnTextStringAsyncResponseHeaderVo(
+    responseHeader = GetReturnTextStringSampleAsyncResponseHeaderVo(
         responseHeaderMap["content-type"]);
 
     // !!!responseBody 가 반환되는 조건!!
@@ -521,34 +545,34 @@ Future<
       responseBody = response.data;
     }
 
-    return gc_my_classes.NetworkResponseObject(
-        gc_my_classes.NetworkResponseObjectOk(
+    return gc_template_classes.NetworkResponseObject(
+        gc_template_classes.NetworkResponseObjectOk(
             statusCode, responseHeader, responseBody),
         null);
   } on DioException catch (e) {
     // 서버에 리퀘스트가 도달하지 못한 에러 + Dio 가 에러로 규정한 Status Code
     //  = 클라이언트 입장에선 그냥 네트워크 에러로 처리
-    return gc_my_classes.NetworkResponseObject(null, e);
+    return gc_template_classes.NetworkResponseObject(null, e);
   }
 }
 
-class GetRequestReturnTextStringAsyncResponseHeaderVo {
+class GetReturnTextStringSampleAsyncResponseHeaderVo {
   // content-type : ResponseHeader 예시용
   String contentType;
 
-  GetRequestReturnTextStringAsyncResponseHeaderVo(this.contentType);
+  GetReturnTextStringSampleAsyncResponseHeaderVo(this.contentType);
 }
 
 ////
 // (text/html 반환 샘플)
 // Response Body 가 text/html 타입입니다.
 Future<
-    gc_my_classes.NetworkResponseObject<
-        GetRequestReturnTextHtmlAsyncResponseHeaderVo,
-        String>> getRequestReturnTextHtmlAsync() async {
+    gc_template_classes.NetworkResponseObject<
+        GetReturnTextHtmlSampleAsyncResponseHeaderVo,
+        String>> getReturnTextHtmlSampleAsync() async {
   // !!!개발 / 배포 모드별 요청 Path 지정!!
-  String devServerUrl = "/tk/ra/test/request/return-text-html";
-  String prodServerUrl = "/tk/ra/test/request/return-text-html";
+  String devServerUrl = "/return-text-html-sample";
+  String prodServerUrl = "/return-text-html-sample";
 
   Map<String, dynamic> requestHeaders = {};
   Map<String, dynamic> requestQueryParams = {};
@@ -556,7 +580,7 @@ Future<
   // !!!Request Object 를 Map 으로 만들기!!
 
   // baseUrl + Request path + QueryParam
-  String requestUrlAndParam = gf_my_functions.mergeNetworkQueryParam(
+  String requestUrlAndParam = gf_template_functions.mergeNetworkQueryParam(
       requestQueryParams,
       (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
 
@@ -571,11 +595,11 @@ Future<
     int statusCode = response.statusCode!;
     Map<String, dynamic> responseHeaderMap = response.headers.map;
 
-    GetRequestReturnTextHtmlAsyncResponseHeaderVo responseHeader;
+    GetReturnTextHtmlSampleAsyncResponseHeaderVo responseHeader;
     String? responseBody;
 
     // !!!Response Map 을 Response Object 로 변경!!
-    responseHeader = GetRequestReturnTextHtmlAsyncResponseHeaderVo(
+    responseHeader = GetReturnTextHtmlSampleAsyncResponseHeaderVo(
         responseHeaderMap["content-type"]);
 
     // !!!responseBody 가 반환되는 조건!!
@@ -583,20 +607,20 @@ Future<
       responseBody = response.data;
     }
 
-    return gc_my_classes.NetworkResponseObject(
-        gc_my_classes.NetworkResponseObjectOk(
+    return gc_template_classes.NetworkResponseObject(
+        gc_template_classes.NetworkResponseObjectOk(
             statusCode, responseHeader, responseBody),
         null);
   } on DioException catch (e) {
     // 서버에 리퀘스트가 도달하지 못한 에러 + Dio 가 에러로 규정한 Status Code
     //  = 클라이언트 입장에선 그냥 네트워크 에러로 처리
-    return gc_my_classes.NetworkResponseObject(null, e);
+    return gc_template_classes.NetworkResponseObject(null, e);
   }
 }
 
-class GetRequestReturnTextHtmlAsyncResponseHeaderVo {
+class GetReturnTextHtmlSampleAsyncResponseHeaderVo {
   // content-type : ResponseHeader 예시용
   String contentType;
 
-  GetRequestReturnTextHtmlAsyncResponseHeaderVo(this.contentType);
+  GetReturnTextHtmlSampleAsyncResponseHeaderVo(this.contentType);
 }

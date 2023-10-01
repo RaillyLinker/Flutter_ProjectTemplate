@@ -311,10 +311,8 @@ class PageBusiness {
         spw_sign_in_member_info.SharedPreferenceWrapper.get();
     if (signInMemberInfo != null) {
       // 리플레시 토큰 만료 여부 확인
-      bool isRefreshTokenExpired = gf_my_functions.isDateExpired(
-          DateTime.now(),
-          DateFormat('yyyy-MM-dd HH:mm:ss.SSS')
-              .parse(signInMemberInfo.refreshTokenExpireWhen));
+      bool isRefreshTokenExpired = DateFormat('yyyy-MM-dd HH:mm:ss.SSS')
+          .parse(signInMemberInfo.refreshTokenExpireWhen).isBefore(DateTime.now());
 
       if (isRefreshTokenExpired) {
         // 리플래시 토큰이 사용 불가이므로 로그아웃 처리
