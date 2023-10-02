@@ -148,8 +148,8 @@ class PageBusiness {
         }
       }
 
-      var response = await api_main_server.getRequestTestAsync(
-          api_main_server.GetRequestTestAsyncRequestQueryVo(
+      var response = await api_main_server.getService1TkV1RequestTestGetRequestAsync(
+          api_main_server.GetService1TkV1RequestTestGetRequestAsyncRequestQueryVo(
               pageViewModel.networkRequestParamTextFieldController1.text,
               (pageViewModel.networkRequestParamTextFieldController2.text == "")
                   ? null
@@ -184,7 +184,7 @@ class PageBusiness {
 
           // 응답 body
           var responseBody = networkResponseObjectOk.responseBody
-              as api_main_server.GetRequestTestAsyncResponseBodyVo;
+              as api_main_server.GetService1TkV1RequestTestGetRequestAsyncResponseBodyVo;
 
           // 확인 다이얼로그 호출
           if (!_context.mounted) return;

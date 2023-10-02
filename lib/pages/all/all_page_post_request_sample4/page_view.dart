@@ -66,7 +66,7 @@ class PageView extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Text(
-                        "Name",
+                        "변수명",
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontFamily: "MaruBuri"),
@@ -75,7 +75,7 @@ class PageView extends StatelessWidget {
                     Expanded(
                         flex: 2,
                         child: Text(
-                          "Description",
+                          "설명 및 입력",
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontFamily: "MaruBuri"),

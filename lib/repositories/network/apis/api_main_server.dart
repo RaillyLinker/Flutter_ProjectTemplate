@@ -23,13 +23,15 @@ final serverDioObject = network_repositories.mainServerDio;
 
 // (Get 요청 테스트 (Query Parameter))
 Future<
-    gc_template_classes.NetworkResponseObject<
-        GetRequestTestAsyncResponseHeaderVo,
-        GetRequestTestAsyncResponseBodyVo>> getRequestTestAsync(
-    GetRequestTestAsyncRequestQueryVo requestQueryVo) async {
+        gc_template_classes.NetworkResponseObject<
+            GetService1TkV1RequestTestGetRequestAsyncResponseHeaderVo,
+            GetService1TkV1RequestTestGetRequestAsyncResponseBodyVo>>
+    getService1TkV1RequestTestGetRequestAsync(
+        GetService1TkV1RequestTestGetRequestAsyncRequestQueryVo
+            requestQueryVo) async {
   // !!!개발 / 배포 모드별 요청 Path 지정!!
-  String devServerUrl = "/tk/request-test/get-request";
-  String prodServerUrl = "/tk/request-test/get-request";
+  String devServerUrl = "/service1/tk/v1/request-test/get-request";
+  String prodServerUrl = "/service1/tk/v1/request-test/get-request";
 
   Map<String, dynamic> requestHeaders = {};
   Map<String, dynamic> requestQueryParams = {};
@@ -66,13 +68,16 @@ Future<
         ));
 
     int statusCode = response.statusCode!;
-    // Map<String, dynamic> responseHeaderMap = response.headers.map;
+    Map<String, dynamic> responseHeaderMap = response.headers.map;
 
-    GetRequestTestAsyncResponseHeaderVo responseHeader;
-    GetRequestTestAsyncResponseBodyVo? responseBody;
+    GetService1TkV1RequestTestGetRequestAsyncResponseHeaderVo responseHeader;
+    GetService1TkV1RequestTestGetRequestAsyncResponseBodyVo? responseBody;
 
     // !!!Response Map 을 Response Object 로 변경!!
-    responseHeader = GetRequestTestAsyncResponseHeaderVo();
+    responseHeader = GetService1TkV1RequestTestGetRequestAsyncResponseHeaderVo(
+        responseHeaderMap.containsKey("api-result-code")
+            ? responseHeaderMap["api-result-code"][0]
+            : null);
     if (statusCode == 200) {
       // responseBody 가 반환되는 조건
       Map<String, dynamic> responseBodyMap = response.data;
@@ -81,7 +86,7 @@ Future<
       // Object 타입이 넘어오면 Map<String, dynamic> 으로 받고,
       // Object List 타입이 넘어오면 List<Map<String, dynamic>> 으로 받아서 처리
 
-      responseBody = GetRequestTestAsyncResponseBodyVo(
+      responseBody = GetService1TkV1RequestTestGetRequestAsyncResponseBodyVo(
         responseBodyMap["queryParamString"],
         responseBodyMap["queryParamStringNullable"],
         responseBodyMap["queryParamInt"],
@@ -109,7 +114,7 @@ Future<
   }
 }
 
-class GetRequestTestAsyncRequestQueryVo {
+class GetService1TkV1RequestTestGetRequestAsyncRequestQueryVo {
   String queryParamString; // String 쿼리 파라미터
   String? queryParamStringNullable; // String 쿼리 파라미터 Nullable
   int queryParamInt; // int 쿼리 파라미터
@@ -121,7 +126,7 @@ class GetRequestTestAsyncRequestQueryVo {
   List<String> queryParamStringList; // StringList 쿼리 파라미터
   List<String>? queryParamStringListNullable; // StringList 쿼리 파라미터 Nullable
 
-  GetRequestTestAsyncRequestQueryVo(
+  GetService1TkV1RequestTestGetRequestAsyncRequestQueryVo(
       this.queryParamString,
       this.queryParamStringNullable,
       this.queryParamInt,
@@ -134,11 +139,15 @@ class GetRequestTestAsyncRequestQueryVo {
       this.queryParamStringListNullable);
 }
 
-class GetRequestTestAsyncResponseHeaderVo {
-  GetRequestTestAsyncResponseHeaderVo();
+class GetService1TkV1RequestTestGetRequestAsyncResponseHeaderVo {
+  // (api-result-code)
+  // 0 : 정상 동작
+  String? apiResultCode;
+
+  GetService1TkV1RequestTestGetRequestAsyncResponseHeaderVo(this.apiResultCode);
 }
 
-class GetRequestTestAsyncResponseBodyVo {
+class GetService1TkV1RequestTestGetRequestAsyncResponseBodyVo {
   String queryParamString; // 입력한 String 쿼리 파라미터
   String? queryParamStringNullable; // 입력한 String 쿼리 파라미터 Nullable
   int queryParamInt; // 입력한 int 쿼리 파라미터
@@ -150,7 +159,7 @@ class GetRequestTestAsyncResponseBodyVo {
   List<String> queryParamStringList; // 입력한 StringList 쿼리 파라미터
   List<String>? queryParamStringListNullable; // 입력한 StringList 쿼리 파라미터 Nullable
 
-  GetRequestTestAsyncResponseBodyVo(
+  GetService1TkV1RequestTestGetRequestAsyncResponseBodyVo(
       this.queryParamString,
       this.queryParamStringNullable,
       this.queryParamInt,

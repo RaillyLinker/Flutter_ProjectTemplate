@@ -40,7 +40,7 @@ class PageView extends StatelessWidget {
       appBar: AppBar(
         automaticallyImplyLeading: !kIsWeb,
         title: const Text(
-          'Get Request Sample',
+          'Get 메소드 요청 샘플',
           style: TextStyle(color: Colors.white, fontFamily: "MaruBuri"),
         ),
         backgroundColor: Colors.blue,
@@ -66,7 +66,7 @@ class PageView extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Text(
-                        "Name",
+                        "변수명",
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontFamily: "MaruBuri"),
@@ -75,7 +75,7 @@ class PageView extends StatelessWidget {
                     Expanded(
                         flex: 2,
                         child: Text(
-                          "Description",
+                          "설명 및 입력",
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontFamily: "MaruBuri"),
@@ -128,7 +128,7 @@ class PageView extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const Text(
-                            "String Query Parameter",
+                            "String Query 파라미터",
                             style: TextStyle(fontFamily: "MaruBuri"),
                           ),
                           Container(
@@ -137,7 +137,7 @@ class PageView extends StatelessWidget {
                               controller: pageBusiness.pageViewModel
                                   .networkRequestParamTextFieldController1,
                               decoration: const InputDecoration(
-                                  hintText: "\"\"",
+                                  hintText: "테스트",
                                   border: OutlineInputBorder()),
                             ),
                           )
@@ -192,7 +192,7 @@ class PageView extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const Text(
-                            "String Query Parameter Nullable",
+                            "String Query 파라미터 Nullable",
                             style: TextStyle(fontFamily: "MaruBuri"),
                           ),
                           Container(
@@ -254,7 +254,7 @@ class PageView extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const Text(
-                            "Int Query Parameter",
+                            "Int Query 파라미터",
                             style: TextStyle(fontFamily: "MaruBuri"),
                           ),
                           Container(
@@ -323,7 +323,7 @@ class PageView extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const Text(
-                            "Int Query Parameter Nullable",
+                            "Int Query 파라미터 Nullable",
                             style: TextStyle(fontFamily: "MaruBuri"),
                           ),
                           Container(
@@ -393,7 +393,7 @@ class PageView extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const Text(
-                            "Double Query Parameter",
+                            "Double Query 파라미터",
                             style: TextStyle(fontFamily: "MaruBuri"),
                           ),
                           Container(
@@ -472,7 +472,7 @@ class PageView extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const Text(
-                            "Double Query Parameter Nullable",
+                            "Double Query 파라미터 Nullable",
                             style: TextStyle(fontFamily: "MaruBuri"),
                           ),
                           Container(
@@ -551,7 +551,7 @@ class PageView extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const Text(
-                            "Boolean Query Parameter",
+                            "Boolean Query 파라미터",
                             style: TextStyle(fontFamily: "MaruBuri"),
                           ),
                           Container(
@@ -628,7 +628,7 @@ class PageView extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const Text(
-                            "Boolean Query Parameter Nullable",
+                            "Boolean Query 파라미터 Nullable",
                             style: TextStyle(fontFamily: "MaruBuri"),
                           ),
                           Container(
@@ -706,7 +706,7 @@ class PageView extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const Text(
-                            "StringList Query Parameter",
+                            "StringList Query 파라미터",
                             style: TextStyle(fontFamily: "MaruBuri"),
                           ),
                           Container(
@@ -737,7 +737,7 @@ class PageView extends StatelessWidget {
                                           child: TextField(
                                             controller: tec,
                                             decoration: const InputDecoration(
-                                                hintText: "\"\"",
+                                                hintText: "테스트",
                                                 border: OutlineInputBorder()),
                                           ),
                                         ),
@@ -795,7 +795,7 @@ class PageView extends StatelessWidget {
                                         backgroundColor: Colors.blue,
                                       ),
                                       child: const Text(
-                                        "Add List Item",
+                                        "리스트 추가",
                                         style: TextStyle(
                                             color: Colors.white,
                                             fontFamily: "MaruBuri"),
@@ -856,7 +856,7 @@ class PageView extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const Text(
-                            "StringList Query Parameter Nullable",
+                            "StringList Query 파라미터 Nullable",
                             style: TextStyle(fontFamily: "MaruBuri"),
                           ),
                           Container(
@@ -887,7 +887,7 @@ class PageView extends StatelessWidget {
                                           child: TextField(
                                             controller: tec,
                                             decoration: const InputDecoration(
-                                                hintText: "\"\"",
+                                                hintText: "테스트",
                                                 border: OutlineInputBorder()),
                                           ),
                                         ),
@@ -949,7 +949,7 @@ class PageView extends StatelessWidget {
                                         backgroundColor: Colors.blue,
                                       ),
                                       child: const Text(
-                                        "Add List Item",
+                                        "리스트 추가",
                                         style: TextStyle(
                                             color: Colors.white,
                                             fontFamily: "MaruBuri"),
