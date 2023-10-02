@@ -180,7 +180,7 @@ class PageBusiness {
 
     if (pageViewModel.pickFile1 == null) {
       showToast(
-        "multipartFile entries are not nullable.",
+        "multipartFile 선택은 필수입니다.",
         context: _context,
         position: StyledToastPosition.center,
         animation: StyledToastAnimation.scale,
@@ -197,8 +197,8 @@ class PageBusiness {
                 : MultipartFile.fromFileSync(pageViewModel.pickFile2!.path!));
 
         var response = await api_main_server
-            .postRequestTestMultipartFormDataJsonStringAsync(api_main_server
-                .PostRequestTestMultipartFormDataJsonStringAsyncRequestBodyVo(
+            .postService1TkV1RequestTestPostRequestMultipartFormDataJsonAsync(api_main_server
+                .PostService1TkV1RequestTestPostRequestMultipartFormDataJsonAsyncRequestBodyVo(
                     requestBodyString,
                     ((kIsWeb)
                         ? MultipartFile.fromBytes(
@@ -222,7 +222,7 @@ class PageBusiness {
             // 응답 body
             var responseBody = networkResponseObjectOk.responseBody
                 as api_main_server
-                .PostRequestTestMultipartFormDataJsonStringAsyncResponseBodyVo;
+                .PostService1TkV1RequestTestPostRequestMultipartFormDataJsonAsyncResponseBodyVo;
 
             // 확인 다이얼로그 호출
             if (!_context.mounted) return;

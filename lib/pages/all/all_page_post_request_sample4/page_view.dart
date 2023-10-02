@@ -967,7 +967,7 @@ class PageView extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text("Multipart File Body",
+                          const Text("Multipart File",
                               style: TextStyle(fontFamily: "MaruBuri")),
                           Container(
                             margin: const EdgeInsets.only(top: 10),
@@ -1003,7 +1003,7 @@ class PageView extends StatelessWidget {
                                         backgroundColor: Colors.blue,
                                       ),
                                       child: const Text(
-                                        "Select File Item",
+                                        "파일 선택",
                                         style: TextStyle(
                                             color: Colors.white,
                                             fontFamily: "MaruBuri"),
@@ -1061,7 +1061,7 @@ class PageView extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text("Multipart File Nullable Body",
+                          const Text("Multipart File Nullable",
                               style: TextStyle(fontFamily: "MaruBuri")),
                           Container(
                             margin: const EdgeInsets.only(top: 10),
@@ -1104,7 +1104,7 @@ class PageView extends StatelessWidget {
                                               backgroundColor: Colors.blue,
                                             ),
                                             child: const Text(
-                                              "Select File Item",
+                                              "파일 선택",
                                               style: TextStyle(
                                                   color: Colors.white,
                                                   fontFamily: "MaruBuri"),
@@ -1118,7 +1118,7 @@ class PageView extends StatelessWidget {
                                               backgroundColor: Colors.blue,
                                             ),
                                             child: const Text(
-                                              "Delete File Item",
+                                              "파일 선택 취소",
                                               style: TextStyle(
                                                   color: Colors.white,
                                                   fontFamily: "MaruBuri"),

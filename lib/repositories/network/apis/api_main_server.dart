@@ -539,14 +539,16 @@ class PostService1TkV1RequestTestPostRequestXWwwFromUrlencodedAsyncResponseBodyV
 // (Post 요청 테스트 (multipart/form-data))
 Future<
         gc_template_classes.NetworkResponseObject<
-            PostRequestTestMultipartFormDataAsyncResponseHeaderVo,
-            PostRequestTestMultipartFormDataAsyncResponseBodyVo>>
-    postRequestTestMultipartFormDataAsync(
-        PostRequestTestMultipartFormDataAsyncRequestBodyVo
+            PostService1TkV1RequestTestPostRequestMultipartFormDataAsyncResponseHeaderVo,
+            PostService1TkV1RequestTestPostRequestMultipartFormDataAsyncResponseBodyVo>>
+    postService1TkV1RequestTestPostRequestMultipartFormDataAsync(
+        PostService1TkV1RequestTestPostRequestMultipartFormDataAsyncRequestBodyVo
             requestBodyVo) async {
   // !!!개발 / 배포 모드별 요청 Path 지정!!
-  String devServerUrl = "/tk/ra/test/request/post-request-multipart-form-data";
-  String prodServerUrl = "/tk/ra/test/request/post-request-multipart-form-data";
+  String devServerUrl =
+      "/service1/tk/v1/request-test/post-request-multipart-form-data";
+  String prodServerUrl =
+      "/service1/tk/v1/request-test/post-request-multipart-form-data";
 
   Map<String, dynamic> requestHeaders = {};
   Map<String, dynamic> requestQueryParams = {};
@@ -602,13 +604,19 @@ Future<
         data: requestBody);
 
     int statusCode = response.statusCode!;
-    // Map<String, dynamic> responseHeaderMap = response.headers.map;
+    Map<String, dynamic> responseHeaderMap = response.headers.map;
 
-    PostRequestTestMultipartFormDataAsyncResponseHeaderVo responseHeader;
-    PostRequestTestMultipartFormDataAsyncResponseBodyVo? responseBody;
+    PostService1TkV1RequestTestPostRequestMultipartFormDataAsyncResponseHeaderVo
+        responseHeader;
+    PostService1TkV1RequestTestPostRequestMultipartFormDataAsyncResponseBodyVo?
+        responseBody;
 
     // !!!Response Map 을 Response Object 로 변경!!
-    responseHeader = PostRequestTestMultipartFormDataAsyncResponseHeaderVo();
+    responseHeader =
+        PostService1TkV1RequestTestPostRequestMultipartFormDataAsyncResponseHeaderVo(
+            responseHeaderMap.containsKey("api-result-code")
+                ? responseHeaderMap["api-result-code"][0]
+                : null);
     if (statusCode == 200) {
       // responseBody 가 반환되는 조건
       Map<String, dynamic> responseBodyMap = response.data;
@@ -617,20 +625,21 @@ Future<
       // Object 타입이 넘어오면 Map<String, dynamic> 으로 받고,
       // Object List 타입이 넘어오면 List<Map<String, dynamic>> 으로 받아서 처리
 
-      responseBody = PostRequestTestMultipartFormDataAsyncResponseBodyVo(
-        responseBodyMap["responseBodyString"],
-        responseBodyMap["responseBodyStringNullable"],
-        responseBodyMap["responseBodyInt"],
-        responseBodyMap["responseBodyIntNullable"],
-        responseBodyMap["responseBodyDouble"],
-        responseBodyMap["responseBodyDoubleNullable"],
-        responseBodyMap["responseBodyBoolean"],
-        responseBodyMap["responseBodyBooleanNullable"],
-        List<String>.from(responseBodyMap["responseBodyStringList"]),
-        (responseBodyMap["responseBodyStringListNullable"] == null)
+      responseBody =
+          PostService1TkV1RequestTestPostRequestMultipartFormDataAsyncResponseBodyVo(
+        responseBodyMap["requestFormString"],
+        responseBodyMap["requestFormStringNullable"],
+        responseBodyMap["requestFormInt"],
+        responseBodyMap["requestFormIntNullable"],
+        responseBodyMap["requestFormDouble"],
+        responseBodyMap["requestFormDoubleNullable"],
+        responseBodyMap["requestFormBoolean"],
+        responseBodyMap["requestFormBooleanNullable"],
+        List<String>.from(responseBodyMap["requestFormStringList"]),
+        (responseBodyMap["requestFormStringListNullable"] == null)
             ? null
             : List<String>.from(
-                responseBodyMap["responseBodyStringListNullable"]),
+                responseBodyMap["requestFormStringListNullable"]),
       );
     }
 
@@ -645,7 +654,7 @@ Future<
   }
 }
 
-class PostRequestTestMultipartFormDataAsyncRequestBodyVo {
+class PostService1TkV1RequestTestPostRequestMultipartFormDataAsyncRequestBodyVo {
   String requestFormString; // String 쿼리 파라미터
   String? requestFormStringNullable; // String 쿼리 파라미터 Nullable
   int requestFormInt; // int 쿼리 파라미터
@@ -659,7 +668,7 @@ class PostRequestTestMultipartFormDataAsyncRequestBodyVo {
   MultipartFile multipartFile; // 멀티 파트 파일
   MultipartFile? multipartFileNullable; // 멀티 파트 파일 Nullable
 
-  PostRequestTestMultipartFormDataAsyncRequestBodyVo(
+  PostService1TkV1RequestTestPostRequestMultipartFormDataAsyncRequestBodyVo(
     this.requestFormString,
     this.requestFormStringNullable,
     this.requestFormInt,
@@ -675,47 +684,52 @@ class PostRequestTestMultipartFormDataAsyncRequestBodyVo {
   );
 }
 
-class PostRequestTestMultipartFormDataAsyncResponseHeaderVo {
-  PostRequestTestMultipartFormDataAsyncResponseHeaderVo();
+class PostService1TkV1RequestTestPostRequestMultipartFormDataAsyncResponseHeaderVo {
+  // (api-result-code)
+  // 0 : 정상 동작
+  String? apiResultCode;
+
+  PostService1TkV1RequestTestPostRequestMultipartFormDataAsyncResponseHeaderVo(
+      this.apiResultCode);
 }
 
-class PostRequestTestMultipartFormDataAsyncResponseBodyVo {
-  String responseBodyString; // 입력한 String 쿼리 파라미터
-  String? responseBodyStringNullable; // 입력한 String 쿼리 파라미터 Nullable
-  int responseBodyInt; // 입력한 int 쿼리 파라미터
-  int? responseBodyIntNullable; // 입력한 int 쿼리 파라미터 Nullable
-  double responseBodyDouble; // 입력한 double 쿼리 파라미터
-  double? responseBodyDoubleNullable; // 입력한 double 쿼리 파라미터 Nullable
-  bool responseBodyBoolean; // 입력한 bool 쿼리 파라미터
-  bool? responseBodyBooleanNullable; // 입력한 bool 쿼리 파라미터 Nullable
-  List<String> responseBodyStringList; // 입력한 StringList 쿼리 파라미터
+class PostService1TkV1RequestTestPostRequestMultipartFormDataAsyncResponseBodyVo {
+  String requestFormString; // 입력한 String 쿼리 파라미터
+  String? requestFormStringNullable; // 입력한 String 쿼리 파라미터 Nullable
+  int requestFormInt; // 입력한 int 쿼리 파라미터
+  int? requestFormIntNullable; // 입력한 int 쿼리 파라미터 Nullable
+  double requestFormDouble; // 입력한 double 쿼리 파라미터
+  double? requestFormDoubleNullable; // 입력한 double 쿼리 파라미터 Nullable
+  bool requestFormBoolean; // 입력한 bool 쿼리 파라미터
+  bool? requestFormBooleanNullable; // 입력한 bool 쿼리 파라미터 Nullable
+  List<String> requestFormStringList; // 입력한 StringList 쿼리 파라미터
   List<String>?
-      responseBodyStringListNullable; // 입력한 StringList 쿼리 파라미터 Nullable
+      requestFormStringListNullable; // 입력한 StringList 쿼리 파라미터 Nullable
 
-  PostRequestTestMultipartFormDataAsyncResponseBodyVo(
-      this.responseBodyString,
-      this.responseBodyStringNullable,
-      this.responseBodyInt,
-      this.responseBodyIntNullable,
-      this.responseBodyDouble,
-      this.responseBodyDoubleNullable,
-      this.responseBodyBoolean,
-      this.responseBodyBooleanNullable,
-      this.responseBodyStringList,
-      this.responseBodyStringListNullable);
+  PostService1TkV1RequestTestPostRequestMultipartFormDataAsyncResponseBodyVo(
+      this.requestFormString,
+      this.requestFormStringNullable,
+      this.requestFormInt,
+      this.requestFormIntNullable,
+      this.requestFormDouble,
+      this.requestFormDoubleNullable,
+      this.requestFormBoolean,
+      this.requestFormBooleanNullable,
+      this.requestFormStringList,
+      this.requestFormStringListNullable);
 
   @override
   String toString() {
-    return "responseBodyString : $responseBodyString, "
-        "responseBodyStringNullable : $responseBodyStringNullable, "
-        "responseBodyInt : $responseBodyInt, "
-        "responseBodyIntNullable : $responseBodyIntNullable, "
-        "responseBodyDouble : $responseBodyDouble, "
-        "responseBodyDoubleNullable : $responseBodyDoubleNullable, "
-        "responseBodyBoolean : $responseBodyBoolean, "
-        "responseBodyBooleanNullable : $responseBodyBooleanNullable, "
-        "responseBodyStringList : $responseBodyStringList, "
-        "responseBodyStringListNullable : $responseBodyStringListNullable, ";
+    return "requestFormString : $requestFormString, "
+        "requestFormStringNullable : $requestFormStringNullable, "
+        "requestFormInt : $requestFormInt, "
+        "requestFormIntNullable : $requestFormIntNullable, "
+        "requestFormDouble : $requestFormDouble, "
+        "requestFormDoubleNullable : $requestFormDoubleNullable, "
+        "requestFormBoolean : $requestFormBoolean, "
+        "requestFormBooleanNullable : $requestFormBooleanNullable, "
+        "requestFormStringList : $requestFormStringList, "
+        "requestFormStringListNullable : $requestFormStringListNullable, ";
   }
 }
 
@@ -723,16 +737,16 @@ class PostRequestTestMultipartFormDataAsyncResponseBodyVo {
 // (Post 요청 테스트 (multipart/form-data - JsonString))
 Future<
         gc_template_classes.NetworkResponseObject<
-            PostRequestTestMultipartFormDataJsonStringAsyncResponseHeaderVo,
-            PostRequestTestMultipartFormDataJsonStringAsyncResponseBodyVo>>
-    postRequestTestMultipartFormDataJsonStringAsync(
-        PostRequestTestMultipartFormDataJsonStringAsyncRequestBodyVo
+            PostService1TkV1RequestTestPostRequestMultipartFormDataJsonAsyncResponseHeaderVo,
+            PostService1TkV1RequestTestPostRequestMultipartFormDataJsonAsyncResponseBodyVo>>
+    postService1TkV1RequestTestPostRequestMultipartFormDataJsonAsync(
+        PostService1TkV1RequestTestPostRequestMultipartFormDataJsonAsyncRequestBodyVo
             requestBodyVo) async {
   // !!!개발 / 배포 모드별 요청 Path 지정!!
   String devServerUrl =
-      "/tk/ra/test/request/post-request-multipart-form-data-json";
+      "/service1/tk/v1/request-test/post-request-multipart-form-data-json";
   String prodServerUrl =
-      "/tk/ra/test/request/post-request-multipart-form-data-json";
+      "/service1/tk/v1/request-test/post-request-multipart-form-data-json";
   Map<String, dynamic> requestHeaders = {};
   Map<String, dynamic> requestQueryParams = {};
   FormData requestBody;
@@ -766,15 +780,19 @@ Future<
         data: requestBody);
 
     int statusCode = response.statusCode!;
-    // Map<String, dynamic> responseHeaderMap = response.headers.map;
+    Map<String, dynamic> responseHeaderMap = response.headers.map;
 
-    PostRequestTestMultipartFormDataJsonStringAsyncResponseHeaderVo
+    PostService1TkV1RequestTestPostRequestMultipartFormDataJsonAsyncResponseHeaderVo
         responseHeader;
-    PostRequestTestMultipartFormDataJsonStringAsyncResponseBodyVo? responseBody;
+    PostService1TkV1RequestTestPostRequestMultipartFormDataJsonAsyncResponseBodyVo?
+        responseBody;
 
     // !!!Response Map 을 Response Object 로 변경!!
     responseHeader =
-        PostRequestTestMultipartFormDataJsonStringAsyncResponseHeaderVo();
+        PostService1TkV1RequestTestPostRequestMultipartFormDataJsonAsyncResponseHeaderVo(
+            responseHeaderMap.containsKey("api-result-code")
+                ? responseHeaderMap["api-result-code"][0]
+                : null);
     if (statusCode == 200) {
       // responseBody 가 반환되는 조건
       Map<String, dynamic> responseBodyMap = response.data;
@@ -784,20 +802,20 @@ Future<
       // Object List 타입이 넘어오면 List<Map<String, dynamic>> 으로 받아서 처리
 
       responseBody =
-          PostRequestTestMultipartFormDataJsonStringAsyncResponseBodyVo(
-        responseBodyMap["responseBodyString"],
-        responseBodyMap["responseBodyStringNullable"],
-        responseBodyMap["responseBodyInt"],
-        responseBodyMap["responseBodyIntNullable"],
-        responseBodyMap["responseBodyDouble"],
-        responseBodyMap["responseBodyDoubleNullable"],
-        responseBodyMap["responseBodyBoolean"],
-        responseBodyMap["responseBodyBooleanNullable"],
-        List<String>.from(responseBodyMap["responseBodyStringList"]),
-        (responseBodyMap["responseBodyStringListNullable"] == null)
+          PostService1TkV1RequestTestPostRequestMultipartFormDataJsonAsyncResponseBodyVo(
+        responseBodyMap["requestFormString"],
+        responseBodyMap["requestFormStringNullable"],
+        responseBodyMap["requestFormInt"],
+        responseBodyMap["requestFormIntNullable"],
+        responseBodyMap["requestFormDouble"],
+        responseBodyMap["requestFormDoubleNullable"],
+        responseBodyMap["requestFormBoolean"],
+        responseBodyMap["requestFormBooleanNullable"],
+        List<String>.from(responseBodyMap["requestFormStringList"]),
+        (responseBodyMap["requestFormStringListNullable"] == null)
             ? null
             : List<String>.from(
-                responseBodyMap["responseBodyStringListNullable"]),
+                responseBodyMap["requestFormStringListNullable"]),
       );
     }
 
@@ -812,7 +830,7 @@ Future<
   }
 }
 
-class PostRequestTestMultipartFormDataJsonStringAsyncRequestBodyVo {
+class PostService1TkV1RequestTestPostRequestMultipartFormDataJsonAsyncRequestBodyVo {
   // "jsonString" 형식 :
   // {
   // "requestFormString" :	String, // String 바디 파라미터
@@ -830,54 +848,59 @@ class PostRequestTestMultipartFormDataJsonStringAsyncRequestBodyVo {
   MultipartFile multipartFile; // 멀티 파트 파일
   MultipartFile? multipartFileNullable; // 멀티 파트 파일 Nullable
 
-  PostRequestTestMultipartFormDataJsonStringAsyncRequestBodyVo(
+  PostService1TkV1RequestTestPostRequestMultipartFormDataJsonAsyncRequestBodyVo(
     this.jsonString,
     this.multipartFile,
     this.multipartFileNullable,
   );
 }
 
-class PostRequestTestMultipartFormDataJsonStringAsyncResponseHeaderVo {
-  PostRequestTestMultipartFormDataJsonStringAsyncResponseHeaderVo();
+class PostService1TkV1RequestTestPostRequestMultipartFormDataJsonAsyncResponseHeaderVo {
+  // (api-result-code)
+  // 0 : 정상 동작
+  String? apiResultCode;
+
+  PostService1TkV1RequestTestPostRequestMultipartFormDataJsonAsyncResponseHeaderVo(
+      this.apiResultCode);
 }
 
-class PostRequestTestMultipartFormDataJsonStringAsyncResponseBodyVo {
-  String responseBodyString; // 입력한 String 쿼리 파라미터
-  String? responseBodyStringNullable; // 입력한 String 쿼리 파라미터 Nullable
-  int responseBodyInt; // 입력한 int 쿼리 파라미터
-  int? responseBodyIntNullable; // 입력한 int 쿼리 파라미터 Nullable
-  double responseBodyDouble; // 입력한 double 쿼리 파라미터
-  double? responseBodyDoubleNullable; // 입력한 double 쿼리 파라미터 Nullable
-  bool responseBodyBoolean; // 입력한 bool 쿼리 파라미터
-  bool? responseBodyBooleanNullable; // 입력한 bool 쿼리 파라미터 Nullable
-  List<String> responseBodyStringList; // 입력한 StringList 쿼리 파라미터
+class PostService1TkV1RequestTestPostRequestMultipartFormDataJsonAsyncResponseBodyVo {
+  String requestFormString; // 입력한 String 쿼리 파라미터
+  String? requestFormStringNullable; // 입력한 String 쿼리 파라미터 Nullable
+  int requestFormInt; // 입력한 int 쿼리 파라미터
+  int? requestFormIntNullable; // 입력한 int 쿼리 파라미터 Nullable
+  double requestFormDouble; // 입력한 double 쿼리 파라미터
+  double? requestFormDoubleNullable; // 입력한 double 쿼리 파라미터 Nullable
+  bool requestFormBoolean; // 입력한 bool 쿼리 파라미터
+  bool? requestFormBooleanNullable; // 입력한 bool 쿼리 파라미터 Nullable
+  List<String> requestFormStringList; // 입력한 StringList 쿼리 파라미터
   List<String>?
-      responseBodyStringListNullable; // 입력한 StringList 쿼리 파라미터 Nullable
+      requestFormStringListNullable; // 입력한 StringList 쿼리 파라미터 Nullable
 
-  PostRequestTestMultipartFormDataJsonStringAsyncResponseBodyVo(
-      this.responseBodyString,
-      this.responseBodyStringNullable,
-      this.responseBodyInt,
-      this.responseBodyIntNullable,
-      this.responseBodyDouble,
-      this.responseBodyDoubleNullable,
-      this.responseBodyBoolean,
-      this.responseBodyBooleanNullable,
-      this.responseBodyStringList,
-      this.responseBodyStringListNullable);
+  PostService1TkV1RequestTestPostRequestMultipartFormDataJsonAsyncResponseBodyVo(
+      this.requestFormString,
+      this.requestFormStringNullable,
+      this.requestFormInt,
+      this.requestFormIntNullable,
+      this.requestFormDouble,
+      this.requestFormDoubleNullable,
+      this.requestFormBoolean,
+      this.requestFormBooleanNullable,
+      this.requestFormStringList,
+      this.requestFormStringListNullable);
 
   @override
   String toString() {
-    return "responseBodyString : $responseBodyString, "
-        "responseBodyStringNullable : $responseBodyStringNullable, "
-        "responseBodyInt : $responseBodyInt, "
-        "responseBodyIntNullable : $responseBodyIntNullable, "
-        "responseBodyDouble : $responseBodyDouble, "
-        "responseBodyDoubleNullable : $responseBodyDoubleNullable, "
-        "responseBodyBoolean : $responseBodyBoolean, "
-        "responseBodyBooleanNullable : $responseBodyBooleanNullable, "
-        "responseBodyStringList : $responseBodyStringList, "
-        "responseBodyStringListNullable : $responseBodyStringListNullable, ";
+    return "requestFormString : $requestFormString, "
+        "requestFormStringNullable : $requestFormStringNullable, "
+        "requestFormInt : $requestFormInt, "
+        "requestFormIntNullable : $requestFormIntNullable, "
+        "requestFormDouble : $requestFormDouble, "
+        "requestFormDoubleNullable : $requestFormDoubleNullable, "
+        "requestFormBoolean : $requestFormBoolean, "
+        "requestFormBooleanNullable : $requestFormBooleanNullable, "
+        "requestFormStringList : $requestFormStringList, "
+        "requestFormStringListNullable : $requestFormStringListNullable, ";
   }
 }
 
