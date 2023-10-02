@@ -89,8 +89,7 @@ class PageBusiness {
         barrierDismissible: true,
         context: _context,
         builder: (context) => all_dialog_info.PageEntrance(
-            all_dialog_info.PageInputVo("Information Dialog",
-                "An Information dialog has been called.", "Check"),
+            all_dialog_info.PageInputVo("확인 다이얼로그", "확인 다이얼로그를 호출했습니다.", "확인"),
             (pageBusiness) {})).then((outputVo) {});
   }
 

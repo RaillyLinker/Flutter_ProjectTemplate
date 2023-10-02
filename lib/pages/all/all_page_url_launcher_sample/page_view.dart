@@ -38,7 +38,7 @@ class PageView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Url Launcher Sample',
+          'Url Launcher 샘플',
           style: TextStyle(color: Colors.white, fontFamily: "MaruBuri"),
         ),
         automaticallyImplyLeading: true,
@@ -58,7 +58,7 @@ class PageView extends StatelessWidget {
                   margin: const EdgeInsets.only(top: 20),
                   child: const Row(
                     children: [
-                      Text("Input : ",
+                      Text("입력 : ",
                           style: TextStyle(
                               color: Colors.black,
                               fontFamily: "MaruBuri",
@@ -83,7 +83,7 @@ class PageView extends StatelessWidget {
                               errorText: pageBusiness
                                   .pageViewModel.urlTextFieldErrorMsg,
                               labelText: "Url",
-                              hintText: "https://www.test-url.com/",
+                              hintText: "https://www.test-url.com",
                               border: const OutlineInputBorder()),
                         );
                       },
@@ -101,7 +101,7 @@ class PageView extends StatelessWidget {
                         backgroundColor: Colors.blue,
                       ),
                       child: const Text(
-                        "Launch Url In App",
+                        "앱 자체에서 열기",
                         style: TextStyle(
                             color: Colors.white, fontFamily: "MaruBuri"),
                       ),
@@ -119,7 +119,7 @@ class PageView extends StatelessWidget {
                         backgroundColor: Colors.blue,
                       ),
                       child: const Text(
-                        "Launch Url In Browser",
+                        "브라우저 앱에서 열기",
                         style: TextStyle(
                             color: Colors.white, fontFamily: "MaruBuri"),
                       ),

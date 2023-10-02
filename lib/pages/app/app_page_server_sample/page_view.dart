@@ -38,7 +38,7 @@ class PageView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Server Sample',
+          '서버 샘플',
           style: TextStyle(color: Colors.white, fontFamily: "MaruBuri"),
         ),
         automaticallyImplyLeading: true,
@@ -59,7 +59,7 @@ class PageView extends StatelessWidget {
                 child: Row(
                   children: [
                     const Text(
-                      'IP Address:',
+                      '접속 IP 주소:',
                       style: TextStyle(fontFamily: "MaruBuri"),
                     ),
                     const SizedBox(width: 8.0),
@@ -68,7 +68,7 @@ class PageView extends StatelessWidget {
                         builder: (c, s) {
                           return TextFormField(
                             enabled: pageBusiness.pageViewModel.serverBtn ==
-                                "Open Server",
+                                "서버 열기",
                             controller: pageBusiness
                                 .pageViewModel.portTextEditController,
                             maxLength: 4,
@@ -77,8 +77,8 @@ class PageView extends StatelessWidget {
                               FilteringTextInputFormatter.digitsOnly,
                             ],
                             decoration: const InputDecoration(
-                              hintText: 'Default 9090',
-                              labelText: 'Port',
+                              hintText: '기본 포트 번호 9090',
+                              labelText: '포트 번호 입력',
                             ),
                           );
                         },
@@ -93,10 +93,10 @@ class PageView extends StatelessWidget {
                           child: ElevatedButton(
                         onPressed: () {
                           if (pageBusiness.pageViewModel.serverBtn ==
-                              "Open Server") {
+                              "서버 열기") {
                             pageBusiness.onClickOpenServerBtnAsync();
                           } else if (pageBusiness.pageViewModel.serverBtn ==
-                              "Close Server") {
+                              "서버 닫기") {
                             pageBusiness.onClickCloseServerBtnAsync();
                           }
                         },

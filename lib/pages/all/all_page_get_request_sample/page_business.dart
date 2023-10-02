@@ -45,11 +45,6 @@ class PageBusiness {
   // (페이지 최초 실행)
   Future<void> onPageCreateAsync() async {
     // !!!페이지 최초 실행 로직 작성!!
-
-    // !!!pageViewModel.goRouterState 에서 pageInputVo Null 체크!!
-
-    // !!!pageViewModel.goRouterState 에서 PageInputVo 입력!!
-    pageViewModel.pageInputVo = page_entrance.PageInputVo();
   }
 
   // (페이지 최초 실행 or 다른 페이지에서 복귀)

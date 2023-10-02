@@ -1,4 +1,5 @@
 // (external)
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -37,11 +38,11 @@ class PageView extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: !kIsWeb,
         title: const Text(
           'Member Join : Member Info',
           style: TextStyle(color: Colors.white, fontFamily: "MaruBuri"),
         ),
-        automaticallyImplyLeading: true,
         backgroundColor: Colors.blue,
         iconTheme: const IconThemeData(
           color: Colors.white, //change your color here

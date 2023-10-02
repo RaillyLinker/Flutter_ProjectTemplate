@@ -40,11 +40,6 @@ class PageBusiness {
   // (페이지 최초 실행)
   Future<void> onPageCreateAsync() async {
     // !!!페이지 최초 실행 로직 작성!!
-
-    // !!!pageViewModel.goRouterState 에서 pageInputVo Null 체크!!
-
-    // !!!pageViewModel.goRouterState 에서 PageInputVo 입력!!
-    pageViewModel.pageInputVo = page_entrance.PageInputVo();
   }
 
   // (페이지 최초 실행 or 다른 페이지에서 복귀)
@@ -102,12 +97,12 @@ class PageBusiness {
 
       // url 띄우기
       if (!await launchUrl(Uri.parse(urlString))) {
-        throw Exception('Could not launch $urlString');
+        throw Exception('$urlString 를 열 수 없습니다.');
       }
     } else {
       // 필요 값 미충족
       if (urlString == "") {
-        pageViewModel.urlTextFieldErrorMsg = "required";
+        pageViewModel.urlTextFieldErrorMsg = "필수";
         blocObjects.blocUrlTextField.add(!blocObjects.blocUrlTextField.state);
       }
     }
@@ -128,12 +123,12 @@ class PageBusiness {
         Uri.parse(urlString),
         mode: LaunchMode.externalApplication,
       )) {
-        throw Exception('Could not launch $urlString');
+        throw Exception('$urlString 를 열 수 없습니다.');
       }
     } else {
       // 필요 값 미충족
       if (urlString == "") {
-        pageViewModel.urlTextFieldErrorMsg = "required";
+        pageViewModel.urlTextFieldErrorMsg = "필수";
         blocObjects.blocUrlTextField.add(!blocObjects.blocUrlTextField.state);
       }
     }

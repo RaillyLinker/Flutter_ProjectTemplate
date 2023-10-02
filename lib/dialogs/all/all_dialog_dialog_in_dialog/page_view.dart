@@ -51,7 +51,7 @@ class PageView extends StatelessWidget {
                       backgroundColor: Colors.blue,
                     ),
                     child: const Text(
-                      "Show Info Dialog",
+                      "확인 다이얼로그 호출",
                       style: TextStyle(
                           color: Colors.white, fontFamily: "MaruBuri"),
                     ),
@@ -67,7 +67,7 @@ class PageView extends StatelessWidget {
                       backgroundColor: Colors.blue,
                     ),
                     child: const Text(
-                      "Show Loading Dialog",
+                      "로딩 스피너 다이얼로그 호출",
                       style: TextStyle(
                           color: Colors.white, fontFamily: "MaruBuri"),
                     ),
@@ -83,7 +83,7 @@ class PageView extends StatelessWidget {
                       backgroundColor: Colors.blue,
                     ),
                     child: const Text(
-                      "Dialog in Dialog",
+                      "다중 다이얼로그 샘플 호출",
                       style: TextStyle(
                           color: Colors.white, fontFamily: "MaruBuri"),
                     ),

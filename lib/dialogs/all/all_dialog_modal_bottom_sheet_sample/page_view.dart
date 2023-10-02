@@ -53,7 +53,7 @@ class PageView extends StatelessWidget {
             ),
             const Expanded(
                 child: Text(
-              "Test Modal",
+              "테스트 다이얼로그",
               style: TextStyle(fontFamily: "MaruBuri"),
             )),
           ],

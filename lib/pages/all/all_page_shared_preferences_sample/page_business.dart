@@ -41,11 +41,6 @@ class PageBusiness {
   Future<void> onPageCreateAsync() async {
     // !!!페이지 최초 실행 로직 작성!!
 
-    // !!!pageViewModel.goRouterState 에서 pageInputVo Null 체크!!
-
-    // !!!pageViewModel.goRouterState 에서 PageInputVo 입력!!
-    pageViewModel.pageInputVo = page_entrance.PageInputVo();
-
     refreshScreenDataAsync();
   }
 
@@ -152,13 +147,13 @@ class PageBusiness {
     } else {
       // 필요 값 미충족
       if (sampleIntInput == "") {
-        pageViewModel.sampleIntTextFieldErrorMsg = "required";
+        pageViewModel.sampleIntTextFieldErrorMsg = "필수";
         blocObjects.blocSampleIntTextField
             .add(!blocObjects.blocSampleIntTextField.state);
       }
 
       if (sampleStringInput == "") {
-        pageViewModel.sampleStringTextFieldErrorMsg = "required";
+        pageViewModel.sampleStringTextFieldErrorMsg = "필수";
         blocObjects.blocSampleStringTextField
             .add(!blocObjects.blocSampleStringTextField.state);
       }

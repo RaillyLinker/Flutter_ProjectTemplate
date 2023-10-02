@@ -1,4 +1,5 @@
 // (external)
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -40,6 +41,7 @@ class PageView extends StatelessWidget {
       body: CustomScrollView(
         slivers: [
           const SliverAppBar(
+            automaticallyImplyLeading: !kIsWeb,
             pinned: true,
             centerTitle: false,
             title: Text(

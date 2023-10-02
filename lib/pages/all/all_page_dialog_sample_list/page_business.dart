@@ -52,11 +52,6 @@ class PageBusiness {
   // (페이지 최초 실행)
   Future<void> onPageCreateAsync() async {
     // !!!페이지 최초 실행 로직 작성!!
-
-    // !!!pageViewModel.goRouterState 에서 pageInputVo Null 체크!!
-
-    // !!!pageViewModel.goRouterState 에서 PageInputVo 입력!!
-    pageViewModel.pageInputVo = page_entrance.PageInputVo();
   }
 
   // (페이지 최초 실행 or 다른 페이지에서 복귀)
@@ -118,15 +113,9 @@ class PageBusiness {
               barrierDismissible: true,
               context: _context,
               builder: (context) => all_dialog_info.PageEntrance(
-                  all_dialog_info.PageInputVo("Information Dialog",
-                      "An Information dialog has been called.", "Check"),
-                  (pageBusiness) {})).then((outputVo) {
-            showToast(
-              "No Result",
-              context: _context,
-              animation: StyledToastAnimation.scale,
-            );
-          });
+                  all_dialog_info.PageInputVo(
+                      "확인 다이얼로그", "확인 다이얼로그를 호출했습니다.", "확인"),
+                  (pageBusiness) {})).then((outputVo) {});
         }
         break;
       case SampleItemEnum.yesOrNoDialog:
@@ -136,30 +125,27 @@ class PageBusiness {
               barrierDismissible: true,
               context: _context,
               builder: (context) => all_dialog_yes_or_no.PageEntrance(
-                  all_dialog_yes_or_no.PageInputVo(
-                      "Binary Dialog",
-                      "A Binary dialog has been called.\nPlease select yes or no.",
-                      "Yes",
-                      "No"),
+                  all_dialog_yes_or_no.PageInputVo("예/아니오 다이얼로그",
+                      "예/아니오 다이얼로그를 호출했습니다.\n예, 혹은 아니오 버튼을 누르세요.", "예", "아니오"),
                   (pageBusiness) {})).then((outputVo) {
             if (outputVo == null) {
               // 아무것도 누르지 않았을 때
               showToast(
-                "Choose None",
+                "아무것도 누르지 않았습니다.",
                 context: _context,
                 animation: StyledToastAnimation.scale,
               );
             } else if (!outputVo.checkPositiveBtn) {
               // negative 버튼을 눌렀을 때
               showToast(
-                "Choose Negative",
+                "아니오 선택",
                 context: _context,
                 animation: StyledToastAnimation.scale,
               );
             } else {
               // positive 버튼을 눌렀을 때
               showToast(
-                "Choose Positive",
+                "예 선택",
                 context: _context,
                 animation: StyledToastAnimation.scale,
               );
@@ -200,13 +186,7 @@ class PageBusiness {
                 all_dialog_modal_bottom_sheet_sample.PageEntrance(
                     all_dialog_modal_bottom_sheet_sample.PageInputVo(),
                     (pageBusiness) {}),
-          ).then((outputVo) {
-            showToast(
-              "No Result",
-              context: _context,
-              animation: StyledToastAnimation.scale,
-            );
-          });
+          ).then((outputVo) {});
         }
         break;
       case SampleItemEnum.dialogInDialog:

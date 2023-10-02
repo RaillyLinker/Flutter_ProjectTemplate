@@ -157,7 +157,7 @@ class PageBusiness {
     String returnValue = pageViewModel.returnValueTextFieldController.text;
 
     if (returnValue == "") {
-      pageViewModel.returnValueError = "required";
+      pageViewModel.returnValueError = "필수";
       blocObjects.blocReturnValueTextField
           .add(!blocObjects.blocReturnValueTextField.state);
     } else {

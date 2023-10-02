@@ -1,4 +1,5 @@
 // (external)
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -37,6 +38,7 @@ class PageView extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: !kIsWeb,
         title: const Text(
           'Find Password with PhoneNumber',
           style: TextStyle(color: Colors.white, fontFamily: "MaruBuri"),
@@ -45,7 +47,6 @@ class PageView extends StatelessWidget {
         iconTheme: const IconThemeData(
           color: Colors.white, //change your color here
         ),
-        automaticallyImplyLeading: true,
       ),
       backgroundColor: const Color(0xFFFFFFFF),
       body: SingleChildScrollView(

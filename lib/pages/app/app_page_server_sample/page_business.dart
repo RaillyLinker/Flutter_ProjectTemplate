@@ -40,11 +40,6 @@ class PageBusiness {
   // (페이지 최초 실행)
   Future<void> onPageCreateAsync() async {
     // !!!페이지 최초 실행 로직 작성!!
-
-    // !!!pageViewModel.goRouterState 에서 pageInputVo Null 체크!!
-
-    // !!!pageViewModel.goRouterState 에서 PageInputVo 입력!!
-    pageViewModel.pageInputVo = page_entrance.PageInputVo();
   }
 
   // (페이지 최초 실행 or 다른 페이지에서 복귀)
@@ -111,7 +106,7 @@ class PageBusiness {
       return;
     }
 
-    pageViewModel.logList.insert(0, "++++ Server Bind OK!");
+    pageViewModel.logList.insert(0, "++++ 서버를 열었습니다.");
     blocObjects.blocLogList.add(!blocObjects.blocLogList.state);
 
     pageViewModel.server!.listen((request) async {
@@ -125,7 +120,7 @@ class PageBusiness {
       await request.response.close();
     });
 
-    pageViewModel.serverBtn = "Close Server";
+    pageViewModel.serverBtn = "서버 닫기";
     blocObjects.blocServerBtn.add(!blocObjects.blocServerBtn.state);
 
     onServerBtnClicked = false;
@@ -138,10 +133,10 @@ class PageBusiness {
     onServerBtnClicked = true;
 
     await pageViewModel.server?.close();
-    pageViewModel.logList.insert(0, "++++ Server Closed");
+    pageViewModel.logList.insert(0, "++++ 서버를 닫았습니다.");
     blocObjects.blocLogList.add(!blocObjects.blocLogList.state);
 
-    pageViewModel.serverBtn = "Open Server";
+    pageViewModel.serverBtn = "서버 열기";
     blocObjects.blocServerBtn.add(!blocObjects.blocServerBtn.state);
 
     onServerBtnClicked = false;
@@ -169,7 +164,7 @@ class PageViewModel {
 
   List<String> logList = [];
 
-  String serverBtn = "Open Server";
+  String serverBtn = "서버 열기";
 
   dart_io.HttpServer? server;
 

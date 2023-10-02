@@ -1,4 +1,5 @@
 // (external)
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -37,11 +38,11 @@ class PageView extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: !kIsWeb,
         title: const Text(
-          'SharedPreferences Sample',
+          'SharedPreferences 샘플',
           style: TextStyle(color: Colors.white, fontFamily: "MaruBuri"),
         ),
-        automaticallyImplyLeading: true,
         backgroundColor: Colors.blue,
         iconTheme: const IconThemeData(
           color: Colors.white, //change your color here
@@ -56,7 +57,7 @@ class PageView extends StatelessWidget {
               Row(
                 children: [
                   const Expanded(
-                      child: Text("Key : ",
+                      child: Text("키 : ",
                           style: TextStyle(
                               color: Colors.black,
                               fontFamily: "MaruBuri",
@@ -71,7 +72,7 @@ class PageView extends StatelessWidget {
                 margin: const EdgeInsets.only(top: 20),
                 child: const Row(
                   children: [
-                    Text("Value : ",
+                    Text("값 : ",
                         style: TextStyle(
                             color: Colors.black,
                             fontFamily: "MaruBuri",
@@ -123,7 +124,7 @@ class PageView extends StatelessWidget {
                 margin: const EdgeInsets.only(top: 20),
                 child: const Row(
                   children: [
-                    Text("Input : ",
+                    Text("입력값 : ",
                         style: TextStyle(
                             color: Colors.black,
                             fontFamily: "MaruBuri",
@@ -153,8 +154,8 @@ class PageView extends StatelessWidget {
                             decoration: InputDecoration(
                                 errorText: pageBusiness
                                     .pageViewModel.sampleIntTextFieldErrorMsg,
-                                labelText: "Sample Int",
-                                hintText: "Put Integer",
+                                labelText: "정수값 입력",
+                                hintText: "정수값을 입력하세요.",
                                 border: const OutlineInputBorder()),
                           );
                         },
@@ -177,8 +178,8 @@ class PageView extends StatelessWidget {
                             decoration: InputDecoration(
                                 errorText: pageBusiness.pageViewModel
                                     .sampleStringTextFieldErrorMsg,
-                                labelText: "Sample String",
-                                hintText: "Put String",
+                                labelText: "문자열 입력",
+                                hintText: "문자열을 입력하세요.",
                                 border: const OutlineInputBorder()),
                           );
                         },
@@ -198,7 +199,7 @@ class PageView extends StatelessWidget {
                       backgroundColor: Colors.blue,
                     ),
                     child: const Text(
-                      "Change SP Value",
+                      "SharedPreferences 값 변경",
                       style: TextStyle(
                           color: Colors.white, fontFamily: "MaruBuri"),
                     ),
@@ -216,7 +217,7 @@ class PageView extends StatelessWidget {
                       backgroundColor: Colors.blue,
                     ),
                     child: const Text(
-                      "Delete SP Value",
+                      "SharedPreferences 값 삭제",
                       style: TextStyle(
                           color: Colors.white, fontFamily: "MaruBuri"),
                     ),
