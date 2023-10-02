@@ -218,7 +218,7 @@ class PageBusiness {
                     all_dialog_info.PageInputVo(
                         "need update",
                         "The required version is not met.\nPlease update the application.\n\nGo to the App Store.",
-                        "Check"),
+                        "확인"),
                     (pageBusiness) {})).then((value) {
               // 앱 업데이트 스토어로 이동
               try {
@@ -240,7 +240,7 @@ class PageBusiness {
                     all_dialog_info.PageInputVo(
                         "need update",
                         "The required version is not met.\nPlease update the application.\n\nGo to the Download Site.",
-                        "Check"),
+                        "확인"),
                     (pageBusiness) {})).then((value) {
               // 앱 업데이트 사이트로 이동
               launchUrl(Uri.parse('https://todo.com')).then((value) {
@@ -262,8 +262,8 @@ class PageBusiness {
             context: _context,
             builder: (context) => all_dialog_yes_or_no.PageEntrance(
                 all_dialog_yes_or_no.PageInputVo(
-                    "Network Error",
-                    "network connection is unstable.\nplease try again.",
+                    "네트워크 에러",
+                    "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
                     "Retry",
                     "Exit"),
                 (pageBusiness) {})).then((outputVo) async {
@@ -287,8 +287,8 @@ class PageBusiness {
           context: _context,
           builder: (context) => all_dialog_yes_or_no.PageEntrance(
               all_dialog_yes_or_no.PageInputVo(
-                  "Network Error",
-                  "network connection is unstable.\nplease try again.",
+                  "네트워크 에러",
+                  "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
                   "Retry",
                   "Exit"),
               (pageBusiness) {})).then((outputVo) async {
@@ -392,7 +392,7 @@ class PageBusiness {
                         all_dialog_info.PageInputVo(
                             "Server Sign in Error",
                             "network connection is unstable.\nSwitch to non-member status.",
-                            "Check"),
+                            "확인"),
                         (pageBusiness) {}));
 
                 // login_user_info SSW 비우기 (= 로그아웃 처리)
@@ -407,8 +407,8 @@ class PageBusiness {
                   context: _context,
                   builder: (context) => all_dialog_yes_or_no.PageEntrance(
                       all_dialog_yes_or_no.PageInputVo(
-                          "Network Error",
-                          "network connection is unstable.\nplease try again.",
+                          "네트워크 에러",
+                          "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
                           "Retry",
                           "Exit"),
                       (pageBusiness) {})).then((outputVo) async {
@@ -456,7 +456,7 @@ class PageBusiness {
                     all_dialog_info.PageInputVo(
                         "Server Sign in Error",
                         "network connection is unstable.\nSwitch to non-member status.",
-                        "Check"),
+                        "확인"),
                     (pageBusiness) {}));
 
             // login_user_info SSW 비우기 (= 로그아웃 처리)
@@ -472,8 +472,8 @@ class PageBusiness {
               context: _context,
               builder: (context) => all_dialog_yes_or_no.PageEntrance(
                   all_dialog_yes_or_no.PageInputVo(
-                      "Network Error",
-                      "network connection is unstable.\nplease try again.",
+                      "네트워크 에러",
+                      "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
                       "Retry",
                       "Exit"),
                   (pageBusiness) {})).then((outputVo) async {

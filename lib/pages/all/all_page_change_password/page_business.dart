@@ -344,7 +344,7 @@ class PageBusiness {
               context: _context,
               builder: (context) => all_dialog_info.PageEntrance(
                   all_dialog_info.PageInputVo(
-                      "Change Password", "Change Password Completed!", "Check"),
+                      "Change Password", "Change Password Completed!", "확인"),
                   (pageBusiness) {})).then((outputVo) {
             // 로그아웃 처리
             spw_sign_in_member_info.SharedPreferenceWrapper.set(null);
@@ -360,9 +360,9 @@ class PageBusiness {
                 context: _context,
                 builder: (context) => all_dialog_info.PageEntrance(
                     all_dialog_info.PageInputVo(
-                        "Network Error",
-                        "network connection is unstable.\nplease try again.",
-                        "check"),
+                        "네트워크 에러",
+                        "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
+                        "확인"),
                     (pageBusiness) {}));
           } else {
             // 서버 지정 에러 코드를 전달 받았을 때
@@ -376,7 +376,7 @@ class PageBusiness {
                   context: _context,
                   builder: (context) => all_dialog_info.PageEntrance(
                       all_dialog_info.PageInputVo("canceled member",
-                          "You are a canceled member.", "Check"),
+                          "You are a canceled member.", "확인"),
                       (pageBusiness) {}));
             } else if (apiErrorCodes.contains("2")) {
               // 기존 비밀번호가 일치하지 않음
@@ -388,7 +388,7 @@ class PageBusiness {
                       all_dialog_info.PageInputVo(
                           "Current Password Not Matched",
                           "Current Password Not Matched.\nChange Password And Try Again",
-                          "Check"),
+                          "확인"),
                       (pageBusiness) {}));
             } else if (apiErrorCodes.contains("3")) {
               // 비번을 null 로 만들려고 할 때 account 외의 OAuth2 인증이 없기에 비번 제거 불가
@@ -400,7 +400,7 @@ class PageBusiness {
                       all_dialog_info.PageInputVo(
                           "change password failed",
                           "The password cannot be removed because there is no authentication method other than the password.",
-                          "Check"),
+                          "확인"),
                       (pageBusiness) {}));
             } else {
               // 알 수 없는 에러 코드일 때
@@ -416,9 +416,9 @@ class PageBusiness {
             context: _context,
             builder: (context) => all_dialog_info.PageEntrance(
                 all_dialog_info.PageInputVo(
-                    "Network Error",
-                    "network connection is unstable.\nplease try again.",
-                    "check"),
+                    "네트워크 에러",
+                    "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
+                    "확인"),
                 (pageBusiness) {}));
       }
     });

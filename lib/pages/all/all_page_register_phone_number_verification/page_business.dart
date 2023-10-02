@@ -193,9 +193,9 @@ class PageBusiness {
                   context: _context,
                   builder: (context) => all_dialog_info.PageEntrance(
                       all_dialog_info.PageInputVo(
-                          "Network Error",
-                          "network connection is unstable.\nplease try again.",
-                          "check"),
+                          "네트워크 에러",
+                          "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
+                          "확인"),
                       (pageBusiness) {}));
             } else {
               // 서버 지정 에러 코드를 전달 받았을 때
@@ -210,7 +210,7 @@ class PageBusiness {
                         all_dialog_info.PageInputVo(
                             "Member registration process failed",
                             "You are already a registered member.",
-                            "Check"),
+                            "확인"),
                         (pageBusiness) {}));
               } else {
                 // 알 수 없는 에러 코드일 때
@@ -226,9 +226,9 @@ class PageBusiness {
               context: _context,
               builder: (context) => all_dialog_info.PageEntrance(
                   all_dialog_info.PageInputVo(
-                      "Network Error",
-                      "network connection is unstable.\nplease try again.",
-                      "check"),
+                      "네트워크 에러",
+                      "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
+                      "확인"),
                   (pageBusiness) {}));
         }
       });

@@ -847,12 +847,12 @@ class PostRequestTestMultipartFormDataJsonStringAsyncResponseBodyVo {
 // 서버에서 송신하는 인위적 에러 수신 테스트
 Future<
         gc_template_classes.NetworkResponseObject<
-            PostReceiveErrorTestAsyncResponseHeaderVo,
-            PostReceiveErrorTestAsyncResponseBodyVo>>
-    postReceiveErrorTestAsync() async {
+            PostService1TkV1RequestTestGenerateErrorAsyncResponseHeaderVo,
+            PostService1TkV1RequestTestGenerateErrorAsyncResponseBodyVo>>
+    postService1TkV1RequestTestGenerateErrorAsync() async {
   // !!!개발 / 배포 모드별 요청 Path 지정!!
-  String devServerUrl = "/tk/ra/test/request/generate-error";
-  String prodServerUrl = "/tk/ra/test/request/generate-error";
+  String devServerUrl = "/service1/tk/v1/request-test/generate-error";
+  String prodServerUrl = "/service1/tk/v1/request-test/generate-error";
 
   Map<String, dynamic> requestHeaders = {};
   Map<String, dynamic> requestQueryParams = {};
@@ -875,13 +875,18 @@ Future<
         data: requestBody);
 
     int statusCode = response.statusCode!;
-    // Map<String, dynamic> responseHeaderMap = response.headers.map;
+    Map<String, dynamic> responseHeaderMap = response.headers.map;
 
-    PostReceiveErrorTestAsyncResponseHeaderVo responseHeader;
-    PostReceiveErrorTestAsyncResponseBodyVo? responseBody;
+    PostService1TkV1RequestTestGenerateErrorAsyncResponseHeaderVo
+        responseHeader;
+    PostService1TkV1RequestTestGenerateErrorAsyncResponseBodyVo? responseBody;
 
     // !!!Response Map 을 Response Object 로 변경!!
-    responseHeader = PostReceiveErrorTestAsyncResponseHeaderVo();
+    responseHeader =
+        PostService1TkV1RequestTestGenerateErrorAsyncResponseHeaderVo(
+            responseHeaderMap.containsKey("api-result-code")
+                ? responseHeaderMap["api-result-code"][0]
+                : null);
     return gc_template_classes.NetworkResponseObject(
         gc_template_classes.NetworkResponseObjectOk(
             statusCode, responseHeader, responseBody),
@@ -893,22 +898,27 @@ Future<
   }
 }
 
-class PostReceiveErrorTestAsyncResponseHeaderVo {
-  PostReceiveErrorTestAsyncResponseHeaderVo();
+class PostService1TkV1RequestTestGenerateErrorAsyncResponseHeaderVo {
+  // (api-result-code)
+  // 0 : 정상 동작
+  String? apiResultCode;
+
+  PostService1TkV1RequestTestGenerateErrorAsyncResponseHeaderVo(
+      this.apiResultCode);
 }
 
-class PostReceiveErrorTestAsyncResponseBodyVo {}
+class PostService1TkV1RequestTestGenerateErrorAsyncResponseBodyVo {}
 
 ////
 // (text/string 반환 샘플)
 // Response Body 가 text/string 타입입니다.
 Future<
     gc_template_classes.NetworkResponseObject<
-        GetRequestReturnTextStringAsyncResponseHeaderVo,
-        String>> getRequestReturnTextStringAsync() async {
+        GetService1TkV1RequestTestReturnTextStringAsyncResponseHeaderVo,
+        String>> getService1TkV1RequestTestReturnTextStringAsync() async {
   // !!!개발 / 배포 모드별 요청 Path 지정!!
-  String devServerUrl = "/tk/ra/test/request/return-text-string";
-  String prodServerUrl = "/tk/ra/test/request/return-text-string";
+  String devServerUrl = "/service1/tk/v1/request-test/return-text-string";
+  String prodServerUrl = "/service1/tk/v1/request-test/return-text-string";
 
   Map<String, dynamic> requestHeaders = {};
   Map<String, dynamic> requestQueryParams = {};
@@ -929,19 +939,20 @@ Future<
         ));
 
     int statusCode = response.statusCode!;
-    // Map<String, dynamic> responseHeaderMap = response.headers.map;
+    Map<String, dynamic> responseHeaderMap = response.headers.map;
 
-    GetRequestReturnTextStringAsyncResponseHeaderVo responseHeader;
+    GetService1TkV1RequestTestReturnTextStringAsyncResponseHeaderVo
+        responseHeader;
     String? responseBody;
 
     // !!!Response Map 을 Response Object 로 변경!!
-    responseHeader = GetRequestReturnTextStringAsyncResponseHeaderVo();
+    responseHeader =
+        GetService1TkV1RequestTestReturnTextStringAsyncResponseHeaderVo(
+            responseHeaderMap.containsKey("api-result-code")
+                ? responseHeaderMap["api-result-code"][0]
+                : null);
     if (statusCode == 200) {
       // responseBody 가 반환되는 조건
-
-      // responseBody 로 List 타입이 넘어오면 List<>.from 으로 받고,
-      // Object 타입이 넘어오면 Map<String, dynamic> 으로 받고,
-      // Object List 타입이 넘어오면 List<Map<String, dynamic>> 으로 받아서 처리
 
       responseBody = response.data;
     }
@@ -957,8 +968,13 @@ Future<
   }
 }
 
-class GetRequestReturnTextStringAsyncResponseHeaderVo {
-  GetRequestReturnTextStringAsyncResponseHeaderVo();
+class GetService1TkV1RequestTestReturnTextStringAsyncResponseHeaderVo {
+  // (api-result-code)
+  // 0 : 정상 동작
+  String? apiResultCode;
+
+  GetService1TkV1RequestTestReturnTextStringAsyncResponseHeaderVo(
+      this.apiResultCode);
 }
 
 class GetRequestReturnTextStringAsyncResponseBodyVo {
@@ -970,11 +986,11 @@ class GetRequestReturnTextStringAsyncResponseBodyVo {
 // Response Body 가 text/html 타입입니다.
 Future<
     gc_template_classes.NetworkResponseObject<
-        GetRequestReturnTextHtmlAsyncResponseHeaderVo,
-        String>> getRequestReturnTextHtmlAsync() async {
+        GetService1TkV1RequestTestReturnTextHtmlAsyncResponseHeaderVo,
+        String>> getService1TkV1RequestTestReturnTextHtmlAsync() async {
   // !!!개발 / 배포 모드별 요청 Path 지정!!
-  String devServerUrl = "/tk/ra/test/request/return-text-html";
-  String prodServerUrl = "/tk/ra/test/request/return-text-html";
+  String devServerUrl = "/service1/tk/v1/request-test/return-text-html";
+  String prodServerUrl = "/service1/tk/v1/request-test/return-text-html";
 
   Map<String, dynamic> requestHeaders = {};
   Map<String, dynamic> requestQueryParams = {};
@@ -995,20 +1011,20 @@ Future<
         ));
 
     int statusCode = response.statusCode!;
-    // Map<String, dynamic> responseHeaderMap = response.headers.map;
+    Map<String, dynamic> responseHeaderMap = response.headers.map;
 
-    GetRequestReturnTextHtmlAsyncResponseHeaderVo responseHeader;
+    GetService1TkV1RequestTestReturnTextHtmlAsyncResponseHeaderVo
+        responseHeader;
     String? responseBody;
 
     // !!!Response Map 을 Response Object 로 변경!!
-    responseHeader = GetRequestReturnTextHtmlAsyncResponseHeaderVo();
+    responseHeader =
+        GetService1TkV1RequestTestReturnTextHtmlAsyncResponseHeaderVo(
+            responseHeaderMap.containsKey("api-result-code")
+                ? responseHeaderMap["api-result-code"][0]
+                : null);
     if (statusCode == 200) {
       // responseBody 가 반환되는 조건
-
-      // responseBody 로 List 타입이 넘어오면 List<>.from 으로 받고,
-      // Object 타입이 넘어오면 Map<String, dynamic> 으로 받고,
-      // Object List 타입이 넘어오면 List<Map<String, dynamic>> 으로 받아서 처리
-
       responseBody = response.data;
     }
 
@@ -1023,8 +1039,13 @@ Future<
   }
 }
 
-class GetRequestReturnTextHtmlAsyncResponseHeaderVo {
-  GetRequestReturnTextHtmlAsyncResponseHeaderVo();
+class GetService1TkV1RequestTestReturnTextHtmlAsyncResponseHeaderVo {
+  // (api-result-code)
+  // 0 : 정상 동작
+  String? apiResultCode;
+
+  GetService1TkV1RequestTestReturnTextHtmlAsyncResponseHeaderVo(
+      this.apiResultCode);
 }
 
 class GetRequestReturnTextHtmlAsyncResponseBodyVo {

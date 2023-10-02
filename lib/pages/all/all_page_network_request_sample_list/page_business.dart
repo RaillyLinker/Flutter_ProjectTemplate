@@ -70,9 +70,6 @@ class PageBusiness {
   // (페이지 종료 (강제 종료는 탐지 못함))
   Future<void> onPageDestroyAsync() async {
     // !!!페이지 종료 로직 작성!!
-
-    // 검색창 컨트롤러 닫기
-    pageViewModel.sampleSearchBarTextEditController.dispose();
   }
 
   // (Page Pop 요청)
@@ -96,35 +93,9 @@ class PageBusiness {
 //     bLocObjects.blocSample.add(!bLocObjects.blocSample.state);
 //   }
 
-  // (검색 결과에 따라 샘플 페이지 리스트 필터링)
-  void filteringSamplePageList(String searchKeyword) {
-    if (searchKeyword == "") {
-      // 원본 리스트로 뷰모델 데이터 변경 후 이벤트 발생
-      pageViewModel.filteredSampleList = pageViewModel.allSampleList;
-      blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
-    } else {
-      // 필터링한 리스트로 뷰모델 데이터 변경 후 이벤트 발생
-      List<SampleItem> filteredSamplePageList = [];
-      // 필터링 하기
-      for (SampleItem samplePage in pageViewModel.allSampleList) {
-        if (samplePage.sampleItemTitle
-            .toLowerCase()
-            .contains(searchKeyword.toLowerCase())) {
-          filteredSamplePageList.add(samplePage);
-        } else if (samplePage.sampleItemDescription
-            .toLowerCase()
-            .contains(searchKeyword.toLowerCase())) {
-          filteredSamplePageList.add(samplePage);
-        }
-      }
-      pageViewModel.filteredSampleList = filteredSamplePageList;
-      blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
-    }
-  }
-
   // (리스트 아이템 클릭 리스너)
   void onRouteListItemClick(int index) {
-    SampleItem sampleItem = pageViewModel.filteredSampleList[index];
+    SampleItem sampleItem = pageViewModel.allSampleList[index];
 
     switch (sampleItem.sampleItemEnum) {
       case SampleItemEnum.getRequestSample:
@@ -157,7 +128,7 @@ class PageBusiness {
           // 로딩 다이얼로그 표시
           var loadingSpinnerDialog = all_dialog_loading_spinner.PageEntrance(
               all_dialog_loading_spinner.PageInputVo(), (pageBusiness) async {
-            var response = await api_main_server.postReceiveErrorTestAsync();
+            var response = await api_main_server.postService1TkV1RequestTestGenerateErrorAsync();
 
             // 로딩 다이얼로그 제거
             pageBusiness.closeDialog();
@@ -172,9 +143,9 @@ class PageBusiness {
                   context: _context,
                   builder: (context) => all_dialog_info.PageEntrance(
                       all_dialog_info.PageInputVo(
-                          "Response",
+                          "응답 결과",
                           "Http Status Code : ${response.networkResponseObjectOk!.responseStatusCode}\n\nResponse Body:\n${response.networkResponseObjectOk!.responseBody}",
-                          "Check"),
+                          "확인"),
                       (pageBusiness) {})).then((outputVo) {});
             } else {
               // Dio 네트워크 에러
@@ -184,9 +155,7 @@ class PageBusiness {
                   context: _context,
                   builder: (context) => all_dialog_info.PageEntrance(
                       all_dialog_info.PageInputVo(
-                          "Network Error",
-                          "network connection is unstable.\nplease try again.",
-                          "check"),
+                          "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
                       (pageBusiness) {}));
             }
           });
@@ -202,8 +171,8 @@ class PageBusiness {
           // 로딩 다이얼로그 표시
           var loadingSpinnerDialog = all_dialog_loading_spinner.PageEntrance(
               all_dialog_loading_spinner.PageInputVo(), (pageBusiness) async {
-            var response =
-                await api_main_server.getRequestReturnTextStringAsync();
+            var response = await api_main_server
+                .getService1TkV1RequestTestReturnTextStringAsync();
 
             // 로딩 다이얼로그 제거
             pageBusiness.closeDialog();
@@ -227,9 +196,9 @@ class PageBusiness {
                     context: _context,
                     builder: (context) => all_dialog_info.PageEntrance(
                         all_dialog_info.PageInputVo(
-                            "Response",
+                            "응답 결과",
                             "Http Status Code : ${networkResponseObjectOk.responseStatusCode}\n\nResponse Body:\n$responseBodyString",
-                            "Check"),
+                            "확인"),
                         (pageBusiness) {})).then((outputVo) {});
               } else {
                 // 비정상 응답
@@ -239,9 +208,7 @@ class PageBusiness {
                     context: _context,
                     builder: (context) => all_dialog_info.PageEntrance(
                         all_dialog_info.PageInputVo(
-                            "Network Error",
-                            "network connection is unstable.\nplease try again.",
-                            "check"),
+                            "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
                         (pageBusiness) {}));
               }
             } else {
@@ -252,9 +219,7 @@ class PageBusiness {
                   context: _context,
                   builder: (context) => all_dialog_info.PageEntrance(
                       all_dialog_info.PageInputVo(
-                          "Network Error",
-                          "network connection is unstable.\nplease try again.",
-                          "check"),
+                          "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
                       (pageBusiness) {}));
             }
           });
@@ -270,8 +235,8 @@ class PageBusiness {
           // 로딩 다이얼로그 표시
           var loadingSpinnerDialog = all_dialog_loading_spinner.PageEntrance(
               all_dialog_loading_spinner.PageInputVo(), (pageBusiness) async {
-            var response =
-                await api_main_server.getRequestReturnTextHtmlAsync();
+            var response = await api_main_server
+                .getService1TkV1RequestTestReturnTextHtmlAsync();
 
             // 로딩 다이얼로그 제거
             pageBusiness.closeDialog();
@@ -295,9 +260,9 @@ class PageBusiness {
                     context: _context,
                     builder: (context) => all_dialog_info.PageEntrance(
                         all_dialog_info.PageInputVo(
-                            "Response",
+                            "응답 결과",
                             "Http Status Code : ${networkResponseObjectOk.responseStatusCode}\n\nResponse Body:\n$responseBodyHtml",
-                            "Check"),
+                            "확인"),
                         (pageBusiness) {})).then((outputVo) {});
               } else {
                 // 비정상 응답
@@ -307,9 +272,7 @@ class PageBusiness {
                     context: _context,
                     builder: (context) => all_dialog_info.PageEntrance(
                         all_dialog_info.PageInputVo(
-                            "Network Error",
-                            "network connection is unstable.\nplease try again.",
-                            "check"),
+                            "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
                         (pageBusiness) {}));
               }
             } else {
@@ -320,9 +283,7 @@ class PageBusiness {
                   context: _context,
                   builder: (context) => all_dialog_info.PageEntrance(
                       all_dialog_info.PageInputVo(
-                          "Network Error",
-                          "network connection is unstable.\nplease try again.",
-                          "check"),
+                          "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
                       (pageBusiness) {}));
             }
           });
@@ -355,42 +316,33 @@ class PageViewModel {
   // ex :
   // int sampleNumber = 0;
 
-  // 샘플 목록 필터링용 검색창 컨트롤러 (검색창의 텍스트 정보를 가지고 있으므로 뷰모델에 저장, 여기 있어야 위젯이 변경되어도 검색어가 유지됨)
-  TextEditingController sampleSearchBarTextEditController =
-      TextEditingController();
-
   // (샘플 페이지 원본 리스트)
   List<SampleItem> allSampleList = [];
-
-  // (샘플 페이지 리스트 검색 결과)
-  List<SampleItem> filteredSampleList = [];
 
   PageViewModel(this.goRouterState) {
     // 초기 리스트 추가
     allSampleList.add(SampleItem(SampleItemEnum.getRequestSample,
-        "Get Request Sample", "Get Request Test (Query Parameter)"));
+        "Get 메소드 요청 샘플", "Get 요청 테스트 (Query Parameter)"));
     allSampleList.add(SampleItem(SampleItemEnum.postRequestSample1,
-        "Post Request Sample 1", "Post Request Test (Request Body)"));
+        "Post 메소드 요청 샘플 1 (application/json)", "Post 요청 테스트 (Request Body)"));
     allSampleList.add(SampleItem(
         SampleItemEnum.postRequestSample2,
-        "Post Request Sample 2 (x-www-form-urlencoded)",
-        "Post Request Test (x-www-form-urlencoded)"));
+        "Post 메소드 요청 샘플 2 (x-www-form-urlencoded)",
+        "Post 메소드 요청 테스트 (x-www-form-urlencoded)"));
     allSampleList.add(SampleItem(
         SampleItemEnum.postRequestSample3,
-        "Post Request Sample 3 (multipart/form-data)",
-        "Post Request Test (multipart/form-data)"));
+        "Post 메소드 요청 샘플 3 (multipart/form-data)",
+        "Post 메소드 요청 테스트 (multipart/form-data)"));
     allSampleList.add(SampleItem(
         SampleItemEnum.postRequestSample4,
-        "Post Request Sample 4 (multipart/form-data - JsonString)",
-        "Post Request Test Using JsonString Parameter (multipart/form-data)"));
+        "Post 메소드 요청 샘플 4 (multipart/form-data - JsonString)",
+        "Post 메소드 요청 JsonString Parameter (multipart/form-data)"));
     allSampleList.add(SampleItem(SampleItemEnum.postReceiveErrorSample,
-        "Post Receive Error Sample", "error reception test"));
+        "Post 메소드 에러 발생 샘플", "에러 발생시의 신호를 응답하는 Post 메소드 샘플"));
     allSampleList.add(SampleItem(SampleItemEnum.getStringResponseSample,
-        "Get String Response Sample", "Get String Response"));
+        "Get 메소드 String 응답 샘플", "String 을 반환하는 Get 메소드 샘플"));
     allSampleList.add(SampleItem(SampleItemEnum.getHtmlResponseSample,
-        "Get Html Response Sample", "Get Html Response"));
-
-    filteredSampleList = allSampleList;
+        "Get 메소드 Html 응답 샘플", "HTML String 을 반환하는 Get 메소드 샘플"));
   }
 }
 

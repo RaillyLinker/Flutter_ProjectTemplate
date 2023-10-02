@@ -56,7 +56,7 @@ class PageView extends StatelessWidget {
           // Other Sliver Widgets
           BlocBuilder<page_business.BlocSampleList, bool>(builder: (c, s) {
             return SliverList.builder(
-              itemCount: pageBusiness.pageViewModel.filteredSampleList.length,
+              itemCount: pageBusiness.pageViewModel.allSampleList.length,
               itemBuilder: (context, index) {
                 return GestureDetector(
                     onTap: () {
@@ -66,12 +66,12 @@ class PageView extends StatelessWidget {
                       children: [
                         ListTile(
                           title: Text(
-                            pageBusiness.pageViewModel.filteredSampleList[index]
+                            pageBusiness.pageViewModel.allSampleList[index]
                                 .sampleItemTitle,
                             style: const TextStyle(fontFamily: "MaruBuri"),
                           ),
                           subtitle: Text(
-                            pageBusiness.pageViewModel.filteredSampleList[index]
+                            pageBusiness.pageViewModel.allSampleList[index]
                                 .sampleItemDescription,
                             style: const TextStyle(fontFamily: "MaruBuri"),
                           ),

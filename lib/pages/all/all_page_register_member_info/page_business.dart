@@ -231,9 +231,9 @@ class PageBusiness {
                 context: _context,
                 builder: (context) => all_dialog_info.PageEntrance(
                     all_dialog_info.PageInputVo(
-                        "Network Error",
-                        "network connection is unstable.\nplease try again.",
-                        "check"),
+                        "네트워크 에러",
+                        "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
+                        "확인"),
                     (pageBusiness) {}));
 
             onNickNameCheckBtnAsyncClicked = false;
@@ -246,9 +246,9 @@ class PageBusiness {
               context: _context,
               builder: (context) => all_dialog_info.PageEntrance(
                   all_dialog_info.PageInputVo(
-                      "Network Error",
-                      "network connection is unstable.\nplease try again.",
-                      "check"),
+                      "네트워크 에러",
+                      "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
+                      "확인"),
                   (pageBusiness) {}));
 
           onNickNameCheckBtnAsyncClicked = false;
@@ -314,7 +314,7 @@ class PageBusiness {
                         all_dialog_info.PageInputVo(
                             "Member registration complete",
                             "Sign up is complete.",
-                            "check"),
+                            "확인"),
                         (pageBusiness) {}));
 
                 onRegisterBtnClickClicked = false;
@@ -334,9 +334,9 @@ class PageBusiness {
                       context: _context,
                       builder: (context) => all_dialog_info.PageEntrance(
                           all_dialog_info.PageInputVo(
-                              "Network Error",
-                              "network connection is unstable.\nplease try again.",
-                              "check"),
+                              "네트워크 에러",
+                              "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
+                              "확인"),
                           (pageBusiness) {}));
                   onRegisterBtnClickClicked = false;
                 } else {
@@ -352,7 +352,7 @@ class PageBusiness {
                             all_dialog_info.PageInputVo(
                                 "already registered member",
                                 "You are already a registered member.",
-                                "check"),
+                                "확인"),
                             (pageBusiness) {}));
 
                     onRegisterBtnClickClicked = false;
@@ -368,7 +368,7 @@ class PageBusiness {
                             all_dialog_info.PageInputVo(
                                 "Membership registration failed",
                                 "Credentials have expired.\nPlease re-authenticate.",
-                                "check"),
+                                "확인"),
                             (pageBusiness) {}));
 
                     onRegisterBtnClickClicked = false;
@@ -394,7 +394,7 @@ class PageBusiness {
                             all_dialog_info.PageInputVo(
                                 "Membership registration failed",
                                 "Credentials have expired.\nPlease re-authenticate.",
-                                "check"),
+                                "확인"),
                             (pageBusiness) {}));
 
                     onRegisterBtnClickClicked = false;
@@ -414,9 +414,9 @@ class PageBusiness {
                   context: _context,
                   builder: (context) => all_dialog_info.PageEntrance(
                       all_dialog_info.PageInputVo(
-                          "Network Error",
-                          "network connection is unstable.\nplease try again.",
-                          "check"),
+                          "네트워크 에러",
+                          "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
+                          "확인"),
                       (pageBusiness) {}));
               onRegisterBtnClickClicked = false;
             }
@@ -447,7 +447,7 @@ class PageBusiness {
                         all_dialog_info.PageInputVo(
                             "Member registration complete",
                             "Sign up is complete.",
-                            "check"),
+                            "확인"),
                         (pageBusiness) {}));
 
                 onRegisterBtnClickClicked = false;
@@ -467,9 +467,9 @@ class PageBusiness {
                       context: _context,
                       builder: (context) => all_dialog_info.PageEntrance(
                           all_dialog_info.PageInputVo(
-                              "Network Error",
-                              "network connection is unstable.\nplease try again.",
-                              "check"),
+                              "네트워크 에러",
+                              "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
+                              "확인"),
                           (pageBusiness) {}));
                   onRegisterBtnClickClicked = false;
                 } else {
@@ -485,7 +485,7 @@ class PageBusiness {
                             all_dialog_info.PageInputVo(
                                 "already registered member",
                                 "You are already a registered member.",
-                                "check"),
+                                "확인"),
                             (pageBusiness) {}));
 
                     onRegisterBtnClickClicked = false;
@@ -501,7 +501,7 @@ class PageBusiness {
                             all_dialog_info.PageInputVo(
                                 "Membership registration failed",
                                 "Credentials have expired.\nPlease re-authenticate.",
-                                "check"),
+                                "확인"),
                             (pageBusiness) {}));
 
                     onRegisterBtnClickClicked = false;
@@ -527,7 +527,7 @@ class PageBusiness {
                             all_dialog_info.PageInputVo(
                                 "Membership registration failed",
                                 "Credentials have expired.\nPlease re-authenticate.",
-                                "check"),
+                                "확인"),
                             (pageBusiness) {}));
 
                     onRegisterBtnClickClicked = false;
@@ -547,9 +547,9 @@ class PageBusiness {
                   context: _context,
                   builder: (context) => all_dialog_info.PageEntrance(
                       all_dialog_info.PageInputVo(
-                          "Network Error",
-                          "network connection is unstable.\nplease try again.",
-                          "check"),
+                          "네트워크 에러",
+                          "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
+                          "확인"),
                       (pageBusiness) {}));
               onRegisterBtnClickClicked = false;
             }

@@ -193,9 +193,9 @@ class PageBusiness {
               context: _context,
               builder: (context) => all_dialog_info.PageEntrance(
                   all_dialog_info.PageInputVo(
-                      "Response",
+                      "응답 결과",
                       "Http Status Code : ${networkResponseObjectOk.responseStatusCode}\n\nResponse Body:\n${responseBody.toString()}",
-                      "Check"),
+                      "확인"),
                   (pageBusiness) {})).then((outputVo) {});
         } else {
           // 비정상 응답
@@ -205,9 +205,9 @@ class PageBusiness {
               context: _context,
               builder: (context) => all_dialog_info.PageEntrance(
                   all_dialog_info.PageInputVo(
-                      "Network Error",
-                      "network connection is unstable.\nplease try again.",
-                      "check"),
+                      "네트워크 에러",
+                      "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
+                      "확인"),
                   (pageBusiness) {}));
         }
       } else {
@@ -218,9 +218,9 @@ class PageBusiness {
             context: _context,
             builder: (context) => all_dialog_info.PageEntrance(
                 all_dialog_info.PageInputVo(
-                    "Network Error",
-                    "network connection is unstable.\nplease try again.",
-                    "check"),
+                    "네트워크 에러",
+                    "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
+                    "확인"),
                 (pageBusiness) {}));
       }
     });

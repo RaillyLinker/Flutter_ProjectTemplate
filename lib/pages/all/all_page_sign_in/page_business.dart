@@ -243,9 +243,9 @@ class PageBusiness {
                     context: _context,
                     builder: (context) => all_dialog_info.PageEntrance(
                         all_dialog_info.PageInputVo(
-                            "Network Error",
-                            "network connection is unstable.\nplease try again.",
-                            "check"),
+                            "네트워크 에러",
+                            "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
+                            "확인"),
                         (pageBusiness) {}));
                 accountSignInAsyncClicked = false;
               } else {
@@ -260,7 +260,7 @@ class PageBusiness {
                       context: _context,
                       builder: (context) => all_dialog_info.PageEntrance(
                           all_dialog_info.PageInputVo("Sign in failed",
-                              "You are a non-registered member.", "Check"),
+                              "You are a non-registered member.", "확인"),
                           (pageBusiness) {}));
                   accountSignInAsyncClicked = false;
                 } else if (apiErrorCodes.contains("2")) {
@@ -271,7 +271,7 @@ class PageBusiness {
                       context: _context,
                       builder: (context) => all_dialog_info.PageEntrance(
                           all_dialog_info.PageInputVo("Sign in failed",
-                              "Sign in information does not match.", "Check"),
+                              "Sign in information does not match.", "확인"),
                           (pageBusiness) {}));
                   accountSignInAsyncClicked = false;
                 } else if (apiErrorCodes.contains("3")) {
@@ -284,7 +284,7 @@ class PageBusiness {
                           all_dialog_info.PageInputVo(
                               "Sign in failed",
                               "This account is logging in from somewhere else.\nFurther logins are prohibited.",
-                              "Check"),
+                              "확인"),
                           (pageBusiness) {}));
                   accountSignInAsyncClicked = false;
                 } else {
@@ -300,9 +300,9 @@ class PageBusiness {
                 context: _context,
                 builder: (context) => all_dialog_info.PageEntrance(
                     all_dialog_info.PageInputVo(
-                        "Network Error",
-                        "network connection is unstable.\nplease try again.",
-                        "check"),
+                        "네트워크 에러",
+                        "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
+                        "확인"),
                     (pageBusiness) {}));
             accountSignInAsyncClicked = false;
           }

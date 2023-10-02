@@ -157,9 +157,9 @@ class PageBusiness {
                   context: _context,
                   builder: (context) => all_dialog_info.PageEntrance(
                       all_dialog_info.PageInputVo(
-                          "Network Error",
-                          "network connection is unstable.\nplease try again.",
-                          "check"),
+                          "네트워크 에러",
+                          "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
+                          "확인"),
                       (pageBusiness) {}));
             } else {
               // 서버 지정 에러 코드를 전달 받았을 때
@@ -172,7 +172,7 @@ class PageBusiness {
                     context: _context,
                     builder: (context) => all_dialog_info.PageEntrance(
                         all_dialog_info.PageInputVo("Email Sending failed",
-                            "You are not registered member.", "Check"),
+                            "You are not registered member.", "확인"),
                         (pageBusiness) {}));
               } else {
                 // 알 수 없는 에러 코드일 때
@@ -188,9 +188,9 @@ class PageBusiness {
               context: _context,
               builder: (context) => all_dialog_info.PageEntrance(
                   all_dialog_info.PageInputVo(
-                      "Network Error",
-                      "network connection is unstable.\nplease try again.",
-                      "check"),
+                      "네트워크 에러",
+                      "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
+                      "확인"),
                   (pageBusiness) {}));
         }
       });
@@ -297,7 +297,7 @@ class PageBusiness {
                     all_dialog_info.PageInputVo(
                         "Password Change Complete",
                         "A newly issued password has been sent to the phone number you entered.\n($phoneNumber)",
-                        "check"),
+                        "확인"),
                     (pageBusiness) {}));
 
             if (!_context.mounted) return;
@@ -316,9 +316,9 @@ class PageBusiness {
                   context: _context,
                   builder: (context) => all_dialog_info.PageEntrance(
                       all_dialog_info.PageInputVo(
-                          "Network Error",
-                          "network connection is unstable.\nplease try again.",
-                          "check"),
+                          "네트워크 에러",
+                          "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
+                          "확인"),
                       (pageBusiness) {}));
             } else {
               // 서버 지정 에러 코드를 전달 받았을 때
@@ -331,7 +331,7 @@ class PageBusiness {
                     context: _context,
                     builder: (context) => all_dialog_info.PageEntrance(
                         all_dialog_info.PageInputVo("Password Change failed",
-                            "You are not registered member.", "Check"),
+                            "You are not registered member.", "확인"),
                         (pageBusiness) {}));
               } else if (apiErrorCodes.contains("2")) {
                 // 검증 요청을 보낸 적 없음 혹은 만료된 요청
@@ -343,7 +343,7 @@ class PageBusiness {
                         all_dialog_info.PageInputVo(
                             "Expired Request",
                             "This is an expired verification request.\nClick Send SMS Button.",
-                            "Check"),
+                            "확인"),
                         (pageBusiness) {}));
               } else if (apiErrorCodes.contains("3")) {
                 // 검증 코드가 일치하지 않음
@@ -353,7 +353,7 @@ class PageBusiness {
                     context: _context,
                     builder: (context) => all_dialog_info.PageEntrance(
                         all_dialog_info.PageInputVo("Password Change failed",
-                            "Verification codes do not match.", "Check"),
+                            "Verification codes do not match.", "확인"),
                         (pageBusiness) {}));
               } else {
                 // 알 수 없는 에러 코드일 때
@@ -369,9 +369,9 @@ class PageBusiness {
               context: _context,
               builder: (context) => all_dialog_info.PageEntrance(
                   all_dialog_info.PageInputVo(
-                      "Network Error",
-                      "network connection is unstable.\nplease try again.",
-                      "check"),
+                      "네트워크 에러",
+                      "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
+                      "확인"),
                   (pageBusiness) {}));
         }
       });
