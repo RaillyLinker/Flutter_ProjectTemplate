@@ -1,4 +1,5 @@
 // (external)
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -38,10 +39,10 @@ class PageView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Page Input And Output Sample',
+          '페이지 입/출력 테스트',
           style: TextStyle(color: Colors.white, fontFamily: "MaruBuri"),
         ),
-        automaticallyImplyLeading: true,
+        automaticallyImplyLeading: !kIsWeb,
         backgroundColor: Colors.blue,
         iconTheme: const IconThemeData(
           color: Colors.white, //change your color here
@@ -70,7 +71,7 @@ class PageView extends StatelessWidget {
                               pageBusiness.pageViewModel.returnValueError,
                           contentPadding: const EdgeInsets.all(12),
                           isDense: true,
-                          hintText: "Page Return Value",
+                          hintText: "페이지 출력 값 입력",
                           border: const OutlineInputBorder()),
                     );
                   },
@@ -88,7 +89,7 @@ class PageView extends StatelessWidget {
                     child: Container(
                       margin: const EdgeInsets.only(top: 8, bottom: 8),
                       child: const Text(
-                        "Return Value",
+                        "출력 값 반환",
                         style: TextStyle(
                             fontSize: 15,
                             color: Colors.white,

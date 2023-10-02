@@ -190,10 +190,10 @@ class PageViewModel {
 
   PageViewModel(this.pageInputVo) {
     // 초기 리스트 추가
-    allSampleList.add(SampleItem(SampleItemEnum.fadeAnimation, "Fade Animation",
-        "Fade In / Out Transition Animation"));
+    allSampleList.add(SampleItem(SampleItemEnum.fadeAnimation, "Fade 애니메이션",
+        "Fade In / Out 을 사용한 화면 전환 애니메이션"));
     allSampleList.add(SampleItem(SampleItemEnum.slideUpAnimation,
-        "Slide Up Animation", "Slide Up Animation"));
+        "Slide Up 애니메이션", "Slide 가 위로 올라오는 화면 전환 애니메이션"));
 
     filteredSampleList = allSampleList;
   }

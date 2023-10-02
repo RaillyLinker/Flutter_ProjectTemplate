@@ -46,11 +46,11 @@ class PageBusiness {
   Future<void> onPageCreateAsync() async {
     // !!!페이지 최초 실행 로직 작성!!
     if (kDebugMode) {
-      print("--- onPageCreateAsync");
+      print("--- onPageCreateAsync 호출됨");
     }
 
     showToast(
-      "--- onPageCreateAsync",
+      "--- onPageCreateAsync 호출됨",
       context: _context,
       animation: StyledToastAnimation.scale,
     );
@@ -60,7 +60,7 @@ class PageBusiness {
   Future<void> onPageResumeAsync() async {
     // !!!위젯 최초 실행 및, 다른 페이지에서 복귀 로직 작성!!
     if (kDebugMode) {
-      print("--- onPageResumeAsync");
+      print("--- onPageResumeAsync 호출됨");
     }
   }
 
@@ -68,7 +68,7 @@ class PageBusiness {
   Future<void> onPagePauseAsync() async {
     // !!!위젯 종료 및, 다른 페이지로 이동 로직 작성!!
     if (kDebugMode) {
-      print("--- onPagePauseAsync");
+      print("--- onPagePauseAsync 호출됨");
     }
   }
 
@@ -76,7 +76,7 @@ class PageBusiness {
   Future<void> onPageDestroyAsync() async {
     // !!!페이지 종료 로직 작성!!
     if (kDebugMode) {
-      print("--- onPageDestroyAsync");
+      print("--- onPageDestroyAsync 호출됨");
     }
   }
 
@@ -87,7 +87,7 @@ class PageBusiness {
   Future<bool> onPageWillPopAsync() async {
     // !!!onWillPop 로직 작성!!
     if (kDebugMode) {
-      print("--- onPageWillPop");
+      print("--- onPageWillPop 호출됨");
     }
 
     return true;

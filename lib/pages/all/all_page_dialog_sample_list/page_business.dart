@@ -66,9 +66,6 @@ class PageBusiness {
   // (페이지 종료 (강제 종료는 탐지 못함))
   Future<void> onPageDestroyAsync() async {
     // !!!페이지 종료 로직 작성!!
-
-    // 검색창 컨트롤러 닫기
-    pageViewModel.sampleSearchBarTextEditController.dispose();
   }
 
   // (Page Pop 요청)
@@ -92,40 +89,14 @@ class PageBusiness {
 //     bLocObjects.blocSample.add(!bLocObjects.blocSample.state);
 //   }
 
-  // (검색 결과에 따라 샘플 페이지 리스트 필터링)
-  void filteringSamplePageList(String searchKeyword) {
-    if (searchKeyword == "") {
-      // 원본 리스트로 뷰모델 데이터 변경 후 이벤트 발생
-      pageViewModel.filteredSampleList = pageViewModel.allSampleList;
-      blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
-    } else {
-      // 필터링한 리스트로 뷰모델 데이터 변경 후 이벤트 발생
-      List<SampleItem> filteredSamplePageList = [];
-      // 필터링 하기
-      for (SampleItem samplePage in pageViewModel.allSampleList) {
-        if (samplePage.sampleItemTitle
-            .toLowerCase()
-            .contains(searchKeyword.toLowerCase())) {
-          filteredSamplePageList.add(samplePage);
-        } else if (samplePage.sampleItemDescription
-            .toLowerCase()
-            .contains(searchKeyword.toLowerCase())) {
-          filteredSamplePageList.add(samplePage);
-        }
-      }
-      pageViewModel.filteredSampleList = filteredSamplePageList;
-      blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
-    }
-  }
-
   // (리스트 아이템 클릭 리스너)
   void onRouteListItemClick(int index) {
-    SampleItem sampleItem = pageViewModel.filteredSampleList[index];
+    SampleItem sampleItem = pageViewModel.allSampleList[index];
 
     switch (sampleItem.sampleItemEnum) {
       case SampleItemEnum.dialogTemplate:
         {
-          // (사이즈 변경 테스트 다이얼로그 호출)
+          // (템플릿 다이얼로그 호출)
           showDialog(
                   barrierDismissible: true,
                   context: _context,
@@ -264,34 +235,25 @@ class PageViewModel {
   // ex :
   // int sampleNumber = 0;
 
-  // 샘플 목록 필터링용 검색창 컨트롤러 (검색창의 텍스트 정보를 가지고 있으므로 뷰모델에 저장, 여기 있어야 위젯이 변경되어도 검색어가 유지됨)
-  TextEditingController sampleSearchBarTextEditController =
-      TextEditingController();
-
   // (샘플 페이지 원본 리스트)
   List<SampleItem> allSampleList = [];
-
-  // (샘플 페이지 리스트 검색 결과)
-  List<SampleItem> filteredSampleList = [];
 
   PageViewModel(this.pageInputVo) {
     // 초기 리스트 추가
     allSampleList.add(SampleItem(SampleItemEnum.dialogTemplate,
-        "Dialog Template", "Show Dialog Template"));
-    allSampleList.add(SampleItem(SampleItemEnum.infoDialog, "Info Dialog",
-        "One-button information confirmation dialog"));
+        "다이얼로그 템플릿", "템플릿 다이얼로그를 호출합니다."));
+    allSampleList.add(SampleItem(SampleItemEnum.infoDialog, "확인 다이얼로그",
+        "버튼이 하나인 확인 다이얼로그를 호출합니다."));
     allSampleList.add(SampleItem(SampleItemEnum.yesOrNoDialog,
-        "Yes or No Dialog", "Yes or No button selection dialog"));
+        "예/아니오 다이얼로그", "버튼이 두개인 다이얼로그를 호출합니다."));
     allSampleList.add(SampleItem(
         SampleItemEnum.loadingSpinnerDialog,
-        "Loading Spinner Dialog",
-        "Loading spinner dialog exiting after 2 seconds"));
+        "로딩 스피너 다이얼로그",
+        "로딩 스피너 다이얼로그를 호출하고 2초 후 종료합니다."));
     allSampleList.add(SampleItem(SampleItemEnum.modalBottomSheetDialog,
-        "Modal Bottom Sheet Dialog", "Modal Bottom Dialog"));
+        "아래에 붙은 다이얼로그", "아래에서 올라오는 다이얼로그를 호출합니다."));
     allSampleList.add(SampleItem(SampleItemEnum.dialogInDialog,
-        "Dialog in Dialog", "A sample of calling a dialog from a dialog"));
-
-    filteredSampleList = allSampleList;
+        "다이얼로그 속 다이얼로그", "다이얼로그에서 다이얼로그를 호출합니다."));
   }
 }
 

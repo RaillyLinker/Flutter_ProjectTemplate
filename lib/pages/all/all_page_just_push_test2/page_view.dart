@@ -1,4 +1,5 @@
 // (external)
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -38,10 +39,10 @@ class PageView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Just Push Test2',
+          '페이지 Push 테스트2',
           style: TextStyle(color: Colors.white, fontFamily: "MaruBuri"),
         ),
-        automaticallyImplyLeading: true,
+        automaticallyImplyLeading: !kIsWeb,
         backgroundColor: Colors.blue,
         iconTheme: const IconThemeData(
           color: Colors.white, //change your color here
@@ -81,7 +82,7 @@ class PageView extends StatelessWidget {
                     backgroundColor: Colors.blue,
                   ),
                   child: const Text(
-                    "Push To Test1 Page",
+                    "페이지 Push 테스트1 으로 이동",
                     style:
                         TextStyle(color: Colors.white, fontFamily: "MaruBuri"),
                   )),
@@ -96,7 +97,7 @@ class PageView extends StatelessWidget {
                     backgroundColor: Colors.blue,
                   ),
                   child: const Text(
-                    "Push To Test2 Page",
+                    "페이지 Push 테스트2 로 이동",
                     style:
                         TextStyle(color: Colors.white, fontFamily: "MaruBuri"),
                   )),

@@ -1,4 +1,5 @@
 // (external)
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -39,35 +40,17 @@ class PageView extends StatelessWidget {
       backgroundColor: const Color(0xFFFFFFFF),
       body: CustomScrollView(
         slivers: [
-          SliverAppBar(
+           const SliverAppBar(
+            automaticallyImplyLeading: !kIsWeb,
             pinned: true,
             centerTitle: false,
-            title: const Text(
-              'Page Transition Animation Sample',
+            title: Text(
+              '페이지 이동 애니메이션 샘플 리스트',
               style: TextStyle(color: Colors.white, fontFamily: "MaruBuri"),
             ),
             backgroundColor: Colors.blue,
-            iconTheme: const IconThemeData(
+            iconTheme: IconThemeData(
               color: Colors.white, //change your color here
-            ),
-            bottom: AppBar(
-              automaticallyImplyLeading: false,
-              title: Container(
-                width: double.infinity,
-                height: 40,
-                color: Colors.white,
-                child: Center(
-                  child: TextField(
-                    onChanged: (value) {
-                      pageBusiness.filteringSamplePageList(value);
-                    },
-                    controller: pageBusiness
-                        .pageViewModel.sampleSearchBarTextEditController,
-                    decoration: const InputDecoration(
-                        hintText: 'Search', prefixIcon: Icon(Icons.search)),
-                  ),
-                ),
-              ),
             ),
           ),
           // Other Sliver Widgets
