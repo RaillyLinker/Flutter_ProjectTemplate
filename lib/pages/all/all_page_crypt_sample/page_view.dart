@@ -40,7 +40,7 @@ class PageView extends StatelessWidget {
       appBar: AppBar(
         automaticallyImplyLeading: !kIsWeb,
         title: const Text(
-          "Crypt Sample",
+          "암/복호화 샘플",
           style: TextStyle(color: Colors.white, fontFamily: "MaruBuri"),
         ),
         backgroundColor: Colors.blue,
@@ -70,9 +70,9 @@ class PageView extends StatelessWidget {
                                   controller: pageBusiness
                                       .pageViewModel.encryptTextController,
                                   decoration: const InputDecoration(
-                                      labelText: 'to ciphertext',
+                                      labelText: '암호화할 평문',
                                       hintText:
-                                          "Enter the text to be encrypted."),
+                                          "암호화할 평문을 입력하세요."),
                                 )),
                             const Expanded(child: SizedBox()),
                             Expanded(
@@ -86,7 +86,7 @@ class PageView extends StatelessWidget {
                                   ),
                                   child: const Center(
                                     child: Text(
-                                      "Encrypt",
+                                      "암호화",
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                           color: Colors.white,
@@ -105,7 +105,7 @@ class PageView extends StatelessWidget {
                             const Expanded(
                                 flex: 20,
                                 child: Text(
-                                  "Result :",
+                                  "결과 :",
                                   style: TextStyle(fontFamily: "MaruBuri"),
                                 )),
                             const Expanded(child: SizedBox()),
@@ -136,9 +136,9 @@ class PageView extends StatelessWidget {
                                   controller: pageBusiness
                                       .pageViewModel.decryptTextController,
                                   decoration: const InputDecoration(
-                                      labelText: 'from ciphertext',
+                                      labelText: '복호화할 암호문',
                                       hintText:
-                                          "Enter the text to be decrypted."),
+                                          "복호화할 암호문을 입력하세요."),
                                 )),
                             const Expanded(child: SizedBox()),
                             Expanded(
@@ -152,7 +152,7 @@ class PageView extends StatelessWidget {
                                   ),
                                   child: const Center(
                                     child: Text(
-                                      "Decrypt",
+                                      "복호화",
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                           color: Colors.white,
@@ -171,7 +171,7 @@ class PageView extends StatelessWidget {
                             const Expanded(
                                 flex: 20,
                                 child: Text(
-                                  "Result :",
+                                  "결과 :",
                                   style: TextStyle(fontFamily: "MaruBuri"),
                                 )),
                             const Expanded(child: SizedBox()),

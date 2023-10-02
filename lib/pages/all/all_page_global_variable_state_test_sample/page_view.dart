@@ -41,7 +41,7 @@ class PageView extends StatelessWidget {
       appBar: AppBar(
         automaticallyImplyLeading: !kIsWeb,
         title: const Text(
-          'Global Variable State Test Sample',
+          '전역 변수 상태 확인 샘플',
           style: TextStyle(color: Colors.white, fontFamily: "MaruBuri"),
         ),
         backgroundColor: Colors.blue,

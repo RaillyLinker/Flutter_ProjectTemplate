@@ -74,11 +74,12 @@ class PageView extends StatelessWidget {
                     Container(
                       margin: const EdgeInsets.only(top: 10.0),
                       child: const Text(
-                        "Welcome To Prowd Template!",
+                        "Flutter Project Template\n어서오세요!",
                         style: TextStyle(
                             fontSize: 16,
                             color: Colors.white,
                             fontFamily: "MaruBuri"),
+                        textAlign: TextAlign.center,
                       ),
                     ),
                   ],
