@@ -5,8 +5,9 @@ import 'package:dio/dio.dart';
 import 'package:flutter_project_template/repositories/network/network_repositories.dart'
     as network_repositories;
 import '../../../global_functions/gf_template_functions.dart'
-as gf_template_functions;
-import '../../../global_classes/gc_template_classes.dart' as gc_template_classes;
+    as gf_template_functions;
+import '../../../global_classes/gc_template_classes.dart'
+    as gc_template_classes;
 import '../../../global_data/gd_const_config.dart' as gd_const_config;
 
 // [네트워크 API 파일]
@@ -22,7 +23,8 @@ final serverDioObject = network_repositories.accountsGoogleCom;
 
 // (Google OAuth2 Token 요청)
 Future<
-    gc_template_classes.NetworkResponseObject<PostOOauth2TokenAsyncResponseHeaderVo,
+    gc_template_classes.NetworkResponseObject<
+        PostOOauth2TokenAsyncResponseHeaderVo,
         PostOOauth2TokenAsyncResponseBodyVo>> postOOauth2TokenAsync(
     PostOOauth2TokenAsyncRequestBodyVo requestBodyVo) async {
   // !!!개발 / 배포 모드별 요청 Path 지정!!

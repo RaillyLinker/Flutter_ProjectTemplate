@@ -41,8 +41,8 @@ class PageBusiness {
   late BLocObjects blocObjects;
 
   // 생성자 설정
-  PageBusiness(this._context, page_entrance.PageInputVo pageInputVo) {
-    pageViewModel = PageViewModel(pageInputVo);
+  PageBusiness(this._context, GoRouterState goRouterState) {
+    pageViewModel = PageViewModel(goRouterState);
   }
 
   ////
@@ -55,6 +55,11 @@ class PageBusiness {
   // (페이지 최초 실행)
   Future<void> onPageCreateAsync() async {
     // !!!페이지 최초 실행 로직 작성!!
+
+    // !!!pageInputVo Null 체크!!
+
+    // !!!PageInputVo 입력!!
+    pageViewModel.pageInputVo = page_entrance.PageInputVo();
   }
 
   // (페이지 최초 실행 or 다른 페이지에서 복귀)
@@ -341,14 +346,15 @@ class PageBusiness {
 // !!!내부에서만 사용할 함수를 아래에 구현!!
 }
 
-// (페이지 뷰 모델 스키마)
+// (페이지 뷰 모델 데이터 형태)
 // 페이지의 모든 화면 관련 데이터는 여기에 정의되며, Business 인스턴스 안에 객체로 저장 됩니다.
 class PageViewModel {
   // 페이지 생명주기 관련 states
   var pageLifeCycleStates = gc_template_classes.PageLifeCycleStates();
 
-  // 페이지 파라미터
-  page_entrance.PageInputVo pageInputVo;
+  // 페이지 파라미터 (아래 goRouterState 에서 가져와 대입하기)
+  late page_entrance.PageInputVo pageInputVo;
+  GoRouterState goRouterState;
 
   // !!!페이지 데이터 정의!!
   // ex :
@@ -364,7 +370,7 @@ class PageViewModel {
   // (샘플 페이지 리스트 검색 결과)
   List<SampleItem> filteredSampleList = [];
 
-  PageViewModel(this.pageInputVo) {
+  PageViewModel(this.goRouterState) {
     // 초기 리스트 추가
     allSampleList.add(SampleItem(SampleItemEnum.getRequestSample,
         "Get Request Sample", "Get Request Test (Query Parameter)"));

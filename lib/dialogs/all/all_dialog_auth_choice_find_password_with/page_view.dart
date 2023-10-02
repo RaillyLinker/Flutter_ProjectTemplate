@@ -58,20 +58,18 @@ class PageView extends StatelessWidget {
                   const Text(
                     'ProwdTemplate',
                     style: TextStyle(
-                      color: Colors.blue,
-                      fontSize: 24.0,
-                      fontWeight: FontWeight.bold,
-                        fontFamily: "MaruBuri"
-                    ),
+                        color: Colors.blue,
+                        fontSize: 24.0,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: "MaruBuri"),
                   ),
                   const SizedBox(height: 8.0),
                   const Text(
                     'Find Password with',
                     style: TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.normal,
-                        fontFamily: "MaruBuri"
-                    ),
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.normal,
+                        fontFamily: "MaruBuri"),
                   ),
                   const SizedBox(height: 16.0),
                   ElevatedButton(
@@ -97,7 +95,8 @@ class PageView extends StatelessWidget {
                             alignment: Alignment.center,
                             child: Text(
                               'Email',
-                              style: TextStyle(color: Colors.white, fontFamily: "MaruBuri"),
+                              style: TextStyle(
+                                  color: Colors.white, fontFamily: "MaruBuri"),
                             ),
                           ),
                         ],
@@ -128,7 +127,8 @@ class PageView extends StatelessWidget {
                             alignment: Alignment.center,
                             child: Text(
                               'Phone',
-                              style: TextStyle(color: Colors.white, fontFamily: "MaruBuri"),
+                              style: TextStyle(
+                                  color: Colors.white, fontFamily: "MaruBuri"),
                             ),
                           ),
                         ],

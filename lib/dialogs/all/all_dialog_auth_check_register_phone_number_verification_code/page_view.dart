@@ -68,10 +68,9 @@ class PageView extends StatelessWidget {
                       child: Text(
                         'SMS Sending Complete',
                         style: TextStyle(
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.normal,
-                            fontFamily: "MaruBuri"
-                        ),
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.normal,
+                            fontFamily: "MaruBuri"),
                       ),
                     ),
                   ),
@@ -79,11 +78,10 @@ class PageView extends StatelessWidget {
                   const Text(
                     'SMS Code Verification',
                     style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 24.0,
-                      fontWeight: FontWeight.bold,
-                        fontFamily: "MaruBuri"
-                    ),
+                        color: Colors.black,
+                        fontSize: 24.0,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: "MaruBuri"),
                   ),
                   const SizedBox(height: 8.0),
                   SizedBox(
@@ -91,10 +89,9 @@ class PageView extends StatelessWidget {
                     child: Text(
                       'We have sent the member registration SMS verification code to\n${pageBusiness.pageViewModel.pageInputVo.phoneNumber}.',
                       style: const TextStyle(
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.normal,
-                          fontFamily: "MaruBuri"
-                      ),
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.normal,
+                          fontFamily: "MaruBuri"),
                     ),
                   ),
                   const SizedBox(height: 8.0),
@@ -103,10 +100,9 @@ class PageView extends StatelessWidget {
                     child: Text(
                       'Please enter the verification code sent to your SMS within 10 minutes.',
                       style: TextStyle(
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.normal,
-                          fontFamily: "MaruBuri"
-                      ),
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.normal,
+                          fontFamily: "MaruBuri"),
                     ),
                   ),
                   const SizedBox(height: 20.0),
@@ -146,10 +142,9 @@ class PageView extends StatelessWidget {
                         child: Text(
                           'Resend SMS',
                           style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.blue,
-                              fontFamily: "MaruBuri"
-                          ),
+                              fontWeight: FontWeight.bold,
+                              color: Colors.blue,
+                              fontFamily: "MaruBuri"),
                         ),
                       ),
                     ),
@@ -166,9 +161,8 @@ class PageView extends StatelessWidget {
                     child: const Text(
                       'If you do not receive an SMS,\n- Make sure the PhoneNumber you entered is correct.\n- Check your spam folder.\n- Check if the message box has enough space.',
                       style: TextStyle(
-                        fontWeight: FontWeight.normal,
-                          fontFamily: "MaruBuri"
-                      ),
+                          fontWeight: FontWeight.normal,
+                          fontFamily: "MaruBuri"),
                     ),
                   ),
                   const SizedBox(height: 40.0),
@@ -185,7 +179,8 @@ class PageView extends StatelessWidget {
                       child: Center(
                         child: Text(
                           'Check',
-                          style: TextStyle(color: Colors.white, fontFamily: "MaruBuri"),
+                          style: TextStyle(
+                              color: Colors.white, fontFamily: "MaruBuri"),
                         ),
                       ),
                     ),

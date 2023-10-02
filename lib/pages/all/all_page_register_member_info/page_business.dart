@@ -1,12 +1,10 @@
 // (external)
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:go_router/go_router.dart';
-
-// (page)
-import 'page_entrance.dart' as page_entrance;
 
 import '../../../../repositories/network/apis/api_main_server.dart'
     as api_main_server;
@@ -14,6 +12,9 @@ import '../../../dialogs/all/all_dialog_info/page_entrance.dart'
     as all_dialog_info;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
+
+// (page)
+import 'page_entrance.dart' as page_entrance;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
 
@@ -31,8 +32,8 @@ class PageBusiness {
   late BLocObjects blocObjects;
 
   // 생성자 설정
-  PageBusiness(this._context, page_entrance.PageInputVo pageInputVo) {
-    pageViewModel = PageViewModel(pageInputVo);
+  PageBusiness(this._context, GoRouterState goRouterState) {
+    pageViewModel = PageViewModel(goRouterState);
   }
 
   ////
@@ -46,38 +47,11 @@ class PageBusiness {
   Future<void> onPageCreateAsync() async {
     // !!!페이지 최초 실행 로직 작성!!
 
-    // pageInputVo Null 체크
-    if (pageViewModel.pageInputVo.authType == null) {
+    // !!!pageInputVo Null 체크!!
+    if (!pageViewModel.goRouterState.uri.queryParameters
+        .containsKey("authType")) {
       showToast(
-        "The authType of PageInputVo is not nullable.",
-        context: _context,
-        position: StyledToastPosition.center,
-        animation: StyledToastAnimation.scale,
-      );
-      if (_context.canPop()) {
-        // History가 있는 경우, 이전 페이지로 이동(pop)
-        _context.pop();
-      } else {
-        // History가 없는 경우, 앱 종료(exit)
-        exit(0);
-      }
-    } else if (pageViewModel.pageInputVo.memberId == null) {
-      showToast(
-        "The memberId of PageInputVo is not nullable.",
-        context: _context,
-        position: StyledToastPosition.center,
-        animation: StyledToastAnimation.scale,
-      );
-      if (_context.canPop()) {
-        // History가 있는 경우, 이전 페이지로 이동(pop)
-        _context.pop();
-      } else {
-        // History가 없는 경우, 앱 종료(exit)
-        exit(0);
-      }
-    } else if (pageViewModel.pageInputVo.verificationCode == null) {
-      showToast(
-        "VerificationCode of PageInputVo is not nullable.",
+        "authType 은 필수입니다.",
         context: _context,
         position: StyledToastPosition.center,
         animation: StyledToastAnimation.scale,
@@ -90,6 +64,47 @@ class PageBusiness {
         exit(0);
       }
     }
+
+    if (!pageViewModel.goRouterState.uri.queryParameters
+        .containsKey("memberId")) {
+      showToast(
+        "memberId 는 필수입니다.",
+        context: _context,
+        position: StyledToastPosition.center,
+        animation: StyledToastAnimation.scale,
+      );
+      if (_context.canPop()) {
+        // History가 있는 경우, 이전 페이지로 이동(pop)
+        _context.pop();
+      } else {
+        // History가 없는 경우, 앱 종료(exit)
+        exit(0);
+      }
+    }
+
+    if (!pageViewModel.goRouterState.uri.queryParameters
+        .containsKey("secretOpt")) {
+      showToast(
+        "verificationCode 는 필수입니다.",
+        context: _context,
+        position: StyledToastPosition.center,
+        animation: StyledToastAnimation.scale,
+      );
+      if (_context.canPop()) {
+        // History가 있는 경우, 이전 페이지로 이동(pop)
+        _context.pop();
+      } else {
+        // History가 없는 경우, 앱 종료(exit)
+        exit(0);
+      }
+    }
+
+    // !!!PageInputVo 입력!!
+    pageViewModel.pageInputVo = page_entrance.PageInputVo(
+        pageViewModel.goRouterState.uri.queryParameters["authType"]!,
+        pageViewModel.goRouterState.uri.queryParameters["memberId"]!,
+        pageViewModel.goRouterState.uri.queryParameters["secretOpt"],
+        pageViewModel.goRouterState.uri.queryParameters["verificationCode"]!);
   }
 
   // (페이지 최초 실행 or 다른 페이지에서 복귀)
@@ -557,14 +572,15 @@ class PageBusiness {
 // !!!내부에서만 사용할 함수를 아래에 구현!!
 }
 
-// (페이지 뷰 모델 스키마)
+// (페이지 뷰 모델 데이터 형태)
 // 페이지의 모든 화면 관련 데이터는 여기에 정의되며, Business 인스턴스 안에 객체로 저장 됩니다.
 class PageViewModel {
   // 페이지 생명주기 관련 states
   var pageLifeCycleStates = gc_template_classes.PageLifeCycleStates();
 
-  // 페이지 파라미터
-  page_entrance.PageInputVo pageInputVo;
+  // 페이지 파라미터 (아래 goRouterState 에서 가져와 대입하기)
+  late page_entrance.PageInputVo pageInputVo;
+  GoRouterState goRouterState;
 
   // !!!페이지 데이터 정의!!
   // ex :
@@ -585,7 +601,7 @@ class PageViewModel {
   // 닉네임 입력창 포커스
   FocusNode nickNameTextEditFocus = FocusNode();
 
-  PageViewModel(this.pageInputVo);
+  PageViewModel(this.goRouterState);
 }
 
 // (BLoC 클래스 모음)

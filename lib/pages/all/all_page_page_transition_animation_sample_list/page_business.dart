@@ -28,8 +28,8 @@ class PageBusiness {
   late BLocObjects blocObjects;
 
   // 생성자 설정
-  PageBusiness(this._context, page_entrance.PageInputVo pageInputVo) {
-    pageViewModel = PageViewModel(pageInputVo);
+  PageBusiness(this._context, GoRouterState goRouterState) {
+    pageViewModel = PageViewModel(goRouterState);
   }
 
   ////
@@ -42,6 +42,11 @@ class PageBusiness {
   // (페이지 최초 실행)
   Future<void> onPageCreateAsync() async {
     // !!!페이지 최초 실행 로직 작성!!
+
+    // !!!pageInputVo Null 체크!!
+
+    // !!!PageInputVo 입력!!
+    pageViewModel.pageInputVo = page_entrance.PageInputVo();
 
     showToast(
       "New Page Called",
@@ -123,19 +128,21 @@ class PageBusiness {
       case SampleItemEnum.fadeAnimation:
         {
           // 페이지 전환 애니메이션 변경
-          all_page_page_transition_animation_sample_list.pageTransitionsBuilder =
+          all_page_page_transition_animation_sample_list
+                  .pageTransitionsBuilder =
               (context, animation, secondaryAnimation, child) {
             return FadeTransition(opacity: animation, child: child);
           };
 
-          _context
-              .pushNamed(all_page_page_transition_animation_sample_list.pageName);
+          _context.pushNamed(
+              all_page_page_transition_animation_sample_list.pageName);
         }
         break;
       case SampleItemEnum.slideUpAnimation:
         {
           // 페이지 전환 애니메이션 변경
-          all_page_page_transition_animation_sample_list.pageTransitionsBuilder =
+          all_page_page_transition_animation_sample_list
+                  .pageTransitionsBuilder =
               (context, animation, secondaryAnimation, child) {
             var begin = const Offset(0.0, 1.0);
             var end = Offset.zero;
@@ -153,8 +160,8 @@ class PageBusiness {
             );
           };
 
-          _context
-              .pushNamed(all_page_page_transition_animation_sample_list.pageName);
+          _context.pushNamed(
+              all_page_page_transition_animation_sample_list.pageName);
         }
         break;
     }
@@ -165,14 +172,15 @@ class PageBusiness {
 // !!!내부에서만 사용할 함수를 아래에 구현!!
 }
 
-// (페이지 뷰 모델 스키마)
+// (페이지 뷰 모델 데이터 형태)
 // 페이지의 모든 화면 관련 데이터는 여기에 정의되며, Business 인스턴스 안에 객체로 저장 됩니다.
 class PageViewModel {
   // 페이지 생명주기 관련 states
   var pageLifeCycleStates = gc_template_classes.PageLifeCycleStates();
 
-  // 페이지 파라미터
-  page_entrance.PageInputVo pageInputVo;
+  // 페이지 파라미터 (아래 goRouterState 에서 가져와 대입하기)
+  late page_entrance.PageInputVo pageInputVo;
+  GoRouterState goRouterState;
 
   // !!!페이지 데이터 정의!!
   // ex :
@@ -188,7 +196,7 @@ class PageViewModel {
   // (샘플 페이지 리스트 검색 결과)
   List<SampleItem> filteredSampleList = [];
 
-  PageViewModel(this.pageInputVo) {
+  PageViewModel(this.goRouterState) {
     // 초기 리스트 추가
     allSampleList.add(SampleItem(SampleItemEnum.fadeAnimation, "Fade 애니메이션",
         "Fade In / Out 을 사용한 화면 전환 애니메이션"));

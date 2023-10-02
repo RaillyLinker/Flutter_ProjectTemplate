@@ -110,7 +110,7 @@ GoRouter getRouter() {
     pageBuilder: (c, s) {
       return CustomTransitionPage(
         key: s.pageKey,
-        child: all_page_home.PageEntrance(all_page_home.PageInputVo()),
+        child: all_page_home.PageEntrance(s),
         transitionsBuilder: all_page_home.pageTransitionsBuilder,
       );
     },
@@ -123,8 +123,7 @@ GoRouter getRouter() {
     pageBuilder: (c, s) {
       return CustomTransitionPage(
         key: s.pageKey,
-        child: all_page_page_and_router_sample_list.PageEntrance(
-            all_page_page_and_router_sample_list.PageInputVo()),
+        child: all_page_page_and_router_sample_list.PageEntrance(s),
         transitionsBuilder:
             all_page_page_and_router_sample_list.pageTransitionsBuilder,
       );
@@ -138,7 +137,7 @@ GoRouter getRouter() {
     pageBuilder: (c, s) {
       return CustomTransitionPage(
         key: s.pageKey,
-        child: all_page_template.PageEntrance(all_page_template.PageInputVo()),
+        child: all_page_template.PageEntrance(s),
         transitionsBuilder: all_page_template.pageTransitionsBuilder,
       );
     },
@@ -150,8 +149,7 @@ GoRouter getRouter() {
     pageBuilder: (c, s) {
       return CustomTransitionPage(
         key: s.pageKey,
-        child: all_page_just_push_test1.PageEntrance(
-            all_page_just_push_test1.PageInputVo()),
+        child: all_page_just_push_test1.PageEntrance(s),
         transitionsBuilder: all_page_just_push_test1.pageTransitionsBuilder,
       );
     },
@@ -163,8 +161,7 @@ GoRouter getRouter() {
     pageBuilder: (c, s) {
       return CustomTransitionPage(
         key: s.pageKey,
-        child: all_page_just_push_test2.PageEntrance(
-            all_page_just_push_test2.PageInputVo()),
+        child: all_page_just_push_test2.PageEntrance(s),
         transitionsBuilder: all_page_just_push_test2.pageTransitionsBuilder,
       );
     },
@@ -174,26 +171,9 @@ GoRouter getRouter() {
     path: "input-and-output-push-test",
     name: all_page_input_and_output_push_test.pageName,
     pageBuilder: (c, s) {
-      String? testValue = (s.uri.queryParameters.containsKey("inputValueString"))
-          ? s.uri.queryParameters["inputValueString"]!
-          : null;
-      String? testValueOpt =
-          (s.uri.queryParameters.containsKey("inputValueStringOpt"))
-              ? s.uri.queryParameters["inputValueStringOpt"]!
-              : null;
-      List<String>? inputValueList =
-          (s.uri.queryParameters.containsKey("inputValueStringList"))
-              ? s.uri.queryParametersAll["inputValueStringList"]!
-              : null;
-      int? inputValueInt = (s.uri.queryParameters.containsKey("inputValueInt"))
-          ? int.parse(s.uri.queryParameters["inputValueInt"]!)
-          : null;
-
       return CustomTransitionPage(
         key: s.pageKey,
-        child: all_page_input_and_output_push_test.PageEntrance(
-            all_page_input_and_output_push_test.PageInputVo(
-                testValue, testValueOpt, inputValueList, inputValueInt)),
+        child: all_page_input_and_output_push_test.PageEntrance(s),
         transitionsBuilder:
             all_page_input_and_output_push_test.pageTransitionsBuilder,
       );
@@ -206,10 +186,9 @@ GoRouter getRouter() {
     pageBuilder: (c, s) {
       return CustomTransitionPage(
         key: s.pageKey,
-        child: all_page_page_transition_animation_sample_list.PageEntrance(
-            all_page_page_transition_animation_sample_list.PageInputVo()),
-        transitionsBuilder:
-        all_page_page_transition_animation_sample_list.pageTransitionsBuilder,
+        child: all_page_page_transition_animation_sample_list.PageEntrance(s),
+        transitionsBuilder: all_page_page_transition_animation_sample_list
+            .pageTransitionsBuilder,
       );
     },
   ));
@@ -220,8 +199,7 @@ GoRouter getRouter() {
     pageBuilder: (c, s) {
       return CustomTransitionPage(
         key: s.pageKey,
-        child: all_page_dialog_sample_list.PageEntrance(
-            all_page_dialog_sample_list.PageInputVo()),
+        child: all_page_dialog_sample_list.PageEntrance(s),
         transitionsBuilder: all_page_dialog_sample_list.pageTransitionsBuilder,
       );
     },
@@ -233,8 +211,7 @@ GoRouter getRouter() {
     pageBuilder: (c, s) {
       return CustomTransitionPage(
         key: s.pageKey,
-        child: all_page_shared_preferences_sample.PageEntrance(
-            all_page_shared_preferences_sample.PageInputVo()),
+        child: all_page_shared_preferences_sample.PageEntrance(s),
         transitionsBuilder:
             all_page_shared_preferences_sample.pageTransitionsBuilder,
       );
@@ -247,8 +224,7 @@ GoRouter getRouter() {
     pageBuilder: (c, s) {
       return CustomTransitionPage(
         key: s.pageKey,
-        child: all_page_url_launcher_sample.PageEntrance(
-            all_page_url_launcher_sample.PageInputVo()),
+        child: all_page_url_launcher_sample.PageEntrance(s),
         transitionsBuilder: all_page_url_launcher_sample.pageTransitionsBuilder,
       );
     },
@@ -260,10 +236,9 @@ GoRouter getRouter() {
     pageBuilder: (c, s) {
       return CustomTransitionPage(
         key: s.pageKey,
-        child: all_page_network_request_sample_list.PageEntrance(
-            all_page_network_request_sample_list.PageInputVo()),
+        child: all_page_network_request_sample_list.PageEntrance(s),
         transitionsBuilder:
-        all_page_network_request_sample_list.pageTransitionsBuilder,
+            all_page_network_request_sample_list.pageTransitionsBuilder,
       );
     },
     routes: subRouteListNetworkRequestSample,
@@ -275,8 +250,7 @@ GoRouter getRouter() {
     pageBuilder: (c, s) {
       return CustomTransitionPage(
         key: s.pageKey,
-        child: all_page_get_request_sample.PageEntrance(
-            all_page_get_request_sample.PageInputVo()),
+        child: all_page_get_request_sample.PageEntrance(s),
         transitionsBuilder: all_page_get_request_sample.pageTransitionsBuilder,
       );
     },
@@ -288,8 +262,7 @@ GoRouter getRouter() {
     pageBuilder: (c, s) {
       return CustomTransitionPage(
         key: s.pageKey,
-        child: all_page_post_request_sample1.PageEntrance(
-            all_page_post_request_sample1.PageInputVo()),
+        child: all_page_post_request_sample1.PageEntrance(s),
         transitionsBuilder:
             all_page_post_request_sample1.pageTransitionsBuilder,
       );
@@ -302,8 +275,7 @@ GoRouter getRouter() {
     pageBuilder: (c, s) {
       return CustomTransitionPage(
         key: s.pageKey,
-        child: all_page_post_request_sample2.PageEntrance(
-            all_page_post_request_sample2.PageInputVo()),
+        child: all_page_post_request_sample2.PageEntrance(s),
         transitionsBuilder:
             all_page_post_request_sample2.pageTransitionsBuilder,
       );
@@ -316,8 +288,7 @@ GoRouter getRouter() {
     pageBuilder: (c, s) {
       return CustomTransitionPage(
         key: s.pageKey,
-        child: all_page_post_request_sample3.PageEntrance(
-            all_page_post_request_sample3.PageInputVo()),
+        child: all_page_post_request_sample3.PageEntrance(s),
         transitionsBuilder:
             all_page_post_request_sample3.pageTransitionsBuilder,
       );
@@ -330,8 +301,7 @@ GoRouter getRouter() {
     pageBuilder: (c, s) {
       return CustomTransitionPage(
         key: s.pageKey,
-        child: all_page_post_request_sample4.PageEntrance(
-            all_page_post_request_sample4.PageInputVo()),
+        child: all_page_post_request_sample4.PageEntrance(s),
         transitionsBuilder:
             all_page_post_request_sample4.pageTransitionsBuilder,
       );
@@ -344,8 +314,7 @@ GoRouter getRouter() {
     pageBuilder: (c, s) {
       return CustomTransitionPage(
         key: s.pageKey,
-        child: all_page_auth_sample.PageEntrance(
-            all_page_auth_sample.PageInputVo()),
+        child: all_page_auth_sample.PageEntrance(s),
         transitionsBuilder: all_page_auth_sample.pageTransitionsBuilder,
       );
     },
@@ -358,8 +327,7 @@ GoRouter getRouter() {
     pageBuilder: (c, s) {
       return CustomTransitionPage(
         key: s.pageKey,
-        child: all_page_authorization_test_sample.PageEntrance(
-            all_page_authorization_test_sample.PageInputVo()),
+        child: all_page_authorization_test_sample.PageEntrance(s),
         transitionsBuilder:
             all_page_authorization_test_sample.pageTransitionsBuilder,
       );
@@ -372,7 +340,7 @@ GoRouter getRouter() {
     pageBuilder: (c, s) {
       return CustomTransitionPage(
         key: s.pageKey,
-        child: all_page_sign_in.PageEntrance(all_page_sign_in.PageInputVo()),
+        child: all_page_sign_in.PageEntrance(s),
         transitionsBuilder: all_page_sign_in.pageTransitionsBuilder,
       );
     },
@@ -385,8 +353,7 @@ GoRouter getRouter() {
     pageBuilder: (c, s) {
       return CustomTransitionPage(
         key: s.pageKey,
-        child: all_page_membership_withdrawal.PageEntrance(
-            all_page_membership_withdrawal.PageInputVo()),
+        child: all_page_membership_withdrawal.PageEntrance(s),
         transitionsBuilder:
             all_page_membership_withdrawal.pageTransitionsBuilder,
       );
@@ -399,8 +366,7 @@ GoRouter getRouter() {
     pageBuilder: (c, s) {
       return CustomTransitionPage(
         key: s.pageKey,
-        child: all_page_change_password.PageEntrance(
-            all_page_change_password.PageInputVo()),
+        child: all_page_change_password.PageEntrance(s),
         transitionsBuilder: all_page_change_password.pageTransitionsBuilder,
       );
     },
@@ -412,8 +378,7 @@ GoRouter getRouter() {
     pageBuilder: (c, s) {
       return CustomTransitionPage(
         key: s.pageKey,
-        child: all_page_register_email_verification.PageEntrance(
-            all_page_register_email_verification.PageInputVo()),
+        child: all_page_register_email_verification.PageEntrance(s),
         transitionsBuilder:
             all_page_register_email_verification.pageTransitionsBuilder,
       );
@@ -426,8 +391,7 @@ GoRouter getRouter() {
     pageBuilder: (c, s) {
       return CustomTransitionPage(
         key: s.pageKey,
-        child: all_page_register_phone_number_verification.PageEntrance(
-            all_page_register_phone_number_verification.PageInputVo()),
+        child: all_page_register_phone_number_verification.PageEntrance(s),
         transitionsBuilder:
             all_page_register_phone_number_verification.pageTransitionsBuilder,
       );
@@ -440,8 +404,7 @@ GoRouter getRouter() {
     pageBuilder: (c, s) {
       return CustomTransitionPage(
         key: s.pageKey,
-        child: all_page_find_password_with_phone_number.PageEntrance(
-            all_page_find_password_with_phone_number.PageInputVo()),
+        child: all_page_find_password_with_phone_number.PageEntrance(s),
         transitionsBuilder:
             all_page_find_password_with_phone_number.pageTransitionsBuilder,
       );
@@ -454,8 +417,7 @@ GoRouter getRouter() {
     pageBuilder: (c, s) {
       return CustomTransitionPage(
         key: s.pageKey,
-        child: all_page_find_password_with_email.PageEntrance(
-            all_page_find_password_with_email.PageInputVo()),
+        child: all_page_find_password_with_email.PageEntrance(s),
         transitionsBuilder:
             all_page_find_password_with_email.pageTransitionsBuilder,
       );
@@ -466,33 +428,9 @@ GoRouter getRouter() {
     path: "register-member-info",
     name: all_page_register_member_info.pageName,
     pageBuilder: (c, s) {
-      // 계정 타입 (email, phoneNumber)
-      String? authType = (s.uri.queryParameters.containsKey("authType"))
-          ? s.uri.queryParameters["authType"]!
-          : null;
-      // 멤버 아이디 (계정 타입 email : 이메일(test@email.com), phoneNumber : 전화번호(82)010-0000-0000),)
-      String? memberId = (s.uri.queryParameters.containsKey("memberId"))
-          ? s.uri.queryParameters["memberId"]!
-          : null;
-      // 비밀코드 (계정 타입 email, phoneNumber : 사용할 비밀번호,)
-      String? secretOpt = (s.uri.queryParameters.containsKey("secretOpt"))
-          ? s.uri.queryParameters["secretOpt"]!
-          : null;
-      // 계정 검증 단계에서 발행된 검증 코드
-      String? verificationCode =
-          (s.uri.queryParameters.containsKey("verificationCode"))
-              ? s.uri.queryParameters["verificationCode"]!
-              : null;
-
       return CustomTransitionPage(
         key: s.pageKey,
-        child: all_page_register_member_info.PageEntrance(
-            all_page_register_member_info.PageInputVo(
-          authType,
-          memberId,
-          secretOpt,
-          verificationCode,
-        )),
+        child: all_page_register_member_info.PageEntrance(s),
         transitionsBuilder:
             all_page_register_member_info.pageTransitionsBuilder,
       );
@@ -505,8 +443,7 @@ GoRouter getRouter() {
     pageBuilder: (c, s) {
       return CustomTransitionPage(
         key: s.pageKey,
-        child: all_page_global_variable_state_test_sample.PageEntrance(
-            all_page_global_variable_state_test_sample.PageInputVo()),
+        child: all_page_global_variable_state_test_sample.PageEntrance(s),
         transitionsBuilder:
             all_page_global_variable_state_test_sample.pageTransitionsBuilder,
       );
@@ -519,10 +456,9 @@ GoRouter getRouter() {
     pageBuilder: (c, s) {
       return CustomTransitionPage(
         key: s.pageKey,
-        child: all_page_widget_change_animation_sample_list.PageEntrance(
-            all_page_widget_change_animation_sample_list.PageInputVo()),
+        child: all_page_widget_change_animation_sample_list.PageEntrance(s),
         transitionsBuilder:
-        all_page_widget_change_animation_sample_list.pageTransitionsBuilder,
+            all_page_widget_change_animation_sample_list.pageTransitionsBuilder,
       );
     },
   ));
@@ -533,8 +469,7 @@ GoRouter getRouter() {
     pageBuilder: (c, s) {
       return CustomTransitionPage(
         key: s.pageKey,
-        child: all_page_crypt_sample.PageEntrance(
-            all_page_crypt_sample.PageInputVo()),
+        child: all_page_crypt_sample.PageEntrance(s),
         transitionsBuilder: all_page_crypt_sample.pageTransitionsBuilder,
       );
     },
@@ -561,8 +496,7 @@ GoRouter getRouter() {
       pageBuilder: (c, s) {
         return CustomTransitionPage(
           key: s.pageKey,
-          child: app_page_init_splash.PageEntrance(
-              app_page_init_splash.PageInputVo()),
+          child: app_page_init_splash.PageEntrance(s),
           transitionsBuilder: app_page_init_splash.pageTransitionsBuilder,
         );
       },
@@ -574,8 +508,7 @@ GoRouter getRouter() {
       pageBuilder: (c, s) {
         return CustomTransitionPage(
           key: s.pageKey,
-          child: app_page_server_sample.PageEntrance(
-              app_page_server_sample.PageInputVo()),
+          child: app_page_server_sample.PageEntrance(s),
           transitionsBuilder: app_page_server_sample.pageTransitionsBuilder,
         );
       },
@@ -592,10 +525,9 @@ GoRouter getRouter() {
         pageBuilder: (c, s) {
           return CustomTransitionPage(
             key: s.pageKey,
-            child: mobile_page_permission_sample_list.PageEntrance(
-                mobile_page_permission_sample_list.PageInputVo()),
+            child: mobile_page_permission_sample_list.PageEntrance(s),
             transitionsBuilder:
-            mobile_page_permission_sample_list.pageTransitionsBuilder,
+                mobile_page_permission_sample_list.pageTransitionsBuilder,
           );
         },
       ));

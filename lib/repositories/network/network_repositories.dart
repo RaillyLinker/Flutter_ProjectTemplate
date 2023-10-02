@@ -234,7 +234,8 @@ void setDioObjects() {
         } else {
           // 리플레시 토큰 만료 여부 확인
           bool isRefreshTokenExpired = DateFormat('yyyy-MM-dd HH:mm:ss.SSS')
-              .parse(signInMemberInfo.refreshTokenExpireWhen).isBefore(DateTime.now());
+              .parse(signInMemberInfo.refreshTokenExpireWhen)
+              .isBefore(DateTime.now());
 
           if (isRefreshTokenExpired) {
             // 리플래시 토큰이 사용 불가이므로 로그아웃 처리
@@ -309,7 +310,8 @@ void setDioObjects() {
                   // 기존 Authorization 헤더를 지우고, 이전 요청과 동일한 요청 수행
                   RequestOptions options = response.requestOptions;
                   options.headers.remove("Authorization");
-                  options.headers["Authorization"] = "${signInMemberInfo.tokenType} ${signInMemberInfo.accessToken}";
+                  options.headers["Authorization"] =
+                      "${signInMemberInfo.tokenType} ${signInMemberInfo.accessToken}";
                   Response retryResponse = await mainServerDio.request(
                     options.path,
                     data: options.data,

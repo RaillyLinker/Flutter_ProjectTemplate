@@ -40,7 +40,7 @@ class PageView extends StatelessWidget {
       backgroundColor: const Color(0xFFFFFFFF),
       body: CustomScrollView(
         slivers: [
-           const SliverAppBar(
+          const SliverAppBar(
             automaticallyImplyLeading: !kIsWeb,
             pinned: true,
             centerTitle: false,

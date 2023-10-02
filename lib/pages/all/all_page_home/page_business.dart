@@ -53,8 +53,8 @@ class PageBusiness {
   late BLocObjects blocObjects;
 
   // 생성자 설정
-  PageBusiness(this._context, page_entrance.PageInputVo pageInputVo) {
-    pageViewModel = PageViewModel(pageInputVo);
+  PageBusiness(this._context, GoRouterState goRouterState) {
+    pageViewModel = PageViewModel(goRouterState);
   }
 
   ////
@@ -67,6 +67,11 @@ class PageBusiness {
   // (페이지 최초 실행)
   Future<void> onPageCreateAsync() async {
     // !!!페이지 최초 실행 로직 작성!!
+
+    // !!!pageInputVo Null 체크!!
+
+    // !!!PageInputVo 입력!!
+    pageViewModel.pageInputVo = page_entrance.PageInputVo();
   }
 
   // (페이지 최초 실행 or 다른 페이지에서 복귀)
@@ -158,7 +163,8 @@ class PageBusiness {
         break;
       case SampleItemEnum.widgetChangeAnimationSampleList:
         {
-          _context.pushNamed(all_page_widget_change_animation_sample_list.pageName);
+          _context
+              .pushNamed(all_page_widget_change_animation_sample_list.pageName);
         }
         break;
       case SampleItemEnum.cryptSample:
@@ -174,14 +180,15 @@ class PageBusiness {
 // !!!내부에서만 사용할 함수를 아래에 구현!!
 }
 
-// (페이지 뷰 모델 스키마)
+// (페이지 뷰 모델 데이터 형태)
 // 페이지의 모든 화면 관련 데이터는 여기에 정의되며, Business 인스턴스 안에 객체로 저장 됩니다.
 class PageViewModel {
   // 페이지 생명주기 관련 states
   var pageLifeCycleStates = gc_template_classes.PageLifeCycleStates();
 
-  // 페이지 파라미터
-  page_entrance.PageInputVo pageInputVo;
+  // 페이지 파라미터 (아래 goRouterState 에서 가져와 대입하기)
+  late page_entrance.PageInputVo pageInputVo;
+  GoRouterState goRouterState;
 
   // !!!페이지 데이터 정의!!
   // ex :
@@ -194,7 +201,7 @@ class PageViewModel {
   // (샘플 페이지 원본 리스트)
   List<SampleItem> allSampleList = [];
 
-  PageViewModel(this.pageInputVo) {
+  PageViewModel(this.goRouterState) {
     // 초기 리스트 추가
     allSampleList.add(SampleItem(SampleItemEnum.pageAndRouterSampleList,
         "페이지 / 라우터 샘플 리스트", "페이지 이동, 파라미터 전달 등의 샘플 리스트"));
@@ -206,30 +213,24 @@ class PageViewModel {
         "Url Launcher 샘플", "Url Launcher 사용 샘플"));
     if (!kIsWeb) {
       // App
-      allSampleList.add(SampleItem(SampleItemEnum.serverSample, "서버 샘플",
-          "서버 포트 개방 샘플"));
+      allSampleList
+          .add(SampleItem(SampleItemEnum.serverSample, "서버 샘플", "서버 포트 개방 샘플"));
     }
-    allSampleList.add(SampleItem(
-        SampleItemEnum.networkRequestSampleList,
-        "네트워크 요청 샘플 리스트",
-        "네트워크 요청 및 응답 처리 샘플 리스트"));
+    allSampleList.add(SampleItem(SampleItemEnum.networkRequestSampleList,
+        "네트워크 요청 샘플 리스트", "네트워크 요청 및 응답 처리 샘플 리스트"));
     if (!kIsWeb && (Platform.isAndroid || Platform.isIOS)) {
       // Mobile 환경일 때
       allSampleList.add(SampleItem(SampleItemEnum.mobilePermissionSampleList,
           "모바일 권한 샘플 리스트", "모바일 디바이스 권한 처리 샘플 리스트"));
     }
-    allSampleList.add(SampleItem(SampleItemEnum.authSample, "계정 샘플",
-        "계정 관련 기능 샘플"));
-    allSampleList.add(SampleItem(
-        SampleItemEnum.globalVariableStateTestSample,
-        "전역 변수 상태 확인 샘플",
-        "전역 변수 사용시의 상태 확인용 샘플 (특히 웹에서 새 탭으로 접속 했을 때를 확인하기)"));
-    allSampleList.add(SampleItem(
-        SampleItemEnum.widgetChangeAnimationSampleList,
-        "위젯 변경 애니메이션 샘플 리스트",
-        "위젯 변경시의 애니메이션 적용 샘플 리스트"));
-    allSampleList.add(SampleItem(SampleItemEnum.cryptSample, "암/복호화 샘플",
-        "암호화, 복호화 적용 샘플"));
+    allSampleList
+        .add(SampleItem(SampleItemEnum.authSample, "계정 샘플", "계정 관련 기능 샘플"));
+    allSampleList.add(SampleItem(SampleItemEnum.globalVariableStateTestSample,
+        "전역 변수 상태 확인 샘플", "전역 변수 사용시의 상태 확인용 샘플 (특히 웹에서 새 탭으로 접속 했을 때를 확인하기)"));
+    allSampleList.add(SampleItem(SampleItemEnum.widgetChangeAnimationSampleList,
+        "위젯 변경 애니메이션 샘플 리스트", "위젯 변경시의 애니메이션 적용 샘플 리스트"));
+    allSampleList.add(
+        SampleItem(SampleItemEnum.cryptSample, "암/복호화 샘플", "암호화, 복호화 적용 샘플"));
   }
 }
 

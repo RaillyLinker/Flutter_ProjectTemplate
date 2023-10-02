@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:focus_detector_v2/focus_detector_v2.dart';
+import 'package:go_router/go_router.dart';
 
 // (page)
 import 'page_view.dart' as page_view;
@@ -26,12 +27,11 @@ Widget Function(BuildContext context, Animation<double> animation,
   return FadeTransition(opacity: animation, child: child);
 };
 
-// (페이지 호출시 필요한 입력값 스키마)
-// 파라미터는 router.dart 에서 받아서, PageInputVo 로 파싱한 후 Route 클래스로 전달합니다.
+// (페이지 호출시 필요한 입력값 데이터 형태)
 // !!!페이지 입력 데이터 정의!!
 class PageInputVo {}
 
-// (이전 페이지로 전달할 결과 스키마)
+// (이전 페이지로 전달할 결과 데이터 형태)
 // !!!페이지 반환 데이터 정의!!
 class PageOutputVo {
   // 회원가입이 완료되었는지 여부
@@ -45,9 +45,9 @@ class PageOutputVo {
 // 외부에서 페이지 진입시 사용(= 라우터에 등록) 하는 역할.
 class PageEntrance extends StatelessWidget {
   // 페이지 진입 파라미터
-  final PageInputVo _pageInputVo;
+  final GoRouterState _goRouterState;
 
-  const PageEntrance(this._pageInputVo, {super.key});
+  const PageEntrance(this._goRouterState, {super.key});
 
   // 화면 빌드
   @override
@@ -57,7 +57,7 @@ class PageEntrance extends StatelessWidget {
         page_business.BLocProviders().blocProviders;
 
     // pageBusiness 객체 생성
-    var pageBusiness = page_business.PageBusiness(context, _pageInputVo);
+    var pageBusiness = page_business.PageBusiness(context, _goRouterState);
 
     // Page Info BLoC 추가 (pageBusiness 를 context 전역에 저장)
     blocProviders.add(

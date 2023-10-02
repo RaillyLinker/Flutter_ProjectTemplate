@@ -135,7 +135,7 @@ class SharedPreferenceWrapper {
   }
 }
 
-// !!!저장 정보 스키마 작성!!
+// !!!저장 정보 데이터 형태 작성!!
 class SharedPreferenceWrapperVo {
   String memberUid; // 멤버 고유값
   String nickName; // 닉네임

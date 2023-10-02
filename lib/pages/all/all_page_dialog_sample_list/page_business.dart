@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
+import 'package:go_router/go_router.dart';
 
 // (page)
 import 'page_entrance.dart' as page_entrance;
@@ -37,8 +38,8 @@ class PageBusiness {
   late BLocObjects blocObjects;
 
   // 생성자 설정
-  PageBusiness(this._context, page_entrance.PageInputVo pageInputVo) {
-    pageViewModel = PageViewModel(pageInputVo);
+  PageBusiness(this._context, GoRouterState goRouterState) {
+    pageViewModel = PageViewModel(goRouterState);
   }
 
   ////
@@ -51,6 +52,11 @@ class PageBusiness {
   // (페이지 최초 실행)
   Future<void> onPageCreateAsync() async {
     // !!!페이지 최초 실행 로직 작성!!
+
+    // !!!pageInputVo Null 체크!!
+
+    // !!!PageInputVo 입력!!
+    pageViewModel.pageInputVo = page_entrance.PageInputVo();
   }
 
   // (페이지 최초 실행 or 다른 페이지에서 복귀)
@@ -222,14 +228,15 @@ class PageBusiness {
 // !!!내부에서만 사용할 함수를 아래에 구현!!
 }
 
-// (페이지 뷰 모델 스키마)
+// (페이지 뷰 모델 데이터 형태)
 // 페이지의 모든 화면 관련 데이터는 여기에 정의되며, Business 인스턴스 안에 객체로 저장 됩니다.
 class PageViewModel {
   // 페이지 생명주기 관련 states
   var pageLifeCycleStates = gc_template_classes.PageLifeCycleStates();
 
-  // 페이지 파라미터
-  page_entrance.PageInputVo pageInputVo;
+  // 페이지 파라미터 (아래 goRouterState 에서 가져와 대입하기)
+  late page_entrance.PageInputVo pageInputVo;
+  GoRouterState goRouterState;
 
   // !!!페이지 데이터 정의!!
   // ex :
@@ -238,22 +245,20 @@ class PageViewModel {
   // (샘플 페이지 원본 리스트)
   List<SampleItem> allSampleList = [];
 
-  PageViewModel(this.pageInputVo) {
+  PageViewModel(this.goRouterState) {
     // 초기 리스트 추가
-    allSampleList.add(SampleItem(SampleItemEnum.dialogTemplate,
-        "다이얼로그 템플릿", "템플릿 다이얼로그를 호출합니다."));
-    allSampleList.add(SampleItem(SampleItemEnum.infoDialog, "확인 다이얼로그",
-        "버튼이 하나인 확인 다이얼로그를 호출합니다."));
-    allSampleList.add(SampleItem(SampleItemEnum.yesOrNoDialog,
-        "예/아니오 다이얼로그", "버튼이 두개인 다이얼로그를 호출합니다."));
     allSampleList.add(SampleItem(
-        SampleItemEnum.loadingSpinnerDialog,
-        "로딩 스피너 다이얼로그",
-        "로딩 스피너 다이얼로그를 호출하고 2초 후 종료합니다."));
+        SampleItemEnum.dialogTemplate, "다이얼로그 템플릿", "템플릿 다이얼로그를 호출합니다."));
+    allSampleList.add(SampleItem(
+        SampleItemEnum.infoDialog, "확인 다이얼로그", "버튼이 하나인 확인 다이얼로그를 호출합니다."));
+    allSampleList.add(SampleItem(
+        SampleItemEnum.yesOrNoDialog, "예/아니오 다이얼로그", "버튼이 두개인 다이얼로그를 호출합니다."));
+    allSampleList.add(SampleItem(SampleItemEnum.loadingSpinnerDialog,
+        "로딩 스피너 다이얼로그", "로딩 스피너 다이얼로그를 호출하고 2초 후 종료합니다."));
     allSampleList.add(SampleItem(SampleItemEnum.modalBottomSheetDialog,
         "아래에 붙은 다이얼로그", "아래에서 올라오는 다이얼로그를 호출합니다."));
-    allSampleList.add(SampleItem(SampleItemEnum.dialogInDialog,
-        "다이얼로그 속 다이얼로그", "다이얼로그에서 다이얼로그를 호출합니다."));
+    allSampleList.add(SampleItem(SampleItemEnum.dialogInDialog, "다이얼로그 속 다이얼로그",
+        "다이얼로그에서 다이얼로그를 호출합니다."));
   }
 }
 

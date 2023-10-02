@@ -34,8 +34,8 @@ class PageBusiness {
   late BLocObjects blocObjects;
 
   // 생성자 설정
-  PageBusiness(this._context, page_entrance.PageInputVo pageInputVo) {
-    pageViewModel = PageViewModel(pageInputVo);
+  PageBusiness(this._context, GoRouterState goRouterState) {
+    pageViewModel = PageViewModel(goRouterState);
   }
 
   ////
@@ -48,6 +48,11 @@ class PageBusiness {
   // (페이지 최초 실행)
   Future<void> onPageCreateAsync() async {
     // !!!페이지 최초 실행 로직 작성!!
+
+    // !!!pageInputVo Null 체크!!
+
+    // !!!PageInputVo 입력!!
+    pageViewModel.pageInputVo = page_entrance.PageInputVo();
   }
 
   // (페이지 최초 실행 or 다른 페이지에서 복귀)
@@ -192,8 +197,8 @@ class PageBusiness {
         break;
       case SampleItemEnum.pageTransitionAnimationSampleList:
         {
-          _context
-              .pushNamed(all_page_page_transition_animation_sample_list.pageName);
+          _context.pushNamed(
+              all_page_page_transition_animation_sample_list.pageName);
         }
         break;
     }
@@ -211,14 +216,15 @@ class PageBusiness {
 // !!!내부에서만 사용할 함수를 아래에 구현!!
 }
 
-// (페이지 뷰 모델 스키마)
+// (페이지 뷰 모델 데이터 형태)
 // 페이지의 모든 화면 관련 데이터는 여기에 정의되며, Business 인스턴스 안에 객체로 저장 됩니다.
 class PageViewModel {
   // 페이지 생명주기 관련 states
   var pageLifeCycleStates = gc_template_classes.PageLifeCycleStates();
 
-  // 페이지 파라미터
-  page_entrance.PageInputVo pageInputVo;
+  // 페이지 파라미터 (아래 goRouterState 에서 가져와 대입하기)
+  late page_entrance.PageInputVo pageInputVo;
+  GoRouterState goRouterState;
 
   // !!!페이지 데이터 정의!!
   // ex :
@@ -242,16 +248,14 @@ class PageViewModel {
   // input and output push test 입력창 에러 메세지
   String? inputParamTextFieldErrorMsg;
 
-  PageViewModel(this.pageInputVo) {
+  PageViewModel(this.goRouterState) {
     // 초기 리스트 추가
-    allSampleList.add(SampleItem(
-        SampleItemEnum.pageTemplate, "페이지 템플릿", "템플릿 페이지를 호출합니다."));
+    allSampleList.add(
+        SampleItem(SampleItemEnum.pageTemplate, "페이지 템플릿", "템플릿 페이지를 호출합니다."));
     allSampleList.add(SampleItem(SampleItemEnum.justPushTest, "페이지 Push 테스트",
         "페이지 Push 를 통한 페이지 이동을 테스트합니다."));
-    allSampleList.add(SampleItem(
-        SampleItemEnum.inputAndOutputPushTest,
-        "페이지 입/출력 테스트",
-        "페이지 Push 시에 전달하는 입력값, Pop 시에 반환하는 출력값 테스트"));
+    allSampleList.add(SampleItem(SampleItemEnum.inputAndOutputPushTest,
+        "페이지 입/출력 테스트", "페이지 Push 시에 전달하는 입력값, Pop 시에 반환하는 출력값 테스트"));
     allSampleList.add(SampleItem(
         SampleItemEnum.pageTransitionAnimationSampleList,
         "페이지 이동 애니메이션 샘플 리스트",

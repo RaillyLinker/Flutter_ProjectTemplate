@@ -54,8 +54,8 @@ class PageBusiness {
   });
 
   // 생성자 설정
-  PageBusiness(this._context, page_entrance.PageInputVo pageInputVo) {
-    pageViewModel = PageViewModel(pageInputVo);
+  PageBusiness(this._context, GoRouterState goRouterState) {
+    pageViewModel = PageViewModel(goRouterState);
   }
 
   ////
@@ -68,6 +68,12 @@ class PageBusiness {
   // (페이지 최초 실행)
   Future<void> onPageCreateAsync() async {
     // !!!페이지 최초 실행 로직 작성!!
+
+    // !!!pageInputVo Null 체크!!
+
+    // !!!PageInputVo 입력!!
+    pageViewModel.pageInputVo = page_entrance.PageInputVo();
+
     await _checkAppVersionAsync();
   }
 
@@ -312,7 +318,8 @@ class PageBusiness {
     if (signInMemberInfo != null) {
       // 리플레시 토큰 만료 여부 확인
       bool isRefreshTokenExpired = DateFormat('yyyy-MM-dd HH:mm:ss.SSS')
-          .parse(signInMemberInfo.refreshTokenExpireWhen).isBefore(DateTime.now());
+          .parse(signInMemberInfo.refreshTokenExpireWhen)
+          .isBefore(DateTime.now());
 
       if (isRefreshTokenExpired) {
         // 리플래시 토큰이 사용 불가이므로 로그아웃 처리
@@ -502,14 +509,15 @@ class PageBusiness {
   }
 }
 
-// (페이지 뷰 모델 스키마)
+// (페이지 뷰 모델 데이터 형태)
 // 페이지의 모든 화면 관련 데이터는 여기에 정의되며, Business 인스턴스 안에 객체로 저장 됩니다.
 class PageViewModel {
   // 페이지 생명주기 관련 states
   var pageLifeCycleStates = gc_template_classes.PageLifeCycleStates();
 
-  // 페이지 파라미터
-  page_entrance.PageInputVo pageInputVo;
+  // 페이지 파라미터 (아래 goRouterState 에서 가져와 대입하기)
+  late page_entrance.PageInputVo pageInputVo;
+  GoRouterState goRouterState;
 
   // !!!페이지 데이터 정의!!
   // ex :
@@ -528,7 +536,7 @@ class PageViewModel {
 
   int signInRetryCountLimit = 2;
 
-  PageViewModel(this.pageInputVo);
+  PageViewModel(this.goRouterState);
 }
 
 class AnimationLogoControllers {
