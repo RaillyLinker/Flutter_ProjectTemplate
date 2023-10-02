@@ -43,7 +43,7 @@ class PageBusiness {
   Future<void> onPageCreateAsync() async {
     // !!!페이지 최초 실행 로직 작성!!
 
-    // !!!pageInputVo Null 체크!!
+    // !!!pageViewModel.goRouterState 에서 pageInputVo Null 체크!!
     if (!pageViewModel.goRouterState.uri.queryParameters
         .containsKey("inputValueString")) {
       showToast(
@@ -95,7 +95,7 @@ class PageBusiness {
       }
     }
 
-    // !!!PageInputVo 입력!!
+    // !!!pageViewModel.goRouterState 에서 PageInputVo 입력!!
     pageViewModel.pageInputVo = page_entrance.PageInputVo(
         pageViewModel.goRouterState.uri.queryParameters["inputValueString"]!,
         pageViewModel.goRouterState.uri.queryParameters["inputValueStringOpt"],

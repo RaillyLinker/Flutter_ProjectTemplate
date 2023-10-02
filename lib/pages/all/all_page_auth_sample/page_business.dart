@@ -59,9 +59,9 @@ class PageBusiness {
   Future<void> onPageCreateAsync() async {
     // !!!페이지 최초 실행 로직 작성!!
 
-    // !!!pageInputVo Null 체크!!
+    // !!!pageViewModel.goRouterState 에서 pageInputVo Null 체크!!
 
-    // !!!PageInputVo 입력!!
+    // !!!pageViewModel.goRouterState 에서 PageInputVo 입력!!
     pageViewModel.pageInputVo = page_entrance.PageInputVo();
 
     // 검증된 현재 회원 정보 가져오기 (비회원이라면 null)
