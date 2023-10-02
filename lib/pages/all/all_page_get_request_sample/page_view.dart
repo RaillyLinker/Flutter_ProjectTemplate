@@ -137,7 +137,7 @@ class PageView extends StatelessWidget {
                               controller: pageBusiness.pageViewModel
                                   .networkRequestParamTextFieldController1,
                               decoration: const InputDecoration(
-                                  hintText: "테스트",
+                                  hintText: "\"\"",
                                   border: OutlineInputBorder()),
                             ),
                           )
@@ -737,7 +737,7 @@ class PageView extends StatelessWidget {
                                           child: TextField(
                                             controller: tec,
                                             decoration: const InputDecoration(
-                                                hintText: "테스트",
+                                                hintText: "\"\"",
                                                 border: OutlineInputBorder()),
                                           ),
                                         ),
@@ -887,7 +887,7 @@ class PageView extends StatelessWidget {
                                           child: TextField(
                                             controller: tec,
                                             decoration: const InputDecoration(
-                                                hintText: "테스트",
+                                                hintText: "\"\"",
                                                 border: OutlineInputBorder()),
                                           ),
                                         ),
@@ -974,7 +974,7 @@ class PageView extends StatelessWidget {
                       backgroundColor: Colors.blue,
                     ),
                     child: const Text(
-                      "Network Request Test",
+                      "네트워크 요청 테스트",
                       style: TextStyle(
                           color: Colors.white, fontFamily: "MaruBuri"),
                     )),

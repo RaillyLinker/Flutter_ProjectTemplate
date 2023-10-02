@@ -40,7 +40,7 @@ class PageView extends StatelessWidget {
       appBar: AppBar(
         automaticallyImplyLeading: !kIsWeb,
         title: const Text(
-          'Post Request Sample 3 (multipart/form-data)',
+          'Post 메소드 요청 샘플 3 (multipart/form-data)',
           style: TextStyle(color: Colors.white, fontFamily: "MaruBuri"),
         ),
         backgroundColor: Colors.blue,
@@ -125,7 +125,7 @@ class PageView extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text("String Form Parameter",
+                          const Text("String Form 파라미터",
                               style: TextStyle(fontFamily: "MaruBuri")),
                           Container(
                             margin: const EdgeInsets.only(top: 10),
@@ -185,7 +185,7 @@ class PageView extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text("String Form Parameter Nullable",
+                          const Text("String Form 파라미터 Nullable",
                               style: TextStyle(fontFamily: "MaruBuri")),
                           Container(
                             margin: const EdgeInsets.only(top: 10),
@@ -245,7 +245,7 @@ class PageView extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text("Int Form Parameter",
+                          const Text("Int Form 파라미터",
                               style: TextStyle(fontFamily: "MaruBuri")),
                           Container(
                             margin: const EdgeInsets.only(top: 10),
@@ -310,7 +310,7 @@ class PageView extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text("Int Form Parameter Nullable",
+                          const Text("Int Form 파라미터 Nullable",
                               style: TextStyle(fontFamily: "MaruBuri")),
                           Container(
                             margin: const EdgeInsets.only(top: 10),
@@ -376,7 +376,7 @@ class PageView extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text("Double Form Parameter",
+                          const Text("Double Form 파라미터",
                               style: TextStyle(fontFamily: "MaruBuri")),
                           Container(
                             margin: const EdgeInsets.only(top: 10),
@@ -451,7 +451,7 @@ class PageView extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text("Double Form Parameter Nullable",
+                          const Text("Double Form 파라미터 Nullable",
                               style: TextStyle(fontFamily: "MaruBuri")),
                           Container(
                             margin: const EdgeInsets.only(top: 10),
@@ -526,7 +526,7 @@ class PageView extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text("Boolean Form Parameter",
+                          const Text("Boolean Form 파라미터",
                               style: TextStyle(fontFamily: "MaruBuri")),
                           Container(
                             margin: const EdgeInsets.only(top: 10),
@@ -597,7 +597,7 @@ class PageView extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text("Boolean Form Parameter Nullable",
+                          const Text("Boolean Form 파라미터 Nullable",
                               style: TextStyle(fontFamily: "MaruBuri")),
                           Container(
                             margin: const EdgeInsets.only(top: 10),
@@ -669,7 +669,7 @@ class PageView extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text("StringList Form Parameter",
+                          const Text("StringList Form 파라미터",
                               style: TextStyle(fontFamily: "MaruBuri")),
                           Container(
                             margin: const EdgeInsets.only(top: 10),
@@ -757,7 +757,7 @@ class PageView extends StatelessWidget {
                                         backgroundColor: Colors.blue,
                                       ),
                                       child: const Text(
-                                        "Add List Item",
+                                        "리스트 추가",
                                         style: TextStyle(
                                             color: Colors.white,
                                             fontFamily: "MaruBuri"),
@@ -815,7 +815,7 @@ class PageView extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text("StringList Form Parameter Nullable",
+                          const Text("StringList Form 파라미터 Nullable",
                               style: TextStyle(fontFamily: "MaruBuri")),
                           Container(
                             margin: const EdgeInsets.only(top: 10),
@@ -905,7 +905,7 @@ class PageView extends StatelessWidget {
                                         backgroundColor: Colors.blue,
                                       ),
                                       child: const Text(
-                                        "Add List Item",
+                                        "리스트 추가",
                                         style: TextStyle(
                                             color: Colors.white,
                                             fontFamily: "MaruBuri"),
@@ -1142,7 +1142,7 @@ class PageView extends StatelessWidget {
                       backgroundColor: Colors.blue,
                     ),
                     child: const Text(
-                      "Network Request Test",
+                      "네트워크 요청 테스트",
                       style: TextStyle(
                           color: Colors.white, fontFamily: "MaruBuri"),
                     )),
