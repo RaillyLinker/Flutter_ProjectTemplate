@@ -1,4 +1,5 @@
 // (external)
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -39,35 +40,17 @@ class PageView extends StatelessWidget {
       backgroundColor: const Color(0xFFFFFFFF),
       body: CustomScrollView(
         slivers: [
-          SliverAppBar(
+          const SliverAppBar(
+            automaticallyImplyLeading: !kIsWeb,
             pinned: true,
             centerTitle: false,
-            title: const Text(
-              'Page And Router Test Sample',
+            title: Text(
+              '페이지 / 라우터 샘플 리스트',
               style: TextStyle(color: Colors.white, fontFamily: "MaruBuri"),
             ),
             backgroundColor: Colors.blue,
-            iconTheme: const IconThemeData(
+            iconTheme: IconThemeData(
               color: Colors.white, //change your color here
-            ),
-            bottom: AppBar(
-              automaticallyImplyLeading: false,
-              title: Container(
-                width: double.infinity,
-                height: 40,
-                color: Colors.white,
-                child: Center(
-                  child: TextField(
-                    onChanged: (value) {
-                      pageBusiness.filteringSamplePageList(value);
-                    },
-                    controller: pageBusiness
-                        .pageViewModel.sampleSearchBarTextEditController,
-                    decoration: const InputDecoration(
-                        hintText: 'Search', prefixIcon: Icon(Icons.search)),
-                  ),
-                ),
-              ),
             ),
           ),
           // Other Sliver Widgets
@@ -104,7 +87,7 @@ class PageView extends StatelessWidget {
                               children: [
                                 const Expanded(
                                     child: Text(
-                                  "( Input Page Parameter : ",
+                                  "( 페이지 입력 파라미터 : ",
                                   style: TextStyle(fontFamily: "MaruBuri"),
                                 )),
                                 Expanded(child: BlocBuilder<
@@ -125,7 +108,7 @@ class PageView extends StatelessWidget {
                                               .inputParamTextFieldErrorMsg,
                                           isDense: true,
                                           labelText: "PageInputVo.inputValue",
-                                          hintText: "Page Input Parameter",
+                                          hintText: "페이지 입력 파라미터",
                                           border: const OutlineInputBorder()),
                                     );
                                   },
@@ -146,7 +129,7 @@ class PageView extends StatelessWidget {
                                           labelText:
                                               "PageInputVo.inputValueOpt",
                                           hintText:
-                                              "Page Input Parameter (Nullable)",
+                                              "페이지 입력 파라미터 (Nullable)",
                                           border: OutlineInputBorder()),
                                     );
                                   },

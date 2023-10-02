@@ -7,10 +7,16 @@ import 'package:go_router/go_router.dart';
 // (page)
 import 'page_entrance.dart' as page_entrance;
 
+import '../all_page_input_and_output_push_test/page_entrance.dart'
+    as all_page_input_and_output_push_test;
+import '../../../pages/all/all_page_just_push_test1/page_entrance.dart'
+    as all_page_just_push_test1;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
-import '../../../pages/all/all_page_page_transition_animation_sample/page_entrance.dart'
-    as all_page_page_transition_animation_sample;
+import '../../../a_templates/all_page_template/page_entrance.dart'
+    as all_page_template;
+import '../../../pages/all/all_page_page_transition_animation_sample_list/page_entrance.dart'
+    as all_page_page_transition_animation_sample_list;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
 
@@ -42,12 +48,6 @@ class PageBusiness {
   // (페이지 최초 실행)
   Future<void> onPageCreateAsync() async {
     // !!!페이지 최초 실행 로직 작성!!
-
-    showToast(
-      "New Page Called",
-      context: _context,
-      animation: StyledToastAnimation.scale,
-    );
   }
 
   // (페이지 최초 실행 or 다른 페이지에서 복귀)
@@ -66,6 +66,8 @@ class PageBusiness {
 
     // 검색창 컨트롤러 닫기
     pageViewModel.sampleSearchBarTextEditController.dispose();
+    pageViewModel.inputParamTextFieldController.dispose();
+    pageViewModel.inputParamOptTextFieldController.dispose();
   }
 
   // (Page Pop 요청)
@@ -116,48 +118,92 @@ class PageBusiness {
   }
 
   // (리스트 아이템 클릭 리스너)
-  void onRouteListItemClick(int index) {
+  Future<void> onRouteListItemClickAsync(int index) async {
     SampleItem sampleItem = pageViewModel.filteredSampleList[index];
 
     switch (sampleItem.sampleItemEnum) {
-      case SampleItemEnum.fadeAnimation:
+      case SampleItemEnum.pageTemplate:
         {
-          // 페이지 전환 애니메이션 변경
-          all_page_page_transition_animation_sample.pageTransitionsBuilder =
-              (context, animation, secondaryAnimation, child) {
-            return FadeTransition(opacity: animation, child: child);
-          };
-
-          _context
-              .pushNamed(all_page_page_transition_animation_sample.pageName);
+          _context.pushNamed(all_page_template.pageName);
         }
         break;
-      case SampleItemEnum.slideUpAnimation:
+      case SampleItemEnum.justPushTest:
         {
-          // 페이지 전환 애니메이션 변경
-          all_page_page_transition_animation_sample.pageTransitionsBuilder =
-              (context, animation, secondaryAnimation, child) {
-            var begin = const Offset(0.0, 1.0);
-            var end = Offset.zero;
-            var curve = Curves.ease;
+          _context.pushNamed(all_page_just_push_test1.pageName);
+        }
+        break;
+      case SampleItemEnum.inputAndOutputPushTest:
+        {
+          String inputParamText =
+              pageViewModel.inputParamTextFieldController.value.text;
 
-            var tween = Tween(begin: begin, end: end);
-            var curvedAnimation = CurvedAnimation(
-              parent: animation,
-              curve: curve,
-            );
+          if (inputParamText == "") {
+            pageViewModel.inputParamTextFieldErrorMsg = "필수";
+            blocObjects.blocInputParamTextField
+                .add(!blocObjects.blocInputParamTextField.state);
+          } else {
+            pageViewModel.inputParamTextFieldErrorMsg = null;
+            blocObjects.blocInputParamTextField
+                .add(!blocObjects.blocInputParamTextField.state);
 
-            return SlideTransition(
-              position: tween.animate(curvedAnimation),
-              child: child,
-            );
-          };
+            String inputParamOptText =
+                pageViewModel.inputParamOptTextFieldController.value.text;
 
+            dynamic value;
+            if (inputParamOptText == "") {
+              value = await _context.pushNamed(
+                  all_page_input_and_output_push_test.pageName,
+                  queryParameters: {
+                    "inputValueString": inputParamText,
+                    "inputValueStringList": ["a", "b", "c"],
+                    "inputValueInt": "1234" // int 를 원하더라도, 여기선 String 으로 줘야함
+                  });
+            } else {
+              value = await _context.pushNamed(
+                  all_page_input_and_output_push_test.pageName,
+                  queryParameters: {
+                    "inputValueString": inputParamText,
+                    "inputValueStringOpt": inputParamOptText,
+                    "inputValueStringList": ["a", "b", "c"],
+                    "inputValueInt": "1234" // int 를 원하더라도, 여기선 String 으로 줘야함
+                  });
+            }
+
+            all_page_input_and_output_push_test.PageOutputVo? pageResult =
+                value as all_page_input_and_output_push_test.PageOutputVo?;
+            // 반환 파라미터 받아서 토스트 처리
+            if (pageResult == null) {
+              if (!_context.mounted) return;
+              showToast(
+                "No Result",
+                context: _context,
+                animation: StyledToastAnimation.scale,
+              );
+            } else {
+              if (!_context.mounted) return;
+              showToast(
+                pageResult.resultValue,
+                context: _context,
+                animation: StyledToastAnimation.scale,
+              );
+            }
+          }
+        }
+        break;
+      case SampleItemEnum.pageTransitionAnimationSampleList:
+        {
           _context
-              .pushNamed(all_page_page_transition_animation_sample.pageName);
+              .pushNamed(all_page_page_transition_animation_sample_list.pageName);
         }
         break;
     }
+  }
+
+  // (파라미터 입력창 입력시)
+  void inputParamTextFieldOnChanged(String value) {
+    pageViewModel.inputParamTextFieldErrorMsg = null;
+    blocObjects.blocInputParamTextField
+        .add(!blocObjects.blocInputParamTextField.state);
   }
 
 ////
@@ -182,18 +228,34 @@ class PageViewModel {
   TextEditingController sampleSearchBarTextEditController =
       TextEditingController();
 
+  // 입력 파라미터용 컨트롤러
+  TextEditingController inputParamTextFieldController = TextEditingController();
+  TextEditingController inputParamOptTextFieldController =
+      TextEditingController();
+
   // (샘플 페이지 원본 리스트)
   List<SampleItem> allSampleList = [];
 
   // (샘플 페이지 리스트 검색 결과)
   List<SampleItem> filteredSampleList = [];
 
+  // input and output push test 입력창 에러 메세지
+  String? inputParamTextFieldErrorMsg;
+
   PageViewModel(this.pageInputVo) {
     // 초기 리스트 추가
-    allSampleList.add(SampleItem(SampleItemEnum.fadeAnimation, "Fade Animation",
-        "Fade In / Out Transition Animation"));
-    allSampleList.add(SampleItem(SampleItemEnum.slideUpAnimation,
-        "Slide Up Animation", "Slide Up Animation"));
+    allSampleList.add(SampleItem(
+        SampleItemEnum.pageTemplate, "페이지 템플릿", "템플릿 페이지를 호출합니다."));
+    allSampleList.add(SampleItem(SampleItemEnum.justPushTest, "페이지 Push 테스트",
+        "페이지 Push 를 통한 페이지 이동을 테스트합니다."));
+    allSampleList.add(SampleItem(
+        SampleItemEnum.inputAndOutputPushTest,
+        "페이지 입/출력 테스트",
+        "페이지 Push 시에 전달하는 입력값, Pop 시에 반환하는 출력값 테스트"));
+    allSampleList.add(SampleItem(
+        SampleItemEnum.pageTransitionAnimationSampleList,
+        "페이지 이동 애니메이션 샘플 리스트",
+        "페이지 이동시 적용되는 애니메이션 샘플 리스트"));
 
     filteredSampleList = allSampleList;
   }
@@ -217,8 +279,10 @@ class SampleItem {
 }
 
 enum SampleItemEnum {
-  fadeAnimation,
-  slideUpAnimation,
+  pageTemplate,
+  justPushTest,
+  inputAndOutputPushTest,
+  pageTransitionAnimationSampleList,
 }
 
 // (BLoC 클래스 모음)
@@ -241,6 +305,14 @@ class BlocSampleList extends Bloc<bool, bool> {
   }
 }
 
+class BlocInputParamTextField extends Bloc<bool, bool> {
+  BlocInputParamTextField() : super(true) {
+    on<bool>((event, emit) {
+      emit(event);
+    });
+  }
+}
+
 // (BLoC 프로바이더 클래스)
 // 본 페이지에서 사용할 BLoC 객체를 모아두어 PageEntrance 에서 페이지 전역 설정에 사용 됩니다.
 class BLocProviders {
@@ -249,6 +321,8 @@ class BLocProviders {
     // ex :
     // BlocProvider<BlocSample>(create: (context) => BlocSample()),
     BlocProvider<BlocSampleList>(create: (context) => BlocSampleList()),
+    BlocProvider<BlocInputParamTextField>(
+        create: (context) => BlocInputParamTextField()),
   ];
 }
 
@@ -260,6 +334,7 @@ class BLocObjects {
   // ex :
   // late BlocSample blocSample;
   late BlocSampleList blocSampleList;
+  late BlocInputParamTextField blocInputParamTextField;
 
   // 생성자 설정
   BLocObjects(this._context) {
@@ -267,5 +342,7 @@ class BLocObjects {
     // ex :
     // blocSample = BlocProvider.of<BlocSample>(_context);
     blocSampleList = BlocProvider.of<BlocSampleList>(_context);
+    blocInputParamTextField =
+        BlocProvider.of<BlocInputParamTextField>(_context);
   }
 }

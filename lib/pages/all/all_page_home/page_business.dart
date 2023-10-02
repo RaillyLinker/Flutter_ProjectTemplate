@@ -12,20 +12,20 @@ import '../../../pages/all/all_page_global_variable_state_test_sample/page_entra
     as all_page_global_variable_state_test_sample;
 import '../../../pages/all/all_page_auth_sample/page_entrance.dart'
     as all_page_auth_sample;
-import '../../../pages/all/all_page_network_request_sample/page_entrance.dart'
-    as all_page_network_request_sample;
+import '../../../pages/all/all_page_network_request_sample_list/page_entrance.dart'
+    as all_page_network_request_sample_list;
 import '../../../pages/all/all_page_url_launcher_sample/page_entrance.dart'
     as all_page_url_launcher_sample;
 import '../../../pages/all/all_page_shared_preferences_sample/page_entrance.dart'
     as all_page_shared_preferences_sample;
-import '../../../pages/all/all_page_page_and_router_test_sample/page_entrance.dart'
-    as all_page_page_and_router_test_sample;
-import '../../../pages/all/all_page_dialog_sample/page_entrance.dart'
-    as all_page_dialog_sample;
+import '../../../pages/all/all_page_page_and_router_sample_list/page_entrance.dart'
+    as all_page_page_and_router_sample_list;
+import '../../../pages/all/all_page_dialog_sample_list/page_entrance.dart'
+    as all_page_dialog_sample_list;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
-import '../../../pages/all/all_page_widget_change_animation_sample/page_entrance.dart'
-    as all_page_widget_change_animation_sample;
+import '../../../pages/all/all_page_widget_change_animation_sample_list/page_entrance.dart'
+    as all_page_widget_change_animation_sample_list;
 import '../../../pages/all/all_page_crypt_sample/page_entrance.dart'
     as all_page_crypt_sample;
 
@@ -34,8 +34,8 @@ import '../../../pages/app/app_page_server_sample/page_entrance.dart'
     as app_page_server_sample;
 
 // (mobile)
-import '../../../pages/mobile/mobile_page_permission_sample/page_entrance.dart'
-    as mobile_page_permission_sample;
+import '../../../pages/mobile/mobile_page_permission_sample_list/page_entrance.dart'
+    as mobile_page_permission_sample_list;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
 
@@ -82,9 +82,6 @@ class PageBusiness {
   // (페이지 종료 (강제 종료는 탐지 못함))
   Future<void> onPageDestroyAsync() async {
     // !!!페이지 종료 로직 작성!!
-
-    // 검색창 컨트롤러 닫기
-    pageViewModel.sampleSearchBarTextEditController.dispose();
   }
 
   // (Page Pop 요청)
@@ -108,45 +105,19 @@ class PageBusiness {
 //     bLocObjects.blocSample.add(!bLocObjects.blocSample.state);
 //   }
 
-  // (검색 결과에 따라 샘플 페이지 리스트 필터링)
-  void filteringSamplePageList(String searchKeyword) {
-    if (searchKeyword == "") {
-      // 원본 리스트로 뷰모델 데이터 변경 후 이벤트 발생
-      pageViewModel.filteredSampleList = pageViewModel.allSampleList;
-      blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
-    } else {
-      // 필터링한 리스트로 뷰모델 데이터 변경 후 이벤트 발생
-      List<SampleItem> filteredSamplePageList = [];
-      // 필터링 하기
-      for (SampleItem samplePage in pageViewModel.allSampleList) {
-        if (samplePage.sampleItemTitle
-            .toLowerCase()
-            .contains(searchKeyword.toLowerCase())) {
-          filteredSamplePageList.add(samplePage);
-        } else if (samplePage.sampleItemDescription
-            .toLowerCase()
-            .contains(searchKeyword.toLowerCase())) {
-          filteredSamplePageList.add(samplePage);
-        }
-      }
-      pageViewModel.filteredSampleList = filteredSamplePageList;
-      blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
-    }
-  }
-
   // (리스트 아이템 클릭 리스너)
   void onRouteListItemClick(int index) {
-    SampleItem sampleItem = pageViewModel.filteredSampleList[index];
+    SampleItem sampleItem = pageViewModel.allSampleList[index];
 
     switch (sampleItem.sampleItemEnum) {
-      case SampleItemEnum.pageAndRouterTestSample:
+      case SampleItemEnum.pageAndRouterSampleList:
         {
-          _context.pushNamed(all_page_page_and_router_test_sample.pageName);
+          _context.pushNamed(all_page_page_and_router_sample_list.pageName);
         }
         break;
-      case SampleItemEnum.dialogSample:
+      case SampleItemEnum.dialogSampleList:
         {
-          _context.pushNamed(all_page_dialog_sample.pageName);
+          _context.pushNamed(all_page_dialog_sample_list.pageName);
         }
         break;
       case SampleItemEnum.sharedPreferencesSample:
@@ -164,14 +135,14 @@ class PageBusiness {
           _context.pushNamed(app_page_server_sample.pageName);
         }
         break;
-      case SampleItemEnum.networkRequestSample:
+      case SampleItemEnum.networkRequestSampleList:
         {
-          _context.pushNamed(all_page_network_request_sample.pageName);
+          _context.pushNamed(all_page_network_request_sample_list.pageName);
         }
         break;
-      case SampleItemEnum.mobilePermissionSample:
+      case SampleItemEnum.mobilePermissionSampleList:
         {
-          _context.pushNamed(mobile_page_permission_sample.pageName);
+          _context.pushNamed(mobile_page_permission_sample_list.pageName);
         }
         break;
       case SampleItemEnum.authSample:
@@ -185,9 +156,9 @@ class PageBusiness {
               .pushNamed(all_page_global_variable_state_test_sample.pageName);
         }
         break;
-      case SampleItemEnum.widgetChangeAnimationSample:
+      case SampleItemEnum.widgetChangeAnimationSampleList:
         {
-          _context.pushNamed(all_page_widget_change_animation_sample.pageName);
+          _context.pushNamed(all_page_widget_change_animation_sample_list.pageName);
         }
         break;
       case SampleItemEnum.cryptSample:
@@ -223,49 +194,42 @@ class PageViewModel {
   // (샘플 페이지 원본 리스트)
   List<SampleItem> allSampleList = [];
 
-  // (샘플 페이지 리스트 검색 결과)
-  List<SampleItem> filteredSampleList = [];
-
   PageViewModel(this.pageInputVo) {
     // 초기 리스트 추가
+    allSampleList.add(SampleItem(SampleItemEnum.pageAndRouterSampleList,
+        "페이지 / 라우터 샘플 리스트", "페이지 이동, 파라미터 전달 등의 샘플 리스트"));
     allSampleList.add(SampleItem(
-        SampleItemEnum.pageAndRouterTestSample,
-        "Page And Router Test Sample",
-        "Test samples for moving pages, passing parameters, etc."));
-    allSampleList.add(SampleItem(
-        SampleItemEnum.dialogSample, "Dialog Sample", "Dialog call sample"));
+        SampleItemEnum.dialogSampleList, "다이얼로그 샘플 리스트", "다이얼로그 호출 샘플 리스트"));
     allSampleList.add(SampleItem(SampleItemEnum.sharedPreferencesSample,
-        "Shared Preferences Sample", "Sample using Shared Preferences"));
+        "SharedPreferences 샘플", "SharedPreferences 사용 샘플"));
     allSampleList.add(SampleItem(SampleItemEnum.urlLauncherSample,
-        "Url Launcher Sample", "Sample using Url Launcher"));
+        "Url Launcher 샘플", "Url Launcher 사용 샘플"));
     if (!kIsWeb) {
       // App
-      allSampleList.add(SampleItem(SampleItemEnum.serverSample, "Server Sample",
-          "Server Port Open Sample"));
+      allSampleList.add(SampleItem(SampleItemEnum.serverSample, "서버 샘플",
+          "서버 포트 개방 샘플"));
     }
     allSampleList.add(SampleItem(
-        SampleItemEnum.networkRequestSample,
-        "Network Request Sample",
-        "Sample Network Request and Response Handling"));
+        SampleItemEnum.networkRequestSampleList,
+        "네트워크 요청 샘플 리스트",
+        "네트워크 요청 및 응답 처리 샘플 리스트"));
     if (!kIsWeb && (Platform.isAndroid || Platform.isIOS)) {
       // Mobile 환경일 때
-      allSampleList.add(SampleItem(SampleItemEnum.mobilePermissionSample,
-          "Mobile Permission Sample", "mobile permission sample"));
+      allSampleList.add(SampleItem(SampleItemEnum.mobilePermissionSampleList,
+          "모바일 권한 샘플 리스트", "모바일 디바이스 권한 처리 샘플 리스트"));
     }
-    allSampleList.add(SampleItem(SampleItemEnum.authSample, "Auth Sample",
-        "Authentication/authorization processing sample in application"));
+    allSampleList.add(SampleItem(SampleItemEnum.authSample, "계정 샘플",
+        "계정 관련 기능 샘플"));
     allSampleList.add(SampleItem(
         SampleItemEnum.globalVariableStateTestSample,
-        "Global Variable State Test Sample",
-        "Sample state persistence test for global variables. (Especially on the web)"));
+        "전역 변수 상태 확인 샘플",
+        "전역 변수 사용시의 상태 확인용 샘플 (특히 웹에서 새 탭으로 접속 했을 때를 확인하기)"));
     allSampleList.add(SampleItem(
-        SampleItemEnum.widgetChangeAnimationSample,
-        "Widget Change Animation Sample",
-        "animation sample applied when widget changes"));
-    allSampleList.add(SampleItem(SampleItemEnum.cryptSample, "Crypt Sample",
-        "encoding, decoding crypt sample"));
-
-    filteredSampleList = allSampleList;
+        SampleItemEnum.widgetChangeAnimationSampleList,
+        "위젯 변경 애니메이션 샘플 리스트",
+        "위젯 변경시의 애니메이션 적용 샘플 리스트"));
+    allSampleList.add(SampleItem(SampleItemEnum.cryptSample, "암/복호화 샘플",
+        "암호화, 복호화 적용 샘플"));
   }
 }
 
@@ -287,16 +251,16 @@ class SampleItem {
 }
 
 enum SampleItemEnum {
-  pageAndRouterTestSample,
-  dialogSample,
+  pageAndRouterSampleList,
+  dialogSampleList,
   sharedPreferencesSample,
   urlLauncherSample,
   serverSample,
-  networkRequestSample,
-  mobilePermissionSample,
+  networkRequestSampleList,
+  mobilePermissionSampleList,
   authSample,
   globalVariableStateTestSample,
-  widgetChangeAnimationSample,
+  widgetChangeAnimationSampleList,
   cryptSample,
 }
 

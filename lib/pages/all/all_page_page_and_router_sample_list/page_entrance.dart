@@ -16,7 +16,7 @@ import '../../../global_classes/gc_template_classes.dart'
 //------------------------------------------------------------------------------
 // !!!페이지 진입 라우트 Name 정의!!
 // 폴더명과 동일하게 작성하세요.
-const pageName = "all_page_dialog_sample";
+const pageName = "all_page_page_and_router_sample_list";
 
 // !!!페이지 호출/반납 애니메이션!!
 // 동적으로 변경이 가능합니다.
