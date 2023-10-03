@@ -5,9 +5,8 @@ import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 // (all)
 import 'apis/api_main_server.dart' as api_main_server;
-import '../spws/spw_sign_in_member_info.dart' as spw_sign_in_member_info;
+import '../spws/spw_auth_member_info.dart' as spw_auth_member_info;
 import '../../global_data/gd_const_config.dart' as gd_const_config;
-import '../../global_functions/gf_my_functions.dart' as gf_my_functions;
 
 // [네트워크 요청 객체 파일]
 // 네트워크 요청 객체 선언, 생성, 설정 파일
@@ -223,8 +222,8 @@ void setDioObjects() {
         // Request Header 에 Authorization 입력시, 만료된 AccessToken. (reissue, logout API 는 제외)
 
         // 액세스 토큰 재발급
-        spw_sign_in_member_info.SharedPreferenceWrapperVo? signInMemberInfo =
-            spw_sign_in_member_info.SharedPreferenceWrapper.get();
+        spw_auth_member_info.SharedPreferenceWrapperVo? signInMemberInfo =
+            spw_auth_member_info.SharedPreferenceWrapper.get();
 
         if (signInMemberInfo == null) {
           // 정상적으로 프로세스를 진행할 수 없으므로 그냥 스킵
@@ -241,7 +240,7 @@ void setDioObjects() {
             // 리플래시 토큰이 사용 불가이므로 로그아웃 처리
 
             // login_user_info SSW 비우기 (= 로그아웃 처리)
-            spw_sign_in_member_info.SharedPreferenceWrapper.set(null);
+            spw_auth_member_info.SharedPreferenceWrapper.set(null);
 
             // 호출 코드로 응답 전달
             handler.resolve(response);
@@ -272,15 +271,13 @@ void setDioObjects() {
                         as api_main_server.PostReissueAsyncResponseBodyVo;
 
                 // SSW 정보 갱신
-                List<
-                        spw_sign_in_member_info
-                        .SharedPreferenceWrapperVoOAuth2Info>
+                List<spw_auth_member_info.SharedPreferenceWrapperVoOAuth2Info>
                     myOAuth2ObjectList = [];
                 for (api_main_server
                     .PostReissueAsyncResponseBodyVoOAuth2Info myOAuth2
                     in postReissueResponseBody.myOAuth2List) {
-                  myOAuth2ObjectList.add(spw_sign_in_member_info
-                      .SharedPreferenceWrapperVoOAuth2Info(
+                  myOAuth2ObjectList.add(
+                      spw_auth_member_info.SharedPreferenceWrapperVoOAuth2Info(
                           myOAuth2.oauth2TypeCode, myOAuth2.oauth2Id));
                 }
                 signInMemberInfo.memberUid = postReissueResponseBody.memberUid;
@@ -302,7 +299,7 @@ void setDioObjects() {
                 signInMemberInfo.myPhoneNumberList =
                     postReissueResponseBody.myPhoneNumberList;
                 signInMemberInfo.myOAuth2List = myOAuth2ObjectList;
-                spw_sign_in_member_info.SharedPreferenceWrapper.set(
+                spw_auth_member_info.SharedPreferenceWrapper.set(
                     signInMemberInfo);
 
                 // 새로운 AccessToken 으로 재요청
@@ -354,7 +351,7 @@ void setDioObjects() {
                     // 리플래시 토큰이 사용 불가이므로 로그아웃 처리
 
                     // login_user_info SSW 비우기 (= 로그아웃 처리)
-                    spw_sign_in_member_info.SharedPreferenceWrapper.set(null);
+                    spw_auth_member_info.SharedPreferenceWrapper.set(null);
 
                     // 호출 코드로 응답 전달
                     handler.resolve(response);
@@ -380,7 +377,7 @@ void setDioObjects() {
         // Request Header 에 Authorization 입력시, 존재하지 않는 유저 (reissue, logout API 는 제외)
 
         // login_user_info SSW 비우기 (= 로그아웃 처리)
-        spw_sign_in_member_info.SharedPreferenceWrapper.set(null);
+        spw_auth_member_info.SharedPreferenceWrapper.set(null);
 
         // 호출 코드로 응답 전달
         handler.resolve(response);

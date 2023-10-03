@@ -14,8 +14,8 @@ import '../../../dialogs/all/all_dialog_loading_spinner/page_entrance.dart'
     as all_dialog_loading_spinner;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
-import '../../../../repositories/spws/spw_sign_in_member_info.dart'
-    as spw_sign_in_member_info;
+import '../../../../repositories/spws/spw_auth_member_info.dart'
+    as spw_auth_member_info;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
 
@@ -290,8 +290,8 @@ class PageBusiness {
   Future<void> _requestChangePassword() async {
     var loadingSpinner = all_dialog_loading_spinner.PageEntrance(
         all_dialog_loading_spinner.PageInputVo(), (pageBusiness) async {
-      spw_sign_in_member_info.SharedPreferenceWrapperVo? signInMemberInfo =
-          spw_sign_in_member_info.SharedPreferenceWrapper.get();
+      spw_auth_member_info.SharedPreferenceWrapperVo? signInMemberInfo =
+          spw_auth_member_info.SharedPreferenceWrapper.get();
 
       if (signInMemberInfo == null) {
         if (!_context.mounted) return;
@@ -347,7 +347,7 @@ class PageBusiness {
                       "Change Password", "Change Password Completed!", "확인"),
                   (pageBusiness) {})).then((outputVo) {
             // 로그아웃 처리
-            spw_sign_in_member_info.SharedPreferenceWrapper.set(null);
+            spw_auth_member_info.SharedPreferenceWrapper.set(null);
             _context.pop();
           });
         } else {
@@ -360,9 +360,7 @@ class PageBusiness {
                 context: _context,
                 builder: (context) => all_dialog_info.PageEntrance(
                     all_dialog_info.PageInputVo(
-                        "네트워크 에러",
-                        "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
-                        "확인"),
+                        "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
                     (pageBusiness) {}));
           } else {
             // 서버 지정 에러 코드를 전달 받았을 때
@@ -416,9 +414,7 @@ class PageBusiness {
             context: _context,
             builder: (context) => all_dialog_info.PageEntrance(
                 all_dialog_info.PageInputVo(
-                    "네트워크 에러",
-                    "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
-                    "확인"),
+                    "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
                 (pageBusiness) {}));
       }
     });

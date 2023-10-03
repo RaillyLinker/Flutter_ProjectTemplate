@@ -128,7 +128,8 @@ class PageBusiness {
           // 로딩 다이얼로그 표시
           var loadingSpinnerDialog = all_dialog_loading_spinner.PageEntrance(
               all_dialog_loading_spinner.PageInputVo(), (pageBusiness) async {
-            var response = await api_main_server.postService1TkV1RequestTestGenerateErrorAsync();
+            var response = await api_main_server
+                .postService1TkV1RequestTestGenerateErrorAsync();
 
             // 로딩 다이얼로그 제거
             pageBusiness.closeDialog();

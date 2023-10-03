@@ -67,8 +67,8 @@ class PageView extends StatelessWidget {
                       child: BlocBuilder<page_business.BlocServerBtn, bool>(
                         builder: (c, s) {
                           return TextFormField(
-                            enabled: pageBusiness.pageViewModel.serverBtn ==
-                                "서버 열기",
+                            enabled:
+                                pageBusiness.pageViewModel.serverBtn == "서버 열기",
                             controller: pageBusiness
                                 .pageViewModel.portTextEditController,
                             maxLength: 4,
@@ -92,8 +92,7 @@ class PageView extends StatelessWidget {
                       return Expanded(
                           child: ElevatedButton(
                         onPressed: () {
-                          if (pageBusiness.pageViewModel.serverBtn ==
-                              "서버 열기") {
+                          if (pageBusiness.pageViewModel.serverBtn == "서버 열기") {
                             pageBusiness.onClickOpenServerBtnAsync();
                           } else if (pageBusiness.pageViewModel.serverBtn ==
                               "서버 닫기") {

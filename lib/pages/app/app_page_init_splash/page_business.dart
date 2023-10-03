@@ -13,11 +13,10 @@ import 'package:url_launcher/url_launcher.dart';
 import 'page_entrance.dart' as page_entrance;
 
 // (all)
-import '../../../../../repositories/spws/spw_sign_in_member_info.dart'
-    as spw_sign_in_member_info;
+import '../../../../../repositories/spws/spw_auth_member_info.dart'
+    as spw_auth_member_info;
 import '../../../../../repositories/network/apis/api_main_server.dart'
     as api_main_server;
-import '../../../global_functions/gf_my_functions.dart' as gf_my_functions;
 import '../../../dialogs/all/all_dialog_info/page_entrance.dart'
     as all_dialog_info;
 import '../../../global_classes/gc_my_classes.dart' as gc_my_classes;
@@ -262,10 +261,7 @@ class PageBusiness {
             context: _context,
             builder: (context) => all_dialog_yes_or_no.PageEntrance(
                 all_dialog_yes_or_no.PageInputVo(
-                    "네트워크 에러",
-                    "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
-                    "Retry",
-                    "Exit"),
+                    "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "Retry", "Exit"),
                 (pageBusiness) {})).then((outputVo) async {
           if (outputVo == null || !outputVo.checkPositiveBtn) {
             // 아무것도 누르지 않거나 negative 버튼을 눌렀을 때
@@ -287,10 +283,7 @@ class PageBusiness {
           context: _context,
           builder: (context) => all_dialog_yes_or_no.PageEntrance(
               all_dialog_yes_or_no.PageInputVo(
-                  "네트워크 에러",
-                  "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
-                  "Retry",
-                  "Exit"),
+                  "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "Retry", "Exit"),
               (pageBusiness) {})).then((outputVo) async {
         if (outputVo == null || !outputVo.checkPositiveBtn) {
           // 아무것도 누르지 않거나 negative 버튼을 눌렀을 때
@@ -308,8 +301,8 @@ class PageBusiness {
 
   // (자동 로그인 확인)
   Future<void> _checkAutoLoginAsync() async {
-    spw_sign_in_member_info.SharedPreferenceWrapperVo? signInMemberInfo =
-        spw_sign_in_member_info.SharedPreferenceWrapper.get();
+    spw_auth_member_info.SharedPreferenceWrapperVo? signInMemberInfo =
+        spw_auth_member_info.SharedPreferenceWrapper.get();
     if (signInMemberInfo != null) {
       // 리플레시 토큰 만료 여부 확인
       bool isRefreshTokenExpired = DateFormat('yyyy-MM-dd HH:mm:ss.SSS')
@@ -319,7 +312,7 @@ class PageBusiness {
       if (isRefreshTokenExpired) {
         // 리플래시 토큰이 사용 불가이므로 로그아웃 처리
         // login_user_info SPW 비우기
-        spw_sign_in_member_info.SharedPreferenceWrapper.set(null);
+        spw_auth_member_info.SharedPreferenceWrapper.set(null);
 
         _appInitLogicThreadConfluenceObj.threadComplete();
       } else {
@@ -345,13 +338,13 @@ class PageBusiness {
             pageViewModel.signInRetryCount = 0;
 
             // SSW 정보 갱신
-            List<spw_sign_in_member_info.SharedPreferenceWrapperVoOAuth2Info>
+            List<spw_auth_member_info.SharedPreferenceWrapperVoOAuth2Info>
                 myOAuth2ObjectList = [];
             for (api_main_server
                 .PostReissueAsyncResponseBodyVoOAuth2Info myOAuth2
                 in postAutoLoginResponseBody.myOAuth2List) {
               myOAuth2ObjectList.add(
-                  spw_sign_in_member_info.SharedPreferenceWrapperVoOAuth2Info(
+                  spw_auth_member_info.SharedPreferenceWrapperVoOAuth2Info(
                       myOAuth2.oauth2TypeCode, myOAuth2.oauth2Id));
             }
             signInMemberInfo.memberUid = postAutoLoginResponseBody.memberUid;
@@ -372,8 +365,7 @@ class PageBusiness {
             signInMemberInfo.myPhoneNumberList =
                 postAutoLoginResponseBody.myPhoneNumberList;
             signInMemberInfo.myOAuth2List = myOAuth2ObjectList;
-            spw_sign_in_member_info.SharedPreferenceWrapper.set(
-                signInMemberInfo);
+            spw_auth_member_info.SharedPreferenceWrapper.set(signInMemberInfo);
 
             _appInitLogicThreadConfluenceObj.threadComplete();
           } else {
@@ -396,7 +388,7 @@ class PageBusiness {
                         (pageBusiness) {}));
 
                 // login_user_info SSW 비우기 (= 로그아웃 처리)
-                spw_sign_in_member_info.SharedPreferenceWrapper.set(null);
+                spw_auth_member_info.SharedPreferenceWrapper.set(null);
                 _appInitLogicThreadConfluenceObj.threadComplete();
                 return;
               }
@@ -406,11 +398,8 @@ class PageBusiness {
                   barrierDismissible: false,
                   context: _context,
                   builder: (context) => all_dialog_yes_or_no.PageEntrance(
-                      all_dialog_yes_or_no.PageInputVo(
-                          "네트워크 에러",
-                          "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
-                          "Retry",
-                          "Exit"),
+                      all_dialog_yes_or_no.PageInputVo("네트워크 에러",
+                          "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "Retry", "Exit"),
                       (pageBusiness) {})).then((outputVo) async {
                 if (outputVo == null || !outputVo.checkPositiveBtn) {
                   // 아무것도 누르지 않거나 negative 버튼을 눌렀을 때
@@ -436,7 +425,7 @@ class PageBusiness {
                 // 리플래시 토큰이 사용 불가이므로 로그아웃 처리
 
                 // login_user_info SSW 비우기 (= 로그아웃 처리)
-                spw_sign_in_member_info.SharedPreferenceWrapper.set(null);
+                spw_auth_member_info.SharedPreferenceWrapper.set(null);
                 _appInitLogicThreadConfluenceObj.threadComplete();
               } else {
                 // 알 수 없는 에러 코드일 때
@@ -460,7 +449,7 @@ class PageBusiness {
                     (pageBusiness) {}));
 
             // login_user_info SSW 비우기 (= 로그아웃 처리)
-            spw_sign_in_member_info.SharedPreferenceWrapper.set(null);
+            spw_auth_member_info.SharedPreferenceWrapper.set(null);
             _appInitLogicThreadConfluenceObj.threadComplete();
             return;
           }
@@ -471,11 +460,8 @@ class PageBusiness {
               barrierDismissible: false,
               context: _context,
               builder: (context) => all_dialog_yes_or_no.PageEntrance(
-                  all_dialog_yes_or_no.PageInputVo(
-                      "네트워크 에러",
-                      "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
-                      "Retry",
-                      "Exit"),
+                  all_dialog_yes_or_no.PageInputVo("네트워크 에러",
+                      "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "Retry", "Exit"),
                   (pageBusiness) {})).then((outputVo) async {
             if (outputVo == null || !outputVo.checkPositiveBtn) {
               // 아무것도 누르지 않거나 negative 버튼을 눌렀을 때

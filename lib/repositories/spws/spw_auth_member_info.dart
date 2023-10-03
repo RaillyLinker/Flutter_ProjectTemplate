@@ -15,7 +15,7 @@ class SharedPreferenceWrapper {
   // (전역 키 이름)
   // !!!전역 키 이름 설정!!
   // 적용 구역이 전역이므로 중복되지 않도록 spws 안의 파일명을 적을 것
-  static const String globalKeyName = "spw_sign_in_member_info";
+  static const String globalKeyName = "spw_auth_member_info";
 
   // (저장 데이터 암호 설정)
   // !!!AES256 에서 사용할 secretKey, secretIv 설정!!

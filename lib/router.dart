@@ -8,11 +8,9 @@ import 'a_templates/all_page_template/page_entrance.dart' as all_page_template;
 import 'pages/all/all_page_home/page_entrance.dart' as all_page_home;
 import 'pages/all/all_page_register_member_info/page_entrance.dart'
     as all_page_register_member_info;
-import 'pages/all/all_page_sign_in/page_entrance.dart' as all_page_sign_in;
+import 'pages/all/all_page_login/page_entrance.dart' as all_page_login;
 import 'pages/all/all_page_register_email_verification/page_entrance.dart'
     as all_page_register_email_verification;
-import 'pages/all/all_page_register_phone_number_verification/page_entrance.dart'
-    as all_page_register_phone_number_verification;
 import 'pages/all/all_page_find_password_with_email/page_entrance.dart'
     as all_page_find_password_with_email;
 import 'pages/all/all_page_find_password_with_phone_number/page_entrance.dart'
@@ -31,8 +29,8 @@ import 'pages/all/all_page_network_request_sample_list/page_entrance.dart'
     as all_page_network_request_sample_list;
 import 'pages/all/all_page_auth_sample/page_entrance.dart'
     as all_page_auth_sample;
-import 'pages/all/all_page_authorization_test_sample/page_entrance.dart'
-    as all_page_authorization_test_sample;
+import 'pages/all/all_page_authorization_test_sample_list/page_entrance.dart'
+    as all_page_authorization_test_sample_list;
 import 'pages/all/all_page_get_request_sample/page_entrance.dart'
     as all_page_get_request_sample;
 import 'pages/all/all_page_post_request_sample1/page_entrance.dart'
@@ -322,26 +320,26 @@ GoRouter getRouter() {
   ));
 
   subRouteListAuthSample.add(GoRoute(
-    path: "authorization-test-sample",
-    name: all_page_authorization_test_sample.pageName,
+    path: "authorization-test-sample-list",
+    name: all_page_authorization_test_sample_list.pageName,
     pageBuilder: (c, s) {
       return CustomTransitionPage(
         key: s.pageKey,
-        child: all_page_authorization_test_sample.PageEntrance(s),
+        child: all_page_authorization_test_sample_list.PageEntrance(s),
         transitionsBuilder:
-            all_page_authorization_test_sample.pageTransitionsBuilder,
+            all_page_authorization_test_sample_list.pageTransitionsBuilder,
       );
     },
   ));
 
   subRouteListAuthSample.add(GoRoute(
-    path: "sign-in",
-    name: all_page_sign_in.pageName,
+    path: "login",
+    name: all_page_login.pageName,
     pageBuilder: (c, s) {
       return CustomTransitionPage(
         key: s.pageKey,
-        child: all_page_sign_in.PageEntrance(s),
-        transitionsBuilder: all_page_sign_in.pageTransitionsBuilder,
+        child: all_page_login.PageEntrance(s),
+        transitionsBuilder: all_page_login.pageTransitionsBuilder,
       );
     },
     routes: subRouteListAuthSampleAuthSignIn,
@@ -381,19 +379,6 @@ GoRouter getRouter() {
         child: all_page_register_email_verification.PageEntrance(s),
         transitionsBuilder:
             all_page_register_email_verification.pageTransitionsBuilder,
-      );
-    },
-  ));
-
-  subRouteListAuthSampleAuthSignIn.add(GoRoute(
-    path: "register-phone-number-verification",
-    name: all_page_register_phone_number_verification.pageName,
-    pageBuilder: (c, s) {
-      return CustomTransitionPage(
-        key: s.pageKey,
-        child: all_page_register_phone_number_verification.PageEntrance(s),
-        transitionsBuilder:
-            all_page_register_phone_number_verification.pageTransitionsBuilder,
       );
     },
   ));

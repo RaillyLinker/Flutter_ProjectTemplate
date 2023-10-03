@@ -71,8 +71,7 @@ class PageView extends StatelessWidget {
                                       .pageViewModel.encryptTextController,
                                   decoration: const InputDecoration(
                                       labelText: '암호화할 평문',
-                                      hintText:
-                                          "암호화할 평문을 입력하세요."),
+                                      hintText: "암호화할 평문을 입력하세요."),
                                 )),
                             const Expanded(child: SizedBox()),
                             Expanded(
@@ -137,8 +136,7 @@ class PageView extends StatelessWidget {
                                       .pageViewModel.decryptTextController,
                                   decoration: const InputDecoration(
                                       labelText: '복호화할 암호문',
-                                      hintText:
-                                          "복호화할 암호문을 입력하세요."),
+                                      hintText: "복호화할 암호문을 입력하세요."),
                                 )),
                             const Expanded(child: SizedBox()),
                             Expanded(

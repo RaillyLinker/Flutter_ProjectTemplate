@@ -148,28 +148,31 @@ class PageBusiness {
         }
       }
 
-      var response = await api_main_server.postService1TkV1RequestTestPostRequestApplicationJsonAsync(
-          api_main_server.PostService1TkV1RequestTestPostRequestApplicationJsonAsyncRequestBodyVo(
-              pageViewModel.networkRequestParamTextFieldController1.text,
-              (pageViewModel.networkRequestParamTextFieldController2.text == "")
-                  ? null
-                  : pageViewModel.networkRequestParamTextFieldController2.text,
-              int.parse(
-                  pageViewModel.networkRequestParamTextFieldController3.text),
-              (pageViewModel.networkRequestParamTextFieldController4.text == "")
-                  ? null
-                  : int.parse(pageViewModel
-                      .networkRequestParamTextFieldController4.text),
-              double.parse(
-                  pageViewModel.networkRequestParamTextFieldController5.text),
-              (pageViewModel.networkRequestParamTextFieldController6.text == "")
-                  ? null
-                  : double.parse(pageViewModel
-                      .networkRequestParamTextFieldController6.text),
-              pageViewModel.networkRequestParamTextFieldValue7,
-              pageViewModel.networkRequestParamTextFieldValue8,
-              queryParamStringList,
-              queryParamStringListNullable));
+      var response = await api_main_server
+          .postService1TkV1RequestTestPostRequestApplicationJsonAsync(
+              api_main_server.PostService1TkV1RequestTestPostRequestApplicationJsonAsyncRequestBodyVo(
+                  pageViewModel.networkRequestParamTextFieldController1.text,
+                  (pageViewModel.networkRequestParamTextFieldController2.text == "")
+                      ? null
+                      : pageViewModel
+                          .networkRequestParamTextFieldController2.text,
+                  int.parse(pageViewModel
+                      .networkRequestParamTextFieldController3.text),
+                  (pageViewModel.networkRequestParamTextFieldController4.text == "")
+                      ? null
+                      : int.parse(pageViewModel
+                          .networkRequestParamTextFieldController4.text),
+                  double.parse(pageViewModel
+                      .networkRequestParamTextFieldController5.text),
+                  (pageViewModel.networkRequestParamTextFieldController6.text ==
+                          "")
+                      ? null
+                      : double.parse(
+                          pageViewModel.networkRequestParamTextFieldController6.text),
+                  pageViewModel.networkRequestParamTextFieldValue7,
+                  pageViewModel.networkRequestParamTextFieldValue8,
+                  queryParamStringList,
+                  queryParamStringListNullable));
 
       // 로딩 다이얼로그 제거
       pageBusiness.closeDialog();
@@ -184,7 +187,8 @@ class PageBusiness {
 
           // 응답 body
           var responseBody = networkResponseObjectOk.responseBody
-              as api_main_server.PostService1TkV1RequestTestPostRequestApplicationJsonAsyncResponseBodyVo;
+              as api_main_server
+              .PostService1TkV1RequestTestPostRequestApplicationJsonAsyncResponseBodyVo;
 
           // 확인 다이얼로그 호출
           if (!_context.mounted) return;
@@ -205,9 +209,7 @@ class PageBusiness {
               context: _context,
               builder: (context) => all_dialog_info.PageEntrance(
                   all_dialog_info.PageInputVo(
-                      "네트워크 에러",
-                      "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
-                      "확인"),
+                      "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
                   (pageBusiness) {}));
         }
       } else {
@@ -218,9 +220,7 @@ class PageBusiness {
             context: _context,
             builder: (context) => all_dialog_info.PageEntrance(
                 all_dialog_info.PageInputVo(
-                    "네트워크 에러",
-                    "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
-                    "확인"),
+                    "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
                 (pageBusiness) {}));
       }
     });

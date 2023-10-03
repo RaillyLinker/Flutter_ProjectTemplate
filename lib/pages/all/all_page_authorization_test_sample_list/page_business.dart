@@ -6,8 +6,8 @@ import 'package:go_router/go_router.dart';
 // (page)
 import 'page_entrance.dart' as page_entrance;
 
-import '../../../../repositories/spws/spw_sign_in_member_info.dart'
-    as spw_sign_in_member_info;
+import '../../../../repositories/spws/spw_auth_member_info.dart'
+    as spw_auth_member_info;
 import '../../../../repositories/network/apis/api_main_server.dart'
     as api_main_server;
 import '../../../dialogs/all/all_dialog_info/page_entrance.dart'
@@ -156,9 +156,7 @@ class PageBusiness {
                   context: _context,
                   builder: (context) => all_dialog_info.PageEntrance(
                       all_dialog_info.PageInputVo(
-                          "네트워크 에러",
-                          "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
-                          "확인"),
+                          "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
                       (pageBusiness) {}));
             }
           });
@@ -175,9 +173,8 @@ class PageBusiness {
           // 로딩 다이얼로그 표시
           var loadingSpinnerDialog = all_dialog_loading_spinner.PageEntrance(
               all_dialog_loading_spinner.PageInputVo(), (pageBusiness) async {
-            spw_sign_in_member_info.SharedPreferenceWrapperVo?
-                signInMemberInfo =
-                spw_sign_in_member_info.SharedPreferenceWrapper.get();
+            spw_auth_member_info.SharedPreferenceWrapperVo? signInMemberInfo =
+                spw_auth_member_info.SharedPreferenceWrapper.get();
 
             String? authorization = (signInMemberInfo == null)
                 ? null
@@ -216,9 +213,7 @@ class PageBusiness {
                   context: _context,
                   builder: (context) => all_dialog_info.PageEntrance(
                       all_dialog_info.PageInputVo(
-                          "네트워크 에러",
-                          "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
-                          "확인"),
+                          "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
                       (pageBusiness) {}));
             }
           });
@@ -235,9 +230,8 @@ class PageBusiness {
           // 로딩 다이얼로그 표시
           var loadingSpinnerDialog = all_dialog_loading_spinner.PageEntrance(
               all_dialog_loading_spinner.PageInputVo(), (pageBusiness) async {
-            spw_sign_in_member_info.SharedPreferenceWrapperVo?
-                signInMemberInfo =
-                spw_sign_in_member_info.SharedPreferenceWrapper.get();
+            spw_auth_member_info.SharedPreferenceWrapperVo? signInMemberInfo =
+                spw_auth_member_info.SharedPreferenceWrapper.get();
 
             String? authorization = (signInMemberInfo == null)
                 ? null
@@ -277,9 +271,7 @@ class PageBusiness {
                   context: _context,
                   builder: (context) => all_dialog_info.PageEntrance(
                       all_dialog_info.PageInputVo(
-                          "네트워크 에러",
-                          "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
-                          "확인"),
+                          "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
                       (pageBusiness) {}));
             }
           });
@@ -296,9 +288,8 @@ class PageBusiness {
           // 로딩 다이얼로그 표시
           var loadingSpinnerDialog = all_dialog_loading_spinner.PageEntrance(
               all_dialog_loading_spinner.PageInputVo(), (pageBusiness) async {
-            spw_sign_in_member_info.SharedPreferenceWrapperVo?
-                signInMemberInfo =
-                spw_sign_in_member_info.SharedPreferenceWrapper.get();
+            spw_auth_member_info.SharedPreferenceWrapperVo? signInMemberInfo =
+                spw_auth_member_info.SharedPreferenceWrapper.get();
 
             String? authorization = (signInMemberInfo == null)
                 ? null
@@ -337,9 +328,7 @@ class PageBusiness {
                   context: _context,
                   builder: (context) => all_dialog_info.PageEntrance(
                       all_dialog_info.PageInputVo(
-                          "네트워크 에러",
-                          "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
-                          "확인"),
+                          "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
                       (pageBusiness) {}));
             }
           });

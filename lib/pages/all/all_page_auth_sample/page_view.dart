@@ -45,7 +45,7 @@ class PageView extends StatelessWidget {
             pinned: true,
             centerTitle: false,
             title: Text(
-              'Auth Sample',
+              '계정 샘플',
               style: TextStyle(color: Colors.white, fontFamily: "MaruBuri"),
             ),
             backgroundColor: Colors.blue,
@@ -58,7 +58,7 @@ class PageView extends StatelessWidget {
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               const Text(
-                'Member Info',
+                '멤버 정보',
                 style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -398,7 +398,7 @@ class PageView extends StatelessWidget {
               ),
               const SizedBox(height: 20.0),
               const Text(
-                'Auth Samples',
+                '계정 관련 기능 샘플 리스트',
                 style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,

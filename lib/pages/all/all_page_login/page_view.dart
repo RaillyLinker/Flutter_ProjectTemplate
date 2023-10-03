@@ -43,7 +43,7 @@ class PageView extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0.0,
         title: const Text(
-          'Sign in',
+          '로그인',
           style: TextStyle(
               color: Colors.white,
               fontSize: 24.0,
@@ -83,84 +83,36 @@ class PageView extends StatelessWidget {
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(10.0),
                 ),
-                child: BlocBuilder<page_business.BlocAccountId, bool>(
-                  builder: (c, s) {
-                    String hintText;
-                    String labelText;
-                    IconData icon;
-                    TextInputType textInputType;
-
-                    switch (pageBusiness.pageViewModel.accountSignInType) {
-                      case page_business.SignInType.nickname:
-                        {
-                          // 닉네임
-                          labelText = "Nickname";
-                          hintText = 'John Doe';
-                          icon = Icons.account_box;
-                          textInputType = TextInputType.text;
-                        }
-                        break;
-                      case page_business.SignInType.email:
-                        {
-                          // 이메일
-                          labelText = "Email";
-                          hintText = 'user@email.com';
-                          icon = Icons.email;
-                          textInputType = TextInputType.emailAddress;
-                        }
-                        break;
-                      case page_business.SignInType.phoneNumber:
-                        {
-                          // 전화번호
-                          labelText = "Phone Number";
-                          hintText = '00)000-0000-0000';
-                          icon = Icons.phone;
-                          textInputType = TextInputType.phone;
-                        }
-                        break;
-                      default:
-                        {
-                          throw Exception("accountSignInType not supported");
-                        }
-                    }
-
-                    return TextFormField(
-                      focusNode: pageBusiness.pageViewModel.emailTextFieldFocus,
-                      keyboardType: textInputType,
-                      controller:
-                          pageBusiness.pageViewModel.emailTextFieldController,
-                      onFieldSubmitted: (value) {
-                        pageBusiness.onIdFieldSubmitted();
-                      },
-                      decoration: InputDecoration(
-                        contentPadding: const EdgeInsets.symmetric(
-                            vertical: 10.0, horizontal: 10.0),
-                        hintText: hintText,
-                        labelText: labelText,
-                        filled: true,
-                        fillColor: Colors.white,
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(color: Colors.white),
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(color: Colors.white),
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        prefixIcon: InkWell(
-                          onTap: () {
-                            // 아이콘 클릭 시
-                            pageBusiness.changeSigninType();
-                          },
-                          child: Icon(
-                            icon,
-                            color: Colors.blue,
-                            size: 24.0, // 아이콘 크기 조정
-                          ),
-                        ),
-                      ),
-                    );
+                child: TextFormField(
+                  focusNode: pageBusiness.pageViewModel.emailTextFieldFocus,
+                  keyboardType: TextInputType.emailAddress,
+                  controller: pageBusiness.pageViewModel.idTextFieldController,
+                  onFieldSubmitted: (value) {
+                    pageBusiness.onIdFieldSubmitted();
                   },
+                  decoration: InputDecoration(
+                    contentPadding: const EdgeInsets.symmetric(
+                        vertical: 10.0, horizontal: 10.0),
+                    hintText: 'user@email.com',
+                    labelText: "이메일 입력",
+                    filled: true,
+                    fillColor: Colors.white,
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(color: Colors.white),
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(color: Colors.white),
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    prefixIcon: const InkWell(
+                      child: Icon(
+                        Icons.email,
+                        color: Colors.blue,
+                        size: 24.0, // 아이콘 크기 조정
+                      ),
+                    ),
+                  ),
                 ),
               ),
               const SizedBox(height: 10.0),
@@ -185,7 +137,7 @@ class PageView extends StatelessWidget {
                       decoration: InputDecoration(
                         contentPadding: const EdgeInsets.symmetric(
                             vertical: 10.0, horizontal: 10.0),
-                        labelText: "Password",
+                        labelText: "비밀번호 입력",
                         hintText: 'xxxxxxxxxxx',
                         filled: true,
                         fillColor: Colors.white,
@@ -215,37 +167,7 @@ class PageView extends StatelessWidget {
                   },
                 ),
               ),
-              const SizedBox(height: 10.0),
-              GestureDetector(
-                onTap: () {
-                  pageBusiness.changeSigninType();
-                },
-                child: Container(
-                  constraints: const BoxConstraints(maxWidth: 180),
-                  child: const MouseRegion(
-                    cursor: SystemMouseCursors.click,
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Expanded(
-                            child: Text(
-                          'different account type',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: Colors.white, fontFamily: "MaruBuri"),
-                        )),
-                        Text(
-                          '✓',
-                          style: TextStyle(
-                              color: Colors.yellowAccent,
-                              fontFamily: "MaruBuri"),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 10.0),
+              const SizedBox(height: 20.0),
               GestureDetector(
                 onTap: () {
                   pageBusiness.goToFindPasswordPage();
@@ -259,7 +181,7 @@ class PageView extends StatelessWidget {
                       children: [
                         Expanded(
                             child: Text(
-                          'Forgot Your Password?',
+                          '비밀번호를 잊어버렸나요?',
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               color: Colors.white, fontFamily: "MaruBuri"),
@@ -276,22 +198,42 @@ class PageView extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 20.0),
-              ElevatedButton(
-                onPressed: () {
-                  pageBusiness.accountSignInAsync();
-                },
-                style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.white,
-                    backgroundColor: Colors.lightBlue,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    )),
-                child: const Text(
-                  'Sign in with Account',
-                  style: TextStyle(fontFamily: "MaruBuri"),
+              Container(
+                height: 40,
+                constraints: const BoxConstraints(minWidth: 200),
+                child: ElevatedButton(
+                  onPressed: () {
+                    pageBusiness.accountLoginAsync();
+                  },
+                  style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.white,
+                      backgroundColor: Colors.lightBlue,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      )),
+                  child: const Text(
+                    '계정 로그인',
+                    style: TextStyle(fontFamily: "MaruBuri"),
+                  ),
                 ),
               ),
-              const SizedBox(height: 30.0),
+              const SizedBox(height: 20.0),
+              Container(
+                constraints: const BoxConstraints(maxWidth: 185),
+                child: const Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Expanded(
+                        child: Text(
+                      '아직 회원이 아닌가요?',
+                      style: TextStyle(
+                          color: Colors.white, fontFamily: "MaruBuri"),
+                      textAlign: TextAlign.center,
+                    )),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 5.0),
               GestureDetector(
                 onTap: () {
                   pageBusiness.selectRegisterWith();
@@ -303,17 +245,12 @@ class PageView extends StatelessWidget {
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Expanded(
-                            child: Text(
-                          'Not a member?',
-                          style: TextStyle(
-                              color: Colors.white, fontFamily: "MaruBuri"),
-                        )),
                         Text(
-                          'Register now',
+                          '회원 가입하러 가기',
                           style: TextStyle(
                               color: Colors.yellowAccent,
                               fontFamily: "MaruBuri"),
+                          textAlign: TextAlign.center,
                         )
                       ],
                     ),

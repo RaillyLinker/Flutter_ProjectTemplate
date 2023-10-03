@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart' as widgets;
 import 'package:intl/intl.dart';
 
 // (all)
-import '../../../../repositories/spws/spw_sign_in_member_info.dart'
+import '../../../../repositories/spws/spw_auth_member_info.dart'
     as spw_sign_in_member_info;
 
 // [전역 함수 작성 파일]

@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:focus_detector_v2/focus_detector_v2.dart';
+import 'package:go_router/go_router.dart';
 
 // (page)
 import 'page_view.dart' as page_view;
@@ -14,6 +15,18 @@ import '../../../global_classes/gc_template_classes.dart'
 // [페이지 진입 파일]
 
 //------------------------------------------------------------------------------
+// !!!페이지 진입 라우트 Name 정의!!
+// 폴더명과 동일하게 작성하세요.
+const pageName = "all_page_authorization_test_sample_list";
+
+// !!!페이지 호출/반납 애니메이션!!
+// 동적으로 변경이 가능합니다.
+Widget Function(BuildContext context, Animation<double> animation,
+        Animation<double> secondaryAnimation, Widget child)
+    pageTransitionsBuilder = (context, animation, secondaryAnimation, child) {
+  return FadeTransition(opacity: animation, child: child);
+};
+
 // (페이지 호출시 필요한 입력값 데이터 형태)
 // !!!페이지 입력 데이터 정의!!
 class PageInputVo {}
@@ -27,12 +40,9 @@ class PageOutputVo {}
 // 외부에서 페이지 진입시 사용(= 라우터에 등록) 하는 역할.
 class PageEntrance extends StatelessWidget {
   // 페이지 진입 파라미터
-  final PageInputVo _pageInputVo;
+  final GoRouterState _goRouterState;
 
-  // 페이지 생성 시점 콜백
-  final void Function(page_business.PageBusiness) _onDialogPageCreated;
-
-  const PageEntrance(this._pageInputVo, this._onDialogPageCreated, {super.key});
+  const PageEntrance(this._goRouterState, {super.key});
 
   // 화면 빌드
   @override
@@ -42,14 +52,13 @@ class PageEntrance extends StatelessWidget {
         page_business.BLocProviders().blocProviders;
 
     // pageBusiness 객체 생성
-    var pageBusiness = page_business.PageBusiness(context, _pageInputVo);
+    var pageBusiness = page_business.PageBusiness(context, _goRouterState);
 
     // Page Info BLoC 추가 (pageBusiness 를 context 전역에 저장)
     blocProviders.add(
         BlocProvider<gc_template_classes.BlocPageInfo>(create: (innerContext) {
       // pageBusiness 내의 bloc 객체 모음 생성
       pageBusiness.blocObjects = page_business.BLocObjects(innerContext);
-      pageBusiness.pageViewModel.onDialogPageCreated = _onDialogPageCreated;
       return gc_template_classes.BlocPageInfo(
           gc_template_classes.BlocPageInfoState<page_business.PageBusiness>(
               pageBusiness));
@@ -124,7 +133,6 @@ class LifecycleWatcherState extends State<LifecycleWatcher>
           if (!_pageBusiness.pageViewModel.pageLifeCycleStates.isPageCreated) {
             _pageBusiness.pageViewModel.pageLifeCycleStates.isPageCreated =
                 true;
-            _pageBusiness.pageViewModel.onDialogPageCreated(_pageBusiness);
             await _pageBusiness.onPageCreateAsync();
           } else {}
 

@@ -8,20 +8,20 @@ import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 // (page)
 import 'page_entrance.dart' as page_entrance;
 
-import '../../../../repositories/spws/spw_sign_in_member_info.dart'
-    as spw_sign_in_member_info;
+import '../../../../repositories/spws/spw_auth_member_info.dart'
+    as spw_auth_member_info;
 import '../../../../repositories/network/apis/api_main_server.dart'
     as api_main_server;
 import '../../../dialogs/all/all_dialog_info/page_entrance.dart'
     as all_dialog_info;
 import '../../../dialogs/all/all_dialog_loading_spinner/page_entrance.dart'
     as all_dialog_loading_spinner;
-import '../../../dialogs/all/all_dialog_auth_choice_register_with/page_entrance.dart'
-    as all_dialog_auth_choice_register_with;
-import '../../../dialogs/all/all_dialog_auth_choice_find_password_with/page_entrance.dart'
-    as all_dialog_auth_choice_find_password_with;
+import '../../../pages/all/all_page_find_password_with_email/page_entrance.dart'
+    as all_page_find_password_with_email;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
+import '../../../pages/all/all_page_register_email_verification/page_entrance.dart'
+    as all_page_register_email_verification;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
 
@@ -68,7 +68,7 @@ class PageBusiness {
   // (페이지 종료 (강제 종료는 탐지 못함))
   Future<void> onPageDestroyAsync() async {
     // !!!페이지 종료 로직 작성!!
-    pageViewModel.emailTextFieldController.dispose();
+    pageViewModel.idTextFieldController.dispose();
     pageViewModel.passwordTextFieldController.dispose();
     pageViewModel.emailTextFieldFocus.dispose();
     pageViewModel.passwordTextFieldFocus.dispose();
@@ -103,15 +103,15 @@ class PageBusiness {
   }
 
   // (계정 로그인 버튼 클릭)
-  bool accountSignInAsyncClicked = false;
+  bool accountLoginAsyncClicked = false;
 
-  void accountSignInAsync() async {
-    if (accountSignInAsyncClicked) {
+  void accountLoginAsync() async {
+    if (accountLoginAsyncClicked) {
       return;
     }
-    accountSignInAsyncClicked = true;
+    accountLoginAsyncClicked = true;
 
-    String id = pageViewModel.emailTextFieldController.text;
+    String id = pageViewModel.idTextFieldController.text;
     String password = pageViewModel.passwordTextFieldController.text;
 
     if (id.trim() != "") {
@@ -126,59 +126,22 @@ class PageBusiness {
         // 로그인 타입 검증
         int loginTypeCode;
 
-        switch (pageViewModel.accountSignInType) {
-          case SignInType.nickname:
-            {
-              // 닉네임
-              loginTypeCode = 0;
-            }
-            break;
-          case SignInType.email:
-            {
-              // 이메일
-              if (RegExp(
-                      r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)*(\.[a-zA-Z]{2,})$')
-                  .hasMatch(id)) {
-                // 이메일 형식이 맞음
-                loginTypeCode = 1;
-              } else {
-                // 이메일 형식 맞지 않음
-                FocusScope.of(_context)
-                    .requestFocus(pageViewModel.emailTextFieldFocus);
-                showToast(
-                  "ID format is incorrect",
-                  context: _context,
-                  animation: StyledToastAnimation.scale,
-                );
-                accountSignInAsyncClicked = false;
-                return;
-              }
-            }
-            break;
-          case SignInType.phoneNumber:
-            {
-              // 전화번호
-              if (RegExp(r'^\d{1,4}\)\d{1,3}-\d{1,4}-\d{1,4}$').hasMatch(id)) {
-                // 형식이 맞음
-                loginTypeCode = 2;
-              } else {
-                // 전화번호 형식 맞지 않음
-                FocusScope.of(_context)
-                    .requestFocus(pageViewModel.emailTextFieldFocus);
-                showToast(
-                  "ID format is incorrect",
-                  context: _context,
-                  animation: StyledToastAnimation.scale,
-                );
-                accountSignInAsyncClicked = false;
-                return;
-              }
-            }
-            break;
-          default:
-            {
-              throw Exception("accountSignInType not supported");
-            }
+        // 이메일
+        if (RegExp(r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)*(\.[a-zA-Z]{2,})$')
+            .hasMatch(id)) {
+          // 이메일 형식이 맞음
+          loginTypeCode = 1;
+        } else {
+          // 이메일 형식 맞지 않음
+          FocusScope.of(_context)
+              .requestFocus(pageViewModel.emailTextFieldFocus);
+          showToast(
+            "ID format is incorrect",
+            context: _context,
+            animation: StyledToastAnimation.scale,
+          );
+          accountLoginAsyncClicked = false;
+          return;
         }
 
         var loadingSpinner = all_dialog_loading_spinner.PageEntrance(
@@ -198,18 +161,18 @@ class PageBusiness {
               // 정상 응답
               var responseBody =
                   responseVo.networkResponseObjectOk!.responseBody!;
-              List<spw_sign_in_member_info.SharedPreferenceWrapperVoOAuth2Info>
+              List<spw_auth_member_info.SharedPreferenceWrapperVoOAuth2Info>
                   myOAuth2ObjectList = [];
               for (api_main_server
                   .PostSignInWithPasswordAsyncResponseBodyVoOAuth2Info myOAuth2
                   in responseBody.myOAuth2List) {
                 myOAuth2ObjectList.add(
-                    spw_sign_in_member_info.SharedPreferenceWrapperVoOAuth2Info(
+                    spw_auth_member_info.SharedPreferenceWrapperVoOAuth2Info(
                         myOAuth2.oauth2TypeCode, myOAuth2.oauth2Id));
               }
 
-              spw_sign_in_member_info.SharedPreferenceWrapper.set(
-                  spw_sign_in_member_info.SharedPreferenceWrapperVo(
+              spw_auth_member_info.SharedPreferenceWrapper.set(
+                  spw_auth_member_info.SharedPreferenceWrapperVo(
                 responseBody.memberUid,
                 responseBody.nickName,
                 responseBody.roleCodeList,
@@ -223,7 +186,7 @@ class PageBusiness {
                 myOAuth2ObjectList,
               ));
 
-              accountSignInAsyncClicked = false;
+              accountLoginAsyncClicked = false;
               if (!_context.mounted) return;
               if (_context.canPop()) {
                 // History가 있는 경우, 이전 페이지로 이동(pop)
@@ -243,11 +206,9 @@ class PageBusiness {
                     context: _context,
                     builder: (context) => all_dialog_info.PageEntrance(
                         all_dialog_info.PageInputVo(
-                            "네트워크 에러",
-                            "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
-                            "확인"),
+                            "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
                         (pageBusiness) {}));
-                accountSignInAsyncClicked = false;
+                accountLoginAsyncClicked = false;
               } else {
                 // 서버 지정 에러 코드를 전달 받았을 때
                 List<String> apiErrorCodes =
@@ -262,7 +223,7 @@ class PageBusiness {
                           all_dialog_info.PageInputVo("Sign in failed",
                               "You are a non-registered member.", "확인"),
                           (pageBusiness) {}));
-                  accountSignInAsyncClicked = false;
+                  accountLoginAsyncClicked = false;
                 } else if (apiErrorCodes.contains("2")) {
                   // 로그인 정보 검증 불일치
                   if (!_context.mounted) return;
@@ -273,7 +234,7 @@ class PageBusiness {
                           all_dialog_info.PageInputVo("Sign in failed",
                               "Sign in information does not match.", "확인"),
                           (pageBusiness) {}));
-                  accountSignInAsyncClicked = false;
+                  accountLoginAsyncClicked = false;
                 } else if (apiErrorCodes.contains("3")) {
                   // 추가 로그인 금지됨(동시 로그인 제한시 추가 로그인을 금지한 상황일 때)
                   if (!_context.mounted) return;
@@ -286,7 +247,7 @@ class PageBusiness {
                               "This account is logging in from somewhere else.\nFurther logins are prohibited.",
                               "확인"),
                           (pageBusiness) {}));
-                  accountSignInAsyncClicked = false;
+                  accountLoginAsyncClicked = false;
                 } else {
                   // 알 수 없는 에러 코드일 때
                   throw Exception("unKnown Error Code");
@@ -300,11 +261,9 @@ class PageBusiness {
                 context: _context,
                 builder: (context) => all_dialog_info.PageEntrance(
                     all_dialog_info.PageInputVo(
-                        "네트워크 에러",
-                        "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
-                        "확인"),
+                        "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
                     (pageBusiness) {}));
-            accountSignInAsyncClicked = false;
+            accountLoginAsyncClicked = false;
           }
         });
 
@@ -322,7 +281,7 @@ class PageBusiness {
           context: _context,
           animation: StyledToastAnimation.scale,
         );
-        accountSignInAsyncClicked = false;
+        accountLoginAsyncClicked = false;
       }
     } else {
       // 이메일 미입력 처리
@@ -333,49 +292,39 @@ class PageBusiness {
         context: _context,
         animation: StyledToastAnimation.scale,
       );
-      accountSignInAsyncClicked = false;
+      accountLoginAsyncClicked = false;
     }
   }
 
   // (비밀번호 찾기 페이지 이동)
-  void goToFindPasswordPage() {
-    showDialog(
-        barrierDismissible: true,
-        context: _context,
-        builder: (context) =>
-            all_dialog_auth_choice_find_password_with.PageEntrance(
-                all_dialog_auth_choice_find_password_with.PageInputVo(),
-                (pageBusiness) {}));
+  Future<void> goToFindPasswordPage() async {
+    // 이메일 본인 검증 화면으로 이동
+    if (!_context.mounted) return;
+    all_page_find_password_with_email.PageOutputVo? pageOutputVo =
+        await _context.pushNamed(all_page_find_password_with_email.pageName);
+    //  종료 여부 확인
+    if (pageOutputVo != null && pageOutputVo.complete) {
+      if (!_context.mounted) return;
+      _context.pop();
+    }
   }
 
   // (회원가입 종류 선택)
-  void selectRegisterWith() {
-    // 회원가입 타입 선택 다이얼로그 표시
-    showDialog(
-        barrierDismissible: true,
-        context: _context,
-        builder: (context) => all_dialog_auth_choice_register_with.PageEntrance(
-            all_dialog_auth_choice_register_with.PageInputVo(),
-            (pageBusiness) {}));
-  }
-
-  // (Id 입력창 아이콘 클릭시)
-  void changeSigninType() {
-    pageViewModel.emailTextFieldController.text = "";
-    if (pageViewModel.accountSignInType == SignInType.nickname) {
-      pageViewModel.accountSignInType = SignInType.email;
-    } else if (pageViewModel.accountSignInType == SignInType.email) {
-      pageViewModel.accountSignInType = SignInType.phoneNumber;
-    } else if (pageViewModel.accountSignInType == SignInType.phoneNumber) {
-      pageViewModel.accountSignInType = SignInType.nickname;
+  Future<void> selectRegisterWith() async {
+    // 이메일 본인 검증 화면으로 이동
+    if (!_context.mounted) return;
+    all_page_register_email_verification.PageOutputVo? pageOutputVo =
+        await _context.pushNamed(all_page_register_email_verification.pageName);
+    //  종료 여부 확인
+    if (pageOutputVo != null && pageOutputVo.registerComplete) {
+      if (!_context.mounted) return;
+      _context.pop();
     }
-
-    blocObjects.blocAccountId.add(!blocObjects.blocAccountId.state);
   }
 
   // (ID 입력창에서 엔터를 쳤을 때)
   void onIdFieldSubmitted() {
-    String id = pageViewModel.emailTextFieldController.text;
+    String id = pageViewModel.idTextFieldController.text;
 
     if (id.trim() == "") {
       // 이메일 미입력 처리
@@ -394,7 +343,7 @@ class PageBusiness {
 
   // (Password 입력창에서 엔터를 쳤을 때)
   void onPasswordFieldSubmitted() {
-    String id = pageViewModel.emailTextFieldController.text;
+    String id = pageViewModel.idTextFieldController.text;
     String pw = pageViewModel.passwordTextFieldController.text;
 
     if (id.trim() == "") {
@@ -417,7 +366,7 @@ class PageBusiness {
         animation: StyledToastAnimation.scale,
       );
     } else {
-      accountSignInAsync();
+      accountLoginAsync();
     }
   }
 
@@ -442,27 +391,14 @@ class PageViewModel {
 
   bool hidePassword = true;
 
-  TextEditingController emailTextFieldController = TextEditingController();
+  TextEditingController idTextFieldController = TextEditingController();
 
   TextEditingController passwordTextFieldController = TextEditingController();
 
   FocusNode emailTextFieldFocus = FocusNode();
   FocusNode passwordTextFieldFocus = FocusNode();
 
-  // 계정 로그인 타입
-  SignInType accountSignInType = SignInType.nickname;
-
   PageViewModel(this.goRouterState);
-}
-
-// 계정 로그인 타입
-enum SignInType {
-  // 닉네임
-  nickname,
-  // 이메일
-  email,
-  // 전화번호
-  phoneNumber,
 }
 
 // (BLoC 클래스 모음)
@@ -485,14 +421,6 @@ class BlocPasswordTextField extends Bloc<bool, bool> {
   }
 }
 
-class BlocAccountId extends Bloc<bool, bool> {
-  BlocAccountId() : super(true) {
-    on<bool>((event, emit) {
-      emit(event);
-    });
-  }
-}
-
 // (BLoC 프로바이더 클래스)
 // 본 페이지에서 사용할 BLoC 객체를 모아두어 PageEntrance 에서 페이지 전역 설정에 사용 됩니다.
 class BLocProviders {
@@ -502,7 +430,6 @@ class BLocProviders {
     // BlocProvider<BlocSample>(create: (context) => BlocSample()),
     BlocProvider<BlocPasswordTextField>(
         create: (context) => BlocPasswordTextField()),
-    BlocProvider<BlocAccountId>(create: (context) => BlocAccountId()),
   ];
 }
 
@@ -514,7 +441,6 @@ class BLocObjects {
   // ex :
   // late BlocSample blocSample;
   late BlocPasswordTextField blocPasswordTextField;
-  late BlocAccountId blocAccountId;
 
   // 생성자 설정
   BLocObjects(this._context) {
@@ -522,6 +448,5 @@ class BLocObjects {
     // ex :
     // blocSample = BlocProvider.of<BlocSample>(_context);
     blocPasswordTextField = BlocProvider.of<BlocPasswordTextField>(_context);
-    blocAccountId = BlocProvider.of<BlocAccountId>(_context);
   }
 }

@@ -14,8 +14,8 @@ import '../../../dialogs/all/all_dialog_loading_spinner/page_entrance.dart'
     as all_dialog_loading_spinner;
 import '../../../dialogs/all/all_dialog_info/page_entrance.dart'
     as all_dialog_info;
-import '../../../../repositories/spws/spw_sign_in_member_info.dart'
-    as spw_sign_in_member_info;
+import '../../../../repositories/spws/spw_auth_member_info.dart'
+    as spw_auth_member_info;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
 
@@ -100,7 +100,7 @@ class PageBusiness {
     }
     accountWithdrawalAsyncClicked = true;
 
-    var signInInfo = spw_sign_in_member_info.SharedPreferenceWrapper.get();
+    var signInInfo = spw_auth_member_info.SharedPreferenceWrapper.get();
 
     if (signInInfo == null) {
       // 비회원일 때
@@ -146,7 +146,7 @@ class PageBusiness {
         if (networkResponseObjectOk.responseStatusCode == 200) {
           // 정상 응답
           // 로그아웃 처리
-          spw_sign_in_member_info.SharedPreferenceWrapper.set(null);
+          spw_auth_member_info.SharedPreferenceWrapper.set(null);
           if (!_context.mounted) return;
           await showDialog(
               barrierDismissible: true,
@@ -177,9 +177,7 @@ class PageBusiness {
               context: _context,
               builder: (context) => all_dialog_info.PageEntrance(
                   all_dialog_info.PageInputVo(
-                      "네트워크 에러",
-                      "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
-                      "확인"),
+                      "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
                   (pageBusiness) {}));
         }
       } else {
@@ -189,9 +187,7 @@ class PageBusiness {
             context: _context,
             builder: (context) => all_dialog_info.PageEntrance(
                 all_dialog_info.PageInputVo(
-                    "네트워크 에러",
-                    "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
-                    "확인"),
+                    "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
                 (pageBusiness) {}));
       }
     });

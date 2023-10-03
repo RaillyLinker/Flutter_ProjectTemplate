@@ -41,12 +41,13 @@
 - Repository :
   시간적, 관리적으로 코스트가 많이 들어가는 저장소(network, SharedPreferences, Database)에 대한 접근, 조작을 담당합니다.
 - 계정 관련 용어 정리 :
-  로그인 : Sign in
-  로그아웃 : Sign out
-  회원가입 : register
+  로그인 : Login
+  로그아웃 : Logout
+  회원가입 : join the membership
   회원탈퇴 : Withdrawal
   회원 : Member
-  사용자 : User
+  비회원 : non member
+  서비스 이용자 (비회원 포함) : User
 
 [멀티 플랫폼 요소]
 

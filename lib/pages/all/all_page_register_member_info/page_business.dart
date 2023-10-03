@@ -231,9 +231,7 @@ class PageBusiness {
                 context: _context,
                 builder: (context) => all_dialog_info.PageEntrance(
                     all_dialog_info.PageInputVo(
-                        "네트워크 에러",
-                        "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
-                        "확인"),
+                        "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
                     (pageBusiness) {}));
 
             onNickNameCheckBtnAsyncClicked = false;
@@ -246,9 +244,7 @@ class PageBusiness {
               context: _context,
               builder: (context) => all_dialog_info.PageEntrance(
                   all_dialog_info.PageInputVo(
-                      "네트워크 에러",
-                      "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
-                      "확인"),
+                      "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
                   (pageBusiness) {}));
 
           onNickNameCheckBtnAsyncClicked = false;
@@ -334,9 +330,7 @@ class PageBusiness {
                       context: _context,
                       builder: (context) => all_dialog_info.PageEntrance(
                           all_dialog_info.PageInputVo(
-                              "네트워크 에러",
-                              "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
-                              "확인"),
+                              "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
                           (pageBusiness) {}));
                   onRegisterBtnClickClicked = false;
                 } else {
@@ -414,9 +408,7 @@ class PageBusiness {
                   context: _context,
                   builder: (context) => all_dialog_info.PageEntrance(
                       all_dialog_info.PageInputVo(
-                          "네트워크 에러",
-                          "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
-                          "확인"),
+                          "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
                       (pageBusiness) {}));
               onRegisterBtnClickClicked = false;
             }
@@ -467,9 +459,7 @@ class PageBusiness {
                       context: _context,
                       builder: (context) => all_dialog_info.PageEntrance(
                           all_dialog_info.PageInputVo(
-                              "네트워크 에러",
-                              "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
-                              "확인"),
+                              "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
                           (pageBusiness) {}));
                   onRegisterBtnClickClicked = false;
                 } else {
@@ -547,9 +537,7 @@ class PageBusiness {
                   context: _context,
                   builder: (context) => all_dialog_info.PageEntrance(
                       all_dialog_info.PageInputVo(
-                          "네트워크 에러",
-                          "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
-                          "확인"),
+                          "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
                       (pageBusiness) {}));
               onRegisterBtnClickClicked = false;
             }

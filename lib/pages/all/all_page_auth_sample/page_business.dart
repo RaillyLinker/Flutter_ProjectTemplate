@@ -8,8 +8,8 @@ import 'package:intl/intl.dart';
 import 'page_entrance.dart' as page_entrance;
 
 // (all)
-import '../../../../repositories/spws/spw_sign_in_member_info.dart'
-    as spw_sign_in_member_info;
+import '../../../../repositories/spws/spw_auth_member_info.dart'
+    as spw_auth_member_info;
 import '../../../../repositories/network/apis/api_main_server.dart'
     as api_main_server;
 import '../../../global_functions/gf_my_functions.dart' as gf_my_functions;
@@ -17,10 +17,9 @@ import '../../../dialogs/all/all_dialog_info/page_entrance.dart'
     as all_dialog_info;
 import '../../../dialogs/all/all_dialog_loading_spinner/page_entrance.dart'
     as all_dialog_loading_spinner;
-import '../../../pages/all/all_page_sign_in/page_entrance.dart'
-    as all_page_sign_in;
-import '../../../pages/all/all_page_authorization_test_sample/page_entrance.dart'
-    as all_page_authorization_test_sample;
+import '../../../pages/all/all_page_login/page_entrance.dart' as all_page_login;
+import '../../../pages/all/all_page_authorization_test_sample_list/page_entrance.dart'
+    as all_page_authorization_test_sample_list;
 import '../../../pages/all/all_page_membership_withdrawal/page_entrance.dart'
     as all_page_membership_withdrawal;
 import '../../../global_classes/gc_template_classes.dart'
@@ -60,7 +59,7 @@ class PageBusiness {
     // !!!페이지 최초 실행 로직 작성!!
 
     // 검증된 현재 회원 정보 가져오기 (비회원이라면 null)
-    spw_sign_in_member_info.SharedPreferenceWrapperVo? nowSignInMemberInfo =
+    spw_auth_member_info.SharedPreferenceWrapperVo? nowSignInMemberInfo =
         gf_my_functions.getNowVerifiedMemberInfo();
 
     // 화면 갱신
@@ -72,7 +71,7 @@ class PageBusiness {
     // !!!위젯 최초 실행 및, 다른 페이지에서 복귀 로직 작성!!
 
     // 검증된 현재 회원 정보 가져오기 (비회원이라면 null)
-    spw_sign_in_member_info.SharedPreferenceWrapperVo? nowSignInMemberInfo =
+    spw_auth_member_info.SharedPreferenceWrapperVo? nowSignInMemberInfo =
         gf_my_functions.getNowVerifiedMemberInfo();
 
     String? nowMemberUid =
@@ -123,7 +122,7 @@ class PageBusiness {
   // (화면 전역 갱신 함수)
   // 화면 전역의 StateFul 위젯의 정보 변경 처리는 여기에 모아 두어야 전체 Refresh 가 편함.
   Future<void> refreshScreenDataAsync(
-      spw_sign_in_member_info.SharedPreferenceWrapperVo?
+      spw_auth_member_info.SharedPreferenceWrapperVo?
           nowSignInMemberInfo) async {
     pageViewModel.signInMemberInfo = nowSignInMemberInfo;
     blocObjects.blocSignInMemberInfo
@@ -132,34 +131,32 @@ class PageBusiness {
     List<SampleItem> nowAllSampleList = [];
     nowAllSampleList.add(SampleItem(
         SampleItemEnum.goToAuthorizationTestSamplePage,
-        "Go to Authorization Test Sample Page",
-        "Sample Network Requests by Authentication/Authorization"));
+        "인증 / 인가 네트워크 요청 테스트 샘플 리스트",
+        "인증 / 인가 상태에서 네트워크 요청 및 응답 처리 테스트 샘플 리스트"));
     if (nowSignInMemberInfo == null) {
-      nowAllSampleList.add(SampleItem(SampleItemEnum.goToSignInPage,
-          "Go to Sign in page", "Go to login page"));
+      nowAllSampleList.add(SampleItem(
+          SampleItemEnum.goToSignInPage, "로그인 페이지", "로그인 페이지로 이동합니다."));
     } else {
       nowAllSampleList
-          .add(SampleItem(SampleItemEnum.signOut, "Sign out", "Sign out"));
-      nowAllSampleList.add(SampleItem(SampleItemEnum.refreshAuthToken,
-          "Refresh AuthToken", "Authentication Token Renewal"));
+          .add(SampleItem(SampleItemEnum.signOut, "로그아웃", "로그아웃 처리를 합니다."));
+      nowAllSampleList.add(SampleItem(
+          SampleItemEnum.refreshAuthToken, "인증 토큰 갱신", "인증 토큰을 갱신합니다."));
       nowAllSampleList.add(SampleItem(
           SampleItemEnum.goToMembershipWithdrawalPage,
-          "Go to Membership Withdrawal Page",
-          "Go to Membership Withdrawal Page"));
+          "회원 탈퇴 페이지로 이동",
+          "회원 탈퇴 페이지로 이동합니다."));
       nowAllSampleList.add(SampleItem(SampleItemEnum.goToChangeNicknamePage,
-          "Go to Change Nickname Page", "Go to the nickname change page"));
+          "닉네임 변경 페이지로 이동", "닉네임 변경 페이지로 이동합니다."));
       nowAllSampleList.add(SampleItem(SampleItemEnum.goToChangePasswordPage,
-          "Go to Change Password Page", "Go to the password change page"));
+          "비밀번호 변경 페이지로 이동", "비밀번호 변경 페이지로 이동합니다."));
       nowAllSampleList.add(SampleItem(SampleItemEnum.goToAddEmailPage,
-          "Go to Add Email Page", "Go to Add Email page"));
+          "이메일 추가 페이지로 이동", "이메일 추가 페이지로 이동합니다."));
       nowAllSampleList.add(SampleItem(SampleItemEnum.goToDeleteEmailPage,
-          "Go to Delete Email Page", "Go to Email Delete page"));
+          "이메일 제거 페이지로 이동", "이메일 제거 페이지로 이동합니다."));
       nowAllSampleList.add(SampleItem(SampleItemEnum.goToAddPhoneNumberPage,
-          "Go to Add PhoneNumber Page", "Go to Add Phone Number page"));
-      nowAllSampleList.add(SampleItem(
-          SampleItemEnum.goToDeletePhoneNumberPage,
-          "Go to Delete PhoneNumber Page",
-          "Go to the Delete Phone Number page"));
+          "전화번호 추가 페이지로 이동", "전화번호 추가 페이지로 이동합니다."));
+      nowAllSampleList.add(SampleItem(SampleItemEnum.goToDeletePhoneNumberPage,
+          "전화번호 제거 페이지로 이동", "전화번호 제거 페이지로 이동합니다."));
     }
 
     pageViewModel.allSampleList = nowAllSampleList;
@@ -178,13 +175,13 @@ class PageBusiness {
       case SampleItemEnum.goToAuthorizationTestSamplePage:
         {
           // 인증/인가 테스트 샘플 페이지로 이동
-          _context.pushNamed(all_page_authorization_test_sample.pageName);
+          _context.pushNamed(all_page_authorization_test_sample_list.pageName);
         }
         break;
       case SampleItemEnum.goToSignInPage:
         {
           // 계정 로그인 페이지로 이동
-          _context.pushNamed(all_page_sign_in.pageName);
+          _context.pushNamed(all_page_login.pageName);
         }
         break;
       case SampleItemEnum.signOut:
@@ -192,21 +189,19 @@ class PageBusiness {
           // 계정 로그아웃 처리
           var loadingSpinner = all_dialog_loading_spinner.PageEntrance(
               all_dialog_loading_spinner.PageInputVo(), (pageBusiness) async {
-            spw_sign_in_member_info.SharedPreferenceWrapperVo?
-                signInMemberInfo =
-                spw_sign_in_member_info.SharedPreferenceWrapper.get();
+            spw_auth_member_info.SharedPreferenceWrapperVo? signInMemberInfo =
+                spw_auth_member_info.SharedPreferenceWrapper.get();
 
             if (signInMemberInfo != null) {
               // 서버 Logout API 실행
-              spw_sign_in_member_info.SharedPreferenceWrapperVo?
-                  signInMemberInfo =
-                  spw_sign_in_member_info.SharedPreferenceWrapper.get();
+              spw_auth_member_info.SharedPreferenceWrapperVo? signInMemberInfo =
+                  spw_auth_member_info.SharedPreferenceWrapper.get();
               await api_main_server.postSignOutAsync(
                   api_main_server.PostSignOutAsyncRequestHeaderVo(
                       "${signInMemberInfo!.tokenType} ${signInMemberInfo.accessToken}"));
 
               // login_user_info SPW 비우기
-              spw_sign_in_member_info.SharedPreferenceWrapper.set(null);
+              spw_auth_member_info.SharedPreferenceWrapper.set(null);
 
               pageBusiness.closeDialog();
 
@@ -226,9 +221,8 @@ class PageBusiness {
           // (토큰 리플레시)
           var loadingSpinner = all_dialog_loading_spinner.PageEntrance(
               all_dialog_loading_spinner.PageInputVo(), (pageBusiness) async {
-            spw_sign_in_member_info.SharedPreferenceWrapperVo?
-                signInMemberInfo =
-                spw_sign_in_member_info.SharedPreferenceWrapper.get();
+            spw_auth_member_info.SharedPreferenceWrapperVo? signInMemberInfo =
+                spw_auth_member_info.SharedPreferenceWrapper.get();
 
             if (signInMemberInfo == null) {
               throw Exception("signInMemberInfo must not be null");
@@ -241,7 +235,7 @@ class PageBusiness {
               if (isRefreshTokenExpired) {
                 // 리플래시 토큰이 사용 불가이므로 로그아웃 처리
                 // login_user_info SPW 비우기
-                spw_sign_in_member_info.SharedPreferenceWrapper.set(null);
+                spw_auth_member_info.SharedPreferenceWrapper.set(null);
 
                 pageBusiness.closeDialog();
 
@@ -266,14 +260,14 @@ class PageBusiness {
                     // 정상 응답
                     // SPW 정보 갱신
                     List<
-                            spw_sign_in_member_info
+                            spw_auth_member_info
                             .SharedPreferenceWrapperVoOAuth2Info>
                         myOAuth2ObjectList = [];
                     for (api_main_server
                         .PostReissueAsyncResponseBodyVoOAuth2Info myOAuth2
                         in postAutoLoginOutputVo.networkResponseObjectOk!
                             .responseBody!.myOAuth2List) {
-                      myOAuth2ObjectList.add(spw_sign_in_member_info
+                      myOAuth2ObjectList.add(spw_auth_member_info
                           .SharedPreferenceWrapperVoOAuth2Info(
                               myOAuth2.oauth2TypeCode, myOAuth2.oauth2Id));
                     }
@@ -302,7 +296,7 @@ class PageBusiness {
                         .responseBody!
                         .myPhoneNumberList;
                     signInMemberInfo.myOAuth2List = myOAuth2ObjectList;
-                    spw_sign_in_member_info.SharedPreferenceWrapper.set(
+                    spw_auth_member_info.SharedPreferenceWrapper.set(
                         signInMemberInfo);
 
                     refreshScreenDataAsync(signInMemberInfo);
@@ -316,10 +310,8 @@ class PageBusiness {
                           barrierDismissible: false,
                           context: _context,
                           builder: (context) => all_dialog_info.PageEntrance(
-                              all_dialog_info.PageInputVo(
-                                  "네트워크 에러",
-                                  "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
-                                  "확인"),
+                              all_dialog_info.PageInputVo("네트워크 에러",
+                                  "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
                               (pageBusiness) {}));
                     } else {
                       // 서버 지정 에러 코드를 전달 받았을 때
@@ -333,8 +325,7 @@ class PageBusiness {
                           ) {
                         // 리플래시 토큰이 사용 불가이므로 로그아웃 처리
                         // login_user_info SPW 비우기
-                        spw_sign_in_member_info.SharedPreferenceWrapper.set(
-                            null);
+                        spw_auth_member_info.SharedPreferenceWrapper.set(null);
 
                         // 비회원으로 전체 화면 갱신
                         refreshScreenDataAsync(null);
@@ -352,9 +343,7 @@ class PageBusiness {
                       context: _context,
                       builder: (context) => all_dialog_info.PageEntrance(
                           all_dialog_info.PageInputVo(
-                              "네트워크 에러",
-                              "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
-                              "확인"),
+                              "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
                           (pageBusiness) {}));
                 }
               }
@@ -434,7 +423,7 @@ class PageViewModel {
   // 현 페이지를 갱신한 시점의 멤버 고유값 (비회원은 null)
   String? screenMemberUid;
 
-  spw_sign_in_member_info.SharedPreferenceWrapperVo? signInMemberInfo;
+  spw_auth_member_info.SharedPreferenceWrapperVo? signInMemberInfo;
 
   // 샘플 목록 필터링용 검색창 컨트롤러 (검색창의 텍스트 정보를 가지고 있으므로 뷰모델에 저장, 여기 있어야 위젯이 변경되어도 검색어가 유지됨)
   TextEditingController sampleSearchBarTextEditController =

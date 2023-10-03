@@ -197,16 +197,17 @@ class PageBusiness {
                 : MultipartFile.fromFileSync(pageViewModel.pickFile2!.path!));
 
         var response = await api_main_server
-            .postService1TkV1RequestTestPostRequestMultipartFormDataJsonAsync(api_main_server
-                .PostService1TkV1RequestTestPostRequestMultipartFormDataJsonAsyncRequestBodyVo(
-                    requestBodyString,
-                    ((kIsWeb)
-                        ? MultipartFile.fromBytes(
-                            pageViewModel.pickFile1!.bytes!,
-                            filename: pageViewModel.pickFile1!.name)
-                        : MultipartFile.fromFileSync(
-                            pageViewModel.pickFile1!.path!)),
-                    (pickFile2 == null) ? null : pickFile2));
+            .postService1TkV1RequestTestPostRequestMultipartFormDataJsonAsync(
+                api_main_server
+                    .PostService1TkV1RequestTestPostRequestMultipartFormDataJsonAsyncRequestBodyVo(
+                        requestBodyString,
+                        ((kIsWeb)
+                            ? MultipartFile.fromBytes(
+                                pageViewModel.pickFile1!.bytes!,
+                                filename: pageViewModel.pickFile1!.name)
+                            : MultipartFile.fromFileSync(
+                                pageViewModel.pickFile1!.path!)),
+                        (pickFile2 == null) ? null : pickFile2));
 
         // 로딩 다이얼로그 제거
         pageBusiness.closeDialog();
@@ -243,9 +244,7 @@ class PageBusiness {
                 context: _context,
                 builder: (context) => all_dialog_info.PageEntrance(
                     all_dialog_info.PageInputVo(
-                        "네트워크 에러",
-                        "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
-                        "확인"),
+                        "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
                     (pageBusiness) {}));
           }
         } else {
@@ -256,9 +255,7 @@ class PageBusiness {
               context: _context,
               builder: (context) => all_dialog_info.PageEntrance(
                   all_dialog_info.PageInputVo(
-                      "네트워크 에러",
-                      "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
-                      "확인"),
+                      "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
                   (pageBusiness) {}));
         }
       });
