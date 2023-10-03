@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-// (page)
-import 'page_business.dart' as page_business;
-
 // (all)
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
+
+// (page)
+import 'page_business.dart' as page_business;
 
 // [페이지 화면 위젯 작성 파일]
 // 페이지 화면 구현을 담당합니다.
@@ -85,7 +85,7 @@ class PageView extends StatelessWidget {
                         String text = (signInMemberInfo == null)
                             ? "null"
                             : signInMemberInfo.memberUid;
-                        return Text(
+                        return SelectableText(
                           text,
                           style: const TextStyle(fontFamily: "MaruBuri"),
                         );
@@ -113,7 +113,7 @@ class PageView extends StatelessWidget {
                         String text = (signInMemberInfo == null)
                             ? "null"
                             : signInMemberInfo.nickName;
-                        return Text(
+                        return SelectableText(
                           text,
                           style: const TextStyle(fontFamily: "MaruBuri"),
                         );
@@ -121,34 +121,34 @@ class PageView extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 8.0),
-                  Row(
-                    children: [
-                      const Expanded(
-                          flex: 2,
-                          child: Text(
-                            '    - profileImageFullUrl : ',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontFamily: "MaruBuri"),
-                          )),
-                      Expanded(
-                          flex: 3,
-                          child:
+              Row(
+                children: [
+                  const Expanded(
+                      flex: 2,
+                      child: Text(
+                        '    - profileImageFullUrl : ',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontFamily: "MaruBuri"),
+                      )),
+                  Expanded(
+                      flex: 3,
+                      child:
                           BlocBuilder<page_business.BlocSignInMemberInfo, bool>(
                               builder: (c, s) {
-                                var signInMemberInfo =
-                                    pageBusiness.pageViewModel.signInMemberInfo;
-                                String text = (signInMemberInfo == null)
-                                    ? "null"
-                                    : signInMemberInfo.profileImageFullUrl.toString();
-                                return Text(
-                                  text,
-                                  style: const TextStyle(fontFamily: "MaruBuri"),
-                                );
-                              })),
-                    ],
-                  ),
-                  const SizedBox(height: 8.0),
+                        var signInMemberInfo =
+                            pageBusiness.pageViewModel.signInMemberInfo;
+                        String text = (signInMemberInfo == null)
+                            ? "null"
+                            : signInMemberInfo.profileImageFullUrl.toString();
+                        return SelectableText(
+                          text,
+                          style: const TextStyle(fontFamily: "MaruBuri"),
+                        );
+                      })),
+                ],
+              ),
+              const SizedBox(height: 8.0),
               Row(
                 children: [
                   const Expanded(
@@ -169,7 +169,7 @@ class PageView extends StatelessWidget {
                         String text = (signInMemberInfo == null)
                             ? "null"
                             : signInMemberInfo.roleList.toString();
-                        return Text(
+                        return SelectableText(
                           text,
                           style: const TextStyle(fontFamily: "MaruBuri"),
                         );
@@ -197,7 +197,7 @@ class PageView extends StatelessWidget {
                         String text = (signInMemberInfo == null)
                             ? "null"
                             : signInMemberInfo.tokenType;
-                        return Text(
+                        return SelectableText(
                           text,
                           style: const TextStyle(fontFamily: "MaruBuri"),
                         );
@@ -227,7 +227,7 @@ class PageView extends StatelessWidget {
                             : signInMemberInfo.accessToken;
                         return SizedBox(
                           width: 200,
-                          child: Text(
+                          child: SelectableText(
                             text,
                             style: const TextStyle(fontFamily: "MaruBuri"),
                           ),
@@ -256,7 +256,7 @@ class PageView extends StatelessWidget {
                         String text = (signInMemberInfo == null)
                             ? "null"
                             : signInMemberInfo.accessTokenExpireWhen;
-                        return Text(
+                        return SelectableText(
                           text,
                           style: const TextStyle(fontFamily: "MaruBuri"),
                         );
@@ -286,7 +286,7 @@ class PageView extends StatelessWidget {
                             : signInMemberInfo.refreshToken;
                         return SizedBox(
                           width: 200,
-                          child: Text(
+                          child: SelectableText(
                             text,
                             style: const TextStyle(fontFamily: "MaruBuri"),
                           ),
@@ -315,7 +315,7 @@ class PageView extends StatelessWidget {
                         String text = (signInMemberInfo == null)
                             ? "null"
                             : signInMemberInfo.refreshTokenExpireWhen;
-                        return Text(
+                        return SelectableText(
                           text,
                           style: const TextStyle(fontFamily: "MaruBuri"),
                         );
@@ -343,7 +343,7 @@ class PageView extends StatelessWidget {
                       String text = (signInMemberInfo == null)
                           ? "null"
                           : signInMemberInfo.myEmailList.toString();
-                      return Text(
+                      return SelectableText(
                         text,
                         style: const TextStyle(fontFamily: "MaruBuri"),
                       );
@@ -372,7 +372,7 @@ class PageView extends StatelessWidget {
                       String text = (signInMemberInfo == null)
                           ? "null"
                           : signInMemberInfo.myPhoneNumberList.toString();
-                      return Text(
+                      return SelectableText(
                         text,
                         style: const TextStyle(fontFamily: "MaruBuri"),
                       );
@@ -416,7 +416,7 @@ class PageView extends StatelessWidget {
                       }
 
                       String text = valueTxt;
-                      return Text(
+                      return SelectableText(
                         text,
                         style: const TextStyle(fontFamily: "MaruBuri"),
                       );

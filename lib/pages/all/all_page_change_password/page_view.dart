@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-// (page)
-import 'page_business.dart' as page_business;
-
 // (all)
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
+
+// (page)
+import 'page_business.dart' as page_business;
 
 // [페이지 화면 위젯 작성 파일]
 // 페이지 화면 구현을 담당합니다.
@@ -40,7 +40,7 @@ class PageView extends StatelessWidget {
       appBar: AppBar(
         automaticallyImplyLeading: !kIsWeb,
         title: const Text(
-          'Change Password',
+          '비밀번호 변경',
           style: TextStyle(color: Colors.white, fontFamily: "MaruBuri"),
         ),
         backgroundColor: Colors.blue,
@@ -82,7 +82,7 @@ class PageView extends StatelessWidget {
                                 decoration: InputDecoration(
                                   errorText: pageBusiness
                                       .pageViewModel.passwordTextEditErrorMsg,
-                                  labelText: "Current Password",
+                                  labelText: "현재 비밀번호 입력",
                                   hintText: 'xxxxxxxxxxx',
                                   suffixIcon: IconButton(
                                     icon: Icon(
@@ -119,7 +119,7 @@ class PageView extends StatelessWidget {
                                 decoration: InputDecoration(
                                   errorText: pageBusiness.pageViewModel
                                       .newPasswordTextEditErrorMsg,
-                                  labelText: "New Password",
+                                  labelText: "새 비밀번호 입력",
                                   hintText: 'xxxxxxxxxxx',
                                   suffixIcon: IconButton(
                                     icon: Icon(pageBusiness
@@ -158,7 +158,7 @@ class PageView extends StatelessWidget {
                                 decoration: InputDecoration(
                                   errorText: pageBusiness.pageViewModel
                                       .newPasswordCheckTextEditErrorMsg,
-                                  labelText: "New Password Check",
+                                  labelText: "새 비밀번호 확인 입력",
                                   hintText: 'xxxxxxxxxxx',
                                   suffixIcon: IconButton(
                                     icon: Icon(pageBusiness
@@ -178,24 +178,31 @@ class PageView extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(height: 40.0),
-                ElevatedButton(
-                  onPressed: () {
-                    pageBusiness.changePassword();
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
-                  ),
-                  child: const Text(
-                    'Change Password',
-                    style:
-                        TextStyle(color: Colors.white, fontFamily: "MaruBuri"),
+                const SizedBox(height: 30.0),
+                Container(
+                  height: 40,
+                  constraints: const BoxConstraints(minWidth: 200),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      pageBusiness.changePassword();
+                    },
+                    style: ElevatedButton.styleFrom(
+                        foregroundColor: Colors.white,
+                        backgroundColor: Colors.blue,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        )),
+                    child: const Text(
+                      '비밀번호 변경',
+                      style:
+                      TextStyle(color: Colors.white, fontFamily: "MaruBuri"),
+                    ),
                   ),
                 ),
                 Container(
                   width: 300,
                   height: 300,
-                  margin: const EdgeInsets.only(top: 20),
+                  margin: const EdgeInsets.only(top: 30),
                   padding: const EdgeInsets.only(
                       left: 10, right: 10, top: 2, bottom: 2),
                   decoration: const BoxDecoration(
@@ -229,7 +236,7 @@ class PageView extends StatelessWidget {
                           height: 10,
                         ),
                         Text(
-                          "Password generation rules",
+                          "비밀번호 입력 규칙",
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Colors.black,
@@ -239,15 +246,14 @@ class PageView extends StatelessWidget {
                           height: 5,
                         ),
                         Text(
-                          '1. Set the length of the password to at least 8 digits\n'
-                          '2. Spaces cannot be used in the password.\n'
-                          '3. The password must consist of a combination of letters, numbers, and special characters.\n'
-                          '(Passwords using only one type or a combination of both cannot be generated.)\n'
-                          '4. It is not recommended to use more than 3 consecutive numbers or strings.\n'
-                          '(Example: 123. 456. Abc cannot be included in passwords)\n'
-                          '5. Using the same character more than three times in a row is not recommended.\n'
-                          '6. Do not use the following special characters as they are vulnerable to security\n'
-                          '<, >, (, ), #, ’, /, |',
+                          '1. 비밀번호의 길이는 최소 8자 이상으로 입력하세요.\n'
+                          '2. 비밀번호에 공백은 허용되지 않습니다.\n'
+                          '3. 비밀번호는 영문 대/소문자, 숫자, 특수문자의 조합으로 입력하세요.\n'
+                          '4. 문자, 숫자를 3 글자 이상 연속된 값으로 입력하는 것은 보안상 좋지 않습니다.\n'
+                          '    (예 : 123..., 456..., abc...)\n'
+                          '5. 같은 글자를 3번 이상 반복하는 것은 보안상 좋지 않습니다.\n'
+                          '6. 아래 특수문자는 사용할 수 없습니다.\n'
+                          '    <, >, (, ), #, ’, /, |',
                           style: TextStyle(
                               fontWeight: FontWeight.normal,
                               fontFamily: "MaruBuri"),

@@ -1362,9 +1362,11 @@ class PostSignInWithPasswordAsyncResponseBodyVoOAuth2Info {
 // (로그아웃 요청 <>)
 // 서버 로그인 검증 요청 후 인증 정보 수신
 Future<
-    gc_template_classes.NetworkResponseObject<PostService1TkV1AuthLogoutAsyncResponseHeaderVo,
-        PostService1TkV1AuthLogoutAsyncResponseBodyVo>> postService1TkV1AuthLogoutAsync(
-    PostService1TkV1AuthLogoutAsyncRequestHeaderVo requestHeaderVo) async {
+        gc_template_classes.NetworkResponseObject<
+            PostService1TkV1AuthLogoutAsyncResponseHeaderVo,
+            PostService1TkV1AuthLogoutAsyncResponseBodyVo>>
+    postService1TkV1AuthLogoutAsync(
+        PostService1TkV1AuthLogoutAsyncRequestHeaderVo requestHeaderVo) async {
   // !!!개발 / 배포 모드별 요청 Path 지정!!
   String devServerUrl = "/service1/tk/v1/auth/logout";
   String prodServerUrl = "/service1/tk/v1/auth/logout";
@@ -1426,13 +1428,15 @@ class PostService1TkV1AuthLogoutAsyncResponseBodyVo {}
 // (토큰 재발급 요청 <>)
 // 엑세스 토큰 및 리플레시 토큰 재발행
 Future<
-    gc_template_classes.NetworkResponseObject<PostReissueAsyncResponseHeaderVo,
-        PostReissueAsyncResponseBodyVo>> postReissueAsync(
-    PostReissueAsyncRequestHeaderVo requestHeaderVo,
-    PostReissueAsyncRequestBodyVo requestBodyVo) async {
+        gc_template_classes.NetworkResponseObject<
+            PostService1TkV1AuthReissueAsyncResponseHeaderVo,
+            PostService1TkV1AuthReissueAsyncResponseBodyVo>>
+    postService1TkV1AuthReissueAsync(
+        PostService1TkV1AuthReissueAsyncRequestHeaderVo requestHeaderVo,
+        PostService1TkV1AuthReissueAsyncRequestBodyVo requestBodyVo) async {
   // !!!개발 / 배포 모드별 요청 Path 지정!!
-  String devServerUrl = "/tk/ra/auth/reissue";
-  String prodServerUrl = "/tk/ra/auth/reissue";
+  String devServerUrl = "/service1/tk/v1/auth/reissue";
+  String prodServerUrl = "/service1/tk/v1/auth/reissue";
 
   Map<String, dynamic> requestHeaders = {};
   Map<String, dynamic> requestQueryParams = {};
@@ -1459,13 +1463,13 @@ Future<
     int statusCode = response.statusCode!;
     Map<String, dynamic> responseHeaderMap = response.headers.map;
 
-    PostReissueAsyncResponseHeaderVo responseHeader;
-    PostReissueAsyncResponseBodyVo? responseBody;
+    PostService1TkV1AuthReissueAsyncResponseHeaderVo responseHeader;
+    PostService1TkV1AuthReissueAsyncResponseBodyVo? responseBody;
 
     // !!!Response Map 을 Response Object 로 변경!!
-    responseHeader = PostReissueAsyncResponseHeaderVo(
-      (responseHeaderMap.containsKey("api-error-codes"))
-          ? responseHeaderMap["api-error-codes"]!
+    responseHeader = PostService1TkV1AuthReissueAsyncResponseHeaderVo(
+      (responseHeaderMap.containsKey("api-result-code"))
+          ? responseHeaderMap["api-result-code"][0]
           : null,
     );
     if (statusCode == 200) {
@@ -1484,10 +1488,11 @@ Future<
             oAuth2["oauth2TypeCode"], oAuth2["oauth2Id"]));
       }
 
-      responseBody = PostReissueAsyncResponseBodyVo(
+      responseBody = PostService1TkV1AuthReissueAsyncResponseBodyVo(
           responseBodyMap["memberUid"],
           responseBodyMap["nickName"],
-          List<int>.from(responseBodyMap["roleCodeList"]),
+          responseBodyMap["profileImageFullUrl"],
+          List<String>.from(responseBodyMap["roleList"]),
           responseBodyMap["tokenType"],
           responseBodyMap["accessToken"],
           responseBodyMap["refreshToken"],
@@ -1509,39 +1514,38 @@ Future<
   }
 }
 
-class PostReissueAsyncRequestHeaderVo {
+class PostService1TkV1AuthReissueAsyncRequestHeaderVo {
   // 인증 토큰 (ex : "Bearer abcd1234!@#$")
   String authorization;
 
-  PostReissueAsyncRequestHeaderVo(this.authorization);
+  PostService1TkV1AuthReissueAsyncRequestHeaderVo(this.authorization);
 }
 
-class PostReissueAsyncRequestBodyVo {
+class PostService1TkV1AuthReissueAsyncRequestBodyVo {
   String refreshToken; // 리플래시 토큰 (토큰 타입을 앞에 붙이기)
 
-  PostReissueAsyncRequestBodyVo(this.refreshToken);
+  PostService1TkV1AuthReissueAsyncRequestBodyVo(this.refreshToken);
 }
 
-class PostReissueAsyncResponseHeaderVo {
-  // (서버에서 내려주는 에러 코드)
-  // null : 에러 없음,
-  // 1 : 유효하지 않은 리플래시 토큰
-  // 2 : 리플래시 토큰 만료
-  // 3 : 리플래시 토큰이 액세스 토큰과 매칭되지 않음
-  // 4 : 추가 로그인 금지됨(동시 로그인 제한시 추가 로그인을 금지한 상황일 때)
-  // 5 : 가입되지 않은 회원
-  List<String>? apiErrorCodes;
+class PostService1TkV1AuthReissueAsyncResponseHeaderVo {
+  // (api-result-code)
+  // 0 : 정상 동작
+  // 1 : 탈퇴된 회원
+  // 2 : 유효하지 않은 리프레시 토큰
+  // 3 : 리프레시 토큰 만료
+  // 4 : 리프레시 토큰이 액세스 토큰과 매칭되지 않음
+  String? apiResultCode;
 
-  PostReissueAsyncResponseHeaderVo(
-    this.apiErrorCodes,
+  PostService1TkV1AuthReissueAsyncResponseHeaderVo(
+    this.apiResultCode,
   );
 }
 
-class PostReissueAsyncResponseBodyVo {
+class PostService1TkV1AuthReissueAsyncResponseBodyVo {
   String memberUid; // 멤버 고유값
   String nickName; // 닉네임
-  List<int>
-      roleCodeList; // 권한 코드 리스트 (1 : 관리자(ROLE_ADMIN), 2 : 유저(ROLE_USER), 3 : 개발자(ROLE_DEVELOPER))
+  String profileImageFullUrl; // 대표 프로필 이미지 Full URL
+  List<String> roleList; // 권한 리스트 (관리자 : ROLE_ADMIN, 개발자 : ROLE_DEVELOPER)
   String tokenType; // 인증 토큰 타입 (ex : Bearer)
   String accessToken; // 엑세스 토큰
   String refreshToken; // 리플레시 토큰
@@ -1552,10 +1556,11 @@ class PostReissueAsyncResponseBodyVo {
   List<PostReissueAsyncResponseBodyVoOAuth2Info>
       myOAuth2List; // 내가 등록한 OAuth2 정보 리스트
 
-  PostReissueAsyncResponseBodyVo(
+  PostService1TkV1AuthReissueAsyncResponseBodyVo(
       this.memberUid,
       this.nickName,
-      this.roleCodeList,
+      this.profileImageFullUrl,
+      this.roleList,
       this.tokenType,
       this.accessToken,
       this.refreshToken,
@@ -1567,7 +1572,7 @@ class PostReissueAsyncResponseBodyVo {
 }
 
 class PostReissueAsyncResponseBodyVoOAuth2Info {
-  int oauth2TypeCode; // "OAuth2 (1 : Google, 2 : Apple, 3 : Naver, 4 : Kakao)
+  int oauth2TypeCode; // OAuth2 (1 : Google, 2 : Naver, 3 : Kakao, 4 : Apple)
   String oauth2Id; // oAuth2 고유값 아이디
 
   PostReissueAsyncResponseBodyVoOAuth2Info(this.oauth2TypeCode, this.oauth2Id);
@@ -2991,14 +2996,16 @@ class PostWithdrawalAsyncResponseBodyVo {
 // (비밀번호 변경 요청 <>)
 Future<
         gc_template_classes.NetworkResponseObject<
-            PutChangeAccountPasswordAsyncResponseHeaderVo,
-            PutChangeAccountPasswordAsyncResponseBodyVo>>
-    putChangeAccountPasswordAsync(
-        PutChangeAccountPasswordAsyncRequestHeaderVo requestHeaderVo,
-        PutChangeAccountPasswordAsyncRequestBodyVo requestBodyVo) async {
+            PutService1TkV1AuthChangeAccountPasswordAsyncResponseHeaderVo,
+            PutService1TkV1AuthChangeAccountPasswordAsyncResponseBodyVo>>
+    putService1TkV1AuthChangeAccountPasswordAsync(
+        PutService1TkV1AuthChangeAccountPasswordAsyncRequestHeaderVo
+            requestHeaderVo,
+        PutService1TkV1AuthChangeAccountPasswordAsyncRequestBodyVo
+            requestBodyVo) async {
   // !!!개발 / 배포 모드별 요청 Path 지정!!
-  String devServerUrl = "/tk/ra/auth/change-account-password";
-  String prodServerUrl = "/tk/ra/auth/change-account-password";
+  String devServerUrl = "/service1/tk/v1/auth/change-account-password";
+  String prodServerUrl = "/service1/tk/v1/auth/change-account-password";
 
   Map<String, dynamic> requestHeaders = {};
   Map<String, dynamic> requestQueryParams = {};
@@ -3028,19 +3035,22 @@ Future<
     int statusCode = response.statusCode!;
     Map<String, dynamic> responseHeaderMap = response.headers.map;
 
-    PutChangeAccountPasswordAsyncResponseHeaderVo responseHeader;
-    PutChangeAccountPasswordAsyncResponseBodyVo? responseBody;
+    PutService1TkV1AuthChangeAccountPasswordAsyncResponseHeaderVo
+        responseHeader;
+    PutService1TkV1AuthChangeAccountPasswordAsyncResponseBodyVo? responseBody;
 
     // !!!Response Map 을 Response Object 로 변경!!
-    responseHeader = PutChangeAccountPasswordAsyncResponseHeaderVo(
-        (responseHeaderMap.containsKey("api-error-codes"))
-            ? responseHeaderMap["api-error-codes"]!
-            : null);
+    responseHeader =
+        PutService1TkV1AuthChangeAccountPasswordAsyncResponseHeaderVo(
+            (responseHeaderMap.containsKey("api-result-code"))
+                ? responseHeaderMap["api-result-code"][0]
+                : null);
     if (statusCode == 200) {
       // responseBody 가 반환되는 조건
       // Map<String, dynamic> responseBodyMap = response.data;
 
-      responseBody = PutChangeAccountPasswordAsyncResponseBodyVo();
+      responseBody =
+          PutService1TkV1AuthChangeAccountPasswordAsyncResponseBodyVo();
     }
 
     return gc_template_classes.NetworkResponseObject(
@@ -3054,33 +3064,35 @@ Future<
   }
 }
 
-class PutChangeAccountPasswordAsyncRequestHeaderVo {
+class PutService1TkV1AuthChangeAccountPasswordAsyncRequestHeaderVo {
   // 인증 토큰 (ex : "Bearer abcd1234!@#$")
   String authorization;
 
-  PutChangeAccountPasswordAsyncRequestHeaderVo(this.authorization);
+  PutService1TkV1AuthChangeAccountPasswordAsyncRequestHeaderVo(
+      this.authorization);
 }
 
-class PutChangeAccountPasswordAsyncRequestBodyVo {
+class PutService1TkV1AuthChangeAccountPasswordAsyncRequestBodyVo {
   // 인증 토큰 (ex : "Bearer abcd1234!@#$")
   String? oldPassword; // 기존 이메일 로그인용 비밀번호(기존 비밀번호가 없다면 null)
   String? newPassword; // 새 이메일 로그인용 비밀번호(비밀번호를 없애려면 null)
 
-  PutChangeAccountPasswordAsyncRequestBodyVo(
+  PutService1TkV1AuthChangeAccountPasswordAsyncRequestBodyVo(
       this.oldPassword, this.newPassword);
 }
 
-class PutChangeAccountPasswordAsyncResponseHeaderVo {
-  // (서버에서 내려주는 에러 코드)
-  // null : 에러 없음,
+class PutService1TkV1AuthChangeAccountPasswordAsyncResponseHeaderVo {
+  // (api-result-code)
+  // 0 : 정상 동작
   // 1 : 탈퇴된 회원
   // 2 : 기존 비밀번호가 일치하지 않음
   // 3 : 비번을 null 로 만들려고 할 때 account 외의 OAuth2 인증이 없기에 비번 제거 불가
-  List<String>? apiErrorCodes;
+  String? apiResultCode;
 
-  PutChangeAccountPasswordAsyncResponseHeaderVo(this.apiErrorCodes);
+  PutService1TkV1AuthChangeAccountPasswordAsyncResponseHeaderVo(
+      this.apiResultCode);
 }
 
-class PutChangeAccountPasswordAsyncResponseBodyVo {
-  PutChangeAccountPasswordAsyncResponseBodyVo();
+class PutService1TkV1AuthChangeAccountPasswordAsyncResponseBodyVo {
+  PutService1TkV1AuthChangeAccountPasswordAsyncResponseBodyVo();
 }

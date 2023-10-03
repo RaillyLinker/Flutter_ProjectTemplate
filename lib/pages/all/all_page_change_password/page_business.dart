@@ -18,6 +18,7 @@ import '../../../../repositories/spws/spw_auth_member_info.dart'
     as spw_auth_member_info;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
+// todo : 비밀번호 있는 상태에서 변경만 신경쓰기
 
 //------------------------------------------------------------------------------
 // 페이지의 비즈니스 로직 및 뷰모델 담당
@@ -121,7 +122,7 @@ class PageBusiness {
     if (pageViewModel.newPasswordTextFieldController.text == "") {
       if (pageViewModel.passwordTextFieldController.text == "") {
         pageViewModel.newPasswordTextEditErrorMsg =
-            "Please enter a new password";
+            "비밀번호를 입력하세요.";
         blocObjects.blocNewPasswordTextField
             .add(!blocObjects.blocNewPasswordTextField.state);
         FocusScope.of(_context)
@@ -133,14 +134,14 @@ class PageBusiness {
     } else {
       if (pageViewModel.newPasswordTextFieldController.text.contains(" ")) {
         pageViewModel.newPasswordTextEditErrorMsg =
-            "Spaces cannot be used in the new password.";
+            "비밀번호에 공백은 허용되지 않습니다.";
         blocObjects.blocNewPasswordTextField
             .add(!blocObjects.blocNewPasswordTextField.state);
         FocusScope.of(_context)
             .requestFocus(pageViewModel.newPasswordTextFieldFocus);
       } else if (pageViewModel.newPasswordTextFieldController.text.length < 8) {
         pageViewModel.newPasswordTextEditErrorMsg =
-            "Set the length of the password to at least 8 digits";
+            "비밀번호는 최소 8자 이상 입력하세요.";
         blocObjects.blocNewPasswordTextField
             .add(!blocObjects.blocNewPasswordTextField.state);
         FocusScope.of(_context)
@@ -148,7 +149,7 @@ class PageBusiness {
       } else if (!RegExp(r'^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$&*])')
           .hasMatch(pageViewModel.newPasswordTextFieldController.text)) {
         pageViewModel.newPasswordTextEditErrorMsg =
-            "The password must consist of a combination of letters, numbers, and special characters.";
+            "비밀번호는 영문 대/소문자, 숫자, 그리고 특수문자의 조합을 입력하세요.";
         blocObjects.blocNewPasswordTextField
             .add(!blocObjects.blocNewPasswordTextField.state);
         FocusScope.of(_context)
@@ -156,7 +157,7 @@ class PageBusiness {
       } else if (RegExp(r'[<>()#’/|]')
           .hasMatch(pageViewModel.newPasswordTextFieldController.text)) {
         pageViewModel.newPasswordTextEditErrorMsg =
-            "< > ( ) # ’ / | can not use";
+            "특수문자 < > ( ) # ’ / | 는 사용할 수 없습니다.";
         blocObjects.blocNewPasswordTextField
             .add(!blocObjects.blocNewPasswordTextField.state);
         FocusScope.of(_context)
@@ -213,7 +214,7 @@ class PageBusiness {
     if (pageViewModel.newPasswordTextFieldController.text == "") {
       if (pageViewModel.passwordTextFieldController.text == "") {
         pageViewModel.newPasswordTextEditErrorMsg =
-            "Please enter a new password";
+            "새 비밀번호를 입력하세요.";
         blocObjects.blocNewPasswordTextField
             .add(!blocObjects.blocNewPasswordTextField.state);
         FocusScope.of(_context)
@@ -223,7 +224,7 @@ class PageBusiness {
           await _requestChangePassword();
         } else {
           pageViewModel.newPasswordCheckTextEditErrorMsg =
-              "Passwords do not match.";
+              "입력한 현재 비밀번호가 일치하지 않습니다.";
           blocObjects.blocNewPasswordCheckTextField
               .add(!blocObjects.blocNewPasswordCheckTextField.state);
           FocusScope.of(_context)
@@ -233,14 +234,14 @@ class PageBusiness {
     } else {
       if (pageViewModel.newPasswordTextFieldController.text.contains(" ")) {
         pageViewModel.newPasswordTextEditErrorMsg =
-            "Spaces cannot be used in the new password.";
+            "새 비밀번호에 공백은 허용되지 않습니다.";
         blocObjects.blocNewPasswordTextField
             .add(!blocObjects.blocNewPasswordTextField.state);
         FocusScope.of(_context)
             .requestFocus(pageViewModel.newPasswordTextFieldFocus);
       } else if (pageViewModel.newPasswordTextFieldController.text.length < 8) {
         pageViewModel.newPasswordTextEditErrorMsg =
-            "Set the length of the password to at least 8 digits";
+            "새 비밀번호는 최소 8자 이상 입력하세요.";
         blocObjects.blocNewPasswordTextField
             .add(!blocObjects.blocNewPasswordTextField.state);
         FocusScope.of(_context)
@@ -248,7 +249,7 @@ class PageBusiness {
       } else if (!RegExp(r'^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$&*])')
           .hasMatch(pageViewModel.newPasswordTextFieldController.text)) {
         pageViewModel.newPasswordTextEditErrorMsg =
-            "The password must consist of a combination of letters, numbers, and special characters.";
+            "새 비밀번호는 영문 대/소문자, 숫자, 그리고 특수문자의 조합을 입력하세요.";
         blocObjects.blocNewPasswordTextField
             .add(!blocObjects.blocNewPasswordTextField.state);
         FocusScope.of(_context)
@@ -256,14 +257,14 @@ class PageBusiness {
       } else if (RegExp(r'[<>()#’/|]')
           .hasMatch(pageViewModel.newPasswordTextFieldController.text)) {
         pageViewModel.newPasswordTextEditErrorMsg =
-            "< > ( ) # ’ / | can not use";
+            "특수문자 < > ( ) # ’ / | 는 사용할 수 없습니다.";
         blocObjects.blocNewPasswordTextField
             .add(!blocObjects.blocNewPasswordTextField.state);
         FocusScope.of(_context)
             .requestFocus(pageViewModel.newPasswordTextFieldFocus);
       } else if (pageViewModel.newPasswordCheckTextFieldController.text == "") {
         pageViewModel.newPasswordCheckTextEditErrorMsg =
-            "Please enter a new password check";
+            "새 비밀번호 확인을 입력하세요.";
         blocObjects.blocNewPasswordCheckTextField
             .add(!blocObjects.blocNewPasswordCheckTextField.state);
         FocusScope.of(_context)
@@ -271,7 +272,7 @@ class PageBusiness {
       } else if (pageViewModel.newPasswordCheckTextFieldController.text !=
           pageViewModel.newPasswordTextFieldController.text) {
         pageViewModel.newPasswordCheckTextEditErrorMsg =
-            "Passwords do not match.";
+            "새 비밀번호와 일치하지 않습니다.";
         blocObjects.blocNewPasswordCheckTextField
             .add(!blocObjects.blocNewPasswordCheckTextField.state);
         FocusScope.of(_context)
@@ -300,9 +301,9 @@ class PageBusiness {
             context: _context,
             builder: (context) => all_dialog_info.PageEntrance(
                 all_dialog_info.PageInputVo(
-                    "Need Sign in",
-                    "You are not signed in.\nfor change password, sign in please",
-                    "go back"),
+                    "로그인이 필요합니다.",
+                    "로그인 되지 않았습니다.\n비밀번호 확인을 위하여 로그인 해주세요.",
+                    "뒤로가기"),
                 (pageBusiness) {}));
 
         if (!_context.mounted) return;
@@ -321,10 +322,10 @@ class PageBusiness {
         newPw = pageViewModel.newPasswordTextFieldController.text;
       }
 
-      var response = await api_main_server.putChangeAccountPasswordAsync(
-          api_main_server.PutChangeAccountPasswordAsyncRequestHeaderVo(
+      var response = await api_main_server.putService1TkV1AuthChangeAccountPasswordAsync(
+          api_main_server.PutService1TkV1AuthChangeAccountPasswordAsyncRequestHeaderVo(
               "${signInMemberInfo.tokenType} ${signInMemberInfo.accessToken}"),
-          api_main_server.PutChangeAccountPasswordAsyncRequestBodyVo(
+          api_main_server.PutService1TkV1AuthChangeAccountPasswordAsyncRequestBodyVo(
               oldPw, newPw));
 
       // 로딩 다이얼로그 제거
@@ -337,6 +338,8 @@ class PageBusiness {
         if (networkResponseObjectOk.responseStatusCode == 200) {
           // 정상 응답
 
+          // todo 모든 기기에서 로그아웃 처리하기
+
           // 확인 다이얼로그 호출
           if (!_context.mounted) return;
           showDialog(
@@ -344,7 +347,7 @@ class PageBusiness {
               context: _context,
               builder: (context) => all_dialog_info.PageEntrance(
                   all_dialog_info.PageInputVo(
-                      "Change Password", "Change Password Completed!", "확인"),
+                      "비밀번호 변경", "비밀번호 변경이 완료되었습니다.", "확인"),
                   (pageBusiness) {})).then((outputVo) {
             // 로그아웃 처리
             spw_auth_member_info.SharedPreferenceWrapper.set(null);
@@ -352,7 +355,7 @@ class PageBusiness {
           });
         } else {
           // 비정상 응답
-          if (networkResponseObjectOk.responseHeaders.apiErrorCodes == null) {
+          if (networkResponseObjectOk.responseHeaders.apiResultCode == null) {
             // 비정상 응답이면서 서버에서 에러 원인 코드가 전달되지 않았을 때
             if (!_context.mounted) return;
             showDialog(
@@ -364,45 +367,54 @@ class PageBusiness {
                     (pageBusiness) {}));
           } else {
             // 서버 지정 에러 코드를 전달 받았을 때
-            List<String> apiErrorCodes =
-                networkResponseObjectOk.responseHeaders.apiErrorCodes;
-            if (apiErrorCodes.contains("1")) {
-              // 탈퇴된 회원
-              if (!_context.mounted) return;
-              await showDialog(
-                  barrierDismissible: true,
-                  context: _context,
-                  builder: (context) => all_dialog_info.PageEntrance(
-                      all_dialog_info.PageInputVo("canceled member",
-                          "You are a canceled member.", "확인"),
-                      (pageBusiness) {}));
-            } else if (apiErrorCodes.contains("2")) {
-              // 기존 비밀번호가 일치하지 않음
-              if (!_context.mounted) return;
-              await showDialog(
-                  barrierDismissible: true,
-                  context: _context,
-                  builder: (context) => all_dialog_info.PageEntrance(
-                      all_dialog_info.PageInputVo(
-                          "Current Password Not Matched",
-                          "Current Password Not Matched.\nChange Password And Try Again",
-                          "확인"),
-                      (pageBusiness) {}));
-            } else if (apiErrorCodes.contains("3")) {
-              // 비번을 null 로 만들려고 할 때 account 외의 OAuth2 인증이 없기에 비번 제거 불가
-              if (!_context.mounted) return;
-              await showDialog(
-                  barrierDismissible: true,
-                  context: _context,
-                  builder: (context) => all_dialog_info.PageEntrance(
-                      all_dialog_info.PageInputVo(
-                          "change password failed",
-                          "The password cannot be removed because there is no authentication method other than the password.",
-                          "확인"),
-                      (pageBusiness) {}));
-            } else {
-              // 알 수 없는 에러 코드일 때
-              throw Exception("unKnown Error Code");
+            String apiResultCode =
+                networkResponseObjectOk.responseHeaders.apiResultCode;
+
+            switch(apiResultCode){
+              case "1" :{
+                // 탈퇴된 회원
+                if (!_context.mounted) return;
+                await showDialog(
+                    barrierDismissible: true,
+                    context: _context,
+                    builder: (context) => all_dialog_info.PageEntrance(
+                        all_dialog_info.PageInputVo("비밀번호 변경 실패",
+                            "탈퇴된 회원입니다.", "확인"),
+                            (pageBusiness) {}));
+              }
+              break;
+              case "2" :{
+                // 기존 비밀번호가 일치하지 않음
+                if (!_context.mounted) return;
+                await showDialog(
+                    barrierDismissible: true,
+                    context: _context,
+                    builder: (context) => all_dialog_info.PageEntrance(
+                        all_dialog_info.PageInputVo(
+                            "비밀번호 변경 실패",
+                            "입력한 현재 비밀번호가 일치하지 않습니다.",
+                            "확인"),
+                            (pageBusiness) {}));
+              }
+              break;
+              case "3" :{
+                // 비번을 null 로 만들려고 할 때 account 외의 OAuth2 인증이 없기에 비번 제거 불가
+                if (!_context.mounted) return;
+                await showDialog(
+                    barrierDismissible: true,
+                    context: _context,
+                    builder: (context) => all_dialog_info.PageEntrance(
+                        all_dialog_info.PageInputVo(
+                            "비밀번호 변경 실패",
+                            "비밀번호를 제거할 수 없습니다.",
+                            "확인"),
+                            (pageBusiness) {}));
+              }
+              break;
+              default:{
+                // 알 수 없는 에러 코드일 때
+                throw Exception("unKnown Error Code");
+              }
             }
           }
         }

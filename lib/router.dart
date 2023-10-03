@@ -13,8 +13,6 @@ import 'pages/all/all_page_register_email_verification/page_entrance.dart'
     as all_page_register_email_verification;
 import 'pages/all/all_page_find_password_with_email/page_entrance.dart'
     as all_page_find_password_with_email;
-import 'pages/all/all_page_find_password_with_phone_number/page_entrance.dart'
-    as all_page_find_password_with_phone_number;
 import 'pages/all/all_page_page_and_router_sample_list/page_entrance.dart'
     as all_page_page_and_router_sample_list;
 import 'pages/all/all_page_global_variable_state_test_sample/page_entrance.dart'
@@ -379,19 +377,6 @@ GoRouter getRouter() {
         child: all_page_register_email_verification.PageEntrance(s),
         transitionsBuilder:
             all_page_register_email_verification.pageTransitionsBuilder,
-      );
-    },
-  ));
-
-  subRouteListAuthSampleAuthSignIn.add(GoRoute(
-    path: "find-password-with-phone-number",
-    name: all_page_find_password_with_phone_number.pageName,
-    pageBuilder: (c, s) {
-      return CustomTransitionPage(
-        key: s.pageKey,
-        child: all_page_find_password_with_phone_number.PageEntrance(s),
-        transitionsBuilder:
-            all_page_find_password_with_phone_number.pageTransitionsBuilder,
       );
     },
   ));

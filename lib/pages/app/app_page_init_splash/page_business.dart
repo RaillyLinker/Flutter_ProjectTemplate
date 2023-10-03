@@ -316,10 +316,10 @@ class PageBusiness {
 
         _appInitLogicThreadConfluenceObj.threadComplete();
       } else {
-        var postAutoLoginOutputVo = await api_main_server.postReissueAsync(
-            api_main_server.PostReissueAsyncRequestHeaderVo(
+        var postAutoLoginOutputVo = await api_main_server.postService1TkV1AuthReissueAsync(
+            api_main_server.PostService1TkV1AuthReissueAsyncRequestHeaderVo(
                 "${signInMemberInfo.tokenType} ${signInMemberInfo.accessToken}"),
-            api_main_server.PostReissueAsyncRequestBodyVo(
+            api_main_server.PostService1TkV1AuthReissueAsyncRequestBodyVo(
                 "${signInMemberInfo.tokenType} ${signInMemberInfo.refreshToken}"));
 
         // 네트워크 요청 결과 처리
@@ -333,7 +333,7 @@ class PageBusiness {
 
             var postAutoLoginResponseBody =
                 networkResponseObjectOk.responseBody!
-                    as api_main_server.PostReissueAsyncResponseBodyVo;
+                    as api_main_server.PostService1TkV1AuthReissueAsyncResponseBodyVo;
 
             pageViewModel.signInRetryCount = 0;
 
