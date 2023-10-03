@@ -3,19 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-// (page)
-import 'page_entrance.dart' as page_entrance;
-
-import '../../../../repositories/spws/spw_auth_member_info.dart'
-    as spw_auth_member_info;
 import '../../../../repositories/network/apis/api_main_server.dart'
     as api_main_server;
+import '../../../../repositories/spws/spw_auth_member_info.dart'
+    as spw_auth_member_info;
 import '../../../dialogs/all/all_dialog_info/page_entrance.dart'
     as all_dialog_info;
 import '../../../dialogs/all/all_dialog_loading_spinner/page_entrance.dart'
     as all_dialog_loading_spinner;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
+
+// (page)
+import 'page_entrance.dart' as page_entrance;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
 
@@ -62,9 +62,6 @@ class PageBusiness {
   // (페이지 종료 (강제 종료는 탐지 못함))
   Future<void> onPageDestroyAsync() async {
     // !!!페이지 종료 로직 작성!!
-
-    // 검색창 컨트롤러 닫기
-    pageViewModel.sampleSearchBarTextEditController.dispose();
   }
 
   // (Page Pop 요청)
@@ -88,35 +85,9 @@ class PageBusiness {
 //     bLocObjects.blocSample.add(!bLocObjects.blocSample.state);
 //   }
 
-  // (검색 결과에 따라 샘플 페이지 리스트 필터링)
-  void filteringSamplePageList(String searchKeyword) {
-    if (searchKeyword == "") {
-      // 원본 리스트로 뷰모델 데이터 변경 후 이벤트 발생
-      pageViewModel.filteredSampleList = pageViewModel.allSampleList;
-      blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
-    } else {
-      // 필터링한 리스트로 뷰모델 데이터 변경 후 이벤트 발생
-      List<SampleItem> filteredSamplePageList = [];
-      // 필터링 하기
-      for (SampleItem samplePage in pageViewModel.allSampleList) {
-        if (samplePage.sampleItemTitle
-            .toLowerCase()
-            .contains(searchKeyword.toLowerCase())) {
-          filteredSamplePageList.add(samplePage);
-        } else if (samplePage.sampleItemDescription
-            .toLowerCase()
-            .contains(searchKeyword.toLowerCase())) {
-          filteredSamplePageList.add(samplePage);
-        }
-      }
-      pageViewModel.filteredSampleList = filteredSamplePageList;
-      blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
-    }
-  }
-
   // (리스트 아이템 클릭 리스너)
   void onRouteListItemClick(int index) {
-    SampleItem sampleItem = pageViewModel.filteredSampleList[index];
+    SampleItem sampleItem = pageViewModel.allSampleList[index];
 
     switch (sampleItem.sampleItemEnum) {
       case SampleItemEnum.serverAccessTest:
@@ -125,7 +96,8 @@ class PageBusiness {
           // 로딩 다이얼로그 표시
           var loadingSpinnerDialog = all_dialog_loading_spinner.PageEntrance(
               all_dialog_loading_spinner.PageInputVo(), (pageBusiness) async {
-            var response = await api_main_server.getTestConnectAsync();
+            var response =
+                await api_main_server.getService1TkV1AuthForNoLoggedInAsync();
 
             // 로딩 다이얼로그 제거
             pageBusiness.closeDialog();
@@ -180,9 +152,10 @@ class PageBusiness {
                 ? null
                 : "${signInMemberInfo.tokenType} ${signInMemberInfo.accessToken}";
 
-            var response = await api_main_server.getTestConnectForSignedInAsync(
-                api_main_server.GetTestConnectForSignedInAsyncRequestHeaderVo(
-                    authorization));
+            var response = await api_main_server
+                .getService1TkV1AuthForLoggedInAsync(api_main_server
+                    .GetService1TkV1AuthForLoggedInAsyncRequestHeaderVo(
+                        authorization));
 
             // 로딩 다이얼로그 제거
             pageBusiness.closeDialog();
@@ -238,8 +211,8 @@ class PageBusiness {
                 : "${signInMemberInfo.tokenType} ${signInMemberInfo.accessToken}";
 
             var response = await api_main_server
-                .getTestConnectForDeveloperAsync(api_main_server
-                    .GetTestConnectForDeveloperAsyncRequestHeaderVo(
+                .getService1TkV1AuthForDeveloperAsync(api_main_server
+                    .GetService1TkV1AuthForDeveloperAsyncRequestHeaderVo(
                         authorization));
 
             // 로딩 다이얼로그 제거
@@ -295,9 +268,10 @@ class PageBusiness {
                 ? null
                 : "${signInMemberInfo.tokenType} ${signInMemberInfo.accessToken}";
 
-            var response = await api_main_server.getTestConnectForAdminAsync(
-                api_main_server.GetTestConnectForAdminAsyncRequestHeaderVo(
-                    authorization));
+            var response = await api_main_server
+                .getService1TkV1AuthForAdminAsync(api_main_server
+                    .GetService1TkV1AuthForAdminAsyncRequestHeaderVo(
+                        authorization));
 
             // 로딩 다이얼로그 제거
             pageBusiness.closeDialog();
@@ -361,28 +335,19 @@ class PageViewModel {
   // ex :
   // int sampleNumber = 0;
 
-  // 샘플 목록 필터링용 검색창 컨트롤러 (검색창의 텍스트 정보를 가지고 있으므로 뷰모델에 저장, 여기 있어야 위젯이 변경되어도 검색어가 유지됨)
-  TextEditingController sampleSearchBarTextEditController =
-      TextEditingController();
-
   // (샘플 페이지 원본 리스트)
   List<SampleItem> allSampleList = [];
-
-  // (샘플 페이지 리스트 검색 결과)
-  List<SampleItem> filteredSampleList = [];
 
   PageViewModel(this.goRouterState) {
     // 초기 리스트 추가
     allSampleList.add(SampleItem(SampleItemEnum.serverAccessTest,
-        "Server Access Test", "server connection test"));
+        "비 로그인 접속 테스트", "비 로그인 상태에서도 호출 가능한 API"));
     allSampleList.add(SampleItem(SampleItemEnum.signedInServerAccessTest,
-        "Signed In Server Access Test", "login entry test"));
+        "로그인 접속 테스트", "로그인 상태에서 호출 가능한 API"));
     allSampleList.add(SampleItem(SampleItemEnum.developerServerAccessTest,
-        "DEVELOPER Server Access Test", "DEVELOPER Role entry test"));
+        "Developer 권한 진입 테스트", "ADMIN 혹은 DEVELOPER 권한이 있는 상태에서 호출 가능한 API"));
     allSampleList.add(SampleItem(SampleItemEnum.adminServerAccessTest,
-        "ADMIN Server Access Test", "ADMIN Role entry test"));
-
-    filteredSampleList = allSampleList;
+        "ADMIN 권한 진입 테스트", "ADMIN 권한이 있는 상태에서 호출 가능한 API"));
   }
 }
 

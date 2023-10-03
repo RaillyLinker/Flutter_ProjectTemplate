@@ -347,26 +347,26 @@ class PageBusiness {
                   spw_auth_member_info.SharedPreferenceWrapperVoOAuth2Info(
                       myOAuth2.oauth2TypeCode, myOAuth2.oauth2Id));
             }
-            // todo
-            // signInMemberInfo.memberUid = postAutoLoginResponseBody.memberUid;
-            // signInMemberInfo.nickName = postAutoLoginResponseBody.nickName;
-            // signInMemberInfo.roleCodeList =
-            //     postAutoLoginResponseBody.roleCodeList;
-            // signInMemberInfo.tokenType = postAutoLoginResponseBody.tokenType;
-            // signInMemberInfo.accessToken =
-            //     postAutoLoginResponseBody.accessToken;
-            // signInMemberInfo.accessTokenExpireWhen =
-            //     postAutoLoginResponseBody.accessTokenExpireWhen;
-            // signInMemberInfo.refreshToken =
-            //     postAutoLoginResponseBody.refreshToken;
-            // signInMemberInfo.refreshTokenExpireWhen =
-            //     postAutoLoginResponseBody.refreshTokenExpireWhen;
-            // signInMemberInfo.myEmailList =
-            //     postAutoLoginResponseBody.myEmailList;
-            // signInMemberInfo.myPhoneNumberList =
-            //     postAutoLoginResponseBody.myPhoneNumberList;
-            // signInMemberInfo.myOAuth2List = myOAuth2ObjectList;
-            // spw_auth_member_info.SharedPreferenceWrapper.set(signInMemberInfo);
+            signInMemberInfo.memberUid = postAutoLoginResponseBody.memberUid;
+            signInMemberInfo.nickName = postAutoLoginResponseBody.nickName;
+            signInMemberInfo.profileImageFullUrl = postAutoLoginResponseBody.profileImageFullUrl;
+            signInMemberInfo.roleList =
+                postAutoLoginResponseBody.roleList;
+            signInMemberInfo.tokenType = postAutoLoginResponseBody.tokenType;
+            signInMemberInfo.accessToken =
+                postAutoLoginResponseBody.accessToken;
+            signInMemberInfo.accessTokenExpireWhen =
+                postAutoLoginResponseBody.accessTokenExpireWhen;
+            signInMemberInfo.refreshToken =
+                postAutoLoginResponseBody.refreshToken;
+            signInMemberInfo.refreshTokenExpireWhen =
+                postAutoLoginResponseBody.refreshTokenExpireWhen;
+            signInMemberInfo.myEmailList =
+                postAutoLoginResponseBody.myEmailList;
+            signInMemberInfo.myPhoneNumberList =
+                postAutoLoginResponseBody.myPhoneNumberList;
+            signInMemberInfo.myOAuth2List = myOAuth2ObjectList;
+            spw_auth_member_info.SharedPreferenceWrapper.set(signInMemberInfo);
 
             _appInitLogicThreadConfluenceObj.threadComplete();
           } else {

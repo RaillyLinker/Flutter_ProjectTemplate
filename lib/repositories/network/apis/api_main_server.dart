@@ -1581,12 +1581,13 @@ class PostReissueAsyncResponseBodyVoOAuth2Info {
 ////
 // (서버 접속 테스트)
 Future<
-    gc_template_classes.NetworkResponseObject<
-        GetTestConnectAsyncResponseHeaderVo,
-        GetTestConnectAsyncResponseBodyVo>> getTestConnectAsync() async {
+        gc_template_classes.NetworkResponseObject<
+            GetService1TkV1AuthForNoLoggedInAsyncResponseHeaderVo,
+            GetService1TkV1AuthForNoLoggedInAsyncResponseBodyVo>>
+    getService1TkV1AuthForNoLoggedInAsync() async {
   // !!!개발 / 배포 모드별 요청 Path 지정!!
-  String devServerUrl = "/tk/ra/test/connect";
-  String prodServerUrl = "/tk/ra/test/connect";
+  String devServerUrl = "/service1/tk/v1/auth/for-no-logged-in";
+  String prodServerUrl = "/service1/tk/v1/auth/for-no-logged-in";
 
   Map<String, dynamic> requestHeaders = {};
   Map<String, dynamic> requestQueryParams = {};
@@ -1609,11 +1610,11 @@ Future<
     int statusCode = response.statusCode!;
     // Map<String, dynamic> responseHeaderMap = response.headers.map;
 
-    GetTestConnectAsyncResponseHeaderVo responseHeader;
-    GetTestConnectAsyncResponseBodyVo? responseBody;
+    GetService1TkV1AuthForNoLoggedInAsyncResponseHeaderVo responseHeader;
+    GetService1TkV1AuthForNoLoggedInAsyncResponseBodyVo? responseBody;
 
     // !!!Response Map 을 Response Object 로 변경!!
-    responseHeader = GetTestConnectAsyncResponseHeaderVo();
+    responseHeader = GetService1TkV1AuthForNoLoggedInAsyncResponseHeaderVo();
     if (statusCode == 200) {
       // responseBody 가 반환되는 조건
       Map<String, dynamic> responseBodyMap = response.data;
@@ -1622,8 +1623,8 @@ Future<
       // Object 타입이 넘어오면 Map<String, dynamic> 으로 받고,
       // Object List 타입이 넘어오면 List<Map<String, dynamic>> 으로 받아서 처리
 
-      responseBody =
-          GetTestConnectAsyncResponseBodyVo(responseBodyMap["result"]);
+      responseBody = GetService1TkV1AuthForNoLoggedInAsyncResponseBodyVo(
+          responseBodyMap["result"]);
     }
 
     return gc_template_classes.NetworkResponseObject(
@@ -1637,14 +1638,14 @@ Future<
   }
 }
 
-class GetTestConnectAsyncResponseHeaderVo {
-  GetTestConnectAsyncResponseHeaderVo();
+class GetService1TkV1AuthForNoLoggedInAsyncResponseHeaderVo {
+  GetService1TkV1AuthForNoLoggedInAsyncResponseHeaderVo();
 }
 
-class GetTestConnectAsyncResponseBodyVo {
+class GetService1TkV1AuthForNoLoggedInAsyncResponseBodyVo {
   String result;
 
-  GetTestConnectAsyncResponseBodyVo(this.result);
+  GetService1TkV1AuthForNoLoggedInAsyncResponseBodyVo(this.result);
 
   @override
   String toString() {
@@ -1657,13 +1658,14 @@ class GetTestConnectAsyncResponseBodyVo {
 // Authorization null 이라면 401 에러 반환
 Future<
         gc_template_classes.NetworkResponseObject<
-            GetTestConnectForSignedInAsyncResponseHeaderVo,
-            GetTestConnectForSignedInAsyncResponseBodyVo>>
-    getTestConnectForSignedInAsync(
-        GetTestConnectForSignedInAsyncRequestHeaderVo requestHeaderVo) async {
+            GetService1TkV1AuthForLoggedInAsyncResponseHeaderVo,
+            GetService1TkV1AuthForLoggedInAsyncResponseBodyVo>>
+    getService1TkV1AuthForLoggedInAsync(
+        GetService1TkV1AuthForLoggedInAsyncRequestHeaderVo
+            requestHeaderVo) async {
   // !!!개발 / 배포 모드별 요청 Path 지정!!
-  String devServerUrl = "/tk/ra/test/connect/for-signed-in";
-  String prodServerUrl = "/tk/ra/test/connect/for-signed-in";
+  String devServerUrl = "/service1/tk/v1/auth/for-logged-in";
+  String prodServerUrl = "/service1/tk/v1/auth/for-logged-in";
 
   Map<String, dynamic> requestHeaders = {};
   Map<String, dynamic> requestQueryParams = {};
@@ -1689,11 +1691,11 @@ Future<
     int statusCode = response.statusCode!;
     // Map<String, dynamic> responseHeaderMap = response.headers.map;
 
-    GetTestConnectForSignedInAsyncResponseHeaderVo responseHeader;
-    GetTestConnectForSignedInAsyncResponseBodyVo? responseBody;
+    GetService1TkV1AuthForLoggedInAsyncResponseHeaderVo responseHeader;
+    GetService1TkV1AuthForLoggedInAsyncResponseBodyVo? responseBody;
 
     // !!!Response Map 을 Response Object 로 변경!!
-    responseHeader = GetTestConnectForSignedInAsyncResponseHeaderVo();
+    responseHeader = GetService1TkV1AuthForLoggedInAsyncResponseHeaderVo();
     if (statusCode == 200) {
       // responseBody 가 반환되는 조건
       Map<String, dynamic> responseBodyMap = response.data;
@@ -1702,7 +1704,7 @@ Future<
       // Object 타입이 넘어오면 Map<String, dynamic> 으로 받고,
       // Object List 타입이 넘어오면 List<Map<String, dynamic>> 으로 받아서 처리
 
-      responseBody = GetTestConnectForSignedInAsyncResponseBodyVo(
+      responseBody = GetService1TkV1AuthForLoggedInAsyncResponseBodyVo(
           responseBodyMap["result"]);
     }
 
@@ -1717,21 +1719,26 @@ Future<
   }
 }
 
-class GetTestConnectForSignedInAsyncRequestHeaderVo {
+class GetService1TkV1AuthForLoggedInAsyncRequestHeaderVo {
   // 인증 토큰 (ex : "Bearer abcd1234!@#$")
   String? authorization;
 
-  GetTestConnectForSignedInAsyncRequestHeaderVo(this.authorization);
+  GetService1TkV1AuthForLoggedInAsyncRequestHeaderVo(this.authorization);
 }
 
-class GetTestConnectForSignedInAsyncResponseHeaderVo {
-  GetTestConnectForSignedInAsyncResponseHeaderVo();
+class GetService1TkV1AuthForLoggedInAsyncResponseHeaderVo {
+  GetService1TkV1AuthForLoggedInAsyncResponseHeaderVo();
 }
 
-class GetTestConnectForSignedInAsyncResponseBodyVo {
+class GetService1TkV1AuthForLoggedInAsyncResponseBodyVo {
   String result;
 
-  GetTestConnectForSignedInAsyncResponseBodyVo(this.result);
+  GetService1TkV1AuthForLoggedInAsyncResponseBodyVo(this.result);
+
+  @override
+  String toString() {
+    return "result : $result, ";
+  }
 }
 
 ////
@@ -1739,13 +1746,14 @@ class GetTestConnectForSignedInAsyncResponseBodyVo {
 // Authorization null 이라면 401 에러 반환
 Future<
         gc_template_classes.NetworkResponseObject<
-            GetTestConnectForDeveloperAsyncResponseHeaderVo,
-            GetTestConnectForDeveloperAsyncResponseBodyVo>>
-    getTestConnectForDeveloperAsync(
-        GetTestConnectForDeveloperAsyncRequestHeaderVo requestHeaderVo) async {
+            GetService1TkV1AuthForDeveloperAsyncResponseHeaderVo,
+            GetService1TkV1AuthForDeveloperAsyncResponseBodyVo>>
+    getService1TkV1AuthForDeveloperAsync(
+        GetService1TkV1AuthForDeveloperAsyncRequestHeaderVo
+            requestHeaderVo) async {
   // !!!개발 / 배포 모드별 요청 Path 지정!!
-  String devServerUrl = "/tk/ra/test/connect/for-developer";
-  String prodServerUrl = "/tk/ra/test/connect/for-developer";
+  String devServerUrl = "/service1/tk/v1/auth/for-developer";
+  String prodServerUrl = "/service1/tk/v1/auth/for-developer";
 
   Map<String, dynamic> requestHeaders = {};
   Map<String, dynamic> requestQueryParams = {};
@@ -1771,11 +1779,11 @@ Future<
     int statusCode = response.statusCode!;
     // Map<String, dynamic> responseHeaderMap = response.headers.map;
 
-    GetTestConnectForDeveloperAsyncResponseHeaderVo responseHeader;
-    GetTestConnectForDeveloperAsyncResponseBodyVo? responseBody;
+    GetService1TkV1AuthForDeveloperAsyncResponseHeaderVo responseHeader;
+    GetService1TkV1AuthForDeveloperAsyncResponseBodyVo? responseBody;
 
     // !!!Response Map 을 Response Object 로 변경!!
-    responseHeader = GetTestConnectForDeveloperAsyncResponseHeaderVo();
+    responseHeader = GetService1TkV1AuthForDeveloperAsyncResponseHeaderVo();
     if (statusCode == 200) {
       // responseBody 가 반환되는 조건
       Map<String, dynamic> responseBodyMap = response.data;
@@ -1784,7 +1792,7 @@ Future<
       // Object 타입이 넘어오면 Map<String, dynamic> 으로 받고,
       // Object List 타입이 넘어오면 List<Map<String, dynamic>> 으로 받아서 처리
 
-      responseBody = GetTestConnectForDeveloperAsyncResponseBodyVo(
+      responseBody = GetService1TkV1AuthForDeveloperAsyncResponseBodyVo(
           responseBodyMap["result"]);
     }
 
@@ -1799,34 +1807,40 @@ Future<
   }
 }
 
-class GetTestConnectForDeveloperAsyncRequestHeaderVo {
+class GetService1TkV1AuthForDeveloperAsyncRequestHeaderVo {
   // 인증 토큰 (ex : "Bearer abcd1234!@#$")
   String? authorization;
 
-  GetTestConnectForDeveloperAsyncRequestHeaderVo(this.authorization);
+  GetService1TkV1AuthForDeveloperAsyncRequestHeaderVo(this.authorization);
 }
 
-class GetTestConnectForDeveloperAsyncResponseHeaderVo {
-  GetTestConnectForDeveloperAsyncResponseHeaderVo();
+class GetService1TkV1AuthForDeveloperAsyncResponseHeaderVo {
+  GetService1TkV1AuthForDeveloperAsyncResponseHeaderVo();
 }
 
-class GetTestConnectForDeveloperAsyncResponseBodyVo {
+class GetService1TkV1AuthForDeveloperAsyncResponseBodyVo {
   String result;
 
-  GetTestConnectForDeveloperAsyncResponseBodyVo(this.result);
+  GetService1TkV1AuthForDeveloperAsyncResponseBodyVo(this.result);
+
+  @override
+  String toString() {
+    return "result : $result, ";
+  }
 }
 
 ////
 // (ADMIN 권한 진입 테스트 <'ADMIN'>)
 // Authorization null 이라면 401 에러 반환
 Future<
-    gc_template_classes.NetworkResponseObject<
-        GetTestConnectForAdminAsyncResponseHeaderVo,
-        GetTestConnectForAdminAsyncResponseBodyVo>> getTestConnectForAdminAsync(
-    GetTestConnectForAdminAsyncRequestHeaderVo requestHeaderVo) async {
+        gc_template_classes.NetworkResponseObject<
+            GetService1TkV1AuthForAdminAsyncResponseHeaderVo,
+            GetService1TkV1AuthForAdminAsyncResponseBodyVo>>
+    getService1TkV1AuthForAdminAsync(
+        GetService1TkV1AuthForAdminAsyncRequestHeaderVo requestHeaderVo) async {
   // !!!개발 / 배포 모드별 요청 Path 지정!!
-  String devServerUrl = "/tk/ra/test/connect/for-admin";
-  String prodServerUrl = "/tk/ra/test/connect/for-admin";
+  String devServerUrl = "/service1/tk/v1/auth/for-admin";
+  String prodServerUrl = "/service1/tk/v1/auth/for-admin";
 
   Map<String, dynamic> requestHeaders = {};
   Map<String, dynamic> requestQueryParams = {};
@@ -1852,11 +1866,11 @@ Future<
     int statusCode = response.statusCode!;
     // Map<String, dynamic> responseHeaderMap = response.headers.map;
 
-    GetTestConnectForAdminAsyncResponseHeaderVo responseHeader;
-    GetTestConnectForAdminAsyncResponseBodyVo? responseBody;
+    GetService1TkV1AuthForAdminAsyncResponseHeaderVo responseHeader;
+    GetService1TkV1AuthForAdminAsyncResponseBodyVo? responseBody;
 
     // !!!Response Map 을 Response Object 로 변경!!
-    responseHeader = GetTestConnectForAdminAsyncResponseHeaderVo();
+    responseHeader = GetService1TkV1AuthForAdminAsyncResponseHeaderVo();
     if (statusCode == 200) {
       // responseBody 가 반환되는 조건
       Map<String, dynamic> responseBodyMap = response.data;
@@ -1865,8 +1879,8 @@ Future<
       // Object 타입이 넘어오면 Map<String, dynamic> 으로 받고,
       // Object List 타입이 넘어오면 List<Map<String, dynamic>> 으로 받아서 처리
 
-      responseBody =
-          GetTestConnectForAdminAsyncResponseBodyVo(responseBodyMap["result"]);
+      responseBody = GetService1TkV1AuthForAdminAsyncResponseBodyVo(
+          responseBodyMap["result"]);
     }
 
     return gc_template_classes.NetworkResponseObject(
@@ -1880,21 +1894,26 @@ Future<
   }
 }
 
-class GetTestConnectForAdminAsyncRequestHeaderVo {
+class GetService1TkV1AuthForAdminAsyncRequestHeaderVo {
   // 인증 토큰 (ex : "Bearer abcd1234!@#$")
   String? authorization;
 
-  GetTestConnectForAdminAsyncRequestHeaderVo(this.authorization);
+  GetService1TkV1AuthForAdminAsyncRequestHeaderVo(this.authorization);
 }
 
-class GetTestConnectForAdminAsyncResponseHeaderVo {
-  GetTestConnectForAdminAsyncResponseHeaderVo();
+class GetService1TkV1AuthForAdminAsyncResponseHeaderVo {
+  GetService1TkV1AuthForAdminAsyncResponseHeaderVo();
 }
 
-class GetTestConnectForAdminAsyncResponseBodyVo {
+class GetService1TkV1AuthForAdminAsyncResponseBodyVo {
   String result;
 
-  GetTestConnectForAdminAsyncResponseBodyVo(this.result);
+  GetService1TkV1AuthForAdminAsyncResponseBodyVo(this.result);
+
+  @override
+  String toString() {
+    return "result : $result, ";
+  }
 }
 
 ////

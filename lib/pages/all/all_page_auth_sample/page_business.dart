@@ -301,8 +301,12 @@ class PageBusiness {
 
                     refreshScreenDataAsync(signInMemberInfo);
                   } else {
+                    var postReissueResponseHeader =
+                    networkResponseObjectOk.responseHeaders!
+                    as api_main_server.PostService1TkV1AuthReissueAsyncResponseHeaderVo;
+
                     // 비정상 응답
-                    if (networkResponseObjectOk.responseHeaders.apiErrorCodes ==
+                    if (postReissueResponseHeader.apiResultCode ==
                         null) {
                       // 비정상 응답이면서 서버에서 에러 원인 코드가 전달되지 않았을 때
                       if (!_context.mounted) return;
@@ -315,23 +319,27 @@ class PageBusiness {
                               (pageBusiness) {}));
                     } else {
                       // 서버 지정 에러 코드를 전달 받았을 때
-                      List<String> apiErrorCodes =
-                          networkResponseObjectOk.responseHeaders.apiErrorCodes;
-                      if (apiErrorCodes.contains("1") || // 탈퇴된 회원
-                              apiErrorCodes.contains("2") || // 유효하지 않은 리프레시 토큰
-                              apiErrorCodes.contains("3") || // 리프레시 토큰 만료
-                              apiErrorCodes
-                                  .contains("4") // 리프레시 토큰이 액세스 토큰과 매칭되지 않음
-                          ) {
-                        // 리플래시 토큰이 사용 불가이므로 로그아웃 처리
-                        // login_user_info SPW 비우기
-                        spw_auth_member_info.SharedPreferenceWrapper.set(null);
+                      String apiResultCode =
+                          postReissueResponseHeader.apiResultCode!;
 
-                        // 비회원으로 전체 화면 갱신
-                        refreshScreenDataAsync(null);
-                      } else {
-                        // 알 수 없는 에러 코드일 때
-                        throw Exception("unKnown Error Code");
+                      switch(apiResultCode){
+                        case "1": // 탈퇴된 회원
+                        case"2": // 유효하지 않은 리프레시 토큰
+                        case"3": // 리프레시 토큰 만료
+                        case"4": // 리프레시 토큰이 액세스 토큰과 매칭되지 않음
+                        {
+                          // 리플래시 토큰이 사용 불가이므로 로그아웃 처리
+                          // login_user_info SPW 비우기
+                          spw_auth_member_info.SharedPreferenceWrapper.set(null);
+
+                          // 비회원으로 전체 화면 갱신
+                          refreshScreenDataAsync(null);
+                      }
+                        break;
+                        default:{
+                          // 알 수 없는 에러 코드일 때
+                          throw Exception("unKnown Error Code");
+                        }
                       }
                     }
                   }
