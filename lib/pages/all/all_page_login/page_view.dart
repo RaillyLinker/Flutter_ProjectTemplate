@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-// (page)
-import 'page_business.dart' as page_business;
-
 // (all)
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
+
+// (page)
+import 'page_business.dart' as page_business;
 
 // [페이지 화면 위젯 작성 파일]
 // 페이지 화면 구현을 담당합니다.
@@ -84,6 +84,7 @@ class PageView extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10.0),
                 ),
                 child: TextFormField(
+                  autofillHints: const [AutofillHints.username],
                   focusNode: pageBusiness.pageViewModel.emailTextFieldFocus,
                   keyboardType: TextInputType.emailAddress,
                   controller: pageBusiness.pageViewModel.idTextFieldController,
@@ -126,6 +127,7 @@ class PageView extends StatelessWidget {
                 child: BlocBuilder<page_business.BlocPasswordTextField, bool>(
                   builder: (c, s) {
                     return TextFormField(
+                      autofillHints: const [AutofillHints.password],
                       focusNode:
                           pageBusiness.pageViewModel.passwordTextFieldFocus,
                       controller: pageBusiness

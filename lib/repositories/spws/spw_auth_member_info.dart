@@ -1,11 +1,13 @@
 // (external)
 import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 import 'package:sync/semaphore.dart';
 
+import '../../../global_functions/gf_crypto.dart' as gf_crypto;
+
 // (all)
 import '../../global_data/gd_const.dart' as gd_const;
-import '../../../global_functions/gf_crypto.dart' as gf_crypto;
 
 // [SharedPreference Wrapper 선언 파일 템플릿]
 // 본 파일은 SharedPreference 변수 하나에 대한 래퍼 클래스 작성용 파일입니다.
@@ -60,7 +62,8 @@ class SharedPreferenceWrapper {
         var resultObject = SharedPreferenceWrapperVo(
             map["memberUid"],
             map["nickName"],
-            List<int>.from(map["roleCodeList"]),
+            map["profileImageFullUrl"],
+            List<String>.from(map["roleList"]),
             map["tokenType"],
             map["accessToken"],
             map["accessTokenExpireWhen"],
@@ -110,7 +113,8 @@ class SharedPreferenceWrapper {
       Map<String, dynamic> map = {
         "memberUid": value.memberUid,
         "nickName": value.nickName,
-        "roleCodeList": value.roleCodeList,
+        "profileImageFullUrl": value.profileImageFullUrl,
+        "roleList": value.roleList,
         "tokenType": value.tokenType,
         "accessToken": value.accessToken,
         "accessTokenExpireWhen": value.accessTokenExpireWhen,
@@ -139,8 +143,9 @@ class SharedPreferenceWrapper {
 class SharedPreferenceWrapperVo {
   String memberUid; // 멤버 고유값
   String nickName; // 닉네임
-  List<int>
-      roleCodeList; // 멤버 권한 리스트 (1 : 관리자(ROLE_ADMIN), 2 : 유저(ROLE_USER), 3 : 개발자(ROLE_DEVELOPER)) (ex : [1, 2])
+  String? profileImageFullUrl; // 대표 프로필 이미지 Full URL
+  List<String>
+      roleList; // 멤버 권한 리스트 (1 : 관리자(ROLE_ADMIN), 2 : 유저(ROLE_USER), 3 : 개발자(ROLE_DEVELOPER)) (ex : [1, 2])
   String tokenType; // 발급받은 토큰 타입(ex : "Bearer")
   String accessToken; // 액세스 토큰 (ex : "aaaaaaaaaa111122223333")
   String accessTokenExpireWhen; // 액세스 토큰 만료일시 (ex : "2023-01-02 11:11:11.111")
@@ -155,7 +160,8 @@ class SharedPreferenceWrapperVo {
   SharedPreferenceWrapperVo(
       this.memberUid,
       this.nickName,
-      this.roleCodeList,
+      this.profileImageFullUrl,
+      this.roleList,
       this.tokenType,
       this.accessToken,
       this.accessTokenExpireWhen,
@@ -167,7 +173,7 @@ class SharedPreferenceWrapperVo {
 }
 
 class SharedPreferenceWrapperVoOAuth2Info {
-  int oauth2TypeCode; // "OAuth2 (1 : Google, 2 : Apple, 3 : Naver, 4 : Kakao)
+  int oauth2TypeCode; // OAuth2 (1 : Google, 2 : Naver, 3 : Kakao, 4 : Apple)
   String oauth2Id; // oAuth2 고유값 아이디
 
   SharedPreferenceWrapperVoOAuth2Info(this.oauth2TypeCode, this.oauth2Id);

@@ -1,27 +1,28 @@
 // (external)
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
+import 'package:go_router/go_router.dart';
 
-// (page)
-import 'page_entrance.dart' as page_entrance;
-
-import '../../../../repositories/spws/spw_auth_member_info.dart'
-    as spw_auth_member_info;
 import '../../../../repositories/network/apis/api_main_server.dart'
     as api_main_server;
+import '../../../../repositories/spws/spw_auth_member_info.dart'
+    as spw_auth_member_info;
 import '../../../dialogs/all/all_dialog_info/page_entrance.dart'
     as all_dialog_info;
 import '../../../dialogs/all/all_dialog_loading_spinner/page_entrance.dart'
     as all_dialog_loading_spinner;
-import '../../../pages/all/all_page_find_password_with_email/page_entrance.dart'
-    as all_page_find_password_with_email;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
+import '../../../pages/all/all_page_find_password_with_email/page_entrance.dart'
+    as all_page_find_password_with_email;
 import '../../../pages/all/all_page_register_email_verification/page_entrance.dart'
     as all_page_register_email_verification;
+
+// (page)
+import 'page_entrance.dart' as page_entrance;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
 
@@ -115,169 +116,171 @@ class PageBusiness {
     String password = pageViewModel.passwordTextFieldController.text;
 
     if (id.trim() != "") {
-      if (password.trim() != "") {
-        // 입력창이 모두 충족되었을 때
+      if (RegExp(r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)*(\.[a-zA-Z]{2,})$')
+          .hasMatch(id)) {
+        if (password.trim() != "") {
+          // 입력창이 모두 충족되었을 때
 
-        // // 비밀번호 형식 검증
-        // // 영문 대문자, 소문자, 숫자, 특수문자 허용, 최소 8자 이상, 특수문자 1개 이상 포함
-        // RegExp passwordRegExp = RegExp(r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$');
-        // bool isPasswordValid =  passwordRegExp.hasMatch(password);
+          // // 비밀번호 형식 검증
+          // // 영문 대문자, 소문자, 숫자, 특수문자 허용, 최소 8자 이상, 특수문자 1개 이상 포함
+          // RegExp passwordRegExp = RegExp(r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$');
+          // bool isPasswordValid =  passwordRegExp.hasMatch(password);
 
-        // 로그인 타입 검증
-        int loginTypeCode;
+          // 이메일
+          if (!RegExp(r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)*(\.[a-zA-Z]{2,})$')
+              .hasMatch(id)) {
+            // 이메일 형식 맞지 않음
+            FocusScope.of(_context)
+                .requestFocus(pageViewModel.emailTextFieldFocus);
+            showToast(
+              "이메일 형식이 아닙니다.",
+              context: _context,
+              animation: StyledToastAnimation.scale,
+            );
+            accountLoginAsyncClicked = false;
+            return;
+          }
 
-        // 이메일
-        if (RegExp(r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)*(\.[a-zA-Z]{2,})$')
-            .hasMatch(id)) {
-          // 이메일 형식이 맞음
-          loginTypeCode = 1;
+          var loadingSpinner = all_dialog_loading_spinner.PageEntrance(
+              all_dialog_loading_spinner.PageInputVo(), (pageBusiness) async {
+            // 네트워크 요청
+            var responseVo = await api_main_server
+                .postService1TkV1AuthLoginWithPasswordAsync(api_main_server
+                    .PostService1TkV1AuthLoginWithPasswordAsyncRequestBodyVo(
+                        1, id, password));
+
+            pageBusiness.closeDialog();
+
+            if (responseVo.dioException == null) {
+              // Dio 네트워크 응답
+              var networkResponseObjectOk = responseVo.networkResponseObjectOk!;
+
+              if (networkResponseObjectOk.responseStatusCode == 200) {
+                // 정상 응답
+                api_main_server
+                    .PostService1TkV1AuthLoginWithPasswordAsyncResponseBodyVo
+                    responseBody =
+                    responseVo.networkResponseObjectOk!.responseBody!;
+                List<spw_auth_member_info.SharedPreferenceWrapperVoOAuth2Info>
+                    myOAuth2ObjectList = [];
+                for (api_main_server
+                    .PostSignInWithPasswordAsyncResponseBodyVoOAuth2Info myOAuth2
+                    in responseBody.myOAuth2List) {
+                  myOAuth2ObjectList.add(
+                      spw_auth_member_info.SharedPreferenceWrapperVoOAuth2Info(
+                          myOAuth2.oauth2TypeCode, myOAuth2.oauth2Id));
+                }
+
+                spw_auth_member_info.SharedPreferenceWrapper.set(
+                    spw_auth_member_info.SharedPreferenceWrapperVo(
+                  responseBody.memberUid,
+                  responseBody.nickName,
+                  responseBody.profileImageFullUrl,
+                  responseBody.roleList,
+                  responseBody.tokenType,
+                  responseBody.accessToken,
+                  responseBody.accessTokenExpireWhen,
+                  responseBody.refreshToken,
+                  responseBody.refreshTokenExpireWhen,
+                  responseBody.myEmailList,
+                  responseBody.myPhoneNumberList,
+                  myOAuth2ObjectList,
+                ));
+
+                accountLoginAsyncClicked = false;
+                if (!_context.mounted) return;
+                if (_context.canPop()) {
+                  // History가 있는 경우, 이전 페이지로 이동(pop)
+                  _context.pop();
+                } else {
+                  // History가 없는 경우, 앱 종료(exit)
+                  exit(0);
+                }
+              } else {
+                // 비정상 응답
+                api_main_server
+                    .PostService1TkV1AuthLoginWithPasswordAsyncResponseHeaderVo
+                    responseHeaderVo = networkResponseObjectOk.responseHeaders;
+
+                switch (responseHeaderVo.apiResultCode) {
+                  case "1":
+                    {
+                      // 가입 되지 않은 회원
+                      if (!_context.mounted) return;
+                      showDialog(
+                          barrierDismissible: true,
+                          context: _context,
+                          builder: (context) => all_dialog_info.PageEntrance(
+                              all_dialog_info.PageInputVo(
+                                  "로그인 실패", "가입되지 않은 회원입니다.", "확인"),
+                              (pageBusiness) {}));
+                      accountLoginAsyncClicked = false;
+                    }
+                    break;
+                  case "2":
+                    {
+                      // 로그인 정보 검증 불일치
+                      if (!_context.mounted) return;
+                      showDialog(
+                          barrierDismissible: true,
+                          context: _context,
+                          builder: (context) => all_dialog_info.PageEntrance(
+                              all_dialog_info.PageInputVo(
+                                  "로그인 실패", "비밀번호가 일치하지 않습니다.", "확인"),
+                              (pageBusiness) {}));
+                      accountLoginAsyncClicked = false;
+                    }
+                    break;
+                  default:
+                    {
+                      // 비정상 응답이면서 서버에서 에러 원인 코드가 전달되지 않았을 때
+                      if (!_context.mounted) return;
+                      showDialog(
+                          barrierDismissible: true,
+                          context: _context,
+                          builder: (context) => all_dialog_info.PageEntrance(
+                              all_dialog_info.PageInputVo("네트워크 에러",
+                                  "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
+                              (pageBusiness) {}));
+                      accountLoginAsyncClicked = false;
+                    }
+                }
+              }
+            } else {
+              if (!_context.mounted) return;
+              showDialog(
+                  barrierDismissible: true,
+                  context: _context,
+                  builder: (context) => all_dialog_info.PageEntrance(
+                      all_dialog_info.PageInputVo(
+                          "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
+                      (pageBusiness) {}));
+              accountLoginAsyncClicked = false;
+            }
+          });
+
+          showDialog(
+              barrierDismissible: false,
+              context: _context,
+              builder: (context) => loadingSpinner);
         } else {
-          // 이메일 형식 맞지 않음
+          // 비밀번호 미입력 처리
+          // 입력창에 Focus 주기
           FocusScope.of(_context)
-              .requestFocus(pageViewModel.emailTextFieldFocus);
+              .requestFocus(pageViewModel.passwordTextFieldFocus);
           showToast(
-            "ID format is incorrect",
+            "비밀번호를 입력하세요.",
             context: _context,
             animation: StyledToastAnimation.scale,
           );
           accountLoginAsyncClicked = false;
-          return;
         }
-
-        var loadingSpinner = all_dialog_loading_spinner.PageEntrance(
-            all_dialog_loading_spinner.PageInputVo(), (pageBusiness) async {
-          // 네트워크 요청
-          var responseVo = await api_main_server.postSignInWithPasswordAsync(
-              api_main_server.PostSignInWithPasswordAsyncRequestBodyVo(
-                  loginTypeCode, id, password));
-
-          pageBusiness.closeDialog();
-
-          if (responseVo.dioException == null) {
-            // Dio 네트워크 응답
-            var networkResponseObjectOk = responseVo.networkResponseObjectOk!;
-
-            if (networkResponseObjectOk.responseStatusCode == 200) {
-              // 정상 응답
-              var responseBody =
-                  responseVo.networkResponseObjectOk!.responseBody!;
-              List<spw_auth_member_info.SharedPreferenceWrapperVoOAuth2Info>
-                  myOAuth2ObjectList = [];
-              for (api_main_server
-                  .PostSignInWithPasswordAsyncResponseBodyVoOAuth2Info myOAuth2
-                  in responseBody.myOAuth2List) {
-                myOAuth2ObjectList.add(
-                    spw_auth_member_info.SharedPreferenceWrapperVoOAuth2Info(
-                        myOAuth2.oauth2TypeCode, myOAuth2.oauth2Id));
-              }
-
-              spw_auth_member_info.SharedPreferenceWrapper.set(
-                  spw_auth_member_info.SharedPreferenceWrapperVo(
-                responseBody.memberUid,
-                responseBody.nickName,
-                responseBody.roleCodeList,
-                responseBody.tokenType,
-                responseBody.accessToken,
-                responseBody.accessTokenExpireWhen,
-                responseBody.refreshToken,
-                responseBody.refreshTokenExpireWhen,
-                responseBody.myEmailList,
-                responseBody.myPhoneNumberList,
-                myOAuth2ObjectList,
-              ));
-
-              accountLoginAsyncClicked = false;
-              if (!_context.mounted) return;
-              if (_context.canPop()) {
-                // History가 있는 경우, 이전 페이지로 이동(pop)
-                _context.pop();
-              } else {
-                // History가 없는 경우, 앱 종료(exit)
-                exit(0);
-              }
-            } else {
-              // 비정상 응답
-              if (networkResponseObjectOk.responseHeaders.apiErrorCodes ==
-                  null) {
-                // 비정상 응답이면서 서버에서 에러 원인 코드가 전달되지 않았을 때
-                if (!_context.mounted) return;
-                showDialog(
-                    barrierDismissible: true,
-                    context: _context,
-                    builder: (context) => all_dialog_info.PageEntrance(
-                        all_dialog_info.PageInputVo(
-                            "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
-                        (pageBusiness) {}));
-                accountLoginAsyncClicked = false;
-              } else {
-                // 서버 지정 에러 코드를 전달 받았을 때
-                List<String> apiErrorCodes =
-                    networkResponseObjectOk.responseHeaders.apiErrorCodes;
-                if (apiErrorCodes.contains("1")) {
-                  // 가입 되지 않은 회원
-                  if (!_context.mounted) return;
-                  showDialog(
-                      barrierDismissible: true,
-                      context: _context,
-                      builder: (context) => all_dialog_info.PageEntrance(
-                          all_dialog_info.PageInputVo("Sign in failed",
-                              "You are a non-registered member.", "확인"),
-                          (pageBusiness) {}));
-                  accountLoginAsyncClicked = false;
-                } else if (apiErrorCodes.contains("2")) {
-                  // 로그인 정보 검증 불일치
-                  if (!_context.mounted) return;
-                  showDialog(
-                      barrierDismissible: true,
-                      context: _context,
-                      builder: (context) => all_dialog_info.PageEntrance(
-                          all_dialog_info.PageInputVo("Sign in failed",
-                              "Sign in information does not match.", "확인"),
-                          (pageBusiness) {}));
-                  accountLoginAsyncClicked = false;
-                } else if (apiErrorCodes.contains("3")) {
-                  // 추가 로그인 금지됨(동시 로그인 제한시 추가 로그인을 금지한 상황일 때)
-                  if (!_context.mounted) return;
-                  showDialog(
-                      barrierDismissible: true,
-                      context: _context,
-                      builder: (context) => all_dialog_info.PageEntrance(
-                          all_dialog_info.PageInputVo(
-                              "Sign in failed",
-                              "This account is logging in from somewhere else.\nFurther logins are prohibited.",
-                              "확인"),
-                          (pageBusiness) {}));
-                  accountLoginAsyncClicked = false;
-                } else {
-                  // 알 수 없는 에러 코드일 때
-                  throw Exception("unKnown Error Code");
-                }
-              }
-            }
-          } else {
-            if (!_context.mounted) return;
-            showDialog(
-                barrierDismissible: true,
-                context: _context,
-                builder: (context) => all_dialog_info.PageEntrance(
-                    all_dialog_info.PageInputVo(
-                        "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
-                    (pageBusiness) {}));
-            accountLoginAsyncClicked = false;
-          }
-        });
-
-        showDialog(
-            barrierDismissible: false,
-            context: _context,
-            builder: (context) => loadingSpinner);
       } else {
-        // 비밀번호 미입력 처리
+        // 이메일 형식 맞지 않음
         // 입력창에 Focus 주기
-        FocusScope.of(_context)
-            .requestFocus(pageViewModel.passwordTextFieldFocus);
+        FocusScope.of(_context).requestFocus(pageViewModel.emailTextFieldFocus);
         showToast(
-          "Please enter your Password",
+          "이메일 형식이 아닙니다.",
           context: _context,
           animation: StyledToastAnimation.scale,
         );
@@ -288,7 +291,7 @@ class PageBusiness {
       // 입력창에 Focus 주기
       FocusScope.of(_context).requestFocus(pageViewModel.emailTextFieldFocus);
       showToast(
-        "Please enter your ID",
+        "이메일을 입력하세요.",
         context: _context,
         animation: StyledToastAnimation.scale,
       );
@@ -331,7 +334,18 @@ class PageBusiness {
       // 입력창에 Focus 주기
       FocusScope.of(_context).requestFocus(pageViewModel.emailTextFieldFocus);
       showToast(
-        "Please enter your ID",
+        "이메일을 입력하세요.",
+        context: _context,
+        animation: StyledToastAnimation.scale,
+      );
+    } else if (!RegExp(r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)*(\.[a-zA-Z]{2,})$')
+        .hasMatch(id)) {
+      // 이메일 형식 맞지 않음
+
+      // 입력창에 Focus 주기
+      FocusScope.of(_context).requestFocus(pageViewModel.emailTextFieldFocus);
+      showToast(
+        "이메일 형식이 아닙니다.",
         context: _context,
         animation: StyledToastAnimation.scale,
       );
@@ -351,7 +365,18 @@ class PageBusiness {
       // 입력창에 Focus 주기
       FocusScope.of(_context).requestFocus(pageViewModel.emailTextFieldFocus);
       showToast(
-        "Please enter your ID",
+        "이메일을 입력하세요.",
+        context: _context,
+        animation: StyledToastAnimation.scale,
+      );
+    } else if (!RegExp(r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)*(\.[a-zA-Z]{2,})$')
+        .hasMatch(id)) {
+      // 이메일 형식 맞지 않음
+
+      // 입력창에 Focus 주기
+      FocusScope.of(_context).requestFocus(pageViewModel.emailTextFieldFocus);
+      showToast(
+        "이메일 형식이 아닙니다.",
         context: _context,
         animation: StyledToastAnimation.scale,
       );
@@ -361,7 +386,7 @@ class PageBusiness {
       FocusScope.of(_context)
           .requestFocus(pageViewModel.passwordTextFieldFocus);
       showToast(
-        "Please enter your Password",
+        "비밀번호를 입력하세요.",
         context: _context,
         animation: StyledToastAnimation.scale,
       );

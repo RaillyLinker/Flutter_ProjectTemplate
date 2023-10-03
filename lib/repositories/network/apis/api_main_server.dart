@@ -4,11 +4,12 @@ import 'package:dio/dio.dart';
 // (all)
 import 'package:flutter_project_template/repositories/network/network_repositories.dart'
     as network_repositories;
+
+import '../../../global_classes/gc_template_classes.dart'
+    as gc_template_classes;
 import '../../../global_data/gd_const_config.dart' as gd_const_config;
 import '../../../global_functions/gf_template_functions.dart'
     as gf_template_functions;
-import '../../../global_classes/gc_template_classes.dart'
-    as gc_template_classes;
 
 // [네트워크 API 파일]
 // 하나의 Dio 에 대응하는 API 함수 모음 파일
@@ -1210,20 +1211,22 @@ class GetMobileAppVersionInfoAsyncResponseBodyVo {
 // (로그인 요청 with password)
 // 서버 로그인 검증 요청 후 인증 정보 수신
 Future<
-    gc_template_classes.NetworkResponseObject<
-        PostSignInWithPasswordAsyncResponseHeaderVo,
-        PostSignInWithPasswordAsyncResponseBodyVo>> postSignInWithPasswordAsync(
-    PostSignInWithPasswordAsyncRequestBodyVo requestBodyVo) async {
+        gc_template_classes.NetworkResponseObject<
+            PostService1TkV1AuthLoginWithPasswordAsyncResponseHeaderVo,
+            PostService1TkV1AuthLoginWithPasswordAsyncResponseBodyVo>>
+    postService1TkV1AuthLoginWithPasswordAsync(
+        PostService1TkV1AuthLoginWithPasswordAsyncRequestBodyVo
+            requestBodyVo) async {
   // !!!개발 / 배포 모드별 요청 Path 지정!!
-  String devServerUrl = "/tk/ra/auth/sign-in-with-password";
-  String prodServerUrl = "/tk/ra/auth/sign-in-with-password";
+  String devServerUrl = "/service1/tk/v1/auth/login-with-password";
+  String prodServerUrl = "/service1/tk/v1/auth/login-with-password";
 
   Map<String, dynamic> requestHeaders = {};
   Map<String, dynamic> requestQueryParams = {};
   Map<String, dynamic> requestBody = {};
 
   // !!!Request Object 를 Map 으로 만들기!!
-  requestBody["signInTypeCode"] = requestBodyVo.signInTypeCode;
+  requestBody["loginTypeCode"] = requestBodyVo.loginTypeCode;
   requestBody["id"] = requestBodyVo.id;
   requestBody["password"] = requestBodyVo.password;
 
@@ -1244,13 +1247,13 @@ Future<
     int statusCode = response.statusCode!;
     Map<String, dynamic> responseHeaderMap = response.headers.map;
 
-    PostSignInWithPasswordAsyncResponseHeaderVo responseHeader;
-    PostSignInWithPasswordAsyncResponseBodyVo? responseBody;
+    PostService1TkV1AuthLoginWithPasswordAsyncResponseHeaderVo responseHeader;
+    PostService1TkV1AuthLoginWithPasswordAsyncResponseBodyVo? responseBody;
 
     // !!!Response Map 을 Response Object 로 변경!!
-    responseHeader = PostSignInWithPasswordAsyncResponseHeaderVo(
-      (responseHeaderMap.containsKey("api-error-codes"))
-          ? responseHeaderMap["api-error-codes"]!
+    responseHeader = PostService1TkV1AuthLoginWithPasswordAsyncResponseHeaderVo(
+      responseHeaderMap.containsKey("api-result-code")
+          ? responseHeaderMap["api-result-code"][0]
           : null,
     );
     if (statusCode == 200) {
@@ -1271,10 +1274,11 @@ Future<
                 oAuth2["oauth2TypeCode"], oAuth2["oauth2Id"]));
       }
 
-      responseBody = PostSignInWithPasswordAsyncResponseBodyVo(
+      responseBody = PostService1TkV1AuthLoginWithPasswordAsyncResponseBodyVo(
           responseBodyMap["memberUid"],
           responseBodyMap["nickName"],
-          List<int>.from(responseBodyMap["roleCodeList"]),
+          responseBodyMap["profileImageFullUrl"],
+          List<String>.from(responseBodyMap["roleList"]),
           responseBodyMap["tokenType"],
           responseBodyMap["accessToken"],
           responseBodyMap["refreshToken"],
@@ -1296,31 +1300,31 @@ Future<
   }
 }
 
-class PostSignInWithPasswordAsyncRequestBodyVo {
-  int signInTypeCode; // 로그인 타입 (0 : 닉네임, 1 : 이메일, 2 : 전화번호)
+class PostService1TkV1AuthLoginWithPasswordAsyncRequestBodyVo {
+  int loginTypeCode; // 로그인 타입 (0 : 닉네임, 1 : 이메일, 2 : 전화번호)
   String id; // 아이디 (0 : 홍길동, 1 : test@gmail.com, 2 : 82)000-0000-0000)
   String password; // 비밀번호
 
-  PostSignInWithPasswordAsyncRequestBodyVo(
-      this.signInTypeCode, this.id, this.password);
+  PostService1TkV1AuthLoginWithPasswordAsyncRequestBodyVo(
+      this.loginTypeCode, this.id, this.password);
 }
 
-class PostSignInWithPasswordAsyncResponseHeaderVo {
-  // (서버에서 내려주는 에러 코드)
-  // null : 에러 없음,
+class PostService1TkV1AuthLoginWithPasswordAsyncResponseHeaderVo {
+  // (api-result-code)
+  // 0 : 정상 동작
   // 1 : 가입 되지 않은 회원
-  // 2 : 로그인 정보 검증 불일치
-  // 3 : 추가 로그인 금지됨(동시 로그인 제한시 추가 로그인을 금지한 상황일 때)
-  List<String>? apiErrorCodes;
+  // 2 : 패스워드 불일치
+  String? apiResultCode;
 
-  PostSignInWithPasswordAsyncResponseHeaderVo(this.apiErrorCodes);
+  PostService1TkV1AuthLoginWithPasswordAsyncResponseHeaderVo(
+      this.apiResultCode);
 }
 
-class PostSignInWithPasswordAsyncResponseBodyVo {
+class PostService1TkV1AuthLoginWithPasswordAsyncResponseBodyVo {
   String memberUid; // 멤버 고유값
   String nickName; // 닉네임
-  List<int>
-      roleCodeList; // 권한 코드 리스트 (1 : 관리자(ROLE_ADMIN), 2 : 개발자(ROLE_DEVELOPER))
+  String? profileImageFullUrl; // 대표 프로필 이미지 Full URL
+  List<String> roleList; // 권한 리스트 (관리자 : ROLE_ADMIN, 개발자 : ROLE_DEVELOPER)
   String tokenType; // 인증 토큰 타입 (ex : Bearer)
   String accessToken; // 엑세스 토큰
   String refreshToken; // 리플레시 토큰
@@ -1331,10 +1335,11 @@ class PostSignInWithPasswordAsyncResponseBodyVo {
   List<PostSignInWithPasswordAsyncResponseBodyVoOAuth2Info>
       myOAuth2List; // 내가 등록한 OAuth2 정보 리스트
 
-  PostSignInWithPasswordAsyncResponseBodyVo(
+  PostService1TkV1AuthLoginWithPasswordAsyncResponseBodyVo(
       this.memberUid,
       this.nickName,
-      this.roleCodeList,
+      this.profileImageFullUrl,
+      this.roleList,
       this.tokenType,
       this.accessToken,
       this.refreshToken,
@@ -1357,12 +1362,12 @@ class PostSignInWithPasswordAsyncResponseBodyVoOAuth2Info {
 // (로그아웃 요청 <>)
 // 서버 로그인 검증 요청 후 인증 정보 수신
 Future<
-    gc_template_classes.NetworkResponseObject<PostSignOutAsyncResponseHeaderVo,
-        PostSignOutAsyncResponseBodyVo>> postSignOutAsync(
-    PostSignOutAsyncRequestHeaderVo requestHeaderVo) async {
+    gc_template_classes.NetworkResponseObject<PostService1TkV1AuthLogoutAsyncResponseHeaderVo,
+        PostService1TkV1AuthLogoutAsyncResponseBodyVo>> postService1TkV1AuthLogoutAsync(
+    PostService1TkV1AuthLogoutAsyncRequestHeaderVo requestHeaderVo) async {
   // !!!개발 / 배포 모드별 요청 Path 지정!!
-  String devServerUrl = "/tk/ra/auth/sign-out";
-  String prodServerUrl = "/tk/ra/auth/sign-out";
+  String devServerUrl = "/service1/tk/v1/auth/logout";
+  String prodServerUrl = "/service1/tk/v1/auth/logout";
 
   Map<String, dynamic> requestHeaders = {};
   Map<String, dynamic> requestQueryParams = {};
@@ -1388,11 +1393,11 @@ Future<
     int statusCode = response.statusCode!;
     // Map<String, dynamic> responseHeaderMap = response.headers.map;
 
-    PostSignOutAsyncResponseHeaderVo responseHeader;
-    PostSignOutAsyncResponseBodyVo? responseBody;
+    PostService1TkV1AuthLogoutAsyncResponseHeaderVo responseHeader;
+    PostService1TkV1AuthLogoutAsyncResponseBodyVo? responseBody;
 
     // !!!Response Map 을 Response Object 로 변경!!
-    responseHeader = PostSignOutAsyncResponseHeaderVo();
+    responseHeader = PostService1TkV1AuthLogoutAsyncResponseHeaderVo();
     return gc_template_classes.NetworkResponseObject(
         gc_template_classes.NetworkResponseObjectOk(
             statusCode, responseHeader, responseBody),
@@ -1404,18 +1409,18 @@ Future<
   }
 }
 
-class PostSignOutAsyncRequestHeaderVo {
+class PostService1TkV1AuthLogoutAsyncRequestHeaderVo {
   // 인증 토큰 (ex : "Bearer abcd1234!@#$")
   String authorization;
 
-  PostSignOutAsyncRequestHeaderVo(this.authorization);
+  PostService1TkV1AuthLogoutAsyncRequestHeaderVo(this.authorization);
 }
 
-class PostSignOutAsyncResponseHeaderVo {
-  PostSignOutAsyncResponseHeaderVo();
+class PostService1TkV1AuthLogoutAsyncResponseHeaderVo {
+  PostService1TkV1AuthLogoutAsyncResponseHeaderVo();
 }
 
-class PostSignOutAsyncResponseBodyVo {}
+class PostService1TkV1AuthLogoutAsyncResponseBodyVo {}
 
 ////
 // (토큰 재발급 요청 <>)

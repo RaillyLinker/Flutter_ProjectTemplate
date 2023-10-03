@@ -121,12 +121,40 @@ class PageView extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 8.0),
+                  Row(
+                    children: [
+                      const Expanded(
+                          flex: 2,
+                          child: Text(
+                            '    - profileImageFullUrl : ',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontFamily: "MaruBuri"),
+                          )),
+                      Expanded(
+                          flex: 3,
+                          child:
+                          BlocBuilder<page_business.BlocSignInMemberInfo, bool>(
+                              builder: (c, s) {
+                                var signInMemberInfo =
+                                    pageBusiness.pageViewModel.signInMemberInfo;
+                                String text = (signInMemberInfo == null)
+                                    ? "null"
+                                    : signInMemberInfo.profileImageFullUrl.toString();
+                                return Text(
+                                  text,
+                                  style: const TextStyle(fontFamily: "MaruBuri"),
+                                );
+                              })),
+                    ],
+                  ),
+                  const SizedBox(height: 8.0),
               Row(
                 children: [
                   const Expanded(
                       flex: 2,
                       child: Text(
-                        '    - roleCodeList : ',
+                        '    - roleList : ',
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontFamily: "MaruBuri"),
@@ -140,7 +168,7 @@ class PageView extends StatelessWidget {
                             pageBusiness.pageViewModel.signInMemberInfo;
                         String text = (signInMemberInfo == null)
                             ? "null"
-                            : signInMemberInfo.roleCodeList.toString();
+                            : signInMemberInfo.roleList.toString();
                         return Text(
                           text,
                           style: const TextStyle(fontFamily: "MaruBuri"),
