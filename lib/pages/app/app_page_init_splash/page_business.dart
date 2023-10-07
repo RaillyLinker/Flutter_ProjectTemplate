@@ -1,6 +1,6 @@
 // (external)
-import 'dart:io';
 import 'dart:async';
+import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,23 +9,23 @@ import 'package:intl/intl.dart';
 import 'package:store_redirect/store_redirect.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-// (page)
-import 'page_entrance.dart' as page_entrance;
-
 // (all)
+import '../../../../../repositories/network/apis/api_main_server.dart'
+as api_main_server;
 import '../../../../../repositories/spws/spw_auth_member_info.dart'
     as spw_auth_member_info;
-import '../../../../../repositories/network/apis/api_main_server.dart'
-    as api_main_server;
 import '../../../dialogs/all/all_dialog_info/page_entrance.dart'
     as all_dialog_info;
-import '../../../global_classes/gc_my_classes.dart' as gc_my_classes;
 import '../../../dialogs/all/all_dialog_yes_or_no/page_entrance.dart'
     as all_dialog_yes_or_no;
-import '../../../pages/all/all_page_home/page_entrance.dart' as all_page_home;
+import '../../../global_classes/gc_my_classes.dart' as gc_my_classes;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
 import '../../../global_data/gd_const_config.dart' as gd_const_config;
+import '../../../pages/all/all_page_home/page_entrance.dart' as all_page_home;
+
+// (page)
+import 'page_entrance.dart' as page_entrance;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
 
@@ -46,6 +46,7 @@ class PageBusiness {
   Timer? _screenWaitingTimer;
 
   // 앱 초기화 로직 스레드 합류 객체 (비동기로 진행되는 화면 대기 타이머와 초기화 로직이 모두 끝나면 콜백이 실행됨)
+  // _appInitLogicThreadConfluenceObj.threadComplete(); 이 함수가 2번 호출되어야 콜백이 실행됨
   late final gc_my_classes.ThreadConfluenceObj
       _appInitLogicThreadConfluenceObj =
       gc_my_classes.ThreadConfluenceObj(2, () {
@@ -215,12 +216,11 @@ class PageBusiness {
                 context: _context,
                 builder: (context) => all_dialog_info.PageEntrance(
                     all_dialog_info.PageInputVo(
-                        "need update",
-                        "The required version is not met.\nPlease update the application.\n\nGo to the App Store.",
-                        "확인"),
+                        "업데이트 필요", "새 버전 업데이트가 필요합니다.", "확인"),
                     (pageBusiness) {})).then((value) {
               // 앱 업데이트 스토어로 이동
               try {
+                // !!!스토어 리다이렉트 경로 설정!!
                 StoreRedirect.redirect(androidAppId: "todo", iOSAppId: "todo")
                     .then((value) {
                   exit(0);
@@ -237,11 +237,9 @@ class PageBusiness {
                 context: _context,
                 builder: (context) => all_dialog_info.PageEntrance(
                     all_dialog_info.PageInputVo(
-                        "need update",
-                        "The required version is not met.\nPlease update the application.\n\nGo to the Download Site.",
-                        "확인"),
+                        "업데이트 필요", "새 버전 업데이트가 필요합니다.", "확인"),
                     (pageBusiness) {})).then((value) {
-              // 앱 업데이트 사이트로 이동
+              // !!!앱 업데이트 사이트로 이동!!
               launchUrl(Uri.parse('https://todo.com')).then((value) {
                 exit(0);
               });
@@ -261,7 +259,7 @@ class PageBusiness {
             context: _context,
             builder: (context) => all_dialog_yes_or_no.PageEntrance(
                 all_dialog_yes_or_no.PageInputVo(
-                    "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "Retry", "Exit"),
+                    "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "다시 시도", "종료"),
                 (pageBusiness) {})).then((outputVo) async {
           if (outputVo == null || !outputVo.checkPositiveBtn) {
             // 아무것도 누르지 않거나 negative 버튼을 눌렀을 때
@@ -283,7 +281,7 @@ class PageBusiness {
           context: _context,
           builder: (context) => all_dialog_yes_or_no.PageEntrance(
               all_dialog_yes_or_no.PageInputVo(
-                  "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "Retry", "Exit"),
+                  "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "다시 시도", "종료"),
               (pageBusiness) {})).then((outputVo) async {
         if (outputVo == null || !outputVo.checkPositiveBtn) {
           // 아무것도 누르지 않거나 negative 버튼을 눌렀을 때
@@ -316,11 +314,12 @@ class PageBusiness {
 
         _appInitLogicThreadConfluenceObj.threadComplete();
       } else {
-        var postAutoLoginOutputVo = await api_main_server.postService1TkV1AuthReissueAsync(
-            api_main_server.PostService1TkV1AuthReissueAsyncRequestHeaderVo(
-                "${signInMemberInfo.tokenType} ${signInMemberInfo.accessToken}"),
-            api_main_server.PostService1TkV1AuthReissueAsyncRequestBodyVo(
-                "${signInMemberInfo.tokenType} ${signInMemberInfo.refreshToken}"));
+        var postAutoLoginOutputVo =
+            await api_main_server.postService1TkV1AuthReissueAsync(
+                api_main_server.PostService1TkV1AuthReissueAsyncRequestHeaderVo(
+                    "${signInMemberInfo.tokenType} ${signInMemberInfo.accessToken}"),
+                api_main_server.PostService1TkV1AuthReissueAsyncRequestBodyVo(
+                    "${signInMemberInfo.tokenType} ${signInMemberInfo.refreshToken}"));
 
         // 네트워크 요청 결과 처리
         if (postAutoLoginOutputVo.dioException == null) {
@@ -332,8 +331,8 @@ class PageBusiness {
             // 액세스 토큰 재발급 정상 응답
 
             var postAutoLoginResponseBody =
-                networkResponseObjectOk.responseBody!
-                    as api_main_server.PostService1TkV1AuthReissueAsyncResponseBodyVo;
+                networkResponseObjectOk.responseBody! as api_main_server
+                    .PostService1TkV1AuthReissueAsyncResponseBodyVo;
 
             pageViewModel.signInRetryCount = 0;
 
@@ -349,9 +348,9 @@ class PageBusiness {
             }
             signInMemberInfo.memberUid = postAutoLoginResponseBody.memberUid;
             signInMemberInfo.nickName = postAutoLoginResponseBody.nickName;
-            signInMemberInfo.profileImageFullUrl = postAutoLoginResponseBody.profileImageFullUrl;
-            signInMemberInfo.roleList =
-                postAutoLoginResponseBody.roleList;
+            signInMemberInfo.profileImageFullUrl =
+                postAutoLoginResponseBody.profileImageFullUrl;
+            signInMemberInfo.roleList = postAutoLoginResponseBody.roleList;
             signInMemberInfo.tokenType = postAutoLoginResponseBody.tokenType;
             signInMemberInfo.accessToken =
                 postAutoLoginResponseBody.accessToken;
@@ -382,10 +381,8 @@ class PageBusiness {
                     barrierDismissible: true,
                     context: _context,
                     builder: (context) => all_dialog_info.PageEntrance(
-                        all_dialog_info.PageInputVo(
-                            "Server Sign in Error",
-                            "network connection is unstable.\nSwitch to non-member status.",
-                            "확인"),
+                        all_dialog_info.PageInputVo("로그인 실패",
+                            "저장된 로그인 정보를 사용할 수 없습니다.\n비회원 상태로 전환합니다.", "확인"),
                         (pageBusiness) {}));
 
                 // login_user_info SSW 비우기 (= 로그아웃 처리)
@@ -400,7 +397,7 @@ class PageBusiness {
                   context: _context,
                   builder: (context) => all_dialog_yes_or_no.PageEntrance(
                       all_dialog_yes_or_no.PageInputVo("네트워크 에러",
-                          "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "Retry", "Exit"),
+                          "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "다시 시도", "종료"),
                       (pageBusiness) {})).then((outputVo) async {
                 if (outputVo == null || !outputVo.checkPositiveBtn) {
                   // 아무것도 누르지 않거나 negative 버튼을 눌렀을 때
@@ -443,10 +440,8 @@ class PageBusiness {
                 barrierDismissible: true,
                 context: _context,
                 builder: (context) => all_dialog_info.PageEntrance(
-                    all_dialog_info.PageInputVo(
-                        "Server Sign in Error",
-                        "network connection is unstable.\nSwitch to non-member status.",
-                        "확인"),
+                    all_dialog_info.PageInputVo("로그인 실패",
+                        "저장된 로그인 정보를 사용할 수 없습니다.\n비회원 상태로 전환합니다.", "확인"),
                     (pageBusiness) {}));
 
             // login_user_info SSW 비우기 (= 로그아웃 처리)
@@ -461,8 +456,8 @@ class PageBusiness {
               barrierDismissible: false,
               context: _context,
               builder: (context) => all_dialog_yes_or_no.PageEntrance(
-                  all_dialog_yes_or_no.PageInputVo("네트워크 에러",
-                      "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "Retry", "Exit"),
+                  all_dialog_yes_or_no.PageInputVo(
+                      "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "다시 시도", "종료"),
                   (pageBusiness) {})).then((outputVo) async {
             if (outputVo == null || !outputVo.checkPositiveBtn) {
               // 아무것도 누르지 않거나 negative 버튼을 눌렀을 때
