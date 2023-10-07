@@ -74,7 +74,7 @@ dependencies:
   encrypt: ^5.0.1
 
   # JWT 생성
-  dart_jsonwebtoken: ^2.10.0
+  dart_jsonwebtoken: ^2.12.0
 
   ####
   # [Mobile]
@@ -82,7 +82,7 @@ dependencies:
   store_redirect: ^2.0.1
 
   # 모바일 권한 처리
-  permission_handler: ^11.0.0
+  permission_handler: ^11.0.1
 
 dev_dependencies:
   flutter_test:
