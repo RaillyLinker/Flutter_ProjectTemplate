@@ -424,6 +424,35 @@ class PageView extends StatelessWidget {
                   ),
                 ],
               ),
+              const SizedBox(height: 8.0),
+              Row(
+                children: [
+                  const Expanded(
+                      flex: 2,
+                      child: Text(
+                        '    - authPasswordIsNull : ',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontFamily: "MaruBuri"),
+                      )),
+                  Expanded(
+                    flex: 3,
+                    child:
+                        BlocBuilder<page_business.BlocSignInMemberInfo, bool>(
+                            builder: (c, s) {
+                      var signInMemberInfo =
+                          pageBusiness.pageViewModel.signInMemberInfo;
+                      String text = (signInMemberInfo == null)
+                          ? "null"
+                          : signInMemberInfo.authPasswordIsNull.toString();
+                      return SelectableText(
+                        text,
+                        style: const TextStyle(fontFamily: "MaruBuri"),
+                      );
+                    }),
+                  ),
+                ],
+              ),
               const SizedBox(height: 20.0),
               const Text(
                 '계정 관련 기능 샘플 리스트',

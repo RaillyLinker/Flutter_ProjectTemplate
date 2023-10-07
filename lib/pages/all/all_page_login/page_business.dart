@@ -185,6 +185,7 @@ class PageBusiness {
                   responseBody.myEmailList,
                   responseBody.myPhoneNumberList,
                   myOAuth2ObjectList,
+                  responseBody.authPasswordIsNull,
                 ));
 
                 accountLoginAsyncClicked = false;

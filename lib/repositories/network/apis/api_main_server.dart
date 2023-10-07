@@ -1282,18 +1282,20 @@ Future<
       }
 
       responseBody = PostService1TkV1AuthLoginWithPasswordAsyncResponseBodyVo(
-          responseBodyMap["memberUid"],
-          responseBodyMap["nickName"],
-          responseBodyMap["profileImageFullUrl"],
-          List<String>.from(responseBodyMap["roleList"]),
-          responseBodyMap["tokenType"],
-          responseBodyMap["accessToken"],
-          responseBodyMap["refreshToken"],
-          responseBodyMap["accessTokenExpireWhen"],
-          responseBodyMap["refreshTokenExpireWhen"],
-          List<String>.from(responseBodyMap["myEmailList"]),
-          List<String>.from(responseBodyMap["myPhoneNumberList"]),
-          oAuth2ObjectList);
+        responseBodyMap["memberUid"],
+        responseBodyMap["nickName"],
+        responseBodyMap["profileImageFullUrl"],
+        List<String>.from(responseBodyMap["roleList"]),
+        responseBodyMap["tokenType"],
+        responseBodyMap["accessToken"],
+        responseBodyMap["refreshToken"],
+        responseBodyMap["accessTokenExpireWhen"],
+        responseBodyMap["refreshTokenExpireWhen"],
+        List<String>.from(responseBodyMap["myEmailList"]),
+        List<String>.from(responseBodyMap["myPhoneNumberList"]),
+        oAuth2ObjectList,
+        responseBodyMap["authPasswordIsNull"],
+      );
     }
 
     return gc_template_classes.NetworkResponseObject(
@@ -1341,20 +1343,24 @@ class PostService1TkV1AuthLoginWithPasswordAsyncResponseBodyVo {
   List<String> myPhoneNumberList; // 내가 등록한 전화번호 리스트
   List<PostSignInWithPasswordAsyncResponseBodyVoOAuth2Info>
       myOAuth2List; // 내가 등록한 OAuth2 정보 리스트
+  bool
+      authPasswordIsNull; // 계정 로그인 비밀번호 설정 Null 여부 (OAuth2 만으로 회원가입한 경우는 비밀번호가 없으므로 true)
 
   PostService1TkV1AuthLoginWithPasswordAsyncResponseBodyVo(
-      this.memberUid,
-      this.nickName,
-      this.profileImageFullUrl,
-      this.roleList,
-      this.tokenType,
-      this.accessToken,
-      this.refreshToken,
-      this.accessTokenExpireWhen,
-      this.refreshTokenExpireWhen,
-      this.myEmailList,
-      this.myPhoneNumberList,
-      this.myOAuth2List);
+    this.memberUid,
+    this.nickName,
+    this.profileImageFullUrl,
+    this.roleList,
+    this.tokenType,
+    this.accessToken,
+    this.refreshToken,
+    this.accessTokenExpireWhen,
+    this.refreshTokenExpireWhen,
+    this.myEmailList,
+    this.myPhoneNumberList,
+    this.myOAuth2List,
+    this.authPasswordIsNull,
+  );
 }
 
 class PostSignInWithPasswordAsyncResponseBodyVoOAuth2Info {
@@ -1585,18 +1591,20 @@ Future<
       }
 
       responseBody = PostService1TkV1AuthReissueAsyncResponseBodyVo(
-          responseBodyMap["memberUid"],
-          responseBodyMap["nickName"],
-          responseBodyMap["profileImageFullUrl"],
-          List<String>.from(responseBodyMap["roleList"]),
-          responseBodyMap["tokenType"],
-          responseBodyMap["accessToken"],
-          responseBodyMap["refreshToken"],
-          responseBodyMap["accessTokenExpireWhen"],
-          responseBodyMap["refreshTokenExpireWhen"],
-          List<String>.from(responseBodyMap["myEmailList"]),
-          List<String>.from(responseBodyMap["myPhoneNumberList"]),
-          oAuth2ObjectList);
+        responseBodyMap["memberUid"],
+        responseBodyMap["nickName"],
+        responseBodyMap["profileImageFullUrl"],
+        List<String>.from(responseBodyMap["roleList"]),
+        responseBodyMap["tokenType"],
+        responseBodyMap["accessToken"],
+        responseBodyMap["refreshToken"],
+        responseBodyMap["accessTokenExpireWhen"],
+        responseBodyMap["refreshTokenExpireWhen"],
+        List<String>.from(responseBodyMap["myEmailList"]),
+        List<String>.from(responseBodyMap["myPhoneNumberList"]),
+        oAuth2ObjectList,
+        responseBodyMap["authPasswordSet"],
+      );
     }
 
     return gc_template_classes.NetworkResponseObject(
@@ -1651,20 +1659,24 @@ class PostService1TkV1AuthReissueAsyncResponseBodyVo {
   List<String> myPhoneNumberList; // 내가 등록한 전화번호 리스트
   List<PostReissueAsyncResponseBodyVoOAuth2Info>
       myOAuth2List; // 내가 등록한 OAuth2 정보 리스트
+  bool
+      authPasswordSet; // 계정 로그인 비밀번호 설정 여부 (OAuth2 만으로 회원가입한 경우는 비밀번호가 없으므로 false)
 
   PostService1TkV1AuthReissueAsyncResponseBodyVo(
-      this.memberUid,
-      this.nickName,
-      this.profileImageFullUrl,
-      this.roleList,
-      this.tokenType,
-      this.accessToken,
-      this.refreshToken,
-      this.accessTokenExpireWhen,
-      this.refreshTokenExpireWhen,
-      this.myEmailList,
-      this.myPhoneNumberList,
-      this.myOAuth2List);
+    this.memberUid,
+    this.nickName,
+    this.profileImageFullUrl,
+    this.roleList,
+    this.tokenType,
+    this.accessToken,
+    this.refreshToken,
+    this.accessTokenExpireWhen,
+    this.refreshTokenExpireWhen,
+    this.myEmailList,
+    this.myPhoneNumberList,
+    this.myOAuth2List,
+    this.authPasswordSet,
+  );
 }
 
 class PostReissueAsyncResponseBodyVoOAuth2Info {

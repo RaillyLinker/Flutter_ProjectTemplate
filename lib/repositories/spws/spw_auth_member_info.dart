@@ -60,18 +60,20 @@ class SharedPreferenceWrapper {
               oAuth2["oauth2TypeCode"], oAuth2["oauth2Id"]));
         }
         var resultObject = SharedPreferenceWrapperVo(
-            map["memberUid"],
-            map["nickName"],
-            map["profileImageFullUrl"],
-            List<String>.from(map["roleList"]),
-            map["tokenType"],
-            map["accessToken"],
-            map["accessTokenExpireWhen"],
-            map["refreshToken"],
-            map["refreshTokenExpireWhen"],
-            List<String>.from(map["myEmailList"]),
-            List<String>.from(map["myPhoneNumberList"]),
-            oAuth2ObjectList);
+          map["memberUid"],
+          map["nickName"],
+          map["profileImageFullUrl"],
+          List<String>.from(map["roleList"]),
+          map["tokenType"],
+          map["accessToken"],
+          map["accessTokenExpireWhen"],
+          map["refreshToken"],
+          map["refreshTokenExpireWhen"],
+          List<String>.from(map["myEmailList"]),
+          List<String>.from(map["myPhoneNumberList"]),
+          oAuth2ObjectList,
+          map["authPasswordIsNull"],
+        );
         semaphore.release();
         return resultObject;
       } catch (e) {
@@ -123,6 +125,7 @@ class SharedPreferenceWrapper {
         "myEmailList": value.myEmailList,
         "myPhoneNumberList": value.myPhoneNumberList,
         "myOAuth2List": myPhoneNumberMapList,
+        "authPasswordIsNull": value.authPasswordIsNull,
       };
 
       // 값 암호화
@@ -156,6 +159,8 @@ class SharedPreferenceWrapperVo {
   List<String> myPhoneNumberList; // 내가 등록한 전화번호 리스트
   List<SharedPreferenceWrapperVoOAuth2Info>
       myOAuth2List; // 내가 등록한 OAuth2 정보 리스트
+  bool
+      authPasswordIsNull; // 계정 로그인 비밀번호 설정 Null 여부 (OAuth2 만으로 회원가입한 경우는 비밀번호가 없으므로 true)
 
   SharedPreferenceWrapperVo(
       this.memberUid,
@@ -169,7 +174,8 @@ class SharedPreferenceWrapperVo {
       this.refreshTokenExpireWhen,
       this.myEmailList,
       this.myPhoneNumberList,
-      this.myOAuth2List);
+      this.myOAuth2List,
+      this.authPasswordIsNull);
 }
 
 class SharedPreferenceWrapperVoOAuth2Info {
