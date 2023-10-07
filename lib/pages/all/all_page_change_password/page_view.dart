@@ -201,10 +201,9 @@ class PageView extends StatelessWidget {
                 ),
                 Container(
                   width: 300,
-                  height: 300,
                   margin: const EdgeInsets.only(top: 30),
                   padding: const EdgeInsets.only(
-                      left: 10, right: 10, top: 2, bottom: 2),
+                      left: 10, right: 10, top: 5, bottom: 20),
                   decoration: const BoxDecoration(
                       border: Border(
                         left: BorderSide(
@@ -243,16 +242,13 @@ class PageView extends StatelessWidget {
                               fontFamily: "MaruBuri"),
                         ),
                         SizedBox(
-                          height: 5,
+                          height: 10,
                         ),
                         Text(
                           '1. 비밀번호의 길이는 최소 8자 이상으로 입력하세요.\n'
                           '2. 비밀번호에 공백은 허용되지 않습니다.\n'
                           '3. 비밀번호는 영문 대/소문자, 숫자, 특수문자의 조합으로 입력하세요.\n'
-                          '4. 문자, 숫자를 3 글자 이상 연속된 값으로 입력하는 것은 보안상 좋지 않습니다.\n'
-                          '    (예 : 123..., 456..., abc...)\n'
-                          '5. 같은 글자를 3번 이상 반복하는 것은 보안상 좋지 않습니다.\n'
-                          '6. 아래 특수문자는 사용할 수 없습니다.\n'
+                          '4. 아래 특수문자는 사용할 수 없습니다.\n'
                           '    <, >, (, ), #, ’, /, |',
                           style: TextStyle(
                               fontWeight: FontWeight.normal,

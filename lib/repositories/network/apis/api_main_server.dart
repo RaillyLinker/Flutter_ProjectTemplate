@@ -1440,6 +1440,87 @@ class PostService1TkV1AuthLogoutAsyncResponseHeaderVo {
 class PostService1TkV1AuthLogoutAsyncResponseBodyVo {}
 
 ////
+// (멤버의 현재 발행된 모든 리프레시 토큰 비활성화 (= 모든 기기에서 로그아웃) 요청 <>)
+// 멤버의 현재 발행된 모든 리프레시 토큰을 비활성화 (= 모든 기기에서 로그아웃) 하는 API
+// 한번 발행된 액세스 토큰을 강제로 못쓰게 만들 수는 없지만, 현재 발행된 모든 리플래시 토큰을 사용할 수 없도록 만듭니다.
+Future<
+        gc_template_classes.NetworkResponseObject<
+            DeleteService1TkV1AuthAllAuthorizationTokenAsyncResponseHeaderVo,
+            DeleteService1TkV1AuthAllAuthorizationTokenAsyncResponseBodyVo>>
+    deleteService1TkV1AuthAllAuthorizationTokenAsync(
+        DeleteService1TkV1AuthAllAuthorizationTokenAsyncRequestHeaderVo
+            requestHeaderVo) async {
+  // !!!개발 / 배포 모드별 요청 Path 지정!!
+  String devServerUrl = "/service1/tk/v1/auth/all-authorization-token";
+  String prodServerUrl = "/service1/tk/v1/auth/all-authorization-token";
+
+  Map<String, dynamic> requestHeaders = {};
+  Map<String, dynamic> requestQueryParams = {};
+  Map<String, dynamic> requestBody = {};
+
+  // !!!Request Object 를 Map 으로 만들기!!
+  requestHeaders["Authorization"] = requestHeaderVo.authorization;
+
+  // baseUrl + Request path + QueryParam
+  String requestUrlAndParam = gf_template_functions.mergeNetworkQueryParam(
+      requestQueryParams,
+      (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
+
+  try {
+    // !!!네트워크 요청 설정!!
+    // requestPathAndParam, headers 설정 외 세부 설정
+    var response = await serverDioObject.delete(requestUrlAndParam,
+        options: Options(
+          headers: requestHeaders,
+        ),
+        data: requestBody);
+
+    int statusCode = response.statusCode!;
+    Map<String, dynamic> responseHeaderMap = response.headers.map;
+
+    DeleteService1TkV1AuthAllAuthorizationTokenAsyncResponseHeaderVo
+        responseHeader;
+    DeleteService1TkV1AuthAllAuthorizationTokenAsyncResponseBodyVo?
+        responseBody;
+
+    // !!!Response Map 을 Response Object 로 변경!!
+    responseHeader =
+        DeleteService1TkV1AuthAllAuthorizationTokenAsyncResponseHeaderVo(
+      responseHeaderMap.containsKey("api-result-code")
+          ? responseHeaderMap["api-result-code"][0]
+          : null,
+    );
+    return gc_template_classes.NetworkResponseObject(
+        gc_template_classes.NetworkResponseObjectOk(
+            statusCode, responseHeader, responseBody),
+        null);
+  } on DioException catch (e) {
+    // 서버에 리퀘스트가 도달하지 못한 에러 + Dio 가 에러로 규정한 Status Code
+    //  = 클라이언트 입장에선 그냥 네트워크 에러로 처리
+    return gc_template_classes.NetworkResponseObject(null, e);
+  }
+}
+
+class DeleteService1TkV1AuthAllAuthorizationTokenAsyncRequestHeaderVo {
+  // 인증 토큰 (ex : "Bearer abcd1234!@#$")
+  String authorization;
+
+  DeleteService1TkV1AuthAllAuthorizationTokenAsyncRequestHeaderVo(
+      this.authorization);
+}
+
+class DeleteService1TkV1AuthAllAuthorizationTokenAsyncResponseHeaderVo {
+  // (api-result-code)
+  // 0 : 정상 동작
+  String? apiResultCode;
+
+  DeleteService1TkV1AuthAllAuthorizationTokenAsyncResponseHeaderVo(
+      this.apiResultCode);
+}
+
+class DeleteService1TkV1AuthAllAuthorizationTokenAsyncResponseBodyVo {}
+
+////
 // (토큰 재발급 요청 <>)
 // 엑세스 토큰 및 리플레시 토큰 재발행
 Future<

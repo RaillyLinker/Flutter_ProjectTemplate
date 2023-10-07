@@ -29,7 +29,7 @@ import '../../../pages/all/all_page_membership_withdrawal/page_entrance.dart'
 import 'page_entrance.dart' as page_entrance;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
-// todo : 비밀번호 없을 때 추가하기, 비밀번호 있을 때 제거하기
+// todo : 비밀번호 없을 때 추가하기, 비밀번호 있을 때 제거하기, 모든 디바이스에서 로그아웃, 로그인 관련 용어 변경
 
 //------------------------------------------------------------------------------
 // 페이지의 비즈니스 로직 및 뷰모델 담당
@@ -194,12 +194,12 @@ class PageBusiness {
 
               // login_user_info SPW 비우기
               spw_auth_member_info.SharedPreferenceWrapper.set(null);
-
-              pageBusiness.closeDialog();
-
-              // 비회원으로 전체 화면 갱신
-              refreshScreenDataAsync(null);
             }
+
+            pageBusiness.closeDialog();
+
+            // 비회원으로 전체 화면 갱신
+            refreshScreenDataAsync(null);
           });
 
           showDialog(
@@ -301,13 +301,12 @@ class PageBusiness {
 
                     refreshScreenDataAsync(signInMemberInfo);
                   } else {
-                    var postReissueResponseHeader =
-                    networkResponseObjectOk.responseHeaders!
-                    as api_main_server.PostService1TkV1AuthReissueAsyncResponseHeaderVo;
+                    var postReissueResponseHeader = networkResponseObjectOk
+                            .responseHeaders! as api_main_server
+                        .PostService1TkV1AuthReissueAsyncResponseHeaderVo;
 
                     // 비정상 응답
-                    if (postReissueResponseHeader.apiResultCode ==
-                        null) {
+                    if (postReissueResponseHeader.apiResultCode == null) {
                       // 비정상 응답이면서 서버에서 에러 원인 코드가 전달되지 않았을 때
                       if (!_context.mounted) return;
                       showDialog(
@@ -322,24 +321,26 @@ class PageBusiness {
                       String apiResultCode =
                           postReissueResponseHeader.apiResultCode!;
 
-                      switch(apiResultCode){
+                      switch (apiResultCode) {
                         case "1": // 탈퇴된 회원
-                        case"2": // 유효하지 않은 리프레시 토큰
-                        case"3": // 리프레시 토큰 만료
-                        case"4": // 리프레시 토큰이 액세스 토큰과 매칭되지 않음
-                        {
-                          // 리플래시 토큰이 사용 불가이므로 로그아웃 처리
-                          // login_user_info SPW 비우기
-                          spw_auth_member_info.SharedPreferenceWrapper.set(null);
+                        case "2": // 유효하지 않은 리프레시 토큰
+                        case "3": // 리프레시 토큰 만료
+                        case "4": // 리프레시 토큰이 액세스 토큰과 매칭되지 않음
+                          {
+                            // 리플래시 토큰이 사용 불가이므로 로그아웃 처리
+                            // login_user_info SPW 비우기
+                            spw_auth_member_info.SharedPreferenceWrapper.set(
+                                null);
 
-                          // 비회원으로 전체 화면 갱신
-                          refreshScreenDataAsync(null);
-                      }
-                        break;
-                        default:{
-                          // 알 수 없는 에러 코드일 때
-                          throw Exception("unKnown Error Code");
-                        }
+                            // 비회원으로 전체 화면 갱신
+                            refreshScreenDataAsync(null);
+                          }
+                          break;
+                        default:
+                          {
+                            // 알 수 없는 에러 코드일 때
+                            throw Exception("unKnown Error Code");
+                          }
                       }
                     }
                   }
