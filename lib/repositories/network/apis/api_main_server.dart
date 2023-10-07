@@ -1127,7 +1127,7 @@ Future<
   return gc_template_classes.NetworkResponseObject(
       gc_template_classes.NetworkResponseObjectOk(
           200,
-          GetMobileAppVersionInfoAsyncResponseHeaderVo(),
+          GetMobileAppVersionInfoAsyncResponseHeaderVo("0"),
           GetMobileAppVersionInfoAsyncResponseBodyVo("1.0.0", "1.0.0")),
       null);
 
@@ -1155,13 +1155,16 @@ Future<
         ));
 
     int statusCode = response.statusCode!;
-    // Map<String, dynamic> responseHeaderMap = response.headers.map;
+    Map<String, dynamic> responseHeaderMap = response.headers.map;
 
     GetMobileAppVersionInfoAsyncResponseHeaderVo responseHeader;
     GetMobileAppVersionInfoAsyncResponseBodyVo? responseBody;
 
     // !!!Response Map 을 Response Object 로 변경!!
-    responseHeader = GetMobileAppVersionInfoAsyncResponseHeaderVo();
+    responseHeader = GetMobileAppVersionInfoAsyncResponseHeaderVo(
+        responseHeaderMap.containsKey("api-result-code")
+            ? responseHeaderMap["api-result-code"][0]
+            : null);
     if (statusCode == 200) {
       // responseBody 가 반환되는 조건
       Map<String, dynamic> responseBodyMap = response.data;
@@ -1196,7 +1199,11 @@ class GetMobileAppVersionInfoAsyncRequestQueryVo {
 }
 
 class GetMobileAppVersionInfoAsyncResponseHeaderVo {
-  GetMobileAppVersionInfoAsyncResponseHeaderVo();
+  // (api-result-code)
+  // 0 : 정상 동작
+  String? apiResultCode;
+
+  GetMobileAppVersionInfoAsyncResponseHeaderVo(this.apiResultCode);
 }
 
 class GetMobileAppVersionInfoAsyncResponseBodyVo {
@@ -1393,13 +1400,17 @@ Future<
         data: requestBody);
 
     int statusCode = response.statusCode!;
-    // Map<String, dynamic> responseHeaderMap = response.headers.map;
+    Map<String, dynamic> responseHeaderMap = response.headers.map;
 
     PostService1TkV1AuthLogoutAsyncResponseHeaderVo responseHeader;
     PostService1TkV1AuthLogoutAsyncResponseBodyVo? responseBody;
 
     // !!!Response Map 을 Response Object 로 변경!!
-    responseHeader = PostService1TkV1AuthLogoutAsyncResponseHeaderVo();
+    responseHeader = PostService1TkV1AuthLogoutAsyncResponseHeaderVo(
+      responseHeaderMap.containsKey("api-result-code")
+          ? responseHeaderMap["api-result-code"][0]
+          : null,
+    );
     return gc_template_classes.NetworkResponseObject(
         gc_template_classes.NetworkResponseObjectOk(
             statusCode, responseHeader, responseBody),
@@ -1419,7 +1430,11 @@ class PostService1TkV1AuthLogoutAsyncRequestHeaderVo {
 }
 
 class PostService1TkV1AuthLogoutAsyncResponseHeaderVo {
-  PostService1TkV1AuthLogoutAsyncResponseHeaderVo();
+  // (api-result-code)
+  // 0 : 정상 동작
+  String? apiResultCode;
+
+  PostService1TkV1AuthLogoutAsyncResponseHeaderVo(this.apiResultCode);
 }
 
 class PostService1TkV1AuthLogoutAsyncResponseBodyVo {}
@@ -1608,13 +1623,17 @@ Future<
         ));
 
     int statusCode = response.statusCode!;
-    // Map<String, dynamic> responseHeaderMap = response.headers.map;
+    Map<String, dynamic> responseHeaderMap = response.headers.map;
 
     GetService1TkV1AuthForNoLoggedInAsyncResponseHeaderVo responseHeader;
     GetService1TkV1AuthForNoLoggedInAsyncResponseBodyVo? responseBody;
 
     // !!!Response Map 을 Response Object 로 변경!!
-    responseHeader = GetService1TkV1AuthForNoLoggedInAsyncResponseHeaderVo();
+    responseHeader = GetService1TkV1AuthForNoLoggedInAsyncResponseHeaderVo(
+      (responseHeaderMap.containsKey("api-result-code"))
+          ? responseHeaderMap["api-result-code"][0]
+          : null,
+    );
     if (statusCode == 200) {
       // responseBody 가 반환되는 조건
       Map<String, dynamic> responseBodyMap = response.data;
@@ -1639,7 +1658,11 @@ Future<
 }
 
 class GetService1TkV1AuthForNoLoggedInAsyncResponseHeaderVo {
-  GetService1TkV1AuthForNoLoggedInAsyncResponseHeaderVo();
+  // (api-result-code)
+  // 0 : 정상 동작
+  String? apiResultCode;
+
+  GetService1TkV1AuthForNoLoggedInAsyncResponseHeaderVo(this.apiResultCode);
 }
 
 class GetService1TkV1AuthForNoLoggedInAsyncResponseBodyVo {
@@ -1689,13 +1712,17 @@ Future<
         ));
 
     int statusCode = response.statusCode!;
-    // Map<String, dynamic> responseHeaderMap = response.headers.map;
+    Map<String, dynamic> responseHeaderMap = response.headers.map;
 
     GetService1TkV1AuthForLoggedInAsyncResponseHeaderVo responseHeader;
     GetService1TkV1AuthForLoggedInAsyncResponseBodyVo? responseBody;
 
     // !!!Response Map 을 Response Object 로 변경!!
-    responseHeader = GetService1TkV1AuthForLoggedInAsyncResponseHeaderVo();
+    responseHeader = GetService1TkV1AuthForLoggedInAsyncResponseHeaderVo(
+      (responseHeaderMap.containsKey("api-result-code"))
+          ? responseHeaderMap["api-result-code"][0]
+          : null,
+    );
     if (statusCode == 200) {
       // responseBody 가 반환되는 조건
       Map<String, dynamic> responseBodyMap = response.data;
@@ -1727,7 +1754,11 @@ class GetService1TkV1AuthForLoggedInAsyncRequestHeaderVo {
 }
 
 class GetService1TkV1AuthForLoggedInAsyncResponseHeaderVo {
-  GetService1TkV1AuthForLoggedInAsyncResponseHeaderVo();
+  // (api-result-code)
+  // 0 : 정상 동작
+  String? apiResultCode;
+
+  GetService1TkV1AuthForLoggedInAsyncResponseHeaderVo(this.apiResultCode);
 }
 
 class GetService1TkV1AuthForLoggedInAsyncResponseBodyVo {
@@ -1777,13 +1808,17 @@ Future<
         ));
 
     int statusCode = response.statusCode!;
-    // Map<String, dynamic> responseHeaderMap = response.headers.map;
+    Map<String, dynamic> responseHeaderMap = response.headers.map;
 
     GetService1TkV1AuthForDeveloperAsyncResponseHeaderVo responseHeader;
     GetService1TkV1AuthForDeveloperAsyncResponseBodyVo? responseBody;
 
     // !!!Response Map 을 Response Object 로 변경!!
-    responseHeader = GetService1TkV1AuthForDeveloperAsyncResponseHeaderVo();
+    responseHeader = GetService1TkV1AuthForDeveloperAsyncResponseHeaderVo(
+      (responseHeaderMap.containsKey("api-result-code"))
+          ? responseHeaderMap["api-result-code"][0]
+          : null,
+    );
     if (statusCode == 200) {
       // responseBody 가 반환되는 조건
       Map<String, dynamic> responseBodyMap = response.data;
@@ -1815,7 +1850,11 @@ class GetService1TkV1AuthForDeveloperAsyncRequestHeaderVo {
 }
 
 class GetService1TkV1AuthForDeveloperAsyncResponseHeaderVo {
-  GetService1TkV1AuthForDeveloperAsyncResponseHeaderVo();
+  // (api-result-code)
+  // 0 : 정상 동작
+  String? apiResultCode;
+
+  GetService1TkV1AuthForDeveloperAsyncResponseHeaderVo(this.apiResultCode);
 }
 
 class GetService1TkV1AuthForDeveloperAsyncResponseBodyVo {
@@ -1864,13 +1903,17 @@ Future<
         ));
 
     int statusCode = response.statusCode!;
-    // Map<String, dynamic> responseHeaderMap = response.headers.map;
+    Map<String, dynamic> responseHeaderMap = response.headers.map;
 
     GetService1TkV1AuthForAdminAsyncResponseHeaderVo responseHeader;
     GetService1TkV1AuthForAdminAsyncResponseBodyVo? responseBody;
 
     // !!!Response Map 을 Response Object 로 변경!!
-    responseHeader = GetService1TkV1AuthForAdminAsyncResponseHeaderVo();
+    responseHeader = GetService1TkV1AuthForAdminAsyncResponseHeaderVo(
+      (responseHeaderMap.containsKey("api-result-code"))
+          ? responseHeaderMap["api-result-code"][0]
+          : null,
+    );
     if (statusCode == 200) {
       // responseBody 가 반환되는 조건
       Map<String, dynamic> responseBodyMap = response.data;
@@ -1902,7 +1945,11 @@ class GetService1TkV1AuthForAdminAsyncRequestHeaderVo {
 }
 
 class GetService1TkV1AuthForAdminAsyncResponseHeaderVo {
-  GetService1TkV1AuthForAdminAsyncResponseHeaderVo();
+  // (api-result-code)
+  // 0 : 정상 동작
+  String? apiResultCode;
+
+  GetService1TkV1AuthForAdminAsyncResponseHeaderVo(this.apiResultCode);
 }
 
 class GetService1TkV1AuthForAdminAsyncResponseBodyVo {
@@ -1916,6 +1963,7 @@ class GetService1TkV1AuthForAdminAsyncResponseBodyVo {
   }
 }
 
+// todo
 ////
 // (닉네임 중복 검사)
 Future<
@@ -1999,6 +2047,7 @@ class GetNicknameDuplicateCheckAsyncResponseBodyVo {
   );
 }
 
+// todo
 ////
 // (이메일 회원가입 본인 검증 이메일 보내기)
 Future<
@@ -2093,6 +2142,7 @@ class PostRegisterWithEmailVerificationAsyncResponseBodyVo {
   );
 }
 
+// todo
 ////
 // (이메일 회원가입 본인 확인 이메일에서 받은 코드 검증하기)
 Future<
@@ -2194,6 +2244,7 @@ class GetRegisterWithEmailVerificationCheckAsyncResponseBodyVo {
   );
 }
 
+// todo
 ////
 // (Email 회원가입)
 Future<
@@ -2285,303 +2336,18 @@ class PostRegisterWithEmailAsyncResponseHeaderVo {
 class PostRegisterWithEmailAsyncResponseBodyVo {}
 
 ////
-// (전화번호 회원가입 본인 검증 문자 보내기)
-Future<
-        gc_template_classes.NetworkResponseObject<
-            PostRegisterWithPhoneNumberVerificationAsyncResponseHeaderVo,
-            PostRegisterWithPhoneNumberVerificationAsyncResponseBodyVo>>
-    postRegisterWithPhoneNumberVerificationAsync(
-        PostRegisterWithPhoneNumberVerificationAsyncRequestBodyVo
-            requestBodyVo) async {
-  // !!!개발 / 배포 모드별 요청 Path 지정!!
-  String devServerUrl = "/tk/ra/auth/register-with-phone-number-verification";
-  String prodServerUrl = "/tk/ra/auth/register-with-phone-number-verification";
-
-  Map<String, dynamic> requestHeaders = {};
-  Map<String, dynamic> requestQueryParams = {};
-  Map<String, dynamic> requestBody = {};
-
-  // !!!Request Object 를 Map 으로 만들기!!
-  requestBody["phoneNumber"] = requestBodyVo.phoneNumber;
-
-  // baseUrl + Request path + QueryParam
-  String requestUrlAndParam = gf_template_functions.mergeNetworkQueryParam(
-      requestQueryParams,
-      (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
-
-  try {
-    // !!!네트워크 요청 설정!!
-    // requestPathAndParam, headers 설정 외 세부 설정
-    var response = await serverDioObject.post(requestUrlAndParam,
-        options: Options(
-          headers: requestHeaders,
-          sendTimeout: const Duration(seconds: 10),
-          receiveTimeout: const Duration(seconds: 10),
-        ),
-        data: requestBody);
-
-    int statusCode = response.statusCode!;
-    Map<String, dynamic> responseHeaderMap = response.headers.map;
-
-    PostRegisterWithPhoneNumberVerificationAsyncResponseHeaderVo responseHeader;
-    PostRegisterWithPhoneNumberVerificationAsyncResponseBodyVo? responseBody;
-
-    // !!!Response Map 을 Response Object 로 변경!!
-    responseHeader =
-        PostRegisterWithPhoneNumberVerificationAsyncResponseHeaderVo(
-            (responseHeaderMap.containsKey("api-error-codes"))
-                ? responseHeaderMap["api-error-codes"]!
-                : null);
-    if (statusCode == 200) {
-      // responseBody 가 반환되는 조건
-      Map<String, dynamic> responseBodyMap = response.data;
-
-      responseBody = PostRegisterWithPhoneNumberVerificationAsyncResponseBodyVo(
-        responseBodyMap["expireWhen"],
-      );
-    }
-
-    return gc_template_classes.NetworkResponseObject(
-        gc_template_classes.NetworkResponseObjectOk(
-            statusCode, responseHeader, responseBody),
-        null);
-  } on DioException catch (e) {
-    // 서버에 리퀘스트가 도달하지 못한 에러 + Dio 가 에러로 규정한 Status Code
-    //  = 클라이언트 입장에선 그냥 네트워크 에러로 처리
-    return gc_template_classes.NetworkResponseObject(null, e);
-  }
-}
-
-class PostRegisterWithPhoneNumberVerificationAsyncRequestBodyVo {
-  String phoneNumber; // 수신 전화번호
-
-  PostRegisterWithPhoneNumberVerificationAsyncRequestBodyVo(this.phoneNumber);
-}
-
-class PostRegisterWithPhoneNumberVerificationAsyncResponseHeaderVo {
-  // (서버에서 내려주는 에러 코드)
-  // null : 에러 없음,
-  // 1 : 기존 회원 존재
-  List<String>? apiErrorCodes;
-
-  PostRegisterWithPhoneNumberVerificationAsyncResponseHeaderVo(
-      this.apiErrorCodes);
-}
-
-class PostRegisterWithPhoneNumberVerificationAsyncResponseBodyVo {
-  String expireWhen; // 검증 만료 시간 (yyyy-MM-dd HH:mm:ss.SSS)
-
-  PostRegisterWithPhoneNumberVerificationAsyncResponseBodyVo(
-    this.expireWhen,
-  );
-}
-
-////
-// (전화번호 회원가입 본인 확인 문자에서 받은 코드 검증하기)
-Future<
-        gc_template_classes.NetworkResponseObject<
-            GetRegisterWithPhoneNumberVerificationCheckAsyncResponseHeaderVo,
-            GetRegisterWithPhoneNumberVerificationCheckAsyncResponseBodyVo>>
-    getRegisterWithPhoneNumberVerificationCheckAsync(
-        GetRegisterWithPhoneNumberVerificationCheckAsyncRequestQueryVo
-            requestQueryVo) async {
-  // !!!개발 / 배포 모드별 요청 Path 지정!!
-  String devServerUrl =
-      "/tk/ra/auth/register-with-phone-number-verification-check";
-  String prodServerUrl =
-      "/tk/ra/auth/register-with-phone-number-verification-check";
-
-  Map<String, dynamic> requestHeaders = {};
-  Map<String, dynamic> requestQueryParams = {};
-
-  // !!!Request Object 를 Map 으로 만들기!!
-  requestQueryParams["phoneNumber"] = requestQueryVo.phoneNumber;
-  requestQueryParams["verificationCode"] = requestQueryVo.verificationCode;
-
-  // baseUrl + Request path + QueryParam
-  String requestUrlAndParam = gf_template_functions.mergeNetworkQueryParam(
-      requestQueryParams,
-      (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
-
-  try {
-    // !!!네트워크 요청 설정!!
-    // requestPathAndParam, headers 설정 외 세부 설정
-    var response = await serverDioObject.get(requestUrlAndParam,
-        options: Options(
-          headers: requestHeaders,
-        ));
-
-    int statusCode = response.statusCode!;
-    Map<String, dynamic> responseHeaderMap = response.headers.map;
-
-    GetRegisterWithPhoneNumberVerificationCheckAsyncResponseHeaderVo
-        responseHeader;
-    GetRegisterWithPhoneNumberVerificationCheckAsyncResponseBodyVo?
-        responseBody;
-
-    // !!!Response Map 을 Response Object 로 변경!!
-    responseHeader =
-        GetRegisterWithPhoneNumberVerificationCheckAsyncResponseHeaderVo(
-            (responseHeaderMap.containsKey("api-error-codes"))
-                ? responseHeaderMap["api-error-codes"]!
-                : null);
-    if (statusCode == 200) {
-      // responseBody 가 반환되는 조건
-      Map<String, dynamic> responseBodyMap = response.data;
-
-      responseBody =
-          GetRegisterWithPhoneNumberVerificationCheckAsyncResponseBodyVo(
-        responseBodyMap["isVerified"],
-        (responseBodyMap.containsKey("expireWhen"))
-            ? responseBodyMap["expireWhen"]
-            : null,
-      );
-    }
-
-    return gc_template_classes.NetworkResponseObject(
-        gc_template_classes.NetworkResponseObjectOk(
-            statusCode, responseHeader, responseBody),
-        null);
-  } on DioException catch (e) {
-    // 서버에 리퀘스트가 도달하지 못한 에러 + Dio 가 에러로 규정한 Status Code
-    //  = 클라이언트 입장에선 그냥 네트워크 에러로 처리
-    return gc_template_classes.NetworkResponseObject(null, e);
-  }
-}
-
-class GetRegisterWithPhoneNumberVerificationCheckAsyncRequestQueryVo {
-  String phoneNumber; // 확인 전화번호
-  String verificationCode; // 확인 문자에 전송된 코드
-
-  GetRegisterWithPhoneNumberVerificationCheckAsyncRequestQueryVo(
-    this.phoneNumber,
-    this.verificationCode,
-  );
-}
-
-class GetRegisterWithPhoneNumberVerificationCheckAsyncResponseHeaderVo {
-  // (서버에서 내려주는 에러 코드)
-  // null : 에러 없음,
-  // 1 : 이메일 검증 요청을 보낸 적 없음 혹은 만료된 요청
-  List<String>? apiErrorCodes;
-
-  GetRegisterWithPhoneNumberVerificationCheckAsyncResponseHeaderVo(
-      this.apiErrorCodes);
-}
-
-class GetRegisterWithPhoneNumberVerificationCheckAsyncResponseBodyVo {
-  bool isVerified; // 본인 인증 코드 일치 여부
-  String? expireWhen; // isVerified true 일때 새로 늘어난 검증 만료 시간
-
-  GetRegisterWithPhoneNumberVerificationCheckAsyncResponseBodyVo(
-    this.isVerified,
-    this.expireWhen,
-  );
-}
-
-////
-// (전화번호 회원가입)
-Future<
-        gc_template_classes.NetworkResponseObject<
-            PostRegisterWithPhoneNumberAsyncResponseHeaderVo,
-            PostRegisterWithPhoneNumberAsyncResponseBodyVo>>
-    postRegisterWithPhoneNumberAsync(
-        PostRegisterWithPhoneNumberAsyncRequestBodyVo requestBodyVo) async {
-  // !!!개발 / 배포 모드별 요청 Path 지정!!
-  String devServerUrl = "/tk/ra/auth/register-with-phone-number";
-  String prodServerUrl = "/tk/ra/auth/register-with-phone-number";
-
-  Map<String, dynamic> requestHeaders = {};
-  Map<String, dynamic> requestQueryParams = {};
-  Map<String, dynamic> requestBody = {};
-
-  // !!!Request Object 를 Map 으로 만들기!!
-  requestBody["phoneNumber"] = requestBodyVo.phoneNumber;
-  requestBody["password"] = requestBodyVo.password;
-  requestBody["nickName"] = requestBodyVo.nickName;
-  requestBody["verificationCode"] = requestBodyVo.verificationCode;
-
-  // baseUrl + Request path + QueryParam
-  String requestUrlAndParam = gf_template_functions.mergeNetworkQueryParam(
-      requestQueryParams,
-      (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
-
-  try {
-    // !!!네트워크 요청 설정!!
-    // requestPathAndParam, headers 설정 외 세부 설정
-    var response = await serverDioObject.post(requestUrlAndParam,
-        options: Options(
-          headers: requestHeaders,
-        ),
-        data: requestBody);
-
-    int statusCode = response.statusCode!;
-    Map<String, dynamic> responseHeaderMap = response.headers.map;
-
-    PostRegisterWithPhoneNumberAsyncResponseHeaderVo responseHeader;
-    PostRegisterWithPhoneNumberAsyncResponseBodyVo? responseBody;
-
-    // !!!Response Map 을 Response Object 로 변경!!
-    responseHeader = PostRegisterWithPhoneNumberAsyncResponseHeaderVo(
-        (responseHeaderMap.containsKey("api-error-codes"))
-            ? responseHeaderMap["api-error-codes"]!
-            : null);
-    if (statusCode == 200) {
-      // responseBody 가 반환되는 조건
-      responseBody = PostRegisterWithPhoneNumberAsyncResponseBodyVo();
-    }
-
-    return gc_template_classes.NetworkResponseObject(
-        gc_template_classes.NetworkResponseObjectOk(
-            statusCode, responseHeader, responseBody),
-        null);
-  } on DioException catch (e) {
-    // 서버에 리퀘스트가 도달하지 못한 에러 + Dio 가 에러로 규정한 Status Code
-    //  = 클라이언트 입장에선 그냥 네트워크 에러로 처리
-    return gc_template_classes.NetworkResponseObject(null, e);
-  }
-}
-
-class PostRegisterWithPhoneNumberAsyncRequestBodyVo {
-  String phoneNumber; // 아이디 - 전화번호
-  String password; // 사용할 비밀번호
-  String nickName; // 닉네임
-  String verificationCode; // 검증에 사용한 코드
-
-  PostRegisterWithPhoneNumberAsyncRequestBodyVo(
-    this.phoneNumber,
-    this.password,
-    this.nickName,
-    this.verificationCode,
-  );
-}
-
-class PostRegisterWithPhoneNumberAsyncResponseHeaderVo {
-  // (서버에서 내려주는 에러 코드)
-  // null : 에러 없음,
-  // 1 : 기존 회원 존재
-  // 2 : 전화번호 검증 요청을 보낸 적 없음 혹은 만료된 요청
-  // 3 : 닉네임 중복
-  // 4 : 입력한 verificationCode 와 검증된 code 가 일치하지 않거나 만료된 요청
-  List<String>? apiErrorCodes;
-
-  PostRegisterWithPhoneNumberAsyncResponseHeaderVo(this.apiErrorCodes);
-}
-
-class PostRegisterWithPhoneNumberAsyncResponseBodyVo {}
-
-////
 // (이메일 비밀번호 찾기 본인 검증 이메일 보내기)
 Future<
         gc_template_classes.NetworkResponseObject<
-            PostFindPasswordWithEmailVerificationAsyncResponseHeaderVo,
-            PostFindPasswordWithEmailVerificationAsyncResponseBodyVo>>
-    postFindPasswordWithEmailVerificationAsync(
-        PostFindPasswordWithEmailVerificationAsyncRequestBodyVo
+            PostService1TkV1AuthFindPasswordEmailVerificationAsyncResponseHeaderVo,
+            PostService1TkV1AuthFindPasswordEmailVerificationAsyncResponseBodyVo>>
+    postService1TkV1AuthFindPasswordEmailVerificationAsync(
+        PostService1TkV1AuthFindPasswordEmailVerificationAsyncRequestBodyVo
             requestBodyVo) async {
   // !!!개발 / 배포 모드별 요청 Path 지정!!
-  String devServerUrl = "/tk/ra/auth/find-password-with-email-verification";
-  String prodServerUrl = "/tk/ra/auth/find-password-with-email-verification";
+  String devServerUrl = "/service1/tk/v1/auth/find-password-email-verification";
+  String prodServerUrl =
+      "/service1/tk/v1/auth/find-password-email-verification";
 
   Map<String, dynamic> requestHeaders = {};
   Map<String, dynamic> requestQueryParams = {};
@@ -2609,117 +2375,25 @@ Future<
     int statusCode = response.statusCode!;
     Map<String, dynamic> responseHeaderMap = response.headers.map;
 
-    PostFindPasswordWithEmailVerificationAsyncResponseHeaderVo responseHeader;
-    PostFindPasswordWithEmailVerificationAsyncResponseBodyVo? responseBody;
-
-    // !!!Response Map 을 Response Object 로 변경!!
-    responseHeader = PostFindPasswordWithEmailVerificationAsyncResponseHeaderVo(
-        (responseHeaderMap.containsKey("api-error-codes"))
-            ? responseHeaderMap["api-error-codes"]!
-            : null);
-    if (statusCode == 200) {
-      // responseBody 가 반환되는 조건
-      Map<String, dynamic> responseBodyMap = response.data;
-
-      responseBody = PostFindPasswordWithEmailVerificationAsyncResponseBodyVo(
-        responseBodyMap["expireWhen"],
-      );
-    }
-
-    return gc_template_classes.NetworkResponseObject(
-        gc_template_classes.NetworkResponseObjectOk(
-            statusCode, responseHeader, responseBody),
-        null);
-  } on DioException catch (e) {
-    // 서버에 리퀘스트가 도달하지 못한 에러 + Dio 가 에러로 규정한 Status Code
-    //  = 클라이언트 입장에선 그냥 네트워크 에러로 처리
-    return gc_template_classes.NetworkResponseObject(null, e);
-  }
-}
-
-class PostFindPasswordWithEmailVerificationAsyncRequestBodyVo {
-  String email; // 수신 이메일
-
-  PostFindPasswordWithEmailVerificationAsyncRequestBodyVo(this.email);
-}
-
-class PostFindPasswordWithEmailVerificationAsyncResponseHeaderVo {
-  // (서버에서 내려주는 에러 코드)
-  // null : 에러 없음,
-  // 1 : 기존 회원 존재
-  List<String>? apiErrorCodes;
-
-  PostFindPasswordWithEmailVerificationAsyncResponseHeaderVo(
-      this.apiErrorCodes);
-}
-
-class PostFindPasswordWithEmailVerificationAsyncResponseBodyVo {
-  String expireWhen; // 검증 만료 시간 (yyyy-MM-dd HH:mm:ss.SSS)
-
-  PostFindPasswordWithEmailVerificationAsyncResponseBodyVo(
-    this.expireWhen,
-  );
-}
-
-////
-// (전화번호 비밀번호 찾기 본인 검증 문자 보내기)
-Future<
-        gc_template_classes.NetworkResponseObject<
-            PostFindPasswordWithPhoneNumberVerificationAsyncResponseHeaderVo,
-            PostFindPasswordWithPhoneNumberVerificationAsyncResponseBodyVo>>
-    postFindPasswordWithPhoneNumberVerificationAsync(
-        PostFindPasswordWithPhoneNumberVerificationAsyncRequestBodyVo
-            requestBodyVo) async {
-  // !!!개발 / 배포 모드별 요청 Path 지정!!
-  String devServerUrl =
-      "/tk/ra/auth/find-password-with-phone-number-verification";
-  String prodServerUrl =
-      "/tk/ra/auth/find-password-with-phone-number-verification";
-
-  Map<String, dynamic> requestHeaders = {};
-  Map<String, dynamic> requestQueryParams = {};
-  Map<String, dynamic> requestBody = {};
-
-  // !!!Request Object 를 Map 으로 만들기!!
-  requestBody["phoneNumber"] = requestBodyVo.phoneNumber;
-
-  // baseUrl + Request path + QueryParam
-  String requestUrlAndParam = gf_template_functions.mergeNetworkQueryParam(
-      requestQueryParams,
-      (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
-
-  try {
-    // !!!네트워크 요청 설정!!
-    // requestPathAndParam, headers 설정 외 세부 설정
-    var response = await serverDioObject.post(requestUrlAndParam,
-        options: Options(
-          headers: requestHeaders,
-          sendTimeout: const Duration(seconds: 10),
-          receiveTimeout: const Duration(seconds: 10),
-        ),
-        data: requestBody);
-
-    int statusCode = response.statusCode!;
-    Map<String, dynamic> responseHeaderMap = response.headers.map;
-
-    PostFindPasswordWithPhoneNumberVerificationAsyncResponseHeaderVo
+    PostService1TkV1AuthFindPasswordEmailVerificationAsyncResponseHeaderVo
         responseHeader;
-    PostFindPasswordWithPhoneNumberVerificationAsyncResponseBodyVo?
+    PostService1TkV1AuthFindPasswordEmailVerificationAsyncResponseBodyVo?
         responseBody;
 
     // !!!Response Map 을 Response Object 로 변경!!
     responseHeader =
-        PostFindPasswordWithPhoneNumberVerificationAsyncResponseHeaderVo(
-            (responseHeaderMap.containsKey("api-error-codes"))
-                ? responseHeaderMap["api-error-codes"]!
+        PostService1TkV1AuthFindPasswordEmailVerificationAsyncResponseHeaderVo(
+            (responseHeaderMap.containsKey("api-result-code"))
+                ? responseHeaderMap["api-result-code"][0]!
                 : null);
     if (statusCode == 200) {
       // responseBody 가 반환되는 조건
       Map<String, dynamic> responseBodyMap = response.data;
 
       responseBody =
-          PostFindPasswordWithPhoneNumberVerificationAsyncResponseBodyVo(
-        responseBodyMap["expireWhen"],
+          PostService1TkV1AuthFindPasswordEmailVerificationAsyncResponseBodyVo(
+        responseBodyMap["verificationUid"],
+        responseBodyMap["verificationExpireWhen"],
       );
     }
 
@@ -2734,28 +2408,30 @@ Future<
   }
 }
 
-class PostFindPasswordWithPhoneNumberVerificationAsyncRequestBodyVo {
-  String phoneNumber; // 수신 전화번호
+class PostService1TkV1AuthFindPasswordEmailVerificationAsyncRequestBodyVo {
+  String email; // 수신 이메일
 
-  PostFindPasswordWithPhoneNumberVerificationAsyncRequestBodyVo(
-      this.phoneNumber);
+  PostService1TkV1AuthFindPasswordEmailVerificationAsyncRequestBodyVo(
+      this.email);
 }
 
-class PostFindPasswordWithPhoneNumberVerificationAsyncResponseHeaderVo {
-  // (서버에서 내려주는 에러 코드)
-  // null : 에러 없음,
-  // 1 : 기존 회원 존재
-  List<String>? apiErrorCodes;
+class PostService1TkV1AuthFindPasswordEmailVerificationAsyncResponseHeaderVo {
+  // (api-result-code)
+  // 0 : 정상 동작
+  // 1 : 가입되지 않은 회원
+  String? apiResultCode;
 
-  PostFindPasswordWithPhoneNumberVerificationAsyncResponseHeaderVo(
-      this.apiErrorCodes);
+  PostService1TkV1AuthFindPasswordEmailVerificationAsyncResponseHeaderVo(
+      this.apiResultCode);
 }
 
-class PostFindPasswordWithPhoneNumberVerificationAsyncResponseBodyVo {
-  String expireWhen; // 검증 만료 시간 (yyyy-MM-dd HH:mm:ss.SSS)
+class PostService1TkV1AuthFindPasswordEmailVerificationAsyncResponseBodyVo {
+  int verificationUid; // 검증 고유값
+  String verificationExpireWhen; // 검증 만료 시간 (yyyy-MM-dd HH:mm:ss.SSS)
 
-  PostFindPasswordWithPhoneNumberVerificationAsyncResponseBodyVo(
-    this.expireWhen,
+  PostService1TkV1AuthFindPasswordEmailVerificationAsyncResponseBodyVo(
+    this.verificationUid,
+    this.verificationExpireWhen,
   );
 }
 
@@ -2763,13 +2439,14 @@ class PostFindPasswordWithPhoneNumberVerificationAsyncResponseBodyVo {
 // (이메일 비밀번호 찾기 완료)
 Future<
         gc_template_classes.NetworkResponseObject<
-            PostFindPasswordWithEmailAsyncResponseHeaderVo,
-            PostFindPasswordWithEmailAsyncResponseBodyVo>>
-    postFindPasswordWithEmailAsync(
-        PostFindPasswordWithEmailAsyncRequestBodyVo requestBodyVo) async {
+            PostService1TkV1AuthFindPasswordWithEmailAsyncResponseHeaderVo,
+            PostService1TkV1AuthFindPasswordWithEmailAsyncResponseBodyVo>>
+    postService1TkV1AuthFindPasswordWithEmailAsync(
+        PostService1TkV1AuthFindPasswordWithEmailAsyncRequestBodyVo
+            requestBodyVo) async {
   // !!!개발 / 배포 모드별 요청 Path 지정!!
-  String devServerUrl = "/tk/ra/auth/find-password-with-email";
-  String prodServerUrl = "/tk/ra/auth/find-password-with-email";
+  String devServerUrl = "/service1/tk/v1/auth/find-password-with-email";
+  String prodServerUrl = "/service1/tk/v1/auth/find-password-with-email";
 
   Map<String, dynamic> requestHeaders = {};
   Map<String, dynamic> requestQueryParams = {};
@@ -2777,6 +2454,7 @@ Future<
 
   // !!!Request Object 를 Map 으로 만들기!!
   requestBody["email"] = requestBodyVo.email;
+  requestBody["verificationUid"] = requestBodyVo.verificationUid;
   requestBody["verificationCode"] = requestBodyVo.verificationCode;
 
   // baseUrl + Request path + QueryParam
@@ -2798,19 +2476,22 @@ Future<
     int statusCode = response.statusCode!;
     Map<String, dynamic> responseHeaderMap = response.headers.map;
 
-    PostFindPasswordWithEmailAsyncResponseHeaderVo responseHeader;
-    PostFindPasswordWithEmailAsyncResponseBodyVo? responseBody;
+    PostService1TkV1AuthFindPasswordWithEmailAsyncResponseHeaderVo
+        responseHeader;
+    PostService1TkV1AuthFindPasswordWithEmailAsyncResponseBodyVo? responseBody;
 
     // !!!Response Map 을 Response Object 로 변경!!
-    responseHeader = PostFindPasswordWithEmailAsyncResponseHeaderVo(
-        (responseHeaderMap.containsKey("api-error-codes"))
-            ? responseHeaderMap["api-error-codes"]!
-            : null);
+    responseHeader =
+        PostService1TkV1AuthFindPasswordWithEmailAsyncResponseHeaderVo(
+            (responseHeaderMap.containsKey("api-result-code"))
+                ? responseHeaderMap["api-result-code"][0]!
+                : null);
     if (statusCode == 200) {
       // responseBody 가 반환되는 조건
       // Map<String, dynamic> responseBodyMap = response.data;
 
-      responseBody = PostFindPasswordWithEmailAsyncResponseBodyVo();
+      responseBody =
+          PostService1TkV1AuthFindPasswordWithEmailAsyncResponseBodyVo();
     }
 
     return gc_template_classes.NetworkResponseObject(
@@ -2824,117 +2505,33 @@ Future<
   }
 }
 
-class PostFindPasswordWithEmailAsyncRequestBodyVo {
-  String email; // 수신 이메일
-  String verificationCode; // 검증 코드
+class PostService1TkV1AuthFindPasswordWithEmailAsyncRequestBodyVo {
+  String email; // 비밀번호를 찾을 계정 이메일
+  int verificationUid; // 검증 고유값
+  String verificationCode; // 이메일 검증에 사용한 코드
 
-  PostFindPasswordWithEmailAsyncRequestBodyVo(
-      this.email, this.verificationCode);
+  PostService1TkV1AuthFindPasswordWithEmailAsyncRequestBodyVo(
+      this.email, this.verificationUid, this.verificationCode);
 }
 
-class PostFindPasswordWithEmailAsyncResponseHeaderVo {
-  // (서버에서 내려주는 에러 코드)
-  // null : 에러 없음,
-  // 1 : 탈퇴된 회원
-  // 2 : 이메일 검증 요청을 보낸 적 없음 혹은 만료된 요청
-  // 3 : 검증 코드가 일치하지 않음
-  List<String>? apiErrorCodes;
+class PostService1TkV1AuthFindPasswordWithEmailAsyncResponseHeaderVo {
+  // (api-result-code)
+  // 0 : 정상 동작
+  // 1 : 이메일 검증 요청을 보낸 적 없음
+  // 2 : 이메일 검증 요청이 만료됨
+  // 3 : verificationCode 가 일치하지 않음
+  // 4 : 탈퇴한 회원입니다.
+  String? apiResultCode;
 
-  PostFindPasswordWithEmailAsyncResponseHeaderVo(this.apiErrorCodes);
+  PostService1TkV1AuthFindPasswordWithEmailAsyncResponseHeaderVo(
+      this.apiResultCode);
 }
 
-class PostFindPasswordWithEmailAsyncResponseBodyVo {
-  PostFindPasswordWithEmailAsyncResponseBodyVo();
+class PostService1TkV1AuthFindPasswordWithEmailAsyncResponseBodyVo {
+  PostService1TkV1AuthFindPasswordWithEmailAsyncResponseBodyVo();
 }
 
-////
-// (전화번호 비밀번호 찾기 완료)
-Future<
-        gc_template_classes.NetworkResponseObject<
-            PostFindPasswordWithPhoneNumberAsyncResponseHeaderVo,
-            PostFindPasswordWithPhoneNumberAsyncResponseBodyVo>>
-    postFindPasswordWithPhoneNumberAsync(
-        PostFindPasswordWithPhoneNumberAsyncRequestBodyVo requestBodyVo) async {
-  // !!!개발 / 배포 모드별 요청 Path 지정!!
-  String devServerUrl = "/tk/ra/auth/find-password-with-phone-number";
-  String prodServerUrl = "/tk/ra/auth/find-password-with-phone-number";
-
-  Map<String, dynamic> requestHeaders = {};
-  Map<String, dynamic> requestQueryParams = {};
-  Map<String, dynamic> requestBody = {};
-
-  // !!!Request Object 를 Map 으로 만들기!!
-  requestBody["phoneNumber"] = requestBodyVo.phoneNumber;
-  requestBody["verificationCode"] = requestBodyVo.verificationCode;
-
-  // baseUrl + Request path + QueryParam
-  String requestUrlAndParam = gf_template_functions.mergeNetworkQueryParam(
-      requestQueryParams,
-      (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
-
-  try {
-    // !!!네트워크 요청 설정!!
-    // requestPathAndParam, headers 설정 외 세부 설정
-    var response = await serverDioObject.post(requestUrlAndParam,
-        options: Options(
-          headers: requestHeaders,
-          sendTimeout: const Duration(seconds: 10),
-          receiveTimeout: const Duration(seconds: 10),
-        ),
-        data: requestBody);
-
-    int statusCode = response.statusCode!;
-    Map<String, dynamic> responseHeaderMap = response.headers.map;
-
-    PostFindPasswordWithPhoneNumberAsyncResponseHeaderVo responseHeader;
-    PostFindPasswordWithPhoneNumberAsyncResponseBodyVo? responseBody;
-
-    // !!!Response Map 을 Response Object 로 변경!!
-    responseHeader = PostFindPasswordWithPhoneNumberAsyncResponseHeaderVo(
-        (responseHeaderMap.containsKey("api-error-codes"))
-            ? responseHeaderMap["api-error-codes"]!
-            : null);
-    if (statusCode == 200) {
-      // responseBody 가 반환되는 조건
-      // Map<String, dynamic> responseBodyMap = response.data;
-
-      responseBody = PostFindPasswordWithPhoneNumberAsyncResponseBodyVo();
-    }
-
-    return gc_template_classes.NetworkResponseObject(
-        gc_template_classes.NetworkResponseObjectOk(
-            statusCode, responseHeader, responseBody),
-        null);
-  } on DioException catch (e) {
-    // 서버에 리퀘스트가 도달하지 못한 에러 + Dio 가 에러로 규정한 Status Code
-    //  = 클라이언트 입장에선 그냥 네트워크 에러로 처리
-    return gc_template_classes.NetworkResponseObject(null, e);
-  }
-}
-
-class PostFindPasswordWithPhoneNumberAsyncRequestBodyVo {
-  String phoneNumber; // 수신 전화번호
-  String verificationCode; // 검증 코드
-
-  PostFindPasswordWithPhoneNumberAsyncRequestBodyVo(
-      this.phoneNumber, this.verificationCode);
-}
-
-class PostFindPasswordWithPhoneNumberAsyncResponseHeaderVo {
-  // (서버에서 내려주는 에러 코드)
-  // null : 에러 없음,
-  // 1 : 탈퇴된 회원
-  // 2 : 검증 요청을 보낸 적 없음 혹은 만료된 요청
-  // 3 : 검증 코드가 일치하지 않음
-  List<String>? apiErrorCodes;
-
-  PostFindPasswordWithPhoneNumberAsyncResponseHeaderVo(this.apiErrorCodes);
-}
-
-class PostFindPasswordWithPhoneNumberAsyncResponseBodyVo {
-  PostFindPasswordWithPhoneNumberAsyncResponseBodyVo();
-}
-
+// todo
 ////
 // (회원탈퇴 요청 <>)
 Future<
@@ -3011,6 +2608,7 @@ class PostWithdrawalAsyncResponseBodyVo {
   PostWithdrawalAsyncResponseBodyVo();
 }
 
+// todo
 ////
 // (비밀번호 변경 요청 <>)
 Future<

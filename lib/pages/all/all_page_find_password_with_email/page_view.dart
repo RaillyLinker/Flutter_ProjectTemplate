@@ -40,7 +40,7 @@ class PageView extends StatelessWidget {
       appBar: AppBar(
         automaticallyImplyLeading: !kIsWeb,
         title: const Text(
-          'Find Password with Email',
+          '비밀번호 찾기',
           style: TextStyle(color: Colors.white, fontFamily: "MaruBuri"),
         ),
         backgroundColor: Colors.blue,
@@ -80,7 +80,7 @@ class PageView extends StatelessWidget {
                                       decoration: InputDecoration(
                                           errorText: pageBusiness.pageViewModel
                                               .emailTextEditErrorMsg,
-                                          labelText: 'Email',
+                                          labelText: '이메일',
                                           hintText: "user@email.com"),
                                     );
                                   },
@@ -96,18 +96,22 @@ class PageView extends StatelessWidget {
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: Colors.blue,
                                   ),
-                                  child: const Center(
-                                    child: Text(
-                                      "Send\nEmail",
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontFamily: "MaruBuri"),
-                                      textAlign: TextAlign.center,
+                                  child:  Center(
+                                    child: Container(
+                                      padding: const EdgeInsets.only(top: 2, bottom: 2),
+                                      child: const Text(
+                                        "이메일\n발송",
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontFamily: "MaruBuri"),
+                                        textAlign: TextAlign.center,
+                                      ),
                                     ),
                                   ),
                                 )),
                           ],
                         ),
+                        const SizedBox(height: 10,),
                         Row(
                           children: [
                             Expanded(child: BlocBuilder<
@@ -129,9 +133,9 @@ class PageView extends StatelessWidget {
                                 decoration: InputDecoration(
                                     errorText: pageBusiness.pageViewModel
                                         .verificationCodeTextEditErrorMsg,
-                                    labelText: 'Verification Code',
+                                    labelText: '본인 인증 코드',
                                     hintText:
-                                        "Please enter your verification code"),
+                                        "이메일로 발송된 본인 인증 코드"),
                               );
                             }))
                           ],
@@ -140,7 +144,7 @@ class PageView extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(height: 40.0),
+                const SizedBox(height: 30.0),
                 ElevatedButton(
                   onPressed: () {
                     pageBusiness.findPassword();
@@ -149,7 +153,7 @@ class PageView extends StatelessWidget {
                     backgroundColor: Colors.blue,
                   ),
                   child: const Text(
-                    'Find Password',
+                    '비밀번호 찾기',
                     style:
                         TextStyle(color: Colors.white, fontFamily: "MaruBuri"),
                   ),
@@ -158,12 +162,17 @@ class PageView extends StatelessWidget {
                 Container(
                   width: 300,
                   padding: const EdgeInsets.only(
-                      left: 10, right: 10, top: 2, bottom: 2),
+                      left: 10, right: 10, top: 10, bottom: 10),
                   decoration: BoxDecoration(
                       color: Colors.grey[200],
                       borderRadius: const BorderRadius.all(Radius.circular(5))),
                   child: const Text(
-                    'Please enter the Verification Code sent to the email you entered within 10 minutes after pressing the Send Email button.\n\nIf you do not receive an email,\n- Make sure the email address you entered is correct.\n- Check your spam folder.\n- Check if the mailbox has enough space.',
+                    '이메일 주소를 입력 후 이메일 발송 버튼을 누르세요.\n\n'
+                        '입력한 이메일 주소로 전송된 본인 인증 코드를 10분 안에 입력하세요.\n\n'
+                        '이메일을 받지 못했다면,\n'
+                        '- 입력한 이메일 주소가 올바른지 확인하세요.\n'
+                        '- 이메일 스팸 보관함을 확인하세요.\n'
+                        '- 이메일 저장소 용량이 충분한지 확인하세요.',
                     style: TextStyle(
                         fontWeight: FontWeight.normal, fontFamily: "MaruBuri"),
                   ),
