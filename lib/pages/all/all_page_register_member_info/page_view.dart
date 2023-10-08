@@ -58,7 +58,7 @@ class PageView extends StatelessWidget {
               children: [
                 Center(
                   child: Container(
-                    constraints: const BoxConstraints(maxWidth: 350),
+                    constraints: const BoxConstraints(maxWidth: 300),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -115,67 +115,98 @@ class PageView extends StatelessWidget {
                     ),
                   ),
                 ),
-                // todo : 클릭으로 접기 / 열기
-                Container(
-                  width: 300,
-                  margin: const EdgeInsets.only(top: 20),
-                  padding: const EdgeInsets.only(
-                      left: 10, right: 10, top: 5, bottom: 20),
-                  decoration: const BoxDecoration(
-                      border: Border(
-                        left: BorderSide(
-                          // POINT
-                          color: Colors.black,
-                          width: 1.0,
-                        ),
-                        right: BorderSide(
-                          // POINT
-                          color: Colors.black,
-                          width: 1.0,
-                        ),
-                        bottom: BorderSide(
-                          // POINT
-                          color: Colors.black,
-                          width: 1.0,
-                        ),
-                        top: BorderSide(
-                          // POINT
-                          color: Colors.black,
-                          width: 1.0,
-                        ),
-                      ),
-                      borderRadius: BorderRadius.all(Radius.circular(20))),
-                  child: const SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          "닉네임 입력 규칙",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
-                              fontFamily: "MaruBuri"),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          '1. 닉네임은 2 글자 이상으로 입력하세요.\n'
-                          '2. 닉네임에 공백은 허용되지 않습니다.\n'
-                          '3. 아래 특수문자는 사용할 수 없습니다.\n'
-                          '    <, >, (, ), #, ’, /, |\n'
-                          '4. 욕설 등 부적절한 닉네임의 경우 강제로 닉네임이 변경될 수 있습니다.',
-                          style: TextStyle(
-                              fontWeight: FontWeight.normal,
-                              fontFamily: "MaruBuri"),
-                        )
-                      ],
-                    ),
-                  ),
+                GestureDetector(
+                  onTap: () {
+                    pageBusiness.onNicknameInputRuleTap();
+                  },
+                  child: BlocBuilder<page_business.BlocNicknameInputRule, bool>(
+                      builder: (c, s) {
+                    var passwordInputRule =
+                        pageBusiness.pageViewModel.nicknameInputRuleHide
+                            ? const SingleChildScrollView(
+                                child: Column(
+                                  children: [
+                                    SizedBox(
+                                      height: 5,
+                                    ),
+                                    Text(
+                                      "닉네임 입력 규칙",
+                                      style: TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.grey,
+                                          fontFamily: "MaruBuri"),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            : const SingleChildScrollView(
+                                child: Column(
+                                  children: [
+                                    SizedBox(
+                                      height: 5,
+                                    ),
+                                    Text(
+                                      "닉네임 입력 규칙",
+                                      style: TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.grey,
+                                          fontFamily: "MaruBuri"),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text(
+                                      '1. 닉네임은 2 글자 이상으로 입력하세요.\n'
+                                      '2. 닉네임에 공백은 허용되지 않습니다.\n'
+                                      '3. 아래 특수문자는 사용할 수 없습니다.\n'
+                                      '    <, >, (, ), #, ’, /, |\n'
+                                      '4. 욕설 등 부적절한 닉네임의 경우 강제로 닉네임이 변경될 수 있습니다.',
+                                      style: TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.normal,
+                                          color: Colors.grey,
+                                          fontFamily: "MaruBuri"),
+                                    )
+                                  ],
+                                ),
+                              );
+
+                    return Container(
+                      width: 300,
+                      margin: const EdgeInsets.only(top: 15),
+                      padding:
+                          const EdgeInsets.only(left: 5, right: 5, bottom: 10),
+                      decoration: const BoxDecoration(
+                          border: Border(
+                            left: BorderSide(
+                              // POINT
+                              color: Colors.grey,
+                              width: 1.0,
+                            ),
+                            right: BorderSide(
+                              // POINT
+                              color: Colors.grey,
+                              width: 1.0,
+                            ),
+                            bottom: BorderSide(
+                              // POINT
+                              color: Colors.grey,
+                              width: 1.0,
+                            ),
+                            top: BorderSide(
+                              // POINT
+                              color: Colors.grey,
+                              width: 1.0,
+                            ),
+                          ),
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                      child: passwordInputRule,
+                    );
+                  }),
                 ),
-                const SizedBox(height: 20.0),
+                const SizedBox(height: 10.0),
                 ElevatedButton(
                   onPressed: () {
                     // 회원가입 버튼 동작

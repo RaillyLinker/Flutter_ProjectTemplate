@@ -414,6 +414,13 @@ class PageBusiness {
     }
   }
 
+  // 비밀번호 입력 규칙 클릭
+  void onPasswordInputRuleTap() {
+    pageViewModel.passwordInputRuleHide = !pageViewModel.passwordInputRuleHide;
+    blocObjects.blocPasswordInputRule
+        .add(!blocObjects.blocPasswordInputRule.state);
+  }
+
 ////
 // [내부 함수]
 // !!!내부에서만 사용할 함수를 아래에 구현!!
@@ -467,6 +474,8 @@ class PageViewModel {
 
   late int verificationUid;
 
+  bool passwordInputRuleHide = true;
+
   PageViewModel(this.goRouterState);
 }
 
@@ -514,6 +523,14 @@ class BlocPasswordCheckTextField extends Bloc<bool, bool> {
   }
 }
 
+class BlocPasswordInputRule extends Bloc<bool, bool> {
+  BlocPasswordInputRule() : super(true) {
+    on<bool>((event, emit) {
+      emit(event);
+    });
+  }
+}
+
 // (BLoC 프로바이더 클래스)
 // 본 페이지에서 사용할 BLoC 객체를 모아두어 PageEntrance 에서 페이지 전역 설정에 사용 됩니다.
 class BLocProviders {
@@ -527,6 +544,8 @@ class BLocProviders {
         create: (context) => BlocPasswordTextField()),
     BlocProvider<BlocPasswordCheckTextField>(
         create: (context) => BlocPasswordCheckTextField()),
+    BlocProvider<BlocPasswordInputRule>(
+        create: (context) => BlocPasswordInputRule()),
   ];
 }
 
@@ -541,6 +560,7 @@ class BLocObjects {
   late BlocEmailCheckBtn blocEmailCheckBtn;
   late BlocPasswordTextField blocPasswordTextField;
   late BlocPasswordCheckTextField blocPasswordCheckTextField;
+  late BlocPasswordInputRule blocPasswordInputRule;
 
   // 생성자 설정
   BLocObjects(this._context) {
@@ -552,5 +572,6 @@ class BLocObjects {
         BlocProvider.of<BlocPasswordCheckTextField>(_context);
     blocEmailEditText = BlocProvider.of<BlocEmailEditText>(_context);
     blocEmailCheckBtn = BlocProvider.of<BlocEmailCheckBtn>(_context);
+    blocPasswordInputRule = BlocProvider.of<BlocPasswordInputRule>(_context);
   }
 }

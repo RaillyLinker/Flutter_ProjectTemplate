@@ -466,6 +466,13 @@ class PageBusiness {
         .add(!blocObjects.blocNicknameEditText.state);
   }
 
+  // 닉네임 입력 규칙 클릭
+  void onNicknameInputRuleTap() {
+    pageViewModel.nicknameInputRuleHide = !pageViewModel.nicknameInputRuleHide;
+    blocObjects.blocNicknameInputRule
+        .add(!blocObjects.blocNicknameInputRule.state);
+  }
+
 ////
 // [내부 함수]
 // !!!내부에서만 사용할 함수를 아래에 구현!!
@@ -500,6 +507,8 @@ class PageViewModel {
   // 닉네임 입력창 포커스
   FocusNode nickNameTextEditFocus = FocusNode();
 
+  bool nicknameInputRuleHide = true;
+
   PageViewModel(this.goRouterState);
 }
 
@@ -533,6 +542,14 @@ class BlocNicknameCheckBtn extends Bloc<bool, bool> {
   }
 }
 
+class BlocNicknameInputRule extends Bloc<bool, bool> {
+  BlocNicknameInputRule() : super(true) {
+    on<bool>((event, emit) {
+      emit(event);
+    });
+  }
+}
+
 // (BLoC 프로바이더 클래스)
 // 본 페이지에서 사용할 BLoC 객체를 모아두어 PageEntrance 에서 페이지 전역 설정에 사용 됩니다.
 class BLocProviders {
@@ -544,6 +561,8 @@ class BLocProviders {
         create: (context) => BlocNicknameEditText()),
     BlocProvider<BlocNicknameCheckBtn>(
         create: (context) => BlocNicknameCheckBtn()),
+    BlocProvider<BlocNicknameInputRule>(
+        create: (context) => BlocNicknameInputRule()),
   ];
 }
 
@@ -556,6 +575,7 @@ class BLocObjects {
   // late BlocSample blocSample;
   late BlocNicknameEditText blocNicknameEditText;
   late BlocNicknameCheckBtn blocNicknameCheckBtn;
+  late BlocNicknameInputRule blocNicknameInputRule;
 
   // 생성자 설정
   BLocObjects(this._context) {
@@ -564,5 +584,6 @@ class BLocObjects {
     // blocSample = BlocProvider.of<BlocSample>(_context);
     blocNicknameEditText = BlocProvider.of<BlocNicknameEditText>(_context);
     blocNicknameCheckBtn = BlocProvider.of<BlocNicknameCheckBtn>(_context);
+    blocNicknameInputRule = BlocProvider.of<BlocNicknameInputRule>(_context);
   }
 }
