@@ -1,6 +1,7 @@
 // (external)
 import 'dart:async';
 import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,7 +12,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 // (all)
 import '../../../../../repositories/network/apis/api_main_server.dart'
-as api_main_server;
+    as api_main_server;
 import '../../../../../repositories/spws/spw_auth_member_info.dart'
     as spw_auth_member_info;
 import '../../../dialogs/all/all_dialog_info/page_entrance.dart'
@@ -370,7 +371,11 @@ class PageBusiness {
             _appInitLogicThreadConfluenceObj.threadComplete();
           } else {
             // 액세스 토큰 재발급 비정상 응답
-            if (networkResponseObjectOk.responseHeaders.apiErrorCodes == null) {
+            var responseHeaders = networkResponseObjectOk.responseHeaders
+                as api_main_server
+                .PostService1TkV1AuthReissueAsyncResponseHeaderVo;
+
+            if (responseHeaders.apiResultCode == null) {
               // 비정상 응답이면서 서버에서 에러 원인 코드가 전달되지 않았을 때
 
               if (pageViewModel.signInRetryCount ==
@@ -413,21 +418,26 @@ class PageBusiness {
               });
             } else {
               // 서버 지정 에러 코드를 전달 받았을 때
-              List<String> apiErrorCodes =
-                  networkResponseObjectOk.responseHeaders.apiErrorCodes;
-              if (apiErrorCodes.contains("1") || // 유효하지 않은 리플래시 토큰
-                      apiErrorCodes.contains("2") || // 리플래시 토큰 만료
-                      apiErrorCodes.contains("3") || // 리플래시 토큰이 액세스 토큰과 매칭되지 않음
-                      apiErrorCodes.contains("4") // 가입되지 않은 회원
-                  ) {
-                // 리플래시 토큰이 사용 불가이므로 로그아웃 처리
+              String apiResultCode = responseHeaders.apiResultCode!;
 
-                // login_user_info SSW 비우기 (= 로그아웃 처리)
-                spw_auth_member_info.SharedPreferenceWrapper.set(null);
-                _appInitLogicThreadConfluenceObj.threadComplete();
-              } else {
-                // 알 수 없는 에러 코드일 때
-                throw Exception("unKnown Error Code");
+              switch (apiResultCode) {
+                case "1": // 탈퇴된 회원
+                case "2": // 유효하지 않은 리프레시 토큰
+                case "3": // 리프레시 토큰 만료
+                case "4": // 리프레시 토큰이 액세스 토큰과 매칭되지 않음
+                  {
+                    // 리플래시 토큰이 사용 불가이므로 로그아웃 처리
+
+                    // login_user_info SSW 비우기 (= 로그아웃 처리)
+                    spw_auth_member_info.SharedPreferenceWrapper.set(null);
+                    _appInitLogicThreadConfluenceObj.threadComplete();
+                  }
+                  break;
+                default:
+                  {
+                    // 알 수 없는 에러 코드일 때
+                    throw Exception("unKnown Error Code");
+                  }
               }
             }
           }

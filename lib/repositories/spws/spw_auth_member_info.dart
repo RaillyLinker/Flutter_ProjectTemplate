@@ -163,24 +163,28 @@ class SharedPreferenceWrapperVo {
       authPasswordIsNull; // 계정 로그인 비밀번호 설정 Null 여부 (OAuth2 만으로 회원가입한 경우는 비밀번호가 없으므로 true)
 
   SharedPreferenceWrapperVo(
-      this.memberUid,
-      this.nickName,
-      this.profileImageFullUrl,
-      this.roleList,
-      this.tokenType,
-      this.accessToken,
-      this.accessTokenExpireWhen,
-      this.refreshToken,
-      this.refreshTokenExpireWhen,
-      this.myEmailList,
-      this.myPhoneNumberList,
-      this.myOAuth2List,
-      this.authPasswordIsNull);
+    this.memberUid,
+    this.nickName,
+    this.profileImageFullUrl,
+    this.roleList,
+    this.tokenType,
+    this.accessToken,
+    this.accessTokenExpireWhen,
+    this.refreshToken,
+    this.refreshTokenExpireWhen,
+    this.myEmailList,
+    this.myPhoneNumberList,
+    this.myOAuth2List,
+    this.authPasswordIsNull,
+  );
 }
 
 class SharedPreferenceWrapperVoOAuth2Info {
   int oauth2TypeCode; // OAuth2 (1 : Google, 2 : Naver, 3 : Kakao, 4 : Apple)
   String oauth2Id; // oAuth2 고유값 아이디
 
-  SharedPreferenceWrapperVoOAuth2Info(this.oauth2TypeCode, this.oauth2Id);
+  SharedPreferenceWrapperVoOAuth2Info(
+    this.oauth2TypeCode,
+    this.oauth2Id,
+  );
 }

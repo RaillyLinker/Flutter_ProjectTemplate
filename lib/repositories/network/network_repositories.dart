@@ -90,8 +90,8 @@ void setDioObjects() {
     // (Authorization JWT 토큰 관련 처리)
     // 가정 : 서버는 RequestHeader 로 {"Authorization" : "Bearer aaaaaaaaaa"} 와 같이 JWT 를 보냈을 때는 토큰 적합성 검사를 합니다.
     // 만약 Authorization 헤더를 보내지 않았다면 적합성 검사를 하지 않습니다.
-    // 적합성 검사 수행시 올바르지 않은 Authorization Token 이라면 responseHeader 로 {"api-error-codes" : "c"} 가 반환이 되고,
-    // 만료된 AccessToken 이라면 responseHeader 로 {"api-error-codes", "d"} 가 반환이 됩니다.
+    // 적합성 검사 수행시 올바르지 않은 Authorization Token 이라면 responseHeader 로 {"api-result-code" : "a"} 가 반환이 되고,
+    // 만료된 AccessToken 이라면 responseHeader 로 {"api-result-code", "b"} 가 반환이 됩니다.
     // 아래 인터셉터 로직의 결과로 로그인이 만료되었다면, spw_auth_member_info 가 null 로 변경됩니다.
     if (responseHeaderMap.containsKey("api-result-code")) {
       // JWT 토큰 관련 서버 에러 발생

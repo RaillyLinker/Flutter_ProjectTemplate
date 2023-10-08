@@ -1603,7 +1603,7 @@ Future<
         List<String>.from(responseBodyMap["myEmailList"]),
         List<String>.from(responseBodyMap["myPhoneNumberList"]),
         oAuth2ObjectList,
-        responseBodyMap["authPasswordSet"],
+        responseBodyMap["authPasswordIsNull"],
       );
     }
 
@@ -1660,7 +1660,7 @@ class PostService1TkV1AuthReissueAsyncResponseBodyVo {
   List<PostReissueAsyncResponseBodyVoOAuth2Info>
       myOAuth2List; // 내가 등록한 OAuth2 정보 리스트
   bool
-      authPasswordSet; // 계정 로그인 비밀번호 설정 여부 (OAuth2 만으로 회원가입한 경우는 비밀번호가 없으므로 false)
+      authPasswordIsNull; // 계정 로그인 비밀번호 설정 여부 (OAuth2 만으로 회원가입한 경우는 비밀번호가 없으므로 false)
 
   PostService1TkV1AuthReissueAsyncResponseBodyVo(
     this.memberUid,
@@ -1675,7 +1675,7 @@ class PostService1TkV1AuthReissueAsyncResponseBodyVo {
     this.myEmailList,
     this.myPhoneNumberList,
     this.myOAuth2List,
-    this.authPasswordSet,
+    this.authPasswordIsNull,
   );
 }
 
@@ -2056,18 +2056,18 @@ class GetService1TkV1AuthForAdminAsyncResponseBodyVo {
   }
 }
 
-// todo
 ////
 // (닉네임 중복 검사)
 Future<
         gc_template_classes.NetworkResponseObject<
-            GetNicknameDuplicateCheckAsyncResponseHeaderVo,
-            GetNicknameDuplicateCheckAsyncResponseBodyVo>>
-    getNicknameDuplicateCheckAsync(
-        GetNicknameDuplicateCheckAsyncRequestQueryVo requestQueryVo) async {
+            GetService1TkV1AuthNicknameDuplicateCheckAsyncResponseHeaderVo,
+            GetService1TkV1AuthNicknameDuplicateCheckAsyncResponseBodyVo>>
+    getService1TkV1AuthNicknameDuplicateCheckAsync(
+        GetService1TkV1AuthNicknameDuplicateCheckAsyncRequestQueryVo
+            requestQueryVo) async {
   // !!!개발 / 배포 모드별 요청 Path 지정!!
-  String devServerUrl = "/tk/ra/auth/nickname-duplicate-check";
-  String prodServerUrl = "/tk/ra/auth/nickname-duplicate-check";
+  String devServerUrl = "/service1/tk/v1/auth/nickname-duplicate-check";
+  String prodServerUrl = "/service1/tk/v1/auth/nickname-duplicate-check";
 
   Map<String, dynamic> requestHeaders = {};
   Map<String, dynamic> requestQueryParams = {};
@@ -2089,13 +2089,19 @@ Future<
         ));
 
     int statusCode = response.statusCode!;
-    // Map<String, dynamic> responseHeaderMap = response.headers.map;
+    Map<String, dynamic> responseHeaderMap = response.headers.map;
 
-    GetNicknameDuplicateCheckAsyncResponseHeaderVo responseHeader;
-    GetNicknameDuplicateCheckAsyncResponseBodyVo? responseBody;
+    GetService1TkV1AuthNicknameDuplicateCheckAsyncResponseHeaderVo
+        responseHeader;
+    GetService1TkV1AuthNicknameDuplicateCheckAsyncResponseBodyVo? responseBody;
 
     // !!!Response Map 을 Response Object 로 변경!!
-    responseHeader = GetNicknameDuplicateCheckAsyncResponseHeaderVo();
+    responseHeader =
+        GetService1TkV1AuthNicknameDuplicateCheckAsyncResponseHeaderVo(
+      (responseHeaderMap.containsKey("api-result-code"))
+          ? responseHeaderMap["api-result-code"][0]
+          : null,
+    );
     if (statusCode == 200) {
       // responseBody 가 반환되는 조건
       Map<String, dynamic> responseBodyMap = response.data;
@@ -2104,7 +2110,8 @@ Future<
       // Object 타입이 넘어오면 Map<String, dynamic> 으로 받고,
       // Object List 타입이 넘어오면 List<Map<String, dynamic>> 으로 받아서 처리
 
-      responseBody = GetNicknameDuplicateCheckAsyncResponseBodyVo(
+      responseBody =
+          GetService1TkV1AuthNicknameDuplicateCheckAsyncResponseBodyVo(
         responseBodyMap["duplicated"],
       );
     }
@@ -2120,39 +2127,46 @@ Future<
   }
 }
 
-class GetNicknameDuplicateCheckAsyncRequestQueryVo {
+class GetService1TkV1AuthNicknameDuplicateCheckAsyncRequestQueryVo {
   String nickName;
 
-  GetNicknameDuplicateCheckAsyncRequestQueryVo(
+  GetService1TkV1AuthNicknameDuplicateCheckAsyncRequestQueryVo(
     this.nickName,
   );
 }
 
-class GetNicknameDuplicateCheckAsyncResponseHeaderVo {
-  GetNicknameDuplicateCheckAsyncResponseHeaderVo();
+class GetService1TkV1AuthNicknameDuplicateCheckAsyncResponseHeaderVo {
+  // (api-result-code)
+  // 0 : 정상 동작
+  String? apiResultCode;
+
+  GetService1TkV1AuthNicknameDuplicateCheckAsyncResponseHeaderVo(
+    this.apiResultCode,
+  );
 }
 
-class GetNicknameDuplicateCheckAsyncResponseBodyVo {
+class GetService1TkV1AuthNicknameDuplicateCheckAsyncResponseBodyVo {
   bool duplicated;
 
-  GetNicknameDuplicateCheckAsyncResponseBodyVo(
+  GetService1TkV1AuthNicknameDuplicateCheckAsyncResponseBodyVo(
     this.duplicated,
   );
 }
 
-// todo
 ////
 // (이메일 회원가입 본인 검증 이메일 보내기)
 Future<
         gc_template_classes.NetworkResponseObject<
-            PostRegisterWithEmailVerificationAsyncResponseHeaderVo,
-            PostRegisterWithEmailVerificationAsyncResponseBodyVo>>
-    postRegisterWithEmailVerificationAsync(
-        PostRegisterWithEmailVerificationAsyncRequestBodyVo
+            PostService1TkV1AuthJoinTheMembershipEmailVerificationAsyncResponseHeaderVo,
+            PostService1TkV1AuthJoinTheMembershipEmailVerificationAsyncResponseBodyVo>>
+    postService1TkV1AuthJoinTheMembershipEmailVerificationAsync(
+        PostService1TkV1AuthJoinTheMembershipEmailVerificationAsyncRequestBodyVo
             requestBodyVo) async {
   // !!!개발 / 배포 모드별 요청 Path 지정!!
-  String devServerUrl = "/tk/ra/auth/register-with-email-verification";
-  String prodServerUrl = "/tk/ra/auth/register-with-email-verification";
+  String devServerUrl =
+      "/service1/tk/v1/auth/join-the-membership-email-verification";
+  String prodServerUrl =
+      "/service1/tk/v1/auth/join-the-membership-email-verification";
 
   Map<String, dynamic> requestHeaders = {};
   Map<String, dynamic> requestQueryParams = {};
@@ -2180,14 +2194,18 @@ Future<
     int statusCode = response.statusCode!;
     Map<String, dynamic> responseHeaderMap = response.headers.map;
 
-    PostRegisterWithEmailVerificationAsyncResponseHeaderVo responseHeader;
-    PostRegisterWithEmailVerificationAsyncResponseBodyVo? responseBody;
+    PostService1TkV1AuthJoinTheMembershipEmailVerificationAsyncResponseHeaderVo
+        responseHeader;
+    PostService1TkV1AuthJoinTheMembershipEmailVerificationAsyncResponseBodyVo?
+        responseBody;
 
     // !!!Response Map 을 Response Object 로 변경!!
-    responseHeader = PostRegisterWithEmailVerificationAsyncResponseHeaderVo(
-        (responseHeaderMap.containsKey("api-error-codes"))
-            ? responseHeaderMap["api-error-codes"]!
-            : null);
+    responseHeader =
+        PostService1TkV1AuthJoinTheMembershipEmailVerificationAsyncResponseHeaderVo(
+      (responseHeaderMap.containsKey("api-result-code"))
+          ? responseHeaderMap["api-result-code"][0]!
+          : null,
+    );
     if (statusCode == 200) {
       // responseBody 가 반환되는 조건
       Map<String, dynamic> responseBodyMap = response.data;
@@ -2196,8 +2214,10 @@ Future<
       // Object 타입이 넘어오면 Map<String, dynamic> 으로 받고,
       // Object List 타입이 넘어오면 List<Map<String, dynamic>> 으로 받아서 처리
 
-      responseBody = PostRegisterWithEmailVerificationAsyncResponseBodyVo(
-        responseBodyMap["expireWhen"],
+      responseBody =
+          PostService1TkV1AuthJoinTheMembershipEmailVerificationAsyncResponseBodyVo(
+        responseBodyMap["verificationUid"],
+        responseBodyMap["verificationExpireWhen"],
       );
     }
 
@@ -2212,47 +2232,53 @@ Future<
   }
 }
 
-class PostRegisterWithEmailVerificationAsyncRequestBodyVo {
+class PostService1TkV1AuthJoinTheMembershipEmailVerificationAsyncRequestBodyVo {
   String email; // 수신 이메일
 
-  PostRegisterWithEmailVerificationAsyncRequestBodyVo(this.email);
+  PostService1TkV1AuthJoinTheMembershipEmailVerificationAsyncRequestBodyVo(
+      this.email);
 }
 
-class PostRegisterWithEmailVerificationAsyncResponseHeaderVo {
-  // (서버에서 내려주는 에러 코드)
-  // null : 에러 없음,
+class PostService1TkV1AuthJoinTheMembershipEmailVerificationAsyncResponseHeaderVo {
+  // (api-result-code)
+  // 0 : 정상 동작
   // 1 : 기존 회원 존재
-  List<String>? apiErrorCodes;
+  String? apiResultCode;
 
-  PostRegisterWithEmailVerificationAsyncResponseHeaderVo(this.apiErrorCodes);
+  PostService1TkV1AuthJoinTheMembershipEmailVerificationAsyncResponseHeaderVo(
+      this.apiResultCode);
 }
 
-class PostRegisterWithEmailVerificationAsyncResponseBodyVo {
-  String expireWhen; // 검증 만료 시간 (yyyy-MM-dd HH:mm:ss.SSS)
+class PostService1TkV1AuthJoinTheMembershipEmailVerificationAsyncResponseBodyVo {
+  int verificationUid; // 검증 고유값
+  String verificationExpireWhen; // 검증 만료 시간 (yyyy-MM-dd HH:mm:ss.SSS)
 
-  PostRegisterWithEmailVerificationAsyncResponseBodyVo(
-    this.expireWhen,
+  PostService1TkV1AuthJoinTheMembershipEmailVerificationAsyncResponseBodyVo(
+    this.verificationUid,
+    this.verificationExpireWhen,
   );
 }
 
-// todo
 ////
 // (이메일 회원가입 본인 확인 이메일에서 받은 코드 검증하기)
 Future<
         gc_template_classes.NetworkResponseObject<
-            GetRegisterWithEmailVerificationCheckAsyncResponseHeaderVo,
-            GetRegisterWithEmailVerificationCheckAsyncResponseBodyVo>>
-    getRegisterWithEmailVerificationCheckAsync(
-        GetRegisterWithEmailVerificationCheckAsyncRequestQueryVo
+            GetService1TkV1AuthJoinTheMembershipEmailVerificationCheckAsyncResponseHeaderVo,
+            GetService1TkV1AuthJoinTheMembershipEmailVerificationCheckAsyncResponseBodyVo>>
+    getService1TkV1AuthJoinTheMembershipEmailVerificationCheckAsync(
+        GetService1TkV1AuthJoinTheMembershipEmailVerificationCheckAsyncRequestQueryVo
             requestQueryVo) async {
   // !!!개발 / 배포 모드별 요청 Path 지정!!
-  String devServerUrl = "/tk/ra/auth/register-with-email-verification-check";
-  String prodServerUrl = "/tk/ra/auth/register-with-email-verification-check";
+  String devServerUrl =
+      "/service1/tk/v1/auth/join-the-membership-email-verification-check";
+  String prodServerUrl =
+      "/service1/tk/v1/auth/join-the-membership-email-verification-check";
 
   Map<String, dynamic> requestHeaders = {};
   Map<String, dynamic> requestQueryParams = {};
 
   // !!!Request Object 를 Map 으로 만들기!!
+  requestQueryParams["verificationUid"] = requestQueryVo.verificationUid;
   requestQueryParams["email"] = requestQueryVo.email;
   requestQueryParams["verificationCode"] = requestQueryVo.verificationCode;
 
@@ -2272,14 +2298,17 @@ Future<
     int statusCode = response.statusCode!;
     Map<String, dynamic> responseHeaderMap = response.headers.map;
 
-    GetRegisterWithEmailVerificationCheckAsyncResponseHeaderVo responseHeader;
-    GetRegisterWithEmailVerificationCheckAsyncResponseBodyVo? responseBody;
+    GetService1TkV1AuthJoinTheMembershipEmailVerificationCheckAsyncResponseHeaderVo
+        responseHeader;
+    GetService1TkV1AuthJoinTheMembershipEmailVerificationCheckAsyncResponseBodyVo?
+        responseBody;
 
     // !!!Response Map 을 Response Object 로 변경!!
-    responseHeader = GetRegisterWithEmailVerificationCheckAsyncResponseHeaderVo(
-        (responseHeaderMap.containsKey("api-error-codes"))
-            ? responseHeaderMap["api-error-codes"]!
-            : null);
+    responseHeader =
+        GetService1TkV1AuthJoinTheMembershipEmailVerificationCheckAsyncResponseHeaderVo(
+            (responseHeaderMap.containsKey("api-result-code"))
+                ? responseHeaderMap["api-result-code"][0]!
+                : null);
     if (statusCode == 200) {
       // responseBody 가 반환되는 조건
       Map<String, dynamic> responseBodyMap = response.data;
@@ -2288,11 +2317,9 @@ Future<
       // Object 타입이 넘어오면 Map<String, dynamic> 으로 받고,
       // Object List 타입이 넘어오면 List<Map<String, dynamic>> 으로 받아서 처리
 
-      responseBody = GetRegisterWithEmailVerificationCheckAsyncResponseBodyVo(
-        responseBodyMap["isVerified"],
-        (responseBodyMap.containsKey("expireWhen"))
-            ? responseBodyMap["expireWhen"]
-            : null,
+      responseBody =
+          GetService1TkV1AuthJoinTheMembershipEmailVerificationCheckAsyncResponseBodyVo(
+        responseBodyMap["expireWhen"],
       );
     }
 
@@ -2307,57 +2334,66 @@ Future<
   }
 }
 
-class GetRegisterWithEmailVerificationCheckAsyncRequestQueryVo {
+class GetService1TkV1AuthJoinTheMembershipEmailVerificationCheckAsyncRequestQueryVo {
+  int verificationUid; // 검증 고유값
   String email; // 확인 이메일
   String verificationCode; // 확인 이메일에 전송된 코드
 
-  GetRegisterWithEmailVerificationCheckAsyncRequestQueryVo(
+  GetService1TkV1AuthJoinTheMembershipEmailVerificationCheckAsyncRequestQueryVo(
+    this.verificationUid,
     this.email,
     this.verificationCode,
   );
 }
 
-class GetRegisterWithEmailVerificationCheckAsyncResponseHeaderVo {
-  // (서버에서 내려주는 에러 코드)
-  // null : 에러 없음,
-  // 1 : 이메일 검증 요청을 보낸 적 없음 혹은 만료된 요청
-  List<String>? apiErrorCodes;
+class GetService1TkV1AuthJoinTheMembershipEmailVerificationCheckAsyncResponseHeaderVo {
+  // (api-result-code)
+  // 0 : 정상 동작
+  // 1 : 이메일 검증 요청을 보낸 적 없음
+  // 2 : 이메일 검증 요청이 만료됨
+  // 3 : verificationCode 가 일치하지 않음
+  String? apiResultCode;
 
-  GetRegisterWithEmailVerificationCheckAsyncResponseHeaderVo(
-      this.apiErrorCodes);
+  GetService1TkV1AuthJoinTheMembershipEmailVerificationCheckAsyncResponseHeaderVo(
+      this.apiResultCode);
 }
 
-class GetRegisterWithEmailVerificationCheckAsyncResponseBodyVo {
-  bool isVerified; // 본인 인증 코드 일치 여부
-  String? expireWhen; // isVerified true 일때 새로 늘어난 검증 만료 시간
+class GetService1TkV1AuthJoinTheMembershipEmailVerificationCheckAsyncResponseBodyVo {
+  String expireWhen; // 인증 완료시 새로 늘어난 검증 만료 시간 (yyyy-MM-dd HH:mm:ss.SSS)
 
-  GetRegisterWithEmailVerificationCheckAsyncResponseBodyVo(
-    this.isVerified,
+  GetService1TkV1AuthJoinTheMembershipEmailVerificationCheckAsyncResponseBodyVo(
     this.expireWhen,
   );
 }
 
-// todo
 ////
 // (Email 회원가입)
 Future<
-    gc_template_classes.NetworkResponseObject<
-        PostRegisterWithEmailAsyncResponseHeaderVo,
-        PostRegisterWithEmailAsyncResponseBodyVo>> postRegisterWithEmailAsync(
-    PostRegisterWithEmailAsyncRequestBodyVo requestBodyVo) async {
+        gc_template_classes.NetworkResponseObject<
+            PostService1TkV1AuthJoinTheMembershipWithEmailAsyncResponseHeaderVo,
+            PostService1TkV1AuthJoinTheMembershipWithEmailAsyncResponseBodyVo>>
+    postService1TkV1AuthJoinTheMembershipWithEmailAsync(
+        PostService1TkV1AuthJoinTheMembershipWithEmailAsyncRequestBodyVo
+            requestBodyVo) async {
   // !!!개발 / 배포 모드별 요청 Path 지정!!
-  String devServerUrl = "/tk/ra/auth/register-with-email";
-  String prodServerUrl = "/tk/ra/auth/register-with-email";
+  String devServerUrl = "/service1/tk/v1/auth/join-the-membership-with-email";
+  String prodServerUrl = "/service1/tk/v1/auth/join-the-membership-with-email";
 
   Map<String, dynamic> requestHeaders = {};
   Map<String, dynamic> requestQueryParams = {};
-  Map<String, dynamic> requestBody = {};
+  Map<String, dynamic> requestFormDataMap = {};
 
   // !!!Request Object 를 Map 으로 만들기!!
-  requestBody["email"] = requestBodyVo.email;
-  requestBody["password"] = requestBodyVo.password;
-  requestBody["nickName"] = requestBodyVo.nickName;
-  requestBody["verificationCode"] = requestBodyVo.verificationCode;
+  requestFormDataMap["verificationUid"] = requestBodyVo.verificationUid;
+  requestFormDataMap["email"] = requestBodyVo.email;
+  requestFormDataMap["password"] = requestBodyVo.password;
+  requestFormDataMap["nickName"] = requestBodyVo.nickName;
+  requestFormDataMap["verificationCode"] = requestBodyVo.verificationCode;
+  if (requestBodyVo.profileImageFile != null) {
+    requestFormDataMap["profileImageFile"] = requestBodyVo.profileImageFile;
+  }
+
+  FormData requestBody = FormData.fromMap(requestFormDataMap);
 
   // baseUrl + Request path + QueryParam
   String requestUrlAndParam = gf_template_functions.mergeNetworkQueryParam(
@@ -2376,17 +2412,22 @@ Future<
     int statusCode = response.statusCode!;
     Map<String, dynamic> responseHeaderMap = response.headers.map;
 
-    PostRegisterWithEmailAsyncResponseHeaderVo responseHeader;
-    PostRegisterWithEmailAsyncResponseBodyVo? responseBody;
+    PostService1TkV1AuthJoinTheMembershipWithEmailAsyncResponseHeaderVo
+        responseHeader;
+    PostService1TkV1AuthJoinTheMembershipWithEmailAsyncResponseBodyVo?
+        responseBody;
 
     // !!!Response Map 을 Response Object 로 변경!!
-    responseHeader = PostRegisterWithEmailAsyncResponseHeaderVo(
-        (responseHeaderMap.containsKey("api-error-codes"))
-            ? responseHeaderMap["api-error-codes"]!
-            : null);
+    responseHeader =
+        PostService1TkV1AuthJoinTheMembershipWithEmailAsyncResponseHeaderVo(
+      (responseHeaderMap.containsKey("api-result-code"))
+          ? responseHeaderMap["api-result-code"][0]!
+          : null,
+    );
     if (statusCode == 200) {
       // responseBody 가 반환되는 조건
-      responseBody = PostRegisterWithEmailAsyncResponseBodyVo();
+      responseBody =
+          PostService1TkV1AuthJoinTheMembershipWithEmailAsyncResponseBodyVo();
     }
 
     return gc_template_classes.NetworkResponseObject(
@@ -2400,33 +2441,38 @@ Future<
   }
 }
 
-class PostRegisterWithEmailAsyncRequestBodyVo {
+class PostService1TkV1AuthJoinTheMembershipWithEmailAsyncRequestBodyVo {
+  int verificationUid; // 검증 고유값
   String email; // 아이디 - 이메일
   String password; // 사용할 비밀번호
   String nickName; // 닉네임
   String verificationCode; // oauth2Id 검증에 사용한 코드
+  MultipartFile? profileImageFile; // 프로필 사진 파일
 
-  PostRegisterWithEmailAsyncRequestBodyVo(
-    this.email,
-    this.password,
-    this.nickName,
-    this.verificationCode,
-  );
+  PostService1TkV1AuthJoinTheMembershipWithEmailAsyncRequestBodyVo(
+      this.verificationUid,
+      this.email,
+      this.password,
+      this.nickName,
+      this.verificationCode,
+      this.profileImageFile);
 }
 
-class PostRegisterWithEmailAsyncResponseHeaderVo {
-  // (서버에서 내려주는 에러 코드)
-  // null : 에러 없음,
-  // 1 : 기존 회원 존재
-  // 2 : 이메일 검증 요청을 보낸 적 없음 혹은 만료된 요청
-  // 3 : 닉네임 중복
-  // 4 : 입력한 verificationCode 와 검증된 code 가 일치하지 않거나 만료된 요청
-  List<String>? apiErrorCodes;
+class PostService1TkV1AuthJoinTheMembershipWithEmailAsyncResponseHeaderVo {
+  // (api-result-code)
+  // 0 : 정상 동작
+  // 1 : 이메일 검증 요청을 보낸 적 없음
+  // 2 : 이메일 검증 요청이 만료됨
+  // 3 : verificationCode 가 일치하지 않음
+  // 4 : 이미 가입된 회원이 있습니다.
+  // 5 : 이미 사용중인 닉네임
+  String? apiResultCode;
 
-  PostRegisterWithEmailAsyncResponseHeaderVo(this.apiErrorCodes);
+  PostService1TkV1AuthJoinTheMembershipWithEmailAsyncResponseHeaderVo(
+      this.apiResultCode);
 }
 
-class PostRegisterWithEmailAsyncResponseBodyVo {}
+class PostService1TkV1AuthJoinTheMembershipWithEmailAsyncResponseBodyVo {}
 
 ////
 // (이메일 비밀번호 찾기 본인 검증 이메일 보내기)
@@ -2576,9 +2622,10 @@ Future<
     // !!!Response Map 을 Response Object 로 변경!!
     responseHeader =
         PostService1TkV1AuthFindPasswordWithEmailAsyncResponseHeaderVo(
-            (responseHeaderMap.containsKey("api-result-code"))
-                ? responseHeaderMap["api-result-code"][0]!
-                : null);
+      (responseHeaderMap.containsKey("api-result-code"))
+          ? responseHeaderMap["api-result-code"][0]!
+          : null,
+    );
     if (statusCode == 200) {
       // responseBody 가 반환되는 조건
       // Map<String, dynamic> responseBodyMap = response.data;
@@ -2624,18 +2671,18 @@ class PostService1TkV1AuthFindPasswordWithEmailAsyncResponseBodyVo {
   PostService1TkV1AuthFindPasswordWithEmailAsyncResponseBodyVo();
 }
 
-// todo
 ////
 // (회원탈퇴 요청 <>)
 Future<
-    gc_template_classes.NetworkResponseObject<
-        PostWithdrawalAsyncResponseHeaderVo,
-        PostWithdrawalAsyncResponseBodyVo>> postWithdrawalAsync(
-  PostWithdrawalAsyncRequestHeaderVo requestHeaderVo,
+        gc_template_classes.NetworkResponseObject<
+            DeleteService1TkV1AuthWithdrawalAsyncResponseHeaderVo,
+            DeleteService1TkV1AuthWithdrawalAsyncResponseBodyVo>>
+    deleteService1TkV1AuthWithdrawalAsync(
+  DeleteService1TkV1AuthWithdrawalAsyncRequestHeaderVo requestHeaderVo,
 ) async {
   // !!!개발 / 배포 모드별 요청 Path 지정!!
-  String devServerUrl = "/tk/ra/auth/withdrawal";
-  String prodServerUrl = "/tk/ra/auth/withdrawal";
+  String devServerUrl = "/service1/tk/v1/auth/withdrawal";
+  String prodServerUrl = "/service1/tk/v1/auth/withdrawal";
 
   Map<String, dynamic> requestHeaders = {};
   Map<String, dynamic> requestQueryParams = {};
@@ -2652,7 +2699,7 @@ Future<
   try {
     // !!!네트워크 요청 설정!!
     // requestPathAndParam, headers 설정 외 세부 설정
-    var response = await serverDioObject.post(requestUrlAndParam,
+    var response = await serverDioObject.delete(requestUrlAndParam,
         options: Options(
           headers: requestHeaders,
           sendTimeout: const Duration(seconds: 10),
@@ -2661,18 +2708,22 @@ Future<
         data: requestBody);
 
     int statusCode = response.statusCode!;
-    // Map<String, dynamic> responseHeaderMap = response.headers.map;
+    Map<String, dynamic> responseHeaderMap = response.headers.map;
 
-    PostWithdrawalAsyncResponseHeaderVo responseHeader;
-    PostWithdrawalAsyncResponseBodyVo? responseBody;
+    DeleteService1TkV1AuthWithdrawalAsyncResponseHeaderVo responseHeader;
+    DeleteService1TkV1AuthWithdrawalAsyncResponseBodyVo? responseBody;
 
     // !!!Response Map 을 Response Object 로 변경!!
-    responseHeader = PostWithdrawalAsyncResponseHeaderVo();
+    responseHeader = DeleteService1TkV1AuthWithdrawalAsyncResponseHeaderVo(
+      (responseHeaderMap.containsKey("api-result-code"))
+          ? responseHeaderMap["api-result-code"][0]!
+          : null,
+    );
     if (statusCode == 200) {
       // responseBody 가 반환되는 조건
       // Map<String, dynamic> responseBodyMap = response.data;
 
-      responseBody = PostWithdrawalAsyncResponseBodyVo();
+      responseBody = DeleteService1TkV1AuthWithdrawalAsyncResponseBodyVo();
     }
 
     return gc_template_classes.NetworkResponseObject(
@@ -2686,22 +2737,27 @@ Future<
   }
 }
 
-class PostWithdrawalAsyncRequestHeaderVo {
+class DeleteService1TkV1AuthWithdrawalAsyncRequestHeaderVo {
   // 인증 토큰 (ex : "Bearer abcd1234!@#$")
   String authorization;
 
-  PostWithdrawalAsyncRequestHeaderVo(this.authorization);
+  DeleteService1TkV1AuthWithdrawalAsyncRequestHeaderVo(this.authorization);
 }
 
-class PostWithdrawalAsyncResponseHeaderVo {
-  PostWithdrawalAsyncResponseHeaderVo();
+class DeleteService1TkV1AuthWithdrawalAsyncResponseHeaderVo {
+  // (api-result-code)
+  // 0 : 정상 동작
+  String? apiResultCode;
+
+  DeleteService1TkV1AuthWithdrawalAsyncResponseHeaderVo(
+    this.apiResultCode,
+  );
 }
 
-class PostWithdrawalAsyncResponseBodyVo {
-  PostWithdrawalAsyncResponseBodyVo();
+class DeleteService1TkV1AuthWithdrawalAsyncResponseBodyVo {
+  DeleteService1TkV1AuthWithdrawalAsyncResponseBodyVo();
 }
 
-// todo
 ////
 // (비밀번호 변경 요청 <>)
 Future<

@@ -117,8 +117,9 @@ class PageBusiness {
       var loadingSpinner = all_dialog_loading_spinner.PageEntrance(
           all_dialog_loading_spinner.PageInputVo(), (pageBusiness) async {
         var responseVo = await api_main_server
-            .getRegisterWithEmailVerificationCheckAsync(api_main_server
-                .GetRegisterWithEmailVerificationCheckAsyncRequestQueryVo(
+            .getService1TkV1AuthJoinTheMembershipEmailVerificationCheckAsync(api_main_server
+                .GetService1TkV1AuthJoinTheMembershipEmailVerificationCheckAsyncRequestQueryVo(
+          1, // todo
                     pageViewModel.pageInputVo.emailAddress,
                     pageViewModel.codeTextEditController.text));
 
@@ -130,27 +131,33 @@ class PageBusiness {
           if (networkResponseObjectOk.responseStatusCode == 200) {
             // 정상 응답
             api_main_server
-                .GetRegisterWithEmailVerificationCheckAsyncResponseBodyVo
+                .GetService1TkV1AuthJoinTheMembershipEmailVerificationCheckAsyncResponseBodyVo
                 responseBodyVo = networkResponseObjectOk.responseBody;
 
-            if (responseBodyVo.isVerified) {
-              // 검증 완료
-              if (!_context.mounted) return;
-              _context.pop(page_entrance.PageOutputVo(
-                  pageViewModel.codeTextEditController.text));
-            } else {
-              // 검증 실패
-              pageViewModel.codeTextEditErrorMsg =
-                  "Verification codes do not match.";
-              blocObjects.blocCodeEditText
-                  .add(!blocObjects.blocCodeEditText.state);
-              if (!_context.mounted) return;
-              FocusScope.of(_context)
-                  .requestFocus(pageViewModel.codeTextEditFocus);
-            }
+            // 검증 완료
+            if (!_context.mounted) return;
+            _context.pop(page_entrance.PageOutputVo(
+                pageViewModel.codeTextEditController.text));
+
+            // todo
+            // if (responseBodyVo.isVerified) {
+            //   // 검증 완료
+            //   if (!_context.mounted) return;
+            //   _context.pop(page_entrance.PageOutputVo(
+            //       pageViewModel.codeTextEditController.text));
+            // } else {
+            //   // 검증 실패
+            //   pageViewModel.codeTextEditErrorMsg =
+            //       "Verification codes do not match.";
+            //   blocObjects.blocCodeEditText
+            //       .add(!blocObjects.blocCodeEditText.state);
+            //   if (!_context.mounted) return;
+            //   FocusScope.of(_context)
+            //       .requestFocus(pageViewModel.codeTextEditFocus);
+            // }
           } else {
             // 비정상 응답
-            if (networkResponseObjectOk.responseHeaders.apiErrorCodes == null) {
+            if (networkResponseObjectOk.responseHeaders.apiResultCode == null) {
               // 비정상 응답이면서 서버에서 에러 원인 코드가 전달되지 않았을 때
               if (!_context.mounted) return;
               showDialog(
@@ -165,7 +172,7 @@ class PageBusiness {
             } else {
               // 서버 지정 에러 코드를 전달 받았을 때
               List<String> apiErrorCodes =
-                  networkResponseObjectOk.responseHeaders.apiErrorCodes;
+                  networkResponseObjectOk.responseHeaders.apiResultCode;
               if (apiErrorCodes.contains("1")) {
                 // 이메일 검증 요청을 보낸 적 없음 혹은 만료된 요청
                 if (!_context.mounted) return;
@@ -215,8 +222,8 @@ class PageBusiness {
     var loadingSpinner = all_dialog_loading_spinner.PageEntrance(
         all_dialog_loading_spinner.PageInputVo(), (pageBusiness) async {
       var responseVo = await api_main_server
-          .postRegisterWithEmailVerificationAsync(api_main_server
-              .PostRegisterWithEmailVerificationAsyncRequestBodyVo(
+          .postService1TkV1AuthJoinTheMembershipEmailVerificationAsync(api_main_server
+              .PostService1TkV1AuthJoinTheMembershipEmailVerificationAsyncRequestBodyVo(
                   pageViewModel.pageInputVo.emailAddress));
 
       if (responseVo.dioException == null) {
@@ -243,7 +250,7 @@ class PageBusiness {
           FocusScope.of(_context).requestFocus(pageViewModel.codeTextEditFocus);
         } else {
           // 비정상 응답
-          if (networkResponseObjectOk.responseHeaders.apiErrorCodes == null) {
+          if (networkResponseObjectOk.responseHeaders.apiResultCode == null) {
             // 비정상 응답이면서 서버에서 에러 원인 코드가 전달되지 않았을 때
             if (!_context.mounted) return;
             showDialog(
@@ -258,7 +265,7 @@ class PageBusiness {
           } else {
             // 서버 지정 에러 코드를 전달 받았을 때
             List<String> apiErrorCodes =
-                networkResponseObjectOk.responseHeaders.apiErrorCodes;
+                networkResponseObjectOk.responseHeaders.apiResultCode;
             if (apiErrorCodes.contains("1")) {
               // 기존 회원 존재
               if (!_context.mounted) return;

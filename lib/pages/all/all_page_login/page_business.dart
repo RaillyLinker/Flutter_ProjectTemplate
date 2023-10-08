@@ -157,15 +157,12 @@ class PageBusiness {
 
               if (networkResponseObjectOk.responseStatusCode == 200) {
                 // 정상 응답
-                api_main_server
-                    .PostService1TkV1AuthLoginWithPasswordAsyncResponseBodyVo
-                    responseBody =
-                    responseVo.networkResponseObjectOk!.responseBody!;
+                var responseBody = responseVo.networkResponseObjectOk!
+                        .responseBody! as api_main_server
+                    .PostService1TkV1AuthLoginWithPasswordAsyncResponseBodyVo;
                 List<spw_auth_member_info.SharedPreferenceWrapperVoOAuth2Info>
                     myOAuth2ObjectList = [];
-                for (api_main_server
-                    .PostSignInWithPasswordAsyncResponseBodyVoOAuth2Info myOAuth2
-                    in responseBody.myOAuth2List) {
+                for (var myOAuth2 in responseBody.myOAuth2List) {
                   myOAuth2ObjectList.add(
                       spw_auth_member_info.SharedPreferenceWrapperVoOAuth2Info(
                           myOAuth2.oauth2TypeCode, myOAuth2.oauth2Id));
@@ -199,9 +196,9 @@ class PageBusiness {
                 }
               } else {
                 // 비정상 응답
-                api_main_server
-                    .PostService1TkV1AuthLoginWithPasswordAsyncResponseHeaderVo
-                    responseHeaderVo = networkResponseObjectOk.responseHeaders;
+                var responseHeaderVo = networkResponseObjectOk.responseHeaders
+                    as api_main_server
+                    .PostService1TkV1AuthLoginWithPasswordAsyncResponseHeaderVo;
 
                 switch (responseHeaderVo.apiResultCode) {
                   case "1":

@@ -194,8 +194,8 @@ class PageBusiness {
             .requestFocus(pageViewModel.nickNameTextEditFocus);
         onNickNameCheckBtnAsyncClicked = false;
       } else {
-        var responseVo = await api_main_server.getNicknameDuplicateCheckAsync(
-            api_main_server.GetNicknameDuplicateCheckAsyncRequestQueryVo(
+        var responseVo = await api_main_server.getService1TkV1AuthNicknameDuplicateCheckAsync(
+            api_main_server.GetService1TkV1AuthNicknameDuplicateCheckAsyncRequestQueryVo(
                 pageViewModel.nickNameTextEditController.text.trim()));
 
         if (responseVo.dioException == null) {
@@ -204,7 +204,7 @@ class PageBusiness {
 
           if (networkResponseObjectOk.responseStatusCode == 200) {
             var responseBody = networkResponseObjectOk.responseBody
-                as api_main_server.GetNicknameDuplicateCheckAsyncResponseBodyVo;
+                as api_main_server.GetService1TkV1AuthNicknameDuplicateCheckAsyncResponseBodyVo;
 
             if (responseBody.duplicated) {
               // 중복시 에러표시
@@ -288,12 +288,15 @@ class PageBusiness {
       switch (pageViewModel.pageInputVo.authType) {
         case "email": // EMAIL
           {
-            var responseVo = await api_main_server.postRegisterWithEmailAsync(
-                api_main_server.PostRegisterWithEmailAsyncRequestBodyVo(
+            var responseVo = await api_main_server.postService1TkV1AuthJoinTheMembershipWithEmailAsync(
+                api_main_server.PostService1TkV1AuthJoinTheMembershipWithEmailAsyncRequestBodyVo(
+                  1, // todo
                     pageViewModel.pageInputVo.memberId!,
                     pageViewModel.pageInputVo.secretOpt!,
                     pageViewModel.nickNameTextEditController.text.trim(),
-                    pageViewModel.pageInputVo.verificationCode!));
+                    pageViewModel.pageInputVo.verificationCode!,
+                null, // todo
+                ));
 
             if (responseVo.dioException == null) {
               // Dio 네트워크 응답
@@ -320,9 +323,9 @@ class PageBusiness {
                 // 비정상 응답
                 var responseHeaders = networkResponseObjectOk.responseHeaders
                     as api_main_server
-                    .PostRegisterWithEmailAsyncResponseHeaderVo;
+                    .PostService1TkV1AuthJoinTheMembershipWithEmailAsyncResponseHeaderVo;
 
-                if (responseHeaders.apiErrorCodes == null) {
+                if (responseHeaders.apiResultCode == null) {
                   // 비정상 응답이면서 서버에서 에러 원인 코드가 전달되지 않았을 때
                   if (!_context.mounted) return;
                   showDialog(
@@ -335,7 +338,7 @@ class PageBusiness {
                   onRegisterBtnClickClicked = false;
                 } else {
                   // 서버 지정 에러 코드를 전달 받았을 때
-                  List<String> apiErrorCodes = responseHeaders.apiErrorCodes!;
+                  String apiErrorCodes = responseHeaders.apiResultCode!;
                   if (apiErrorCodes.contains("1")) {
                     // 기존 회원 존재
                     if (!_context.mounted) return;

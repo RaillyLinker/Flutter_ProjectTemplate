@@ -413,8 +413,12 @@ class PageBusiness {
             }
           });
         } else {
+          var responseHeaders = networkResponseObjectOk.responseHeaders
+              as api_main_server
+              .PutService1TkV1AuthChangeAccountPasswordAsyncResponseHeaderVo;
+
           // 비정상 응답
-          if (networkResponseObjectOk.responseHeaders.apiResultCode == null) {
+          if (responseHeaders.apiResultCode == null) {
             // 비정상 응답이면서 서버에서 에러 원인 코드가 전달되지 않았을 때
             if (!_context.mounted) return;
             showDialog(
@@ -426,8 +430,7 @@ class PageBusiness {
                     (pageBusiness) {}));
           } else {
             // 서버 지정 에러 코드를 전달 받았을 때
-            String apiResultCode =
-                networkResponseObjectOk.responseHeaders.apiResultCode;
+            String apiResultCode = responseHeaders.apiResultCode!;
 
             switch (apiResultCode) {
               case "1":

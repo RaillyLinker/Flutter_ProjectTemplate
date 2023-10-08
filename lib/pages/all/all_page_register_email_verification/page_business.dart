@@ -137,8 +137,8 @@ class PageBusiness {
       var loadingSpinner = all_dialog_loading_spinner.PageEntrance(
           all_dialog_loading_spinner.PageInputVo(), (pageBusiness) async {
         var responseVo = await api_main_server
-            .postRegisterWithEmailVerificationAsync(api_main_server
-                .PostRegisterWithEmailVerificationAsyncRequestBodyVo(email));
+            .postService1TkV1AuthJoinTheMembershipEmailVerificationAsync(api_main_server
+                .PostService1TkV1AuthJoinTheMembershipEmailVerificationAsyncRequestBodyVo(email));
 
         if (responseVo.dioException == null) {
           // Dio 네트워크 응답
@@ -176,9 +176,9 @@ class PageBusiness {
             // 비정상 응답
             var responseHeaders = networkResponseObjectOk.responseHeaders!
                 as api_main_server
-                .PostRegisterWithEmailVerificationAsyncResponseHeaderVo;
+                .PostService1TkV1AuthJoinTheMembershipEmailVerificationAsyncResponseHeaderVo;
 
-            if (responseHeaders.apiErrorCodes == null) {
+            if (responseHeaders.apiResultCode == null) {
               // 비정상 응답이면서 서버에서 에러 원인 코드가 전달되지 않았을 때
               if (!_context.mounted) return;
               showDialog(
@@ -190,7 +190,7 @@ class PageBusiness {
                       (pageBusiness) {}));
             } else {
               // 서버 지정 에러 코드를 전달 받았을 때
-              List<String> apiErrorCodes = responseHeaders.apiErrorCodes!;
+              String apiErrorCodes = responseHeaders.apiResultCode!;
               if (apiErrorCodes.contains("1")) {
                 // 기존 회원 존재
                 if (!_context.mounted) return;
