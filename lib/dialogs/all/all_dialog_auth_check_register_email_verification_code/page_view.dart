@@ -2,12 +2,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-// (page)
-import 'page_business.dart' as page_business;
-
 // (all)
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
+
+// (page)
+import 'page_business.dart' as page_business;
 
 // [페이지 화면 위젯 작성 파일]
 // 페이지 화면 구현을 담당합니다.
@@ -32,7 +32,6 @@ class PageView extends StatelessWidget {
       backgroundColor: Colors.transparent,
       child: SingleChildScrollView(
         child: Container(
-          height: 600,
           width: 400,
           decoration: const BoxDecoration(
               color: Colors.white,
@@ -66,7 +65,7 @@ class PageView extends StatelessWidget {
                             const BorderRadius.all(Radius.circular(5))),
                     child: const Center(
                       child: Text(
-                        'Email sending Complete',
+                        '본인 인증 이메일이 전송되었습니다.',
                         style: TextStyle(
                             fontSize: 20.0,
                             fontWeight: FontWeight.normal,
@@ -76,7 +75,7 @@ class PageView extends StatelessWidget {
                   ),
                   const SizedBox(height: 8.0),
                   const Text(
-                    'Email Code Verification',
+                    '본인 인증 코드 검증',
                     style: TextStyle(
                         color: Colors.black,
                         fontSize: 24.0,
@@ -87,25 +86,14 @@ class PageView extends StatelessWidget {
                   SizedBox(
                     width: 400,
                     child: Text(
-                      'We have sent the member registration email verification code to\n${pageBusiness.pageViewModel.pageInputVo.emailAddress}.',
+                      '이메일 회원 가입을 위하여,\n본인 인증 이메일을\n(${pageBusiness.pageViewModel.pageInputVo.emailAddress})\n에 발송하였습니다.',
                       style: const TextStyle(
                           fontSize: 16.0,
                           fontWeight: FontWeight.normal,
                           fontFamily: "MaruBuri"),
                     ),
                   ),
-                  const SizedBox(height: 8.0),
-                  const SizedBox(
-                    width: 400,
-                    child: Text(
-                      'Please enter the verification code sent to your email within 10 minutes.',
-                      style: TextStyle(
-                          fontSize: 16.0,
-                          fontWeight: FontWeight.normal,
-                          fontFamily: "MaruBuri"),
-                    ),
-                  ),
-                  const SizedBox(height: 20.0),
+                  const SizedBox(height: 10.0),
                   SizedBox(
                     width: 400,
                     child: BlocBuilder<page_business.BlocCodeEditText, bool>(
@@ -124,8 +112,8 @@ class PageView extends StatelessWidget {
                           decoration: InputDecoration(
                               errorText: pageBusiness
                                   .pageViewModel.codeTextEditErrorMsg,
-                              labelText: 'Verification Code',
-                              hintText: "Please enter your verification code"),
+                              labelText: '본인 이메일 인증 코드',
+                              hintText: "발송된 본인 이메일 인증 코드를 입력하세요."),
                         );
                       },
                     ),
@@ -140,7 +128,7 @@ class PageView extends StatelessWidget {
                       child: const MouseRegion(
                         cursor: SystemMouseCursors.click,
                         child: Text(
-                          'Resend email',
+                          '본인 인증 이메일 재전송',
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Colors.blue,
@@ -159,10 +147,10 @@ class PageView extends StatelessWidget {
                         borderRadius:
                             const BorderRadius.all(Radius.circular(5))),
                     child: const Text(
-                      'If you do not receive an email,\n'
-                      '- Make sure the email address you entered is correct.\n'
-                      '- Check your spam folder.\n'
-                      '- Check if the mailbox has enough space.',
+                      '이메일을 받지 못했다면,\n'
+                      '- 입력한 이메일 주소가 올바른지 확인하세요.\n'
+                      '- 이메일 스팸 보관함을 확인하세요.\n'
+                      '- 이메일 저장소 용량이 충분한지 확인하세요.',
                       style: TextStyle(
                           fontWeight: FontWeight.normal,
                           fontFamily: "MaruBuri"),
@@ -181,7 +169,7 @@ class PageView extends StatelessWidget {
                       height: 40,
                       child: Center(
                         child: Text(
-                          'Check',
+                          '본인 인증 코드 검증',
                           style: TextStyle(
                               color: Colors.white, fontFamily: "MaruBuri"),
                         ),

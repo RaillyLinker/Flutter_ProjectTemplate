@@ -164,19 +164,26 @@ class PageBusiness {
             } else {
               // 서버 지정 에러 코드를 전달 받았을 때
               String apiResultCode = responseHeaders.apiResultCode!;
-              if (apiResultCode.contains("1")) {
-                // 가입되지 않은 회원
-                if (!_context.mounted) return;
-                showDialog(
-                    barrierDismissible: true,
-                    context: _context,
-                    builder: (context) => all_dialog_info.PageEntrance(
-                        all_dialog_info.PageInputVo(
-                            "인증 이메일 발송 실패", "가입되지 않은 이메일입니다.", "확인"),
-                        (pageBusiness) {}));
-              } else {
-                // 알 수 없는 에러 코드일 때
-                throw Exception("unKnown Error Code");
+
+              switch (apiResultCode) {
+                case "1":
+                  {
+                    // 가입되지 않은 회원
+                    if (!_context.mounted) return;
+                    showDialog(
+                        barrierDismissible: true,
+                        context: _context,
+                        builder: (context) => all_dialog_info.PageEntrance(
+                            all_dialog_info.PageInputVo(
+                                "인증 이메일 발송 실패", "가입되지 않은 이메일입니다.", "확인"),
+                            (pageBusiness) {}));
+                  }
+                  break;
+                default:
+                  {
+                    // 알 수 없는 에러 코드일 때
+                    throw Exception("unKnown Error Code");
+                  }
               }
             }
           }
@@ -315,52 +322,68 @@ class PageBusiness {
             } else {
               // 서버 지정 에러 코드를 전달 받았을 때
               String apiResultCode = responseHeaders.apiResultCode!;
-              if (apiResultCode.contains("1")) {
-                // 이메일 검증 요청을 보낸 적 없음
-                if (!_context.mounted) return;
-                showDialog(
-                    barrierDismissible: true,
-                    context: _context,
-                    builder: (context) => all_dialog_info.PageEntrance(
-                        all_dialog_info.PageInputVo(
-                            "비밀번호 찾기 실패",
-                            "이메일 검증 요청을 보내지 않았습니다.\n"
-                                "이메일 발송 버튼을 누르세요.",
-                            "확인"),
-                        (pageBusiness) {}));
-              } else if (apiResultCode.contains("2")) {
-                // 이메일 검증 요청이 만료됨
-                if (!_context.mounted) return;
-                showDialog(
-                    barrierDismissible: true,
-                    context: _context,
-                    builder: (context) => all_dialog_info.PageEntrance(
-                        all_dialog_info.PageInputVo(
-                            "비밀번호 찾기 실패", "이메일 검증 요청이 만료되었습니다.", "확인"),
-                        (pageBusiness) {}));
-              } else if (apiResultCode.contains("3")) {
-                // verificationCode 가 일치하지 않음
-                if (!_context.mounted) return;
-                showDialog(
-                    barrierDismissible: true,
-                    context: _context,
-                    builder: (context) => all_dialog_info.PageEntrance(
-                        all_dialog_info.PageInputVo(
-                            "비밀번호 찾기 실패", "본인 인증 코드가 일치하지 않습니다.", "확인"),
-                        (pageBusiness) {}));
-              } else if (apiResultCode.contains("4")) {
-                // 탈퇴한 회원입니다.
-                if (!_context.mounted) return;
-                showDialog(
-                    barrierDismissible: true,
-                    context: _context,
-                    builder: (context) => all_dialog_info.PageEntrance(
-                        all_dialog_info.PageInputVo(
-                            "비밀번호 찾기 실패", "탈퇴된 이메일입니다.", "확인"),
-                        (pageBusiness) {}));
-              } else {
-                // 알 수 없는 에러 코드일 때
-                throw Exception("unKnown Error Code");
+
+              switch (apiResultCode) {
+                case "1":
+                  {
+                    // 이메일 검증 요청을 보낸 적 없음
+                    if (!_context.mounted) return;
+                    showDialog(
+                        barrierDismissible: true,
+                        context: _context,
+                        builder: (context) => all_dialog_info.PageEntrance(
+                            all_dialog_info.PageInputVo(
+                                "비밀번호 찾기 실패",
+                                "이메일 검증 요청을 보내지 않았습니다.\n"
+                                    "이메일 발송 버튼을 누르세요.",
+                                "확인"),
+                            (pageBusiness) {}));
+                  }
+                  break;
+                case "2":
+                  {
+                    // 이메일 검증 요청이 만료됨
+                    if (!_context.mounted) return;
+                    showDialog(
+                        barrierDismissible: true,
+                        context: _context,
+                        builder: (context) => all_dialog_info.PageEntrance(
+                            all_dialog_info.PageInputVo(
+                                "비밀번호 찾기 실패", "이메일 검증 요청이 만료되었습니다.", "확인"),
+                            (pageBusiness) {}));
+                  }
+                  break;
+                case "3":
+                  {
+                    // verificationCode 가 일치하지 않음
+                    if (!_context.mounted) return;
+                    showDialog(
+                        barrierDismissible: true,
+                        context: _context,
+                        builder: (context) => all_dialog_info.PageEntrance(
+                            all_dialog_info.PageInputVo(
+                                "비밀번호 찾기 실패", "본인 인증 코드가 일치하지 않습니다.", "확인"),
+                            (pageBusiness) {}));
+                  }
+                  break;
+                case "4":
+                  {
+                    // 탈퇴한 회원입니다.
+                    if (!_context.mounted) return;
+                    showDialog(
+                        barrierDismissible: true,
+                        context: _context,
+                        builder: (context) => all_dialog_info.PageEntrance(
+                            all_dialog_info.PageInputVo(
+                                "비밀번호 찾기 실패", "탈퇴된 이메일입니다.", "확인"),
+                            (pageBusiness) {}));
+                  }
+                  break;
+                default:
+                  {
+                    // 알 수 없는 에러 코드일 때
+                    throw Exception("unKnown Error Code");
+                  }
               }
             }
           }

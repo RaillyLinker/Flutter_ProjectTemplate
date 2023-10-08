@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-// (page)
-import 'page_business.dart' as page_business;
-
 // (all)
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
+
+// (page)
+import 'page_business.dart' as page_business;
 
 // [페이지 화면 위젯 작성 파일]
 // 페이지 화면 구현을 담당합니다.
@@ -40,7 +40,7 @@ class PageView extends StatelessWidget {
       appBar: AppBar(
         automaticallyImplyLeading: !kIsWeb,
         title: const Text(
-          'Member Join : Member Info',
+          '회원 가입 : 회원 정보 입력 (2/2)',
           style: TextStyle(color: Colors.white, fontFamily: "MaruBuri"),
         ),
         backgroundColor: Colors.blue,
@@ -82,7 +82,7 @@ class PageView extends StatelessWidget {
                                     decoration: InputDecoration(
                                       errorText: pageBusiness.pageViewModel
                                           .nickNameTextEditErrorMsg,
-                                      labelText: 'Nickname',
+                                      labelText: '닉네임',
                                     ),
                                   );
                                 },
@@ -115,28 +115,12 @@ class PageView extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(height: 40.0),
-                ElevatedButton(
-                  onPressed: () {
-                    // 회원가입 버튼 동작
-                    pageBusiness.onRegisterBtnClick();
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
-                  ),
-                  child: const Text(
-                    'register membership',
-                    style:
-                        TextStyle(color: Colors.white, fontFamily: "MaruBuri"),
-                  ),
-                ),
-                const SizedBox(height: 20.0),
+                // todo : 클릭으로 접기 / 열기
                 Container(
                   width: 300,
-                  height: 300,
                   margin: const EdgeInsets.only(top: 20),
                   padding: const EdgeInsets.only(
-                      left: 10, right: 10, top: 2, bottom: 2),
+                      left: 10, right: 10, top: 5, bottom: 20),
                   decoration: const BoxDecoration(
                       border: Border(
                         left: BorderSide(
@@ -168,27 +152,42 @@ class PageView extends StatelessWidget {
                           height: 10,
                         ),
                         Text(
-                          "Nickname generation rules",
+                          "닉네임 입력 규칙",
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Colors.black,
                               fontFamily: "MaruBuri"),
                         ),
                         SizedBox(
-                          height: 5,
+                          height: 10,
                         ),
                         Text(
-                          '1. Set the length of the Nickname to at least 2 digits\n'
-                          '2. Spaces cannot be used in the Nickname.\n'
-                          '3. Do not use the following special characters as they are vulnerable to security\n'
-                          '<, >, (, ), #, ’, /, |\n'
-                          '4. If you use an inappropriate nickname such as abusive language or sexual content, you may be forced to change your nickname.',
+                          '1. 닉네임은 2 글자 이상으로 입력하세요.\n'
+                          '2. 닉네임에 공백은 허용되지 않습니다.\n'
+                          '3. 아래 특수문자는 사용할 수 없습니다.\n'
+                          '    <, >, (, ), #, ’, /, |\n'
+                          '4. 욕설 등 부적절한 닉네임의 경우 강제로 닉네임이 변경될 수 있습니다.',
                           style: TextStyle(
                               fontWeight: FontWeight.normal,
                               fontFamily: "MaruBuri"),
                         )
                       ],
                     ),
+                  ),
+                ),
+                const SizedBox(height: 20.0),
+                ElevatedButton(
+                  onPressed: () {
+                    // 회원가입 버튼 동작
+                    pageBusiness.onRegisterBtnClick();
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blue,
+                  ),
+                  child: const Text(
+                    '회원 가입',
+                    style:
+                        TextStyle(color: Colors.white, fontFamily: "MaruBuri"),
                   ),
                 ),
               ],

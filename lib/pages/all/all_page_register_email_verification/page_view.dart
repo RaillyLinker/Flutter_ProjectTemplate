@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-// (page)
-import 'page_business.dart' as page_business;
-
 // (all)
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
+
+// (page)
+import 'page_business.dart' as page_business;
 
 // [페이지 화면 위젯 작성 파일]
 // 페이지 화면 구현을 담당합니다.
@@ -40,7 +40,7 @@ class PageView extends StatelessWidget {
       appBar: AppBar(
         automaticallyImplyLeading: !kIsWeb,
         title: const Text(
-          'Member Join : Email Verification',
+          '회원가입 : 본인 이메일 검증 (1/2)',
           style: TextStyle(color: Colors.white, fontFamily: "MaruBuri"),
         ),
         backgroundColor: Colors.blue,
@@ -82,7 +82,7 @@ class PageView extends StatelessWidget {
                                       decoration: InputDecoration(
                                           errorText: pageBusiness.pageViewModel
                                               .emailTextEditErrorMsg,
-                                          labelText: 'Email',
+                                          labelText: '이메일',
                                           hintText: "user@email.com"),
                                     );
                                   },
@@ -102,13 +102,17 @@ class PageView extends StatelessWidget {
                                       backgroundColor: Colors.blue,
                                     ),
                                     child: Center(
-                                      child: Text(
-                                        pageBusiness
-                                            .pageViewModel.emailCheckBtn,
-                                        style: const TextStyle(
-                                            color: Colors.white,
-                                            fontFamily: "MaruBuri"),
-                                        textAlign: TextAlign.center,
+                                      child: Container(
+                                        padding: const EdgeInsets.only(
+                                            top: 2, bottom: 2),
+                                        child: Text(
+                                          pageBusiness
+                                              .pageViewModel.emailCheckBtn,
+                                          style: const TextStyle(
+                                              color: Colors.white,
+                                              fontFamily: "MaruBuri"),
+                                          textAlign: TextAlign.center,
+                                        ),
                                       ),
                                     ),
                                   );
@@ -136,7 +140,7 @@ class PageView extends StatelessWidget {
                                 decoration: InputDecoration(
                                   errorText: pageBusiness
                                       .pageViewModel.passwordTextEditErrorMsg,
-                                  labelText: "Password",
+                                  labelText: "비밀번호",
                                   hintText: 'xxxxxxxxxxx',
                                   suffixIcon: IconButton(
                                     icon: Icon(
@@ -152,6 +156,68 @@ class PageView extends StatelessWidget {
                             }))
                           ],
                         ),
+                        // todo : 클릭으로 접기 / 열기
+                        Container(
+                          width: 300,
+                          margin: const EdgeInsets.only(top: 20),
+                          padding: const EdgeInsets.only(
+                              left: 10, right: 10, top: 5, bottom: 20),
+                          decoration: const BoxDecoration(
+                              border: Border(
+                                left: BorderSide(
+                                  // POINT
+                                  color: Colors.black,
+                                  width: 1.0,
+                                ),
+                                right: BorderSide(
+                                  // POINT
+                                  color: Colors.black,
+                                  width: 1.0,
+                                ),
+                                bottom: BorderSide(
+                                  // POINT
+                                  color: Colors.black,
+                                  width: 1.0,
+                                ),
+                                top: BorderSide(
+                                  // POINT
+                                  color: Colors.black,
+                                  width: 1.0,
+                                ),
+                              ),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20))),
+                          child: const SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Text(
+                                  "비밀번호 입력 규칙",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                      fontFamily: "MaruBuri"),
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Text(
+                                  '1. 비밀번호의 길이는 최소 8자 이상으로 입력하세요.\n'
+                                  '2. 비밀번호에 공백은 허용되지 않습니다.\n'
+                                  '3. 비밀번호는 영문 대/소문자, 숫자, 특수문자의 조합으로 입력하세요.\n'
+                                  '4. 아래 특수문자는 사용할 수 없습니다.\n'
+                                  '    <, >, (, ), #, ’, /, |',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.normal,
+                                      fontFamily: "MaruBuri"),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 20.0),
                         Row(
                           children: [
                             Expanded(child: BlocBuilder<
@@ -173,7 +239,7 @@ class PageView extends StatelessWidget {
                                 decoration: InputDecoration(
                                   errorText: pageBusiness.pageViewModel
                                       .passwordCheckTextEditErrorMsg,
-                                  labelText: "Password Check",
+                                  labelText: "비밀번호 확인",
                                   hintText: 'xxxxxxxxxxx',
                                   suffixIcon: IconButton(
                                     icon: Icon(pageBusiness
@@ -193,7 +259,7 @@ class PageView extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(height: 40.0),
+                const SizedBox(height: 30.0),
                 ElevatedButton(
                   onPressed: () {
                     pageBusiness.goToNextStep();
@@ -202,73 +268,9 @@ class PageView extends StatelessWidget {
                     backgroundColor: Colors.blue,
                   ),
                   child: const Text(
-                    'Next',
+                    '다음 (2/2)',
                     style:
                         TextStyle(color: Colors.white, fontFamily: "MaruBuri"),
-                  ),
-                ),
-                Container(
-                  width: 300,
-                  height: 300,
-                  margin: const EdgeInsets.only(top: 20),
-                  padding: const EdgeInsets.only(
-                      left: 10, right: 10, top: 2, bottom: 2),
-                  decoration: const BoxDecoration(
-                      border: Border(
-                        left: BorderSide(
-                          // POINT
-                          color: Colors.black,
-                          width: 1.0,
-                        ),
-                        right: BorderSide(
-                          // POINT
-                          color: Colors.black,
-                          width: 1.0,
-                        ),
-                        bottom: BorderSide(
-                          // POINT
-                          color: Colors.black,
-                          width: 1.0,
-                        ),
-                        top: BorderSide(
-                          // POINT
-                          color: Colors.black,
-                          width: 1.0,
-                        ),
-                      ),
-                      borderRadius: BorderRadius.all(Radius.circular(20))),
-                  child: const SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          "Password generation rules",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
-                              fontFamily: "MaruBuri"),
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Text(
-                          '1. Set the length of the password to at least 8 digits\n'
-                          '2. Spaces cannot be used in the password.\n'
-                          '3. The password must consist of a combination of letters, numbers, and special characters.\n'
-                          '(Passwords using only one type or a combination of both cannot be generated.)\n'
-                          '4. It is not recommended to use more than 3 consecutive numbers or strings.\n'
-                          '(Example: 123. 456. Abc cannot be included in passwords)\n'
-                          '5. Using the same character more than three times in a row is not recommended.\n'
-                          '6. Do not use the following special characters as they are vulnerable to security\n'
-                          '<, >, (, ), #, ’, /, |',
-                          style: TextStyle(
-                              fontWeight: FontWeight.normal,
-                              fontFamily: "MaruBuri"),
-                        )
-                      ],
-                    ),
                   ),
                 ),
               ],

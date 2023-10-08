@@ -4,13 +4,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:focus_detector_v2/focus_detector_v2.dart';
 import 'package:go_router/go_router.dart';
 
-// (page)
-import 'page_view.dart' as page_view;
-import 'page_business.dart' as page_business;
-
 // (all)
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
+import 'page_business.dart' as page_business;
+
+// (page)
+import 'page_view.dart' as page_view;
 
 // [페이지 진입 파일]
 
@@ -30,20 +30,23 @@ Widget Function(BuildContext context, Animation<double> animation,
 // (페이지 호출시 필요한 입력값 데이터 형태)
 // !!!페이지 입력 데이터 정의!!
 class PageInputVo {
-  // 계정 타입 (email, phoneNumber,)
-  String authType;
-
-  // 멤버 아이디 (계정 타입 email : 이메일(test@email.com), phoneNumber : 전화번호(82)010-0000-0000),)
+  // 멤버 아이디 (이메일)
   String memberId;
 
-  // 비밀코드 (계정 타입 email, phoneNumber : 사용할 비밀번호,)
-  String? secretOpt;
+  // 비밀코드 (사용할 비밀번호)
+  String password;
 
   // 계정 검증 단계에서 발행된 검증 코드
   String verificationCode;
 
+  int verificationUid;
+
   PageInputVo(
-      this.authType, this.memberId, this.secretOpt, this.verificationCode);
+    this.memberId,
+    this.password,
+    this.verificationCode,
+    this.verificationUid,
+  );
 }
 
 // (이전 페이지로 전달할 결과 데이터 형태)

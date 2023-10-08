@@ -3,21 +3,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-// (page)
-import 'page_entrance.dart' as page_entrance;
-
 import '../../../../repositories/network/apis/api_main_server.dart'
     as api_main_server;
+import '../../../dialogs/all/all_dialog_auth_check_register_email_verification_code/page_entrance.dart'
+    as all_dialog_auth_check_register_email_verification_code;
 import '../../../dialogs/all/all_dialog_info/page_entrance.dart'
     as all_dialog_info;
 import '../../../dialogs/all/all_dialog_loading_spinner/page_entrance.dart'
     as all_dialog_loading_spinner;
-import '../../../dialogs/all/all_dialog_auth_check_register_email_verification_code/page_entrance.dart'
-    as all_dialog_auth_check_register_email_verification_code;
-import '../../../pages/all/all_page_register_member_info/page_entrance.dart'
-    as all_page_register_member_info;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
+import '../../../pages/all/all_page_register_member_info/page_entrance.dart'
+    as all_page_register_member_info;
+
+// (page)
+import 'page_entrance.dart' as page_entrance;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
 
@@ -104,7 +104,7 @@ class PageBusiness {
       pageViewModel.emailTextEditErrorMsg = null;
       blocObjects.blocEmailEditText.add(!blocObjects.blocEmailEditText.state);
 
-      pageViewModel.emailCheckBtn = "Email\nCheck";
+      pageViewModel.emailCheckBtn = "이메일\n발송";
       blocObjects.blocEmailCheckBtn.add(!blocObjects.blocEmailCheckBtn.state);
     }
   }
@@ -120,14 +120,13 @@ class PageBusiness {
 
     var email = pageViewModel.emailTextEditController.text.trim();
     if (email == "") {
-      pageViewModel.emailTextEditErrorMsg = "Please enter Email Address";
+      pageViewModel.emailTextEditErrorMsg = "이메일 주소를 입력하세요.";
       blocObjects.blocEmailEditText.add(!blocObjects.blocEmailEditText.state);
       isSendVerificationEmailClicked = false;
       FocusScope.of(_context).requestFocus(pageViewModel.emailTextEditFocus);
     } else if (!RegExp(r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)*(\.[a-zA-Z]{2,})$')
         .hasMatch(pageViewModel.emailTextEditController.text)) {
-      pageViewModel.emailTextEditErrorMsg =
-          "This is not a valid email address format.";
+      pageViewModel.emailTextEditErrorMsg = "올바른 이메일 형식이 아닙니다.";
       blocObjects.blocEmailEditText.add(!blocObjects.blocEmailEditText.state);
       isSendVerificationEmailClicked = false;
       FocusScope.of(_context).requestFocus(pageViewModel.emailTextEditFocus);
@@ -137,8 +136,10 @@ class PageBusiness {
       var loadingSpinner = all_dialog_loading_spinner.PageEntrance(
           all_dialog_loading_spinner.PageInputVo(), (pageBusiness) async {
         var responseVo = await api_main_server
-            .postService1TkV1AuthJoinTheMembershipEmailVerificationAsync(api_main_server
-                .PostService1TkV1AuthJoinTheMembershipEmailVerificationAsyncRequestBodyVo(email));
+            .postService1TkV1AuthJoinTheMembershipEmailVerificationAsync(
+                api_main_server
+                    .PostService1TkV1AuthJoinTheMembershipEmailVerificationAsyncRequestBodyVo(
+                        email));
 
         if (responseVo.dioException == null) {
           // Dio 네트워크 응답
@@ -146,6 +147,10 @@ class PageBusiness {
           var networkResponseObjectOk = responseVo.networkResponseObjectOk!;
 
           if (networkResponseObjectOk.responseStatusCode == 200) {
+            var responseBody = networkResponseObjectOk.responseBody
+                as api_main_server
+                .PostService1TkV1AuthJoinTheMembershipEmailVerificationAsyncResponseBodyVo;
+
             // 정상 응답
             // 검증번호 입력 다이얼로그 띄우기
             if (!_context.mounted) return;
@@ -157,10 +162,12 @@ class PageBusiness {
                         all_dialog_auth_check_register_email_verification_code
                             .PageEntrance(
                                 all_dialog_auth_check_register_email_verification_code
-                                    .PageInputVo(email),
+                                    .PageInputVo(
+                                        email, responseBody.verificationUid),
                                 (pageBusiness) {}));
 
             if (dialogResult != null) {
+              pageViewModel.verificationUid = responseBody.verificationUid;
               pageViewModel.checkedEmailVerificationCode =
                   dialogResult.checkedVerificationCode;
               pageViewModel.emailTextEditEnabled = false;
@@ -168,7 +175,7 @@ class PageBusiness {
               blocObjects.blocEmailEditText
                   .add(!blocObjects.blocEmailEditText.state);
 
-              pageViewModel.emailCheckBtn = "Reset";
+              pageViewModel.emailCheckBtn = "인증\n초기화";
               blocObjects.blocEmailCheckBtn
                   .add(!blocObjects.blocEmailCheckBtn.state);
             }
@@ -190,22 +197,27 @@ class PageBusiness {
                       (pageBusiness) {}));
             } else {
               // 서버 지정 에러 코드를 전달 받았을 때
-              String apiErrorCodes = responseHeaders.apiResultCode!;
-              if (apiErrorCodes.contains("1")) {
-                // 기존 회원 존재
-                if (!_context.mounted) return;
-                showDialog(
-                    barrierDismissible: true,
-                    context: _context,
-                    builder: (context) => all_dialog_info.PageEntrance(
-                        all_dialog_info.PageInputVo(
-                            "Member registration process failed",
-                            "You are already a registered member.",
-                            "확인"),
-                        (pageBusiness) {}));
-              } else {
-                // 알 수 없는 에러 코드일 때
-                throw Exception("unKnown Error Code");
+              String apiResultCode = responseHeaders.apiResultCode!;
+
+              switch (apiResultCode) {
+                case "1":
+                  {
+                    // 기존 회원 존재
+                    if (!_context.mounted) return;
+                    showDialog(
+                        barrierDismissible: true,
+                        context: _context,
+                        builder: (context) => all_dialog_info.PageEntrance(
+                            all_dialog_info.PageInputVo(
+                                "인증 이메일 발송 실패", "이미 가입된 이메일입니다.", "확인"),
+                            (pageBusiness) {}));
+                  }
+                  break;
+                default:
+                  {
+                    // 알 수 없는 에러 코드일 때
+                    throw Exception("unKnown Error Code");
+                  }
               }
             }
           }
@@ -255,21 +267,19 @@ class PageBusiness {
   // (패스워드 입력창에서 엔터를 친 경우)
   void onPasswordFieldSubmitted() {
     if (pageViewModel.passwordTextFieldController.text == "") {
-      pageViewModel.passwordTextEditErrorMsg = "Please enter a password";
+      pageViewModel.passwordTextEditErrorMsg = "비밀번호를 입력하세요.";
       blocObjects.blocPasswordTextField
           .add(!blocObjects.blocPasswordTextField.state);
       FocusScope.of(_context)
           .requestFocus(pageViewModel.passwordTextFieldFocus);
     } else if (pageViewModel.passwordTextFieldController.text.contains(" ")) {
-      pageViewModel.passwordTextEditErrorMsg =
-          "Spaces cannot be used in the password.";
+      pageViewModel.passwordTextEditErrorMsg = "비밀번호에 공백은 허용되지 않습니다.";
       blocObjects.blocPasswordTextField
           .add(!blocObjects.blocPasswordTextField.state);
       FocusScope.of(_context)
           .requestFocus(pageViewModel.passwordTextFieldFocus);
     } else if (pageViewModel.passwordTextFieldController.text.length < 8) {
-      pageViewModel.passwordTextEditErrorMsg =
-          "Set the length of the password to at least 8 digits";
+      pageViewModel.passwordTextEditErrorMsg = "비밀번호는 최소 8자 이상 입력하세요.";
       blocObjects.blocPasswordTextField
           .add(!blocObjects.blocPasswordTextField.state);
       FocusScope.of(_context)
@@ -277,14 +287,15 @@ class PageBusiness {
     } else if (!RegExp(r'^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$&*])')
         .hasMatch(pageViewModel.passwordTextFieldController.text)) {
       pageViewModel.passwordTextEditErrorMsg =
-          "The password must consist of a combination of letters, numbers, and special characters.";
+          "비밀번호는 영문 대/소문자, 숫자, 그리고 특수문자의 조합을 입력하세요.";
       blocObjects.blocPasswordTextField
           .add(!blocObjects.blocPasswordTextField.state);
       FocusScope.of(_context)
           .requestFocus(pageViewModel.passwordTextFieldFocus);
     } else if (RegExp(r'[<>()#’/|]')
         .hasMatch(pageViewModel.passwordTextFieldController.text)) {
-      pageViewModel.passwordTextEditErrorMsg = "< > ( ) # ’ / | can not use";
+      pageViewModel.passwordTextEditErrorMsg =
+          "특수문자 < > ( ) # ’ / | 는 사용할 수 없습니다.";
       blocObjects.blocPasswordTextField
           .add(!blocObjects.blocPasswordTextField.state);
       FocusScope.of(_context)
@@ -324,25 +335,23 @@ class PageBusiness {
         .add(!blocObjects.blocPasswordCheckTextField.state);
 
     if (pageViewModel.checkedEmailVerificationCode == null) {
-      pageViewModel.emailTextEditErrorMsg = "Email verification is required.";
+      pageViewModel.emailTextEditErrorMsg = "이메일 본인 인증이 필요합니다.";
       blocObjects.blocEmailEditText.add(!blocObjects.blocEmailEditText.state);
       FocusScope.of(_context).requestFocus(pageViewModel.emailTextEditFocus);
     } else if (pageViewModel.passwordTextFieldController.text == "") {
-      pageViewModel.passwordTextEditErrorMsg = "Please enter a password";
+      pageViewModel.passwordTextEditErrorMsg = "비밀번호를 입력하세요.";
       blocObjects.blocPasswordTextField
           .add(!blocObjects.blocPasswordTextField.state);
       FocusScope.of(_context)
           .requestFocus(pageViewModel.passwordTextFieldFocus);
     } else if (pageViewModel.passwordTextFieldController.text.contains(" ")) {
-      pageViewModel.passwordTextEditErrorMsg =
-          "Spaces cannot be used in the password.";
+      pageViewModel.passwordTextEditErrorMsg = "비밀번호에 공백은 허용되지 않습니다.";
       blocObjects.blocPasswordTextField
           .add(!blocObjects.blocPasswordTextField.state);
       FocusScope.of(_context)
           .requestFocus(pageViewModel.passwordTextFieldFocus);
     } else if (pageViewModel.passwordTextFieldController.text.length < 8) {
-      pageViewModel.passwordTextEditErrorMsg =
-          "Set the length of the password to at least 8 digits";
+      pageViewModel.passwordTextEditErrorMsg = "비밀번호는 최소 8자 이상 입력하세요.";
       blocObjects.blocPasswordTextField
           .add(!blocObjects.blocPasswordTextField.state);
       FocusScope.of(_context)
@@ -350,28 +359,28 @@ class PageBusiness {
     } else if (!RegExp(r'^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$&*])')
         .hasMatch(pageViewModel.passwordTextFieldController.text)) {
       pageViewModel.passwordTextEditErrorMsg =
-          "The password must consist of a combination of letters, numbers, and special characters.";
+          "비밀번호는 영문 대/소문자, 숫자, 그리고 특수문자의 조합을 입력하세요.";
       blocObjects.blocPasswordTextField
           .add(!blocObjects.blocPasswordTextField.state);
       FocusScope.of(_context)
           .requestFocus(pageViewModel.passwordTextFieldFocus);
     } else if (RegExp(r'[<>()#’/|]')
         .hasMatch(pageViewModel.passwordTextFieldController.text)) {
-      pageViewModel.passwordTextEditErrorMsg = "< > ( ) # ’ / | can not use";
+      pageViewModel.passwordTextEditErrorMsg =
+          "특수문자 < > ( ) # ’ / | 는 사용할 수 없습니다.";
       blocObjects.blocPasswordTextField
           .add(!blocObjects.blocPasswordTextField.state);
       FocusScope.of(_context)
           .requestFocus(pageViewModel.passwordTextFieldFocus);
     } else if (pageViewModel.passwordCheckTextFieldController.text == "") {
-      pageViewModel.passwordCheckTextEditErrorMsg =
-          "Please enter a password check";
+      pageViewModel.passwordCheckTextEditErrorMsg = "비밀번호 확인을 입력하세요.";
       blocObjects.blocPasswordCheckTextField
           .add(!blocObjects.blocPasswordCheckTextField.state);
       FocusScope.of(_context)
           .requestFocus(pageViewModel.passwordCheckTextFieldFocus);
     } else if (pageViewModel.passwordCheckTextFieldController.text !=
         pageViewModel.passwordTextFieldController.text) {
-      pageViewModel.passwordCheckTextEditErrorMsg = "Passwords do not match.";
+      pageViewModel.passwordCheckTextEditErrorMsg = "비밀번호와 일치하지 않습니다.";
       blocObjects.blocPasswordCheckTextField
           .add(!blocObjects.blocPasswordCheckTextField.state);
       FocusScope.of(_context)
@@ -391,10 +400,10 @@ class PageBusiness {
       if (!_context.mounted) return;
       var pageResult = await _context
           .pushNamed(all_page_register_member_info.pageName, queryParameters: {
-        "authType": "email",
-        "secretOpt": pageViewModel.passwordTextFieldController.text,
         "memberId": pageViewModel.emailTextEditController.text.trim(),
+        "password": pageViewModel.passwordTextFieldController.text,
         "verificationCode": pageViewModel.checkedEmailVerificationCode,
+        "verificationUid": pageViewModel.verificationUid.toString(),
       });
       if (pageResult != null &&
           (pageResult as all_page_register_member_info.PageOutputVo)
@@ -450,11 +459,13 @@ class PageViewModel {
 
   String? checkedEmailVerificationCode;
 
-  String emailCheckBtn = "Email\nCheck";
+  String emailCheckBtn = "이메일\n발송";
 
   bool hidePassword = true;
 
   bool hidePasswordCheck = true;
+
+  late int verificationUid;
 
   PageViewModel(this.goRouterState);
 }

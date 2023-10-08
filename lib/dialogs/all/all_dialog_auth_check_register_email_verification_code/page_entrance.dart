@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:focus_detector_v2/focus_detector_v2.dart';
 
-// (page)
-import 'page_view.dart' as page_view;
-import 'page_business.dart' as page_business;
-
 // (all)
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
+import 'page_business.dart' as page_business;
+
+// (page)
+import 'page_view.dart' as page_view;
 
 // [페이지 진입 파일]
 
@@ -19,7 +19,12 @@ import '../../../global_classes/gc_template_classes.dart'
 class PageInputVo {
   String emailAddress;
 
-  PageInputVo(this.emailAddress);
+  int verificationUid;
+
+  PageInputVo(
+    this.emailAddress,
+    this.verificationUid,
+  );
 }
 
 // (이전 페이지로 전달할 결과 데이터 형태)

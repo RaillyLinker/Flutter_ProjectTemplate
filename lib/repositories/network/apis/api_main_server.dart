@@ -1648,7 +1648,7 @@ class PostService1TkV1AuthReissueAsyncResponseHeaderVo {
 class PostService1TkV1AuthReissueAsyncResponseBodyVo {
   String memberUid; // 멤버 고유값
   String nickName; // 닉네임
-  String profileImageFullUrl; // 대표 프로필 이미지 Full URL
+  String? profileImageFullUrl; // 대표 프로필 이미지 Full URL
   List<String> roleList; // 권한 리스트 (관리자 : ROLE_ADMIN, 개발자 : ROLE_DEVELOPER)
   String tokenType; // 인증 토큰 타입 (ex : Bearer)
   String accessToken; // 엑세스 토큰

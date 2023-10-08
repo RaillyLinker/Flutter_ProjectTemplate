@@ -47,24 +47,6 @@ class PageBusiness {
   Future<void> onPageCreateAsync() async {
     // !!!페이지 최초 실행 로직 작성!!
 
-    // !!!pageViewModel.goRouterState 에서 pageInputVo Null 체크!!
-    if (!pageViewModel.goRouterState.uri.queryParameters
-        .containsKey("authType")) {
-      showToast(
-        "authType 은 필수입니다.",
-        context: _context,
-        position: StyledToastPosition.center,
-        animation: StyledToastAnimation.scale,
-      );
-      if (_context.canPop()) {
-        // History가 있는 경우, 이전 페이지로 이동(pop)
-        _context.pop();
-      } else {
-        // History가 없는 경우, 앱 종료(exit)
-        exit(0);
-      }
-    }
-
     if (!pageViewModel.goRouterState.uri.queryParameters
         .containsKey("memberId")) {
       showToast(
@@ -83,7 +65,24 @@ class PageBusiness {
     }
 
     if (!pageViewModel.goRouterState.uri.queryParameters
-        .containsKey("secretOpt")) {
+        .containsKey("password")) {
+      showToast(
+        "password 는 필수입니다.",
+        context: _context,
+        position: StyledToastPosition.center,
+        animation: StyledToastAnimation.scale,
+      );
+      if (_context.canPop()) {
+        // History가 있는 경우, 이전 페이지로 이동(pop)
+        _context.pop();
+      } else {
+        // History가 없는 경우, 앱 종료(exit)
+        exit(0);
+      }
+    }
+
+    if (!pageViewModel.goRouterState.uri.queryParameters
+        .containsKey("verificationCode")) {
       showToast(
         "verificationCode 는 필수입니다.",
         context: _context,
@@ -99,12 +98,31 @@ class PageBusiness {
       }
     }
 
+    if (!pageViewModel.goRouterState.uri.queryParameters
+        .containsKey("verificationUid")) {
+      showToast(
+        "verificationUid 는 필수입니다.",
+        context: _context,
+        position: StyledToastPosition.center,
+        animation: StyledToastAnimation.scale,
+      );
+      if (_context.canPop()) {
+        // History가 있는 경우, 이전 페이지로 이동(pop)
+        _context.pop();
+      } else {
+        // History가 없는 경우, 앱 종료(exit)
+        exit(0);
+      }
+    }
+
     // !!!pageViewModel.goRouterState 에서 PageInputVo 입력!!
     pageViewModel.pageInputVo = page_entrance.PageInputVo(
-        pageViewModel.goRouterState.uri.queryParameters["authType"]!,
-        pageViewModel.goRouterState.uri.queryParameters["memberId"]!,
-        pageViewModel.goRouterState.uri.queryParameters["secretOpt"],
-        pageViewModel.goRouterState.uri.queryParameters["verificationCode"]!);
+      pageViewModel.goRouterState.uri.queryParameters["memberId"]!,
+      pageViewModel.goRouterState.uri.queryParameters["password"]!,
+      pageViewModel.goRouterState.uri.queryParameters["verificationCode"]!,
+      int.parse(
+          pageViewModel.goRouterState.uri.queryParameters["verificationUid"]!),
+    );
   }
 
   // (페이지 최초 실행 or 다른 페이지에서 복귀)
@@ -154,7 +172,7 @@ class PageBusiness {
     }
     onNickNameCheckBtnAsyncClicked = true;
 
-    if (pageViewModel.nickNameCheckBtn == "duplicate check") {
+    if (pageViewModel.nickNameCheckBtn == "중복\n확인") {
       // 중복 확인 버튼을 눌렀을 때
       // 입력창의 에러를 지우기
       pageViewModel.nickNameTextEditErrorMsg = null;
@@ -162,7 +180,7 @@ class PageBusiness {
           .add(!blocObjects.blocNicknameEditText.state);
 
       if (pageViewModel.nickNameTextEditController.text == "") {
-        pageViewModel.nickNameTextEditErrorMsg = "Please enter your nickname.";
+        pageViewModel.nickNameTextEditErrorMsg = "닉네임을 입력하세요.";
         blocObjects.blocNicknameEditText
             .add(!blocObjects.blocNicknameEditText.state);
         FocusScope.of(_context)
@@ -170,16 +188,14 @@ class PageBusiness {
 
         onNickNameCheckBtnAsyncClicked = false;
       } else if (pageViewModel.nickNameTextEditController.text.contains(" ")) {
-        pageViewModel.nickNameTextEditErrorMsg =
-            "Spaces cannot be used in the nickname.";
+        pageViewModel.nickNameTextEditErrorMsg = "닉네임에 공백은 허용되지 않습니다.";
         blocObjects.blocNicknameEditText
             .add(!blocObjects.blocNicknameEditText.state);
         FocusScope.of(_context)
             .requestFocus(pageViewModel.nickNameTextEditFocus);
         onNickNameCheckBtnAsyncClicked = false;
       } else if (pageViewModel.nickNameTextEditController.text.length < 2) {
-        pageViewModel.nickNameTextEditErrorMsg =
-            "Set the length of the nickname to at least 2 digits";
+        pageViewModel.nickNameTextEditErrorMsg = "닉네임은 최소 2자 이상 입력하세요.";
         blocObjects.blocNicknameEditText
             .add(!blocObjects.blocNicknameEditText.state);
         FocusScope.of(_context)
@@ -187,16 +203,18 @@ class PageBusiness {
         onNickNameCheckBtnAsyncClicked = false;
       } else if (RegExp(r'[<>()#’/|]')
           .hasMatch(pageViewModel.nickNameTextEditController.text)) {
-        pageViewModel.nickNameTextEditErrorMsg = "< > ( ) # ’ / | can not use";
+        pageViewModel.nickNameTextEditErrorMsg =
+            "특수문자 < > ( ) # ’ / | 는 사용할 수 없습니다.";
         blocObjects.blocNicknameEditText
             .add(!blocObjects.blocNicknameEditText.state);
         FocusScope.of(_context)
             .requestFocus(pageViewModel.nickNameTextEditFocus);
         onNickNameCheckBtnAsyncClicked = false;
       } else {
-        var responseVo = await api_main_server.getService1TkV1AuthNicknameDuplicateCheckAsync(
-            api_main_server.GetService1TkV1AuthNicknameDuplicateCheckAsyncRequestQueryVo(
-                pageViewModel.nickNameTextEditController.text.trim()));
+        var responseVo = await api_main_server
+            .getService1TkV1AuthNicknameDuplicateCheckAsync(api_main_server
+                .GetService1TkV1AuthNicknameDuplicateCheckAsyncRequestQueryVo(
+                    pageViewModel.nickNameTextEditController.text.trim()));
 
         if (responseVo.dioException == null) {
           // Dio 네트워크 응답
@@ -204,12 +222,12 @@ class PageBusiness {
 
           if (networkResponseObjectOk.responseStatusCode == 200) {
             var responseBody = networkResponseObjectOk.responseBody
-                as api_main_server.GetService1TkV1AuthNicknameDuplicateCheckAsyncResponseBodyVo;
+                as api_main_server
+                .GetService1TkV1AuthNicknameDuplicateCheckAsyncResponseBodyVo;
 
             if (responseBody.duplicated) {
               // 중복시 에러표시
-              pageViewModel.nickNameTextEditErrorMsg =
-                  "Nickname already exists.";
+              pageViewModel.nickNameTextEditErrorMsg = "이미 사용중인 닉네임입니다.";
               blocObjects.blocNicknameEditText
                   .add(!blocObjects.blocNicknameEditText.state);
             } else {
@@ -218,7 +236,7 @@ class PageBusiness {
               blocObjects.blocNicknameEditText
                   .add(!blocObjects.blocNicknameEditText.state);
 
-              pageViewModel.nickNameCheckBtn = "retype";
+              pageViewModel.nickNameCheckBtn = "재입력";
               blocObjects.blocNicknameCheckBtn
                   .add(!blocObjects.blocNicknameCheckBtn.state);
             }
@@ -256,7 +274,7 @@ class PageBusiness {
       blocObjects.blocNicknameEditText
           .add(!blocObjects.blocNicknameEditText.state);
 
-      pageViewModel.nickNameCheckBtn = "duplicate check";
+      pageViewModel.nickNameCheckBtn = "중복\n확인";
       blocObjects.blocNicknameCheckBtn
           .add(!blocObjects.blocNicknameCheckBtn.state);
 
@@ -273,150 +291,169 @@ class PageBusiness {
     }
     onRegisterBtnClickClicked = true;
 
-    if (pageViewModel.nickNameCheckBtn == "duplicate check") {
+    if (pageViewModel.nickNameCheckBtn == "중복\n확인") {
       // 아직 닉네임 검증되지 않았을 때
       // 입력창에 Focus 주기
       FocusScope.of(_context).requestFocus(pageViewModel.nickNameTextEditFocus);
 
-      pageViewModel.nickNameTextEditErrorMsg = "Duplicate checks are required.";
+      pageViewModel.nickNameTextEditErrorMsg = "닉네임 중복 확인이 필요합니다.";
       blocObjects.blocNicknameEditText
           .add(!blocObjects.blocNicknameEditText.state);
 
       onRegisterBtnClickClicked = false;
     } else {
       // 회원가입 절차 진행
-      switch (pageViewModel.pageInputVo.authType) {
-        case "email": // EMAIL
-          {
-            var responseVo = await api_main_server.postService1TkV1AuthJoinTheMembershipWithEmailAsync(
-                api_main_server.PostService1TkV1AuthJoinTheMembershipWithEmailAsyncRequestBodyVo(
-                  1, // todo
-                    pageViewModel.pageInputVo.memberId!,
-                    pageViewModel.pageInputVo.secretOpt!,
-                    pageViewModel.nickNameTextEditController.text.trim(),
-                    pageViewModel.pageInputVo.verificationCode!,
-                null, // todo
-                ));
+      var responseVo = await api_main_server
+          .postService1TkV1AuthJoinTheMembershipWithEmailAsync(api_main_server
+              .PostService1TkV1AuthJoinTheMembershipWithEmailAsyncRequestBodyVo(
+        pageViewModel.pageInputVo.verificationUid,
+        pageViewModel.pageInputVo.memberId,
+        pageViewModel.pageInputVo.password,
+        pageViewModel.nickNameTextEditController.text.trim(),
+        pageViewModel.pageInputVo.verificationCode,
+        null, // todo 프로필 사진 입력
+      ));
 
-            if (responseVo.dioException == null) {
-              // Dio 네트워크 응답
-              var networkResponseObjectOk = responseVo.networkResponseObjectOk!;
+      if (responseVo.dioException == null) {
+        // Dio 네트워크 응답
+        var networkResponseObjectOk = responseVo.networkResponseObjectOk!;
 
-              if (networkResponseObjectOk.responseStatusCode == 200) {
-                // 정상 응답
-                // 로그인 네트워크 요청
-                if (!_context.mounted) return;
-                await showDialog(
-                    barrierDismissible: true,
-                    context: _context,
-                    builder: (context) => all_dialog_info.PageEntrance(
-                        all_dialog_info.PageInputVo(
-                            "Member registration complete",
-                            "Sign up is complete.",
-                            "확인"),
-                        (pageBusiness) {}));
+        if (networkResponseObjectOk.responseStatusCode == 200) {
+          // 정상 응답
+          // 로그인 네트워크 요청
+          if (!_context.mounted) return;
+          await showDialog(
+              barrierDismissible: true,
+              context: _context,
+              builder: (context) => all_dialog_info.PageEntrance(
+                  all_dialog_info.PageInputVo(
+                      "회원가입 완료", "회원가입이 완료되었습니다.\n환영합니다.", "확인"),
+                  (pageBusiness) {}));
 
-                onRegisterBtnClickClicked = false;
-                if (!_context.mounted) return;
-                _context.pop(page_entrance.PageOutputVo(true));
-              } else {
-                // 비정상 응답
-                var responseHeaders = networkResponseObjectOk.responseHeaders
-                    as api_main_server
-                    .PostService1TkV1AuthJoinTheMembershipWithEmailAsyncResponseHeaderVo;
+          onRegisterBtnClickClicked = false;
+          if (!_context.mounted) return;
+          _context.pop(page_entrance.PageOutputVo(true));
+        } else {
+          // 비정상 응답
+          var responseHeaders = networkResponseObjectOk.responseHeaders
+              as api_main_server
+              .PostService1TkV1AuthJoinTheMembershipWithEmailAsyncResponseHeaderVo;
 
-                if (responseHeaders.apiResultCode == null) {
-                  // 비정상 응답이면서 서버에서 에러 원인 코드가 전달되지 않았을 때
+          if (responseHeaders.apiResultCode == null) {
+            // 비정상 응답이면서 서버에서 에러 원인 코드가 전달되지 않았을 때
+            if (!_context.mounted) return;
+            showDialog(
+                barrierDismissible: true,
+                context: _context,
+                builder: (context) => all_dialog_info.PageEntrance(
+                    all_dialog_info.PageInputVo(
+                        "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
+                    (pageBusiness) {}));
+            onRegisterBtnClickClicked = false;
+          } else {
+            // 서버 지정 에러 코드를 전달 받았을 때
+            String apiResultCode = responseHeaders.apiResultCode!;
+
+            switch (apiResultCode) {
+              case "1":
+                {
+                  // 이메일 검증 요청을 보낸 적 없음
                   if (!_context.mounted) return;
-                  showDialog(
+                  await showDialog(
+                      barrierDismissible: true,
+                      context: _context,
+                      builder: (context) => all_dialog_info.PageEntrance(
+                          all_dialog_info.PageInputVo("회원가입 실패",
+                              "본인 인증 요청 정보가 없습니다.\n다시 인증해주세요.", "확인"),
+                          (pageBusiness) {}));
+
+                  onRegisterBtnClickClicked = false;
+                  if (!_context.mounted) return;
+                  _context.pop();
+                }
+                break;
+              case "2":
+                {
+                  // 이메일 검증 요청이 만료됨
+                  if (!_context.mounted) return;
+                  await showDialog(
+                      barrierDismissible: true,
+                      context: _context,
+                      builder: (context) => all_dialog_info.PageEntrance(
+                          all_dialog_info.PageInputVo("회원가입 실패",
+                              "본인 인증 요청 정보가 만료되었습니다.\n다시 인증해주세요.", "확인"),
+                          (pageBusiness) {}));
+
+                  onRegisterBtnClickClicked = false;
+                  if (!_context.mounted) return;
+                  _context.pop();
+                }
+                break;
+              case "3":
+                {
+                  // verificationCode 가 일치하지 않음
+                  if (!_context.mounted) return;
+                  await showDialog(
+                      barrierDismissible: true,
+                      context: _context,
+                      builder: (context) => all_dialog_info.PageEntrance(
+                          all_dialog_info.PageInputVo("회원가입 실패",
+                              "본인 인증 요청 정보가 만료되었습니다.\n다시 인증해주세요.", "확인"),
+                          (pageBusiness) {}));
+
+                  onRegisterBtnClickClicked = false;
+                  if (!_context.mounted) return;
+                  _context.pop();
+                }
+                break;
+              case "4":
+                {
+                  // 이미 가입된 회원이 있습니다.
+                  if (!_context.mounted) return;
+                  await showDialog(
                       barrierDismissible: true,
                       context: _context,
                       builder: (context) => all_dialog_info.PageEntrance(
                           all_dialog_info.PageInputVo(
-                              "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
+                              "회원가입 실패", "이미 가입된 회원 정보입니다.", "확인"),
                           (pageBusiness) {}));
+
                   onRegisterBtnClickClicked = false;
-                } else {
-                  // 서버 지정 에러 코드를 전달 받았을 때
-                  String apiErrorCodes = responseHeaders.apiResultCode!;
-                  if (apiErrorCodes.contains("1")) {
-                    // 기존 회원 존재
-                    if (!_context.mounted) return;
-                    await showDialog(
-                        barrierDismissible: true,
-                        context: _context,
-                        builder: (context) => all_dialog_info.PageEntrance(
-                            all_dialog_info.PageInputVo(
-                                "already registered member",
-                                "You are already a registered member.",
-                                "확인"),
-                            (pageBusiness) {}));
-
-                    onRegisterBtnClickClicked = false;
-                    if (!_context.mounted) return;
-                    _context.pop();
-                  } else if (apiErrorCodes.contains("2")) {
-                    // 이메일 검증 요청을 보낸 적 없음 혹은 만료된 요청
-                    if (!_context.mounted) return;
-                    await showDialog(
-                        barrierDismissible: true,
-                        context: _context,
-                        builder: (context) => all_dialog_info.PageEntrance(
-                            all_dialog_info.PageInputVo(
-                                "Membership registration failed",
-                                "Credentials have expired.\nPlease re-authenticate.",
-                                "확인"),
-                            (pageBusiness) {}));
-
-                    onRegisterBtnClickClicked = false;
-                    if (!_context.mounted) return;
-                    _context.pop();
-                  } else if (apiErrorCodes.contains("3")) {
-                    // 닉네임 중복
-                    pageViewModel.nickNameTextEditErrorMsg =
-                        "nickname is duplicated.";
-                    blocObjects.blocNicknameEditText
-                        .add(!blocObjects.blocNicknameEditText.state);
-                    pageViewModel.nickNameCheckBtn = "duplicate check";
-                    blocObjects.blocNicknameCheckBtn
-                        .add(!blocObjects.blocNicknameCheckBtn.state);
-                    onRegisterBtnClickClicked = false;
-                  } else if (apiErrorCodes.contains("4")) {
-                    // 입력한 verificationCode 와 검증된 code 가 일치하지 않거나 만료된 요청
-                    if (!_context.mounted) return;
-                    await showDialog(
-                        barrierDismissible: true,
-                        context: _context,
-                        builder: (context) => all_dialog_info.PageEntrance(
-                            all_dialog_info.PageInputVo(
-                                "Membership registration failed",
-                                "Credentials have expired.\nPlease re-authenticate.",
-                                "확인"),
-                            (pageBusiness) {}));
-
-                    onRegisterBtnClickClicked = false;
-                    if (!_context.mounted) return;
-                    _context.pop();
-                  } else {
-                    // 알 수 없는 에러 코드일 때
-                    throw Exception("unKnown Error Code");
-                  }
+                  if (!_context.mounted) return;
+                  _context.pop();
                 }
-              }
-            } else {
-              // Dio 네트워크 에러
-              if (!_context.mounted) return;
-              showDialog(
-                  barrierDismissible: true,
-                  context: _context,
-                  builder: (context) => all_dialog_info.PageEntrance(
-                      all_dialog_info.PageInputVo(
-                          "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
-                      (pageBusiness) {}));
-              onRegisterBtnClickClicked = false;
+                break;
+              case "5":
+                {
+                  // 이미 사용중인 닉네임
+                  pageViewModel.nickNameTextEditErrorMsg = "이미 사용중인 닉네임입니다.";
+                  blocObjects.blocNicknameEditText
+                      .add(!blocObjects.blocNicknameEditText.state);
+                  pageViewModel.nickNameCheckBtn = "중복\n확인";
+                  blocObjects.blocNicknameCheckBtn
+                      .add(!blocObjects.blocNicknameCheckBtn.state);
+                  onRegisterBtnClickClicked = false;
+                }
+                break;
+              default:
+                {
+                  // 알 수 없는 에러 코드일 때
+                  throw Exception("unKnown Error Code");
+                }
             }
           }
-          break;
+        }
+      } else {
+        // Dio 네트워크 에러
+        if (!_context.mounted) return;
+        showDialog(
+            barrierDismissible: true,
+            context: _context,
+            builder: (context) => all_dialog_info.PageEntrance(
+                all_dialog_info.PageInputVo(
+                    "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
+                (pageBusiness) {}));
+        onRegisterBtnClickClicked = false;
       }
     }
   }
@@ -449,7 +486,7 @@ class PageViewModel {
   // int sampleNumber = 0;
 
   // 닉네임 체크 버튼명 (중복 확인 or 다시 입력)
-  String nickNameCheckBtn = "duplicate check";
+  String nickNameCheckBtn = "중복\n확인";
 
   // 닉네임 입력창 에러 메세지
   String? nickNameTextEditErrorMsg;
