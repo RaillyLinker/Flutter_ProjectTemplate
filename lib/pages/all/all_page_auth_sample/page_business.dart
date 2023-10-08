@@ -151,6 +151,7 @@ class PageBusiness {
           .add(SampleItem(SampleItemEnum.logout, "로그아웃", "로그아웃 처리를 합니다."));
       nowAllSampleList.add(SampleItem(
           SampleItemEnum.refreshAuthToken, "인증 토큰 갱신", "인증 토큰을 갱신합니다."));
+      // todo 회원 정보 페이지로 이동
       nowAllSampleList.add(SampleItem(
           SampleItemEnum.goToMembershipWithdrawalPage,
           "회원 탈퇴 페이지로 이동",
