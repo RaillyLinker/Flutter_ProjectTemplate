@@ -40,7 +40,7 @@ class PageView extends StatelessWidget {
           child: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.only(
-                  top: 20, bottom: 20, right: 20, left: 20),
+                  top: 15, bottom: 20, right: 20, left: 20),
               child: Column(
                 children: [
                   Align(
@@ -57,6 +57,7 @@ class PageView extends StatelessWidget {
                   ),
                   Container(
                     width: 400,
+                    margin: const EdgeInsets.only(top: 10),
                     padding: const EdgeInsets.only(
                         left: 10, right: 10, top: 3, bottom: 3),
                     decoration: BoxDecoration(

@@ -56,8 +56,44 @@ class PageView extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
+                // todo
+                Stack(
+                  children: [
+                    const Icon(
+                      Icons.account_circle,
+                      color: Colors.blue,
+                      size: 100.0,
+                    ),
+                    Positioned(
+                      width: 30,
+                      height: 30,
+                      bottom: 10,
+                      right: 0,
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(50),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.5),
+                                spreadRadius: 3,
+                                blurRadius: 5,
+                                offset: const Offset(
+                                    0, 2), // changes position of shadow
+                              ),
+                            ]),
+                        child: const Icon(
+                          Icons.account_box_outlined,
+                          color: Colors.grey,
+                          size: 20.0,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
                 Center(
                   child: Container(
+                    margin: const EdgeInsets.only(top: 20),
                     constraints: const BoxConstraints(maxWidth: 300),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
@@ -206,7 +242,7 @@ class PageView extends StatelessWidget {
                     );
                   }),
                 ),
-                const SizedBox(height: 10.0),
+                const SizedBox(height: 30.0),
                 ElevatedButton(
                   onPressed: () {
                     // 회원가입 버튼 동작
