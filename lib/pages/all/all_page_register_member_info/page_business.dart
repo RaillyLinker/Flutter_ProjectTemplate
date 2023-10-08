@@ -1,8 +1,8 @@
 // (external)
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:dio/dio.dart' as dio;
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
@@ -10,8 +10,11 @@ import 'package:go_router/go_router.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:image_picker/image_picker.dart';
 
+// (all)
 import '../../../../repositories/network/apis/api_main_server.dart'
     as api_main_server;
+import '../../../dialogs/all/all_dialog_auth_register_member_profile_image_src_select/page_entrance.dart'
+    as all_dialog_auth_register_member_profile_image_src_select;
 import '../../../dialogs/all/all_dialog_info/page_entrance.dart'
     as all_dialog_info;
 import '../../../global_classes/gc_template_classes.dart'
@@ -21,6 +24,7 @@ import '../../../global_classes/gc_template_classes.dart'
 import 'page_entrance.dart' as page_entrance;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
+// todo : 여러 디바이스(android, ios, windows, web)에서 테스트
 
 //------------------------------------------------------------------------------
 // 페이지의 비즈니스 로직 및 뷰모델 담당
@@ -315,11 +319,14 @@ class PageBusiness {
         pageViewModel.pageInputVo.password,
         pageViewModel.nickNameTextEditController.text.trim(),
         pageViewModel.pageInputVo.verificationCode,
-        pageViewModel.profileImage == null
+        pageViewModel.profileImageInfo == null
             ? null
-            : dio.MultipartFile.fromBytes(pageViewModel.profileImage!,
-                filename: "profile.png",
-                contentType: MediaType('image', 'png')),
+            : dio.MultipartFile.fromBytes(
+                pageViewModel.profileImageInfo!.profileImage,
+                filename:
+                    "profile.${pageViewModel.profileImageInfo!.profileImageExtension}",
+                contentType: MediaType('image',
+                    pageViewModel.profileImageInfo!.profileImageExtension)),
       ));
 
       if (responseVo.dioException == null) {
@@ -445,7 +452,7 @@ class PageBusiness {
                 break;
               default:
                 {
-                  // 알 수 없는 에러 코드일 때
+                  // 알 수 없는 코드일 때
                   throw Exception("unKnown Error Code");
                 }
             }
@@ -482,26 +489,109 @@ class PageBusiness {
   }
 
   // 프로필 이미지 클릭
-  void onProfileImageTap() {
-    // todo
-    // todo 프로필 사진 입력 전 파일 타입과 사이즈 조절
-    // pageViewModel.profileImageFile;
-    // blocObjects.blocProfileImage.add(!blocObjects.blocProfileImage.state);
-  }
+  Future<void> onProfileImageTap() async {
+    if (!_context.mounted) return;
+    all_dialog_auth_register_member_profile_image_src_select.PageOutputVo?
+        pageOutputVo = await showDialog(
+            barrierDismissible: true,
+            context: _context,
+            builder: (context) =>
+                all_dialog_auth_register_member_profile_image_src_select
+                    .PageEntrance(
+                        all_dialog_auth_register_member_profile_image_src_select
+                            .PageInputVo(
+                                // 카메라는 모바일 환경에서만
+                                !kIsWeb &&
+                                    (Platform.isAndroid || Platform.isIOS)),
+                        (pageBusiness) {}));
 
-  // 이미지 선택 (ImageSource.camera, ImageSource.gallery)
-  Future<void> pickImage(ImageSource source) async {
-    // todo
-    try {
-      final XFile? pickedFile = await ImagePicker().pickImage(
-          source: source, maxHeight: 1280, maxWidth: 720, imageQuality: 70);
-      if (pickedFile != null) {
-        var image = XFile(pickedFile.path);
-        var bytes = await image.readAsBytes();
-        pageViewModel.profileImage = bytes;
+    if (pageOutputVo != null) {
+      switch (pageOutputVo.imageSourceType) {
+        case all_dialog_auth_register_member_profile_image_src_select
+              .ImageSourceType.gallery:
+          {
+            // 갤러리에서 선택하기
+            try {
+              final XFile? pickedFile = await ImagePicker().pickImage(
+                  source: ImageSource.gallery,
+                  maxHeight: 1280,
+                  maxWidth: 720,
+                  imageQuality: 70);
+              if (pickedFile != null) {
+                final String extension =
+                    pickedFile.path.split('.').last.toLowerCase(); // 확장자 가져오기
+
+                if (extension == 'jpg' || extension == 'png') {
+                  // JPG or PNG
+                  var image = XFile(pickedFile.path);
+                  var bytes = await image.readAsBytes();
+                  pageViewModel.profileImageInfo =
+                      ProfileImageInfo(bytes, extension);
+                  blocObjects.blocProfileImage
+                      .add(!blocObjects.blocProfileImage.state);
+                } else {
+                  // 지원하지 않는 확장자.
+                  if (!_context.mounted) return;
+                  showToast(
+                    "jpg, png 이미지만 지원됩니다.",
+                    context: _context,
+                    animation: StyledToastAnimation.scale,
+                  );
+                }
+              }
+            } catch (_) {}
+          }
+          break;
+        case all_dialog_auth_register_member_profile_image_src_select
+              .ImageSourceType.camera:
+          {
+            // 사진 찍기
+            try {
+              final XFile? pickedFile = await ImagePicker().pickImage(
+                  source: ImageSource.camera,
+                  maxHeight: 1280,
+                  maxWidth: 720,
+                  imageQuality: 70);
+              if (pickedFile != null) {
+                final String extension =
+                    pickedFile.path.split('.').last.toLowerCase(); // 확장자 가져오기
+
+                if (extension == 'jpg' || extension == 'png') {
+                  // JPG or PNG
+                  var image = XFile(pickedFile.path);
+                  var bytes = await image.readAsBytes();
+                  pageViewModel.profileImageInfo =
+                      ProfileImageInfo(bytes, extension);
+                  blocObjects.blocProfileImage
+                      .add(!blocObjects.blocProfileImage.state);
+                } else {
+                  // 지원하지 않는 확장자.
+                  if (!_context.mounted) return;
+                  showToast(
+                    "jpg, png 이미지만 지원됩니다.",
+                    context: _context,
+                    animation: StyledToastAnimation.scale,
+                  );
+                }
+              }
+            } catch (_) {}
+          }
+          break;
+        case all_dialog_auth_register_member_profile_image_src_select
+              .ImageSourceType.defaultImage:
+          {
+            // 기본 프로필 이미지 적용
+            pageViewModel.profileImageInfo = null;
+            blocObjects.blocProfileImage
+                .add(!blocObjects.blocProfileImage.state);
+          }
+          break;
+        default:
+          {
+            // 알 수 없는 코드일 때
+            throw Exception("unKnown Error Code");
+          }
       }
-    } catch (e) {
-      // todo
     }
   }
 
@@ -541,10 +631,18 @@ class PageViewModel {
 
   bool nicknameInputRuleHide = true;
 
-  // 프로필 사진 파일
-  Uint8List? profileImage;
+  ProfileImageInfo? profileImageInfo;
 
   PageViewModel(this.goRouterState);
+}
+
+class ProfileImageInfo {
+  // 프로필 사진 파일
+  Uint8List profileImage;
+
+  String profileImageExtension;
+
+  ProfileImageInfo(this.profileImage, this.profileImageExtension);
 }
 
 // (BLoC 클래스 모음)

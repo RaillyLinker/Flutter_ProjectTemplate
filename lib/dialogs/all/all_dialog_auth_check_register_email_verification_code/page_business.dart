@@ -205,7 +205,7 @@ class PageBusiness {
                   break;
                 default:
                   {
-                    // 알 수 없는 에러 코드일 때
+                    // 알 수 없는 코드일 때
                     throw Exception("unKnown Error Code");
                   }
               }
@@ -311,7 +311,7 @@ class PageBusiness {
                 break;
               default:
                 {
-                  // 알 수 없는 에러 코드일 때
+                  // 알 수 없는 코드일 때
                   throw Exception("unKnown Error Code");
                 }
             }

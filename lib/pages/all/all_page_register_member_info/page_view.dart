@@ -64,23 +64,21 @@ class PageView extends StatelessWidget {
                     children: [
                       BlocBuilder<page_business.BlocProfileImage, bool>(
                           builder: (c, s) {
-                        if (pageBusiness.pageViewModel.profileImage == null) {
+                        if (pageBusiness.pageViewModel.profileImageInfo ==
+                            null) {
                           return const Icon(
                             Icons.account_circle,
                             color: Colors.blue,
                             size: 100.0,
                           );
                         } else {
-                          // todo
                           return ClipOval(
                             child: Image.memory(
-                              pageBusiness.pageViewModel.profileImage!,
-                              //Uint8List.fromList(imageFile),
-                              //width: 120,
-                              //height: 150,
+                              pageBusiness
+                                  .pageViewModel.profileImageInfo!.profileImage,
                               fit: BoxFit.cover,
-                              cacheWidth: 76,
-                              cacheHeight: 76,
+                              cacheWidth: 100,
+                              cacheHeight: 100,
                             ),
                           );
                         }

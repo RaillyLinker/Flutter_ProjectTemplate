@@ -266,7 +266,7 @@ void setDioObjects() {
                           }
                         default:
                           {
-                            // 알 수 없는 에러 코드일 때
+                            // 알 수 없는 코드일 때
                             handler.reject(DioException(
                                 error: "Network Error",
                                 requestOptions: RequestOptions()));
