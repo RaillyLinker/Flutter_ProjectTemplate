@@ -1,10 +1,14 @@
 // (external)
 import 'dart:io';
+import 'dart:typed_data';
 
+import 'package:dio/dio.dart' as dio;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:go_router/go_router.dart';
+import 'package:http_parser/http_parser.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../../../repositories/network/apis/api_main_server.dart'
     as api_main_server;
@@ -311,7 +315,11 @@ class PageBusiness {
         pageViewModel.pageInputVo.password,
         pageViewModel.nickNameTextEditController.text.trim(),
         pageViewModel.pageInputVo.verificationCode,
-        null, // todo 프로필 사진 입력
+        pageViewModel.profileImage == null
+            ? null
+            : dio.MultipartFile.fromBytes(pageViewModel.profileImage!,
+                filename: "profile.png",
+                contentType: MediaType('image', 'png')),
       ));
 
       if (responseVo.dioException == null) {
@@ -473,6 +481,30 @@ class PageBusiness {
         .add(!blocObjects.blocNicknameInputRule.state);
   }
 
+  // 프로필 이미지 클릭
+  void onProfileImageTap() {
+    // todo
+    // todo 프로필 사진 입력 전 파일 타입과 사이즈 조절
+    // pageViewModel.profileImageFile;
+    // blocObjects.blocProfileImage.add(!blocObjects.blocProfileImage.state);
+  }
+
+  // 이미지 선택 (ImageSource.camera, ImageSource.gallery)
+  Future<void> pickImage(ImageSource source) async {
+    // todo
+    try {
+      final XFile? pickedFile = await ImagePicker().pickImage(
+          source: source, maxHeight: 1280, maxWidth: 720, imageQuality: 70);
+      if (pickedFile != null) {
+        var image = XFile(pickedFile.path);
+        var bytes = await image.readAsBytes();
+        pageViewModel.profileImage = bytes;
+      }
+    } catch (e) {
+      // todo
+    }
+  }
+
 ////
 // [내부 함수]
 // !!!내부에서만 사용할 함수를 아래에 구현!!
@@ -508,6 +540,9 @@ class PageViewModel {
   FocusNode nickNameTextEditFocus = FocusNode();
 
   bool nicknameInputRuleHide = true;
+
+  // 프로필 사진 파일
+  Uint8List? profileImage;
 
   PageViewModel(this.goRouterState);
 }
@@ -550,6 +585,14 @@ class BlocNicknameInputRule extends Bloc<bool, bool> {
   }
 }
 
+class BlocProfileImage extends Bloc<bool, bool> {
+  BlocProfileImage() : super(true) {
+    on<bool>((event, emit) {
+      emit(event);
+    });
+  }
+}
+
 // (BLoC 프로바이더 클래스)
 // 본 페이지에서 사용할 BLoC 객체를 모아두어 PageEntrance 에서 페이지 전역 설정에 사용 됩니다.
 class BLocProviders {
@@ -563,6 +606,7 @@ class BLocProviders {
         create: (context) => BlocNicknameCheckBtn()),
     BlocProvider<BlocNicknameInputRule>(
         create: (context) => BlocNicknameInputRule()),
+    BlocProvider<BlocProfileImage>(create: (context) => BlocProfileImage()),
   ];
 }
 
@@ -576,6 +620,7 @@ class BLocObjects {
   late BlocNicknameEditText blocNicknameEditText;
   late BlocNicknameCheckBtn blocNicknameCheckBtn;
   late BlocNicknameInputRule blocNicknameInputRule;
+  late BlocProfileImage blocProfileImage;
 
   // 생성자 설정
   BLocObjects(this._context) {
@@ -585,5 +630,6 @@ class BLocObjects {
     blocNicknameEditText = BlocProvider.of<BlocNicknameEditText>(_context);
     blocNicknameCheckBtn = BlocProvider.of<BlocNicknameCheckBtn>(_context);
     blocNicknameInputRule = BlocProvider.of<BlocNicknameInputRule>(_context);
+    blocProfileImage = BlocProvider.of<BlocProfileImage>(_context);
   }
 }

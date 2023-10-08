@@ -56,40 +56,62 @@ class PageView extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                // todo
-                Stack(
-                  children: [
-                    const Icon(
-                      Icons.account_circle,
-                      color: Colors.blue,
-                      size: 100.0,
-                    ),
-                    Positioned(
-                      width: 30,
-                      height: 30,
-                      bottom: 10,
-                      right: 0,
-                      child: Container(
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(50),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.5),
-                                spreadRadius: 3,
-                                blurRadius: 5,
-                                offset: const Offset(
-                                    0, 2), // changes position of shadow
-                              ),
-                            ]),
-                        child: const Icon(
-                          Icons.account_box_outlined,
-                          color: Colors.grey,
-                          size: 20.0,
+                GestureDetector(
+                  onTap: () {
+                    pageBusiness.onProfileImageTap();
+                  },
+                  child: Stack(
+                    children: [
+                      BlocBuilder<page_business.BlocProfileImage, bool>(
+                          builder: (c, s) {
+                        if (pageBusiness.pageViewModel.profileImage == null) {
+                          return const Icon(
+                            Icons.account_circle,
+                            color: Colors.blue,
+                            size: 100.0,
+                          );
+                        } else {
+                          // todo
+                          return ClipOval(
+                            child: Image.memory(
+                              pageBusiness.pageViewModel.profileImage!,
+                              //Uint8List.fromList(imageFile),
+                              //width: 120,
+                              //height: 150,
+                              fit: BoxFit.cover,
+                              cacheWidth: 76,
+                              cacheHeight: 76,
+                            ),
+                          );
+                        }
+                      }),
+                      Positioned(
+                        width: 30,
+                        height: 30,
+                        bottom: 10,
+                        right: 0,
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(50),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.5),
+                                  spreadRadius: 3,
+                                  blurRadius: 5,
+                                  offset: const Offset(
+                                      0, 2), // changes position of shadow
+                                ),
+                              ]),
+                          child: const Icon(
+                            Icons.account_box_outlined,
+                            color: Colors.grey,
+                            size: 20.0,
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
                 Center(
                   child: Container(

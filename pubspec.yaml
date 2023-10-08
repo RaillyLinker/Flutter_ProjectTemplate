@@ -61,6 +61,9 @@ dependencies:
   # pickFiles (all), getDirectoryPath (web 제외), saveFile (PC), clearTemporaryFiles (Mobile)
   file_picker: ^5.3.3
 
+  # 이미지 파일 선택
+  image_picker: ^1.0.4
+
   # DateTime
   intl: ^0.18.1
 
@@ -75,6 +78,9 @@ dependencies:
 
   # JWT 생성
   dart_jsonwebtoken: ^2.12.0
+
+  # HTTP Parser
+  http_parser: ^4.0.2
 
   ####
   # [Mobile]
