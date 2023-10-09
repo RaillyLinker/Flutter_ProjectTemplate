@@ -24,7 +24,7 @@ import '../../../global_classes/gc_template_classes.dart'
 import 'page_entrance.dart' as page_entrance;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
-// todo : 여러 디바이스(android, ios, windows, web)에서 테스트
+// todo : 여러 디바이스(ios, web)에서 테스트. 특히 웹에서 확장자 안나오는 문제
 
 //------------------------------------------------------------------------------
 // 페이지의 비즈니스 로직 및 뷰모델 담당
@@ -515,29 +515,19 @@ class PageBusiness {
               final XFile? pickedFile = await ImagePicker().pickImage(
                   source: ImageSource.gallery,
                   maxHeight: 1280,
-                  maxWidth: 720,
+                  maxWidth: 1280,
                   imageQuality: 70);
               if (pickedFile != null) {
                 final String extension =
                     pickedFile.path.split('.').last.toLowerCase(); // 확장자 가져오기
 
-                if (extension == 'jpg' || extension == 'png') {
-                  // JPG or PNG
-                  var image = XFile(pickedFile.path);
-                  var bytes = await image.readAsBytes();
-                  pageViewModel.profileImageInfo =
-                      ProfileImageInfo(bytes, extension);
-                  blocObjects.blocProfileImage
-                      .add(!blocObjects.blocProfileImage.state);
-                } else {
-                  // 지원하지 않는 확장자.
-                  if (!_context.mounted) return;
-                  showToast(
-                    "jpg, png 이미지만 지원됩니다.",
-                    context: _context,
-                    animation: StyledToastAnimation.scale,
-                  );
-                }
+                // JPG or PNG
+                var image = XFile(pickedFile.path);
+                var bytes = await image.readAsBytes();
+                pageViewModel.profileImageInfo =
+                    ProfileImageInfo(bytes, extension);
+                blocObjects.blocProfileImage
+                    .add(!blocObjects.blocProfileImage.state);
               }
             } catch (_) {}
           }
@@ -550,29 +540,19 @@ class PageBusiness {
               final XFile? pickedFile = await ImagePicker().pickImage(
                   source: ImageSource.camera,
                   maxHeight: 1280,
-                  maxWidth: 720,
+                  maxWidth: 1280,
                   imageQuality: 70);
               if (pickedFile != null) {
                 final String extension =
                     pickedFile.path.split('.').last.toLowerCase(); // 확장자 가져오기
 
-                if (extension == 'jpg' || extension == 'png') {
-                  // JPG or PNG
-                  var image = XFile(pickedFile.path);
-                  var bytes = await image.readAsBytes();
-                  pageViewModel.profileImageInfo =
-                      ProfileImageInfo(bytes, extension);
-                  blocObjects.blocProfileImage
-                      .add(!blocObjects.blocProfileImage.state);
-                } else {
-                  // 지원하지 않는 확장자.
-                  if (!_context.mounted) return;
-                  showToast(
-                    "jpg, png 이미지만 지원됩니다.",
-                    context: _context,
-                    animation: StyledToastAnimation.scale,
-                  );
-                }
+                // JPG or PNG
+                var image = XFile(pickedFile.path);
+                var bytes = await image.readAsBytes();
+                pageViewModel.profileImageInfo =
+                    ProfileImageInfo(bytes, extension);
+                blocObjects.blocProfileImage
+                    .add(!blocObjects.blocProfileImage.state);
               }
             } catch (_) {}
           }

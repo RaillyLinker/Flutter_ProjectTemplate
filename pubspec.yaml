@@ -63,7 +63,6 @@ dependencies:
 
   # 이미지 파일 선택
   image_picker: ^1.0.4
-  image_picker_web: ^3.1.1
 
   # DateTime
   intl: ^0.18.1

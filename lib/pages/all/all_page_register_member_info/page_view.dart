@@ -77,8 +77,8 @@ class PageView extends StatelessWidget {
                               pageBusiness
                                   .pageViewModel.profileImageInfo!.profileImage,
                               fit: BoxFit.cover,
-                              cacheWidth: 100,
-                              cacheHeight: 100,
+                              width: 100,
+                              height: 100,
                             ),
                           );
                         }
