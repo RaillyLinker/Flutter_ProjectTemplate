@@ -29,7 +29,6 @@ import '../../../pages/all/all_page_membership_withdrawal/page_entrance.dart'
 import 'page_entrance.dart' as page_entrance;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
-// todo : 로그인 관련 용어 변경
 // todo : 모든 디바이스에서 로그아웃 기능 추가
 // todo : 닉네임, 프로필, 권한, 이메일 리스트, 전화 리스트, OAuth2 리스트, authPasswordIsNull 을 회원 정보 페이지로 이동
 // todo : 회원 정보 페이지에서 닉네임 변경 기능 추가

@@ -18,8 +18,8 @@ import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
 import '../../../pages/all/all_page_find_password_with_email/page_entrance.dart'
     as all_page_find_password_with_email;
-import '../../../pages/all/all_page_register_email_verification/page_entrance.dart'
-    as all_page_register_email_verification;
+import '../../../pages/all/all_page_join_the_membership_email_verification/page_entrance.dart'
+    as all_page_join_the_membership_email_verification;
 
 // (page)
 import 'page_entrance.dart' as page_entrance;
@@ -314,8 +314,9 @@ class PageBusiness {
   Future<void> selectRegisterWith() async {
     // 이메일 본인 검증 화면으로 이동
     if (!_context.mounted) return;
-    all_page_register_email_verification.PageOutputVo? pageOutputVo =
-        await _context.pushNamed(all_page_register_email_verification.pageName);
+    all_page_join_the_membership_email_verification.PageOutputVo? pageOutputVo =
+        await _context.pushNamed(
+            all_page_join_the_membership_email_verification.pageName);
     //  종료 여부 확인
     if (pageOutputVo != null && pageOutputVo.registerComplete) {
       if (!_context.mounted) return;

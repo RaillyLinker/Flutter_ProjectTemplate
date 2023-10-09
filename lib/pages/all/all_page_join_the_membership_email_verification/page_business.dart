@@ -13,8 +13,8 @@ import '../../../dialogs/all/all_dialog_loading_spinner/page_entrance.dart'
     as all_dialog_loading_spinner;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
-import '../../../pages/all/all_page_register_member_info/page_entrance.dart'
-    as all_page_register_member_info;
+import '../../../pages/all/all_page_join_the_membership_edit_member_info/page_entrance.dart'
+    as all_page_join_the_membership_edit_member_info;
 
 // (page)
 import 'page_entrance.dart' as page_entrance;
@@ -398,15 +398,17 @@ class PageBusiness {
       // String? verificationCode;
 
       if (!_context.mounted) return;
-      var pageResult = await _context
-          .pushNamed(all_page_register_member_info.pageName, queryParameters: {
-        "memberId": pageViewModel.emailTextEditController.text.trim(),
-        "password": pageViewModel.passwordTextFieldController.text,
-        "verificationCode": pageViewModel.checkedEmailVerificationCode,
-        "verificationUid": pageViewModel.verificationUid.toString(),
-      });
+      var pageResult = await _context.pushNamed(
+          all_page_join_the_membership_edit_member_info.pageName,
+          queryParameters: {
+            "memberId": pageViewModel.emailTextEditController.text.trim(),
+            "password": pageViewModel.passwordTextFieldController.text,
+            "verificationCode": pageViewModel.checkedEmailVerificationCode,
+            "verificationUid": pageViewModel.verificationUid.toString(),
+          });
       if (pageResult != null &&
-          (pageResult as all_page_register_member_info.PageOutputVo)
+          (pageResult
+                  as all_page_join_the_membership_edit_member_info.PageOutputVo)
               .registerComplete) {
         if (!_context.mounted) return;
         _context.pop(page_entrance.PageOutputVo(true));

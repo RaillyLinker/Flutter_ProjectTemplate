@@ -27,6 +27,10 @@ import 'pages/all/all_page_global_variable_state_test_sample/page_entrance.dart'
 import 'pages/all/all_page_home/page_entrance.dart' as all_page_home;
 import 'pages/all/all_page_input_and_output_push_test/page_entrance.dart'
     as all_page_input_and_output_push_test;
+import 'pages/all/all_page_join_the_membership_edit_member_info/page_entrance.dart'
+    as all_page_join_the_membership_edit_member_info;
+import 'pages/all/all_page_join_the_membership_email_verification/page_entrance.dart'
+    as all_page_join_the_membership_email_verification;
 import 'pages/all/all_page_just_push_test1/page_entrance.dart'
     as all_page_just_push_test1;
 import 'pages/all/all_page_just_push_test2/page_entrance.dart'
@@ -48,10 +52,6 @@ import 'pages/all/all_page_post_request_sample3/page_entrance.dart'
     as all_page_post_request_sample3;
 import 'pages/all/all_page_post_request_sample4/page_entrance.dart'
     as all_page_post_request_sample4;
-import 'pages/all/all_page_register_email_verification/page_entrance.dart'
-    as all_page_register_email_verification;
-import 'pages/all/all_page_register_member_info/page_entrance.dart'
-    as all_page_register_member_info;
 import 'pages/all/all_page_shared_preferences_sample/page_entrance.dart'
     as all_page_shared_preferences_sample;
 import 'pages/all/all_page_url_launcher_sample/page_entrance.dart'
@@ -350,14 +350,14 @@ GoRouter getRouter() {
   ));
 
   subRouteListAuthSampleAuthLogin.add(GoRoute(
-    path: "register-email-verification",
-    name: all_page_register_email_verification.pageName,
+    path: "join-the-membership-email-verification",
+    name: all_page_join_the_membership_email_verification.pageName,
     pageBuilder: (c, s) {
       return CustomTransitionPage(
         key: s.pageKey,
-        child: all_page_register_email_verification.PageEntrance(s),
-        transitionsBuilder:
-            all_page_register_email_verification.pageTransitionsBuilder,
+        child: all_page_join_the_membership_email_verification.PageEntrance(s),
+        transitionsBuilder: all_page_join_the_membership_email_verification
+            .pageTransitionsBuilder,
       );
     },
   ));
@@ -376,14 +376,14 @@ GoRouter getRouter() {
   ));
 
   subRouteListAuthSampleAuthLogin.add(GoRoute(
-    path: "register-member-info",
-    name: all_page_register_member_info.pageName,
+    path: "join-the-membership-edit-member-info",
+    name: all_page_join_the_membership_edit_member_info.pageName,
     pageBuilder: (c, s) {
       return CustomTransitionPage(
         key: s.pageKey,
-        child: all_page_register_member_info.PageEntrance(s),
-        transitionsBuilder:
-            all_page_register_member_info.pageTransitionsBuilder,
+        child: all_page_join_the_membership_edit_member_info.PageEntrance(s),
+        transitionsBuilder: all_page_join_the_membership_edit_member_info
+            .pageTransitionsBuilder,
       );
     },
   ));

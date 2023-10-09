@@ -17,7 +17,7 @@ import 'page_view.dart' as page_view;
 //------------------------------------------------------------------------------
 // !!!페이지 진입 라우트 Name 정의!!
 // 폴더명과 동일하게 작성하세요.
-const pageName = "all_page_register_member_info";
+const pageName = "all_page_join_the_membership_edit_member_info";
 
 // !!!페이지 호출/반납 애니메이션!!
 // 동적으로 변경이 가능합니다.
