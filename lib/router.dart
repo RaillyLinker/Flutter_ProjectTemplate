@@ -1,36 +1,45 @@
 // (external)
 import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 import 'package:go_router/go_router.dart';
 
 // (all)
 import 'a_templates/all_page_template/page_entrance.dart' as all_page_template;
-import 'pages/all/all_page_home/page_entrance.dart' as all_page_home;
-import 'pages/all/all_page_register_member_info/page_entrance.dart'
-    as all_page_register_member_info;
-import 'pages/all/all_page_login/page_entrance.dart' as all_page_login;
-import 'pages/all/all_page_register_email_verification/page_entrance.dart'
-    as all_page_register_email_verification;
-import 'pages/all/all_page_find_password_with_email/page_entrance.dart'
-    as all_page_find_password_with_email;
-import 'pages/all/all_page_page_and_router_sample_list/page_entrance.dart'
-    as all_page_page_and_router_sample_list;
-import 'pages/all/all_page_global_variable_state_test_sample/page_entrance.dart'
-    as all_page_global_variable_state_test_sample;
-import 'pages/all/all_page_url_launcher_sample/page_entrance.dart'
-    as all_page_url_launcher_sample;
-import 'pages/all/all_page_dialog_sample_list/page_entrance.dart'
-    as all_page_dialog_sample_list;
-import 'pages/all/all_page_shared_preferences_sample/page_entrance.dart'
-    as all_page_shared_preferences_sample;
-import 'pages/all/all_page_network_request_sample_list/page_entrance.dart'
-    as all_page_network_request_sample_list;
 import 'pages/all/all_page_auth_sample/page_entrance.dart'
     as all_page_auth_sample;
 import 'pages/all/all_page_authorization_test_sample_list/page_entrance.dart'
     as all_page_authorization_test_sample_list;
+import 'pages/all/all_page_change_password/page_entrance.dart'
+    as all_page_change_password;
+import 'pages/all/all_page_crypt_sample/page_entrance.dart'
+    as all_page_crypt_sample;
+import 'pages/all/all_page_dialog_sample_list/page_entrance.dart'
+    as all_page_dialog_sample_list;
+import 'pages/all/all_page_etc_sample_list/page_entrance.dart'
+    as all_page_etc_sample_list;
+import 'pages/all/all_page_find_password_with_email/page_entrance.dart'
+    as all_page_find_password_with_email;
 import 'pages/all/all_page_get_request_sample/page_entrance.dart'
     as all_page_get_request_sample;
+import 'pages/all/all_page_global_variable_state_test_sample/page_entrance.dart'
+    as all_page_global_variable_state_test_sample;
+import 'pages/all/all_page_home/page_entrance.dart' as all_page_home;
+import 'pages/all/all_page_input_and_output_push_test/page_entrance.dart'
+    as all_page_input_and_output_push_test;
+import 'pages/all/all_page_just_push_test1/page_entrance.dart'
+    as all_page_just_push_test1;
+import 'pages/all/all_page_just_push_test2/page_entrance.dart'
+    as all_page_just_push_test2;
+import 'pages/all/all_page_login/page_entrance.dart' as all_page_login;
+import 'pages/all/all_page_membership_withdrawal/page_entrance.dart'
+    as all_page_membership_withdrawal;
+import 'pages/all/all_page_network_request_sample_list/page_entrance.dart'
+    as all_page_network_request_sample_list;
+import 'pages/all/all_page_page_and_router_sample_list/page_entrance.dart'
+    as all_page_page_and_router_sample_list;
+import 'pages/all/all_page_page_transition_animation_sample_list/page_entrance.dart'
+    as all_page_page_transition_animation_sample_list;
 import 'pages/all/all_page_post_request_sample1/page_entrance.dart'
     as all_page_post_request_sample1;
 import 'pages/all/all_page_post_request_sample2/page_entrance.dart'
@@ -39,22 +48,16 @@ import 'pages/all/all_page_post_request_sample3/page_entrance.dart'
     as all_page_post_request_sample3;
 import 'pages/all/all_page_post_request_sample4/page_entrance.dart'
     as all_page_post_request_sample4;
-import 'pages/all/all_page_just_push_test1/page_entrance.dart'
-    as all_page_just_push_test1;
-import 'pages/all/all_page_just_push_test2/page_entrance.dart'
-    as all_page_just_push_test2;
-import 'pages/all/all_page_input_and_output_push_test/page_entrance.dart'
-    as all_page_input_and_output_push_test;
-import 'pages/all/all_page_page_transition_animation_sample_list/page_entrance.dart'
-    as all_page_page_transition_animation_sample_list;
+import 'pages/all/all_page_register_email_verification/page_entrance.dart'
+    as all_page_register_email_verification;
+import 'pages/all/all_page_register_member_info/page_entrance.dart'
+    as all_page_register_member_info;
+import 'pages/all/all_page_shared_preferences_sample/page_entrance.dart'
+    as all_page_shared_preferences_sample;
+import 'pages/all/all_page_url_launcher_sample/page_entrance.dart'
+    as all_page_url_launcher_sample;
 import 'pages/all/all_page_widget_change_animation_sample_list/page_entrance.dart'
     as all_page_widget_change_animation_sample_list;
-import 'pages/all/all_page_membership_withdrawal/page_entrance.dart'
-    as all_page_membership_withdrawal;
-import 'pages/all/all_page_crypt_sample/page_entrance.dart'
-    as all_page_crypt_sample;
-import 'pages/all/all_page_change_password/page_entrance.dart'
-    as all_page_change_password;
 
 // (app)
 import 'pages/app/app_page_init_splash/page_entrance.dart'
@@ -83,17 +86,20 @@ GoRouter getRouter() {
   // / 경로 서브 라우트 리스트
   final List<RouteBase> subRouteList = [];
 
-  // /page-and-router-test-sample 경로 서브 라우트 리스트
-  final List<RouteBase> subRouteListPageAndRouterTestSample = [];
+  // /page-and-router-sample-list 경로 서브 라우트 리스트
+  final List<RouteBase> subRouteListPageAndRouterSampleList = [];
 
-  // /network-request-sample 경로 서브 라우트 리스트
-  final List<RouteBase> subRouteListNetworkRequestSample = [];
+  // /network-request-sample-list 경로 서브 라우트 리스트
+  final List<RouteBase> subRouteListNetworkRequestSampleList = [];
 
   // /auth-sample 경로 서브 라우트 리스트
   final List<RouteBase> subRouteListAuthSample = [];
 
-  // /auth-sample/auth-sign-in 경로 서브 라우트 리스트
-  final List<RouteBase> subRouteListAuthSampleAuthSignIn = [];
+  // /auth-sample/login 경로 서브 라우트 리스트
+  final List<RouteBase> subRouteListAuthSampleAuthLogin = [];
+
+  // /etc-sample-list 경로 서브 라우트 리스트
+  final List<RouteBase> subRouteListEtcSampleList = [];
 
   // (모든 환경)
   // !!!초기 진입 라우트 경로 설정!!
@@ -124,10 +130,10 @@ GoRouter getRouter() {
             all_page_page_and_router_sample_list.pageTransitionsBuilder,
       );
     },
-    routes: subRouteListPageAndRouterTestSample,
+    routes: subRouteListPageAndRouterSampleList,
   ));
 
-  subRouteListPageAndRouterTestSample.add(GoRoute(
+  subRouteListPageAndRouterSampleList.add(GoRoute(
     path: "page-template",
     name: all_page_template.pageName,
     pageBuilder: (c, s) {
@@ -139,7 +145,7 @@ GoRouter getRouter() {
     },
   ));
 
-  subRouteListPageAndRouterTestSample.add(GoRoute(
+  subRouteListPageAndRouterSampleList.add(GoRoute(
     path: "just-push-test1",
     name: all_page_just_push_test1.pageName,
     pageBuilder: (c, s) {
@@ -151,7 +157,7 @@ GoRouter getRouter() {
     },
   ));
 
-  subRouteListPageAndRouterTestSample.add(GoRoute(
+  subRouteListPageAndRouterSampleList.add(GoRoute(
     path: "just-push-test2",
     name: all_page_just_push_test2.pageName,
     pageBuilder: (c, s) {
@@ -163,7 +169,7 @@ GoRouter getRouter() {
     },
   ));
 
-  subRouteListPageAndRouterTestSample.add(GoRoute(
+  subRouteListPageAndRouterSampleList.add(GoRoute(
     path: "input-and-output-push-test",
     name: all_page_input_and_output_push_test.pageName,
     pageBuilder: (c, s) {
@@ -176,7 +182,7 @@ GoRouter getRouter() {
     },
   ));
 
-  subRouteListPageAndRouterTestSample.add(GoRoute(
+  subRouteListPageAndRouterSampleList.add(GoRoute(
     path: "page-transition-animation-sample-list",
     name: all_page_page_transition_animation_sample_list.pageName,
     pageBuilder: (c, s) {
@@ -202,31 +208,6 @@ GoRouter getRouter() {
   ));
 
   subRouteList.add(GoRoute(
-    path: "shared-preferences-sample",
-    name: all_page_shared_preferences_sample.pageName,
-    pageBuilder: (c, s) {
-      return CustomTransitionPage(
-        key: s.pageKey,
-        child: all_page_shared_preferences_sample.PageEntrance(s),
-        transitionsBuilder:
-            all_page_shared_preferences_sample.pageTransitionsBuilder,
-      );
-    },
-  ));
-
-  subRouteList.add(GoRoute(
-    path: "url-launcher-sample",
-    name: all_page_url_launcher_sample.pageName,
-    pageBuilder: (c, s) {
-      return CustomTransitionPage(
-        key: s.pageKey,
-        child: all_page_url_launcher_sample.PageEntrance(s),
-        transitionsBuilder: all_page_url_launcher_sample.pageTransitionsBuilder,
-      );
-    },
-  ));
-
-  subRouteList.add(GoRoute(
     path: "network-request-sample-list",
     name: all_page_network_request_sample_list.pageName,
     pageBuilder: (c, s) {
@@ -237,10 +218,10 @@ GoRouter getRouter() {
             all_page_network_request_sample_list.pageTransitionsBuilder,
       );
     },
-    routes: subRouteListNetworkRequestSample,
+    routes: subRouteListNetworkRequestSampleList,
   ));
 
-  subRouteListNetworkRequestSample.add(GoRoute(
+  subRouteListNetworkRequestSampleList.add(GoRoute(
     path: "get-request-sample",
     name: all_page_get_request_sample.pageName,
     pageBuilder: (c, s) {
@@ -252,7 +233,7 @@ GoRouter getRouter() {
     },
   ));
 
-  subRouteListNetworkRequestSample.add(GoRoute(
+  subRouteListNetworkRequestSampleList.add(GoRoute(
     path: "post-request-sample1",
     name: all_page_post_request_sample1.pageName,
     pageBuilder: (c, s) {
@@ -265,7 +246,7 @@ GoRouter getRouter() {
     },
   ));
 
-  subRouteListNetworkRequestSample.add(GoRoute(
+  subRouteListNetworkRequestSampleList.add(GoRoute(
     path: "post-request-sample2",
     name: all_page_post_request_sample2.pageName,
     pageBuilder: (c, s) {
@@ -278,7 +259,7 @@ GoRouter getRouter() {
     },
   ));
 
-  subRouteListNetworkRequestSample.add(GoRoute(
+  subRouteListNetworkRequestSampleList.add(GoRoute(
     path: "post-request-sample3",
     name: all_page_post_request_sample3.pageName,
     pageBuilder: (c, s) {
@@ -291,7 +272,7 @@ GoRouter getRouter() {
     },
   ));
 
-  subRouteListNetworkRequestSample.add(GoRoute(
+  subRouteListNetworkRequestSampleList.add(GoRoute(
     path: "post-request-sample4",
     name: all_page_post_request_sample4.pageName,
     pageBuilder: (c, s) {
@@ -340,7 +321,7 @@ GoRouter getRouter() {
         transitionsBuilder: all_page_login.pageTransitionsBuilder,
       );
     },
-    routes: subRouteListAuthSampleAuthSignIn,
+    routes: subRouteListAuthSampleAuthLogin,
   ));
 
   subRouteListAuthSample.add(GoRoute(
@@ -368,7 +349,7 @@ GoRouter getRouter() {
     },
   ));
 
-  subRouteListAuthSampleAuthSignIn.add(GoRoute(
+  subRouteListAuthSampleAuthLogin.add(GoRoute(
     path: "register-email-verification",
     name: all_page_register_email_verification.pageName,
     pageBuilder: (c, s) {
@@ -381,7 +362,7 @@ GoRouter getRouter() {
     },
   ));
 
-  subRouteListAuthSampleAuthSignIn.add(GoRoute(
+  subRouteListAuthSampleAuthLogin.add(GoRoute(
     path: "find-password-with-email",
     name: all_page_find_password_with_email.pageName,
     pageBuilder: (c, s) {
@@ -394,7 +375,7 @@ GoRouter getRouter() {
     },
   ));
 
-  subRouteListAuthSampleAuthSignIn.add(GoRoute(
+  subRouteListAuthSampleAuthLogin.add(GoRoute(
     path: "register-member-info",
     name: all_page_register_member_info.pageName,
     pageBuilder: (c, s) {
@@ -408,6 +389,44 @@ GoRouter getRouter() {
   ));
 
   subRouteList.add(GoRoute(
+    path: "etc-sample-list",
+    name: all_page_etc_sample_list.pageName,
+    pageBuilder: (c, s) {
+      return CustomTransitionPage(
+        key: s.pageKey,
+        child: all_page_etc_sample_list.PageEntrance(s),
+        transitionsBuilder: all_page_etc_sample_list.pageTransitionsBuilder,
+      );
+    },
+    routes: subRouteListEtcSampleList,
+  ));
+
+  subRouteListEtcSampleList.add(GoRoute(
+    path: "shared-preferences-sample",
+    name: all_page_shared_preferences_sample.pageName,
+    pageBuilder: (c, s) {
+      return CustomTransitionPage(
+        key: s.pageKey,
+        child: all_page_shared_preferences_sample.PageEntrance(s),
+        transitionsBuilder:
+            all_page_shared_preferences_sample.pageTransitionsBuilder,
+      );
+    },
+  ));
+
+  subRouteListEtcSampleList.add(GoRoute(
+    path: "url-launcher-sample",
+    name: all_page_url_launcher_sample.pageName,
+    pageBuilder: (c, s) {
+      return CustomTransitionPage(
+        key: s.pageKey,
+        child: all_page_url_launcher_sample.PageEntrance(s),
+        transitionsBuilder: all_page_url_launcher_sample.pageTransitionsBuilder,
+      );
+    },
+  ));
+
+  subRouteListEtcSampleList.add(GoRoute(
     path: "global-variable-state-test-sample",
     name: all_page_global_variable_state_test_sample.pageName,
     pageBuilder: (c, s) {
@@ -420,7 +439,7 @@ GoRouter getRouter() {
     },
   ));
 
-  subRouteList.add(GoRoute(
+  subRouteListEtcSampleList.add(GoRoute(
     path: "widget-change-animation-sample-list",
     name: all_page_widget_change_animation_sample_list.pageName,
     pageBuilder: (c, s) {
@@ -433,7 +452,7 @@ GoRouter getRouter() {
     },
   ));
 
-  subRouteList.add(GoRoute(
+  subRouteListEtcSampleList.add(GoRoute(
     path: "crypt-sample",
     name: all_page_crypt_sample.pageName,
     pageBuilder: (c, s) {
@@ -472,7 +491,7 @@ GoRouter getRouter() {
       },
     ));
 
-    subRouteList.add(GoRoute(
+    subRouteListEtcSampleList.add(GoRoute(
       path: "server-sample",
       name: app_page_server_sample.pageName,
       pageBuilder: (c, s) {
