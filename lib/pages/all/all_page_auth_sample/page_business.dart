@@ -29,7 +29,6 @@ import '../../../pages/all/all_page_membership_withdrawal/page_entrance.dart'
 import 'page_entrance.dart' as page_entrance;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
-// todo : 모든 디바이스에서 로그아웃 기능 추가
 // todo : 닉네임, 프로필, 권한, 이메일 리스트, 전화 리스트, OAuth2 리스트, authPasswordIsNull 을 회원 정보 페이지로 이동
 // todo : 회원 정보 페이지에서 닉네임 변경 기능 추가
 // todo : 회원 정보 페이지에서 프로필 추가 / 삭제 / 대표 프로필 변경 기능 추가
@@ -148,6 +147,8 @@ class PageBusiness {
     } else {
       nowAllSampleList
           .add(SampleItem(SampleItemEnum.logout, "로그아웃", "로그아웃 처리를 합니다."));
+      nowAllSampleList.add(SampleItem(SampleItemEnum.logoutFromAllDevice,
+          "모든 디바이스에서 로그아웃", "현재 로그인된 모든 디바이스의 리프레시 토큰을 만료 처리 합니다."));
       nowAllSampleList.add(SampleItem(
           SampleItemEnum.refreshAuthToken, "인증 토큰 갱신", "인증 토큰을 갱신합니다."));
       // todo 회원 정보 페이지로 이동
@@ -199,6 +200,40 @@ class PageBusiness {
               await api_main_server.postService1TkV1AuthLogoutAsync(
                   api_main_server.PostService1TkV1AuthLogoutAsyncRequestHeaderVo(
                       "${signInMemberInfo!.tokenType} ${signInMemberInfo.accessToken}"));
+
+              // login_user_info SPW 비우기
+              spw_auth_member_info.SharedPreferenceWrapper.set(null);
+            }
+
+            pageBusiness.closeDialog();
+
+            // 비회원으로 전체 화면 갱신
+            refreshScreenDataAsync(null);
+          });
+
+          showDialog(
+              barrierDismissible: false,
+              context: _context,
+              builder: (context) => loadingSpinner).then((outputVo) {});
+        }
+        break;
+      case SampleItemEnum.logoutFromAllDevice:
+        {
+          // 모든 디바이스에서 계정 로그아웃 처리
+          var loadingSpinner = all_dialog_loading_spinner.PageEntrance(
+              all_dialog_loading_spinner.PageInputVo(), (pageBusiness) async {
+            spw_auth_member_info.SharedPreferenceWrapperVo? signInMemberInfo =
+                spw_auth_member_info.SharedPreferenceWrapper.get();
+
+            if (signInMemberInfo != null) {
+              // All Logout API 실행
+              spw_auth_member_info.SharedPreferenceWrapperVo? signInMemberInfo =
+                  spw_auth_member_info.SharedPreferenceWrapper.get();
+
+              await api_main_server
+                  .deleteService1TkV1AuthAllAuthorizationTokenAsync(api_main_server
+                      .DeleteService1TkV1AuthAllAuthorizationTokenAsyncRequestHeaderVo(
+                          "${signInMemberInfo!.tokenType} ${signInMemberInfo.accessToken}"));
 
               // login_user_info SPW 비우기
               spw_auth_member_info.SharedPreferenceWrapper.set(null);
@@ -443,6 +478,7 @@ enum SampleItemEnum {
   goToAuthorizationTestSamplePage,
   goToLoginPage,
   logout,
+  logoutFromAllDevice,
   refreshAuthToken,
   goToMembershipWithdrawalPage,
   goToChangePasswordPage,
