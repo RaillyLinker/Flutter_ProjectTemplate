@@ -24,7 +24,7 @@ import '../../../global_classes/gc_template_classes.dart'
 import 'page_entrance.dart' as page_entrance;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
-// todo : 여러 디바이스(ios, web)에서 테스트. 특히 웹에서 확장자 안나오는 문제
+// todo : ios에서 테스트.
 
 //------------------------------------------------------------------------------
 // 페이지의 비즈니스 로직 및 뷰모델 담당
@@ -319,14 +319,11 @@ class PageBusiness {
         pageViewModel.pageInputVo.password,
         pageViewModel.nickNameTextEditController.text.trim(),
         pageViewModel.pageInputVo.verificationCode,
-        pageViewModel.profileImageInfo == null
+        pageViewModel.profileImage == null
             ? null
-            : dio.MultipartFile.fromBytes(
-                pageViewModel.profileImageInfo!.profileImage,
-                filename:
-                    "profile.${pageViewModel.profileImageInfo!.profileImageExtension}",
-                contentType: MediaType('image',
-                    pageViewModel.profileImageInfo!.profileImageExtension)),
+            : dio.MultipartFile.fromBytes(pageViewModel.profileImage!,
+                filename: "profile.png",
+                contentType: MediaType('image', "png")),
       ));
 
       if (responseVo.dioException == null) {
@@ -518,14 +515,10 @@ class PageBusiness {
                   maxWidth: 1280,
                   imageQuality: 70);
               if (pickedFile != null) {
-                final String extension =
-                    pickedFile.path.split('.').last.toLowerCase(); // 확장자 가져오기
-
                 // JPG or PNG
                 var image = XFile(pickedFile.path);
                 var bytes = await image.readAsBytes();
-                pageViewModel.profileImageInfo =
-                    ProfileImageInfo(bytes, extension);
+                pageViewModel.profileImage = bytes;
                 blocObjects.blocProfileImage
                     .add(!blocObjects.blocProfileImage.state);
               }
@@ -543,14 +536,10 @@ class PageBusiness {
                   maxWidth: 1280,
                   imageQuality: 70);
               if (pickedFile != null) {
-                final String extension =
-                    pickedFile.path.split('.').last.toLowerCase(); // 확장자 가져오기
-
                 // JPG or PNG
                 var image = XFile(pickedFile.path);
                 var bytes = await image.readAsBytes();
-                pageViewModel.profileImageInfo =
-                    ProfileImageInfo(bytes, extension);
+                pageViewModel.profileImage = bytes;
                 blocObjects.blocProfileImage
                     .add(!blocObjects.blocProfileImage.state);
               }
@@ -561,7 +550,7 @@ class PageBusiness {
               .ImageSourceType.defaultImage:
           {
             // 기본 프로필 이미지 적용
-            pageViewModel.profileImageInfo = null;
+            pageViewModel.profileImage = null;
             blocObjects.blocProfileImage
                 .add(!blocObjects.blocProfileImage.state);
           }
@@ -611,18 +600,9 @@ class PageViewModel {
 
   bool nicknameInputRuleHide = true;
 
-  ProfileImageInfo? profileImageInfo;
+  Uint8List? profileImage;
 
   PageViewModel(this.goRouterState);
-}
-
-class ProfileImageInfo {
-  // 프로필 사진 파일
-  Uint8List profileImage;
-
-  String profileImageExtension;
-
-  ProfileImageInfo(this.profileImage, this.profileImageExtension);
 }
 
 // (BLoC 클래스 모음)
