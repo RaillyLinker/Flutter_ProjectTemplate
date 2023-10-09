@@ -13,8 +13,8 @@ import 'package:image_picker/image_picker.dart';
 // (all)
 import '../../../../repositories/network/apis/api_main_server.dart'
     as api_main_server;
-import '../../../dialogs/all/all_dialog_auth_register_member_profile_image_src_select/page_entrance.dart'
-    as all_dialog_auth_register_member_profile_image_src_select;
+import '../../../dialogs/all/all_dialog_auth_join_the_membership_select_member_profile_image_src/page_entrance.dart'
+    as all_dialog_auth_join_the_membership_select_member_profile_image_src;
 import '../../../dialogs/all/all_dialog_info/page_entrance.dart'
     as all_dialog_info;
 import '../../../global_classes/gc_template_classes.dart'
@@ -491,14 +491,14 @@ class PageBusiness {
   // 프로필 이미지 클릭
   Future<void> onProfileImageTap() async {
     if (!_context.mounted) return;
-    all_dialog_auth_register_member_profile_image_src_select.PageOutputVo?
-        pageOutputVo = await showDialog(
+    all_dialog_auth_join_the_membership_select_member_profile_image_src
+        .PageOutputVo? pageOutputVo = await showDialog(
             barrierDismissible: true,
             context: _context,
             builder: (context) =>
-                all_dialog_auth_register_member_profile_image_src_select
+                all_dialog_auth_join_the_membership_select_member_profile_image_src
                     .PageEntrance(
-                        all_dialog_auth_register_member_profile_image_src_select
+                        all_dialog_auth_join_the_membership_select_member_profile_image_src
                             .PageInputVo(
                                 // 카메라는 모바일 환경에서만
                                 !kIsWeb &&
@@ -507,7 +507,7 @@ class PageBusiness {
 
     if (pageOutputVo != null) {
       switch (pageOutputVo.imageSourceType) {
-        case all_dialog_auth_register_member_profile_image_src_select
+        case all_dialog_auth_join_the_membership_select_member_profile_image_src
               .ImageSourceType.gallery:
           {
             // 갤러리에서 선택하기
@@ -532,7 +532,7 @@ class PageBusiness {
             } catch (_) {}
           }
           break;
-        case all_dialog_auth_register_member_profile_image_src_select
+        case all_dialog_auth_join_the_membership_select_member_profile_image_src
               .ImageSourceType.camera:
           {
             // 사진 찍기
@@ -557,7 +557,7 @@ class PageBusiness {
             } catch (_) {}
           }
           break;
-        case all_dialog_auth_register_member_profile_image_src_select
+        case all_dialog_auth_join_the_membership_select_member_profile_image_src
               .ImageSourceType.defaultImage:
           {
             // 기본 프로필 이미지 적용

@@ -5,8 +5,8 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../repositories/network/apis/api_main_server.dart'
     as api_main_server;
-import '../../../dialogs/all/all_dialog_auth_check_register_email_verification_code/page_entrance.dart'
-    as all_dialog_auth_check_register_email_verification_code;
+import '../../../dialogs/all/all_dialog_auth_join_the_membership_email_verification/page_entrance.dart'
+    as all_dialog_auth_join_the_membership_email_verification;
 import '../../../dialogs/all/all_dialog_info/page_entrance.dart'
     as all_dialog_info;
 import '../../../dialogs/all/all_dialog_loading_spinner/page_entrance.dart'
@@ -154,14 +154,14 @@ class PageBusiness {
             // 정상 응답
             // 검증번호 입력 다이얼로그 띄우기
             if (!_context.mounted) return;
-            all_dialog_auth_check_register_email_verification_code.PageOutputVo?
+            all_dialog_auth_join_the_membership_email_verification.PageOutputVo?
                 dialogResult = await showDialog(
                     barrierDismissible: false,
                     context: _context,
                     builder: (context) =>
-                        all_dialog_auth_check_register_email_verification_code
+                        all_dialog_auth_join_the_membership_email_verification
                             .PageEntrance(
-                                all_dialog_auth_check_register_email_verification_code
+                                all_dialog_auth_join_the_membership_email_verification
                                     .PageInputVo(
                                         email, responseBody.verificationUid),
                                 (pageBusiness) {}));
