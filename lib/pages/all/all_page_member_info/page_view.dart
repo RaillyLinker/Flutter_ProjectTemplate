@@ -376,10 +376,15 @@ class PageView extends StatelessWidget {
                 const SizedBox(
                   height: 30,
                 ),
-                const Text(
-                  "회원 탈퇴하기",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.red, fontFamily: "MaruBuri"),
+                GestureDetector(
+                  onTap: () {
+                    pageBusiness.tapWithdrawalBtn();
+                  },
+                  child: const Text(
+                    "회원 탈퇴하기",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Colors.red, fontFamily: "MaruBuri"),
+                  ),
                 )
               ],
             ),

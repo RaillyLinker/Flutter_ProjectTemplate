@@ -23,8 +23,6 @@ import '../../../pages/all/all_page_change_password/page_entrance.dart'
 import '../../../pages/all/all_page_login/page_entrance.dart' as all_page_login;
 import '../../../pages/all/all_page_member_info/page_entrance.dart'
     as all_page_member_info;
-import '../../../pages/all/all_page_membership_withdrawal/page_entrance.dart'
-    as all_page_membership_withdrawal;
 
 // (page)
 import 'page_entrance.dart' as page_entrance;
@@ -149,10 +147,6 @@ class PageBusiness {
           SampleItemEnum.goToMemberInfo, "회원 정보 페이지로 이동", "회원 정보 페이지로 이동합니다."));
 
       // todo 회원 정보 페이지로 병합
-      nowAllSampleList.add(SampleItem(
-          SampleItemEnum.goToMembershipWithdrawalPage,
-          "회원 탈퇴 페이지로 이동",
-          "회원 탈퇴 페이지로 이동합니다."));
       nowAllSampleList.add(SampleItem(SampleItemEnum.goToChangePasswordPage,
           "비밀번호 변경 페이지로 이동", "비밀번호 변경 페이지로 이동합니다."));
     }
@@ -458,12 +452,6 @@ class PageBusiness {
           _context.pushNamed(all_page_member_info.pageName);
         }
         break;
-      case SampleItemEnum.goToMembershipWithdrawalPage:
-        {
-          // 회원탈퇴 페이지로 이동
-          _context.pushNamed(all_page_membership_withdrawal.pageName);
-        }
-        break;
       case SampleItemEnum.goToChangePasswordPage:
         {
           // 비밀번호 변경 페이지로 이동
@@ -533,7 +521,6 @@ enum SampleItemEnum {
   goToMemberInfo,
 
   // todo 회원 정보 페이지로 병합
-  goToMembershipWithdrawalPage,
   goToChangePasswordPage,
 }
 

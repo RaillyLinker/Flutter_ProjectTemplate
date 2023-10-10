@@ -57,7 +57,7 @@ class PageView extends StatelessWidget {
               Container(
                 width: 300,
                 height: 320,
-                margin: const EdgeInsets.only(top: 20),
+                margin: const EdgeInsets.only(top: 40),
                 padding: const EdgeInsets.only(
                     left: 10, right: 10, top: 2, bottom: 2),
                 decoration: const BoxDecoration(
