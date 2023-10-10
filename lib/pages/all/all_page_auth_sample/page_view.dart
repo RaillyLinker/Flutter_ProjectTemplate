@@ -57,7 +57,7 @@ class PageView extends StatelessWidget {
           SliverToBoxAdapter(
             child: Container(
               padding:
-                  EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 10),
+                  const EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 10),
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -88,92 +88,7 @@ class PageView extends StatelessWidget {
                                   pageBusiness.pageViewModel.signInMemberInfo;
                               String text = (signInMemberInfo == null)
                                   ? "null"
-                                  : signInMemberInfo.memberUid;
-                              return SelectableText(
-                                text,
-                                style: const TextStyle(fontFamily: "MaruBuri"),
-                              );
-                            })),
-                      ],
-                    ),
-                    const SizedBox(height: 8.0),
-                    Row(
-                      children: [
-                        const Expanded(
-                            flex: 2,
-                            child: Text(
-                              '    - nickName : ',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: "MaruBuri"),
-                            )),
-                        Expanded(
-                            flex: 3,
-                            child: BlocBuilder<
-                                page_business.BlocSignInMemberInfo,
-                                bool>(builder: (c, s) {
-                              var signInMemberInfo =
-                                  pageBusiness.pageViewModel.signInMemberInfo;
-                              String text = (signInMemberInfo == null)
-                                  ? "null"
-                                  : signInMemberInfo.nickName;
-                              return SelectableText(
-                                text,
-                                style: const TextStyle(fontFamily: "MaruBuri"),
-                              );
-                            })),
-                      ],
-                    ),
-                    const SizedBox(height: 8.0),
-                    Row(
-                      children: [
-                        const Expanded(
-                            flex: 2,
-                            child: Text(
-                              '    - profileImageFullUrl : ',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: "MaruBuri"),
-                            )),
-                        Expanded(
-                            flex: 3,
-                            child: BlocBuilder<
-                                page_business.BlocSignInMemberInfo,
-                                bool>(builder: (c, s) {
-                              var signInMemberInfo =
-                                  pageBusiness.pageViewModel.signInMemberInfo;
-                              String text = (signInMemberInfo == null)
-                                  ? "null"
-                                  : signInMemberInfo.profileImageFullUrl
-                                      .toString();
-                              return SelectableText(
-                                text,
-                                style: const TextStyle(fontFamily: "MaruBuri"),
-                              );
-                            })),
-                      ],
-                    ),
-                    const SizedBox(height: 8.0),
-                    Row(
-                      children: [
-                        const Expanded(
-                            flex: 2,
-                            child: Text(
-                              '    - roleList : ',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: "MaruBuri"),
-                            )),
-                        Expanded(
-                            flex: 3,
-                            child: BlocBuilder<
-                                page_business.BlocSignInMemberInfo,
-                                bool>(builder: (c, s) {
-                              var signInMemberInfo =
-                                  pageBusiness.pageViewModel.signInMemberInfo;
-                              String text = (signInMemberInfo == null)
-                                  ? "null"
-                                  : signInMemberInfo.roleList.toString();
+                                  : signInMemberInfo.memberUid.toString();
                               return SelectableText(
                                 text,
                                 style: const TextStyle(fontFamily: "MaruBuri"),
@@ -322,6 +237,90 @@ class PageView extends StatelessWidget {
                               String text = (signInMemberInfo == null)
                                   ? "null"
                                   : signInMemberInfo.refreshTokenExpireWhen;
+                              return SelectableText(
+                                text,
+                                style: const TextStyle(fontFamily: "MaruBuri"),
+                              );
+                            })),
+                      ],
+                    ),
+                    const SizedBox(height: 8.0),
+                    Row(
+                      children: [
+                        const Expanded(
+                            flex: 2,
+                            child: Text(
+                              '    - nickName : ',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: "MaruBuri"),
+                            )),
+                        Expanded(
+                            flex: 3,
+                            child: BlocBuilder<
+                                page_business.BlocSignInMemberInfo,
+                                bool>(builder: (c, s) {
+                              var signInMemberInfo =
+                                  pageBusiness.pageViewModel.signInMemberInfo;
+                              String text = (signInMemberInfo == null)
+                                  ? "null"
+                                  : signInMemberInfo.nickName;
+                              return SelectableText(
+                                text,
+                                style: const TextStyle(fontFamily: "MaruBuri"),
+                              );
+                            })),
+                      ],
+                    ),
+                    const SizedBox(height: 8.0),
+                    Row(
+                      children: [
+                        const Expanded(
+                            flex: 2,
+                            child: Text(
+                              '    - profileImageFullUrl : ',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: "MaruBuri"),
+                            )),
+                        Expanded(
+                            flex: 3,
+                            child: BlocBuilder<
+                                page_business.BlocSignInMemberInfo,
+                                bool>(builder: (c, s) {
+                              var signInMemberInfo =
+                                  pageBusiness.pageViewModel.signInMemberInfo;
+                              String text = (signInMemberInfo == null)
+                                  ? "null"
+                                  : signInMemberInfo.myProfileList.toString();
+                              return SelectableText(
+                                text,
+                                style: const TextStyle(fontFamily: "MaruBuri"),
+                              );
+                            })),
+                      ],
+                    ),
+                    const SizedBox(height: 8.0),
+                    Row(
+                      children: [
+                        const Expanded(
+                            flex: 2,
+                            child: Text(
+                              '    - roleList : ',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: "MaruBuri"),
+                            )),
+                        Expanded(
+                            flex: 3,
+                            child: BlocBuilder<
+                                page_business.BlocSignInMemberInfo,
+                                bool>(builder: (c, s) {
+                              var signInMemberInfo =
+                                  pageBusiness.pageViewModel.signInMemberInfo;
+                              String text = (signInMemberInfo == null)
+                                  ? "null"
+                                  : signInMemberInfo.roleList.toString();
                               return SelectableText(
                                 text,
                                 style: const TextStyle(fontFamily: "MaruBuri"),

@@ -160,28 +160,65 @@ class PageBusiness {
                 var responseBody = responseVo.networkResponseObjectOk!
                         .responseBody! as api_main_server
                     .PostService1TkV1AuthLoginWithPasswordAsyncResponseBodyVo;
+
                 List<spw_auth_member_info.SharedPreferenceWrapperVoOAuth2Info>
                     myOAuth2ObjectList = [];
                 for (var myOAuth2 in responseBody.myOAuth2List) {
                   myOAuth2ObjectList.add(
                       spw_auth_member_info.SharedPreferenceWrapperVoOAuth2Info(
-                          myOAuth2.oauth2TypeCode, myOAuth2.oauth2Id));
+                    myOAuth2.uid,
+                    myOAuth2.oauth2TypeCode,
+                    myOAuth2.oauth2Id,
+                  ));
+                }
+
+                List<spw_auth_member_info.SharedPreferenceWrapperVoProfileInfo>
+                    myProfileObjectList = [];
+                for (var myProfile in responseBody.myProfileList) {
+                  myProfileObjectList.add(
+                      spw_auth_member_info.SharedPreferenceWrapperVoProfileInfo(
+                    myProfile.uid,
+                    myProfile.imageFullUrl,
+                    myProfile.isFront,
+                  ));
+                }
+
+                List<spw_auth_member_info.SharedPreferenceWrapperVoEmailInfo>
+                    myEmailList = [];
+                for (var myProfile in responseBody.myEmailList) {
+                  myEmailList.add(
+                      spw_auth_member_info.SharedPreferenceWrapperVoEmailInfo(
+                    myProfile.uid,
+                    myProfile.emailAddress,
+                    myProfile.isFront,
+                  ));
+                }
+
+                List<spw_auth_member_info.SharedPreferenceWrapperVoPhoneInfo>
+                    myPhoneNumberList = [];
+                for (var myProfile in responseBody.myPhoneNumberList) {
+                  myPhoneNumberList.add(
+                      spw_auth_member_info.SharedPreferenceWrapperVoPhoneInfo(
+                    myProfile.uid,
+                    myProfile.phoneNumber,
+                    myProfile.isFront,
+                  ));
                 }
 
                 spw_auth_member_info.SharedPreferenceWrapper.set(
                     spw_auth_member_info.SharedPreferenceWrapperVo(
                   responseBody.memberUid,
                   responseBody.nickName,
-                  responseBody.profileImageFullUrl,
                   responseBody.roleList,
                   responseBody.tokenType,
                   responseBody.accessToken,
                   responseBody.accessTokenExpireWhen,
                   responseBody.refreshToken,
                   responseBody.refreshTokenExpireWhen,
-                  responseBody.myEmailList,
-                  responseBody.myPhoneNumberList,
                   myOAuth2ObjectList,
+                  myProfileObjectList,
+                  myEmailList,
+                  myPhoneNumberList,
                   responseBody.authPasswordIsNull,
                 ));
 

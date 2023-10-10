@@ -176,14 +176,60 @@ void setDioObjects() {
                         in postReissueResponseBody.myOAuth2List) {
                       myOAuth2ObjectList.add(spw_auth_member_info
                           .SharedPreferenceWrapperVoOAuth2Info(
-                              myOAuth2.oauth2TypeCode, myOAuth2.oauth2Id));
+                        myOAuth2.uid,
+                        myOAuth2.oauth2TypeCode,
+                        myOAuth2.oauth2Id,
+                      ));
                     }
+
+                    List<
+                            spw_auth_member_info
+                            .SharedPreferenceWrapperVoProfileInfo>
+                        myProfileList = [];
+                    for (api_main_server
+                        .PostReissueAsyncResponseBodyVoProfile myProfile
+                        in postReissueResponseBody.myProfileList) {
+                      myProfileList.add(spw_auth_member_info
+                          .SharedPreferenceWrapperVoProfileInfo(
+                        myProfile.uid,
+                        myProfile.imageFullUrl,
+                        myProfile.isFront,
+                      ));
+                    }
+
+                    List<
+                        spw_auth_member_info
+                        .SharedPreferenceWrapperVoEmailInfo> myEmailList = [];
+                    for (api_main_server
+                        .PostReissueAsyncResponseBodyVoEmail myEmail
+                        in postReissueResponseBody.myEmailList) {
+                      myEmailList.add(spw_auth_member_info
+                          .SharedPreferenceWrapperVoEmailInfo(
+                        myEmail.uid,
+                        myEmail.emailAddress,
+                        myEmail.isFront,
+                      ));
+                    }
+
+                    List<
+                            spw_auth_member_info
+                            .SharedPreferenceWrapperVoPhoneInfo>
+                        myPhoneNumberList = [];
+                    for (api_main_server
+                        .PostReissueAsyncResponseBodyVoPhone myPhone
+                        in postReissueResponseBody.myPhoneNumberList) {
+                      myPhoneNumberList.add(spw_auth_member_info
+                          .SharedPreferenceWrapperVoPhoneInfo(
+                        myPhone.uid,
+                        myPhone.phoneNumber,
+                        myPhone.isFront,
+                      ));
+                    }
+
                     signInMemberInfo.memberUid =
                         postReissueResponseBody.memberUid;
                     signInMemberInfo.nickName =
                         postReissueResponseBody.nickName;
-                    signInMemberInfo.profileImageFullUrl =
-                        postReissueResponseBody.profileImageFullUrl;
                     signInMemberInfo.roleList =
                         postReissueResponseBody.roleList;
                     signInMemberInfo.tokenType =
@@ -196,11 +242,13 @@ void setDioObjects() {
                         postReissueResponseBody.refreshToken;
                     signInMemberInfo.refreshTokenExpireWhen =
                         postReissueResponseBody.refreshTokenExpireWhen;
-                    signInMemberInfo.myEmailList =
-                        postReissueResponseBody.myEmailList;
-                    signInMemberInfo.myPhoneNumberList =
-                        postReissueResponseBody.myPhoneNumberList;
                     signInMemberInfo.myOAuth2List = myOAuth2ObjectList;
+                    signInMemberInfo.myProfileList = myProfileList;
+                    signInMemberInfo.myEmailList = myEmailList;
+                    signInMemberInfo.myPhoneNumberList = myPhoneNumberList;
+                    signInMemberInfo.authPasswordIsNull =
+                        postReissueResponseBody.authPasswordIsNull;
+
                     spw_auth_member_info.SharedPreferenceWrapper.set(
                         signInMemberInfo);
 

@@ -57,21 +57,57 @@ class SharedPreferenceWrapper {
         List<SharedPreferenceWrapperVoOAuth2Info> oAuth2ObjectList = [];
         for (Map<String, dynamic> oAuth2 in oAuth2List) {
           oAuth2ObjectList.add(SharedPreferenceWrapperVoOAuth2Info(
-              oAuth2["oauth2TypeCode"], oAuth2["oauth2Id"]));
+            oAuth2["uid"],
+            oAuth2["oauth2TypeCode"],
+            oAuth2["oauth2Id"],
+          ));
         }
+
+        var myProfileList =
+            List<Map<String, dynamic>>.from(map["myProfileList"]);
+        List<SharedPreferenceWrapperVoProfileInfo> myProfileObjectList = [];
+        for (Map<String, dynamic> profile in myProfileList) {
+          myProfileObjectList.add(SharedPreferenceWrapperVoProfileInfo(
+            profile["uid"],
+            profile["imageFullUrl"],
+            profile["isFront"],
+          ));
+        }
+
+        var myEmailList = List<Map<String, dynamic>>.from(map["myEmailList"]);
+        List<SharedPreferenceWrapperVoEmailInfo> myEmailObjectList = [];
+        for (Map<String, dynamic> email in myEmailList) {
+          myEmailObjectList.add(SharedPreferenceWrapperVoEmailInfo(
+            email["uid"],
+            email["emailAddress"],
+            email["isFront"],
+          ));
+        }
+
+        var myPhoneNumberList =
+            List<Map<String, dynamic>>.from(map["myPhoneNumberList"]);
+        List<SharedPreferenceWrapperVoPhoneInfo> myPhoneNumberObjectList = [];
+        for (Map<String, dynamic> phone in myPhoneNumberList) {
+          myPhoneNumberObjectList.add(SharedPreferenceWrapperVoPhoneInfo(
+            phone["uid"],
+            phone["phoneNumber"],
+            phone["isFront"],
+          ));
+        }
+
         var resultObject = SharedPreferenceWrapperVo(
           map["memberUid"],
           map["nickName"],
-          map["profileImageFullUrl"],
           List<String>.from(map["roleList"]),
           map["tokenType"],
           map["accessToken"],
           map["accessTokenExpireWhen"],
           map["refreshToken"],
           map["refreshTokenExpireWhen"],
-          List<String>.from(map["myEmailList"]),
-          List<String>.from(map["myPhoneNumberList"]),
           oAuth2ObjectList,
+          myProfileObjectList,
+          myEmailObjectList,
+          myPhoneNumberObjectList,
           map["authPasswordIsNull"],
         );
         semaphore.release();
@@ -103,28 +139,57 @@ class SharedPreferenceWrapper {
       // !!!Object 를 Map 으로 변경!!
       // map 키는 Object 의 변수명과 동일하게 설정
 
-      List<Map<String, dynamic>> myPhoneNumberMapList = [];
-      for (SharedPreferenceWrapperVoOAuth2Info myPhoneNumber
-          in value.myOAuth2List) {
-        myPhoneNumberMapList.add({
-          "oauth2TypeCode": myPhoneNumber.oauth2TypeCode,
-          "oauth2Id": myPhoneNumber.oauth2Id
+      List<Map<String, dynamic>> myOAuth2MapList = [];
+      for (SharedPreferenceWrapperVoOAuth2Info oAuth2 in value.myOAuth2List) {
+        myOAuth2MapList.add({
+          "uid": oAuth2.uid,
+          "oauth2TypeCode": oAuth2.oauth2TypeCode,
+          "oauth2Id": oAuth2.oauth2Id
+        });
+      }
+
+      List<Map<String, dynamic>> myProfileList = [];
+      for (SharedPreferenceWrapperVoProfileInfo profile
+          in value.myProfileList) {
+        myProfileList.add({
+          "uid": profile.uid,
+          "imageFullUrl": profile.imageFullUrl,
+          "isFront": profile.isFront
+        });
+      }
+
+      List<Map<String, dynamic>> myEmailList = [];
+      for (SharedPreferenceWrapperVoEmailInfo myEmail in value.myEmailList) {
+        myEmailList.add({
+          "uid": myEmail.uid,
+          "emailAddress": myEmail.emailAddress,
+          "isFront": myEmail.isFront
+        });
+      }
+
+      List<Map<String, dynamic>> myPhoneNumberList = [];
+      for (SharedPreferenceWrapperVoPhoneInfo myPhone
+          in value.myPhoneNumberList) {
+        myPhoneNumberList.add({
+          "uid": myPhone.uid,
+          "phoneNumber": myPhone.phoneNumber,
+          "isFront": myPhone.isFront
         });
       }
 
       Map<String, dynamic> map = {
         "memberUid": value.memberUid,
         "nickName": value.nickName,
-        "profileImageFullUrl": value.profileImageFullUrl,
         "roleList": value.roleList,
         "tokenType": value.tokenType,
         "accessToken": value.accessToken,
         "accessTokenExpireWhen": value.accessTokenExpireWhen,
         "refreshToken": value.refreshToken,
         "refreshTokenExpireWhen": value.refreshTokenExpireWhen,
-        "myEmailList": value.myEmailList,
-        "myPhoneNumberList": value.myPhoneNumberList,
-        "myOAuth2List": myPhoneNumberMapList,
+        "myOAuth2List": myOAuth2MapList,
+        "myProfileList": myProfileList,
+        "myEmailList": myEmailList,
+        "myPhoneNumberList": myPhoneNumberList,
         "authPasswordIsNull": value.authPasswordIsNull,
       };
 
@@ -144,9 +209,8 @@ class SharedPreferenceWrapper {
 
 // !!!저장 정보 데이터 형태 작성!!
 class SharedPreferenceWrapperVo {
-  String memberUid; // 멤버 고유값
+  int memberUid; // 멤버 고유값
   String nickName; // 닉네임
-  String? profileImageFullUrl; // 대표 프로필 이미지 Full URL
   List<String>
       roleList; // 멤버 권한 리스트 (1 : 관리자(ROLE_ADMIN), 2 : 유저(ROLE_USER), 3 : 개발자(ROLE_DEVELOPER)) (ex : [1, 2])
   String tokenType; // 발급받은 토큰 타입(ex : "Bearer")
@@ -155,36 +219,92 @@ class SharedPreferenceWrapperVo {
   String refreshToken; // 리플레시 토큰 (ex : "rrrrrrrrrr111122223333")
   String
       refreshTokenExpireWhen; // 리플레시 토큰 만료일시 (ex : "2023-01-02 11:11:11.111")
-  List<String> myEmailList; // 내가 등록한 이메일 리스트
-  List<String> myPhoneNumberList; // 내가 등록한 전화번호 리스트
   List<SharedPreferenceWrapperVoOAuth2Info>
       myOAuth2List; // 내가 등록한 OAuth2 정보 리스트
+  List<SharedPreferenceWrapperVoProfileInfo>
+      myProfileList; // 내가 등록한 Profile 정보 리스트
+  List<SharedPreferenceWrapperVoEmailInfo> myEmailList; // 내가 등록한 이메일 정보 리스트
+  List<SharedPreferenceWrapperVoPhoneInfo>
+      myPhoneNumberList; // 내가 등록한 전화번호 정보 리스트
   bool
       authPasswordIsNull; // 계정 로그인 비밀번호 설정 Null 여부 (OAuth2 만으로 회원가입한 경우는 비밀번호가 없으므로 true)
 
   SharedPreferenceWrapperVo(
     this.memberUid,
     this.nickName,
-    this.profileImageFullUrl,
     this.roleList,
     this.tokenType,
     this.accessToken,
     this.accessTokenExpireWhen,
     this.refreshToken,
     this.refreshTokenExpireWhen,
+    this.myOAuth2List,
+    this.myProfileList,
     this.myEmailList,
     this.myPhoneNumberList,
-    this.myOAuth2List,
     this.authPasswordIsNull,
   );
 }
 
 class SharedPreferenceWrapperVoOAuth2Info {
+  int uid; // 행 고유값
   int oauth2TypeCode; // OAuth2 (1 : Google, 2 : Naver, 3 : Kakao, 4 : Apple)
   String oauth2Id; // oAuth2 고유값 아이디
 
   SharedPreferenceWrapperVoOAuth2Info(
+    this.uid,
     this.oauth2TypeCode,
     this.oauth2Id,
   );
+}
+
+class SharedPreferenceWrapperVoProfileInfo {
+  int uid; // 행 고유값
+  String imageFullUrl; // 프로필 이미지 Full URL
+  bool isFront; //대표 프로필 여부
+
+  SharedPreferenceWrapperVoProfileInfo(
+    this.uid,
+    this.imageFullUrl,
+    this.isFront,
+  );
+
+  @override
+  String toString() {
+    return "{uid : $uid, imageFullUrl : \"$imageFullUrl\", isFront : $isFront}";
+  }
+}
+
+class SharedPreferenceWrapperVoEmailInfo {
+  int uid; // 행 고유값
+  String emailAddress; // 이메일 주소
+  bool isFront; //대표 프로필 여부
+
+  SharedPreferenceWrapperVoEmailInfo(
+    this.uid,
+    this.emailAddress,
+    this.isFront,
+  );
+
+  @override
+  String toString() {
+    return "{uid : $uid, emailAddress : \"$emailAddress\", isFront : $isFront}";
+  }
+}
+
+class SharedPreferenceWrapperVoPhoneInfo {
+  int uid; // 행 고유값
+  String phoneNumber; // 전화번호
+  bool isFront; //대표 프로필 여부
+
+  SharedPreferenceWrapperVoPhoneInfo(
+    this.uid,
+    this.phoneNumber,
+    this.isFront,
+  );
+
+  @override
+  String toString() {
+    return "{uid : $uid, phoneNumber : \"$phoneNumber\", isFront : $isFront}";
+  }
 }

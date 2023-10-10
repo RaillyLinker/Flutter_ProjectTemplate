@@ -1276,24 +1276,65 @@ Future<
       List<PostSignInWithPasswordAsyncResponseBodyVoOAuth2Info>
           oAuth2ObjectList = [];
       for (Map<String, dynamic> oAuth2 in oAuth2List) {
-        oAuth2ObjectList.add(
-            PostSignInWithPasswordAsyncResponseBodyVoOAuth2Info(
-                oAuth2["oauth2TypeCode"], oAuth2["oauth2Id"]));
+        oAuth2ObjectList
+            .add(PostSignInWithPasswordAsyncResponseBodyVoOAuth2Info(
+          oAuth2["uid"],
+          oAuth2["oauth2TypeCode"],
+          oAuth2["oauth2Id"],
+        ));
+      }
+
+      var myProfileList =
+          List<Map<String, dynamic>>.from(responseBodyMap["myProfileList"]);
+      List<PostSignInWithPasswordAsyncResponseBodyVoProfile>
+          myProfileObjectList = [];
+      for (Map<String, dynamic> profile in myProfileList) {
+        myProfileObjectList
+            .add(PostSignInWithPasswordAsyncResponseBodyVoProfile(
+          profile["uid"],
+          profile["imageFullUrl"],
+          profile["isFront"],
+        ));
+      }
+
+      var myEmailList =
+          List<Map<String, dynamic>>.from(responseBodyMap["myEmailList"]);
+      List<PostSignInWithPasswordAsyncResponseBodyVoEmail> myEmailObjectList =
+          [];
+      for (Map<String, dynamic> profile in myEmailList) {
+        myEmailObjectList.add(PostSignInWithPasswordAsyncResponseBodyVoEmail(
+          profile["uid"],
+          profile["emailAddress"],
+          profile["isFront"],
+        ));
+      }
+
+      var myPhoneNumberList =
+          List<Map<String, dynamic>>.from(responseBodyMap["myPhoneNumberList"]);
+      List<PostSignInWithPasswordAsyncResponseBodyVoPhone>
+          myPhoneNumberObjectList = [];
+      for (Map<String, dynamic> profile in myPhoneNumberList) {
+        myPhoneNumberObjectList
+            .add(PostSignInWithPasswordAsyncResponseBodyVoPhone(
+          profile["uid"],
+          profile["phoneNumber"],
+          profile["isFront"],
+        ));
       }
 
       responseBody = PostService1TkV1AuthLoginWithPasswordAsyncResponseBodyVo(
         responseBodyMap["memberUid"],
         responseBodyMap["nickName"],
-        responseBodyMap["profileImageFullUrl"],
         List<String>.from(responseBodyMap["roleList"]),
         responseBodyMap["tokenType"],
         responseBodyMap["accessToken"],
         responseBodyMap["refreshToken"],
         responseBodyMap["accessTokenExpireWhen"],
         responseBodyMap["refreshTokenExpireWhen"],
-        List<String>.from(responseBodyMap["myEmailList"]),
-        List<String>.from(responseBodyMap["myPhoneNumberList"]),
         oAuth2ObjectList,
+        myProfileObjectList,
+        myEmailObjectList,
+        myPhoneNumberObjectList,
         responseBodyMap["authPasswordIsNull"],
       );
     }
@@ -1330,45 +1371,85 @@ class PostService1TkV1AuthLoginWithPasswordAsyncResponseHeaderVo {
 }
 
 class PostService1TkV1AuthLoginWithPasswordAsyncResponseBodyVo {
-  String memberUid; // 멤버 고유값
+  int memberUid; // 멤버 고유값
   String nickName; // 닉네임
-  String? profileImageFullUrl; // 대표 프로필 이미지 Full URL
   List<String> roleList; // 권한 리스트 (관리자 : ROLE_ADMIN, 개발자 : ROLE_DEVELOPER)
   String tokenType; // 인증 토큰 타입 (ex : Bearer)
   String accessToken; // 엑세스 토큰
   String refreshToken; // 리플레시 토큰
   String accessTokenExpireWhen; // 엑세스 토큰 만료 시간 (yyyy-MM-dd HH:mm:ss.SSS)
   String refreshTokenExpireWhen; // 리플레시 토큰 만료 시간 (yyyy-MM-dd HH:mm:ss.SSS)
-  List<String> myEmailList; // 내가 등록한 이메일 리스트
-  List<String> myPhoneNumberList; // 내가 등록한 전화번호 리스트
   List<PostSignInWithPasswordAsyncResponseBodyVoOAuth2Info>
       myOAuth2List; // 내가 등록한 OAuth2 정보 리스트
+  List<PostSignInWithPasswordAsyncResponseBodyVoProfile>
+      myProfileList; // 내가 등록한 Profile 정보 리스트
+  List<PostSignInWithPasswordAsyncResponseBodyVoEmail>
+      myEmailList; // 내가 등록한 이메일 정보 리스트
+  List<PostSignInWithPasswordAsyncResponseBodyVoPhone>
+      myPhoneNumberList; // 내가 등록한 전화번호 정보 리스트
   bool
       authPasswordIsNull; // 계정 로그인 비밀번호 설정 Null 여부 (OAuth2 만으로 회원가입한 경우는 비밀번호가 없으므로 true)
 
   PostService1TkV1AuthLoginWithPasswordAsyncResponseBodyVo(
     this.memberUid,
     this.nickName,
-    this.profileImageFullUrl,
     this.roleList,
     this.tokenType,
     this.accessToken,
     this.refreshToken,
     this.accessTokenExpireWhen,
     this.refreshTokenExpireWhen,
+    this.myOAuth2List,
+    this.myProfileList,
     this.myEmailList,
     this.myPhoneNumberList,
-    this.myOAuth2List,
     this.authPasswordIsNull,
   );
 }
 
 class PostSignInWithPasswordAsyncResponseBodyVoOAuth2Info {
-  int oauth2TypeCode; // "OAuth2 (1 : Google, 2 : Apple, 3 : Naver, 4 : Kakao)
+  int uid; // 행 고유값
+  int oauth2TypeCode; // OAuth2 (1 : Google, 2 : Naver, 3 : Kakao, 4 : Apple)
   String oauth2Id; // oAuth2 고유값 아이디
 
   PostSignInWithPasswordAsyncResponseBodyVoOAuth2Info(
-      this.oauth2TypeCode, this.oauth2Id);
+      this.uid, this.oauth2TypeCode, this.oauth2Id);
+}
+
+class PostSignInWithPasswordAsyncResponseBodyVoProfile {
+  int uid; // 행 고유값
+  String imageFullUrl; // 프로필 이미지 Full URL
+  bool isFront; // 표 프로필 여부
+
+  PostSignInWithPasswordAsyncResponseBodyVoProfile(
+    this.uid,
+    this.imageFullUrl,
+    this.isFront,
+  );
+}
+
+class PostSignInWithPasswordAsyncResponseBodyVoEmail {
+  int uid; // 행 고유값
+  String emailAddress; // 이메일 주소
+  bool isFront; // 대표 이메일 여부
+
+  PostSignInWithPasswordAsyncResponseBodyVoEmail(
+    this.uid,
+    this.emailAddress,
+    this.isFront,
+  );
+}
+
+class PostSignInWithPasswordAsyncResponseBodyVoPhone {
+  int uid; // 행 고유값
+  String phoneNumber; // 전화번호
+  bool isFront; // 대표 전화번호 여부
+
+  PostSignInWithPasswordAsyncResponseBodyVoPhone(
+    this.uid,
+    this.phoneNumber,
+    this.isFront,
+  );
 }
 
 ////
@@ -1587,22 +1668,58 @@ Future<
       List<PostReissueAsyncResponseBodyVoOAuth2Info> oAuth2ObjectList = [];
       for (Map<String, dynamic> oAuth2 in oAuth2List) {
         oAuth2ObjectList.add(PostReissueAsyncResponseBodyVoOAuth2Info(
-            oAuth2["oauth2TypeCode"], oAuth2["oauth2Id"]));
+          oAuth2["uid"],
+          oAuth2["oauth2TypeCode"],
+          oAuth2["oauth2Id"],
+        ));
+      }
+
+      var myProfileList =
+          List<Map<String, dynamic>>.from(responseBodyMap["myProfileList"]);
+      List<PostReissueAsyncResponseBodyVoProfile> myProfileObjectList = [];
+      for (Map<String, dynamic> profile in myProfileList) {
+        myProfileObjectList.add(PostReissueAsyncResponseBodyVoProfile(
+          profile["uid"],
+          profile["imageFullUrl"],
+          profile["isFront"],
+        ));
+      }
+
+      var myEmailList =
+          List<Map<String, dynamic>>.from(responseBodyMap["myEmailList"]);
+      List<PostReissueAsyncResponseBodyVoEmail> myEmailObjectList = [];
+      for (Map<String, dynamic> profile in myEmailList) {
+        myEmailObjectList.add(PostReissueAsyncResponseBodyVoEmail(
+          profile["uid"],
+          profile["emailAddress"],
+          profile["isFront"],
+        ));
+      }
+
+      var myPhoneNumberList =
+          List<Map<String, dynamic>>.from(responseBodyMap["myPhoneNumberList"]);
+      List<PostReissueAsyncResponseBodyVoPhone> myPhoneNumberObjectList = [];
+      for (Map<String, dynamic> profile in myPhoneNumberList) {
+        myPhoneNumberObjectList.add(PostReissueAsyncResponseBodyVoPhone(
+          profile["uid"],
+          profile["phoneNumber"],
+          profile["isFront"],
+        ));
       }
 
       responseBody = PostService1TkV1AuthReissueAsyncResponseBodyVo(
         responseBodyMap["memberUid"],
         responseBodyMap["nickName"],
-        responseBodyMap["profileImageFullUrl"],
         List<String>.from(responseBodyMap["roleList"]),
         responseBodyMap["tokenType"],
         responseBodyMap["accessToken"],
         responseBodyMap["refreshToken"],
         responseBodyMap["accessTokenExpireWhen"],
         responseBodyMap["refreshTokenExpireWhen"],
-        List<String>.from(responseBodyMap["myEmailList"]),
-        List<String>.from(responseBodyMap["myPhoneNumberList"]),
         oAuth2ObjectList,
+        myProfileObjectList,
+        myEmailObjectList,
+        myPhoneNumberObjectList,
         responseBodyMap["authPasswordIsNull"],
       );
     }
@@ -1646,44 +1763,84 @@ class PostService1TkV1AuthReissueAsyncResponseHeaderVo {
 }
 
 class PostService1TkV1AuthReissueAsyncResponseBodyVo {
-  String memberUid; // 멤버 고유값
+  int memberUid; // 멤버 고유값
   String nickName; // 닉네임
-  String? profileImageFullUrl; // 대표 프로필 이미지 Full URL
   List<String> roleList; // 권한 리스트 (관리자 : ROLE_ADMIN, 개발자 : ROLE_DEVELOPER)
   String tokenType; // 인증 토큰 타입 (ex : Bearer)
   String accessToken; // 엑세스 토큰
   String refreshToken; // 리플레시 토큰
   String accessTokenExpireWhen; // 엑세스 토큰 만료 시간 (yyyy-MM-dd HH:mm:ss.SSS)
   String refreshTokenExpireWhen; // 리플레시 토큰 만료 시간 (yyyy-MM-dd HH:mm:ss.SSS)
-  List<String> myEmailList; // 내가 등록한 이메일 리스트
-  List<String> myPhoneNumberList; // 내가 등록한 전화번호 리스트
   List<PostReissueAsyncResponseBodyVoOAuth2Info>
       myOAuth2List; // 내가 등록한 OAuth2 정보 리스트
+  List<PostReissueAsyncResponseBodyVoProfile>
+      myProfileList; // 내가 등록한 Profile 정보 리스트
+  List<PostReissueAsyncResponseBodyVoEmail> myEmailList; // 내가 등록한 이메일 정보 리스트
+  List<PostReissueAsyncResponseBodyVoPhone>
+      myPhoneNumberList; // 내가 등록한 전화번호 정보 리스트
   bool
-      authPasswordIsNull; // 계정 로그인 비밀번호 설정 여부 (OAuth2 만으로 회원가입한 경우는 비밀번호가 없으므로 false)
+      authPasswordIsNull; // 계정 로그인 비밀번호 설정 Null 여부 (OAuth2 만으로 회원가입한 경우는 비밀번호가 없으므로 true)
 
   PostService1TkV1AuthReissueAsyncResponseBodyVo(
     this.memberUid,
     this.nickName,
-    this.profileImageFullUrl,
     this.roleList,
     this.tokenType,
     this.accessToken,
     this.refreshToken,
     this.accessTokenExpireWhen,
     this.refreshTokenExpireWhen,
+    this.myOAuth2List,
+    this.myProfileList,
     this.myEmailList,
     this.myPhoneNumberList,
-    this.myOAuth2List,
     this.authPasswordIsNull,
   );
 }
 
 class PostReissueAsyncResponseBodyVoOAuth2Info {
+  int uid; // 행 고유값
   int oauth2TypeCode; // OAuth2 (1 : Google, 2 : Naver, 3 : Kakao, 4 : Apple)
   String oauth2Id; // oAuth2 고유값 아이디
 
-  PostReissueAsyncResponseBodyVoOAuth2Info(this.oauth2TypeCode, this.oauth2Id);
+  PostReissueAsyncResponseBodyVoOAuth2Info(
+      this.uid, this.oauth2TypeCode, this.oauth2Id);
+}
+
+class PostReissueAsyncResponseBodyVoProfile {
+  int uid; // 행 고유값
+  String imageFullUrl; // 프로필 이미지 Full URL
+  bool isFront; // 표 프로필 여부
+
+  PostReissueAsyncResponseBodyVoProfile(
+    this.uid,
+    this.imageFullUrl,
+    this.isFront,
+  );
+}
+
+class PostReissueAsyncResponseBodyVoEmail {
+  int uid; // 행 고유값
+  String emailAddress; // 이메일 주소
+  bool isFront; // 대표 이메일 여부
+
+  PostReissueAsyncResponseBodyVoEmail(
+    this.uid,
+    this.emailAddress,
+    this.isFront,
+  );
+}
+
+class PostReissueAsyncResponseBodyVoPhone {
+  int uid; // 행 고유값
+  String phoneNumber; // 전화번호
+  bool isFront; // 대표 전화번호 여부
+
+  PostReissueAsyncResponseBodyVoPhone(
+    this.uid,
+    this.phoneNumber,
+    this.isFront,
+  );
 }
 
 ////

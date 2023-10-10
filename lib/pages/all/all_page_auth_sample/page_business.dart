@@ -81,7 +81,7 @@ class PageBusiness {
     spw_auth_member_info.SharedPreferenceWrapperVo? nowSignInMemberInfo =
         gf_my_functions.getNowVerifiedMemberInfo();
 
-    String? nowMemberUid =
+    int? nowMemberUid =
         ((nowSignInMemberInfo == null) ? null : nowSignInMemberInfo.memberUid);
 
     if (pageViewModel.screenMemberUid != nowMemberUid) {
@@ -162,7 +162,7 @@ class PageBusiness {
     pageViewModel.allSampleList = nowAllSampleList;
     blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
 
-    String? nowMemberUid =
+    int? nowMemberUid =
         ((nowSignInMemberInfo == null) ? null : nowSignInMemberInfo.memberUid);
     pageViewModel.screenMemberUid = nowMemberUid;
   }
@@ -296,6 +296,12 @@ class PageBusiness {
 
                   if (networkResponseObjectOk.responseStatusCode == 200) {
                     // 정상 응답
+
+                    // 응답 Body
+                    var postReissueResponseBody =
+                        networkResponseObjectOk.responseBody! as api_main_server
+                            .PostService1TkV1AuthReissueAsyncResponseBodyVo;
+
                     // SPW 정보 갱신
                     List<
                             spw_auth_member_info
@@ -303,41 +309,82 @@ class PageBusiness {
                         myOAuth2ObjectList = [];
                     for (api_main_server
                         .PostReissueAsyncResponseBodyVoOAuth2Info myOAuth2
-                        in postAutoLoginOutputVo.networkResponseObjectOk!
-                            .responseBody!.myOAuth2List) {
+                        in postReissueResponseBody.myOAuth2List) {
                       myOAuth2ObjectList.add(spw_auth_member_info
                           .SharedPreferenceWrapperVoOAuth2Info(
-                              myOAuth2.oauth2TypeCode, myOAuth2.oauth2Id));
+                        myOAuth2.uid,
+                        myOAuth2.oauth2TypeCode,
+                        myOAuth2.oauth2Id,
+                      ));
                     }
-                    signInMemberInfo.memberUid = postAutoLoginOutputVo
-                        .networkResponseObjectOk!.responseBody!.memberUid;
-                    signInMemberInfo.nickName = postAutoLoginOutputVo
-                        .networkResponseObjectOk!.responseBody!.nickName;
-                    signInMemberInfo.profileImageFullUrl = postAutoLoginOutputVo
-                        .networkResponseObjectOk!
-                        .responseBody!
-                        .profileImageFullUrl;
-                    signInMemberInfo.roleList = postAutoLoginOutputVo
-                        .networkResponseObjectOk!.responseBody!.roleList;
-                    signInMemberInfo.tokenType = postAutoLoginOutputVo
-                        .networkResponseObjectOk!.responseBody!.tokenType;
-                    signInMemberInfo.accessToken = postAutoLoginOutputVo
-                        .networkResponseObjectOk!.responseBody!.accessToken;
+
+                    List<
+                            spw_auth_member_info
+                            .SharedPreferenceWrapperVoProfileInfo>
+                        myProfileList = [];
+                    for (api_main_server
+                        .PostReissueAsyncResponseBodyVoProfile myProfile
+                        in postReissueResponseBody.myProfileList) {
+                      myProfileList.add(spw_auth_member_info
+                          .SharedPreferenceWrapperVoProfileInfo(
+                        myProfile.uid,
+                        myProfile.imageFullUrl,
+                        myProfile.isFront,
+                      ));
+                    }
+
+                    List<
+                        spw_auth_member_info
+                        .SharedPreferenceWrapperVoEmailInfo> myEmailList = [];
+                    for (api_main_server
+                        .PostReissueAsyncResponseBodyVoEmail myEmail
+                        in postReissueResponseBody.myEmailList) {
+                      myEmailList.add(spw_auth_member_info
+                          .SharedPreferenceWrapperVoEmailInfo(
+                        myEmail.uid,
+                        myEmail.emailAddress,
+                        myEmail.isFront,
+                      ));
+                    }
+
+                    List<
+                            spw_auth_member_info
+                            .SharedPreferenceWrapperVoPhoneInfo>
+                        myPhoneNumberList = [];
+                    for (api_main_server
+                        .PostReissueAsyncResponseBodyVoPhone myPhone
+                        in postReissueResponseBody.myPhoneNumberList) {
+                      myPhoneNumberList.add(spw_auth_member_info
+                          .SharedPreferenceWrapperVoPhoneInfo(
+                        myPhone.uid,
+                        myPhone.phoneNumber,
+                        myPhone.isFront,
+                      ));
+                    }
+
+                    signInMemberInfo.memberUid =
+                        postReissueResponseBody.memberUid;
+                    signInMemberInfo.nickName =
+                        postReissueResponseBody.nickName;
+                    signInMemberInfo.roleList =
+                        postReissueResponseBody.roleList;
+                    signInMemberInfo.tokenType =
+                        postReissueResponseBody.tokenType;
+                    signInMemberInfo.accessToken =
+                        postReissueResponseBody.accessToken;
                     signInMemberInfo.accessTokenExpireWhen =
-                        postAutoLoginOutputVo.networkResponseObjectOk!
-                            .responseBody!.accessTokenExpireWhen;
-                    signInMemberInfo.refreshToken = postAutoLoginOutputVo
-                        .networkResponseObjectOk!.responseBody!.refreshToken;
+                        postReissueResponseBody.accessTokenExpireWhen;
+                    signInMemberInfo.refreshToken =
+                        postReissueResponseBody.refreshToken;
                     signInMemberInfo.refreshTokenExpireWhen =
-                        postAutoLoginOutputVo.networkResponseObjectOk!
-                            .responseBody!.refreshTokenExpireWhen;
-                    signInMemberInfo.myEmailList = postAutoLoginOutputVo
-                        .networkResponseObjectOk!.responseBody!.myEmailList;
-                    signInMemberInfo.myPhoneNumberList = postAutoLoginOutputVo
-                        .networkResponseObjectOk!
-                        .responseBody!
-                        .myPhoneNumberList;
+                        postReissueResponseBody.refreshTokenExpireWhen;
                     signInMemberInfo.myOAuth2List = myOAuth2ObjectList;
+                    signInMemberInfo.myProfileList = myProfileList;
+                    signInMemberInfo.myEmailList = myEmailList;
+                    signInMemberInfo.myPhoneNumberList = myPhoneNumberList;
+                    signInMemberInfo.authPasswordIsNull =
+                        postReissueResponseBody.authPasswordIsNull;
+
                     spw_auth_member_info.SharedPreferenceWrapper.set(
                         signInMemberInfo);
 
@@ -442,7 +489,7 @@ class PageViewModel {
   // int sampleNumber = 0;
 
   // 현 페이지를 갱신한 시점의 멤버 고유값 (비회원은 null)
-  String? screenMemberUid;
+  int? screenMemberUid;
 
   spw_auth_member_info.SharedPreferenceWrapperVo? signInMemberInfo;
 
