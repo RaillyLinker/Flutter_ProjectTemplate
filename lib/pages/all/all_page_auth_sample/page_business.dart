@@ -4,10 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
+// (all)
 import '../../../../repositories/network/apis/api_main_server.dart'
     as api_main_server;
-
-// (all)
 import '../../../../repositories/spws/spw_auth_member_info.dart'
     as spw_auth_member_info;
 import '../../../dialogs/all/all_dialog_info/page_entrance.dart'
@@ -22,6 +21,8 @@ import '../../../pages/all/all_page_authorization_test_sample_list/page_entrance
 import '../../../pages/all/all_page_change_password/page_entrance.dart'
     as all_page_change_password;
 import '../../../pages/all/all_page_login/page_entrance.dart' as all_page_login;
+import '../../../pages/all/all_page_member_info/page_entrance.dart'
+    as all_page_member_info;
 import '../../../pages/all/all_page_membership_withdrawal/page_entrance.dart'
     as all_page_membership_withdrawal;
 
@@ -29,12 +30,6 @@ import '../../../pages/all/all_page_membership_withdrawal/page_entrance.dart'
 import 'page_entrance.dart' as page_entrance;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
-// todo : 닉네임, 프로필, 권한, 이메일 리스트, 전화 리스트, OAuth2 리스트, authPasswordIsNull 을 회원 정보 페이지로 이동
-// todo : 회원 정보 페이지에서 닉네임 변경 기능 추가
-// todo : 회원 정보 페이지에서 프로필 추가 / 삭제 / 대표 프로필 변경 기능 추가
-// todo : 회원 정보 페이지에서 이메일 추가 / 삭제 기능 추가
-// todo : 회원 정보 페이지에서 전화번호 추가 / 삭제 기능 추가
-// todo : 회원 정보 페이지에서 비밀번호 없을 때 계정 비밀번호 추가하기 / 있으면 수정하기 기능 추가
 
 //------------------------------------------------------------------------------
 // 페이지의 비즈니스 로직 및 뷰모델 담당
@@ -150,7 +145,10 @@ class PageBusiness {
           "모든 디바이스에서 로그아웃", "현재 로그인된 모든 디바이스의 리프레시 토큰을 만료 처리 합니다."));
       nowAllSampleList.add(SampleItem(
           SampleItemEnum.refreshAuthToken, "인증 토큰 갱신", "인증 토큰을 갱신합니다."));
-      // todo 회원 정보 페이지로 이동
+      nowAllSampleList.add(SampleItem(
+          SampleItemEnum.goToMemberInfo, "회원 정보 페이지로 이동", "회원 정보 페이지로 이동합니다."));
+
+      // todo 회원 정보 페이지로 병합
       nowAllSampleList.add(SampleItem(
           SampleItemEnum.goToMembershipWithdrawalPage,
           "회원 탈퇴 페이지로 이동",
@@ -454,6 +452,12 @@ class PageBusiness {
               builder: (context) => loadingSpinner).then((outputVo) {});
         }
         break;
+      case SampleItemEnum.goToMemberInfo:
+        {
+          // 회원정보 페이지로 이동
+          _context.pushNamed(all_page_member_info.pageName);
+        }
+        break;
       case SampleItemEnum.goToMembershipWithdrawalPage:
         {
           // 회원탈퇴 페이지로 이동
@@ -526,6 +530,9 @@ enum SampleItemEnum {
   logout,
   logoutFromAllDevice,
   refreshAuthToken,
+  goToMemberInfo,
+
+  // todo 회원 정보 페이지로 병합
   goToMembershipWithdrawalPage,
   goToChangePasswordPage,
 }
