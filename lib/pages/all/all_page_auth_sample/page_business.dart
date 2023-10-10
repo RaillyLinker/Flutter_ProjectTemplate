@@ -18,8 +18,6 @@ import '../../../global_classes/gc_template_classes.dart'
 import '../../../global_functions/gf_my_functions.dart' as gf_my_functions;
 import '../../../pages/all/all_page_authorization_test_sample_list/page_entrance.dart'
     as all_page_authorization_test_sample_list;
-import '../../../pages/all/all_page_change_password/page_entrance.dart'
-    as all_page_change_password;
 import '../../../pages/all/all_page_login/page_entrance.dart' as all_page_login;
 import '../../../pages/all/all_page_member_info/page_entrance.dart'
     as all_page_member_info;
@@ -145,10 +143,6 @@ class PageBusiness {
           SampleItemEnum.refreshAuthToken, "인증 토큰 갱신", "인증 토큰을 갱신합니다."));
       nowAllSampleList.add(SampleItem(
           SampleItemEnum.goToMemberInfo, "회원 정보 페이지로 이동", "회원 정보 페이지로 이동합니다."));
-
-      // todo 회원 정보 페이지로 병합
-      nowAllSampleList.add(SampleItem(SampleItemEnum.goToChangePasswordPage,
-          "비밀번호 변경 페이지로 이동", "비밀번호 변경 페이지로 이동합니다."));
     }
 
     pageViewModel.allSampleList = nowAllSampleList;
@@ -452,12 +446,6 @@ class PageBusiness {
           _context.pushNamed(all_page_member_info.pageName);
         }
         break;
-      case SampleItemEnum.goToChangePasswordPage:
-        {
-          // 비밀번호 변경 페이지로 이동
-          _context.pushNamed(all_page_change_password.pageName);
-        }
-        break;
     }
   }
 
@@ -519,9 +507,6 @@ enum SampleItemEnum {
   logoutFromAllDevice,
   refreshAuthToken,
   goToMemberInfo,
-
-  // todo 회원 정보 페이지로 병합
-  goToChangePasswordPage,
 }
 
 // (BLoC 클래스 모음)
