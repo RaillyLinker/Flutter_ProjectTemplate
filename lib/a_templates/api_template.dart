@@ -115,7 +115,7 @@ class GetGetRequestSampleAsyncRequestQueryVo {
 
 class GetGetRequestSampleAsyncResponseHeaderVo {
   // content-type : ResponseHeader 예시용
-  String contentType;
+  List<String> contentType;
 
   GetGetRequestSampleAsyncResponseHeaderVo(this.contentType);
 }
@@ -231,7 +231,7 @@ class PostPostRequestSampleAsyncRequestBodyVo {
 
 class PostPostRequestSampleAsyncResponseHeaderVo {
   // content-type : ResponseHeader 예시용
-  String contentType;
+  List<String> contentType;
 
   PostPostRequestSampleAsyncResponseHeaderVo(this.contentType);
 }
@@ -350,7 +350,7 @@ class PostPostRequestSampleXWwwFormUrlencodedAsyncRequestBodyVo {
 
 class PostPostRequestSampleXWwwFormUrlencodedAsyncResponseHeaderVo {
   // content-type : ResponseHeader 예시용
-  String contentType;
+  List<String> contentType;
 
   PostPostRequestSampleXWwwFormUrlencodedAsyncResponseHeaderVo(
       this.contentType);
@@ -482,7 +482,7 @@ class PostPostRequestSampleMultipartFormDataAsyncRequestBodyVo {
 
 class PostPostRequestSampleMultipartFormDataAsyncResponseHeaderVo {
   // content-type : ResponseHeader 예시용
-  String contentType;
+  List<String> contentType;
 
   PostPostRequestSampleMultipartFormDataAsyncResponseHeaderVo(this.contentType);
 }
@@ -558,7 +558,7 @@ Future<
 
 class GetReturnTextStringSampleAsyncResponseHeaderVo {
   // content-type : ResponseHeader 예시용
-  String contentType;
+  List<String> contentType;
 
   GetReturnTextStringSampleAsyncResponseHeaderVo(this.contentType);
 }
@@ -620,7 +620,7 @@ Future<
 
 class GetReturnTextHtmlSampleAsyncResponseHeaderVo {
   // content-type : ResponseHeader 예시용
-  String contentType;
+  List<String> contentType;
 
   GetReturnTextHtmlSampleAsyncResponseHeaderVo(this.contentType);
 }
