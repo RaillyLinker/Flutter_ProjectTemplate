@@ -12,5 +12,11 @@
     <!-- MacOS 네트워크 요청 권한 -->
 	<key>com.apple.security.network.client</key>
     <true/>
+
+    <!-- MacOS 파일 선택 권한 -->
+    <key>com.apple.security.files.user-selected.read-write</key>
+    <true/>
+    <key>com.apple.security.files.bookmarks.app-scope</key>
+    <true/>
 </dict>
 </plist>
