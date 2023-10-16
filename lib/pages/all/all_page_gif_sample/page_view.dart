@@ -95,16 +95,11 @@ class TestGifState extends State<TestGif> with SingleTickerProviderStateMixin {
           FlutterGifController(vsync: this);
 
       rootBundle.load('lib/assets/images/test.gif').then((value) {
-        var info = gf_my_functions.getGifDetails(value);
-        print("++++++++++++++++++++++++++");
-        print(info.frameCount);
-        print(info.duration);
-
-        // 최초 컨트롤러 설정
+        var gifInfo = gf_my_functions.getGifDetails(value);
         pageBusiness.pageViewModel.testGifController!.repeat(
             min: 0,
-            max: info.frameCount.toDouble(),
-            period: Duration(milliseconds: info.duration));
+            max: gifInfo.frameCount.toDouble(),
+            period: Duration(milliseconds: gifInfo.duration));
       });
     }
 

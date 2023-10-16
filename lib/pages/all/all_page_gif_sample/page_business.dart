@@ -62,7 +62,6 @@ class PageBusiness {
   // (페이지 종료 (강제 종료는 탐지 못함))
   Future<void> onPageDestroyAsync() async {
     // !!!페이지 종료 로직 작성!!
-    pageViewModel.testGifController?.dispose();
   }
 
   // (Page Pop 요청)

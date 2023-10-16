@@ -71,10 +71,7 @@ GetGifDetailsOutputVo getGifDetails(ByteData data) {
 
   if (gif == null) throw 'Failed to decode gif';
 
-  int duration = 0;
-  for (var frame in gif.frames) {
-    duration += frame.duration;
-  }
+  int duration = gif.frames.isEmpty ? 0 : gif.frames[0].duration;
 
   return GetGifDetailsOutputVo(gif.numFrames, duration);
 }
