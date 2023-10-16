@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:seo_renderer/helpers/robot_detector_vm.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_strategy/url_strategy.dart';
@@ -33,6 +34,9 @@ void main() async {
 
   // Dio 객체 설정
   network_repositories.setDioObjects();
+
+  // Web 에서 개별 페이지 주소 보이기
+  GoRouter.optionURLReflectsImperativeAPIs = true;
 
   // ---------------------------------------------------------------------------
   if (kIsWeb) {

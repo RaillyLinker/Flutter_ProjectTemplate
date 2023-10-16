@@ -16,6 +16,8 @@ import '../../../pages/all/all_page_url_launcher_sample/page_entrance.dart'
     as all_page_url_launcher_sample;
 import '../../../pages/all/all_page_widget_change_animation_sample_list/page_entrance.dart'
     as all_page_widget_change_animation_sample_list;
+import '../../../pages/all/all_page_gif_sample/page_entrance.dart'
+    as all_page_gif_sample;
 
 // (app)
 import '../../../pages/app/app_page_server_sample/page_entrance.dart'
@@ -129,6 +131,11 @@ class PageBusiness {
           _context.pushNamed(all_page_crypt_sample.pageName);
         }
         break;
+      case SampleItemEnum.gifSample:
+        {
+          _context.pushNamed(all_page_gif_sample.pageName);
+        }
+        break;
     }
   }
 
@@ -175,6 +182,8 @@ class PageViewModel {
         "위젯 변경 애니메이션 샘플 리스트", "위젯 변경시의 애니메이션 적용 샘플 리스트"));
     allSampleList.add(
         SampleItem(SampleItemEnum.cryptSample, "암/복호화 샘플", "암호화, 복호화 적용 샘플"));
+    allSampleList
+        .add(SampleItem(SampleItemEnum.gifSample, "GIF 샘플", "GIF 이미지 샘플"));
   }
 }
 
@@ -202,6 +211,7 @@ enum SampleItemEnum {
   globalVariableStateTestSample,
   widgetChangeAnimationSampleList,
   cryptSample,
+  gifSample,
 }
 
 // (BLoC 클래스 모음)

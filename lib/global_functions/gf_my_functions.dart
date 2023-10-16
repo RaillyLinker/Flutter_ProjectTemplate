@@ -1,4 +1,6 @@
 // (external)
+import 'dart:typed_data';
+import 'package:image/image.dart' as img;
 import 'package:flutter/widgets.dart' as widgets;
 import 'package:intl/intl.dart';
 
@@ -60,4 +62,29 @@ spw_sign_in_member_info.SharedPreferenceWrapperVo? getNowVerifiedMemberInfo() {
   }
 
   return nowSignInMemberInfo;
+}
+
+// Gif 정보 가져오기
+GetGifDetailsOutputVo getGifDetails(ByteData data) {
+  // GIF 이미지 데이터 로드
+  var gif = img.decodeGifAnimation(data.buffer.asUint8List());
+
+  if (gif == null) throw 'Failed to decode gif';
+
+  int duration = 0;
+  for (var frame in gif.frames) {
+    duration += frame.duration;
+  }
+
+  return GetGifDetailsOutputVo(gif.numFrames, duration);
+}
+
+class GetGifDetailsOutputVo {
+  int frameCount;
+  int duration;
+
+  GetGifDetailsOutputVo(
+    this.frameCount,
+    this.duration,
+  );
 }
