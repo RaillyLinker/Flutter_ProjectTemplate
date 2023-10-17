@@ -53,8 +53,8 @@ class PageView extends StatelessWidget {
       backgroundColor: const Color(0xFFFFFFFF),
       body: const Center(
         child: SizedBox(
-          width: 70,
-          height: 70,
+          width: 200,
+          height: 200,
           child: TestGif(),
         ),
       ),
