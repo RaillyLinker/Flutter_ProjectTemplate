@@ -94,14 +94,19 @@ class TestGifState extends State<TestGif> with SingleTickerProviderStateMixin {
       pageBusiness.pageViewModel.testGifController =
           FlutterGifController(vsync: this);
 
-      // todo : web 에서 rootBundle.load 사용시 느려짐
-      rootBundle.load('lib/assets/images/test.gif').then((value) {
-        var gifInfo = gf_my_functions.getGifDetails(value);
-        pageBusiness.pageViewModel.testGifController!.repeat(
-            min: 0,
-            max: gifInfo.frameCount.toDouble(),
-            period: Duration(milliseconds: gifInfo.duration));
-      });
+      // web 에서 rootBundle.load 사용시 느려짐. 비교해볼것.
+      // rootBundle.load('lib/assets/images/test.gif').then((value) {
+      //   var gifInfo = gf_my_functions.getGifDetails(value);
+      //   pageBusiness.pageViewModel.testGifController!.repeat(
+      //       min: 0,
+      //       max: gifInfo.frameCount.toDouble(),
+      //       period: Duration(milliseconds: gifInfo.duration));
+      // });
+
+      pageBusiness.pageViewModel.testGifController!.repeat(
+          min: 0,
+          max: 15,
+          period: Duration(milliseconds: 800));
     }
 
     return GifImage(
