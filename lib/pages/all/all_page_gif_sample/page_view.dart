@@ -83,6 +83,8 @@ class TestGifState extends State<TestGif> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    String gifSrc = 'lib/assets/images/test.gif';
+
     // pageBusiness 객체
     pageBusiness = BlocProvider.of<gc_template_classes.BlocPageInfo>(context)
         .state
@@ -96,10 +98,14 @@ class TestGifState extends State<TestGif> with SingleTickerProviderStateMixin {
 
       // rootBundle.load 사용시 사용 하지 않은 것 대비 느려짐.
       // 고로 정확히 duration, frame count 를 알고있다면 픽스해서 사용할 것.
-      rootBundle.load('lib/assets/images/test.gif').then((value) {
+      rootBundle.load(gifSrc).then((value) {
         var gifInfo = gf_my_functions.getGifDetails(value);
-        print(gifInfo.frameCount);
-        print(gifInfo.duration);
+
+        if (kDebugMode) {
+          print(gifInfo.frameCount);
+          print(gifInfo.duration);
+        }
+
         pageBusiness.pageViewModel.testGifController!.repeat(
             min: 0,
             max: gifInfo.frameCount.toDouble(),
@@ -108,7 +114,7 @@ class TestGifState extends State<TestGif> with SingleTickerProviderStateMixin {
     }
 
     return GifImage(
-      image: const AssetImage("lib/assets/images/test.gif"),
+      image: AssetImage(gifSrc),
       controller: pageBusiness.pageViewModel.testGifController!,
     );
   }
