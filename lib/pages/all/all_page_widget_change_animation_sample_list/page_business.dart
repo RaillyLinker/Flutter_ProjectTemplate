@@ -202,7 +202,7 @@ class PageBusiness {
         break;
       case SampleItemEnum.scaleTransition:
         {
-          // Fade 애니메이션 적용
+          // Scale 애니메이션 적용
 
           int sampleWidgetKeyValue = int.parse(
               gf_my_functions.getWidgetKeyValue(pageViewModel.sampleWidget)!);
