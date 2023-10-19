@@ -12,6 +12,8 @@ import '../../../a_templates/all_dialog_template/page_entrance.dart'
     as all_dialog_template;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
+import '../../../dialogs/all/all_dialog_small_circle_transform_sample/page_entrance.dart'
+    as all_dialog_small_circle_transform_sample;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
 
@@ -153,6 +155,18 @@ class PageBusiness {
           ).then((outputVo) {});
         }
         break;
+      case SampleItemEnum.smallCircleTransformAnimation:
+        {
+          // 다이얼로그에서 다른 다이얼로그를 호출하는 샘플
+          showDialog(
+              barrierDismissible: false,
+              context: _context,
+              builder: (context) =>
+                  all_dialog_small_circle_transform_sample.PageEntrance(
+                      all_dialog_small_circle_transform_sample.PageInputVo(),
+                      (pageBusiness) {})).then((outputVo) {});
+        }
+        break;
     }
   }
 
@@ -186,6 +200,8 @@ class PageViewModel {
         SampleItemEnum.scaleAnimation, "확대 애니메이션", "다이얼로그가 확대되며 나타납니다."));
     allSampleList.add(SampleItem(SampleItemEnum.slideDownAnimation,
         "슬라이드 다운 애니메이션", "다이얼로그가 위에서 아래로 나타납니다."));
+    allSampleList.add(SampleItem(SampleItemEnum.smallCircleTransformAnimation,
+        "작은 원으로 소멸하는 애니메이션", "작업이 완료되면 작은 원으로 변하였다가 사라집니다."));
   }
 }
 
@@ -210,6 +226,7 @@ enum SampleItemEnum {
   rotateAnimation,
   scaleAnimation,
   slideDownAnimation,
+  smallCircleTransformAnimation,
 }
 
 // (BLoC 클래스 모음)
