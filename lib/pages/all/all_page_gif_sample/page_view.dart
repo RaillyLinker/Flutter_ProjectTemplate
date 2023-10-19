@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gif/flutter_gif.dart';
+import 'package:gif/gif.dart';
 
 // (page)
 import 'page_business.dart' as page_business;
@@ -93,8 +93,7 @@ class TestGifState extends State<TestGif> with SingleTickerProviderStateMixin {
     if (pageBusiness.pageViewModel.testGifController == null) {
       // 컨트롤러 처음 생성시점
       //  pageBusiness.pageViewModel 에 저장
-      pageBusiness.pageViewModel.testGifController =
-          FlutterGifController(vsync: this);
+      pageBusiness.pageViewModel.testGifController = GifController(vsync: this);
 
       // rootBundle.load 사용시 사용 하지 않은 것 대비 느려짐.
       // 고로 정확히 duration, frame count 를 알고있다면 픽스해서 사용할 것.
@@ -106,16 +105,16 @@ class TestGifState extends State<TestGif> with SingleTickerProviderStateMixin {
           print(gifInfo.duration);
         }
 
-        pageBusiness.pageViewModel.testGifController!.repeat(
-            min: 0,
-            max: gifInfo.frameCount.toDouble(),
-            period: Duration(milliseconds: gifInfo.duration));
+        pageBusiness.pageViewModel.testGifController!
+            .repeat(period: Duration(milliseconds: gifInfo.duration));
       });
     }
 
-    return GifImage(
+    return Gif(
       image: AssetImage(gifSrc),
       controller: pageBusiness.pageViewModel.testGifController!,
+      placeholder: (context) => const Text('로딩중...'),
+      onFetchCompleted: () {},
     );
   }
 }

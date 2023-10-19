@@ -68,7 +68,7 @@ dependencies:
   intl: ^0.18.1
 
   # Gif 재생
-  flutter_gif: ^0.0.4
+  gif: ^2.2.0
 
   # Dio Logger
   pretty_dio_logger: ^1.3.1

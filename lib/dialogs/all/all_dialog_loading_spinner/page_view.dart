@@ -1,7 +1,7 @@
 // (external)
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gif/flutter_gif.dart';
+import 'package:gif/gif.dart';
 
 // (page)
 import 'page_business.dart' as page_business;
@@ -62,6 +62,8 @@ class LoadingSpinnerGifState extends State<LoadingSpinnerGif>
 
   @override
   Widget build(BuildContext context) {
+    String gifSrc = 'lib/assets/images/loading_spinner.gif';
+
     // pageBusiness 객체
     pageBusiness = BlocProvider.of<gc_template_classes.BlocPageInfo>(context)
         .state
@@ -71,16 +73,18 @@ class LoadingSpinnerGifState extends State<LoadingSpinnerGif>
       // 컨트롤러 처음 생성시점
       //  pageBusiness.pageViewModel 에 저장
       pageBusiness.pageViewModel.dialogSpinnerGifController =
-          FlutterGifController(vsync: this);
+          GifController(vsync: this);
 
       // 최초 컨트롤러 설정
       pageBusiness.pageViewModel.dialogSpinnerGifController!
-          .repeat(min: 0, max: 29, period: const Duration(milliseconds: 500));
+          .repeat(period: const Duration(milliseconds: 500));
     }
 
-    return GifImage(
-      image: const AssetImage("lib/assets/images/loading_spinner.gif"),
+    return Gif(
+      image: AssetImage(gifSrc),
       controller: pageBusiness.pageViewModel.dialogSpinnerGifController!,
+      placeholder: (context) => const Text(''),
+      onFetchCompleted: () {},
     );
   }
 }

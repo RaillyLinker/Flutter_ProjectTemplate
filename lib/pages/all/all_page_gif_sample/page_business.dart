@@ -1,7 +1,7 @@
 // (external)
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gif/flutter_gif.dart';
+import 'package:gif/gif.dart';
 import 'package:go_router/go_router.dart';
 
 // (page)
@@ -104,7 +104,7 @@ class PageViewModel {
   // int sampleNumber = 0;
 
   // Gif 컨트롤러
-  FlutterGifController? testGifController;
+  GifController? testGifController;
 
   PageViewModel(this.goRouterState);
 }

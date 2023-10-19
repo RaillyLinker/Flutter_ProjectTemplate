@@ -1,7 +1,7 @@
 // (external)
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gif/flutter_gif.dart';
+import 'package:gif/gif.dart';
 import 'package:go_router/go_router.dart';
 
 // (page)
@@ -106,7 +106,7 @@ class PageViewModel {
   // int sampleNumber = 0;
 
   // 다이얼로그 스피너 Gif 컨트롤러
-  FlutterGifController? dialogSpinnerGifController;
+  GifController? dialogSpinnerGifController;
 
   PageViewModel(this.pageInputVo);
 }
