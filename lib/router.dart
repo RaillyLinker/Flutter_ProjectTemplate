@@ -66,6 +66,8 @@ import 'pages/all/all_page_dialog_animation_sample_list/page_entrance.dart'
     as all_page_dialog_animation_sample_list;
 import 'pages/all/all_page_grid_sample/page_entrance.dart'
     as all_page_grid_sample;
+import 'pages/all/all_page_image_selector_sample/page_entrance.dart'
+    as all_page_image_selector_sample;
 
 // (app)
 import 'pages/app/app_page_init_splash/page_entrance.dart'
@@ -517,6 +519,19 @@ GoRouter getRouter() {
         key: s.pageKey,
         child: all_page_gif_sample.PageEntrance(s),
         transitionsBuilder: all_page_gif_sample.pageTransitionsBuilder,
+      );
+    },
+  ));
+
+  subRouteListEtcSampleList.add(GoRoute(
+    path: "image-selector-sample",
+    name: all_page_image_selector_sample.pageName,
+    pageBuilder: (c, s) {
+      return CustomTransitionPage(
+        key: s.pageKey,
+        child: all_page_image_selector_sample.PageEntrance(s),
+        transitionsBuilder:
+            all_page_image_selector_sample.pageTransitionsBuilder,
       );
     },
   ));

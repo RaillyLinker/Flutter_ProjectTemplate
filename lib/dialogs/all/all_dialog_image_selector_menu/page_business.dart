@@ -1,15 +1,14 @@
 // (external)
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gif/flutter_gif.dart';
 import 'package:go_router/go_router.dart';
-
-// (page)
-import 'page_entrance.dart' as page_entrance;
 
 // (all)
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
+
+// (page)
+import 'page_entrance.dart' as page_entrance;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
 
@@ -27,8 +26,8 @@ class PageBusiness {
   late BLocObjects blocObjects;
 
   // 생성자 설정
-  PageBusiness(this._context, GoRouterState goRouterState) {
-    pageViewModel = PageViewModel(goRouterState);
+  PageBusiness(this._context, page_entrance.PageInputVo pageInputVo) {
+    pageViewModel = PageViewModel(pageInputVo);
   }
 
   ////
@@ -41,11 +40,6 @@ class PageBusiness {
   // (페이지 최초 실행)
   Future<void> onPageCreateAsync() async {
     // !!!페이지 최초 실행 로직 작성!!
-
-    // !!!pageInputVo Null 체크!!
-
-    // !!!PageInputVo 입력!!
-    pageViewModel.pageInputVo = page_entrance.PageInputVo();
   }
 
   // (페이지 최초 실행 or 다른 페이지에서 복귀)
@@ -84,6 +78,16 @@ class PageBusiness {
 //     bLocObjects.blocSample.add(!bLocObjects.blocSample.state);
 //   }
 
+  // (확인 버튼 클릭시)
+  void onCheckBtnClicked() {
+    _context.pop();
+  }
+
+  // 이미지 소스 선택함
+  void onResultSelected(page_entrance.ImageSourceType imageSourceType) {
+    _context.pop(page_entrance.PageOutputVo(imageSourceType));
+  }
+
 ////
 // [내부 함수]
 // !!!내부에서만 사용할 함수를 아래에 구현!!
@@ -95,18 +99,17 @@ class PageViewModel {
   // 페이지 생명주기 관련 states
   var pageLifeCycleStates = gc_template_classes.PageLifeCycleStates();
 
-  // 페이지 파라미터 (아래 goRouterState 에서 가져와 대입하기)
-  late page_entrance.PageInputVo pageInputVo;
-  GoRouterState goRouterState;
+  // 페이지 파라미터
+  page_entrance.PageInputVo pageInputVo;
+
+  // 다이얼로그 호출시 pageBusiness 를 전달하기 위한 콜백
+  late void Function(PageBusiness) onDialogPageCreated;
 
   // !!!페이지 데이터 정의!!
   // ex :
   // int sampleNumber = 0;
 
-  // Gif 컨트롤러
-  FlutterGifController? testGifController;
-
-  PageViewModel(this.goRouterState);
+  PageViewModel(this.pageInputVo);
 }
 
 // (BLoC 클래스 모음)

@@ -1,8 +1,12 @@
 // (external)
+import 'dart:io';
+import 'dart:typed_data';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gif/flutter_gif.dart';
 import 'package:go_router/go_router.dart';
+import 'package:image_picker/image_picker.dart';
 
 // (page)
 import 'page_entrance.dart' as page_entrance;
@@ -10,6 +14,8 @@ import 'page_entrance.dart' as page_entrance;
 // (all)
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
+import '../../../dialogs/all/all_dialog_image_selector_menu/page_entrance.dart'
+    as all_dialog_image_selector_menu;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
 
@@ -84,6 +90,78 @@ class PageBusiness {
 //     bLocObjects.blocSample.add(!bLocObjects.blocSample.state);
 //   }
 
+  // 프로필 이미지 클릭
+  Future<void> onProfileImageTap() async {
+    if (!_context.mounted) return;
+    all_dialog_image_selector_menu.PageOutputVo? pageOutputVo =
+        await showDialog(
+            barrierDismissible: true,
+            context: _context,
+            builder: (context) => all_dialog_image_selector_menu.PageEntrance(
+                all_dialog_image_selector_menu.PageInputVo(
+                    // 카메라는 모바일 환경에서만
+                    !kIsWeb && (Platform.isAndroid || Platform.isIOS)),
+                (pageBusiness) {}));
+
+    if (pageOutputVo != null) {
+      switch (pageOutputVo.imageSourceType) {
+        case all_dialog_image_selector_menu.ImageSourceType.gallery:
+          {
+            // 갤러리에서 선택하기
+            try {
+              final XFile? pickedFile = await ImagePicker().pickImage(
+                  source: ImageSource.gallery,
+                  maxHeight: 1280,
+                  maxWidth: 1280,
+                  imageQuality: 70);
+              if (pickedFile != null) {
+                // JPG or PNG
+                var image = XFile(pickedFile.path);
+                var bytes = await image.readAsBytes();
+                pageViewModel.selectedImage = bytes;
+                blocObjects.blocProfileImage
+                    .add(!blocObjects.blocProfileImage.state);
+              }
+            } catch (_) {}
+          }
+          break;
+        case all_dialog_image_selector_menu.ImageSourceType.camera:
+          {
+            // 사진 찍기
+            try {
+              final XFile? pickedFile = await ImagePicker().pickImage(
+                  source: ImageSource.camera,
+                  maxHeight: 1280,
+                  maxWidth: 1280,
+                  imageQuality: 70);
+              if (pickedFile != null) {
+                // JPG or PNG
+                var image = XFile(pickedFile.path);
+                var bytes = await image.readAsBytes();
+                pageViewModel.selectedImage = bytes;
+                blocObjects.blocProfileImage
+                    .add(!blocObjects.blocProfileImage.state);
+              }
+            } catch (_) {}
+          }
+          break;
+        case all_dialog_image_selector_menu.ImageSourceType.defaultImage:
+          {
+            // 기본 프로필 이미지 적용
+            pageViewModel.selectedImage = null;
+            blocObjects.blocProfileImage
+                .add(!blocObjects.blocProfileImage.state);
+          }
+          break;
+        default:
+          {
+            // 알 수 없는 코드일 때
+            throw Exception("unKnown Error Code");
+          }
+      }
+    }
+  }
+
 ////
 // [내부 함수]
 // !!!내부에서만 사용할 함수를 아래에 구현!!
@@ -103,8 +181,8 @@ class PageViewModel {
   // ex :
   // int sampleNumber = 0;
 
-  // Gif 컨트롤러
-  FlutterGifController? testGifController;
+  // 선택된 이미지
+  Uint8List? selectedImage;
 
   PageViewModel(this.goRouterState);
 }
@@ -121,6 +199,14 @@ class PageViewModel {
 //   }
 // }
 
+class BlocProfileImage extends Bloc<bool, bool> {
+  BlocProfileImage() : super(true) {
+    on<bool>((event, emit) {
+      emit(event);
+    });
+  }
+}
+
 // (BLoC 프로바이더 클래스)
 // 본 페이지에서 사용할 BLoC 객체를 모아두어 PageEntrance 에서 페이지 전역 설정에 사용 됩니다.
 class BLocProviders {
@@ -128,6 +214,7 @@ class BLocProviders {
   List<BlocProvider<dynamic>> blocProviders = [
     // ex :
     // BlocProvider<BlocSample>(create: (context) => BlocSample()),
+    BlocProvider<BlocProfileImage>(create: (context) => BlocProfileImage()),
   ];
 }
 
@@ -138,11 +225,13 @@ class BLocObjects {
   // !!!BLoC 조작 객체 변수 선언!!
   // ex :
   // late BlocSample blocSample;
+  late BlocProfileImage blocProfileImage;
 
   // 생성자 설정
   BLocObjects(this._context) {
     // !!!BLoC 조작 객체 생성!!
     // ex :
     // blocSample = BlocProvider.of<BlocSample>(_context);
+    blocProfileImage = BlocProvider.of<BlocProfileImage>(_context);
   }
 }
