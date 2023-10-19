@@ -51,67 +51,200 @@ class PageView extends StatelessWidget {
       backgroundColor: const Color(0xFFFFFFFF),
       body: SingleChildScrollView(
         child: Center(
-          child: GestureDetector(
-            onTap: () {
-              pageBusiness.onProfileImageTap();
-            },
-            child: Container(
-              padding: const EdgeInsets.only(top: 50),
-              child: Stack(
-                children: [
-                  BlocBuilder<page_business.BlocProfileImage, bool>(
-                      builder: (c, s) {
-                    if (pageBusiness.pageViewModel.selectedImage == null) {
-                      return ClipOval(
-                          child: Container(
-                        color: Colors.blue,
-                        width: 200,
-                        height: 200,
-                        child: const Icon(
-                          Icons.photo_outlined,
-                          color: Colors.white,
-                          size: 170,
-                        ),
-                      ));
-                    } else {
-                      return ClipOval(
-                        child: Image.memory(
-                          pageBusiness.pageViewModel.selectedImage!,
-                          fit: BoxFit.cover,
-                          width: 200,
-                          height: 200,
-                        ),
-                      );
-                    }
-                  }),
-                  Positioned(
-                    width: 40,
-                    height: 40,
-                    bottom: 10,
-                    right: 0,
-                    child: Container(
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(50),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.5),
-                              spreadRadius: 3,
-                              blurRadius: 5,
-                              offset: const Offset(
-                                  0, 2), // changes position of shadow
+          child: Column(
+            children: [
+              GestureDetector(
+                onTap: () {
+                  pageBusiness.onProfileImageTap();
+                },
+                child: Container(
+                  padding: const EdgeInsets.only(top: 50),
+                  child: Stack(
+                    children: [
+                      BlocBuilder<page_business.BlocProfileImage, bool>(
+                          builder: (c, s) {
+                        if (pageBusiness.pageViewModel.selectedImage == null) {
+                          return ClipOval(
+                              child: Container(
+                            color: Colors.blue,
+                            width: 150,
+                            height: 150,
+                            child: const Icon(
+                              Icons.photo_outlined,
+                              color: Colors.white,
+                              size: 120,
                             ),
-                          ]),
-                      child: const Icon(
-                        Icons.photo_library,
-                        color: Colors.grey,
-                        size: 20.0,
+                          ));
+                        } else {
+                          return ClipOval(
+                            child: Image.memory(
+                              pageBusiness.pageViewModel.selectedImage!,
+                              fit: BoxFit.cover,
+                              width: 150,
+                              height: 150,
+                            ),
+                          );
+                        }
+                      }),
+                      Positioned(
+                        width: 40,
+                        height: 40,
+                        bottom: 10,
+                        right: 0,
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(50),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.5),
+                                  spreadRadius: 3,
+                                  blurRadius: 5,
+                                  offset: const Offset(
+                                      0, 2), // changes position of shadow
+                                ),
+                              ]),
+                          child: const Icon(
+                            Icons.photo_library,
+                            color: Colors.grey,
+                            size: 20.0,
+                          ),
+                        ),
                       ),
-                    ),
+                    ],
                   ),
-                ],
+                ),
               ),
-            ),
+
+              // 이미지 리스트 선택
+              Container(
+                margin: const EdgeInsets.only(
+                  top: 50,
+                  left: 20,
+                  right: 20,
+                ),
+                height: 120,
+                //decoration: const BoxDecoration(
+                //  color: Color.fromARGB(255, 249, 249, 249),
+                //),
+                child: Center(child:
+                    BlocBuilder<page_business.BlocImageList, bool>(
+                        builder: (context, state) {
+                  return ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount:
+                          pageBusiness.pageViewModel.imageFiles.length + 1,
+                      itemBuilder: (context, index) {
+                        // 첫번째 인덱스는 무조건 추가 버튼
+                        if (0 == index) {
+                          return Stack(
+                            children: [
+                              Positioned(
+                                  top: 50,
+                                  width: 76,
+                                  child: Center(
+                                      child: Text(
+                                    "${pageBusiness.pageViewModel.imageFiles.length}/${pageBusiness.pageViewModel.imageFileListMaxCount}",
+                                    textAlign: TextAlign.center,
+                                    style: const TextStyle(
+                                        fontSize: 12,
+                                        color:
+                                            Color.fromARGB(255, 158, 158, 158)),
+                                  ))),
+                              SizedBox(
+                                width: 76,
+                                height: 76,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    const SizedBox(
+                                      height: 5,
+                                    ),
+                                    IconButton(
+                                      onPressed: () {
+                                        pageBusiness.pressAddPictureBtn();
+                                      },
+                                      iconSize: 35,
+                                      color: const Color.fromARGB(
+                                          255, 158, 158, 158),
+                                      icon: const Icon(Icons.photo_library),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          );
+                        } else {
+                          Uint8List imageFile;
+                          imageFile =
+                              pageBusiness.pageViewModel.imageFiles[index - 1];
+
+                          return Padding(
+                              padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                              child: Stack(
+                                children: [
+                                  Container(
+                                    width: 76,
+                                    height: 76,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: Image(
+                                      image: MemoryImage(imageFile),
+                                      fit: BoxFit.cover,
+                                      width: 100,
+                                      height: 100,
+                                      loadingBuilder: (BuildContext context,
+                                          Widget child,
+                                          ImageChunkEvent? loadingProgress) {
+                                        // 로딩 중일 때 플레이스 홀더를 보여줍니다.
+                                        if (loadingProgress == null) {
+                                          return child; // 로딩이 끝났을 경우
+                                        }
+                                        return const SizedBox(
+                                          width: 100,
+                                          height: 100,
+                                          child: Center(
+                                            child: CircularProgressIndicator(),
+                                          ),
+                                        );
+                                      },
+                                      errorBuilder:
+                                          (context, error, stackTrace) {
+                                        // 에러 발생 시 설정한 에러 위젯을 반환합니다.
+                                        return const SizedBox(
+                                          width: 100,
+                                          height: 100,
+                                          child: Center(
+                                            child: Icon(Icons.error),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                  Positioned(
+                                    top: -10,
+                                    right: -10,
+                                    child: IconButton(
+                                        onPressed: () {
+                                          pageBusiness
+                                              .pressDeletePicture(index - 1);
+                                        },
+                                        iconSize: 15,
+                                        color: Colors.white,
+                                        icon: const Icon(
+                                          Icons.cancel,
+                                          color: Colors.grey,
+                                          size: 15.0,
+                                        )),
+                                  ),
+                                ],
+                              ));
+                        }
+                      });
+                })),
+              )
+            ],
           ),
         ),
       ),
