@@ -131,7 +131,7 @@ class PageBusiness {
         break;
       case SampleItemEnum.slideDownAnimation:
         {
-          // 확대 애니메이션
+          // Slide Down 애니메이션
           showGeneralDialog(
             barrierDismissible: true,
             barrierLabel: "",
