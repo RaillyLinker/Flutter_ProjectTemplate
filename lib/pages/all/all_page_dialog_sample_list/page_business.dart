@@ -202,11 +202,11 @@ class PageBusiness {
         break;
       case SampleItemEnum.dialogOutsideColorSample:
         {
-          // 다이얼로그에서 다른 다이얼로그를 호출하는 샘플
+          // 다이얼로그 외부 색 설정
           showDialog(
                   barrierDismissible: true,
                   context: _context,
-                  barrierColor: Colors.blue,
+                  barrierColor: Colors.blue.withOpacity(0.5),
                   builder: (context) => all_dialog_template.PageEntrance(
                       all_dialog_template.PageInputVo(), (pageBusiness) {}))
               .then((outputVo) {});
