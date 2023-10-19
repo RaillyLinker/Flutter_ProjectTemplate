@@ -17,6 +17,8 @@ import '../../../a_templates/all_page_template/page_entrance.dart'
     as all_page_template;
 import '../../../pages/all/all_page_page_transition_animation_sample_list/page_entrance.dart'
     as all_page_page_transition_animation_sample_list;
+import '../../../pages/all/all_page_grid_sample/page_entrance.dart'
+    as all_page_grid_sample;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
 
@@ -196,6 +198,11 @@ class PageBusiness {
               all_page_page_transition_animation_sample_list.pageName);
         }
         break;
+      case SampleItemEnum.gridSample:
+        {
+          _context.pushNamed(all_page_grid_sample.pageName);
+        }
+        break;
     }
   }
 
@@ -255,6 +262,8 @@ class PageViewModel {
         SampleItemEnum.pageTransitionAnimationSampleList,
         "페이지 이동 애니메이션 샘플 리스트",
         "페이지 이동시 적용되는 애니메이션 샘플 리스트"));
+    allSampleList.add(SampleItem(SampleItemEnum.gridSample, "페이지 Grid 샘플",
+        "화면 사이즈에 따라 동적으로 변하는 Grid 페이지 샘플"));
 
     filteredSampleList = allSampleList;
   }
@@ -282,6 +291,7 @@ enum SampleItemEnum {
   justPushTest,
   inputAndOutputPushTest,
   pageTransitionAnimationSampleList,
+  gridSample,
 }
 
 // (BLoC 클래스 모음)
