@@ -200,6 +200,18 @@ class PageBusiness {
                   (pageBusiness) {})).then((outputVo) {});
         }
         break;
+      case SampleItemEnum.dialogOutsideColorSample:
+        {
+          // 다이얼로그에서 다른 다이얼로그를 호출하는 샘플
+          showDialog(
+                  barrierDismissible: true,
+                  context: _context,
+                  barrierColor: Colors.blue,
+                  builder: (context) => all_dialog_template.PageEntrance(
+                      all_dialog_template.PageInputVo(), (pageBusiness) {}))
+              .then((outputVo) {});
+        }
+        break;
     }
   }
 
@@ -239,6 +251,8 @@ class PageViewModel {
         "아래에 붙은 다이얼로그", "아래에서 올라오는 다이얼로그를 호출합니다."));
     allSampleList.add(SampleItem(SampleItemEnum.dialogInDialog, "다이얼로그 속 다이얼로그",
         "다이얼로그에서 다이얼로그를 호출합니다."));
+    allSampleList.add(SampleItem(SampleItemEnum.dialogOutsideColorSample,
+        "다이얼로그 외부 색 설정", "다이얼로그 영역 바깥의 색상을 지정합니다."));
   }
 }
 
@@ -266,6 +280,7 @@ enum SampleItemEnum {
   loadingSpinnerDialog,
   modalBottomSheetDialog,
   dialogInDialog,
+  dialogOutsideColorSample,
 }
 
 // (BLoC 클래스 모음)
