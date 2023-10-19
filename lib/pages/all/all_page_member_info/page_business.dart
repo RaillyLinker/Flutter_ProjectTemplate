@@ -10,9 +10,7 @@ import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
 import '../../../global_functions/gf_my_functions.dart' as gf_my_functions;
 import '../../../pages/all/all_page_membership_withdrawal/page_entrance.dart'
-as all_page_membership_withdrawal;
-import '../../../pages/all/all_page_change_password/page_entrance.dart'
-as all_page_change_password;
+    as all_page_membership_withdrawal;
 
 // (page)
 import 'page_entrance.dart' as page_entrance;
@@ -123,9 +121,14 @@ class PageBusiness {
 //     bLocObjects.blocSample.add(!bLocObjects.blocSample.state);
 //   }
   // (회원 탈퇴 버튼 누름)
-  void tapWithdrawalBtn() {
+  Future<void> tapWithdrawalBtn() async {
     // 회원탈퇴 페이지로 이동
-    _context.pushNamed(all_page_membership_withdrawal.pageName);
+    all_page_membership_withdrawal.PageOutputVo? pageOutputVo =
+        await _context.pushNamed(all_page_membership_withdrawal.pageName);
+    if (pageOutputVo != null && pageOutputVo.withdrawalOk) {
+      if (!_context.mounted) return;
+      _context.pop();
+    }
   }
 
 ////

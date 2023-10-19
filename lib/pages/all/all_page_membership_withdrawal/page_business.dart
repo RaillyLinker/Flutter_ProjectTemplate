@@ -21,7 +21,6 @@ import '../../../global_classes/gc_template_classes.dart'
 import 'page_entrance.dart' as page_entrance;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
-// todo : 완료하고 member info 까지 닫기
 
 //------------------------------------------------------------------------------
 // 페이지의 비즈니스 로직 및 뷰모델 담당
@@ -147,8 +146,9 @@ class PageBusiness {
           // 네트워크 요청
           var responseVo =
               await api_main_server.deleteService1TkV1AuthWithdrawalAsync(
-            api_main_server.DeleteService1TkV1AuthWithdrawalAsyncRequestHeaderVo(
-                "${signInInfo.tokenType} ${signInInfo.accessToken}"),
+            api_main_server
+                .DeleteService1TkV1AuthWithdrawalAsyncRequestHeaderVo(
+                    "${signInInfo.tokenType} ${signInInfo.accessToken}"),
           );
 
           pageBusiness.closeDialog();
@@ -170,7 +170,7 @@ class PageBusiness {
                           "회원 탈퇴 완료", "회원 탈퇴가 완료되었습니다.\n안녕히 가세요.", "확인"),
                       (pageBusiness) {}));
               if (!_context.mounted) return;
-              _context.pop();
+              _context.pop(page_entrance.PageOutputVo(true));
             } else if (networkResponseObjectOk.responseStatusCode == 401) {
               // 비회원 처리됨
               if (!_context.mounted) return;

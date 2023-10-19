@@ -33,7 +33,14 @@ class PageInputVo {}
 
 // (이전 페이지로 전달할 결과 데이터 형태)
 // !!!페이지 반환 데이터 정의!!
-class PageOutputVo {}
+class PageOutputVo {
+  // 회원탈퇴 완료 여부
+  bool withdrawalOk;
+
+  PageOutputVo(
+    this.withdrawalOk,
+  );
+}
 
 //------------------------------------------------------------------------------
 // 아래부터는 수정이 불필요한 코드입니다.
