@@ -168,10 +168,35 @@ class AnimationLogoState extends State<AnimationLogo>
           child: Transform.scale(
             scale: pageBusiness
                 .pageViewModel.animationLogoControllers!.scaleAnimation.value,
-            child: Image.asset(
-              "lib/assets/images/init_splash_logo.png",
+            child: Image(
+              image: const AssetImage("lib/assets/images/init_splash_logo.png"),
               width: 130,
               height: 130,
+              loadingBuilder: (BuildContext context, Widget child,
+                  ImageChunkEvent? loadingProgress) {
+                // 로딩 중일 때 플레이스 홀더를 보여줍니다.
+                if (loadingProgress == null) return child; // 로딩이 끝났을 경우
+                return const SizedBox(
+                  width: 130,
+                  height: 130,
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                );
+              },
+              errorBuilder: (context, error, stackTrace) {
+                // 에러 발생 시 설정한 에러 위젯을 반환합니다.
+                return const SizedBox(
+                  width: 130,
+                  height: 130,
+                  child: Center(
+                    child: Icon(
+                      Icons.error,
+                      color: Colors.red,
+                    ),
+                  ),
+                );
+              },
             ),
           ),
         );

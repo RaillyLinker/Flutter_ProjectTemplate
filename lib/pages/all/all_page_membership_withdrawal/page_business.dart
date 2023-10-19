@@ -21,6 +21,7 @@ import '../../../global_classes/gc_template_classes.dart'
 import 'page_entrance.dart' as page_entrance;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
+// todo : 완료하고 member info 까지 닫기
 
 //------------------------------------------------------------------------------
 // 페이지의 비즈니스 로직 및 뷰모델 담당
