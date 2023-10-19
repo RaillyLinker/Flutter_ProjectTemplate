@@ -1,34 +1,17 @@
 // (external)
-import 'dart:io';
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-
-import '../../../global_classes/gc_template_classes.dart'
-    as gc_template_classes;
-
-// (all)
-import '../../../pages/all/all_page_auth_sample/page_entrance.dart'
-    as all_page_auth_sample;
-import '../../../pages/all/all_page_dialog_sample_list/page_entrance.dart'
-    as all_page_dialog_sample_list;
-import '../../../pages/all/all_page_dialog_animation_sample_list/page_entrance.dart'
-    as all_page_dialog_animation_sample_list;
-import '../../../pages/all/all_page_etc_sample_list/page_entrance.dart'
-    as all_page_etc_sample_list;
-import '../../../pages/all/all_page_network_request_sample_list/page_entrance.dart'
-    as all_page_network_request_sample_list;
-import '../../../pages/all/all_page_page_and_router_sample_list/page_entrance.dart'
-    as all_page_page_and_router_sample_list;
-
-// (mobile)
-import '../../../pages/mobile/mobile_page_permission_sample_list/page_entrance.dart'
-    as mobile_page_permission_sample_list;
+import 'package:vector_math/vector_math.dart' as math;
 
 // (page)
 import 'page_entrance.dart' as page_entrance;
+
+// (all)
+import '../../../a_templates/all_dialog_template/page_entrance.dart'
+    as all_dialog_template;
+import '../../../global_classes/gc_template_classes.dart'
+    as gc_template_classes;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
 
@@ -103,39 +86,71 @@ class PageBusiness {
     SampleItem sampleItem = pageViewModel.allSampleList[index];
 
     switch (sampleItem.sampleItemEnum) {
-      case SampleItemEnum.pageAndRouterSampleList:
+      case SampleItemEnum.rotateAnimation:
         {
-          _context.pushNamed(all_page_page_and_router_sample_list.pageName);
+          // 회전 애니메이션
+          showGeneralDialog(
+            barrierDismissible: true,
+            barrierLabel: "",
+            context: _context,
+            pageBuilder: (ctx, a1, a2) {
+              return Container();
+            },
+            transitionBuilder: (ctx, a1, a2, child) {
+              return Transform.rotate(
+                angle: math.radians(a1.value * 360),
+                child: all_dialog_template.PageEntrance(
+                    all_dialog_template.PageInputVo(), (pageBusiness) {}),
+              );
+            },
+            transitionDuration: const Duration(milliseconds: 300),
+          ).then((outputVo) {});
         }
         break;
-      case SampleItemEnum.dialogSampleList:
+      case SampleItemEnum.scaleAnimation:
         {
-          _context.pushNamed(all_page_dialog_sample_list.pageName);
+          // 확대 애니메이션
+          showGeneralDialog(
+            barrierDismissible: true,
+            barrierLabel: "",
+            context: _context,
+            pageBuilder: (ctx, a1, a2) {
+              return Container();
+            },
+            transitionBuilder: (ctx, a1, a2, child) {
+              var curve = Curves.easeInOut.transform(a1.value);
+              return Transform.scale(
+                scale: curve,
+                child: all_dialog_template.PageEntrance(
+                    all_dialog_template.PageInputVo(), (pageBusiness) {}),
+              );
+            },
+            transitionDuration: const Duration(milliseconds: 300),
+          ).then((outputVo) {});
         }
         break;
-      case SampleItemEnum.dialogAnimationSampleList:
+      case SampleItemEnum.slideDownAnimation:
         {
-          _context.pushNamed(all_page_dialog_animation_sample_list.pageName);
-        }
-        break;
-      case SampleItemEnum.networkRequestSampleList:
-        {
-          _context.pushNamed(all_page_network_request_sample_list.pageName);
-        }
-        break;
-      case SampleItemEnum.mobilePermissionSampleList:
-        {
-          _context.pushNamed(mobile_page_permission_sample_list.pageName);
-        }
-        break;
-      case SampleItemEnum.authSample:
-        {
-          _context.pushNamed(all_page_auth_sample.pageName);
-        }
-        break;
-      case SampleItemEnum.etcSampleList:
-        {
-          _context.pushNamed(all_page_etc_sample_list.pageName);
+          // 확대 애니메이션
+          showGeneralDialog(
+            barrierDismissible: true,
+            barrierLabel: "",
+            context: _context,
+            pageBuilder: (ctx, a1, a2) {
+              return Container();
+            },
+            transitionBuilder: (context, a1, a2, widget) {
+              final curvedValue =
+                  Curves.easeInOutBack.transform(a1.value) - 1.0;
+              return Transform(
+                transform:
+                    Matrix4.translationValues(0.0, curvedValue * 1600, 0.0),
+                child: all_dialog_template.PageEntrance(
+                    all_dialog_template.PageInputVo(), (pageBusiness) {}),
+              );
+            },
+            transitionDuration: const Duration(milliseconds: 300),
+          ).then((outputVo) {});
         }
         break;
     }
@@ -160,32 +175,17 @@ class PageViewModel {
   // ex :
   // int sampleNumber = 0;
 
-  // 샘플 목록 필터링용 검색창 컨트롤러 (검색창의 텍스트 정보를 가지고 있으므로 뷰모델에 저장, 여기 있어야 위젯이 변경되어도 검색어가 유지됨)
-  TextEditingController sampleSearchBarTextEditController =
-      TextEditingController();
-
   // (샘플 페이지 원본 리스트)
   List<SampleItem> allSampleList = [];
 
   PageViewModel(this.goRouterState) {
     // 초기 리스트 추가
-    allSampleList.add(SampleItem(SampleItemEnum.pageAndRouterSampleList,
-        "페이지 / 라우터 샘플 리스트", "페이지 이동, 파라미터 전달 등의 샘플 리스트"));
     allSampleList.add(SampleItem(
-        SampleItemEnum.dialogSampleList, "다이얼로그 샘플 리스트", "다이얼로그 호출 샘플 리스트"));
-    allSampleList.add(SampleItem(SampleItemEnum.dialogAnimationSampleList,
-        "다이얼로그 애니메이션 샘플 리스트", "다이얼로그 호출 애니메이션 샘플 리스트"));
-    allSampleList.add(SampleItem(SampleItemEnum.networkRequestSampleList,
-        "네트워크 요청 샘플 리스트", "네트워크 요청 및 응답 처리 샘플 리스트"));
-    if (!kIsWeb && (Platform.isAndroid || Platform.isIOS)) {
-      // Mobile 환경일 때
-      allSampleList.add(SampleItem(SampleItemEnum.mobilePermissionSampleList,
-          "모바일 권한 샘플 리스트", "모바일 디바이스 권한 처리 샘플 리스트"));
-    }
-    allSampleList
-        .add(SampleItem(SampleItemEnum.authSample, "계정 샘플", "계정 관련 기능 샘플"));
+        SampleItemEnum.rotateAnimation, "회전 애니메이션", "다이얼로그가 회전하며 나타납니다."));
     allSampleList.add(SampleItem(
-        SampleItemEnum.etcSampleList, "기타 샘플 리스트", "기타 테스트 샘플을 모아둔 리스트"));
+        SampleItemEnum.scaleAnimation, "확대 애니메이션", "다이얼로그가 확대되며 나타납니다."));
+    allSampleList.add(SampleItem(SampleItemEnum.slideDownAnimation,
+        "슬라이드 다운 애니메이션", "다이얼로그가 위에서 아래로 나타납니다."));
   }
 }
 
@@ -207,13 +207,9 @@ class SampleItem {
 }
 
 enum SampleItemEnum {
-  pageAndRouterSampleList,
-  dialogSampleList,
-  dialogAnimationSampleList,
-  networkRequestSampleList,
-  mobilePermissionSampleList,
-  authSample,
-  etcSampleList,
+  rotateAnimation,
+  scaleAnimation,
+  slideDownAnimation,
 }
 
 // (BLoC 클래스 모음)
