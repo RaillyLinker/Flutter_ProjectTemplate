@@ -108,11 +108,12 @@ class PageBusiness {
           {
             // 갤러리에서 선택하기
             try {
-              final XFile? pickedFile = await ImagePicker().pickImage(
-                  source: ImageSource.gallery,
-                  maxHeight: 1280,
-                  maxWidth: 1280,
-                  imageQuality: 70);
+              final XFile? pickedFile = await pageViewModel.imagePicker
+                  .pickImage(
+                      source: ImageSource.gallery,
+                      maxHeight: 1280,
+                      maxWidth: 1280,
+                      imageQuality: 70);
               if (pickedFile != null) {
                 // JPG or PNG
                 var image = XFile(pickedFile.path);
@@ -128,11 +129,12 @@ class PageBusiness {
           {
             // 사진 찍기
             try {
-              final XFile? pickedFile = await ImagePicker().pickImage(
-                  source: ImageSource.camera,
-                  maxHeight: 1280,
-                  maxWidth: 1280,
-                  imageQuality: 70);
+              final XFile? pickedFile = await pageViewModel.imagePicker
+                  .pickImage(
+                      source: ImageSource.camera,
+                      maxHeight: 1280,
+                      maxWidth: 1280,
+                      imageQuality: 70);
               if (pickedFile != null) {
                 // JPG or PNG
                 var image = XFile(pickedFile.path);
@@ -179,6 +181,9 @@ class PageViewModel {
   // !!!페이지 데이터 정의!!
   // ex :
   // int sampleNumber = 0;
+
+  // 이미지 선택자
+  ImagePicker imagePicker = ImagePicker();
 
   // 선택된 이미지
   Uint8List? selectedImage;
