@@ -18,6 +18,7 @@ import '../../../dialogs/all/all_dialog_image_selector_menu/page_entrance.dart'
     as all_dialog_image_selector_menu;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
+// todo : 이미지 여러개 선택
 
 //------------------------------------------------------------------------------
 // 페이지의 비즈니스 로직 및 뷰모델 담당

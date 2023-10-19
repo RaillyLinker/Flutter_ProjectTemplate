@@ -65,11 +65,17 @@ class PageView extends StatelessWidget {
                       BlocBuilder<page_business.BlocProfileImage, bool>(
                           builder: (c, s) {
                         if (pageBusiness.pageViewModel.profileImage == null) {
-                          return const Icon(
-                            Icons.account_circle,
+                          return ClipOval(
+                              child: Container(
                             color: Colors.blue,
-                            size: 100.0,
-                          );
+                            width: 100,
+                            height: 100,
+                            child: const Icon(
+                              Icons.photo_outlined,
+                              color: Colors.white,
+                              size: 70,
+                            ),
+                          ));
                         } else {
                           return ClipOval(
                             child: Image.memory(
@@ -84,7 +90,7 @@ class PageView extends StatelessWidget {
                       Positioned(
                         width: 30,
                         height: 30,
-                        bottom: 10,
+                        bottom: 0,
                         right: 0,
                         child: Container(
                           decoration: BoxDecoration(
@@ -100,7 +106,7 @@ class PageView extends StatelessWidget {
                                 ),
                               ]),
                           child: const Icon(
-                            Icons.account_box_outlined,
+                            Icons.photo_library,
                             color: Colors.grey,
                             size: 20.0,
                           ),
