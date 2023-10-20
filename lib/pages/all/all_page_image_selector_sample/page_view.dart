@@ -53,88 +53,92 @@ class PageView extends StatelessWidget {
         child: Center(
           child: Column(
             children: [
-              GestureDetector(
-                onTap: () {
-                  pageBusiness.onProfileImageTap();
-                },
-                child: Container(
-                  padding: const EdgeInsets.only(top: 50),
-                  child: Stack(
-                    children: [
-                      BlocBuilder<page_business.BlocProfileImage, bool>(
-                          builder: (c, s) {
-                        if (pageBusiness.pageViewModel.selectedImage == null) {
-                          return ClipOval(
-                              child: Container(
-                            color: Colors.blue,
-                            width: 150,
-                            height: 150,
-                            child: const Icon(
-                              Icons.photo_outlined,
-                              color: Colors.white,
-                              size: 120,
-                            ),
-                          ));
-                        } else {
-                          return ClipOval(
-                            child: SizedBox(
+              MouseRegion(
+                cursor: SystemMouseCursors.click,
+                child: GestureDetector(
+                  onTap: () {
+                    pageBusiness.onProfileImageTap();
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.only(top: 50),
+                    child: Stack(
+                      children: [
+                        BlocBuilder<page_business.BlocProfileImage, bool>(
+                            builder: (c, s) {
+                          if (pageBusiness.pageViewModel.selectedImage ==
+                              null) {
+                            return ClipOval(
+                                child: Container(
+                              color: Colors.blue,
                               width: 150,
                               height: 150,
-                              child: Image(
-                                image: MemoryImage(
-                                    pageBusiness.pageViewModel.selectedImage!),
-                                fit: BoxFit.cover,
-                                loadingBuilder: (BuildContext context,
-                                    Widget child,
-                                    ImageChunkEvent? loadingProgress) {
-                                  // 로딩 중일 때 플레이스 홀더를 보여줍니다.
-                                  if (loadingProgress == null) {
-                                    return child; // 로딩이 끝났을 경우
-                                  }
-                                  return const Center(
-                                    child: CircularProgressIndicator(),
-                                  );
-                                },
-                                errorBuilder: (context, error, stackTrace) {
-                                  // 에러 발생 시 설정한 에러 위젯을 반환합니다.
-                                  return const Center(
-                                    child: Icon(
-                                      Icons.error,
-                                      color: Colors.red,
-                                    ),
-                                  );
-                                },
+                              child: const Icon(
+                                Icons.photo_outlined,
+                                color: Colors.white,
+                                size: 120,
                               ),
-                            ),
-                          );
-                        }
-                      }),
-                      Positioned(
-                        width: 40,
-                        height: 40,
-                        bottom: 10,
-                        right: 0,
-                        child: Container(
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(50),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.5),
-                                  spreadRadius: 3,
-                                  blurRadius: 5,
-                                  offset: const Offset(
-                                      0, 2), // changes position of shadow
+                            ));
+                          } else {
+                            return ClipOval(
+                              child: SizedBox(
+                                width: 150,
+                                height: 150,
+                                child: Image(
+                                  image: MemoryImage(pageBusiness
+                                      .pageViewModel.selectedImage!),
+                                  fit: BoxFit.cover,
+                                  loadingBuilder: (BuildContext context,
+                                      Widget child,
+                                      ImageChunkEvent? loadingProgress) {
+                                    // 로딩 중일 때 플레이스 홀더를 보여줍니다.
+                                    if (loadingProgress == null) {
+                                      return child; // 로딩이 끝났을 경우
+                                    }
+                                    return const Center(
+                                      child: CircularProgressIndicator(),
+                                    );
+                                  },
+                                  errorBuilder: (context, error, stackTrace) {
+                                    // 에러 발생 시 설정한 에러 위젯을 반환합니다.
+                                    return const Center(
+                                      child: Icon(
+                                        Icons.error,
+                                        color: Colors.red,
+                                      ),
+                                    );
+                                  },
                                 ),
-                              ]),
-                          child: const Icon(
-                            Icons.photo_library,
-                            color: Colors.grey,
-                            size: 20.0,
+                              ),
+                            );
+                          }
+                        }),
+                        Positioned(
+                          width: 40,
+                          height: 40,
+                          bottom: 10,
+                          right: 0,
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(50),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.5),
+                                    spreadRadius: 3,
+                                    blurRadius: 5,
+                                    offset: const Offset(
+                                        0, 2), // changes position of shadow
+                                  ),
+                                ]),
+                            child: const Icon(
+                              Icons.photo_library,
+                              color: Colors.grey,
+                              size: 20.0,
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),

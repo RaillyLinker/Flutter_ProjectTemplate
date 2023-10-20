@@ -112,37 +112,37 @@ class PageView extends StatelessWidget {
                 ),
               ),
               Container(
-                width: 300,
-                alignment: Alignment.centerRight,
-                padding: const EdgeInsets.only(right: 20, top: 5),
-                child: GestureDetector(
-                  onTap: () {
-                    pageBusiness.toggleAgreeButton();
-                  },
+                  width: 300,
+                  alignment: Alignment.centerRight,
+                  padding: const EdgeInsets.only(right: 20, top: 5),
                   child: MouseRegion(
                     cursor: SystemMouseCursors.click,
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const Text(
-                          "동의합니다",
-                          style: TextStyle(fontFamily: "MaruBuri"),
-                        ),
-                        BlocBuilder<page_business.BlocAgreeCheckBox, bool>(
-                            builder: (c, s) {
-                          return Checkbox(
-                              activeColor: Colors.blue,
-                              checkColor: Colors.white,
-                              value: pageBusiness.pageViewModel.withdrawalAgree,
-                              onChanged: (value) {
-                                pageBusiness.toggleAgreeButton();
-                              });
-                        }),
-                      ],
+                    child: GestureDetector(
+                      onTap: () {
+                        pageBusiness.toggleAgreeButton();
+                      },
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Text(
+                            "동의합니다",
+                            style: TextStyle(fontFamily: "MaruBuri"),
+                          ),
+                          BlocBuilder<page_business.BlocAgreeCheckBox, bool>(
+                              builder: (c, s) {
+                            return Checkbox(
+                                activeColor: Colors.blue,
+                                checkColor: Colors.white,
+                                value:
+                                    pageBusiness.pageViewModel.withdrawalAgree,
+                                onChanged: (value) {
+                                  pageBusiness.toggleAgreeButton();
+                                });
+                          }),
+                        ],
+                      ),
                     ),
-                  ),
-                ),
-              ),
+                  )),
               const SizedBox(height: 20.0),
               ElevatedButton(
                 onPressed: () {

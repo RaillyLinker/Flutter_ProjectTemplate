@@ -170,15 +170,15 @@ class PageView extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 20.0),
-              GestureDetector(
-                onTap: () {
-                  pageBusiness.goToFindPasswordPage();
-                },
-                child: Container(
-                  constraints: const BoxConstraints(maxWidth: 180),
-                  child: const MouseRegion(
-                    cursor: SystemMouseCursors.click,
-                    child: Row(
+              MouseRegion(
+                cursor: SystemMouseCursors.click,
+                child: GestureDetector(
+                  onTap: () {
+                    pageBusiness.goToFindPasswordPage();
+                  },
+                  child: Container(
+                    constraints: const BoxConstraints(maxWidth: 180),
+                    child: const Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Expanded(
@@ -236,15 +236,15 @@ class PageView extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 5.0),
-              GestureDetector(
-                onTap: () {
-                  pageBusiness.selectRegisterWith();
-                },
-                child: Container(
-                  constraints: const BoxConstraints(maxWidth: 185),
-                  child: const MouseRegion(
-                    cursor: SystemMouseCursors.click,
-                    child: Row(
+              MouseRegion(
+                cursor: SystemMouseCursors.click,
+                child: GestureDetector(
+                  onTap: () {
+                    pageBusiness.selectRegisterWith();
+                  },
+                  child: Container(
+                    constraints: const BoxConstraints(maxWidth: 185),
+                    child: const Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Text(

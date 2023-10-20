@@ -96,9 +96,10 @@ class PageView extends StatelessWidget {
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: Colors.blue,
                                   ),
-                                  child:  Center(
+                                  child: Center(
                                     child: Container(
-                                      padding: const EdgeInsets.only(top: 2, bottom: 2),
+                                      padding: const EdgeInsets.only(
+                                          top: 2, bottom: 2),
                                       child: const Text(
                                         "이메일\n발송",
                                         style: TextStyle(
@@ -111,7 +112,9 @@ class PageView extends StatelessWidget {
                                 )),
                           ],
                         ),
-                        const SizedBox(height: 10,),
+                        const SizedBox(
+                          height: 10,
+                        ),
                         Row(
                           children: [
                             Expanded(child: BlocBuilder<
@@ -134,8 +137,7 @@ class PageView extends StatelessWidget {
                                     errorText: pageBusiness.pageViewModel
                                         .verificationCodeTextEditErrorMsg,
                                     labelText: '본인 인증 코드',
-                                    hintText:
-                                        "이메일로 발송된 본인 인증 코드"),
+                                    hintText: "이메일로 발송된 본인 인증 코드"),
                               );
                             }))
                           ],
@@ -168,11 +170,11 @@ class PageView extends StatelessWidget {
                       borderRadius: const BorderRadius.all(Radius.circular(5))),
                   child: const Text(
                     '이메일 주소를 입력 후 이메일 발송 버튼을 누르세요.\n\n'
-                        '입력한 이메일 주소로 전송된 본인 인증 코드를 10분 안에 입력하세요.\n\n'
-                        '이메일을 받지 못했다면,\n'
-                        '- 입력한 이메일 주소가 올바른지 확인하세요.\n'
-                        '- 이메일 스팸 보관함을 확인하세요.\n'
-                        '- 이메일 저장소 용량이 충분한지 확인하세요.',
+                    '입력한 이메일 주소로 전송된 본인 인증 코드를 10분 안에 입력하세요.\n\n'
+                    '이메일을 받지 못했다면,\n'
+                    '- 입력한 이메일 주소가 올바른지 확인하세요.\n'
+                    '- 이메일 스팸 보관함을 확인하세요.\n'
+                    '- 이메일 저장소 용량이 충분한지 확인하세요.',
                     style: TextStyle(
                         fontWeight: FontWeight.normal, fontFamily: "MaruBuri"),
                   ),

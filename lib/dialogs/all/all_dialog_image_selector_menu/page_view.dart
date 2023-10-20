@@ -81,6 +81,7 @@ class PageView extends StatelessWidget {
                                   page_entrance.ImageSourceType.gallery);
                             },
                             child: const ListTile(
+                              mouseCursor: SystemMouseCursors.click,
                               leading: Icon(Icons.photo),
                               title: Text('앨범에서 선택'),
                             ),
@@ -92,6 +93,7 @@ class PageView extends StatelessWidget {
                                         page_entrance.ImageSourceType.camera);
                                   },
                                   child: const ListTile(
+                                    mouseCursor: SystemMouseCursors.click,
                                     leading: Icon(Icons.camera_alt),
                                     title: Text('사진 찍기'),
                                   ),
@@ -103,6 +105,7 @@ class PageView extends StatelessWidget {
                                   page_entrance.ImageSourceType.defaultImage);
                             },
                             child: const ListTile(
+                              mouseCursor: SystemMouseCursors.click,
                               leading: Icon(Icons.account_box),
                               title: Text('선택 취소'),
                             ),

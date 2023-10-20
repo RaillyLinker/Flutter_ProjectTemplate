@@ -126,6 +126,7 @@ class PageView extends StatelessWidget {
                       itemBuilder: (context, index) {
                         String log = pageBusiness.pageViewModel.logList[index];
                         return ListTile(
+                          mouseCursor: SystemMouseCursors.click,
                           title: Text(
                             log,
                             style: const TextStyle(fontFamily: "MaruBuri"),

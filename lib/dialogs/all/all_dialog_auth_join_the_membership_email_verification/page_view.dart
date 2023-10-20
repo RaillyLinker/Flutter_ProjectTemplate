@@ -44,17 +44,16 @@ class PageView extends StatelessWidget {
               child: Column(
                 children: [
                   Align(
-                    alignment: Alignment.topRight,
-                    child: GestureDetector(
-                      onTap: () {
-                        pageBusiness.pushCloseBtn();
-                      },
-                      child: const Icon(
-                        Icons.close,
-                        color: Colors.grey,
-                      ),
-                    ),
-                  ),
+                      alignment: Alignment.topRight,
+                      child: IconButton(
+                        icon: const Icon(
+                          Icons.close,
+                          color: Colors.grey,
+                        ),
+                        onPressed: () {
+                          pageBusiness.pushCloseBtn();
+                        },
+                      )),
                   Container(
                     width: 400,
                     margin: const EdgeInsets.only(top: 10),
@@ -120,15 +119,15 @@ class PageView extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 16.0),
-                  GestureDetector(
-                    onTap: () {
-                      pageBusiness.resendVerificationEmail();
-                    },
-                    child: Container(
-                      constraints: const BoxConstraints(maxWidth: 160),
-                      child: const MouseRegion(
-                        cursor: SystemMouseCursors.click,
-                        child: Text(
+                  MouseRegion(
+                    cursor: SystemMouseCursors.click,
+                    child: GestureDetector(
+                      onTap: () {
+                        pageBusiness.resendVerificationEmail();
+                      },
+                      child: Container(
+                        constraints: const BoxConstraints(maxWidth: 160),
+                        child: const Text(
                           '본인 인증 이메일 재전송',
                           style: TextStyle(
                               fontWeight: FontWeight.bold,

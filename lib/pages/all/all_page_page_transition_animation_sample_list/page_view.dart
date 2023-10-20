@@ -65,6 +65,7 @@ class PageView extends StatelessWidget {
                     child: Column(
                       children: [
                         ListTile(
+                          mouseCursor: SystemMouseCursors.click,
                           title: Text(
                             pageBusiness.pageViewModel.filteredSampleList[index]
                                 .sampleItemTitle,

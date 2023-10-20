@@ -61,23 +61,26 @@ class PageView extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                GestureDetector(
-                  onTap: () {
-                    pageBusiness.countPlus1();
-                  },
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      border: Border(bottom: BorderSide(color: Colors.black)),
-                    ),
-                    margin: const EdgeInsets.only(bottom: 20),
-                    child: BlocBuilder<page_business.BlocSampleNumber, bool>(
-                      builder: (c, s) {
-                        return Text("${gd_variable_my_data.sampleNumber}",
-                            style: const TextStyle(
-                                fontSize: 20,
-                                color: Colors.black,
-                                fontFamily: "MaruBuri"));
-                      },
+                MouseRegion(
+                  cursor: SystemMouseCursors.click,
+                  child: GestureDetector(
+                    onTap: () {
+                      pageBusiness.countPlus1();
+                    },
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        border: Border(bottom: BorderSide(color: Colors.black)),
+                      ),
+                      margin: const EdgeInsets.only(bottom: 20),
+                      child: BlocBuilder<page_business.BlocSampleNumber, bool>(
+                        builder: (c, s) {
+                          return Text("${gd_variable_my_data.sampleNumber}",
+                              style: const TextStyle(
+                                  fontSize: 20,
+                                  color: Colors.black,
+                                  fontFamily: "MaruBuri"));
+                        },
+                      ),
                     ),
                   ),
                 ),
