@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+// (all)
+import '../../../global_classes/gc_my_classes.dart' as gc_my_classes;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
 import '../../../pages/all/all_page_crypt_sample/page_entrance.dart'
@@ -22,6 +24,8 @@ import '../../../pages/all/all_page_image_selector_sample/page_entrance.dart'
     as all_page_image_selector_sample;
 import '../../../pages/all/all_page_image_loading_sample/page_entrance.dart'
     as all_page_image_loading_sample;
+import '../../../pages/all/all_page_context_menu_sample/page_entrance.dart'
+    as all_page_context_menu_sample;
 
 // (app)
 import '../../../pages/app/app_page_server_sample/page_entrance.dart'
@@ -150,6 +154,11 @@ class PageBusiness {
           _context.pushNamed(all_page_image_loading_sample.pageName);
         }
         break;
+      case SampleItemEnum.contextMenuSample:
+        {
+          _context.pushNamed(all_page_context_menu_sample.pageName);
+        }
+        break;
     }
   }
 
@@ -167,6 +176,9 @@ class PageViewModel {
   // 페이지 파라미터 (아래 goRouterState 에서 가져와 대입하기)
   late page_entrance.PageInputVo pageInputVo;
   GoRouterState goRouterState;
+
+  // 현재 화면상 설정된 ContextMenuRegion 객체 리스트(메뉴 하나가 생성되면 나머지를 종료하기 위한 것.)
+  List<gc_my_classes.ContextMenuRegion> contextMenuRegionList = [];
 
   // !!!페이지 데이터 정의!!
   // ex :
@@ -202,6 +214,8 @@ class PageViewModel {
         "이미지 선택 샘플", "로컬 저장소, 혹은 카메라에서 이미지를 가져오는 샘플"));
     allSampleList.add(SampleItem(SampleItemEnum.imageLoadingSample, "이미지 로딩 샘플",
         "네트워크 이미지를 가져올 때 로딩 처리 및 에러 처리 샘플"));
+    allSampleList.add(SampleItem(SampleItemEnum.contextMenuSample, "컨텍스트 메뉴 샘플",
+        "마우스 우클릭시(모바일에서는 롱 클릭) 나타나는 메뉴 샘플 + 이미지 다운로드"));
   }
 }
 
@@ -232,6 +246,7 @@ enum SampleItemEnum {
   gifSample,
   imageSelectorSample,
   imageLoadingSample,
+  contextMenuSample,
 }
 
 // (BLoC 클래스 모음)

@@ -8,6 +8,7 @@ import 'package:go_router/go_router.dart';
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
 import 'page_business.dart' as page_business;
+import '../../../global_classes/gc_my_classes.dart' as gc_my_classes;
 
 // (page)
 import 'page_view.dart' as page_view;
@@ -182,7 +183,21 @@ class LifecycleWatcherState extends State<LifecycleWatcher>
             }
           }
         },
-        child: const page_view.PageView(),
+        child: GestureDetector(
+          onTap: () {
+            for (gc_my_classes.ContextMenuRegion contextMenuRegion
+                in _pageBusiness.pageViewModel.contextMenuRegionList) {
+              contextMenuRegion.hideContextMenu();
+            }
+          },
+          onSecondaryTap: () {
+            for (gc_my_classes.ContextMenuRegion contextMenuRegion
+                in _pageBusiness.pageViewModel.contextMenuRegionList) {
+              contextMenuRegion.hideContextMenu();
+            }
+          },
+          child: const page_view.PageView(),
+        ),
       ),
     );
   }

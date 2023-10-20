@@ -1,6 +1,8 @@
 // (external)
 import 'package:flutter/cupertino.dart';
 import 'package:sync/semaphore.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 
 // [전역 클래스 선언 파일]
 // 프로그램 전역에서 사용할 Class 를 선언하는 파일입니다.
@@ -76,5 +78,98 @@ class AnimatedSwitcherConfig {
         switchOutCurve: switchOutCurve,
         transitionBuilder: transitionBuilder,
         layoutBuilder: layoutBuilder);
+  }
+}
+
+// (우클릭 컨텍스트 메뉴 영역 클래스)
+typedef ContextMenuBuilder = Widget Function(
+    BuildContext context, Offset offset);
+
+class ContextMenuRegion extends StatefulWidget {
+  ContextMenuRegion({
+    super.key,
+    required this.child,
+    required this.contextMenuBuilder,
+    required parentList,
+  }) {
+    parentList.add(this);
+  }
+
+  final ContextMenuBuilder contextMenuBuilder;
+
+  final Widget child;
+
+  final _ContextMenuRegionState _contextMenuRegionState =
+      _ContextMenuRegionState();
+
+  void hideContextMenu() {
+    _contextMenuRegionState._hide();
+  }
+
+  @override
+  // ignore: no_logic_in_create_state
+  State<ContextMenuRegion> createState() => _contextMenuRegionState;
+}
+
+class _ContextMenuRegionState extends State<ContextMenuRegion> {
+  Offset? _longPressOffset;
+
+  final ContextMenuController _contextMenuController = ContextMenuController();
+
+  static bool get _longPressEnabled {
+    switch (defaultTargetPlatform) {
+      case TargetPlatform.android:
+      case TargetPlatform.iOS:
+        return true;
+      case TargetPlatform.macOS:
+      case TargetPlatform.fuchsia:
+      case TargetPlatform.linux:
+      case TargetPlatform.windows:
+        return false;
+    }
+  }
+
+  void _onSecondaryTapUp(TapUpDetails details) {
+    _show(details.globalPosition);
+  }
+
+  void _onLongPressStart(LongPressStartDetails details) {
+    _longPressOffset = details.globalPosition;
+  }
+
+  void _onLongPress() {
+    assert(_longPressOffset != null);
+    _show(_longPressOffset!);
+    _longPressOffset = null;
+  }
+
+  void _show(Offset position) {
+    _contextMenuController.show(
+      context: context,
+      contextMenuBuilder: (BuildContext context) {
+        return widget.contextMenuBuilder(context, position);
+      },
+    );
+  }
+
+  void _hide() {
+    _contextMenuController.remove();
+  }
+
+  @override
+  void dispose() {
+    _hide();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onSecondaryTapUp: _onSecondaryTapUp,
+      onLongPress: _longPressEnabled ? _onLongPress : null,
+      onLongPressStart: _longPressEnabled ? _onLongPressStart : null,
+      child: widget.child,
+    );
   }
 }

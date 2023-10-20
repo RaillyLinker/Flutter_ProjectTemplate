@@ -10,6 +10,7 @@ import 'page_business.dart' as page_business;
 // (all)
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
+import '../../../global_classes/gc_my_classes.dart' as gc_my_classes;
 
 // [페이지 진입 파일]
 
@@ -151,7 +152,21 @@ class LifecycleWatcherState extends State<LifecycleWatcher>
             }
           }
         },
-        child: const page_view.PageView(),
+        child: GestureDetector(
+          onTap: () {
+            for (gc_my_classes.ContextMenuRegion contextMenuRegion
+                in _pageBusiness.pageViewModel.contextMenuRegionList) {
+              contextMenuRegion.hideContextMenu();
+            }
+          },
+          onSecondaryTap: () {
+            for (gc_my_classes.ContextMenuRegion contextMenuRegion
+                in _pageBusiness.pageViewModel.contextMenuRegionList) {
+              contextMenuRegion.hideContextMenu();
+            }
+          },
+          child: const page_view.PageView(),
+        ),
       ),
     );
   }

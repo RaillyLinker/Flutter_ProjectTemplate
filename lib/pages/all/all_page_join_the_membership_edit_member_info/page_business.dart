@@ -11,6 +11,7 @@ import 'package:http_parser/http_parser.dart';
 import 'package:image_picker/image_picker.dart';
 
 // (all)
+import '../../../global_classes/gc_my_classes.dart' as gc_my_classes;
 import '../../../../repositories/network/apis/api_main_server.dart'
     as api_main_server;
 import '../../../dialogs/all/all_dialog_auth_join_the_membership_select_member_profile_image_src/page_entrance.dart'
@@ -580,6 +581,9 @@ class PageViewModel {
   // 페이지 파라미터 (아래 goRouterState 에서 가져와 대입하기)
   late page_entrance.PageInputVo pageInputVo;
   GoRouterState goRouterState;
+
+  // 현재 화면상 설정된 ContextMenuRegion 객체 리스트(메뉴 하나가 생성되면 나머지를 종료하기 위한 것.)
+  List<gc_my_classes.ContextMenuRegion> contextMenuRegionList = [];
 
   // !!!페이지 데이터 정의!!
   // ex :

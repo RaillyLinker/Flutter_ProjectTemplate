@@ -18,7 +18,7 @@ import '../../../global_classes/gc_my_classes.dart' as gc_my_classes;
 //------------------------------------------------------------------------------
 // !!!페이지 진입 라우트 Name 정의!!
 // 폴더명과 동일하게 작성하세요.
-const pageName = "all_page_page_transition_animation_sample_list";
+const pageName = "all_page_context_menu_sample";
 
 // !!!페이지 호출/반납 애니메이션!!
 // 동적으로 변경이 가능합니다.

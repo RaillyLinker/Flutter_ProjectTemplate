@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:seo_renderer/helpers/robot_detector_vm.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -43,6 +44,9 @@ void main() async {
   if (kIsWeb) {
     // (Web 환경)
     // !!!Web 환경 프로그램 최초 실행 로직 작성!!
+
+    // 마우스 우클릭 메뉴 금지 (현 시점, 플러터 웹에서 마우스 우클릭이 유용하지 않으며, 커스텀 메뉴를 사용하기 위해 필요한 조치)
+    BrowserContextMenu.disableContextMenu();
 
     // -------------------------------------------------------------------------
   } else {

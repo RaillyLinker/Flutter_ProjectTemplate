@@ -1,15 +1,18 @@
 // (external)
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:go_router/go_router.dart';
 
 // (page)
 import 'page_entrance.dart' as page_entrance;
 
 // (all)
-import '../../../global_classes/gc_my_classes.dart' as gc_my_classes;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
+import '../../../global_classes/gc_my_classes.dart' as gc_my_classes;
+import '../../../dialogs/all/all_dialog_info/page_entrance.dart'
+    as all_dialog_info;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
 
@@ -27,8 +30,8 @@ class PageBusiness {
   late BLocObjects blocObjects;
 
   // 생성자 설정
-  PageBusiness(this._context, page_entrance.PageInputVo pageInputVo) {
-    pageViewModel = PageViewModel(pageInputVo);
+  PageBusiness(this._context, GoRouterState goRouterState) {
+    pageViewModel = PageViewModel(goRouterState);
   }
 
   ////
@@ -42,11 +45,10 @@ class PageBusiness {
   Future<void> onPageCreateAsync() async {
     // !!!페이지 최초 실행 로직 작성!!
 
-    // 2초 대기
-    await Future.delayed(const Duration(seconds: 2));
+    // !!!pageInputVo Null 체크!!
 
-    // 다이얼로그 완료 처리
-    dialogComplete();
+    // !!!PageInputVo 입력!!
+    pageViewModel.pageInputVo = page_entrance.PageInputVo();
   }
 
   // (페이지 최초 실행 or 다른 페이지에서 복귀)
@@ -62,9 +64,6 @@ class PageBusiness {
   // (페이지 종료 (강제 종료는 탐지 못함))
   Future<void> onPageDestroyAsync() async {
     // !!!페이지 종료 로직 작성!!
-
-    // 다이얼로그 완료 처리
-    dialogComplete();
   }
 
   // (Page Pop 요청)
@@ -88,18 +87,29 @@ class PageBusiness {
 //     bLocObjects.blocSample.add(!bLocObjects.blocSample.state);
 //   }
 
-  // (다이얼로그 완료)
-  Future<void> dialogComplete() async {
-    pageViewModel.isComplete = true;
-    blocObjects.blocOuterContainerForComplete
-        .add(!blocObjects.blocOuterContainerForComplete.state);
+  // context 메뉴의 토스트 테스트 항목을 클릭
+  void toastTestMenuBtn() {
+    showToast(
+      "토스트 테스트 메뉴가 선택되었습니다.",
+      context: _context,
+      animation: StyledToastAnimation.scale,
+    );
+  }
 
-    // 애니메이션의 지속 시간만큼 지연
-    await Future.delayed(const Duration(milliseconds: 800));
+  // context 메뉴의 다이얼로그 테스트 항목을 클릭
+  void dialogTestMenuBtn() {
+    showDialog(
+        barrierDismissible: true,
+        context: _context,
+        builder: (context) => all_dialog_info.PageEntrance(
+            all_dialog_info.PageInputVo(
+                "컨텍스트 메뉴 테스트", "다이얼로그 테스트 메뉴가\n선택되었습니다.", "확인"),
+            (pageBusiness) {}));
+  }
 
-    // 다이얼로그 닫기
-    if (!_context.mounted) return;
-    _context.pop();
+  // context 메뉴의 이미지 저장 항목을 클릭
+  void saveImageBtn() {
+    // todo 이미지 저장
   }
 
 ////
@@ -113,11 +123,9 @@ class PageViewModel {
   // 페이지 생명주기 관련 states
   var pageLifeCycleStates = gc_template_classes.PageLifeCycleStates();
 
-  // 페이지 파라미터
-  page_entrance.PageInputVo pageInputVo;
-
-  // 다이얼로그 호출시 pageBusiness 를 전달하기 위한 콜백
-  late void Function(PageBusiness) onDialogPageCreated;
+  // 페이지 파라미터 (아래 goRouterState 에서 가져와 대입하기)
+  late page_entrance.PageInputVo pageInputVo;
+  GoRouterState goRouterState;
 
   // 현재 화면상 설정된 ContextMenuRegion 객체 리스트(메뉴 하나가 생성되면 나머지를 종료하기 위한 것.)
   List<gc_my_classes.ContextMenuRegion> contextMenuRegionList = [];
@@ -126,10 +134,7 @@ class PageViewModel {
   // ex :
   // int sampleNumber = 0;
 
-  // 다이얼로그 작업 완료 여부
-  bool isComplete = false;
-
-  PageViewModel(this.pageInputVo);
+  PageViewModel(this.goRouterState);
 }
 
 // (BLoC 클래스 모음)
@@ -144,14 +149,6 @@ class PageViewModel {
 //   }
 // }
 
-class BlocOuterContainerForComplete extends Bloc<bool, bool> {
-  BlocOuterContainerForComplete() : super(true) {
-    on<bool>((event, emit) {
-      emit(event);
-    });
-  }
-}
-
 // (BLoC 프로바이더 클래스)
 // 본 페이지에서 사용할 BLoC 객체를 모아두어 PageEntrance 에서 페이지 전역 설정에 사용 됩니다.
 class BLocProviders {
@@ -159,8 +156,6 @@ class BLocProviders {
   List<BlocProvider<dynamic>> blocProviders = [
     // ex :
     // BlocProvider<BlocSample>(create: (context) => BlocSample()),
-    BlocProvider<BlocOuterContainerForComplete>(
-        create: (context) => BlocOuterContainerForComplete()),
   ];
 }
 
@@ -171,14 +166,11 @@ class BLocObjects {
   // !!!BLoC 조작 객체 변수 선언!!
   // ex :
   // late BlocSample blocSample;
-  late BlocOuterContainerForComplete blocOuterContainerForComplete;
 
   // 생성자 설정
   BLocObjects(this._context) {
     // !!!BLoC 조작 객체 생성!!
     // ex :
     // blocSample = BlocProvider.of<BlocSample>(_context);
-    blocOuterContainerForComplete =
-        BlocProvider.of<BlocOuterContainerForComplete>(_context);
   }
 }
