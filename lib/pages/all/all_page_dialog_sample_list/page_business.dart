@@ -23,6 +23,8 @@ import '../../../dialogs/all/all_dialog_dialog_in_dialog/page_entrance.dart'
     as all_dialog_dialog_in_dialog;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
+import '../../../dialogs/all/all_dialog_context_menu_sample/page_entrance.dart'
+    as all_dialog_context_menu_sample;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
 
@@ -214,6 +216,17 @@ class PageBusiness {
               .then((outputVo) {});
         }
         break;
+      case SampleItemEnum.contextMenuSample:
+        {
+          // 다이얼로그 외부 색 설정
+          showDialog(
+              barrierDismissible: true,
+              context: _context,
+              builder: (context) => all_dialog_context_menu_sample.PageEntrance(
+                  all_dialog_context_menu_sample.PageInputVo(),
+                  (pageBusiness) {})).then((outputVo) {});
+        }
+        break;
     }
   }
 
@@ -258,6 +271,8 @@ class PageViewModel {
         "다이얼로그에서 다이얼로그를 호출합니다."));
     allSampleList.add(SampleItem(SampleItemEnum.dialogOutsideColorSample,
         "다이얼로그 외부 색 설정", "다이얼로그 영역 바깥의 색상을 지정합니다."));
+    allSampleList.add(SampleItem(SampleItemEnum.contextMenuSample, "컨텍스트 메뉴 샘플",
+        "다이얼로그에서 컨텍스트 메뉴를 사용하는 샘플"));
   }
 }
 
@@ -286,6 +301,7 @@ enum SampleItemEnum {
   modalBottomSheetDialog,
   dialogInDialog,
   dialogOutsideColorSample,
+  contextMenuSample,
 }
 
 // (BLoC 클래스 모음)

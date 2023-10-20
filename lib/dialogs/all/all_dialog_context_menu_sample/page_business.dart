@@ -11,8 +11,6 @@ import 'page_entrance.dart' as page_entrance;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
 import '../../../global_classes/gc_my_classes.dart' as gc_my_classes;
-import '../../../dialogs/all/all_dialog_info/page_entrance.dart'
-    as all_dialog_info;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
 
@@ -30,8 +28,8 @@ class PageBusiness {
   late BLocObjects blocObjects;
 
   // 생성자 설정
-  PageBusiness(this._context, GoRouterState goRouterState) {
-    pageViewModel = PageViewModel(goRouterState);
+  PageBusiness(this._context, page_entrance.PageInputVo pageInputVo) {
+    pageViewModel = PageViewModel(pageInputVo);
   }
 
   ////
@@ -44,11 +42,6 @@ class PageBusiness {
   // (페이지 최초 실행)
   Future<void> onPageCreateAsync() async {
     // !!!페이지 최초 실행 로직 작성!!
-
-    // !!!pageInputVo Null 체크!!
-
-    // !!!PageInputVo 입력!!
-    pageViewModel.pageInputVo = page_entrance.PageInputVo();
   }
 
   // (페이지 최초 실행 or 다른 페이지에서 복귀)
@@ -98,18 +91,7 @@ class PageBusiness {
 
   // (context 메뉴의 다이얼로그 테스트 항목을 클릭)
   void dialogTestMenuBtn() {
-    showDialog(
-        barrierDismissible: true,
-        context: _context,
-        builder: (context) => all_dialog_info.PageEntrance(
-            all_dialog_info.PageInputVo(
-                "컨텍스트 메뉴 테스트", "다이얼로그 테스트 메뉴가\n선택되었습니다.", "확인"),
-            (pageBusiness) {}));
-  }
-
-  // (context 메뉴의 이미지 저장 항목을 클릭)
-  void saveImageBtn() {
-    // todo 이미지 저장
+    _context.pop();
   }
 
 ////
@@ -123,9 +105,11 @@ class PageViewModel {
   // 페이지 생명주기 관련 states
   var pageLifeCycleStates = gc_template_classes.PageLifeCycleStates();
 
-  // 페이지 파라미터 (아래 goRouterState 에서 가져와 대입하기)
-  late page_entrance.PageInputVo pageInputVo;
-  GoRouterState goRouterState;
+  // 페이지 파라미터
+  page_entrance.PageInputVo pageInputVo;
+
+  // 다이얼로그 호출시 pageBusiness 를 전달하기 위한 콜백
+  late void Function(PageBusiness) onDialogPageCreated;
 
   // 현재 화면상 설정된 ContextMenuRegion 객체 리스트(메뉴 하나가 생성되면 나머지를 종료하기 위한 것.)
   List<gc_my_classes.ContextMenuRegion> contextMenuRegionList = [];
@@ -134,7 +118,7 @@ class PageViewModel {
   // ex :
   // int sampleNumber = 0;
 
-  PageViewModel(this.goRouterState);
+  PageViewModel(this.pageInputVo);
 }
 
 // (BLoC 클래스 모음)
