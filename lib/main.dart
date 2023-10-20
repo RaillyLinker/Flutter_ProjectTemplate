@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'package:seo_renderer/helpers/robot_detector_vm.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_strategy/url_strategy.dart';
+import 'package:flutter/gestures.dart';
 
 // (all)
 import 'router.dart' as router;
@@ -105,5 +106,16 @@ void main() async {
             // 디버그 모드에서 디버그 리본 적용
             debugShowCheckedModeBanner: gd_const_config.isDebugMode,
             routerConfig: router.getRouter(), // 라우트 경로 주입
+            // Mobile 외 환경의 스크롤링을 마우스 터치로 가능하도록 처리
+            scrollBehavior: MouseTouchScrollBehavior(),
           )));
+}
+
+// Web 에서의 스크롤링을 마우스 터치로 가능하도록 처리
+class MouseTouchScrollBehavior extends MaterialScrollBehavior {
+  @override
+  Set<PointerDeviceKind> get dragDevices => {
+        PointerDeviceKind.touch,
+        PointerDeviceKind.mouse,
+      };
 }
