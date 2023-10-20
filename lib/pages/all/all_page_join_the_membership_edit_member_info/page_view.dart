@@ -78,11 +78,34 @@ class PageView extends StatelessWidget {
                           ));
                         } else {
                           return ClipOval(
-                            child: Image.memory(
-                              pageBusiness.pageViewModel.profileImage!,
-                              fit: BoxFit.cover,
+                            child: SizedBox(
                               width: 100,
                               height: 100,
+                              child: Image(
+                                image: MemoryImage(
+                                    pageBusiness.pageViewModel.profileImage!),
+                                fit: BoxFit.cover,
+                                loadingBuilder: (BuildContext context,
+                                    Widget child,
+                                    ImageChunkEvent? loadingProgress) {
+                                  // 로딩 중일 때 플레이스 홀더를 보여줍니다.
+                                  if (loadingProgress == null) {
+                                    return child; // 로딩이 끝났을 경우
+                                  }
+                                  return const Center(
+                                    child: CircularProgressIndicator(),
+                                  );
+                                },
+                                errorBuilder: (context, error, stackTrace) {
+                                  // 에러 발생 시 설정한 에러 위젯을 반환합니다.
+                                  return const Center(
+                                    child: Icon(
+                                      Icons.error,
+                                      color: Colors.red,
+                                    ),
+                                  );
+                                },
+                              ),
                             ),
                           );
                         }

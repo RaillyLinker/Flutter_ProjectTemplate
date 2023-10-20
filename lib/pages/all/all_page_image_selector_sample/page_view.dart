@@ -77,11 +77,34 @@ class PageView extends StatelessWidget {
                           ));
                         } else {
                           return ClipOval(
-                            child: Image.memory(
-                              pageBusiness.pageViewModel.selectedImage!,
-                              fit: BoxFit.cover,
+                            child: SizedBox(
                               width: 150,
                               height: 150,
+                              child: Image(
+                                image: MemoryImage(
+                                    pageBusiness.pageViewModel.selectedImage!),
+                                fit: BoxFit.cover,
+                                loadingBuilder: (BuildContext context,
+                                    Widget child,
+                                    ImageChunkEvent? loadingProgress) {
+                                  // 로딩 중일 때 플레이스 홀더를 보여줍니다.
+                                  if (loadingProgress == null) {
+                                    return child; // 로딩이 끝났을 경우
+                                  }
+                                  return const Center(
+                                    child: CircularProgressIndicator(),
+                                  );
+                                },
+                                errorBuilder: (context, error, stackTrace) {
+                                  // 에러 발생 시 설정한 에러 위젯을 반환합니다.
+                                  return const Center(
+                                    child: Icon(
+                                      Icons.error,
+                                      color: Colors.red,
+                                    ),
+                                  );
+                                },
+                              ),
                             ),
                           );
                         }
@@ -151,9 +174,21 @@ class PageView extends StatelessWidget {
                                         color:
                                             Color.fromARGB(255, 158, 158, 158)),
                                   ))),
-                              SizedBox(
+                              Container(
                                 width: 76,
                                 height: 76,
+                                decoration: const BoxDecoration(
+                                  border: Border(
+                                    top: BorderSide(
+                                        width: 1.0, color: Colors.black),
+                                    bottom: BorderSide(
+                                        width: 1.0, color: Colors.black),
+                                    left: BorderSide(
+                                        width: 1.0, color: Colors.black),
+                                    right: BorderSide(
+                                        width: 1.0, color: Colors.black),
+                                  ),
+                                ),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
@@ -180,7 +215,7 @@ class PageView extends StatelessWidget {
                               pageBusiness.pageViewModel.imageFiles[index - 1];
 
                           return Padding(
-                              padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                              padding: const EdgeInsets.only(left: 10),
                               child: Stack(
                                 children: [
                                   Container(
@@ -192,8 +227,6 @@ class PageView extends StatelessWidget {
                                     child: Image(
                                       image: MemoryImage(imageFile),
                                       fit: BoxFit.cover,
-                                      width: 100,
-                                      height: 100,
                                       loadingBuilder: (BuildContext context,
                                           Widget child,
                                           ImageChunkEvent? loadingProgress) {
@@ -201,22 +234,17 @@ class PageView extends StatelessWidget {
                                         if (loadingProgress == null) {
                                           return child; // 로딩이 끝났을 경우
                                         }
-                                        return const SizedBox(
-                                          width: 100,
-                                          height: 100,
-                                          child: Center(
-                                            child: CircularProgressIndicator(),
-                                          ),
+                                        return const Center(
+                                          child: CircularProgressIndicator(),
                                         );
                                       },
                                       errorBuilder:
                                           (context, error, stackTrace) {
                                         // 에러 발생 시 설정한 에러 위젯을 반환합니다.
-                                        return const SizedBox(
-                                          width: 100,
-                                          height: 100,
-                                          child: Center(
-                                            child: Icon(Icons.error),
+                                        return const Center(
+                                          child: Icon(
+                                            Icons.error,
+                                            color: Colors.red,
                                           ),
                                         );
                                       },

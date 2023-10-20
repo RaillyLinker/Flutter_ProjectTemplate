@@ -81,22 +81,16 @@ class PageView extends StatelessWidget {
                           if (loadingProgress == null) {
                             return child; // 로딩이 끝났을 경우
                           }
-                          return Container(
-                            color: Colors.grey,
-                            child: const Center(
-                              child: CircularProgressIndicator(),
-                            ),
+                          return const Center(
+                            child: CircularProgressIndicator(),
                           );
                         },
                         errorBuilder: (context, error, stackTrace) {
                           // 에러 발생 시 설정한 에러 위젯을 반환합니다.
-                          return Container(
-                            color: Colors.grey,
-                            child: const Center(
-                              child: Icon(
-                                Icons.error,
-                                color: Colors.red,
-                              ),
+                          return const Center(
+                            child: Icon(
+                              Icons.error,
+                              color: Colors.red,
                             ),
                           );
                         },
@@ -140,22 +134,16 @@ class PageView extends StatelessWidget {
                           if (loadingProgress == null) {
                             return child; // 로딩이 끝났을 경우
                           }
-                          return Container(
-                            color: Colors.grey,
-                            child: const Center(
-                              child: CircularProgressIndicator(),
-                            ),
+                          return const Center(
+                            child: CircularProgressIndicator(),
                           );
                         },
                         errorBuilder: (context, error, stackTrace) {
                           // 에러 발생 시 설정한 에러 위젯을 반환합니다.
-                          return Container(
-                            color: Colors.grey,
-                            child: const Center(
-                              child: Icon(
-                                Icons.error,
-                                color: Colors.red,
-                              ),
+                          return const Center(
+                            child: Icon(
+                              Icons.error,
+                              color: Colors.red,
                             ),
                           );
                         },
@@ -199,22 +187,16 @@ class PageView extends StatelessWidget {
                           if (loadingProgress == null) {
                             return child; // 로딩이 끝났을 경우
                           }
-                          return Container(
-                            color: Colors.grey,
-                            child: const Center(
-                              child: CircularProgressIndicator(),
-                            ),
+                          return const Center(
+                            child: CircularProgressIndicator(),
                           );
                         },
                         errorBuilder: (context, error, stackTrace) {
                           // 에러 발생 시 설정한 에러 위젯을 반환합니다.
-                          return Container(
-                            color: Colors.grey,
-                            child: const Center(
-                              child: Icon(
-                                Icons.error,
-                                color: Colors.red,
-                              ),
+                          return const Center(
+                            child: Icon(
+                              Icons.error,
+                              color: Colors.red,
                             ),
                           );
                         },

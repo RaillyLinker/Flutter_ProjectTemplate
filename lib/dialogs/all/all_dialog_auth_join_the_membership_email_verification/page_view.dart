@@ -61,7 +61,7 @@ class PageView extends StatelessWidget {
                     padding: const EdgeInsets.only(
                         left: 10, right: 10, top: 3, bottom: 3),
                     decoration: BoxDecoration(
-                        color: Colors.greenAccent[100],
+                        color: Colors.blue[100],
                         borderRadius:
                             const BorderRadius.all(Radius.circular(5))),
                     child: const Center(
