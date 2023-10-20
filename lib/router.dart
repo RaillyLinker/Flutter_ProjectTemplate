@@ -68,6 +68,8 @@ import 'pages/all/all_page_grid_sample/page_entrance.dart'
     as all_page_grid_sample;
 import 'pages/all/all_page_image_selector_sample/page_entrance.dart'
     as all_page_image_selector_sample;
+import 'pages/all/all_page_image_loading_sample/page_entrance.dart'
+    as all_page_image_loading_sample;
 
 // (app)
 import 'pages/app/app_page_init_splash/page_entrance.dart'
@@ -532,6 +534,19 @@ GoRouter getRouter() {
         child: all_page_image_selector_sample.PageEntrance(s),
         transitionsBuilder:
             all_page_image_selector_sample.pageTransitionsBuilder,
+      );
+    },
+  ));
+
+  subRouteListEtcSampleList.add(GoRoute(
+    path: "image-loading-sample",
+    name: all_page_image_loading_sample.pageName,
+    pageBuilder: (c, s) {
+      return CustomTransitionPage(
+        key: s.pageKey,
+        child: all_page_image_loading_sample.PageEntrance(s),
+        transitionsBuilder:
+            all_page_image_loading_sample.pageTransitionsBuilder,
       );
     },
   ));
