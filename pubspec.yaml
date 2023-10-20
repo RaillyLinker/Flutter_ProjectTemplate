@@ -31,7 +31,7 @@ dependencies:
   url_strategy: ^0.2.0
 
   # Router 개선
-  go_router: ^11.1.2
+  go_router: ^12.0.0
 
   # Web SEO 개선
   seo_renderer: ^0.6.0
@@ -100,7 +100,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  flutter_lints: ^2.0.2
+  flutter_lints: ^3.0.0
 
 flutter:
   uses-material-design: true
