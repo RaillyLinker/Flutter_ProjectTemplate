@@ -59,12 +59,20 @@ class PageView extends StatelessWidget {
               ),
               gc_my_classes.ContextMenuRegion(
                 contextMenuRegionItemVoList: [
-                  gc_my_classes.ContextMenuRegionItemVo(const Text("토스트 테스트"),
-                      () {
+                  gc_my_classes.ContextMenuRegionItemVo(
+                      const Text(
+                        "토스트 테스트",
+                        style: TextStyle(
+                            color: Colors.black, fontFamily: "MaruBuri"),
+                      ), () {
                     pageBusiness.toastTestMenuBtn();
                   }),
-                  gc_my_classes.ContextMenuRegionItemVo(const Text("다이얼로그 닫기"),
-                      () {
+                  gc_my_classes.ContextMenuRegionItemVo(
+                      const Text(
+                        "다이얼로그 닫기",
+                        style: TextStyle(
+                            color: Colors.black, fontFamily: "MaruBuri"),
+                      ), () {
                     pageBusiness.dialogTestMenuBtn();
                   }),
                 ],
@@ -72,7 +80,11 @@ class PageView extends StatelessWidget {
                   padding: const EdgeInsets.only(
                       top: 10, bottom: 10, left: 10, right: 10),
                   color: Colors.blue[100], // 옅은 파란색
-                  child: const Text('우클릭 해보세요.'),
+                  child: const Text(
+                    '우클릭 해보세요.',
+                    style:
+                        TextStyle(color: Colors.black, fontFamily: "MaruBuri"),
+                  ),
                 ),
               ),
               const SizedBox(
@@ -80,7 +92,12 @@ class PageView extends StatelessWidget {
               ),
               gc_my_classes.ContextMenuRegion(
                 contextMenuRegionItemVoList: [
-                  gc_my_classes.ContextMenuRegionItemVo(const Text("뒤로가기"), () {
+                  gc_my_classes.ContextMenuRegionItemVo(
+                      const Text(
+                        "뒤로가기",
+                        style: TextStyle(
+                            color: Colors.black, fontFamily: "MaruBuri"),
+                      ), () {
                     pageBusiness.goBackBtn();
                   }),
                 ],
@@ -88,7 +105,11 @@ class PageView extends StatelessWidget {
                   padding: const EdgeInsets.only(
                       top: 10, bottom: 10, left: 10, right: 10),
                   color: Colors.blue[100], // 옅은 파란색
-                  child: const Text('모바일에선 길게 누르세요.'),
+                  child: const Text(
+                    '모바일에선 길게 누르세요.',
+                    style:
+                        TextStyle(color: Colors.black, fontFamily: "MaruBuri"),
+                  ),
                 ),
               ),
             ],

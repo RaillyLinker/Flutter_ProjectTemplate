@@ -43,7 +43,7 @@ class PageView extends StatelessWidget {
         automaticallyImplyLeading: !kIsWeb,
         title: const Text(
           "GIF 샘플",
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: Colors.white,fontFamily: "MaruBuri"),
         ),
         backgroundColor: Colors.blue,
         iconTheme: const IconThemeData(
