@@ -41,29 +41,16 @@ class PageView extends StatelessWidget {
               borderRadius: BorderRadius.all(Radius.circular(16))),
           child: Center(
             child: gc_my_classes.ContextMenuRegion(
-              contextMenuBuilder: (BuildContext context, Offset offset) {
-                return AdaptiveTextSelectionToolbar.buttonItems(
-                  anchors: TextSelectionToolbarAnchors(
-                    primaryAnchor: offset,
-                  ),
-                  buttonItems: <ContextMenuButtonItem>[
-                    ContextMenuButtonItem(
-                      onPressed: () {
-                        ContextMenuController.removeAny();
-                        pageBusiness.toastTestMenuBtn();
-                      },
-                      label: '토스트 테스트',
-                    ),
-                    ContextMenuButtonItem(
-                      onPressed: () {
-                        ContextMenuController.removeAny();
-                        pageBusiness.dialogTestMenuBtn();
-                      },
-                      label: '다이얼로그 닫기',
-                    ),
-                  ],
-                );
-              },
+              contextMenuRegionItemVoList: [
+                gc_my_classes.ContextMenuRegionItemVo(const Text("토스트 테스트"),
+                    () {
+                  pageBusiness.toastTestMenuBtn();
+                }),
+                gc_my_classes.ContextMenuRegionItemVo(const Text("다이얼로그 닫기"),
+                    () {
+                  pageBusiness.dialogTestMenuBtn();
+                }),
+              ],
               child: Container(
                 padding: const EdgeInsets.only(
                     top: 10, bottom: 10, left: 10, right: 10),

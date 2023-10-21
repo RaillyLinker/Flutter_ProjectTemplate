@@ -58,29 +58,16 @@ class PageView extends StatelessWidget {
                 height: 50,
               ),
               gc_my_classes.ContextMenuRegion(
-                contextMenuBuilder: (BuildContext context, Offset offset) {
-                  return AdaptiveTextSelectionToolbar.buttonItems(
-                    anchors: TextSelectionToolbarAnchors(
-                      primaryAnchor: offset,
-                    ),
-                    buttonItems: <ContextMenuButtonItem>[
-                      ContextMenuButtonItem(
-                        onPressed: () {
-                          ContextMenuController.removeAny();
-                          pageBusiness.toastTestMenuBtn();
-                        },
-                        label: '토스트 테스트',
-                      ),
-                      ContextMenuButtonItem(
-                        onPressed: () {
-                          ContextMenuController.removeAny();
-                          pageBusiness.dialogTestMenuBtn();
-                        },
-                        label: '다이얼로그 테스트',
-                      ),
-                    ],
-                  );
-                },
+                contextMenuRegionItemVoList: [
+                  gc_my_classes.ContextMenuRegionItemVo(const Text("토스트 테스트"),
+                      () {
+                    pageBusiness.toastTestMenuBtn();
+                  }),
+                  gc_my_classes.ContextMenuRegionItemVo(const Text("다이얼로그 닫기"),
+                      () {
+                    pageBusiness.dialogTestMenuBtn();
+                  }),
+                ],
                 child: Container(
                   padding: const EdgeInsets.only(
                       top: 10, bottom: 10, left: 10, right: 10),
@@ -92,22 +79,12 @@ class PageView extends StatelessWidget {
                 height: 50,
               ),
               gc_my_classes.ContextMenuRegion(
-                contextMenuBuilder: (BuildContext context, Offset offset) {
-                  return AdaptiveTextSelectionToolbar.buttonItems(
-                    anchors: TextSelectionToolbarAnchors(
-                      primaryAnchor: offset,
-                    ),
-                    buttonItems: <ContextMenuButtonItem>[
-                      ContextMenuButtonItem(
-                        onPressed: () {
-                          ContextMenuController.removeAny();
-                          pageBusiness.saveImageBtn();
-                        },
-                        label: '이미지 저장',
-                      ),
-                    ],
-                  );
-                },
+                contextMenuRegionItemVoList: [
+                  gc_my_classes.ContextMenuRegionItemVo(const Text("이미지 저장"),
+                      () {
+                    pageBusiness.saveImageBtn();
+                  }),
+                ],
                 child: SizedBox(
                   width: 130,
                   height: 130,

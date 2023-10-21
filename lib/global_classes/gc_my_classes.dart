@@ -81,19 +81,29 @@ class AnimatedSwitcherConfig {
 }
 
 // (우클릭 컨텍스트 메뉴 영역 클래스)
-typedef ContextMenuBuilder = Widget Function(
-    BuildContext context, Offset offset);
+class ContextMenuRegionItemVo {
+  Widget menuItemWidget;
+  void Function() menuItemCallback;
+
+  late String itemUid;
+
+  ContextMenuRegionItemVo(this.menuItemWidget, this.menuItemCallback) {
+    String menuItemWidgetCode = menuItemWidget.hashCode.toString();
+    String menuItemCallbackCode = menuItemWidget.hashCode.toString();
+    itemUid = "${menuItemWidgetCode}_$menuItemCallbackCode";
+  }
+}
 
 class ContextMenuRegion extends StatefulWidget {
   ContextMenuRegion({
     super.key,
     required this.child,
-    required this.contextMenuBuilder,
+    required this.contextMenuRegionItemVoList,
   });
 
-  final ContextMenuBuilder contextMenuBuilder;
-
   final Widget child;
+
+  final List<ContextMenuRegionItemVo> contextMenuRegionItemVoList;
 
   final _ContextMenuRegionState _contextMenuRegionState =
       _ContextMenuRegionState();
@@ -134,40 +144,33 @@ class _ContextMenuRegionState extends State<ContextMenuRegion> {
   }
 
   Future<void> _show(Offset position) async {
-    // _contextMenuController.show(
-    //   context: context,
-    //   contextMenuBuilder: (BuildContext context) {
-    //     return widget.contextMenuBuilder(context, position);
-    //   },
-    // );
+    final RenderObject overlay =
+        Overlay.of(context).context.findRenderObject()!;
 
-    final RenderObject? overlay =
-        Overlay.of(context)?.context.findRenderObject();
+    List<PopupMenuItem> popupMenuItemList = [];
+    Map popupMenuItemCallbackMap = {};
+    for (ContextMenuRegionItemVo contextMenuRegionItemVo
+        in widget.contextMenuRegionItemVoList) {
+      popupMenuItemList.add(PopupMenuItem(
+        value: contextMenuRegionItemVo.itemUid,
+        child: contextMenuRegionItemVo.menuItemWidget,
+      ));
 
+      popupMenuItemCallbackMap[contextMenuRegionItemVo.itemUid] =
+          contextMenuRegionItemVo.menuItemCallback;
+    }
+
+    // !!!우클릭 메뉴 외곽을 수정하고 싶으면 이것을 수정하기!!
     final result = await showMenu(
         context: context,
         position: RelativeRect.fromRect(
             Rect.fromLTWH(position.dx, position.dy, 100, 100),
-            Rect.fromLTWH(0, 0, overlay!.paintBounds.size.width,
-                overlay!.paintBounds.size.height)),
-        items: [
-          const PopupMenuItem(
-            child: Text('Add Me'),
-            value: "fav",
-          ),
-          const PopupMenuItem(
-            child: Text('Close'),
-            value: "close",
-          )
-        ]);
-    switch (result) {
-      case 'fav':
-        print("fav");
-        break;
-      case 'close':
-        print('close');
-        Navigator.pop(context);
-        break;
+            Rect.fromLTWH(0, 0, overlay.paintBounds.size.width,
+                overlay.paintBounds.size.height)),
+        items: popupMenuItemList);
+
+    if (popupMenuItemCallbackMap.containsKey(result)) {
+      popupMenuItemCallbackMap[result]();
     }
   }
 
