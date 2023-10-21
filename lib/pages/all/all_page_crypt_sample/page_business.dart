@@ -60,8 +60,10 @@ class PageBusiness {
   // (페이지 종료 (강제 종료는 탐지 못함))
   Future<void> onPageDestroyAsync() async {
     // !!!페이지 종료 로직 작성!!
-    pageViewModel.encryptTextController.dispose();
-    pageViewModel.decryptTextController.dispose();
+    pageViewModel.aes256EncryptTextController.dispose();
+    pageViewModel.aes256DecryptTextController.dispose();
+    pageViewModel.aes256SecretKeyTextController.dispose();
+    pageViewModel.aes256IvTextController.dispose();
   }
 
   // (Page Pop 요청)
@@ -87,12 +89,15 @@ class PageBusiness {
 
   // (암호화 함수)
   void doEncrypt() {
-    String encryptString = pageViewModel.encryptTextController.text;
+    String encryptString = pageViewModel.aes256EncryptTextController.text;
 
     try {
       // !!!원하는 암호화 알고리즘을 적용!!
-      pageViewModel.encryptResultText = gf_crypto.aes256Encrypt(encryptString,
-          "aaaaaaaaaabbbbbbbbbbccccccccccdd", "aaaaaaaaaabbbbbb");
+      pageViewModel.aes256EncryptResultText = gf_crypto.aes256Encrypt(
+        encryptString,
+        pageViewModel.aes256SecretKeyTextController.text,
+        pageViewModel.aes256IvTextController.text,
+      );
     } catch (e) {
       if (kDebugMode) {
         print(e);
@@ -105,12 +110,15 @@ class PageBusiness {
 
   // (복호화 함수)
   void doDecrypt() {
-    String decryptString = pageViewModel.decryptTextController.text;
+    String decryptString = pageViewModel.aes256DecryptTextController.text;
 
     try {
       // !!!원하는 복호화 알고리즘을 적용!!
-      pageViewModel.decryptResultText = gf_crypto.aes256Decrypt(decryptString,
-          "aaaaaaaaaabbbbbbbbbbccccccccccdd", "aaaaaaaaaabbbbbb");
+      pageViewModel.aes256DecryptResultText = gf_crypto.aes256Decrypt(
+        decryptString,
+        pageViewModel.aes256SecretKeyTextController.text,
+        pageViewModel.aes256IvTextController.text,
+      );
     } catch (e) {
       if (kDebugMode) {
         print(e);
@@ -139,11 +147,15 @@ class PageViewModel {
   // !!!페이지 데이터 정의!!
   // ex :
   // int sampleNumber = 0;
-  TextEditingController encryptTextController = TextEditingController();
-  TextEditingController decryptTextController = TextEditingController();
+  GlobalKey<FormState> aes256FormKey = GlobalKey<FormState>();
 
-  String encryptResultText = "";
-  String decryptResultText = "";
+  TextEditingController aes256EncryptTextController = TextEditingController();
+  TextEditingController aes256DecryptTextController = TextEditingController();
+  TextEditingController aes256SecretKeyTextController = TextEditingController();
+  TextEditingController aes256IvTextController = TextEditingController();
+
+  String aes256EncryptResultText = "";
+  String aes256DecryptResultText = "";
 
   PageViewModel(this.goRouterState);
 }
