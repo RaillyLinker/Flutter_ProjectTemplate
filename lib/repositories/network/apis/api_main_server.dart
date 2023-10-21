@@ -4,7 +4,6 @@ import 'package:dio/dio.dart';
 // (all)
 import 'package:flutter_project_template/repositories/network/network_repositories.dart'
     as network_repositories;
-
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
 import '../../../global_data/gd_const_config.dart' as gd_const_config;

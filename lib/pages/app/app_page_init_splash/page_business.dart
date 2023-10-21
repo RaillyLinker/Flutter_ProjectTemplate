@@ -9,6 +9,9 @@ import 'package:intl/intl.dart';
 import 'package:store_redirect/store_redirect.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+// (page)
+import 'page_entrance.dart' as page_entrance;
+
 // (all)
 import '../../../../../repositories/network/apis/api_main_server.dart'
     as api_main_server;
@@ -23,9 +26,6 @@ import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
 import '../../../global_data/gd_const_config.dart' as gd_const_config;
 import '../../../pages/all/all_page_home/page_entrance.dart' as all_page_home;
-
-// (page)
-import 'page_entrance.dart' as page_entrance;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
 
@@ -543,9 +543,6 @@ class PageViewModel {
   // 페이지 파라미터 (아래 goRouterState 에서 가져와 대입하기)
   late page_entrance.PageInputVo pageInputVo;
   GoRouterState goRouterState;
-
-  // 현재 화면상 설정된 ContextMenuRegion 객체 리스트(메뉴 하나가 생성되면 나머지를 종료하기 위한 것.)
-  List<gc_my_classes.ContextMenuRegion> contextMenuRegionList = [];
 
   // !!!페이지 데이터 정의!!
   // ex :

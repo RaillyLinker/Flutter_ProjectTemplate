@@ -1,6 +1,5 @@
 // (external)
 import 'dart:convert';
-import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
 import 'package:encrypt/encrypt.dart';
 
 // [전역 함수 작성 파일]

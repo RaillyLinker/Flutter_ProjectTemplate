@@ -3,14 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:focus_detector_v2/focus_detector_v2.dart';
 
+// (page)
+import 'page_view.dart' as page_view;
+
 // (all)
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
 import 'page_business.dart' as page_business;
-import '../../../global_classes/gc_my_classes.dart' as gc_my_classes;
-
-// (page)
-import 'page_view.dart' as page_view;
 
 // [페이지 진입 파일]
 
@@ -167,21 +166,7 @@ class LifecycleWatcherState extends State<LifecycleWatcher>
             }
           }
         },
-        child: GestureDetector(
-          onTap: () {
-            for (gc_my_classes.ContextMenuRegion contextMenuRegion
-                in _pageBusiness.pageViewModel.contextMenuRegionList) {
-              contextMenuRegion.hideContextMenu();
-            }
-          },
-          onSecondaryTap: () {
-            for (gc_my_classes.ContextMenuRegion contextMenuRegion
-                in _pageBusiness.pageViewModel.contextMenuRegionList) {
-              contextMenuRegion.hideContextMenu();
-            }
-          },
-          child: const page_view.PageView(),
-        ),
+        child: const page_view.PageView(),
       ),
     );
   }

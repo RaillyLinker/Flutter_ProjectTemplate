@@ -4,8 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
+// (page)
+import 'page_entrance.dart' as page_entrance;
+
 // (all)
-import '../../../global_classes/gc_my_classes.dart' as gc_my_classes;
 import '../../../../repositories/network/apis/api_main_server.dart'
     as api_main_server;
 import '../../../../repositories/spws/spw_auth_member_info.dart'
@@ -22,9 +24,6 @@ import '../../../pages/all/all_page_authorization_test_sample_list/page_entrance
 import '../../../pages/all/all_page_login/page_entrance.dart' as all_page_login;
 import '../../../pages/all/all_page_member_info/page_entrance.dart'
     as all_page_member_info;
-
-// (page)
-import 'page_entrance.dart' as page_entrance;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
 
@@ -464,9 +463,6 @@ class PageViewModel {
   // 페이지 파라미터 (아래 goRouterState 에서 가져와 대입하기)
   late page_entrance.PageInputVo pageInputVo;
   GoRouterState goRouterState;
-
-  // 현재 화면상 설정된 ContextMenuRegion 객체 리스트(메뉴 하나가 생성되면 나머지를 종료하기 위한 것.)
-  List<gc_my_classes.ContextMenuRegion> contextMenuRegionList = [];
 
   // !!!페이지 데이터 정의!!
   // ex :

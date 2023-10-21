@@ -3,20 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../repositories/network/apis/api_main_server.dart'
-    as api_main_server;
+// (page)
+import 'page_entrance.dart' as page_entrance;
 
 // (all)
-import '../../../global_classes/gc_my_classes.dart' as gc_my_classes;
 import '../../../dialogs/all/all_dialog_info/page_entrance.dart'
     as all_dialog_info;
 import '../../../dialogs/all/all_dialog_loading_spinner/page_entrance.dart'
     as all_dialog_loading_spinner;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
-
-// (page)
-import 'page_entrance.dart' as page_entrance;
+import '../../../../repositories/network/apis/api_main_server.dart'
+    as api_main_server;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
 
@@ -353,9 +351,6 @@ class PageViewModel {
 
   // 다이얼로그 호출시 pageBusiness 를 전달하기 위한 콜백
   late void Function(PageBusiness) onDialogPageCreated;
-
-  // 현재 화면상 설정된 ContextMenuRegion 객체 리스트(메뉴 하나가 생성되면 나머지를 종료하기 위한 것.)
-  List<gc_my_classes.ContextMenuRegion> contextMenuRegionList = [];
 
   // !!!페이지 데이터 정의!!
   // ex :

@@ -41,7 +41,6 @@ class PageView extends StatelessWidget {
               borderRadius: BorderRadius.all(Radius.circular(16))),
           child: Center(
             child: gc_my_classes.ContextMenuRegion(
-              parentList: pageBusiness.pageViewModel.contextMenuRegionList,
               contextMenuBuilder: (BuildContext context, Offset offset) {
                 return AdaptiveTextSelectionToolbar.buttonItems(
                   anchors: TextSelectionToolbarAnchors(

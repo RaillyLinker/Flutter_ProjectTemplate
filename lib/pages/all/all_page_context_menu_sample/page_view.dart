@@ -58,7 +58,6 @@ class PageView extends StatelessWidget {
                 height: 50,
               ),
               gc_my_classes.ContextMenuRegion(
-                parentList: pageBusiness.pageViewModel.contextMenuRegionList,
                 contextMenuBuilder: (BuildContext context, Offset offset) {
                   return AdaptiveTextSelectionToolbar.buttonItems(
                     anchors: TextSelectionToolbarAnchors(
@@ -93,7 +92,6 @@ class PageView extends StatelessWidget {
                 height: 50,
               ),
               gc_my_classes.ContextMenuRegion(
-                parentList: pageBusiness.pageViewModel.contextMenuRegionList,
                 contextMenuBuilder: (BuildContext context, Offset offset) {
                   return AdaptiveTextSelectionToolbar.buttonItems(
                     anchors: TextSelectionToolbarAnchors(

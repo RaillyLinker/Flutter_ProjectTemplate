@@ -1,13 +1,11 @@
 // (external)
 import 'dart:convert';
-
 import 'package:flutter/foundation.dart';
 import 'package:sync/semaphore.dart';
 
-import '../../../global_functions/gf_crypto.dart' as gf_crypto;
-
 // (all)
 import '../../global_data/gd_const.dart' as gd_const;
+import '../../../global_functions/gf_crypto.dart' as gf_crypto;
 
 // [SharedPreference Wrapper 선언 파일 템플릿]
 // 본 파일은 SharedPreference 변수 하나에 대한 래퍼 클래스 작성용 파일입니다.

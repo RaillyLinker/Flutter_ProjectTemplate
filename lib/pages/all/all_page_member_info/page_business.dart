@@ -5,16 +5,15 @@ import 'package:go_router/go_router.dart';
 import '../../../../repositories/spws/spw_auth_member_info.dart'
     as spw_auth_member_info;
 
+// (page)
+import 'page_entrance.dart' as page_entrance;
+
 // (all)
-import '../../../global_classes/gc_my_classes.dart' as gc_my_classes;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
 import '../../../global_functions/gf_my_functions.dart' as gf_my_functions;
 import '../../../pages/all/all_page_membership_withdrawal/page_entrance.dart'
     as all_page_membership_withdrawal;
-
-// (page)
-import 'page_entrance.dart' as page_entrance;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
 // todo : 회원 정보 페이지에서 닉네임 변경 기능 추가
@@ -146,9 +145,6 @@ class PageViewModel {
   // 페이지 파라미터 (아래 goRouterState 에서 가져와 대입하기)
   late page_entrance.PageInputVo pageInputVo;
   GoRouterState goRouterState;
-
-  // 현재 화면상 설정된 ContextMenuRegion 객체 리스트(메뉴 하나가 생성되면 나머지를 종료하기 위한 것.)
-  List<gc_my_classes.ContextMenuRegion> contextMenuRegionList = [];
 
   // !!!페이지 데이터 정의!!
   // ex :

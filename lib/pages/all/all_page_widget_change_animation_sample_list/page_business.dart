@@ -322,9 +322,6 @@ class PageViewModel {
   late page_entrance.PageInputVo pageInputVo;
   GoRouterState goRouterState;
 
-  // 현재 화면상 설정된 ContextMenuRegion 객체 리스트(메뉴 하나가 생성되면 나머지를 종료하기 위한 것.)
-  List<gc_my_classes.ContextMenuRegion> contextMenuRegionList = [];
-
   // !!!페이지 데이터 정의!!
   // ex :
   // int sampleNumber = 0;

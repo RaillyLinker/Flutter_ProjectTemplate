@@ -1,5 +1,4 @@
 // (external)
-import 'package:flutter/cupertino.dart';
 import 'package:sync/semaphore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -90,10 +89,7 @@ class ContextMenuRegion extends StatefulWidget {
     super.key,
     required this.child,
     required this.contextMenuBuilder,
-    required parentList,
-  }) {
-    parentList.add(this);
-  }
+  });
 
   final ContextMenuBuilder contextMenuBuilder;
 
@@ -102,10 +98,6 @@ class ContextMenuRegion extends StatefulWidget {
   final _ContextMenuRegionState _contextMenuRegionState =
       _ContextMenuRegionState();
 
-  void hideContextMenu() {
-    _contextMenuRegionState._hide();
-  }
-
   @override
   // ignore: no_logic_in_create_state
   State<ContextMenuRegion> createState() => _contextMenuRegionState;
@@ -113,8 +105,6 @@ class ContextMenuRegion extends StatefulWidget {
 
 class _ContextMenuRegionState extends State<ContextMenuRegion> {
   Offset? _longPressOffset;
-
-  final ContextMenuController _contextMenuController = ContextMenuController();
 
   static bool get _longPressEnabled {
     switch (defaultTargetPlatform) {
@@ -143,23 +133,42 @@ class _ContextMenuRegionState extends State<ContextMenuRegion> {
     _longPressOffset = null;
   }
 
-  void _show(Offset position) {
-    _contextMenuController.show(
-      context: context,
-      contextMenuBuilder: (BuildContext context) {
-        return widget.contextMenuBuilder(context, position);
-      },
-    );
-  }
+  Future<void> _show(Offset position) async {
+    // _contextMenuController.show(
+    //   context: context,
+    //   contextMenuBuilder: (BuildContext context) {
+    //     return widget.contextMenuBuilder(context, position);
+    //   },
+    // );
 
-  void _hide() {
-    _contextMenuController.remove();
-  }
+    final RenderObject? overlay =
+        Overlay.of(context)?.context.findRenderObject();
 
-  @override
-  void dispose() {
-    _hide();
-    super.dispose();
+    final result = await showMenu(
+        context: context,
+        position: RelativeRect.fromRect(
+            Rect.fromLTWH(position.dx, position.dy, 100, 100),
+            Rect.fromLTWH(0, 0, overlay!.paintBounds.size.width,
+                overlay!.paintBounds.size.height)),
+        items: [
+          const PopupMenuItem(
+            child: Text('Add Me'),
+            value: "fav",
+          ),
+          const PopupMenuItem(
+            child: Text('Close'),
+            value: "close",
+          )
+        ]);
+    switch (result) {
+      case 'fav':
+        print("fav");
+        break;
+      case 'close':
+        print('close');
+        Navigator.pop(context);
+        break;
+    }
   }
 
   @override
