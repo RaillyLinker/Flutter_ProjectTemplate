@@ -71,6 +71,8 @@ import 'pages/all/all_page_image_loading_sample/page_entrance.dart'
     as all_page_image_loading_sample;
 import 'pages/all/all_page_context_menu_sample/page_entrance.dart'
     as all_page_context_menu_sample;
+import 'pages/all/all_page_gesture_area_overlap_test/page_entrance.dart'
+    as all_page_gesture_area_overlap_test;
 
 // (app)
 import 'pages/app/app_page_init_splash/page_entrance.dart'
@@ -560,6 +562,19 @@ GoRouter getRouter() {
         key: s.pageKey,
         child: all_page_context_menu_sample.PageEntrance(s),
         transitionsBuilder: all_page_context_menu_sample.pageTransitionsBuilder,
+      );
+    },
+  ));
+
+  subRouteListEtcSampleList.add(GoRoute(
+    path: "gesture-area-overlap-test",
+    name: all_page_gesture_area_overlap_test.pageName,
+    pageBuilder: (c, s) {
+      return CustomTransitionPage(
+        key: s.pageKey,
+        child: all_page_gesture_area_overlap_test.PageEntrance(s),
+        transitionsBuilder:
+            all_page_gesture_area_overlap_test.pageTransitionsBuilder,
       );
     },
   ));

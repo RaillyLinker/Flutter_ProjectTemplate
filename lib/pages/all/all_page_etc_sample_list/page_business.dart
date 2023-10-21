@@ -28,6 +28,8 @@ import '../../../pages/all/all_page_image_loading_sample/page_entrance.dart'
     as all_page_image_loading_sample;
 import '../../../pages/all/all_page_context_menu_sample/page_entrance.dart'
     as all_page_context_menu_sample;
+import '../../../pages/all/all_page_gesture_area_overlap_test/page_entrance.dart'
+    as all_page_gesture_area_overlap_test;
 
 // (app)
 import '../../../pages/app/app_page_server_sample/page_entrance.dart'
@@ -158,6 +160,11 @@ class PageBusiness {
           _context.pushNamed(all_page_context_menu_sample.pageName);
         }
         break;
+      case SampleItemEnum.gestureAreaOverlapTest:
+        {
+          _context.pushNamed(all_page_gesture_area_overlap_test.pageName);
+        }
+        break;
     }
   }
 
@@ -212,6 +219,8 @@ class PageViewModel {
         "네트워크 이미지를 가져올 때 로딩 처리 및 에러 처리 샘플"));
     allSampleList.add(SampleItem(SampleItemEnum.contextMenuSample, "컨텍스트 메뉴 샘플",
         "마우스 우클릭시(모바일에서는 롱 클릭) 나타나는 메뉴 샘플"));
+    allSampleList.add(SampleItem(SampleItemEnum.gestureAreaOverlapTest,
+        "Gesture 위젯 영역 중첩 테스트", "Gesture 위젯 영역 중첩시 동작을 테스트합니다."));
   }
 }
 
@@ -243,6 +252,7 @@ enum SampleItemEnum {
   imageSelectorSample,
   imageLoadingSample,
   contextMenuSample,
+  gestureAreaOverlapTest,
 }
 
 // (BLoC 클래스 모음)
