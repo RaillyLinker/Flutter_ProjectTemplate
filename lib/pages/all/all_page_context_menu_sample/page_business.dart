@@ -106,9 +106,9 @@ class PageBusiness {
             (pageBusiness) {}));
   }
 
-  // (context 메뉴의 이미지 저장 항목을 클릭)
-  void saveImageBtn() {
-    // todo 이미지 저장
+  // (context 메뉴의 뒤로가기 항목을 클릭)
+  void goBackBtn() {
+    _context.pop();
   }
 
 ////

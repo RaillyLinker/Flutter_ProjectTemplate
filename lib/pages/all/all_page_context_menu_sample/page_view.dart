@@ -55,7 +55,7 @@ class PageView extends StatelessWidget {
           child: Column(
             children: [
               const SizedBox(
-                height: 50,
+                height: 100,
               ),
               gc_my_classes.ContextMenuRegion(
                 contextMenuRegionItemVoList: [
@@ -76,42 +76,19 @@ class PageView extends StatelessWidget {
                 ),
               ),
               const SizedBox(
-                height: 50,
+                height: 100,
               ),
               gc_my_classes.ContextMenuRegion(
                 contextMenuRegionItemVoList: [
-                  gc_my_classes.ContextMenuRegionItemVo(const Text("이미지 저장"),
-                      () {
-                    pageBusiness.saveImageBtn();
+                  gc_my_classes.ContextMenuRegionItemVo(const Text("뒤로가기"), () {
+                    pageBusiness.goBackBtn();
                   }),
                 ],
-                child: SizedBox(
-                  width: 130,
-                  height: 130,
-                  child: Image(
-                    image: const AssetImage(
-                        "lib/assets/images/init_splash_logo.png"),
-                    fit: BoxFit.cover,
-                    loadingBuilder: (BuildContext context, Widget child,
-                        ImageChunkEvent? loadingProgress) {
-                      // 로딩 중일 때 플레이스 홀더를 보여줍니다.
-                      if (loadingProgress == null) {
-                        return child; // 로딩이 끝났을 경우
-                      }
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    },
-                    errorBuilder: (context, error, stackTrace) {
-                      // 에러 발생 시 설정한 에러 위젯을 반환합니다.
-                      return const Center(
-                        child: Icon(
-                          Icons.error,
-                          color: Colors.red,
-                        ),
-                      );
-                    },
-                  ),
+                child: Container(
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 10, left: 10, right: 10),
+                  color: Colors.blue[100], // 옅은 파란색
+                  child: const Text('모바일에선 길게 누르세요.'),
                 ),
               ),
             ],

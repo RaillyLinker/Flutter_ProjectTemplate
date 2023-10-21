@@ -211,7 +211,7 @@ class PageViewModel {
     allSampleList.add(SampleItem(SampleItemEnum.imageLoadingSample, "이미지 로딩 샘플",
         "네트워크 이미지를 가져올 때 로딩 처리 및 에러 처리 샘플"));
     allSampleList.add(SampleItem(SampleItemEnum.contextMenuSample, "컨텍스트 메뉴 샘플",
-        "마우스 우클릭시(모바일에서는 롱 클릭) 나타나는 메뉴 샘플 + 이미지 다운로드"));
+        "마우스 우클릭시(모바일에서는 롱 클릭) 나타나는 메뉴 샘플"));
   }
 }
 
