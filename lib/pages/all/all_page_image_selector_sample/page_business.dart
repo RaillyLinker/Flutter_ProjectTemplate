@@ -280,7 +280,6 @@ class PageViewModel {
   Uint8List? selectedImage;
 
   // 선택 이미지 리스트 최대 개수
-  // todo : 모바일 제외, 스크롤이 안되는 문제 해결하기
   int imageFileListMaxCount = 20;
 
   // 선택된 이미지 리스트
