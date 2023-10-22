@@ -126,18 +126,22 @@ class PageViewModel {
   // Form 필드 전체 키
   GlobalKey<FormState> testFormKey = GlobalKey<FormState>();
 
+  final inputAnythingTextFieldKey = GlobalKey<FormFieldState>();
   TextEditingController inputAnythingTextFieldController =
       TextEditingController();
   FocusNode inputAnythingTextFieldFocus = FocusNode();
 
+  final inputAlphabetTextFieldKey = GlobalKey<FormFieldState>();
   TextEditingController inputAlphabetTextFieldController =
       TextEditingController();
   FocusNode inputAlphabetTextFieldFocus = FocusNode();
 
+  final inputNumberTextFieldKey = GlobalKey<FormFieldState>();
   TextEditingController inputNumberTextFieldController =
       TextEditingController();
   FocusNode inputNumberTextFieldFocus = FocusNode();
 
+  final inputSecretTextFieldKey = GlobalKey<FormFieldState>();
   TextEditingController inputSecretTextFieldController =
       TextEditingController();
   FocusNode inputSecretTextFieldFocus = FocusNode();

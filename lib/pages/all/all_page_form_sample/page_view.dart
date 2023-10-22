@@ -76,6 +76,8 @@ class PageView extends StatelessWidget {
                         fontFamily: "MaruBuri")),
                 const SizedBox(height: 30.0),
                 TextFormField(
+                  key: pageBusiness.pageViewModel.inputAnythingTextFieldKey,
+                  autofocus: true,
                   decoration: InputDecoration(
                     labelText: '무제한 입력',
                     hintText: "아무 값이나 입력 하세요.",
@@ -94,9 +96,21 @@ class PageView extends StatelessWidget {
                     }
                     return null;
                   },
+                  onFieldSubmitted: (value) {
+                    if (pageBusiness
+                        .pageViewModel.inputAnythingTextFieldKey.currentState!
+                        .validate()) {
+                      FocusScope.of(context).requestFocus(pageBusiness
+                          .pageViewModel.inputAlphabetTextFieldFocus);
+                    } else {
+                      FocusScope.of(context).requestFocus(pageBusiness
+                          .pageViewModel.inputAnythingTextFieldFocus);
+                    }
+                  },
                 ),
                 const SizedBox(height: 20.0),
                 TextFormField(
+                  key: pageBusiness.pageViewModel.inputAlphabetTextFieldKey,
                   decoration: InputDecoration(
                     labelText: '영문 / 숫자 16자 입력',
                     hintText: "영문 / 숫자를 16자 입력 하세요.",
@@ -121,9 +135,21 @@ class PageView extends StatelessWidget {
                     }
                     return null;
                   },
+                  onFieldSubmitted: (value) {
+                    if (pageBusiness
+                        .pageViewModel.inputAlphabetTextFieldKey.currentState!
+                        .validate()) {
+                      FocusScope.of(context).requestFocus(
+                          pageBusiness.pageViewModel.inputNumberTextFieldFocus);
+                    } else {
+                      FocusScope.of(context).requestFocus(pageBusiness
+                          .pageViewModel.inputAlphabetTextFieldFocus);
+                    }
+                  },
                 ),
                 const SizedBox(height: 10.0),
                 TextFormField(
+                  key: pageBusiness.pageViewModel.inputNumberTextFieldKey,
                   decoration: InputDecoration(
                     labelText: '숫자 16자 이내 입력',
                     hintText: "숫자를 16자 이내에 입력 하세요.",
@@ -148,11 +174,23 @@ class PageView extends StatelessWidget {
                     }
                     return null;
                   },
+                  onFieldSubmitted: (value) {
+                    if (pageBusiness
+                        .pageViewModel.inputNumberTextFieldKey.currentState!
+                        .validate()) {
+                      FocusScope.of(context).requestFocus(
+                          pageBusiness.pageViewModel.inputSecretTextFieldFocus);
+                    } else {
+                      FocusScope.of(context).requestFocus(
+                          pageBusiness.pageViewModel.inputNumberTextFieldFocus);
+                    }
+                  },
                 ),
                 const SizedBox(height: 10.0),
                 BlocBuilder<page_business.BlocSecretTestInput, bool>(
                     builder: (c, s) {
                   return TextFormField(
+                    key: pageBusiness.pageViewModel.inputSecretTextFieldKey,
                     decoration: InputDecoration(
                       labelText: "암호값 입력",
                       hintText: '암호값을 입력하면 숨김 처리가 됩니다.',
@@ -183,10 +221,16 @@ class PageView extends StatelessWidget {
                     autofillHints: const [AutofillHints.password],
                     obscureText:
                         pageBusiness.pageViewModel.inputSecretTextFieldHide,
-                    // todo
-                    // onFieldSubmitted: (value) {
-                    //   pageBusiness.onPasswordFieldSubmitted();
-                    // },
+                    onFieldSubmitted: (value) {
+                      if (pageBusiness
+                          .pageViewModel.inputSecretTextFieldKey.currentState!
+                          .validate()) {
+                        // todo
+                      } else {
+                        FocusScope.of(context).requestFocus(pageBusiness
+                            .pageViewModel.inputSecretTextFieldFocus);
+                      }
+                    },
                   );
                 }),
                 const SizedBox(height: 50.0),
