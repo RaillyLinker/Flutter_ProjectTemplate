@@ -58,7 +58,6 @@ class PageView extends StatelessWidget {
           itemBuilder: (BuildContext context, int index) {
             // 아이템 타일
             return ListTile(
-              mouseCursor: SystemMouseCursors.click,
               title: Text('Item $index'),
             );
           },
