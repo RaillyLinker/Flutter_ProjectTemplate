@@ -68,9 +68,11 @@ class PageBusiness {
     // !!!페이지 종료 로직 작성!!
 
     // 검색창 컨트롤러 닫기
-    pageViewModel.sampleSearchBarTextEditController.dispose();
-    pageViewModel.inputParamTextFieldController.dispose();
-    pageViewModel.inputParamOptTextFieldController.dispose();
+    pageViewModel.inputAndOutputFormInputValueTextFieldController.dispose();
+    pageViewModel.inputAndOutputFormInputValueTextFieldFocus.dispose();
+    pageViewModel.inputAndOutputFormNullableInputValueTextFieldController
+        .dispose();
+    pageViewModel.inputAndOutputFormNullableInputValueTextFieldFocus.dispose();
   }
 
   // (Page Pop 요청)
@@ -94,35 +96,9 @@ class PageBusiness {
 //     bLocObjects.blocSample.add(!bLocObjects.blocSample.state);
 //   }
 
-  // (검색 결과에 따라 샘플 페이지 리스트 필터링)
-  void filteringSamplePageList(String searchKeyword) {
-    if (searchKeyword == "") {
-      // 원본 리스트로 뷰모델 데이터 변경 후 이벤트 발생
-      pageViewModel.filteredSampleList = pageViewModel.allSampleList;
-      blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
-    } else {
-      // 필터링한 리스트로 뷰모델 데이터 변경 후 이벤트 발생
-      List<SampleItem> filteredSamplePageList = [];
-      // 필터링 하기
-      for (SampleItem samplePage in pageViewModel.allSampleList) {
-        if (samplePage.sampleItemTitle
-            .toLowerCase()
-            .contains(searchKeyword.toLowerCase())) {
-          filteredSamplePageList.add(samplePage);
-        } else if (samplePage.sampleItemDescription
-            .toLowerCase()
-            .contains(searchKeyword.toLowerCase())) {
-          filteredSamplePageList.add(samplePage);
-        }
-      }
-      pageViewModel.filteredSampleList = filteredSamplePageList;
-      blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
-    }
-  }
-
   // (리스트 아이템 클릭 리스너)
   Future<void> onRouteListItemClickAsync(int index) async {
-    SampleItem sampleItem = pageViewModel.filteredSampleList[index];
+    SampleItem sampleItem = pageViewModel.allSampleList[index];
 
     switch (sampleItem.sampleItemEnum) {
       case SampleItemEnum.pageTemplate:
@@ -137,20 +113,14 @@ class PageBusiness {
         break;
       case SampleItemEnum.inputAndOutputPushTest:
         {
-          String inputParamText =
-              pageViewModel.inputParamTextFieldController.value.text;
+          if (pageViewModel.inputAndOutputFormKey.currentState!.validate()) {
+            String inputParamText = pageViewModel
+                .inputAndOutputFormInputValueTextFieldController.value.text;
 
-          if (inputParamText == "") {
-            pageViewModel.inputParamTextFieldErrorMsg = "필수";
-            blocObjects.blocInputParamTextField
-                .add(!blocObjects.blocInputParamTextField.state);
-          } else {
-            pageViewModel.inputParamTextFieldErrorMsg = null;
-            blocObjects.blocInputParamTextField
-                .add(!blocObjects.blocInputParamTextField.state);
-
-            String inputParamOptText =
-                pageViewModel.inputParamOptTextFieldController.value.text;
+            String inputParamOptText = pageViewModel
+                .inputAndOutputFormNullableInputValueTextFieldController
+                .value
+                .text;
 
             dynamic value;
             if (inputParamOptText == "") {
@@ -207,13 +177,6 @@ class PageBusiness {
     }
   }
 
-  // (파라미터 입력창 입력시)
-  void inputParamTextFieldOnChanged(String value) {
-    pageViewModel.inputParamTextFieldErrorMsg = null;
-    blocObjects.blocInputParamTextField
-        .add(!blocObjects.blocInputParamTextField.state);
-  }
-
 ////
 // [내부 함수]
 // !!!내부에서만 사용할 함수를 아래에 구현!!
@@ -233,23 +196,23 @@ class PageViewModel {
   // ex :
   // int sampleNumber = 0;
 
-  // 샘플 목록 필터링용 검색창 컨트롤러 (검색창의 텍스트 정보를 가지고 있으므로 뷰모델에 저장, 여기 있어야 위젯이 변경되어도 검색어가 유지됨)
-  TextEditingController sampleSearchBarTextEditController =
-      TextEditingController();
-
-  // 입력 파라미터용 컨트롤러
-  TextEditingController inputParamTextFieldController = TextEditingController();
-  TextEditingController inputParamOptTextFieldController =
-      TextEditingController();
-
   // (샘플 페이지 원본 리스트)
   List<SampleItem> allSampleList = [];
 
-  // (샘플 페이지 리스트 검색 결과)
-  List<SampleItem> filteredSampleList = [];
+  // 입출력 테스트 Form 필드 전체 키
+  GlobalKey<FormState> inputAndOutputFormKey = GlobalKey<FormState>();
 
-  // input and output push test 입력창 에러 메세지
-  String? inputParamTextFieldErrorMsg;
+  final inputAndOutputFormInputValueTextFieldKey = GlobalKey<FormFieldState>();
+  TextEditingController inputAndOutputFormInputValueTextFieldController =
+      TextEditingController();
+  FocusNode inputAndOutputFormInputValueTextFieldFocus = FocusNode();
+
+  final inputAndOutputFormNullableInputValueTextFieldKey =
+      GlobalKey<FormFieldState>();
+  TextEditingController
+      inputAndOutputFormNullableInputValueTextFieldController =
+      TextEditingController();
+  FocusNode inputAndOutputFormNullableInputValueTextFieldFocus = FocusNode();
 
   PageViewModel(this.goRouterState) {
     // 초기 리스트 추가
@@ -265,8 +228,6 @@ class PageViewModel {
         "페이지 이동시 적용되는 애니메이션 샘플 리스트"));
     allSampleList.add(SampleItem(SampleItemEnum.gridSample, "페이지 Grid 샘플",
         "화면 사이즈에 따라 동적으로 변하는 Grid 페이지 샘플"));
-
-    filteredSampleList = allSampleList;
   }
 }
 
@@ -315,14 +276,6 @@ class BlocSampleList extends Bloc<bool, bool> {
   }
 }
 
-class BlocInputParamTextField extends Bloc<bool, bool> {
-  BlocInputParamTextField() : super(true) {
-    on<bool>((event, emit) {
-      emit(event);
-    });
-  }
-}
-
 // (BLoC 프로바이더 클래스)
 // 본 페이지에서 사용할 BLoC 객체를 모아두어 PageEntrance 에서 페이지 전역 설정에 사용 됩니다.
 class BLocProviders {
@@ -331,8 +284,6 @@ class BLocProviders {
     // ex :
     // BlocProvider<BlocSample>(create: (context) => BlocSample()),
     BlocProvider<BlocSampleList>(create: (context) => BlocSampleList()),
-    BlocProvider<BlocInputParamTextField>(
-        create: (context) => BlocInputParamTextField()),
   ];
 }
 
@@ -344,7 +295,6 @@ class BLocObjects {
   // ex :
   // late BlocSample blocSample;
   late BlocSampleList blocSampleList;
-  late BlocInputParamTextField blocInputParamTextField;
 
   // 생성자 설정
   BLocObjects(this._context) {
@@ -352,7 +302,5 @@ class BLocObjects {
     // ex :
     // blocSample = BlocProvider.of<BlocSample>(_context);
     blocSampleList = BlocProvider.of<BlocSampleList>(_context);
-    blocInputParamTextField =
-        BlocProvider.of<BlocInputParamTextField>(_context);
   }
 }
