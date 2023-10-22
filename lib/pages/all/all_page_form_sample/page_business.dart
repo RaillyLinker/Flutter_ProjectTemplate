@@ -63,6 +63,18 @@ class PageBusiness {
   // (페이지 종료 (강제 종료는 탐지 못함))
   Future<void> onPageDestroyAsync() async {
     // !!!페이지 종료 로직 작성!!
+
+    pageViewModel.inputAnythingTextFieldController.dispose();
+    pageViewModel.inputAnythingTextFieldFocus.dispose();
+
+    pageViewModel.inputAlphabetTextFieldController.dispose();
+    pageViewModel.inputAlphabetTextFieldFocus.dispose();
+
+    pageViewModel.inputNumberTextFieldController.dispose();
+    pageViewModel.inputNumberTextFieldFocus.dispose();
+
+    pageViewModel.inputSecretTextFieldController.dispose();
+    pageViewModel.inputSecretTextFieldFocus.dispose();
   }
 
   // (Page Pop 요청)
@@ -86,6 +98,13 @@ class PageBusiness {
 //     bLocObjects.blocSample.add(!bLocObjects.blocSample.state);
 //   }
 
+  // (Secret Input 숨김 토글)
+  void toggleSecretInputHide() {
+    pageViewModel.inputSecretTextFieldHide =
+        !pageViewModel.inputSecretTextFieldHide;
+    blocObjects.blocSecretTestInput.add(!blocObjects.blocSecretTestInput.state);
+  }
+
 ////
 // [내부 함수]
 // !!!내부에서만 사용할 함수를 아래에 구현!!
@@ -104,7 +123,25 @@ class PageViewModel {
   // !!!페이지 데이터 정의!!
   // ex :
   // int sampleNumber = 0;
+  // Form 필드 전체 키
   GlobalKey<FormState> testFormKey = GlobalKey<FormState>();
+
+  TextEditingController inputAnythingTextFieldController =
+      TextEditingController();
+  FocusNode inputAnythingTextFieldFocus = FocusNode();
+
+  TextEditingController inputAlphabetTextFieldController =
+      TextEditingController();
+  FocusNode inputAlphabetTextFieldFocus = FocusNode();
+
+  TextEditingController inputNumberTextFieldController =
+      TextEditingController();
+  FocusNode inputNumberTextFieldFocus = FocusNode();
+
+  TextEditingController inputSecretTextFieldController =
+      TextEditingController();
+  FocusNode inputSecretTextFieldFocus = FocusNode();
+  bool inputSecretTextFieldHide = true;
 
   PageViewModel(this.goRouterState);
 }
@@ -120,6 +157,13 @@ class PageViewModel {
 //     });
 //   }
 // }
+class BlocSecretTestInput extends Bloc<bool, bool> {
+  BlocSecretTestInput() : super(true) {
+    on<bool>((event, emit) {
+      emit(event);
+    });
+  }
+}
 
 // (BLoC 프로바이더 클래스)
 // 본 페이지에서 사용할 BLoC 객체를 모아두어 PageEntrance 에서 페이지 전역 설정에 사용 됩니다.
@@ -128,6 +172,8 @@ class BLocProviders {
   List<BlocProvider<dynamic>> blocProviders = [
     // ex :
     // BlocProvider<BlocSample>(create: (context) => BlocSample()),
+    BlocProvider<BlocSecretTestInput>(
+        create: (context) => BlocSecretTestInput()),
   ];
 }
 
@@ -138,11 +184,13 @@ class BLocObjects {
   // !!!BLoC 조작 객체 변수 선언!!
   // ex :
   // late BlocSample blocSample;
+  late BlocSecretTestInput blocSecretTestInput;
 
   // 생성자 설정
   BLocObjects(this._context) {
     // !!!BLoC 조작 객체 생성!!
     // ex :
     // blocSample = BlocProvider.of<BlocSample>(_context);
+    blocSecretTestInput = BlocProvider.of<BlocSecretTestInput>(_context);
   }
 }
