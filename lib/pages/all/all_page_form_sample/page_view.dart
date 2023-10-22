@@ -78,6 +78,7 @@ class PageView extends StatelessWidget {
                 TextFormField(
                   key: pageBusiness.pageViewModel.inputAnythingTextFieldKey,
                   autofocus: true,
+                  keyboardType: TextInputType.text,
                   decoration: InputDecoration(
                     labelText: '무제한 입력',
                     hintText: "아무 값이나 입력 하세요.",
@@ -91,12 +92,14 @@ class PageView extends StatelessWidget {
                   focusNode:
                       pageBusiness.pageViewModel.inputAnythingTextFieldFocus,
                   validator: (value) {
+                    // 검사 : return 으로 반환하는 에러 메세지가 null 이 아니라면 에러로 처리
                     if (value == null || value.isEmpty) {
                       return '이 항목을 입력 하세요.';
                     }
                     return null;
                   },
                   onFieldSubmitted: (value) {
+                    // 입력창 포커스 상태에서 엔터
                     if (pageBusiness
                         .pageViewModel.inputAnythingTextFieldKey.currentState!
                         .validate()) {
@@ -111,6 +114,7 @@ class PageView extends StatelessWidget {
                 const SizedBox(height: 20.0),
                 TextFormField(
                   key: pageBusiness.pageViewModel.inputAlphabetTextFieldKey,
+                  keyboardType: TextInputType.text,
                   decoration: InputDecoration(
                     labelText: '영문 / 숫자 16자 입력',
                     hintText: "영문 / 숫자를 16자 입력 하세요.",
@@ -128,6 +132,7 @@ class PageView extends StatelessWidget {
                     FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z0-9]')),
                   ],
                   validator: (value) {
+                    // 검사 : return 으로 반환하는 에러 메세지가 null 이 아니라면 에러로 처리
                     if (value == null || value.isEmpty) {
                       return '이 항목을 입력 하세요.';
                     } else if (!RegExp(r'^[a-zA-Z0-9]{16}$').hasMatch(value)) {
@@ -136,6 +141,7 @@ class PageView extends StatelessWidget {
                     return null;
                   },
                   onFieldSubmitted: (value) {
+                    // 입력창 포커스 상태에서 엔터
                     if (pageBusiness
                         .pageViewModel.inputAlphabetTextFieldKey.currentState!
                         .validate()) {
@@ -150,6 +156,7 @@ class PageView extends StatelessWidget {
                 const SizedBox(height: 10.0),
                 TextFormField(
                   key: pageBusiness.pageViewModel.inputNumberTextFieldKey,
+                  keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                     labelText: '숫자 16자 이내 입력',
                     hintText: "숫자를 16자 이내에 입력 하세요.",
@@ -167,6 +174,7 @@ class PageView extends StatelessWidget {
                     FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
                   ],
                   validator: (value) {
+                    // 검사 : return 으로 반환하는 에러 메세지가 null 이 아니라면 에러로 처리
                     if (value == null || value.isEmpty) {
                       return '이 항목을 입력 하세요.';
                     } else if (!RegExp(r'^[0-9]{1,16}$').hasMatch(value)) {
@@ -175,6 +183,7 @@ class PageView extends StatelessWidget {
                     return null;
                   },
                   onFieldSubmitted: (value) {
+                    // 입력창 포커스 상태에서 엔터
                     if (pageBusiness
                         .pageViewModel.inputNumberTextFieldKey.currentState!
                         .validate()) {
@@ -191,6 +200,7 @@ class PageView extends StatelessWidget {
                     builder: (c, s) {
                   return TextFormField(
                     key: pageBusiness.pageViewModel.inputSecretTextFieldKey,
+                    keyboardType: TextInputType.text,
                     decoration: InputDecoration(
                       labelText: "암호값 입력",
                       hintText: '암호값을 입력하면 숨김 처리가 됩니다.',
@@ -210,7 +220,12 @@ class PageView extends StatelessWidget {
                               : Icons.visibility_off,
                         ),
                         onPressed: () {
-                          pageBusiness.toggleSecretInputHide();
+                          pageBusiness.pageViewModel.inputSecretTextFieldHide =
+                              !pageBusiness
+                                  .pageViewModel.inputSecretTextFieldHide;
+                          pageBusiness.blocObjects.blocSecretTestInput.add(
+                              !pageBusiness
+                                  .blocObjects.blocSecretTestInput.state);
                         },
                       ),
                     ),
@@ -221,11 +236,19 @@ class PageView extends StatelessWidget {
                     autofillHints: const [AutofillHints.password],
                     obscureText:
                         pageBusiness.pageViewModel.inputSecretTextFieldHide,
+                    validator: (value) {
+                      // 검사 : return 으로 반환하는 에러 메세지가 null 이 아니라면 에러로 처리
+                      if (value == null || value.isEmpty) {
+                        return '이 항목을 입력 하세요.';
+                      }
+                      return null;
+                    },
                     onFieldSubmitted: (value) {
+                      // 입력창 포커스 상태에서 엔터
                       if (pageBusiness
                           .pageViewModel.inputSecretTextFieldKey.currentState!
                           .validate()) {
-                        // todo
+                        pageBusiness.completeTestForm();
                       } else {
                         FocusScope.of(context).requestFocus(pageBusiness
                             .pageViewModel.inputSecretTextFieldFocus);
@@ -238,9 +261,7 @@ class PageView extends StatelessWidget {
                   onPressed: () {
                     if (pageBusiness.pageViewModel.testFormKey.currentState!
                         .validate()) {
-                      pageBusiness.pageViewModel.testFormKey.currentState!
-                          .save();
-                      // todo
+                      pageBusiness.completeTestForm();
                     }
                   },
                   style: ElevatedButton.styleFrom(

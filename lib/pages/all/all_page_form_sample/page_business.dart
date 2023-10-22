@@ -9,11 +9,12 @@ import 'page_entrance.dart' as page_entrance;
 // (all)
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
+import '../../../dialogs/all/all_dialog_info/page_entrance.dart'
+    as all_dialog_info;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
 // Flutter 에서 값 입력 처리 방식은 여러가지인데,
 // Form 형식의 데이터를 입력받는 가장 최적의 방식을 정리한 샘플입니다.
-// todo
 
 //------------------------------------------------------------------------------
 // 페이지의 비즈니스 로직 및 뷰모델 담당
@@ -98,11 +99,26 @@ class PageBusiness {
 //     bLocObjects.blocSample.add(!bLocObjects.blocSample.state);
 //   }
 
-  // (Secret Input 숨김 토글)
-  void toggleSecretInputHide() {
-    pageViewModel.inputSecretTextFieldHide =
-        !pageViewModel.inputSecretTextFieldHide;
-    blocObjects.blocSecretTestInput.add(!blocObjects.blocSecretTestInput.state);
+  // (테스트 폼 완료)
+  void completeTestForm() {
+    String input1 = pageViewModel.inputAnythingTextFieldController.text;
+    String input2 = pageViewModel.inputAlphabetTextFieldController.text;
+    String input3 = pageViewModel.inputNumberTextFieldController.text;
+    String input4 = pageViewModel.inputSecretTextFieldController.text;
+
+    showDialog(
+        barrierDismissible: true,
+        context: _context,
+        builder: (context) => all_dialog_info.PageEntrance(
+            all_dialog_info.PageInputVo(
+              "폼 입력 결과",
+              "입력1 : $input1\n"
+                  "입력2 : $input2\n"
+                  "입력3 : $input3\n"
+                  "입력4 : $input4",
+              "확인",
+            ),
+            (pageBusiness) {}));
   }
 
 ////
