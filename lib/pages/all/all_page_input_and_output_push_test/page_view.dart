@@ -54,27 +54,44 @@ class PageView extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Container(
-                width: 200,
-                margin: const EdgeInsets.only(top: 20),
-                child:
-                    BlocBuilder<page_business.BlocReturnValueTextField, bool>(
-                  builder: (c, s) {
-                    return TextField(
-                      onChanged: (value) {
-                        pageBusiness.returnValueTextFieldOnChanged(value);
-                      },
-                      controller: pageBusiness
-                          .pageViewModel.returnValueTextFieldController,
-                      decoration: InputDecoration(
-                          errorText:
-                              pageBusiness.pageViewModel.returnValueError,
-                          contentPadding: const EdgeInsets.all(12),
-                          isDense: true,
-                          hintText: "페이지 출력 값 입력",
-                          border: const OutlineInputBorder()),
-                    );
-                  },
+              Form(
+                key: pageBusiness.pageViewModel.pageOutputFormKey,
+                child: Container(
+                  width: 200,
+                  margin: const EdgeInsets.only(top: 20),
+                  child: TextFormField(
+                    key: pageBusiness.pageViewModel.pageOutputTextFieldKey,
+                    autofocus: true,
+                    keyboardType: TextInputType.text,
+                    decoration: InputDecoration(
+                        labelText: '페이지 출력 값',
+                        contentPadding: const EdgeInsets.symmetric(
+                            vertical: 10.0, horizontal: 10.0),
+                        filled: true,
+                        fillColor: Colors.grey[100],
+                        isDense: true,
+                        hintText: "페이지 출력 값 입력",
+                        border: const OutlineInputBorder()),
+                    controller: pageBusiness
+                        .pageViewModel.pageOutputTextFieldController,
+                    focusNode:
+                        pageBusiness.pageViewModel.pageOutputTextFieldFocus,
+                    validator: (value) {
+                      // 검사 : return 으로 반환하는 에러 메세지가 null 이 아니라면 에러로 처리
+                      return null;
+                    },
+                    onFieldSubmitted: (value) {
+                      // 입력창 포커스 상태에서 엔터
+                      if (pageBusiness
+                          .pageViewModel.pageOutputFormKey.currentState!
+                          .validate()) {
+                        pageBusiness.onPressedReturnBtn();
+                      } else {
+                        FocusScope.of(context).requestFocus(pageBusiness
+                            .pageViewModel.pageOutputTextFieldFocus);
+                      }
+                    },
+                  ),
                 ),
               ),
               Container(

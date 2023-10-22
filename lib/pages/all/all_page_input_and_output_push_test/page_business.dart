@@ -128,7 +128,8 @@ class PageBusiness {
   Future<void> onPageDestroyAsync() async {
     // !!!페이지 종료 로직 작성!!
 
-    pageViewModel.returnValueTextFieldController.dispose();
+    pageViewModel.pageOutputTextFieldController.dispose();
+    pageViewModel.pageOutputTextFieldFocus.dispose();
   }
 
   // (Page Pop 요청)
@@ -154,25 +155,13 @@ class PageBusiness {
 
   // (값 반환 버튼 클릭시)
   void onPressedReturnBtn() {
-    String returnValue = pageViewModel.returnValueTextFieldController.text;
+    String returnValue = pageViewModel.pageOutputTextFieldController.text;
 
-    if (returnValue == "") {
-      pageViewModel.returnValueError = "필수";
-      blocObjects.blocReturnValueTextField
-          .add(!blocObjects.blocReturnValueTextField.state);
+    if (returnValue.isEmpty) {
+      _context.pop();
     } else {
-      pageViewModel.returnValueError = null;
-      blocObjects.blocReturnValueTextField
-          .add(!blocObjects.blocReturnValueTextField.state);
       _context.pop(page_entrance.PageOutputVo(returnValue));
     }
-  }
-
-  // (반환값 입력창 값 변경시)
-  void returnValueTextFieldOnChanged(String value) {
-    pageViewModel.returnValueError = null;
-    blocObjects.blocReturnValueTextField
-        .add(!blocObjects.blocReturnValueTextField.state);
   }
 
 ////
@@ -193,11 +182,12 @@ class PageViewModel {
   // !!!페이지 데이터 정의!!
   // ex :
   // int sampleNumber = 0;
+  // 페이지 출력값 Form 필드 전체 키
+  GlobalKey<FormState> pageOutputFormKey = GlobalKey<FormState>();
 
-  TextEditingController returnValueTextFieldController =
-      TextEditingController();
-
-  String? returnValueError;
+  final pageOutputTextFieldKey = GlobalKey<FormFieldState>();
+  TextEditingController pageOutputTextFieldController = TextEditingController();
+  FocusNode pageOutputTextFieldFocus = FocusNode();
 
   PageViewModel(this.goRouterState);
 }
@@ -214,14 +204,6 @@ class PageViewModel {
 //   }
 // }
 
-class BlocReturnValueTextField extends Bloc<bool, bool> {
-  BlocReturnValueTextField() : super(true) {
-    on<bool>((event, emit) {
-      emit(event);
-    });
-  }
-}
-
 // (BLoC 프로바이더 클래스)
 // 본 페이지에서 사용할 BLoC 객체를 모아두어 PageEntrance 에서 페이지 전역 설정에 사용 됩니다.
 class BLocProviders {
@@ -229,8 +211,6 @@ class BLocProviders {
   List<BlocProvider<dynamic>> blocProviders = [
     // ex :
     // BlocProvider<BlocSample>(create: (context) => BlocSample()),
-    BlocProvider<BlocReturnValueTextField>(
-        create: (context) => BlocReturnValueTextField()),
   ];
 }
 
@@ -241,14 +221,11 @@ class BLocObjects {
   // !!!BLoC 조작 객체 변수 선언!!
   // ex :
   // late BlocSample blocSample;
-  late BlocReturnValueTextField blocReturnValueTextField;
 
   // 생성자 설정
   BLocObjects(this._context) {
     // !!!BLoC 조작 객체 생성!!
     // ex :
     // blocSample = BlocProvider.of<BlocSample>(_context);
-    blocReturnValueTextField =
-        BlocProvider.of<BlocReturnValueTextField>(_context);
   }
 }
