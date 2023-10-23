@@ -69,7 +69,7 @@ class PageView extends StatelessWidget {
                   }),
                   gc_my_classes.ContextMenuRegionItemVo(
                       const Text(
-                        "다이얼로그 닫기",
+                        "다이얼로그 테스트",
                         style: TextStyle(
                             color: Colors.black, fontFamily: "MaruBuri"),
                       ), () {
