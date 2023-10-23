@@ -66,11 +66,10 @@ class PageEntrance extends StatelessWidget {
 
     // 페이지 사용 BLoC 객체를 모두 설정
     return MultiBlocProvider(
-      // 하위 위젯에서 사용할 Businesses BLoC 프로바이더 설정
-      // MultiBlocProvider 을 거치지 않는다면 하위 위젯에서 BLoC 조작을 할 수 없습니다.
-      providers: blocProviders,
-      child: const LifecycleWatcher(),
-    );
+        // 하위 위젯에서 사용할 Businesses BLoC 프로바이더 설정
+        // MultiBlocProvider 을 거치지 않는다면 하위 위젯에서 BLoC 조작을 할 수 없습니다.
+        providers: blocProviders,
+        child: const LifecycleWatcher());
   }
 }
 
@@ -110,57 +109,58 @@ class LifecycleWatcherState extends State<LifecycleWatcher>
     _pageBusiness = blocPageInfoState.pageBusiness;
 
     return WillPopScope(
-      onWillPop: () async {
-        bool isPop = await _pageBusiness.onPageWillPopAsync();
+        onWillPop: () async {
+          bool isPop = await _pageBusiness.onPageWillPopAsync();
 
-        if (isPop) {
-          // 페이지 종료(return true) 때에는, 아래 코드 실행
-          if (context.mounted) {
-            if (Navigator.canPop(context)) {
-              _pageBusiness.pageViewModel.pageLifeCycleStates.isCanPop = true;
-            } else {
-              _pageBusiness.pageViewModel.pageLifeCycleStates.isNoCanPop = true;
+          if (isPop) {
+            // 페이지 종료(return true) 때에는, 아래 코드 실행
+            if (context.mounted) {
+              if (Navigator.canPop(context)) {
+                _pageBusiness.pageViewModel.pageLifeCycleStates.isCanPop = true;
+              } else {
+                _pageBusiness.pageViewModel.pageLifeCycleStates.isNoCanPop =
+                    true;
+              }
             }
           }
-        }
 
-        return isPop;
-      },
-      // 페이지 생명주기를 Business 에 넘겨주기
-      child: FocusDetector(
-        // Businesses 에 focus 콜백 전달
-        onFocusGained: () async {
-          if (!_pageBusiness.pageViewModel.pageLifeCycleStates.isPageCreated) {
-            _pageBusiness.pageViewModel.pageLifeCycleStates.isPageCreated =
-                true;
-            await _pageBusiness.onPageCreateAsync();
-          } else {}
+          return isPop;
+        },
+        // 페이지 생명주기를 Business 에 넘겨주기
+        child: FocusDetector(
+            // Businesses 에 focus 콜백 전달
+            onFocusGained: () async {
+              if (!_pageBusiness
+                  .pageViewModel.pageLifeCycleStates.isPageCreated) {
+                _pageBusiness.pageViewModel.pageLifeCycleStates.isPageCreated =
+                    true;
+                await _pageBusiness.onPageCreateAsync();
+              } else {}
 
-          await _pageBusiness.onPageResumeAsync();
-        },
-        onFocusLost: () async {
-          if (_pageBusiness.pageViewModel.pageLifeCycleStates.isNoCanPop) {
-            await _pageBusiness.onPagePauseAsync();
-            await _pageBusiness.onPageDestroyAsync();
-          } else {
-            await _pageBusiness.onPagePauseAsync();
-          }
-        },
-        onVisibilityLost: () async {
-          // 발동 조건
-          // 위젯이 더이상 화면에서 보이지 않는 상태
-          // mobile : 다른 라우트 push, pop() 사용, back 버튼으로 뒤로가기
+              await _pageBusiness.onPageResumeAsync();
+            },
+            onFocusLost: () async {
+              if (_pageBusiness.pageViewModel.pageLifeCycleStates.isNoCanPop) {
+                await _pageBusiness.onPagePauseAsync();
+                await _pageBusiness.onPageDestroyAsync();
+              } else {
+                await _pageBusiness.onPagePauseAsync();
+              }
+            },
+            onVisibilityLost: () async {
+              // 발동 조건
+              // 위젯이 더이상 화면에서 보이지 않는 상태
+              // mobile : 다른 라우트 push, pop() 사용, back 버튼으로 뒤로가기
 
-          // isDisposed 를 그냥 사용하면 onPause 보다 빠르게 실행되므로 실행 타이밍을 뒤로 미루기 위한 로직
-          if (_pageBusiness.pageViewModel.pageLifeCycleStates.isDisposed) {
-            _pageBusiness.pageViewModel.pageLifeCycleStates.isDisposed = false;
-            if (_pageBusiness.pageViewModel.pageLifeCycleStates.isCanPop) {
-              await _pageBusiness.onPageDestroyAsync();
-            }
-          }
-        },
-        child: const page_view.PageView(),
-      ),
-    );
+              // isDisposed 를 그냥 사용하면 onPause 보다 빠르게 실행되므로 실행 타이밍을 뒤로 미루기 위한 로직
+              if (_pageBusiness.pageViewModel.pageLifeCycleStates.isDisposed) {
+                _pageBusiness.pageViewModel.pageLifeCycleStates.isDisposed =
+                    false;
+                if (_pageBusiness.pageViewModel.pageLifeCycleStates.isCanPop) {
+                  await _pageBusiness.onPageDestroyAsync();
+                }
+              }
+            },
+            child: const page_view.PageView()));
   }
 }

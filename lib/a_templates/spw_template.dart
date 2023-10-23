@@ -50,9 +50,7 @@ class SharedPreferenceWrapper {
         // !!! Map 을 Object 로 변경!!
         // map 키는 Object 의 변수명과 동일
         Map<String, dynamic> map = jsonDecode(decryptedJsonString);
-        var resultObject = SharedPreferenceWrapperVo(
-          map["sampleInt"],
-        );
+        var resultObject = SharedPreferenceWrapperVo(map["sampleInt"]);
         semaphore.release();
         return resultObject;
       } catch (e) {
@@ -81,9 +79,7 @@ class SharedPreferenceWrapper {
     } else {
       // !!!Object 를 Map 으로 변경!!
       // map 키는 Object 의 변수명과 동일하게 설정
-      Map<String, dynamic> map = {
-        "sampleInt": value.sampleInt,
-      };
+      Map<String, dynamic> map = {"sampleInt": value.sampleInt};
 
       // 값 암호화
       String encryptedJsonString =

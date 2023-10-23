@@ -31,27 +31,19 @@ class PageView extends StatelessWidget {
 
     // Mobile 앱 status bar 색상 변경
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      statusBarColor: Colors.blue,
-      statusBarIconBrightness: Brightness.dark,
-      statusBarBrightness: Brightness.dark,
-    ));
+        statusBarColor: Colors.blue,
+        statusBarIconBrightness: Brightness.dark,
+        statusBarBrightness: Brightness.dark));
 
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: !kIsWeb,
-        title: const Text(
-          "페이지 템플릿",
-          style: TextStyle(color: Colors.white),
-        ),
-        backgroundColor: Colors.blue,
-        iconTheme: const IconThemeData(
-          color: Colors.white, //change your color here
-        ),
-      ),
-      backgroundColor: const Color(0xFFFFFFFF),
-      body: const Center(
-        child: Text("페이지 템플릿입니다."),
-      ),
-    );
+        appBar: AppBar(
+            automaticallyImplyLeading: !kIsWeb,
+            title: const Text("페이지 템플릿", style: TextStyle(color: Colors.white)),
+            backgroundColor: Colors.blue,
+            iconTheme:
+                const IconThemeData(color: Colors.white //change your color here
+                    )),
+        backgroundColor: const Color(0xFFFFFFFF),
+        body: const Center(child: Text("페이지 템플릿입니다.")));
   }
 }

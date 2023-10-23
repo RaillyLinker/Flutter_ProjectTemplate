@@ -119,7 +119,7 @@ class BLocProviders {
 // !!!위에 정의된 BLoC 클래스들에 대한 Provider 객체들을 아래 리스트에 모두 넣어줄 것!!
   List<BlocProvider<dynamic>> blocProviders = [
     // ex :
-    // BlocProvider<BlocSample>(create: (context) => BlocSample()),
+    // BlocProvider<BlocSample>(create: (context) => BlocSample())
   ];
 }
 

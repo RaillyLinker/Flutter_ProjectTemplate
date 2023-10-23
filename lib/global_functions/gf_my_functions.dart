@@ -84,8 +84,5 @@ class GetGifDetailsOutputVo {
   int frameCount;
   int duration;
 
-  GetGifDetailsOutputVo(
-    this.frameCount,
-    this.duration,
-  );
+  GetGifDetailsOutputVo(this.frameCount, this.duration);
 }

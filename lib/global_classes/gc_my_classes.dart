@@ -95,11 +95,10 @@ class ContextMenuRegionItemVo {
 }
 
 class ContextMenuRegion extends StatefulWidget {
-  ContextMenuRegion({
-    super.key,
-    required this.child,
-    required this.contextMenuRegionItemVoList,
-  });
+  ContextMenuRegion(
+      {super.key,
+      required this.child,
+      required this.contextMenuRegionItemVoList});
 
   final Widget child;
 
@@ -152,9 +151,8 @@ class _ContextMenuRegionState extends State<ContextMenuRegion> {
     for (ContextMenuRegionItemVo contextMenuRegionItemVo
         in widget.contextMenuRegionItemVoList) {
       popupMenuItemList.add(PopupMenuItem(
-        value: contextMenuRegionItemVo.itemUid,
-        child: contextMenuRegionItemVo.menuItemWidget,
-      ));
+          value: contextMenuRegionItemVo.itemUid,
+          child: contextMenuRegionItemVo.menuItemWidget));
 
       popupMenuItemCallbackMap[contextMenuRegionItemVo.itemUid] =
           contextMenuRegionItemVo.menuItemCallback;
@@ -177,11 +175,10 @@ class _ContextMenuRegionState extends State<ContextMenuRegion> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      behavior: HitTestBehavior.opaque,
-      onSecondaryTapUp: _onSecondaryTapUp,
-      onLongPress: _longPressEnabled ? _onLongPress : null,
-      onLongPressStart: _longPressEnabled ? _onLongPressStart : null,
-      child: widget.child,
-    );
+        behavior: HitTestBehavior.opaque,
+        onSecondaryTapUp: _onSecondaryTapUp,
+        onLongPress: _longPressEnabled ? _onLongPress : null,
+        onLongPressStart: _longPressEnabled ? _onLongPressStart : null,
+        child: widget.child);
   }
 }
