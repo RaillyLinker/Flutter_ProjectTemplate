@@ -55,10 +55,7 @@ class SharedPreferenceWrapper {
         List<SharedPreferenceWrapperVoOAuth2Info> oAuth2ObjectList = [];
         for (Map<String, dynamic> oAuth2 in oAuth2List) {
           oAuth2ObjectList.add(SharedPreferenceWrapperVoOAuth2Info(
-            oAuth2["uid"],
-            oAuth2["oauth2TypeCode"],
-            oAuth2["oauth2Id"],
-          ));
+              oAuth2["uid"], oAuth2["oauth2TypeCode"], oAuth2["oauth2Id"]));
         }
 
         var myProfileList =
@@ -66,20 +63,14 @@ class SharedPreferenceWrapper {
         List<SharedPreferenceWrapperVoProfileInfo> myProfileObjectList = [];
         for (Map<String, dynamic> profile in myProfileList) {
           myProfileObjectList.add(SharedPreferenceWrapperVoProfileInfo(
-            profile["uid"],
-            profile["imageFullUrl"],
-            profile["isFront"],
-          ));
+              profile["uid"], profile["imageFullUrl"], profile["isFront"]));
         }
 
         var myEmailList = List<Map<String, dynamic>>.from(map["myEmailList"]);
         List<SharedPreferenceWrapperVoEmailInfo> myEmailObjectList = [];
         for (Map<String, dynamic> email in myEmailList) {
           myEmailObjectList.add(SharedPreferenceWrapperVoEmailInfo(
-            email["uid"],
-            email["emailAddress"],
-            email["isFront"],
-          ));
+              email["uid"], email["emailAddress"], email["isFront"]));
         }
 
         var myPhoneNumberList =
@@ -87,27 +78,23 @@ class SharedPreferenceWrapper {
         List<SharedPreferenceWrapperVoPhoneInfo> myPhoneNumberObjectList = [];
         for (Map<String, dynamic> phone in myPhoneNumberList) {
           myPhoneNumberObjectList.add(SharedPreferenceWrapperVoPhoneInfo(
-            phone["uid"],
-            phone["phoneNumber"],
-            phone["isFront"],
-          ));
+              phone["uid"], phone["phoneNumber"], phone["isFront"]));
         }
 
         var resultObject = SharedPreferenceWrapperVo(
-          map["memberUid"],
-          map["nickName"],
-          List<String>.from(map["roleList"]),
-          map["tokenType"],
-          map["accessToken"],
-          map["accessTokenExpireWhen"],
-          map["refreshToken"],
-          map["refreshTokenExpireWhen"],
-          oAuth2ObjectList,
-          myProfileObjectList,
-          myEmailObjectList,
-          myPhoneNumberObjectList,
-          map["authPasswordIsNull"],
-        );
+            map["memberUid"],
+            map["nickName"],
+            List<String>.from(map["roleList"]),
+            map["tokenType"],
+            map["accessToken"],
+            map["accessTokenExpireWhen"],
+            map["refreshToken"],
+            map["refreshTokenExpireWhen"],
+            oAuth2ObjectList,
+            myProfileObjectList,
+            myEmailObjectList,
+            myPhoneNumberObjectList,
+            map["authPasswordIsNull"]);
         semaphore.release();
         return resultObject;
       } catch (e) {
@@ -188,7 +175,7 @@ class SharedPreferenceWrapper {
         "myProfileList": myProfileList,
         "myEmailList": myEmailList,
         "myPhoneNumberList": myPhoneNumberList,
-        "authPasswordIsNull": value.authPasswordIsNull,
+        "authPasswordIsNull": value.authPasswordIsNull
       };
 
       // 값 암호화
@@ -228,20 +215,19 @@ class SharedPreferenceWrapperVo {
       authPasswordIsNull; // 계정 로그인 비밀번호 설정 Null 여부 (OAuth2 만으로 회원가입한 경우는 비밀번호가 없으므로 true)
 
   SharedPreferenceWrapperVo(
-    this.memberUid,
-    this.nickName,
-    this.roleList,
-    this.tokenType,
-    this.accessToken,
-    this.accessTokenExpireWhen,
-    this.refreshToken,
-    this.refreshTokenExpireWhen,
-    this.myOAuth2List,
-    this.myProfileList,
-    this.myEmailList,
-    this.myPhoneNumberList,
-    this.authPasswordIsNull,
-  );
+      this.memberUid,
+      this.nickName,
+      this.roleList,
+      this.tokenType,
+      this.accessToken,
+      this.accessTokenExpireWhen,
+      this.refreshToken,
+      this.refreshTokenExpireWhen,
+      this.myOAuth2List,
+      this.myProfileList,
+      this.myEmailList,
+      this.myPhoneNumberList,
+      this.authPasswordIsNull);
 }
 
 class SharedPreferenceWrapperVoOAuth2Info {
@@ -250,10 +236,7 @@ class SharedPreferenceWrapperVoOAuth2Info {
   String oauth2Id; // oAuth2 고유값 아이디
 
   SharedPreferenceWrapperVoOAuth2Info(
-    this.uid,
-    this.oauth2TypeCode,
-    this.oauth2Id,
-  );
+      this.uid, this.oauth2TypeCode, this.oauth2Id);
 }
 
 class SharedPreferenceWrapperVoProfileInfo {
@@ -262,10 +245,7 @@ class SharedPreferenceWrapperVoProfileInfo {
   bool isFront; //대표 프로필 여부
 
   SharedPreferenceWrapperVoProfileInfo(
-    this.uid,
-    this.imageFullUrl,
-    this.isFront,
-  );
+      this.uid, this.imageFullUrl, this.isFront);
 
   @override
   String toString() {
@@ -278,11 +258,7 @@ class SharedPreferenceWrapperVoEmailInfo {
   String emailAddress; // 이메일 주소
   bool isFront; //대표 프로필 여부
 
-  SharedPreferenceWrapperVoEmailInfo(
-    this.uid,
-    this.emailAddress,
-    this.isFront,
-  );
+  SharedPreferenceWrapperVoEmailInfo(this.uid, this.emailAddress, this.isFront);
 
   @override
   String toString() {
@@ -295,11 +271,7 @@ class SharedPreferenceWrapperVoPhoneInfo {
   String phoneNumber; // 전화번호
   bool isFront; //대표 프로필 여부
 
-  SharedPreferenceWrapperVoPhoneInfo(
-    this.uid,
-    this.phoneNumber,
-    this.isFront,
-  );
+  SharedPreferenceWrapperVoPhoneInfo(this.uid, this.phoneNumber, this.isFront);
 
   @override
   String toString() {

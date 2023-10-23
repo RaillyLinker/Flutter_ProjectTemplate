@@ -52,10 +52,8 @@ void setDioObjects() {
   ));
 
   // (커스텀 인터셉터 설정)
-  mainServerDio.interceptors.add(InterceptorsWrapper(onRequest: (
-    RequestOptions options,
-    RequestInterceptorHandler handler,
-  ) async {
+  mainServerDio.interceptors.add(InterceptorsWrapper(onRequest:
+      (RequestOptions options, RequestInterceptorHandler handler) async {
     // (매 네트워크 요청마다 실행되어 여기를 거친 후 서버로 요청을 보냄)
     // 요청 경로 (ex : http://127.0.0.1:8080/tk/ra/test/request/post-request)
     // String requestPath = options.path;
@@ -70,10 +68,8 @@ void setDioObjects() {
 
     // 서버로 요청 전송
     handler.next(options);
-  }, onResponse: (
-    Response<dynamic> response,
-    ResponseInterceptorHandler handler,
-  ) async {
+  }, onResponse:
+      (Response<dynamic> response, ResponseInterceptorHandler handler) async {
     // (매 네트워크 응답이 왔을 때 실행되어 여기를 거친 후 요청을 보냈던 코드로 복귀)
     // 응답 코드 (ex : 200)
     // int? responseStatusCode = response.statusCode;
@@ -174,11 +170,8 @@ void setDioObjects() {
                         .PostReissueAsyncResponseBodyVoOAuth2Info myOAuth2
                         in postReissueResponseBody.myOAuth2List) {
                       myOAuth2ObjectList.add(spw_auth_member_info
-                          .SharedPreferenceWrapperVoOAuth2Info(
-                        myOAuth2.uid,
-                        myOAuth2.oauth2TypeCode,
-                        myOAuth2.oauth2Id,
-                      ));
+                          .SharedPreferenceWrapperVoOAuth2Info(myOAuth2.uid,
+                              myOAuth2.oauth2TypeCode, myOAuth2.oauth2Id));
                     }
 
                     List<
@@ -189,11 +182,8 @@ void setDioObjects() {
                         .PostReissueAsyncResponseBodyVoProfile myProfile
                         in postReissueResponseBody.myProfileList) {
                       myProfileList.add(spw_auth_member_info
-                          .SharedPreferenceWrapperVoProfileInfo(
-                        myProfile.uid,
-                        myProfile.imageFullUrl,
-                        myProfile.isFront,
-                      ));
+                          .SharedPreferenceWrapperVoProfileInfo(myProfile.uid,
+                              myProfile.imageFullUrl, myProfile.isFront));
                     }
 
                     List<
@@ -203,11 +193,8 @@ void setDioObjects() {
                         .PostReissueAsyncResponseBodyVoEmail myEmail
                         in postReissueResponseBody.myEmailList) {
                       myEmailList.add(spw_auth_member_info
-                          .SharedPreferenceWrapperVoEmailInfo(
-                        myEmail.uid,
-                        myEmail.emailAddress,
-                        myEmail.isFront,
-                      ));
+                          .SharedPreferenceWrapperVoEmailInfo(myEmail.uid,
+                              myEmail.emailAddress, myEmail.isFront));
                     }
 
                     List<
@@ -218,11 +205,8 @@ void setDioObjects() {
                         .PostReissueAsyncResponseBodyVoPhone myPhone
                         in postReissueResponseBody.myPhoneNumberList) {
                       myPhoneNumberList.add(spw_auth_member_info
-                          .SharedPreferenceWrapperVoPhoneInfo(
-                        myPhone.uid,
-                        myPhone.phoneNumber,
-                        myPhone.isFront,
-                      ));
+                          .SharedPreferenceWrapperVoPhoneInfo(myPhone.uid,
+                              myPhone.phoneNumber, myPhone.isFront));
                     }
 
                     signInMemberInfo.memberUid =
@@ -262,10 +246,9 @@ void setDioObjects() {
                         options.path,
                         data: options.data,
                         options: Options(
-                          method: options.method,
-                          headers: options.headers,
-                          contentType: options.contentType,
-                        ),
+                            method: options.method,
+                            headers: options.headers,
+                            contentType: options.contentType),
                       );
 
                       // 재요청이 정상 완료 되었으므로 결과를 본 request 코드에 넘겨주기

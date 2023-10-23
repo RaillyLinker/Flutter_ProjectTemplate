@@ -18,6 +18,7 @@ import 'global_data/gd_const.dart' as gd_const;
 
 // [프로그램 최초 실행 파일]
 // 본 프로그램이 실행될 때 가장 처음으로 실행되는 main 함수가 존재하는 파일입니다.
+// Web 에서는 브라우저 주소창 입력 진입, 혹은 브라우저 리플레시마다 실행됩니다.
 
 // -----------------------------------------------------------------------------
 // (프로그램 최초 실행 함수)
@@ -105,14 +106,13 @@ void main() async {
       RobotDetector(
           debug: gd_const_config.isDebugMode,
           child: MaterialApp.router(
-            // 웹 브라우저 탭 타이틀 설정
-            title: gd_const_config.title,
-            // 디버그 모드에서 디버그 리본 적용
-            debugShowCheckedModeBanner: gd_const_config.isDebugMode,
-            routerConfig: router.getRouter(), // 라우트 경로 주입
-            // Mobile 외 환경의 스크롤링을 마우스 터치로 가능하도록 처리
-            scrollBehavior: MouseTouchScrollBehavior(),
-          )));
+              // 웹 브라우저 탭 타이틀 설정
+              title: gd_const_config.title,
+              // 디버그 모드에서 디버그 리본 적용
+              debugShowCheckedModeBanner: gd_const_config.isDebugMode,
+              routerConfig: router.getRouter(), // 라우트 경로 주입
+              // Mobile 외 환경의 스크롤링을 마우스 터치로 가능하도록 처리
+              scrollBehavior: MouseTouchScrollBehavior())));
 }
 
 // Web 에서의 스크롤링을 마우스 터치로 가능하도록 처리

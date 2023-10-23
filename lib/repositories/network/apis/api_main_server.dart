@@ -63,9 +63,7 @@ Future<
     // !!!네트워크 요청 설정!!
     // requestPathAndParam, headers 설정 외 세부 설정
     var response = await serverDioObject.get(requestUrlAndParam,
-        options: Options(
-          headers: requestHeaders,
-        ));
+        options: Options(headers: requestHeaders));
 
     int statusCode = response.statusCode!;
     Map<String, dynamic> responseHeaderMap = response.headers.map;
@@ -87,20 +85,19 @@ Future<
       // Object List 타입이 넘어오면 List<Map<String, dynamic>> 으로 받아서 처리
 
       responseBody = GetService1TkV1RequestTestGetRequestAsyncResponseBodyVo(
-        responseBodyMap["queryParamString"],
-        responseBodyMap["queryParamStringNullable"],
-        responseBodyMap["queryParamInt"],
-        responseBodyMap["queryParamIntNullable"],
-        responseBodyMap["queryParamDouble"],
-        responseBodyMap["queryParamDoubleNullable"],
-        responseBodyMap["queryParamBoolean"],
-        responseBodyMap["queryParamBooleanNullable"],
-        List<String>.from(responseBodyMap["queryParamStringList"]),
-        (responseBodyMap["queryParamStringListNullable"] == null)
-            ? null
-            : List<String>.from(
-                responseBodyMap["queryParamStringListNullable"]),
-      );
+          responseBodyMap["queryParamString"],
+          responseBodyMap["queryParamStringNullable"],
+          responseBodyMap["queryParamInt"],
+          responseBodyMap["queryParamIntNullable"],
+          responseBodyMap["queryParamDouble"],
+          responseBodyMap["queryParamDoubleNullable"],
+          responseBodyMap["queryParamBoolean"],
+          responseBodyMap["queryParamBooleanNullable"],
+          List<String>.from(responseBodyMap["queryParamStringList"]),
+          (responseBodyMap["queryParamStringListNullable"] == null)
+              ? null
+              : List<String>.from(
+                  responseBodyMap["queryParamStringListNullable"]));
     }
 
     return gc_template_classes.NetworkResponseObject(
@@ -182,7 +179,7 @@ class GetService1TkV1RequestTestGetRequestAsyncResponseBodyVo {
         "queryParamBoolean : $queryParamBoolean, "
         "queryParamBooleanNullable : $queryParamBooleanNullable, "
         "queryParamStringList : $queryParamStringList, "
-        "queryParamStringListNullable : $queryParamStringListNullable, ";
+        "queryParamStringListNullable : $queryParamStringListNullable";
   }
 }
 
@@ -259,20 +256,19 @@ Future<
 
       responseBody =
           PostService1TkV1RequestTestPostRequestApplicationJsonAsyncResponseBodyVo(
-        responseBodyMap["requestBodyString"],
-        responseBodyMap["requestBodyStringNullable"],
-        responseBodyMap["requestBodyInt"],
-        responseBodyMap["requestBodyIntNullable"],
-        responseBodyMap["requestBodyDouble"],
-        responseBodyMap["requestBodyDoubleNullable"],
-        responseBodyMap["requestBodyBoolean"],
-        responseBodyMap["requestBodyBooleanNullable"],
-        List<String>.from(responseBodyMap["requestBodyStringList"]),
-        (responseBodyMap["requestBodyStringListNullable"] == null)
-            ? null
-            : List<String>.from(
-                responseBodyMap["requestBodyStringListNullable"]),
-      );
+              responseBodyMap["requestBodyString"],
+              responseBodyMap["requestBodyStringNullable"],
+              responseBodyMap["requestBodyInt"],
+              responseBodyMap["requestBodyIntNullable"],
+              responseBodyMap["requestBodyDouble"],
+              responseBodyMap["requestBodyDoubleNullable"],
+              responseBodyMap["requestBodyBoolean"],
+              responseBodyMap["requestBodyBooleanNullable"],
+              List<String>.from(responseBodyMap["requestBodyStringList"]),
+              (responseBodyMap["requestBodyStringListNullable"] == null)
+                  ? null
+                  : List<String>.from(
+                      responseBodyMap["requestBodyStringListNullable"]));
     }
 
     return gc_template_classes.NetworkResponseObject(
@@ -356,7 +352,7 @@ class PostService1TkV1RequestTestPostRequestApplicationJsonAsyncResponseBodyVo {
         "requestBodyBoolean : $requestBodyBoolean, "
         "requestBodyBooleanNullable : $requestBodyBooleanNullable, "
         "requestBodyStringList : $requestBodyStringList, "
-        "requestBodyStringListNullable : $requestBodyStringListNullable, ";
+        "requestBodyStringListNullable : $requestBodyStringListNullable";
   }
 }
 
@@ -405,9 +401,8 @@ Future<
     // requestPathAndParam, headers 설정 외 세부 설정
     var response = await serverDioObject.post(requestUrlAndParam,
         options: Options(
-          headers: requestHeaders,
-          contentType: Headers.formUrlEncodedContentType,
-        ),
+            headers: requestHeaders,
+            contentType: Headers.formUrlEncodedContentType),
         data: requestBody);
 
     int statusCode = response.statusCode!;
@@ -434,20 +429,19 @@ Future<
 
       responseBody =
           PostService1TkV1RequestTestPostRequestXWwwFromUrlencodedAsyncResponseBodyVo(
-        responseBodyMap["requestFormString"],
-        responseBodyMap["requestFormStringNullable"],
-        responseBodyMap["requestFormInt"],
-        responseBodyMap["requestFormIntNullable"],
-        responseBodyMap["requestFormDouble"],
-        responseBodyMap["requestFormDoubleNullable"],
-        responseBodyMap["requestFormBoolean"],
-        responseBodyMap["requestFormBooleanNullable"],
-        List<String>.from(responseBodyMap["requestFormStringList"]),
-        (responseBodyMap["requestFormStringListNullable"] == null)
-            ? null
-            : List<String>.from(
-                responseBodyMap["requestFormStringListNullable"]),
-      );
+              responseBodyMap["requestFormString"],
+              responseBodyMap["requestFormStringNullable"],
+              responseBodyMap["requestFormInt"],
+              responseBodyMap["requestFormIntNullable"],
+              responseBodyMap["requestFormDouble"],
+              responseBodyMap["requestFormDoubleNullable"],
+              responseBodyMap["requestFormBoolean"],
+              responseBodyMap["requestFormBooleanNullable"],
+              List<String>.from(responseBodyMap["requestFormStringList"]),
+              (responseBodyMap["requestFormStringListNullable"] == null)
+                  ? null
+                  : List<String>.from(
+                      responseBodyMap["requestFormStringListNullable"]));
     }
 
     return gc_template_classes.NetworkResponseObject(
@@ -531,7 +525,7 @@ class PostService1TkV1RequestTestPostRequestXWwwFromUrlencodedAsyncResponseBodyV
         "requestFormBoolean : $requestFormBoolean, "
         "requestFormBooleanNullable : $requestFormBooleanNullable, "
         "requestFormStringList : $requestFormStringList, "
-        "requestFormStringListNullable : $requestFormStringListNullable, ";
+        "requestFormStringListNullable : $requestFormStringListNullable";
   }
 }
 
@@ -598,10 +592,7 @@ Future<
     // !!!네트워크 요청 설정!!
     // requestPathAndParam, headers 설정 외 세부 설정
     var response = await serverDioObject.post(requestUrlAndParam,
-        options: Options(
-          headers: requestHeaders,
-        ),
-        data: requestBody);
+        options: Options(headers: requestHeaders), data: requestBody);
 
     int statusCode = response.statusCode!;
     Map<String, dynamic> responseHeaderMap = response.headers.map;
@@ -627,20 +618,19 @@ Future<
 
       responseBody =
           PostService1TkV1RequestTestPostRequestMultipartFormDataAsyncResponseBodyVo(
-        responseBodyMap["requestFormString"],
-        responseBodyMap["requestFormStringNullable"],
-        responseBodyMap["requestFormInt"],
-        responseBodyMap["requestFormIntNullable"],
-        responseBodyMap["requestFormDouble"],
-        responseBodyMap["requestFormDoubleNullable"],
-        responseBodyMap["requestFormBoolean"],
-        responseBodyMap["requestFormBooleanNullable"],
-        List<String>.from(responseBodyMap["requestFormStringList"]),
-        (responseBodyMap["requestFormStringListNullable"] == null)
-            ? null
-            : List<String>.from(
-                responseBodyMap["requestFormStringListNullable"]),
-      );
+              responseBodyMap["requestFormString"],
+              responseBodyMap["requestFormStringNullable"],
+              responseBodyMap["requestFormInt"],
+              responseBodyMap["requestFormIntNullable"],
+              responseBodyMap["requestFormDouble"],
+              responseBodyMap["requestFormDoubleNullable"],
+              responseBodyMap["requestFormBoolean"],
+              responseBodyMap["requestFormBooleanNullable"],
+              List<String>.from(responseBodyMap["requestFormStringList"]),
+              (responseBodyMap["requestFormStringListNullable"] == null)
+                  ? null
+                  : List<String>.from(
+                      responseBodyMap["requestFormStringListNullable"]));
     }
 
     return gc_template_classes.NetworkResponseObject(
@@ -669,19 +659,18 @@ class PostService1TkV1RequestTestPostRequestMultipartFormDataAsyncRequestBodyVo 
   MultipartFile? multipartFileNullable; // 멀티 파트 파일 Nullable
 
   PostService1TkV1RequestTestPostRequestMultipartFormDataAsyncRequestBodyVo(
-    this.requestFormString,
-    this.requestFormStringNullable,
-    this.requestFormInt,
-    this.requestFormIntNullable,
-    this.requestFormDouble,
-    this.requestFormDoubleNullable,
-    this.requestFormBoolean,
-    this.requestFormBooleanNullable,
-    this.requestFormStringList,
-    this.requestFormStringListNullable,
-    this.multipartFile,
-    this.multipartFileNullable,
-  );
+      this.requestFormString,
+      this.requestFormStringNullable,
+      this.requestFormInt,
+      this.requestFormIntNullable,
+      this.requestFormDouble,
+      this.requestFormDoubleNullable,
+      this.requestFormBoolean,
+      this.requestFormBooleanNullable,
+      this.requestFormStringList,
+      this.requestFormStringListNullable,
+      this.multipartFile,
+      this.multipartFileNullable);
 }
 
 class PostService1TkV1RequestTestPostRequestMultipartFormDataAsyncResponseHeaderVo {
@@ -729,7 +718,7 @@ class PostService1TkV1RequestTestPostRequestMultipartFormDataAsyncResponseBodyVo
         "requestFormBoolean : $requestFormBoolean, "
         "requestFormBooleanNullable : $requestFormBooleanNullable, "
         "requestFormStringList : $requestFormStringList, "
-        "requestFormStringListNullable : $requestFormStringListNullable, ";
+        "requestFormStringListNullable : $requestFormStringListNullable";
   }
 }
 
@@ -755,13 +744,13 @@ Future<
   if (requestBodyVo.multipartFileNullable == null) {
     requestBody = FormData.fromMap({
       "jsonString": requestBodyVo.jsonString,
-      "multipartFile": requestBodyVo.multipartFile,
+      "multipartFile": requestBodyVo.multipartFile
     });
   } else {
     requestBody = FormData.fromMap({
       "jsonString": requestBodyVo.jsonString,
       "multipartFile": requestBodyVo.multipartFile,
-      "multipartFileNullable": requestBodyVo.multipartFileNullable,
+      "multipartFileNullable": requestBodyVo.multipartFileNullable
     });
   }
 
@@ -774,10 +763,7 @@ Future<
     // !!!네트워크 요청 설정!!
     // requestPathAndParam, headers 설정 외 세부 설정
     var response = await serverDioObject.post(requestUrlAndParam,
-        options: Options(
-          headers: requestHeaders,
-        ),
-        data: requestBody);
+        options: Options(headers: requestHeaders), data: requestBody);
 
     int statusCode = response.statusCode!;
     Map<String, dynamic> responseHeaderMap = response.headers.map;
@@ -803,20 +789,19 @@ Future<
 
       responseBody =
           PostService1TkV1RequestTestPostRequestMultipartFormDataJsonAsyncResponseBodyVo(
-        responseBodyMap["requestFormString"],
-        responseBodyMap["requestFormStringNullable"],
-        responseBodyMap["requestFormInt"],
-        responseBodyMap["requestFormIntNullable"],
-        responseBodyMap["requestFormDouble"],
-        responseBodyMap["requestFormDoubleNullable"],
-        responseBodyMap["requestFormBoolean"],
-        responseBodyMap["requestFormBooleanNullable"],
-        List<String>.from(responseBodyMap["requestFormStringList"]),
-        (responseBodyMap["requestFormStringListNullable"] == null)
-            ? null
-            : List<String>.from(
-                responseBodyMap["requestFormStringListNullable"]),
-      );
+              responseBodyMap["requestFormString"],
+              responseBodyMap["requestFormStringNullable"],
+              responseBodyMap["requestFormInt"],
+              responseBodyMap["requestFormIntNullable"],
+              responseBodyMap["requestFormDouble"],
+              responseBodyMap["requestFormDoubleNullable"],
+              responseBodyMap["requestFormBoolean"],
+              responseBodyMap["requestFormBooleanNullable"],
+              List<String>.from(responseBodyMap["requestFormStringList"]),
+              (responseBodyMap["requestFormStringListNullable"] == null)
+                  ? null
+                  : List<String>.from(
+                      responseBodyMap["requestFormStringListNullable"]));
     }
 
     return gc_template_classes.NetworkResponseObject(
@@ -842,17 +827,14 @@ class PostService1TkV1RequestTestPostRequestMultipartFormDataJsonAsyncRequestBod
   // "requestFormBoolean" : boolean, // Boolean 바디 파라미터
   // "requestFormBooleanNullable" : boolean?, // Boolean 바디 파라미터 Nullable
   // "requestFormStringList" : List<String>, // StringList 바디 파라미터
-  // "requestFormStringListNullable" : List<String>?, // StringList 바디 파라미터 Nullable
+  // "requestFormStringListNullable" : List<String>? // StringList 바디 파라미터 Nullable
   // }
   String jsonString; // json 형식 String
   MultipartFile multipartFile; // 멀티 파트 파일
   MultipartFile? multipartFileNullable; // 멀티 파트 파일 Nullable
 
   PostService1TkV1RequestTestPostRequestMultipartFormDataJsonAsyncRequestBodyVo(
-    this.jsonString,
-    this.multipartFile,
-    this.multipartFileNullable,
-  );
+      this.jsonString, this.multipartFile, this.multipartFileNullable);
 }
 
 class PostService1TkV1RequestTestPostRequestMultipartFormDataJsonAsyncResponseHeaderVo {
@@ -900,7 +882,7 @@ class PostService1TkV1RequestTestPostRequestMultipartFormDataJsonAsyncResponseBo
         "requestFormBoolean : $requestFormBoolean, "
         "requestFormBooleanNullable : $requestFormBooleanNullable, "
         "requestFormStringList : $requestFormStringList, "
-        "requestFormStringListNullable : $requestFormStringListNullable, ";
+        "requestFormStringListNullable : $requestFormStringListNullable";
   }
 }
 
@@ -931,10 +913,7 @@ Future<
     // !!!네트워크 요청 설정!!
     // requestPathAndParam, headers 설정 외 세부 설정
     var response = await serverDioObject.post(requestUrlAndParam,
-        options: Options(
-          headers: requestHeaders,
-        ),
-        data: requestBody);
+        options: Options(headers: requestHeaders), data: requestBody);
 
     int statusCode = response.statusCode!;
     Map<String, dynamic> responseHeaderMap = response.headers.map;
@@ -996,9 +975,7 @@ Future<
     // !!!네트워크 요청 설정!!
     // requestPathAndParam, headers 설정 외 세부 설정
     var response = await serverDioObject.get(requestUrlAndParam,
-        options: Options(
-          headers: requestHeaders,
-        ));
+        options: Options(headers: requestHeaders));
 
     int statusCode = response.statusCode!;
     Map<String, dynamic> responseHeaderMap = response.headers.map;
@@ -1068,9 +1045,7 @@ Future<
     // !!!네트워크 요청 설정!!
     // requestPathAndParam, headers 설정 외 세부 설정
     var response = await serverDioObject.get(requestUrlAndParam,
-        options: Options(
-          headers: requestHeaders,
-        ));
+        options: Options(headers: requestHeaders));
 
     int statusCode = response.statusCode!;
     Map<String, dynamic> responseHeaderMap = response.headers.map;
@@ -1149,9 +1124,7 @@ Future<
     // !!!네트워크 요청 설정!!
     // requestPathAndParam, headers 설정 외 세부 설정
     var response = await serverDioObject.get(requestUrlAndParam,
-        options: Options(
-          headers: requestHeaders,
-        ));
+        options: Options(headers: requestHeaders));
 
     int statusCode = response.statusCode!;
     Map<String, dynamic> responseHeaderMap = response.headers.map;
@@ -1192,9 +1165,7 @@ class GetMobileAppVersionInfoAsyncRequestQueryVo {
   // 플랫폼 코드 (1 : web, 2 : android, 3 : ios, 4 : windows, 5 : macos, 6 : linux)
   int platformCode;
 
-  GetMobileAppVersionInfoAsyncRequestQueryVo(
-    this.platformCode,
-  );
+  GetMobileAppVersionInfoAsyncRequestQueryVo(this.platformCode);
 }
 
 class GetMobileAppVersionInfoAsyncResponseHeaderVo {
@@ -1245,10 +1216,7 @@ Future<
     // !!!네트워크 요청 설정!!
     // requestPathAndParam, headers 설정 외 세부 설정
     var response = await serverDioObject.post(requestUrlAndParam,
-        options: Options(
-          headers: requestHeaders,
-        ),
-        data: requestBody);
+        options: Options(headers: requestHeaders), data: requestBody);
 
     int statusCode = response.statusCode!;
     Map<String, dynamic> responseHeaderMap = response.headers.map;
@@ -1258,10 +1226,9 @@ Future<
 
     // !!!Response Map 을 Response Object 로 변경!!
     responseHeader = PostService1TkV1AuthLoginWithPasswordAsyncResponseHeaderVo(
-      responseHeaderMap.containsKey("api-result-code")
-          ? responseHeaderMap["api-result-code"][0]
-          : null,
-    );
+        responseHeaderMap.containsKey("api-result-code")
+            ? responseHeaderMap["api-result-code"][0]
+            : null);
     if (statusCode == 200) {
       // responseBody 가 반환되는 조건
       Map<String, dynamic> responseBodyMap = response.data;
@@ -1275,12 +1242,9 @@ Future<
       List<PostSignInWithPasswordAsyncResponseBodyVoOAuth2Info>
           oAuth2ObjectList = [];
       for (Map<String, dynamic> oAuth2 in oAuth2List) {
-        oAuth2ObjectList
-            .add(PostSignInWithPasswordAsyncResponseBodyVoOAuth2Info(
-          oAuth2["uid"],
-          oAuth2["oauth2TypeCode"],
-          oAuth2["oauth2Id"],
-        ));
+        oAuth2ObjectList.add(
+            PostSignInWithPasswordAsyncResponseBodyVoOAuth2Info(
+                oAuth2["uid"], oAuth2["oauth2TypeCode"], oAuth2["oauth2Id"]));
       }
 
       var myProfileList =
@@ -1288,12 +1252,9 @@ Future<
       List<PostSignInWithPasswordAsyncResponseBodyVoProfile>
           myProfileObjectList = [];
       for (Map<String, dynamic> profile in myProfileList) {
-        myProfileObjectList
-            .add(PostSignInWithPasswordAsyncResponseBodyVoProfile(
-          profile["uid"],
-          profile["imageFullUrl"],
-          profile["isFront"],
-        ));
+        myProfileObjectList.add(
+            PostSignInWithPasswordAsyncResponseBodyVoProfile(
+                profile["uid"], profile["imageFullUrl"], profile["isFront"]));
       }
 
       var myEmailList =
@@ -1302,10 +1263,7 @@ Future<
           [];
       for (Map<String, dynamic> profile in myEmailList) {
         myEmailObjectList.add(PostSignInWithPasswordAsyncResponseBodyVoEmail(
-          profile["uid"],
-          profile["emailAddress"],
-          profile["isFront"],
-        ));
+            profile["uid"], profile["emailAddress"], profile["isFront"]));
       }
 
       var myPhoneNumberList =
@@ -1313,29 +1271,25 @@ Future<
       List<PostSignInWithPasswordAsyncResponseBodyVoPhone>
           myPhoneNumberObjectList = [];
       for (Map<String, dynamic> profile in myPhoneNumberList) {
-        myPhoneNumberObjectList
-            .add(PostSignInWithPasswordAsyncResponseBodyVoPhone(
-          profile["uid"],
-          profile["phoneNumber"],
-          profile["isFront"],
-        ));
+        myPhoneNumberObjectList.add(
+            PostSignInWithPasswordAsyncResponseBodyVoPhone(
+                profile["uid"], profile["phoneNumber"], profile["isFront"]));
       }
 
       responseBody = PostService1TkV1AuthLoginWithPasswordAsyncResponseBodyVo(
-        responseBodyMap["memberUid"],
-        responseBodyMap["nickName"],
-        List<String>.from(responseBodyMap["roleList"]),
-        responseBodyMap["tokenType"],
-        responseBodyMap["accessToken"],
-        responseBodyMap["refreshToken"],
-        responseBodyMap["accessTokenExpireWhen"],
-        responseBodyMap["refreshTokenExpireWhen"],
-        oAuth2ObjectList,
-        myProfileObjectList,
-        myEmailObjectList,
-        myPhoneNumberObjectList,
-        responseBodyMap["authPasswordIsNull"],
-      );
+          responseBodyMap["memberUid"],
+          responseBodyMap["nickName"],
+          List<String>.from(responseBodyMap["roleList"]),
+          responseBodyMap["tokenType"],
+          responseBodyMap["accessToken"],
+          responseBodyMap["refreshToken"],
+          responseBodyMap["accessTokenExpireWhen"],
+          responseBodyMap["refreshTokenExpireWhen"],
+          oAuth2ObjectList,
+          myProfileObjectList,
+          myEmailObjectList,
+          myPhoneNumberObjectList,
+          responseBodyMap["authPasswordIsNull"]);
     }
 
     return gc_template_classes.NetworkResponseObject(
@@ -1390,20 +1344,19 @@ class PostService1TkV1AuthLoginWithPasswordAsyncResponseBodyVo {
       authPasswordIsNull; // 계정 로그인 비밀번호 설정 Null 여부 (OAuth2 만으로 회원가입한 경우는 비밀번호가 없으므로 true)
 
   PostService1TkV1AuthLoginWithPasswordAsyncResponseBodyVo(
-    this.memberUid,
-    this.nickName,
-    this.roleList,
-    this.tokenType,
-    this.accessToken,
-    this.refreshToken,
-    this.accessTokenExpireWhen,
-    this.refreshTokenExpireWhen,
-    this.myOAuth2List,
-    this.myProfileList,
-    this.myEmailList,
-    this.myPhoneNumberList,
-    this.authPasswordIsNull,
-  );
+      this.memberUid,
+      this.nickName,
+      this.roleList,
+      this.tokenType,
+      this.accessToken,
+      this.refreshToken,
+      this.accessTokenExpireWhen,
+      this.refreshTokenExpireWhen,
+      this.myOAuth2List,
+      this.myProfileList,
+      this.myEmailList,
+      this.myPhoneNumberList,
+      this.authPasswordIsNull);
 }
 
 class PostSignInWithPasswordAsyncResponseBodyVoOAuth2Info {
@@ -1421,10 +1374,7 @@ class PostSignInWithPasswordAsyncResponseBodyVoProfile {
   bool isFront; // 표 프로필 여부
 
   PostSignInWithPasswordAsyncResponseBodyVoProfile(
-    this.uid,
-    this.imageFullUrl,
-    this.isFront,
-  );
+      this.uid, this.imageFullUrl, this.isFront);
 }
 
 class PostSignInWithPasswordAsyncResponseBodyVoEmail {
@@ -1433,10 +1383,7 @@ class PostSignInWithPasswordAsyncResponseBodyVoEmail {
   bool isFront; // 대표 이메일 여부
 
   PostSignInWithPasswordAsyncResponseBodyVoEmail(
-    this.uid,
-    this.emailAddress,
-    this.isFront,
-  );
+      this.uid, this.emailAddress, this.isFront);
 }
 
 class PostSignInWithPasswordAsyncResponseBodyVoPhone {
@@ -1445,10 +1392,7 @@ class PostSignInWithPasswordAsyncResponseBodyVoPhone {
   bool isFront; // 대표 전화번호 여부
 
   PostSignInWithPasswordAsyncResponseBodyVoPhone(
-    this.uid,
-    this.phoneNumber,
-    this.isFront,
-  );
+      this.uid, this.phoneNumber, this.isFront);
 }
 
 ////
@@ -1480,10 +1424,7 @@ Future<
     // !!!네트워크 요청 설정!!
     // requestPathAndParam, headers 설정 외 세부 설정
     var response = await serverDioObject.post(requestUrlAndParam,
-        options: Options(
-          headers: requestHeaders,
-        ),
-        data: requestBody);
+        options: Options(headers: requestHeaders), data: requestBody);
 
     int statusCode = response.statusCode!;
     Map<String, dynamic> responseHeaderMap = response.headers.map;
@@ -1493,10 +1434,9 @@ Future<
 
     // !!!Response Map 을 Response Object 로 변경!!
     responseHeader = PostService1TkV1AuthLogoutAsyncResponseHeaderVo(
-      responseHeaderMap.containsKey("api-result-code")
-          ? responseHeaderMap["api-result-code"][0]
-          : null,
-    );
+        responseHeaderMap.containsKey("api-result-code")
+            ? responseHeaderMap["api-result-code"][0]
+            : null);
     return gc_template_classes.NetworkResponseObject(
         gc_template_classes.NetworkResponseObjectOk(
             statusCode, responseHeader, responseBody),
@@ -1556,10 +1496,7 @@ Future<
     // !!!네트워크 요청 설정!!
     // requestPathAndParam, headers 설정 외 세부 설정
     var response = await serverDioObject.delete(requestUrlAndParam,
-        options: Options(
-          headers: requestHeaders,
-        ),
-        data: requestBody);
+        options: Options(headers: requestHeaders), data: requestBody);
 
     int statusCode = response.statusCode!;
     Map<String, dynamic> responseHeaderMap = response.headers.map;
@@ -1572,10 +1509,9 @@ Future<
     // !!!Response Map 을 Response Object 로 변경!!
     responseHeader =
         DeleteService1TkV1AuthAllAuthorizationTokenAsyncResponseHeaderVo(
-      responseHeaderMap.containsKey("api-result-code")
-          ? responseHeaderMap["api-result-code"][0]
-          : null,
-    );
+            responseHeaderMap.containsKey("api-result-code")
+                ? responseHeaderMap["api-result-code"][0]
+                : null);
     return gc_template_classes.NetworkResponseObject(
         gc_template_classes.NetworkResponseObjectOk(
             statusCode, responseHeader, responseBody),
@@ -1650,10 +1586,9 @@ Future<
 
     // !!!Response Map 을 Response Object 로 변경!!
     responseHeader = PostService1TkV1AuthReissueAsyncResponseHeaderVo(
-      (responseHeaderMap.containsKey("api-result-code"))
-          ? responseHeaderMap["api-result-code"][0]
-          : null,
-    );
+        (responseHeaderMap.containsKey("api-result-code"))
+            ? responseHeaderMap["api-result-code"][0]
+            : null);
     if (statusCode == 200) {
       // responseBody 가 반환되는 조건
       Map<String, dynamic> responseBodyMap = response.data;
@@ -1667,10 +1602,7 @@ Future<
       List<PostReissueAsyncResponseBodyVoOAuth2Info> oAuth2ObjectList = [];
       for (Map<String, dynamic> oAuth2 in oAuth2List) {
         oAuth2ObjectList.add(PostReissueAsyncResponseBodyVoOAuth2Info(
-          oAuth2["uid"],
-          oAuth2["oauth2TypeCode"],
-          oAuth2["oauth2Id"],
-        ));
+            oAuth2["uid"], oAuth2["oauth2TypeCode"], oAuth2["oauth2Id"]));
       }
 
       var myProfileList =
@@ -1678,10 +1610,7 @@ Future<
       List<PostReissueAsyncResponseBodyVoProfile> myProfileObjectList = [];
       for (Map<String, dynamic> profile in myProfileList) {
         myProfileObjectList.add(PostReissueAsyncResponseBodyVoProfile(
-          profile["uid"],
-          profile["imageFullUrl"],
-          profile["isFront"],
-        ));
+            profile["uid"], profile["imageFullUrl"], profile["isFront"]));
       }
 
       var myEmailList =
@@ -1689,10 +1618,7 @@ Future<
       List<PostReissueAsyncResponseBodyVoEmail> myEmailObjectList = [];
       for (Map<String, dynamic> profile in myEmailList) {
         myEmailObjectList.add(PostReissueAsyncResponseBodyVoEmail(
-          profile["uid"],
-          profile["emailAddress"],
-          profile["isFront"],
-        ));
+            profile["uid"], profile["emailAddress"], profile["isFront"]));
       }
 
       var myPhoneNumberList =
@@ -1700,27 +1626,23 @@ Future<
       List<PostReissueAsyncResponseBodyVoPhone> myPhoneNumberObjectList = [];
       for (Map<String, dynamic> profile in myPhoneNumberList) {
         myPhoneNumberObjectList.add(PostReissueAsyncResponseBodyVoPhone(
-          profile["uid"],
-          profile["phoneNumber"],
-          profile["isFront"],
-        ));
+            profile["uid"], profile["phoneNumber"], profile["isFront"]));
       }
 
       responseBody = PostService1TkV1AuthReissueAsyncResponseBodyVo(
-        responseBodyMap["memberUid"],
-        responseBodyMap["nickName"],
-        List<String>.from(responseBodyMap["roleList"]),
-        responseBodyMap["tokenType"],
-        responseBodyMap["accessToken"],
-        responseBodyMap["refreshToken"],
-        responseBodyMap["accessTokenExpireWhen"],
-        responseBodyMap["refreshTokenExpireWhen"],
-        oAuth2ObjectList,
-        myProfileObjectList,
-        myEmailObjectList,
-        myPhoneNumberObjectList,
-        responseBodyMap["authPasswordIsNull"],
-      );
+          responseBodyMap["memberUid"],
+          responseBodyMap["nickName"],
+          List<String>.from(responseBodyMap["roleList"]),
+          responseBodyMap["tokenType"],
+          responseBodyMap["accessToken"],
+          responseBodyMap["refreshToken"],
+          responseBodyMap["accessTokenExpireWhen"],
+          responseBodyMap["refreshTokenExpireWhen"],
+          oAuth2ObjectList,
+          myProfileObjectList,
+          myEmailObjectList,
+          myPhoneNumberObjectList,
+          responseBodyMap["authPasswordIsNull"]);
     }
 
     return gc_template_classes.NetworkResponseObject(
@@ -1756,9 +1678,7 @@ class PostService1TkV1AuthReissueAsyncResponseHeaderVo {
   // 4 : 리프레시 토큰이 액세스 토큰과 매칭되지 않음
   String? apiResultCode;
 
-  PostService1TkV1AuthReissueAsyncResponseHeaderVo(
-    this.apiResultCode,
-  );
+  PostService1TkV1AuthReissueAsyncResponseHeaderVo(this.apiResultCode);
 }
 
 class PostService1TkV1AuthReissueAsyncResponseBodyVo {
@@ -1781,20 +1701,19 @@ class PostService1TkV1AuthReissueAsyncResponseBodyVo {
       authPasswordIsNull; // 계정 로그인 비밀번호 설정 Null 여부 (OAuth2 만으로 회원가입한 경우는 비밀번호가 없으므로 true)
 
   PostService1TkV1AuthReissueAsyncResponseBodyVo(
-    this.memberUid,
-    this.nickName,
-    this.roleList,
-    this.tokenType,
-    this.accessToken,
-    this.refreshToken,
-    this.accessTokenExpireWhen,
-    this.refreshTokenExpireWhen,
-    this.myOAuth2List,
-    this.myProfileList,
-    this.myEmailList,
-    this.myPhoneNumberList,
-    this.authPasswordIsNull,
-  );
+      this.memberUid,
+      this.nickName,
+      this.roleList,
+      this.tokenType,
+      this.accessToken,
+      this.refreshToken,
+      this.accessTokenExpireWhen,
+      this.refreshTokenExpireWhen,
+      this.myOAuth2List,
+      this.myProfileList,
+      this.myEmailList,
+      this.myPhoneNumberList,
+      this.authPasswordIsNull);
 }
 
 class PostReissueAsyncResponseBodyVoOAuth2Info {
@@ -1812,10 +1731,7 @@ class PostReissueAsyncResponseBodyVoProfile {
   bool isFront; // 표 프로필 여부
 
   PostReissueAsyncResponseBodyVoProfile(
-    this.uid,
-    this.imageFullUrl,
-    this.isFront,
-  );
+      this.uid, this.imageFullUrl, this.isFront);
 }
 
 class PostReissueAsyncResponseBodyVoEmail {
@@ -1824,10 +1740,7 @@ class PostReissueAsyncResponseBodyVoEmail {
   bool isFront; // 대표 이메일 여부
 
   PostReissueAsyncResponseBodyVoEmail(
-    this.uid,
-    this.emailAddress,
-    this.isFront,
-  );
+      this.uid, this.emailAddress, this.isFront);
 }
 
 class PostReissueAsyncResponseBodyVoPhone {
@@ -1835,11 +1748,7 @@ class PostReissueAsyncResponseBodyVoPhone {
   String phoneNumber; // 전화번호
   bool isFront; // 대표 전화번호 여부
 
-  PostReissueAsyncResponseBodyVoPhone(
-    this.uid,
-    this.phoneNumber,
-    this.isFront,
-  );
+  PostReissueAsyncResponseBodyVoPhone(this.uid, this.phoneNumber, this.isFront);
 }
 
 ////
@@ -1867,9 +1776,7 @@ Future<
     // !!!네트워크 요청 설정!!
     // requestPathAndParam, headers 설정 외 세부 설정
     var response = await serverDioObject.get(requestUrlAndParam,
-        options: Options(
-          headers: requestHeaders,
-        ));
+        options: Options(headers: requestHeaders));
 
     int statusCode = response.statusCode!;
     Map<String, dynamic> responseHeaderMap = response.headers.map;
@@ -1879,10 +1786,9 @@ Future<
 
     // !!!Response Map 을 Response Object 로 변경!!
     responseHeader = GetService1TkV1AuthForNoLoggedInAsyncResponseHeaderVo(
-      (responseHeaderMap.containsKey("api-result-code"))
-          ? responseHeaderMap["api-result-code"][0]
-          : null,
-    );
+        (responseHeaderMap.containsKey("api-result-code"))
+            ? responseHeaderMap["api-result-code"][0]
+            : null);
     if (statusCode == 200) {
       // responseBody 가 반환되는 조건
       Map<String, dynamic> responseBodyMap = response.data;
@@ -1921,7 +1827,7 @@ class GetService1TkV1AuthForNoLoggedInAsyncResponseBodyVo {
 
   @override
   String toString() {
-    return "result : $result, ";
+    return "result : $result";
   }
 }
 
@@ -1956,9 +1862,7 @@ Future<
     // !!!네트워크 요청 설정!!
     // requestPathAndParam, headers 설정 외 세부 설정
     var response = await serverDioObject.get(requestUrlAndParam,
-        options: Options(
-          headers: requestHeaders,
-        ));
+        options: Options(headers: requestHeaders));
 
     int statusCode = response.statusCode!;
     Map<String, dynamic> responseHeaderMap = response.headers.map;
@@ -1968,10 +1872,9 @@ Future<
 
     // !!!Response Map 을 Response Object 로 변경!!
     responseHeader = GetService1TkV1AuthForLoggedInAsyncResponseHeaderVo(
-      (responseHeaderMap.containsKey("api-result-code"))
-          ? responseHeaderMap["api-result-code"][0]
-          : null,
-    );
+        (responseHeaderMap.containsKey("api-result-code"))
+            ? responseHeaderMap["api-result-code"][0]
+            : null);
     if (statusCode == 200) {
       // responseBody 가 반환되는 조건
       Map<String, dynamic> responseBodyMap = response.data;
@@ -2017,7 +1920,7 @@ class GetService1TkV1AuthForLoggedInAsyncResponseBodyVo {
 
   @override
   String toString() {
-    return "result : $result, ";
+    return "result : $result";
   }
 }
 
@@ -2052,9 +1955,7 @@ Future<
     // !!!네트워크 요청 설정!!
     // requestPathAndParam, headers 설정 외 세부 설정
     var response = await serverDioObject.get(requestUrlAndParam,
-        options: Options(
-          headers: requestHeaders,
-        ));
+        options: Options(headers: requestHeaders));
 
     int statusCode = response.statusCode!;
     Map<String, dynamic> responseHeaderMap = response.headers.map;
@@ -2064,10 +1965,9 @@ Future<
 
     // !!!Response Map 을 Response Object 로 변경!!
     responseHeader = GetService1TkV1AuthForDeveloperAsyncResponseHeaderVo(
-      (responseHeaderMap.containsKey("api-result-code"))
-          ? responseHeaderMap["api-result-code"][0]
-          : null,
-    );
+        (responseHeaderMap.containsKey("api-result-code"))
+            ? responseHeaderMap["api-result-code"][0]
+            : null);
     if (statusCode == 200) {
       // responseBody 가 반환되는 조건
       Map<String, dynamic> responseBodyMap = response.data;
@@ -2113,7 +2013,7 @@ class GetService1TkV1AuthForDeveloperAsyncResponseBodyVo {
 
   @override
   String toString() {
-    return "result : $result, ";
+    return "result : $result";
   }
 }
 
@@ -2147,9 +2047,7 @@ Future<
     // !!!네트워크 요청 설정!!
     // requestPathAndParam, headers 설정 외 세부 설정
     var response = await serverDioObject.get(requestUrlAndParam,
-        options: Options(
-          headers: requestHeaders,
-        ));
+        options: Options(headers: requestHeaders));
 
     int statusCode = response.statusCode!;
     Map<String, dynamic> responseHeaderMap = response.headers.map;
@@ -2159,10 +2057,9 @@ Future<
 
     // !!!Response Map 을 Response Object 로 변경!!
     responseHeader = GetService1TkV1AuthForAdminAsyncResponseHeaderVo(
-      (responseHeaderMap.containsKey("api-result-code"))
-          ? responseHeaderMap["api-result-code"][0]
-          : null,
-    );
+        (responseHeaderMap.containsKey("api-result-code"))
+            ? responseHeaderMap["api-result-code"][0]
+            : null);
     if (statusCode == 200) {
       // responseBody 가 반환되는 조건
       Map<String, dynamic> responseBodyMap = response.data;
@@ -2208,7 +2105,7 @@ class GetService1TkV1AuthForAdminAsyncResponseBodyVo {
 
   @override
   String toString() {
-    return "result : $result, ";
+    return "result : $result";
   }
 }
 
@@ -2240,9 +2137,7 @@ Future<
     // !!!네트워크 요청 설정!!
     // requestPathAndParam, headers 설정 외 세부 설정
     var response = await serverDioObject.get(requestUrlAndParam,
-        options: Options(
-          headers: requestHeaders,
-        ));
+        options: Options(headers: requestHeaders));
 
     int statusCode = response.statusCode!;
     Map<String, dynamic> responseHeaderMap = response.headers.map;
@@ -2254,10 +2149,9 @@ Future<
     // !!!Response Map 을 Response Object 로 변경!!
     responseHeader =
         GetService1TkV1AuthNicknameDuplicateCheckAsyncResponseHeaderVo(
-      (responseHeaderMap.containsKey("api-result-code"))
-          ? responseHeaderMap["api-result-code"][0]
-          : null,
-    );
+            (responseHeaderMap.containsKey("api-result-code"))
+                ? responseHeaderMap["api-result-code"][0]
+                : null);
     if (statusCode == 200) {
       // responseBody 가 반환되는 조건
       Map<String, dynamic> responseBodyMap = response.data;
@@ -2268,8 +2162,7 @@ Future<
 
       responseBody =
           GetService1TkV1AuthNicknameDuplicateCheckAsyncResponseBodyVo(
-        responseBodyMap["duplicated"],
-      );
+              responseBodyMap["duplicated"]);
     }
 
     return gc_template_classes.NetworkResponseObject(
@@ -2286,9 +2179,7 @@ Future<
 class GetService1TkV1AuthNicknameDuplicateCheckAsyncRequestQueryVo {
   String nickName;
 
-  GetService1TkV1AuthNicknameDuplicateCheckAsyncRequestQueryVo(
-    this.nickName,
-  );
+  GetService1TkV1AuthNicknameDuplicateCheckAsyncRequestQueryVo(this.nickName);
 }
 
 class GetService1TkV1AuthNicknameDuplicateCheckAsyncResponseHeaderVo {
@@ -2297,16 +2188,13 @@ class GetService1TkV1AuthNicknameDuplicateCheckAsyncResponseHeaderVo {
   String? apiResultCode;
 
   GetService1TkV1AuthNicknameDuplicateCheckAsyncResponseHeaderVo(
-    this.apiResultCode,
-  );
+      this.apiResultCode);
 }
 
 class GetService1TkV1AuthNicknameDuplicateCheckAsyncResponseBodyVo {
   bool duplicated;
 
-  GetService1TkV1AuthNicknameDuplicateCheckAsyncResponseBodyVo(
-    this.duplicated,
-  );
+  GetService1TkV1AuthNicknameDuplicateCheckAsyncResponseBodyVo(this.duplicated);
 }
 
 ////
@@ -2341,10 +2229,9 @@ Future<
     // requestPathAndParam, headers 설정 외 세부 설정
     var response = await serverDioObject.post(requestUrlAndParam,
         options: Options(
-          headers: requestHeaders,
-          sendTimeout: const Duration(seconds: 10),
-          receiveTimeout: const Duration(seconds: 10),
-        ),
+            headers: requestHeaders,
+            sendTimeout: const Duration(seconds: 10),
+            receiveTimeout: const Duration(seconds: 10)),
         data: requestBody);
 
     int statusCode = response.statusCode!;
@@ -2358,10 +2245,9 @@ Future<
     // !!!Response Map 을 Response Object 로 변경!!
     responseHeader =
         PostService1TkV1AuthJoinTheMembershipEmailVerificationAsyncResponseHeaderVo(
-      (responseHeaderMap.containsKey("api-result-code"))
-          ? responseHeaderMap["api-result-code"][0]!
-          : null,
-    );
+            (responseHeaderMap.containsKey("api-result-code"))
+                ? responseHeaderMap["api-result-code"][0]!
+                : null);
     if (statusCode == 200) {
       // responseBody 가 반환되는 조건
       Map<String, dynamic> responseBodyMap = response.data;
@@ -2372,9 +2258,8 @@ Future<
 
       responseBody =
           PostService1TkV1AuthJoinTheMembershipEmailVerificationAsyncResponseBodyVo(
-        responseBodyMap["verificationUid"],
-        responseBodyMap["verificationExpireWhen"],
-      );
+              responseBodyMap["verificationUid"],
+              responseBodyMap["verificationExpireWhen"]);
     }
 
     return gc_template_classes.NetworkResponseObject(
@@ -2410,9 +2295,7 @@ class PostService1TkV1AuthJoinTheMembershipEmailVerificationAsyncResponseBodyVo 
   String verificationExpireWhen; // 검증 만료 시간 (yyyy-MM-dd HH:mm:ss.SSS)
 
   PostService1TkV1AuthJoinTheMembershipEmailVerificationAsyncResponseBodyVo(
-    this.verificationUid,
-    this.verificationExpireWhen,
-  );
+      this.verificationUid, this.verificationExpireWhen);
 }
 
 ////
@@ -2447,9 +2330,7 @@ Future<
     // !!!네트워크 요청 설정!!
     // requestPathAndParam, headers 설정 외 세부 설정
     var response = await serverDioObject.get(requestUrlAndParam,
-        options: Options(
-          headers: requestHeaders,
-        ));
+        options: Options(headers: requestHeaders));
 
     int statusCode = response.statusCode!;
     Map<String, dynamic> responseHeaderMap = response.headers.map;
@@ -2475,8 +2356,7 @@ Future<
 
       responseBody =
           GetService1TkV1AuthJoinTheMembershipEmailVerificationCheckAsyncResponseBodyVo(
-        responseBodyMap["expireWhen"],
-      );
+              responseBodyMap["expireWhen"]);
     }
 
     return gc_template_classes.NetworkResponseObject(
@@ -2496,10 +2376,7 @@ class GetService1TkV1AuthJoinTheMembershipEmailVerificationCheckAsyncRequestQuer
   String verificationCode; // 확인 이메일에 전송된 코드
 
   GetService1TkV1AuthJoinTheMembershipEmailVerificationCheckAsyncRequestQueryVo(
-    this.verificationUid,
-    this.email,
-    this.verificationCode,
-  );
+      this.verificationUid, this.email, this.verificationCode);
 }
 
 class GetService1TkV1AuthJoinTheMembershipEmailVerificationCheckAsyncResponseHeaderVo {
@@ -2518,8 +2395,7 @@ class GetService1TkV1AuthJoinTheMembershipEmailVerificationCheckAsyncResponseBod
   String expireWhen; // 인증 완료시 새로 늘어난 검증 만료 시간 (yyyy-MM-dd HH:mm:ss.SSS)
 
   GetService1TkV1AuthJoinTheMembershipEmailVerificationCheckAsyncResponseBodyVo(
-    this.expireWhen,
-  );
+      this.expireWhen);
 }
 
 ////
@@ -2576,10 +2452,9 @@ Future<
     // !!!Response Map 을 Response Object 로 변경!!
     responseHeader =
         PostService1TkV1AuthJoinTheMembershipWithEmailAsyncResponseHeaderVo(
-      (responseHeaderMap.containsKey("api-result-code"))
-          ? responseHeaderMap["api-result-code"][0]!
-          : null,
-    );
+            (responseHeaderMap.containsKey("api-result-code"))
+                ? responseHeaderMap["api-result-code"][0]!
+                : null);
     if (statusCode == 200) {
       // responseBody 가 반환되는 조건
       responseBody =
@@ -2661,10 +2536,9 @@ Future<
     // requestPathAndParam, headers 설정 외 세부 설정
     var response = await serverDioObject.post(requestUrlAndParam,
         options: Options(
-          headers: requestHeaders,
-          sendTimeout: const Duration(seconds: 10),
-          receiveTimeout: const Duration(seconds: 10),
-        ),
+            headers: requestHeaders,
+            sendTimeout: const Duration(seconds: 10),
+            receiveTimeout: const Duration(seconds: 10)),
         data: requestBody);
 
     int statusCode = response.statusCode!;
@@ -2687,9 +2561,8 @@ Future<
 
       responseBody =
           PostService1TkV1AuthFindPasswordEmailVerificationAsyncResponseBodyVo(
-        responseBodyMap["verificationUid"],
-        responseBodyMap["verificationExpireWhen"],
-      );
+              responseBodyMap["verificationUid"],
+              responseBodyMap["verificationExpireWhen"]);
     }
 
     return gc_template_classes.NetworkResponseObject(
@@ -2725,9 +2598,7 @@ class PostService1TkV1AuthFindPasswordEmailVerificationAsyncResponseBodyVo {
   String verificationExpireWhen; // 검증 만료 시간 (yyyy-MM-dd HH:mm:ss.SSS)
 
   PostService1TkV1AuthFindPasswordEmailVerificationAsyncResponseBodyVo(
-    this.verificationUid,
-    this.verificationExpireWhen,
-  );
+      this.verificationUid, this.verificationExpireWhen);
 }
 
 ////
@@ -2762,10 +2633,9 @@ Future<
     // requestPathAndParam, headers 설정 외 세부 설정
     var response = await serverDioObject.post(requestUrlAndParam,
         options: Options(
-          headers: requestHeaders,
-          sendTimeout: const Duration(seconds: 10),
-          receiveTimeout: const Duration(seconds: 10),
-        ),
+            headers: requestHeaders,
+            sendTimeout: const Duration(seconds: 10),
+            receiveTimeout: const Duration(seconds: 10)),
         data: requestBody);
 
     int statusCode = response.statusCode!;
@@ -2778,10 +2648,9 @@ Future<
     // !!!Response Map 을 Response Object 로 변경!!
     responseHeader =
         PostService1TkV1AuthFindPasswordWithEmailAsyncResponseHeaderVo(
-      (responseHeaderMap.containsKey("api-result-code"))
-          ? responseHeaderMap["api-result-code"][0]!
-          : null,
-    );
+            (responseHeaderMap.containsKey("api-result-code"))
+                ? responseHeaderMap["api-result-code"][0]!
+                : null);
     if (statusCode == 200) {
       // responseBody 가 반환되는 조건
       // Map<String, dynamic> responseBodyMap = response.data;
@@ -2857,10 +2726,9 @@ Future<
     // requestPathAndParam, headers 설정 외 세부 설정
     var response = await serverDioObject.delete(requestUrlAndParam,
         options: Options(
-          headers: requestHeaders,
-          sendTimeout: const Duration(seconds: 10),
-          receiveTimeout: const Duration(seconds: 10),
-        ),
+            headers: requestHeaders,
+            sendTimeout: const Duration(seconds: 10),
+            receiveTimeout: const Duration(seconds: 10)),
         data: requestBody);
 
     int statusCode = response.statusCode!;
@@ -2871,10 +2739,9 @@ Future<
 
     // !!!Response Map 을 Response Object 로 변경!!
     responseHeader = DeleteService1TkV1AuthWithdrawalAsyncResponseHeaderVo(
-      (responseHeaderMap.containsKey("api-result-code"))
-          ? responseHeaderMap["api-result-code"][0]!
-          : null,
-    );
+        (responseHeaderMap.containsKey("api-result-code"))
+            ? responseHeaderMap["api-result-code"][0]!
+            : null);
     if (statusCode == 200) {
       // responseBody 가 반환되는 조건
       // Map<String, dynamic> responseBodyMap = response.data;
@@ -2905,9 +2772,7 @@ class DeleteService1TkV1AuthWithdrawalAsyncResponseHeaderVo {
   // 0 : 정상 동작
   String? apiResultCode;
 
-  DeleteService1TkV1AuthWithdrawalAsyncResponseHeaderVo(
-    this.apiResultCode,
-  );
+  DeleteService1TkV1AuthWithdrawalAsyncResponseHeaderVo(this.apiResultCode);
 }
 
 class DeleteService1TkV1AuthWithdrawalAsyncResponseBodyVo {
@@ -2948,10 +2813,9 @@ Future<
     // requestPathAndParam, headers 설정 외 세부 설정
     var response = await serverDioObject.put(requestUrlAndParam,
         options: Options(
-          headers: requestHeaders,
-          sendTimeout: const Duration(seconds: 10),
-          receiveTimeout: const Duration(seconds: 10),
-        ),
+            headers: requestHeaders,
+            sendTimeout: const Duration(seconds: 10),
+            receiveTimeout: const Duration(seconds: 10)),
         data: requestBody);
 
     int statusCode = response.statusCode!;

@@ -124,474 +124,411 @@ GoRouter getRouter() {
 
   // !!!사용할 라우터 리스트 추가!!
   routeList.add(GoRoute(
-    path: "/",
-    name: all_page_home.pageName,
-    pageBuilder: (c, s) {
-      return CustomTransitionPage(
-        key: s.pageKey,
-        child: all_page_home.PageEntrance(s),
-        transitionsBuilder: all_page_home.pageTransitionsBuilder,
-      );
-    },
-    routes: subRouteList,
-  ));
+      path: "/",
+      name: all_page_home.pageName,
+      pageBuilder: (c, s) {
+        return CustomTransitionPage(
+            key: s.pageKey,
+            child: all_page_home.PageEntrance(s),
+            transitionsBuilder: all_page_home.pageTransitionsBuilder);
+      },
+      routes: subRouteList));
 
   subRouteList.add(GoRoute(
-    path: "page-and-router-sample-list",
-    name: all_page_page_and_router_sample_list.pageName,
-    pageBuilder: (c, s) {
-      return CustomTransitionPage(
-        key: s.pageKey,
-        child: all_page_page_and_router_sample_list.PageEntrance(s),
-        transitionsBuilder:
-            all_page_page_and_router_sample_list.pageTransitionsBuilder,
-      );
-    },
-    routes: subRouteListPageAndRouterSampleList,
-  ));
+      path: "page-and-router-sample-list",
+      name: all_page_page_and_router_sample_list.pageName,
+      pageBuilder: (c, s) {
+        return CustomTransitionPage(
+            key: s.pageKey,
+            child: all_page_page_and_router_sample_list.PageEntrance(s),
+            transitionsBuilder:
+                all_page_page_and_router_sample_list.pageTransitionsBuilder);
+      },
+      routes: subRouteListPageAndRouterSampleList));
 
   subRouteListPageAndRouterSampleList.add(GoRoute(
-    path: "page-template",
-    name: all_page_template.pageName,
-    pageBuilder: (c, s) {
-      return CustomTransitionPage(
-        key: s.pageKey,
-        child: all_page_template.PageEntrance(s),
-        transitionsBuilder: all_page_template.pageTransitionsBuilder,
-      );
-    },
-  ));
+      path: "page-template",
+      name: all_page_template.pageName,
+      pageBuilder: (c, s) {
+        return CustomTransitionPage(
+            key: s.pageKey,
+            child: all_page_template.PageEntrance(s),
+            transitionsBuilder: all_page_template.pageTransitionsBuilder);
+      }));
 
   subRouteListPageAndRouterSampleList.add(GoRoute(
-    path: "just-push-test1",
-    name: all_page_just_push_test1.pageName,
-    pageBuilder: (c, s) {
-      return CustomTransitionPage(
-        key: s.pageKey,
-        child: all_page_just_push_test1.PageEntrance(s),
-        transitionsBuilder: all_page_just_push_test1.pageTransitionsBuilder,
-      );
-    },
-  ));
+      path: "just-push-test1",
+      name: all_page_just_push_test1.pageName,
+      pageBuilder: (c, s) {
+        return CustomTransitionPage(
+            key: s.pageKey,
+            child: all_page_just_push_test1.PageEntrance(s),
+            transitionsBuilder:
+                all_page_just_push_test1.pageTransitionsBuilder);
+      }));
 
   subRouteListPageAndRouterSampleList.add(GoRoute(
-    path: "just-push-test2",
-    name: all_page_just_push_test2.pageName,
-    pageBuilder: (c, s) {
-      return CustomTransitionPage(
-        key: s.pageKey,
-        child: all_page_just_push_test2.PageEntrance(s),
-        transitionsBuilder: all_page_just_push_test2.pageTransitionsBuilder,
-      );
-    },
-  ));
+      path: "just-push-test2",
+      name: all_page_just_push_test2.pageName,
+      pageBuilder: (c, s) {
+        return CustomTransitionPage(
+            key: s.pageKey,
+            child: all_page_just_push_test2.PageEntrance(s),
+            transitionsBuilder:
+                all_page_just_push_test2.pageTransitionsBuilder);
+      }));
 
   subRouteListPageAndRouterSampleList.add(GoRoute(
-    path: "input-and-output-push-test",
-    name: all_page_input_and_output_push_test.pageName,
-    pageBuilder: (c, s) {
-      return CustomTransitionPage(
-        key: s.pageKey,
-        child: all_page_input_and_output_push_test.PageEntrance(s),
-        transitionsBuilder:
-            all_page_input_and_output_push_test.pageTransitionsBuilder,
-      );
-    },
-  ));
+      path: "input-and-output-push-test",
+      name: all_page_input_and_output_push_test.pageName,
+      pageBuilder: (c, s) {
+        return CustomTransitionPage(
+            key: s.pageKey,
+            child: all_page_input_and_output_push_test.PageEntrance(s),
+            transitionsBuilder:
+                all_page_input_and_output_push_test.pageTransitionsBuilder);
+      }));
 
   subRouteListPageAndRouterSampleList.add(GoRoute(
-    path: "page-transition-animation-sample-list",
-    name: all_page_page_transition_animation_sample_list.pageName,
-    pageBuilder: (c, s) {
-      return CustomTransitionPage(
-        key: s.pageKey,
-        child: all_page_page_transition_animation_sample_list.PageEntrance(s),
-        transitionsBuilder: all_page_page_transition_animation_sample_list
-            .pageTransitionsBuilder,
-      );
-    },
-  ));
+      path: "page-transition-animation-sample-list",
+      name: all_page_page_transition_animation_sample_list.pageName,
+      pageBuilder: (c, s) {
+        return CustomTransitionPage(
+            key: s.pageKey,
+            child:
+                all_page_page_transition_animation_sample_list.PageEntrance(s),
+            transitionsBuilder: all_page_page_transition_animation_sample_list
+                .pageTransitionsBuilder);
+      }));
 
   subRouteListPageAndRouterSampleList.add(GoRoute(
-    path: "grid-sample",
-    name: all_page_grid_sample.pageName,
-    pageBuilder: (c, s) {
-      return CustomTransitionPage(
-        key: s.pageKey,
-        child: all_page_grid_sample.PageEntrance(s),
-        transitionsBuilder: all_page_grid_sample.pageTransitionsBuilder,
-      );
-    },
-  ));
+      path: "grid-sample",
+      name: all_page_grid_sample.pageName,
+      pageBuilder: (c, s) {
+        return CustomTransitionPage(
+            key: s.pageKey,
+            child: all_page_grid_sample.PageEntrance(s),
+            transitionsBuilder: all_page_grid_sample.pageTransitionsBuilder);
+      }));
 
   subRouteList.add(GoRoute(
-    path: "dialog-sample-list",
-    name: all_page_dialog_sample_list.pageName,
-    pageBuilder: (c, s) {
-      return CustomTransitionPage(
-        key: s.pageKey,
-        child: all_page_dialog_sample_list.PageEntrance(s),
-        transitionsBuilder: all_page_dialog_sample_list.pageTransitionsBuilder,
-      );
-    },
-  ));
+      path: "dialog-sample-list",
+      name: all_page_dialog_sample_list.pageName,
+      pageBuilder: (c, s) {
+        return CustomTransitionPage(
+            key: s.pageKey,
+            child: all_page_dialog_sample_list.PageEntrance(s),
+            transitionsBuilder:
+                all_page_dialog_sample_list.pageTransitionsBuilder);
+      }));
 
   subRouteList.add(GoRoute(
-    path: "dialog-animation-sample-list",
-    name: all_page_dialog_animation_sample_list.pageName,
-    pageBuilder: (c, s) {
-      return CustomTransitionPage(
-        key: s.pageKey,
-        child: all_page_dialog_animation_sample_list.PageEntrance(s),
-        transitionsBuilder:
-            all_page_dialog_animation_sample_list.pageTransitionsBuilder,
-      );
-    },
-  ));
+      path: "dialog-animation-sample-list",
+      name: all_page_dialog_animation_sample_list.pageName,
+      pageBuilder: (c, s) {
+        return CustomTransitionPage(
+            key: s.pageKey,
+            child: all_page_dialog_animation_sample_list.PageEntrance(s),
+            transitionsBuilder:
+                all_page_dialog_animation_sample_list.pageTransitionsBuilder);
+      }));
 
   subRouteList.add(GoRoute(
-    path: "network-request-sample-list",
-    name: all_page_network_request_sample_list.pageName,
-    pageBuilder: (c, s) {
-      return CustomTransitionPage(
-        key: s.pageKey,
-        child: all_page_network_request_sample_list.PageEntrance(s),
-        transitionsBuilder:
-            all_page_network_request_sample_list.pageTransitionsBuilder,
-      );
-    },
-    routes: subRouteListNetworkRequestSampleList,
-  ));
+      path: "network-request-sample-list",
+      name: all_page_network_request_sample_list.pageName,
+      pageBuilder: (c, s) {
+        return CustomTransitionPage(
+            key: s.pageKey,
+            child: all_page_network_request_sample_list.PageEntrance(s),
+            transitionsBuilder:
+                all_page_network_request_sample_list.pageTransitionsBuilder);
+      },
+      routes: subRouteListNetworkRequestSampleList));
 
   subRouteListNetworkRequestSampleList.add(GoRoute(
-    path: "get-request-sample",
-    name: all_page_get_request_sample.pageName,
-    pageBuilder: (c, s) {
-      return CustomTransitionPage(
-        key: s.pageKey,
-        child: all_page_get_request_sample.PageEntrance(s),
-        transitionsBuilder: all_page_get_request_sample.pageTransitionsBuilder,
-      );
-    },
-  ));
+      path: "get-request-sample",
+      name: all_page_get_request_sample.pageName,
+      pageBuilder: (c, s) {
+        return CustomTransitionPage(
+            key: s.pageKey,
+            child: all_page_get_request_sample.PageEntrance(s),
+            transitionsBuilder:
+                all_page_get_request_sample.pageTransitionsBuilder);
+      }));
 
   subRouteListNetworkRequestSampleList.add(GoRoute(
-    path: "post-request-sample1",
-    name: all_page_post_request_sample1.pageName,
-    pageBuilder: (c, s) {
-      return CustomTransitionPage(
-        key: s.pageKey,
-        child: all_page_post_request_sample1.PageEntrance(s),
-        transitionsBuilder:
-            all_page_post_request_sample1.pageTransitionsBuilder,
-      );
-    },
-  ));
+      path: "post-request-sample1",
+      name: all_page_post_request_sample1.pageName,
+      pageBuilder: (c, s) {
+        return CustomTransitionPage(
+            key: s.pageKey,
+            child: all_page_post_request_sample1.PageEntrance(s),
+            transitionsBuilder:
+                all_page_post_request_sample1.pageTransitionsBuilder);
+      }));
 
   subRouteListNetworkRequestSampleList.add(GoRoute(
-    path: "post-request-sample2",
-    name: all_page_post_request_sample2.pageName,
-    pageBuilder: (c, s) {
-      return CustomTransitionPage(
-        key: s.pageKey,
-        child: all_page_post_request_sample2.PageEntrance(s),
-        transitionsBuilder:
-            all_page_post_request_sample2.pageTransitionsBuilder,
-      );
-    },
-  ));
+      path: "post-request-sample2",
+      name: all_page_post_request_sample2.pageName,
+      pageBuilder: (c, s) {
+        return CustomTransitionPage(
+            key: s.pageKey,
+            child: all_page_post_request_sample2.PageEntrance(s),
+            transitionsBuilder:
+                all_page_post_request_sample2.pageTransitionsBuilder);
+      }));
 
   subRouteListNetworkRequestSampleList.add(GoRoute(
-    path: "post-request-sample3",
-    name: all_page_post_request_sample3.pageName,
-    pageBuilder: (c, s) {
-      return CustomTransitionPage(
-        key: s.pageKey,
-        child: all_page_post_request_sample3.PageEntrance(s),
-        transitionsBuilder:
-            all_page_post_request_sample3.pageTransitionsBuilder,
-      );
-    },
-  ));
+      path: "post-request-sample3",
+      name: all_page_post_request_sample3.pageName,
+      pageBuilder: (c, s) {
+        return CustomTransitionPage(
+            key: s.pageKey,
+            child: all_page_post_request_sample3.PageEntrance(s),
+            transitionsBuilder:
+                all_page_post_request_sample3.pageTransitionsBuilder);
+      }));
 
   subRouteListNetworkRequestSampleList.add(GoRoute(
-    path: "post-request-sample4",
-    name: all_page_post_request_sample4.pageName,
-    pageBuilder: (c, s) {
-      return CustomTransitionPage(
-        key: s.pageKey,
-        child: all_page_post_request_sample4.PageEntrance(s),
-        transitionsBuilder:
-            all_page_post_request_sample4.pageTransitionsBuilder,
-      );
-    },
-  ));
+      path: "post-request-sample4",
+      name: all_page_post_request_sample4.pageName,
+      pageBuilder: (c, s) {
+        return CustomTransitionPage(
+            key: s.pageKey,
+            child: all_page_post_request_sample4.PageEntrance(s),
+            transitionsBuilder:
+                all_page_post_request_sample4.pageTransitionsBuilder);
+      }));
 
   subRouteList.add(GoRoute(
-    path: "auth-sample",
-    name: all_page_auth_sample.pageName,
-    pageBuilder: (c, s) {
-      return CustomTransitionPage(
-        key: s.pageKey,
-        child: all_page_auth_sample.PageEntrance(s),
-        transitionsBuilder: all_page_auth_sample.pageTransitionsBuilder,
-      );
-    },
-    routes: subRouteListAuthSample,
-  ));
+      path: "auth-sample",
+      name: all_page_auth_sample.pageName,
+      pageBuilder: (c, s) {
+        return CustomTransitionPage(
+            key: s.pageKey,
+            child: all_page_auth_sample.PageEntrance(s),
+            transitionsBuilder: all_page_auth_sample.pageTransitionsBuilder);
+      },
+      routes: subRouteListAuthSample));
 
   subRouteListAuthSample.add(GoRoute(
-    path: "authorization-test-sample-list",
-    name: all_page_authorization_test_sample_list.pageName,
-    pageBuilder: (c, s) {
-      return CustomTransitionPage(
-        key: s.pageKey,
-        child: all_page_authorization_test_sample_list.PageEntrance(s),
-        transitionsBuilder:
-            all_page_authorization_test_sample_list.pageTransitionsBuilder,
-      );
-    },
-  ));
+      path: "authorization-test-sample-list",
+      name: all_page_authorization_test_sample_list.pageName,
+      pageBuilder: (c, s) {
+        return CustomTransitionPage(
+            key: s.pageKey,
+            child: all_page_authorization_test_sample_list.PageEntrance(s),
+            transitionsBuilder:
+                all_page_authorization_test_sample_list.pageTransitionsBuilder);
+      }));
 
   subRouteListAuthSample.add(GoRoute(
-    path: "login",
-    name: all_page_login.pageName,
-    pageBuilder: (c, s) {
-      return CustomTransitionPage(
-        key: s.pageKey,
-        child: all_page_login.PageEntrance(s),
-        transitionsBuilder: all_page_login.pageTransitionsBuilder,
-      );
-    },
-    routes: subRouteListAuthSampleAuthLogin,
-  ));
+      path: "login",
+      name: all_page_login.pageName,
+      pageBuilder: (c, s) {
+        return CustomTransitionPage(
+            key: s.pageKey,
+            child: all_page_login.PageEntrance(s),
+            transitionsBuilder: all_page_login.pageTransitionsBuilder);
+      },
+      routes: subRouteListAuthSampleAuthLogin));
 
   subRouteListAuthSample.add(GoRoute(
-    path: "member-info",
-    name: all_page_member_info.pageName,
-    pageBuilder: (c, s) {
-      return CustomTransitionPage(
-        key: s.pageKey,
-        child: all_page_member_info.PageEntrance(s),
-        transitionsBuilder: all_page_member_info.pageTransitionsBuilder,
-      );
-    },
-  ));
+      path: "member-info",
+      name: all_page_member_info.pageName,
+      pageBuilder: (c, s) {
+        return CustomTransitionPage(
+            key: s.pageKey,
+            child: all_page_member_info.PageEntrance(s),
+            transitionsBuilder: all_page_member_info.pageTransitionsBuilder);
+      }));
 
   subRouteListAuthSample.add(GoRoute(
-    path: "membership-withdrawal",
-    name: all_page_membership_withdrawal.pageName,
-    pageBuilder: (c, s) {
-      return CustomTransitionPage(
-        key: s.pageKey,
-        child: all_page_membership_withdrawal.PageEntrance(s),
-        transitionsBuilder:
-            all_page_membership_withdrawal.pageTransitionsBuilder,
-      );
-    },
-  ));
+      path: "membership-withdrawal",
+      name: all_page_membership_withdrawal.pageName,
+      pageBuilder: (c, s) {
+        return CustomTransitionPage(
+            key: s.pageKey,
+            child: all_page_membership_withdrawal.PageEntrance(s),
+            transitionsBuilder:
+                all_page_membership_withdrawal.pageTransitionsBuilder);
+      }));
 
   subRouteListAuthSample.add(GoRoute(
-    path: "change-password",
-    name: all_page_change_password.pageName,
-    pageBuilder: (c, s) {
-      return CustomTransitionPage(
-        key: s.pageKey,
-        child: all_page_change_password.PageEntrance(s),
-        transitionsBuilder: all_page_change_password.pageTransitionsBuilder,
-      );
-    },
-  ));
+      path: "change-password",
+      name: all_page_change_password.pageName,
+      pageBuilder: (c, s) {
+        return CustomTransitionPage(
+            key: s.pageKey,
+            child: all_page_change_password.PageEntrance(s),
+            transitionsBuilder:
+                all_page_change_password.pageTransitionsBuilder);
+      }));
 
   subRouteListAuthSampleAuthLogin.add(GoRoute(
-    path: "join-the-membership-email-verification",
-    name: all_page_join_the_membership_email_verification.pageName,
-    pageBuilder: (c, s) {
-      return CustomTransitionPage(
-        key: s.pageKey,
-        child: all_page_join_the_membership_email_verification.PageEntrance(s),
-        transitionsBuilder: all_page_join_the_membership_email_verification
-            .pageTransitionsBuilder,
-      );
-    },
-  ));
+      path: "join-the-membership-email-verification",
+      name: all_page_join_the_membership_email_verification.pageName,
+      pageBuilder: (c, s) {
+        return CustomTransitionPage(
+            key: s.pageKey,
+            child:
+                all_page_join_the_membership_email_verification.PageEntrance(s),
+            transitionsBuilder: all_page_join_the_membership_email_verification
+                .pageTransitionsBuilder);
+      }));
 
   subRouteListAuthSampleAuthLogin.add(GoRoute(
-    path: "find-password-with-email",
-    name: all_page_find_password_with_email.pageName,
-    pageBuilder: (c, s) {
-      return CustomTransitionPage(
-        key: s.pageKey,
-        child: all_page_find_password_with_email.PageEntrance(s),
-        transitionsBuilder:
-            all_page_find_password_with_email.pageTransitionsBuilder,
-      );
-    },
-  ));
+      path: "find-password-with-email",
+      name: all_page_find_password_with_email.pageName,
+      pageBuilder: (c, s) {
+        return CustomTransitionPage(
+            key: s.pageKey,
+            child: all_page_find_password_with_email.PageEntrance(s),
+            transitionsBuilder:
+                all_page_find_password_with_email.pageTransitionsBuilder);
+      }));
 
   subRouteListAuthSampleAuthLogin.add(GoRoute(
-    path: "join-the-membership-edit-member-info",
-    name: all_page_join_the_membership_edit_member_info.pageName,
-    pageBuilder: (c, s) {
-      return CustomTransitionPage(
-        key: s.pageKey,
-        child: all_page_join_the_membership_edit_member_info.PageEntrance(s),
-        transitionsBuilder: all_page_join_the_membership_edit_member_info
-            .pageTransitionsBuilder,
-      );
-    },
-  ));
+      path: "join-the-membership-edit-member-info",
+      name: all_page_join_the_membership_edit_member_info.pageName,
+      pageBuilder: (c, s) {
+        return CustomTransitionPage(
+            key: s.pageKey,
+            child:
+                all_page_join_the_membership_edit_member_info.PageEntrance(s),
+            transitionsBuilder: all_page_join_the_membership_edit_member_info
+                .pageTransitionsBuilder);
+      }));
 
   subRouteList.add(GoRoute(
-    path: "etc-sample-list",
-    name: all_page_etc_sample_list.pageName,
-    pageBuilder: (c, s) {
-      return CustomTransitionPage(
-        key: s.pageKey,
-        child: all_page_etc_sample_list.PageEntrance(s),
-        transitionsBuilder: all_page_etc_sample_list.pageTransitionsBuilder,
-      );
-    },
-    routes: subRouteListEtcSampleList,
-  ));
+      path: "etc-sample-list",
+      name: all_page_etc_sample_list.pageName,
+      pageBuilder: (c, s) {
+        return CustomTransitionPage(
+            key: s.pageKey,
+            child: all_page_etc_sample_list.PageEntrance(s),
+            transitionsBuilder:
+                all_page_etc_sample_list.pageTransitionsBuilder);
+      },
+      routes: subRouteListEtcSampleList));
 
   subRouteListEtcSampleList.add(GoRoute(
-    path: "shared-preferences-sample",
-    name: all_page_shared_preferences_sample.pageName,
-    pageBuilder: (c, s) {
-      return CustomTransitionPage(
-        key: s.pageKey,
-        child: all_page_shared_preferences_sample.PageEntrance(s),
-        transitionsBuilder:
-            all_page_shared_preferences_sample.pageTransitionsBuilder,
-      );
-    },
-  ));
+      path: "shared-preferences-sample",
+      name: all_page_shared_preferences_sample.pageName,
+      pageBuilder: (c, s) {
+        return CustomTransitionPage(
+            key: s.pageKey,
+            child: all_page_shared_preferences_sample.PageEntrance(s),
+            transitionsBuilder:
+                all_page_shared_preferences_sample.pageTransitionsBuilder);
+      }));
 
   subRouteListEtcSampleList.add(GoRoute(
-    path: "url-launcher-sample",
-    name: all_page_url_launcher_sample.pageName,
-    pageBuilder: (c, s) {
-      return CustomTransitionPage(
-        key: s.pageKey,
-        child: all_page_url_launcher_sample.PageEntrance(s),
-        transitionsBuilder: all_page_url_launcher_sample.pageTransitionsBuilder,
-      );
-    },
-  ));
+      path: "url-launcher-sample",
+      name: all_page_url_launcher_sample.pageName,
+      pageBuilder: (c, s) {
+        return CustomTransitionPage(
+            key: s.pageKey,
+            child: all_page_url_launcher_sample.PageEntrance(s),
+            transitionsBuilder:
+                all_page_url_launcher_sample.pageTransitionsBuilder);
+      }));
 
   subRouteListEtcSampleList.add(GoRoute(
-    path: "global-variable-state-test-sample",
-    name: all_page_global_variable_state_test_sample.pageName,
-    pageBuilder: (c, s) {
-      return CustomTransitionPage(
-        key: s.pageKey,
-        child: all_page_global_variable_state_test_sample.PageEntrance(s),
-        transitionsBuilder:
-            all_page_global_variable_state_test_sample.pageTransitionsBuilder,
-      );
-    },
-  ));
+      path: "global-variable-state-test-sample",
+      name: all_page_global_variable_state_test_sample.pageName,
+      pageBuilder: (c, s) {
+        return CustomTransitionPage(
+            key: s.pageKey,
+            child: all_page_global_variable_state_test_sample.PageEntrance(s),
+            transitionsBuilder: all_page_global_variable_state_test_sample
+                .pageTransitionsBuilder);
+      }));
 
   subRouteListEtcSampleList.add(GoRoute(
-    path: "widget-change-animation-sample-list",
-    name: all_page_widget_change_animation_sample_list.pageName,
-    pageBuilder: (c, s) {
-      return CustomTransitionPage(
-        key: s.pageKey,
-        child: all_page_widget_change_animation_sample_list.PageEntrance(s),
-        transitionsBuilder:
-            all_page_widget_change_animation_sample_list.pageTransitionsBuilder,
-      );
-    },
-  ));
+      path: "widget-change-animation-sample-list",
+      name: all_page_widget_change_animation_sample_list.pageName,
+      pageBuilder: (c, s) {
+        return CustomTransitionPage(
+            key: s.pageKey,
+            child: all_page_widget_change_animation_sample_list.PageEntrance(s),
+            transitionsBuilder: all_page_widget_change_animation_sample_list
+                .pageTransitionsBuilder);
+      }));
 
   subRouteListEtcSampleList.add(GoRoute(
-    path: "crypt-sample",
-    name: all_page_crypt_sample.pageName,
-    pageBuilder: (c, s) {
-      return CustomTransitionPage(
-        key: s.pageKey,
-        child: all_page_crypt_sample.PageEntrance(s),
-        transitionsBuilder: all_page_crypt_sample.pageTransitionsBuilder,
-      );
-    },
-  ));
+      path: "crypt-sample",
+      name: all_page_crypt_sample.pageName,
+      pageBuilder: (c, s) {
+        return CustomTransitionPage(
+            key: s.pageKey,
+            child: all_page_crypt_sample.PageEntrance(s),
+            transitionsBuilder: all_page_crypt_sample.pageTransitionsBuilder);
+      }));
 
   subRouteListEtcSampleList.add(GoRoute(
-    path: "gif-sample",
-    name: all_page_gif_sample.pageName,
-    pageBuilder: (c, s) {
-      return CustomTransitionPage(
-        key: s.pageKey,
-        child: all_page_gif_sample.PageEntrance(s),
-        transitionsBuilder: all_page_gif_sample.pageTransitionsBuilder,
-      );
-    },
-  ));
+      path: "gif-sample",
+      name: all_page_gif_sample.pageName,
+      pageBuilder: (c, s) {
+        return CustomTransitionPage(
+            key: s.pageKey,
+            child: all_page_gif_sample.PageEntrance(s),
+            transitionsBuilder: all_page_gif_sample.pageTransitionsBuilder);
+      }));
 
   subRouteListEtcSampleList.add(GoRoute(
-    path: "image-selector-sample",
-    name: all_page_image_selector_sample.pageName,
-    pageBuilder: (c, s) {
-      return CustomTransitionPage(
-        key: s.pageKey,
-        child: all_page_image_selector_sample.PageEntrance(s),
-        transitionsBuilder:
-            all_page_image_selector_sample.pageTransitionsBuilder,
-      );
-    },
-  ));
+      path: "image-selector-sample",
+      name: all_page_image_selector_sample.pageName,
+      pageBuilder: (c, s) {
+        return CustomTransitionPage(
+            key: s.pageKey,
+            child: all_page_image_selector_sample.PageEntrance(s),
+            transitionsBuilder:
+                all_page_image_selector_sample.pageTransitionsBuilder);
+      }));
 
   subRouteListEtcSampleList.add(GoRoute(
-    path: "image-loading-sample",
-    name: all_page_image_loading_sample.pageName,
-    pageBuilder: (c, s) {
-      return CustomTransitionPage(
-        key: s.pageKey,
-        child: all_page_image_loading_sample.PageEntrance(s),
-        transitionsBuilder:
-            all_page_image_loading_sample.pageTransitionsBuilder,
-      );
-    },
-  ));
+      path: "image-loading-sample",
+      name: all_page_image_loading_sample.pageName,
+      pageBuilder: (c, s) {
+        return CustomTransitionPage(
+            key: s.pageKey,
+            child: all_page_image_loading_sample.PageEntrance(s),
+            transitionsBuilder:
+                all_page_image_loading_sample.pageTransitionsBuilder);
+      }));
 
   subRouteListEtcSampleList.add(GoRoute(
-    path: "context-menu-sample",
-    name: all_page_context_menu_sample.pageName,
-    pageBuilder: (c, s) {
-      return CustomTransitionPage(
-        key: s.pageKey,
-        child: all_page_context_menu_sample.PageEntrance(s),
-        transitionsBuilder: all_page_context_menu_sample.pageTransitionsBuilder,
-      );
-    },
-  ));
+      path: "context-menu-sample",
+      name: all_page_context_menu_sample.pageName,
+      pageBuilder: (c, s) {
+        return CustomTransitionPage(
+            key: s.pageKey,
+            child: all_page_context_menu_sample.PageEntrance(s),
+            transitionsBuilder:
+                all_page_context_menu_sample.pageTransitionsBuilder);
+      }));
 
   subRouteListEtcSampleList.add(GoRoute(
-    path: "gesture-area-overlap-test",
-    name: all_page_gesture_area_overlap_test.pageName,
-    pageBuilder: (c, s) {
-      return CustomTransitionPage(
-        key: s.pageKey,
-        child: all_page_gesture_area_overlap_test.PageEntrance(s),
-        transitionsBuilder:
-            all_page_gesture_area_overlap_test.pageTransitionsBuilder,
-      );
-    },
-  ));
+      path: "gesture-area-overlap-test",
+      name: all_page_gesture_area_overlap_test.pageName,
+      pageBuilder: (c, s) {
+        return CustomTransitionPage(
+            key: s.pageKey,
+            child: all_page_gesture_area_overlap_test.PageEntrance(s),
+            transitionsBuilder:
+                all_page_gesture_area_overlap_test.pageTransitionsBuilder);
+      }));
 
   subRouteListEtcSampleList.add(GoRoute(
-    path: "form-sample",
-    name: all_page_form_sample.pageName,
-    pageBuilder: (c, s) {
-      return CustomTransitionPage(
-        key: s.pageKey,
-        child: all_page_form_sample.PageEntrance(s),
-        transitionsBuilder: all_page_form_sample.pageTransitionsBuilder,
-      );
-    },
-  ));
+      path: "form-sample",
+      name: all_page_form_sample.pageName,
+      pageBuilder: (c, s) {
+        return CustomTransitionPage(
+            key: s.pageKey,
+            child: all_page_form_sample.PageEntrance(s),
+            transitionsBuilder: all_page_form_sample.pageTransitionsBuilder);
+      }));
 
   // ---------------------------------------------------------------------------
   if (kIsWeb) {
@@ -609,28 +546,25 @@ GoRouter getRouter() {
 
     // !!!사용할 라우터 리스트 추가!!
     routeList.add(GoRoute(
-      path: "/init-splash",
-      name: app_page_init_splash.pageName,
-      pageBuilder: (c, s) {
-        return CustomTransitionPage(
-          key: s.pageKey,
-          child: app_page_init_splash.PageEntrance(s),
-          transitionsBuilder: app_page_init_splash.pageTransitionsBuilder,
-        );
-      },
-    ));
+        path: "/init-splash",
+        name: app_page_init_splash.pageName,
+        pageBuilder: (c, s) {
+          return CustomTransitionPage(
+              key: s.pageKey,
+              child: app_page_init_splash.PageEntrance(s),
+              transitionsBuilder: app_page_init_splash.pageTransitionsBuilder);
+        }));
 
     subRouteListEtcSampleList.add(GoRoute(
-      path: "server-sample",
-      name: app_page_server_sample.pageName,
-      pageBuilder: (c, s) {
-        return CustomTransitionPage(
-          key: s.pageKey,
-          child: app_page_server_sample.PageEntrance(s),
-          transitionsBuilder: app_page_server_sample.pageTransitionsBuilder,
-        );
-      },
-    ));
+        path: "server-sample",
+        name: app_page_server_sample.pageName,
+        pageBuilder: (c, s) {
+          return CustomTransitionPage(
+              key: s.pageKey,
+              child: app_page_server_sample.PageEntrance(s),
+              transitionsBuilder:
+                  app_page_server_sample.pageTransitionsBuilder);
+        }));
 
     // -------------------------------------------------------------------------
     if (Platform.isAndroid || Platform.isIOS) {
@@ -638,17 +572,15 @@ GoRouter getRouter() {
       // !!!초기 진입 라우트 경로 설정!!
       // !!!사용할 라우터 리스트 추가!!
       subRouteList.add(GoRoute(
-        path: "mobile-page-permission-sample-list",
-        name: mobile_page_permission_sample_list.pageName,
-        pageBuilder: (c, s) {
-          return CustomTransitionPage(
-            key: s.pageKey,
-            child: mobile_page_permission_sample_list.PageEntrance(s),
-            transitionsBuilder:
-                mobile_page_permission_sample_list.pageTransitionsBuilder,
-          );
-        },
-      ));
+          path: "mobile-page-permission-sample-list",
+          name: mobile_page_permission_sample_list.pageName,
+          pageBuilder: (c, s) {
+            return CustomTransitionPage(
+                key: s.pageKey,
+                child: mobile_page_permission_sample_list.PageEntrance(s),
+                transitionsBuilder:
+                    mobile_page_permission_sample_list.pageTransitionsBuilder);
+          }));
 
       // -----------------------------------------------------------------------
 
@@ -694,8 +626,5 @@ GoRouter getRouter() {
   }
 
   // 라우터 객체 생성
-  return GoRouter(
-    initialLocation: initialLocation,
-    routes: routeList,
-  );
+  return GoRouter(initialLocation: initialLocation, routes: routeList);
 }
