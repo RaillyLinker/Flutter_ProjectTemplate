@@ -96,26 +96,29 @@ class PageView extends StatelessWidget {
                   const SizedBox(height: 10.0),
                   SizedBox(
                     width: 400,
-                    child: BlocBuilder<page_business.BlocCodeEditText, bool>(
-                      builder: (c, s) {
-                        return TextFormField(
-                          onFieldSubmitted: (value) {
-                            pageBusiness.verifyCodeAndGoNext();
-                          },
-                          onChanged: (text) {
-                            pageBusiness.codeTextEditOnChanged();
-                          },
-                          focusNode:
-                              pageBusiness.pageViewModel.codeTextEditFocus,
-                          controller:
-                              pageBusiness.pageViewModel.codeTextEditController,
-                          decoration: InputDecoration(
-                              errorText: pageBusiness
-                                  .pageViewModel.codeTextEditErrorMsg,
-                              labelText: '본인 이메일 인증 코드',
-                              hintText: "발송된 본인 이메일 인증 코드를 입력하세요."),
-                        );
-                      },
+                    child: Form(
+                      key: pageBusiness.pageViewModel.verificationCodeFormKey,
+                      child: TextFormField(
+                        autofocus: true,
+                        onFieldSubmitted: (value) {
+                          pageBusiness.verifyCodeAndGoNext();
+                        },
+                        focusNode: pageBusiness
+                            .pageViewModel.verificationCodeTextFieldFocus,
+                        controller: pageBusiness
+                            .pageViewModel.verificationCodeTextFieldController,
+                        decoration: const InputDecoration(
+                          labelText: '본인 이메일 인증 코드',
+                          hintText: "발송된 본인 이메일 인증 코드를 입력하세요.",
+                        ),
+                        validator: (value) {
+                          // 검사 : return 으로 반환하는 에러 메세지가 null 이 아니라면 에러로 처리
+                          if (value == null || value.isEmpty) {
+                            return '이 항목을 입력 하세요.';
+                          }
+                          return null;
+                        },
+                      ),
                     ),
                   ),
                   const SizedBox(height: 16.0),

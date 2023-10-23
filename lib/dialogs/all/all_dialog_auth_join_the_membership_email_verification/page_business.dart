@@ -1,6 +1,7 @@
 // (external)
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:go_router/go_router.dart';
 
 // (page)
@@ -63,8 +64,8 @@ class PageBusiness {
   // (페이지 종료 (강제 종료는 탐지 못함))
   Future<void> onPageDestroyAsync() async {
     // !!!페이지 종료 로직 작성!!
-    pageViewModel.codeTextEditController.dispose();
-    pageViewModel.codeTextEditFocus.dispose();
+    pageViewModel.verificationCodeTextFieldController.dispose();
+    pageViewModel.verificationCodeTextFieldFocus.dispose();
   }
 
   // (Page Pop 요청)
@@ -93,13 +94,6 @@ class PageBusiness {
     _context.pop();
   }
 
-  // (코드 텍스트 에디트 입력 변화)
-  void codeTextEditOnChanged() {
-    // 입력창의 에러를 지우기
-    pageViewModel.codeTextEditErrorMsg = null;
-    blocObjects.blocCodeEditText.add(!blocObjects.blocCodeEditText.state);
-  }
-
   // (코드 검증 후 다음 단계로 이동)
   bool isVerifyCodeAndGoNextDoing = false;
 
@@ -108,12 +102,7 @@ class PageBusiness {
       return;
     }
     isVerifyCodeAndGoNextDoing = true;
-    if (pageViewModel.codeTextEditController.text == "") {
-      pageViewModel.codeTextEditErrorMsg = "본인 인증 코드를 입력하세요.";
-      blocObjects.blocCodeEditText.add(!blocObjects.blocCodeEditText.state);
-      isVerifyCodeAndGoNextDoing = false;
-      FocusScope.of(_context).requestFocus(pageViewModel.codeTextEditFocus);
-    } else {
+    if (pageViewModel.verificationCodeFormKey.currentState!.validate()) {
       // 코드 검증
       // (로딩 스피너 다이얼로그 호출)
       var loadingSpinner = all_dialog_loading_spinner.PageEntrance(
@@ -124,7 +113,8 @@ class PageBusiness {
                     .GetService1TkV1AuthJoinTheMembershipEmailVerificationCheckAsyncRequestQueryVo(
                         pageViewModel.verificationUid,
                         pageViewModel.pageInputVo.emailAddress,
-                        pageViewModel.codeTextEditController.text));
+                        pageViewModel
+                            .verificationCodeTextFieldController.text));
 
         if (responseVo.dioException == null) {
           // Dio 네트워크 응답
@@ -137,7 +127,7 @@ class PageBusiness {
             // 검증 완료
             if (!_context.mounted) return;
             _context.pop(page_entrance.PageOutputVo(
-                pageViewModel.codeTextEditController.text));
+                pageViewModel.verificationCodeTextFieldController.text));
           } else {
             var responseHeaders = networkResponseObjectOk.responseHeaders
                 as api_main_server
@@ -194,12 +184,15 @@ class PageBusiness {
                     // verificationCode 가 일치하지 않음
 
                     // 검증 실패
-                    pageViewModel.codeTextEditErrorMsg = "본인 인증 코드가 일치하지 않습니다.";
-                    blocObjects.blocCodeEditText
-                        .add(!blocObjects.blocCodeEditText.state);
                     if (!_context.mounted) return;
-                    FocusScope.of(_context)
-                        .requestFocus(pageViewModel.codeTextEditFocus);
+                    showToast(
+                      "본인 인증 코드가 일치하지 않습니다.",
+                      context: _context,
+                      position: StyledToastPosition.center,
+                      animation: StyledToastAnimation.scale,
+                    );
+                    FocusScope.of(_context).requestFocus(
+                        pageViewModel.verificationCodeTextFieldFocus);
                   }
                   break;
                 default:
@@ -229,6 +222,10 @@ class PageBusiness {
           builder: (context) => loadingSpinner).then((outputVo) {});
 
       isVerifyCodeAndGoNextDoing = false;
+    } else {
+      isVerifyCodeAndGoNextDoing = false;
+      FocusScope.of(_context)
+          .requestFocus(pageViewModel.verificationCodeTextFieldFocus);
     }
   }
 
@@ -267,11 +264,9 @@ class PageBusiness {
                       "본인 인증 이메일이 재발송 되었습니다.\n(${pageViewModel.pageInputVo.emailAddress})",
                       "확인"),
                   (pageBusiness) {}));
-          pageViewModel.codeTextEditErrorMsg = null;
-          pageViewModel.codeTextEditController.text = "";
-          blocObjects.blocCodeEditText.add(!blocObjects.blocCodeEditText.state);
           if (!_context.mounted) return;
-          FocusScope.of(_context).requestFocus(pageViewModel.codeTextEditFocus);
+          FocusScope.of(_context)
+              .requestFocus(pageViewModel.verificationCodeTextFieldFocus);
         } else {
           var responseHeaders = networkResponseObjectOk.responseHeaders
               as api_main_server
@@ -356,16 +351,15 @@ class PageViewModel {
   // ex :
   // int sampleNumber = 0;
 
-  // 코드 입력창 에러 메세지
-  String? codeTextEditErrorMsg;
-
-  // 코드 입력창 컨트롤러
-  TextEditingController codeTextEditController = TextEditingController();
-
-  // 코드 입력창 포커스
-  FocusNode codeTextEditFocus = FocusNode();
-
   late int verificationUid;
+
+  // VerificationCode Form 필드 전체 키
+  GlobalKey<FormState> verificationCodeFormKey = GlobalKey<FormState>();
+
+  final verificationCodeTextFieldKey = GlobalKey<FormFieldState>();
+  TextEditingController verificationCodeTextFieldController =
+      TextEditingController();
+  FocusNode verificationCodeTextFieldFocus = FocusNode();
 
   PageViewModel(this.pageInputVo);
 }
@@ -382,14 +376,6 @@ class PageViewModel {
 //   }
 // }
 
-class BlocCodeEditText extends Bloc<bool, bool> {
-  BlocCodeEditText() : super(true) {
-    on<bool>((event, emit) {
-      emit(event);
-    });
-  }
-}
-
 // (BLoC 프로바이더 클래스)
 // 본 페이지에서 사용할 BLoC 객체를 모아두어 PageEntrance 에서 페이지 전역 설정에 사용 됩니다.
 class BLocProviders {
@@ -397,7 +383,6 @@ class BLocProviders {
   List<BlocProvider<dynamic>> blocProviders = [
     // ex :
     // BlocProvider<BlocSample>(create: (context) => BlocSample()),
-    BlocProvider<BlocCodeEditText>(create: (context) => BlocCodeEditText()),
   ];
 }
 
@@ -408,13 +393,11 @@ class BLocObjects {
   // !!!BLoC 조작 객체 변수 선언!!
   // ex :
   // late BlocSample blocSample;
-  late BlocCodeEditText blocCodeEditText;
 
   // 생성자 설정
   BLocObjects(this._context) {
     // !!!BLoC 조작 객체 생성!!
     // ex :
     // blocSample = BlocProvider.of<BlocSample>(_context);
-    blocCodeEditText = BlocProvider.of<BlocCodeEditText>(_context);
   }
 }
