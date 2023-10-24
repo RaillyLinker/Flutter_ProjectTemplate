@@ -28,40 +28,39 @@ class PageView extends StatelessWidget {
             .state
             .pageBusiness;
 
-    return gw_page_out_frames.SliverPageOutFrame("홈", [
-      BlocBuilder<page_business.BlocSampleList, bool>(builder: (c, s) {
-        return SliverList.builder(
-          itemCount: pageBusiness.pageViewModel.allSampleList.length,
-          itemBuilder: (context, index) {
-            return GestureDetector(
-                onTap: () {
-                  pageBusiness.onRouteListItemClick(index);
-                },
-                child: Column(
-                  children: [
-                    ListTile(
-                      mouseCursor: SystemMouseCursors.click,
-                      title: Text(
-                        pageBusiness
-                            .pageViewModel.allSampleList[index].sampleItemTitle,
-                        style: const TextStyle(fontFamily: "MaruBuri"),
-                      ),
-                      subtitle: Text(
-                        pageBusiness.pageViewModel.allSampleList[index]
-                            .sampleItemDescription,
-                        style: const TextStyle(fontFamily: "MaruBuri"),
-                      ),
-                      trailing: const Icon(Icons.chevron_right),
+    return gw_page_out_frames.PageOutFrame("홈",
+        BlocBuilder<page_business.BlocSampleList, bool>(builder: (c, s) {
+      return ListView.builder(
+        itemCount: pageBusiness.pageViewModel.allSampleList.length,
+        itemBuilder: (context, index) {
+          return GestureDetector(
+              onTap: () {
+                pageBusiness.onRouteListItemClick(index);
+              },
+              child: Column(
+                children: [
+                  ListTile(
+                    mouseCursor: SystemMouseCursors.click,
+                    title: Text(
+                      pageBusiness
+                          .pageViewModel.allSampleList[index].sampleItemTitle,
+                      style: const TextStyle(fontFamily: "MaruBuri"),
                     ),
-                    const Divider(
-                      color: Colors.grey,
-                      height: 0.1,
+                    subtitle: Text(
+                      pageBusiness.pageViewModel.allSampleList[index]
+                          .sampleItemDescription,
+                      style: const TextStyle(fontFamily: "MaruBuri"),
                     ),
-                  ],
-                ));
-          },
-        );
-      })
-    ]);
+                    trailing: const Icon(Icons.chevron_right),
+                  ),
+                  const Divider(
+                    color: Colors.grey,
+                    height: 0.1,
+                  ),
+                ],
+              ));
+        },
+      );
+    }));
   }
 }

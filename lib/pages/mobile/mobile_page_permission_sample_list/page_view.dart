@@ -28,47 +28,46 @@ class PageView extends StatelessWidget {
             .state
             .pageBusiness;
 
-    return gw_page_out_frames.SliverPageOutFrame("모바일 권한 샘플", [
-      BlocBuilder<page_business.BlocSampleList, bool>(builder: (c, s) {
-        return SliverList.builder(
-          itemCount: pageBusiness.pageViewModel.filteredSampleList.length,
-          itemBuilder: (context, index) {
-            return GestureDetector(
-                onTap: () {
-                  pageBusiness.onRouteListItemClickAsync(index);
-                },
-                child: Column(
-                  children: [
-                    ListTile(
-                      mouseCursor: SystemMouseCursors.click,
-                      title: Text(
-                        pageBusiness.pageViewModel.filteredSampleList[index]
-                            .sampleItemTitle,
-                        style: const TextStyle(fontFamily: "MaruBuri"),
-                      ),
-                      subtitle: Text(
-                        pageBusiness.pageViewModel.filteredSampleList[index]
-                            .sampleItemDescription,
-                        style: const TextStyle(fontFamily: "MaruBuri"),
-                      ),
-                      trailing: Switch(
-                        value: pageBusiness
-                            .pageViewModel.filteredSampleList[index].isChecked,
-                        onChanged: (value) {
-                          pageBusiness.onRouteListItemClickAsync(index);
-                        },
-                        activeColor: Colors.blueAccent,
-                      ),
+    return gw_page_out_frames.PageOutFrame("모바일 권한 샘플",
+        BlocBuilder<page_business.BlocSampleList, bool>(builder: (c, s) {
+      return ListView.builder(
+        itemCount: pageBusiness.pageViewModel.filteredSampleList.length,
+        itemBuilder: (context, index) {
+          return GestureDetector(
+              onTap: () {
+                pageBusiness.onRouteListItemClickAsync(index);
+              },
+              child: Column(
+                children: [
+                  ListTile(
+                    mouseCursor: SystemMouseCursors.click,
+                    title: Text(
+                      pageBusiness.pageViewModel.filteredSampleList[index]
+                          .sampleItemTitle,
+                      style: const TextStyle(fontFamily: "MaruBuri"),
                     ),
-                    const Divider(
-                      color: Colors.grey,
-                      height: 0.1,
+                    subtitle: Text(
+                      pageBusiness.pageViewModel.filteredSampleList[index]
+                          .sampleItemDescription,
+                      style: const TextStyle(fontFamily: "MaruBuri"),
                     ),
-                  ],
-                ));
-          },
-        );
-      })
-    ]);
+                    trailing: Switch(
+                      value: pageBusiness
+                          .pageViewModel.filteredSampleList[index].isChecked,
+                      onChanged: (value) {
+                        pageBusiness.onRouteListItemClickAsync(index);
+                      },
+                      activeColor: Colors.blueAccent,
+                    ),
+                  ),
+                  const Divider(
+                    color: Colors.grey,
+                    height: 0.1,
+                  ),
+                ],
+              ));
+        },
+      );
+    }));
   }
 }

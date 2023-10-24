@@ -17,6 +17,8 @@ import '../../../global_classes/gc_template_classes.dart'
 //------------------------------------------------------------------------------
 // (페이지 UI 위젯)
 // !!!세부 화면 정의!!
+int a = 0;
+
 class PageView extends StatelessWidget {
   const PageView({super.key});
 
@@ -28,228 +30,259 @@ class PageView extends StatelessWidget {
             .state
             .pageBusiness;
 
-    return gw_page_out_frames.SliverPageOutFrame("계정 샘플", [
-      SliverToBoxAdapter(
-        child: Container(
-          padding:
-              const EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 10),
-          child:
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            const Text(
-              '멤버 정보',
-              style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: "MaruBuri"),
-            ),
-            const SizedBox(height: 10.0),
-            Row(
-              children: [
-                const Expanded(
-                    flex: 2,
-                    child: Text(
-                      '    - memberUid : ',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, fontFamily: "MaruBuri"),
-                    )),
-                Expanded(
-                    flex: 3,
-                    child: BlocBuilder<page_business.BlocLoginMemberInfo, bool>(
-                        builder: (c, s) {
-                      var loginMemberInfo =
-                          pageBusiness.pageViewModel.loginMemberInfo;
-                      String text = (loginMemberInfo == null)
-                          ? "null"
-                          : loginMemberInfo.memberUid.toString();
-                      return SelectableText(
-                        text,
-                        style: const TextStyle(fontFamily: "MaruBuri"),
-                      );
-                    })),
-              ],
-            ),
-            const SizedBox(height: 8.0),
-            Row(
-              children: [
-                const Expanded(
-                    flex: 2,
-                    child: Text(
-                      '    - tokenType : ',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, fontFamily: "MaruBuri"),
-                    )),
-                Expanded(
-                    flex: 3,
-                    child: BlocBuilder<page_business.BlocLoginMemberInfo, bool>(
-                        builder: (c, s) {
-                      var loginMemberInfo =
-                          pageBusiness.pageViewModel.loginMemberInfo;
-                      String text = (loginMemberInfo == null)
-                          ? "null"
-                          : loginMemberInfo.tokenType;
-                      return SelectableText(
-                        text,
-                        style: const TextStyle(fontFamily: "MaruBuri"),
-                      );
-                    })),
-              ],
-            ),
-            const SizedBox(height: 8.0),
-            Row(
-              children: [
-                const Expanded(
-                    flex: 2,
-                    child: Text(
-                      '    - accessToken : ',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, fontFamily: "MaruBuri"),
-                    )),
-                Expanded(
-                    flex: 3,
-                    child: BlocBuilder<page_business.BlocLoginMemberInfo, bool>(
-                        builder: (c, s) {
-                      var loginMemberInfo =
-                          pageBusiness.pageViewModel.loginMemberInfo;
-                      String text = (loginMemberInfo == null)
-                          ? "null"
-                          : loginMemberInfo.accessToken;
-                      return SizedBox(
-                        width: 200,
-                        child: SelectableText(
-                          text,
-                          style: const TextStyle(fontFamily: "MaruBuri"),
-                        ),
-                      );
-                    })),
-              ],
-            ),
-            const SizedBox(height: 8.0),
-            Row(
-              children: [
-                const Expanded(
-                    flex: 2,
-                    child: Text(
-                      '    - accessTokenExpireWhen : ',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, fontFamily: "MaruBuri"),
-                    )),
-                Expanded(
-                    flex: 3,
-                    child: BlocBuilder<page_business.BlocLoginMemberInfo, bool>(
-                        builder: (c, s) {
-                      var loginMemberInfo =
-                          pageBusiness.pageViewModel.loginMemberInfo;
-                      String text = (loginMemberInfo == null)
-                          ? "null"
-                          : loginMemberInfo.accessTokenExpireWhen;
-                      return SelectableText(
-                        text,
-                        style: const TextStyle(fontFamily: "MaruBuri"),
-                      );
-                    })),
-              ],
-            ),
-            const SizedBox(height: 8.0),
-            Row(
-              children: [
-                const Expanded(
-                    flex: 2,
-                    child: Text(
-                      '    - refreshToken : ',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, fontFamily: "MaruBuri"),
-                    )),
-                Expanded(
-                    flex: 3,
-                    child: BlocBuilder<page_business.BlocLoginMemberInfo, bool>(
-                        builder: (c, s) {
-                      var loginMemberInfo =
-                          pageBusiness.pageViewModel.loginMemberInfo;
-                      String text = (loginMemberInfo == null)
-                          ? "null"
-                          : loginMemberInfo.refreshToken;
-                      return SizedBox(
-                        width: 200,
-                        child: SelectableText(
-                          text,
-                          style: const TextStyle(fontFamily: "MaruBuri"),
-                        ),
-                      );
-                    })),
-              ],
-            ),
-            const SizedBox(height: 8.0),
-            Row(
-              children: [
-                const Expanded(
-                    flex: 2,
-                    child: Text(
-                      '    - refreshTokenExpireWhen : ',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, fontFamily: "MaruBuri"),
-                    )),
-                Expanded(
-                    flex: 3,
-                    child: BlocBuilder<page_business.BlocLoginMemberInfo, bool>(
-                        builder: (c, s) {
-                      var loginMemberInfo =
-                          pageBusiness.pageViewModel.loginMemberInfo;
-                      String text = (loginMemberInfo == null)
-                          ? "null"
-                          : loginMemberInfo.refreshTokenExpireWhen;
-                      return SelectableText(
-                        text,
-                        style: const TextStyle(fontFamily: "MaruBuri"),
-                      );
-                    })),
-              ],
-            ),
-            const SizedBox(height: 20.0),
-            const Text(
-              '계정 관련 기능 샘플 리스트',
-              style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: "MaruBuri"),
-            ),
-            const SizedBox(height: 10.0),
-          ]),
-        ),
-      ),
-      // Other Sliver Widgets
-      BlocBuilder<page_business.BlocSampleList, bool>(builder: (c, s) {
-        return SliverList.builder(
-          itemCount: pageBusiness.pageViewModel.allSampleList.length,
-          itemBuilder: (context, index) {
-            return GestureDetector(
-                onTap: () {
-                  pageBusiness.onRouteListItemClick(index);
-                },
+    return gw_page_out_frames.PageOutFrame(
+        "계정 샘플",
+        SingleChildScrollView(
+          // <==== 주인공. Column 하나를 child로 가짐
+          child: Column(
+            // 물론 Row도 가능
+            children: [
+              Container(
+                padding: const EdgeInsets.only(
+                    top: 20, bottom: 10, left: 10, right: 10),
                 child: Column(
-                  children: [
-                    ListTile(
-                      mouseCursor: SystemMouseCursors.click,
-                      title: Text(
-                        pageBusiness
-                            .pageViewModel.allSampleList[index].sampleItemTitle,
-                        style: const TextStyle(fontFamily: "MaruBuri"),
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        '멤버 정보',
+                        style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: "MaruBuri"),
                       ),
-                      subtitle: Text(
-                        pageBusiness.pageViewModel.allSampleList[index]
-                            .sampleItemDescription,
-                        style: const TextStyle(fontFamily: "MaruBuri"),
+                      const SizedBox(height: 10.0),
+                      Row(
+                        children: [
+                          const Expanded(
+                              flex: 2,
+                              child: Text(
+                                '    - memberUid : ',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: "MaruBuri"),
+                              )),
+                          Expanded(
+                              flex: 3,
+                              child: BlocBuilder<
+                                  page_business.BlocLoginMemberInfo,
+                                  bool>(builder: (c, s) {
+                                var loginMemberInfo =
+                                    pageBusiness.pageViewModel.loginMemberInfo;
+                                String text = (loginMemberInfo == null)
+                                    ? "null"
+                                    : loginMemberInfo.memberUid.toString();
+                                return SelectableText(
+                                  text,
+                                  style:
+                                      const TextStyle(fontFamily: "MaruBuri"),
+                                );
+                              })),
+                        ],
                       ),
-                      trailing: const Icon(Icons.chevron_right),
-                    ),
-                    const Divider(
-                      color: Colors.grey,
-                      height: 0.1,
-                    ),
-                  ],
-                ));
-          },
-        );
-      })
-    ]);
+                      const SizedBox(height: 8.0),
+                      Row(
+                        children: [
+                          const Expanded(
+                              flex: 2,
+                              child: Text(
+                                '    - tokenType : ',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: "MaruBuri"),
+                              )),
+                          Expanded(
+                              flex: 3,
+                              child: BlocBuilder<
+                                  page_business.BlocLoginMemberInfo,
+                                  bool>(builder: (c, s) {
+                                var loginMemberInfo =
+                                    pageBusiness.pageViewModel.loginMemberInfo;
+                                String text = (loginMemberInfo == null)
+                                    ? "null"
+                                    : loginMemberInfo.tokenType;
+                                return SelectableText(
+                                  text,
+                                  style:
+                                      const TextStyle(fontFamily: "MaruBuri"),
+                                );
+                              })),
+                        ],
+                      ),
+                      const SizedBox(height: 8.0),
+                      Row(
+                        children: [
+                          const Expanded(
+                              flex: 2,
+                              child: Text(
+                                '    - accessToken : ',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: "MaruBuri"),
+                              )),
+                          Expanded(
+                              flex: 3,
+                              child: BlocBuilder<
+                                  page_business.BlocLoginMemberInfo,
+                                  bool>(builder: (c, s) {
+                                var loginMemberInfo =
+                                    pageBusiness.pageViewModel.loginMemberInfo;
+                                String text = (loginMemberInfo == null)
+                                    ? "null"
+                                    : loginMemberInfo.accessToken;
+                                return SizedBox(
+                                  width: 200,
+                                  child: SelectableText(
+                                    text,
+                                    style:
+                                        const TextStyle(fontFamily: "MaruBuri"),
+                                  ),
+                                );
+                              })),
+                        ],
+                      ),
+                      const SizedBox(height: 8.0),
+                      Row(
+                        children: [
+                          const Expanded(
+                              flex: 2,
+                              child: Text(
+                                '    - accessTokenExpireWhen : ',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: "MaruBuri"),
+                              )),
+                          Expanded(
+                              flex: 3,
+                              child: BlocBuilder<
+                                  page_business.BlocLoginMemberInfo,
+                                  bool>(builder: (c, s) {
+                                var loginMemberInfo =
+                                    pageBusiness.pageViewModel.loginMemberInfo;
+                                String text = (loginMemberInfo == null)
+                                    ? "null"
+                                    : loginMemberInfo.accessTokenExpireWhen;
+                                return SelectableText(
+                                  text,
+                                  style:
+                                      const TextStyle(fontFamily: "MaruBuri"),
+                                );
+                              })),
+                        ],
+                      ),
+                      const SizedBox(height: 8.0),
+                      Row(
+                        children: [
+                          const Expanded(
+                              flex: 2,
+                              child: Text(
+                                '    - refreshToken : ',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: "MaruBuri"),
+                              )),
+                          Expanded(
+                              flex: 3,
+                              child: BlocBuilder<
+                                  page_business.BlocLoginMemberInfo,
+                                  bool>(builder: (c, s) {
+                                var loginMemberInfo =
+                                    pageBusiness.pageViewModel.loginMemberInfo;
+                                String text = (loginMemberInfo == null)
+                                    ? "null"
+                                    : loginMemberInfo.refreshToken;
+                                return SizedBox(
+                                  width: 200,
+                                  child: SelectableText(
+                                    text,
+                                    style:
+                                        const TextStyle(fontFamily: "MaruBuri"),
+                                  ),
+                                );
+                              })),
+                        ],
+                      ),
+                      const SizedBox(height: 8.0),
+                      Row(
+                        children: [
+                          const Expanded(
+                              flex: 2,
+                              child: Text(
+                                '    - refreshTokenExpireWhen : ',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: "MaruBuri"),
+                              )),
+                          Expanded(
+                              flex: 3,
+                              child: BlocBuilder<
+                                  page_business.BlocLoginMemberInfo,
+                                  bool>(builder: (c, s) {
+                                var loginMemberInfo =
+                                    pageBusiness.pageViewModel.loginMemberInfo;
+                                String text = (loginMemberInfo == null)
+                                    ? "null"
+                                    : loginMemberInfo.refreshTokenExpireWhen;
+                                return SelectableText(
+                                  text,
+                                  style:
+                                      const TextStyle(fontFamily: "MaruBuri"),
+                                );
+                              })),
+                        ],
+                      ),
+                      const SizedBox(height: 40.0),
+                      const Text(
+                        '계정 관련 기능 샘플 리스트',
+                        style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: "MaruBuri"),
+                      ),
+                    ]),
+              ),
+              BlocBuilder<page_business.BlocSampleList, bool>(
+                builder: (c, s) {
+                  return ListView.builder(
+                    shrinkWrap: true, // 리스트뷰 크기 고정
+                    primary: false, // 리스트뷰 내부는 스크롤 금지
+                    itemCount: pageBusiness.pageViewModel.allSampleList.length,
+                    itemBuilder: (context, index) {
+                      return GestureDetector(
+                          onTap: () {
+                            pageBusiness.onRouteListItemClick(index);
+                          },
+                          child: Column(
+                            children: [
+                              ListTile(
+                                mouseCursor: SystemMouseCursors.click,
+                                title: Text(
+                                  pageBusiness.pageViewModel
+                                      .allSampleList[index].sampleItemTitle,
+                                  style:
+                                      const TextStyle(fontFamily: "MaruBuri"),
+                                ),
+                                subtitle: Text(
+                                  pageBusiness
+                                      .pageViewModel
+                                      .allSampleList[index]
+                                      .sampleItemDescription,
+                                  style:
+                                      const TextStyle(fontFamily: "MaruBuri"),
+                                ),
+                                trailing: const Icon(Icons.chevron_right),
+                              ),
+                              const Divider(
+                                color: Colors.grey,
+                                height: 0.1,
+                              ),
+                            ],
+                          ));
+                    },
+                  );
+                },
+              )
+            ],
+          ),
+        ));
   }
 }

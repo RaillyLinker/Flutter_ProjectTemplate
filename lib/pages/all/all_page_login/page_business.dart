@@ -1,5 +1,4 @@
 // (external)
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
@@ -24,6 +23,7 @@ import '../../../pages/all/all_page_find_password_with_email/page_entrance.dart'
 import '../../../pages/all/all_page_join_the_membership_email_verification/page_entrance.dart'
     as all_page_join_the_membership_email_verification;
 import '../../../global_functions/gf_my_functions.dart' as gf_my_functions;
+import '../../../pages/all/all_page_home/page_entrance.dart' as all_page_home;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
 
@@ -73,7 +73,7 @@ class PageBusiness {
         animation: StyledToastAnimation.scale,
       );
       // 홈 페이지로 이동
-      _context.go("/");
+      _context.goNamed(all_page_home.pageName);
       return;
     }
   }
@@ -246,7 +246,7 @@ class PageBusiness {
                   _context.pop();
                 } else {
                   // pop 이 불가능하면 Home 페이지로 이동
-                  _context.go("/");
+                  _context.goNamed(all_page_home.pageName);
                 }
               } else {
                 // 비정상 응답

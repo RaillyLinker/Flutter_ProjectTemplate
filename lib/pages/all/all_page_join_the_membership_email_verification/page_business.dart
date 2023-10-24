@@ -23,6 +23,7 @@ import '../../../pages/all/all_page_join_the_membership_edit_member_info/page_en
 import '../../../../repositories/spws/spw_auth_member_info.dart'
     as spw_auth_member_info;
 import '../../../global_functions/gf_my_functions.dart' as gf_my_functions;
+import '../../../pages/all/all_page_home/page_entrance.dart' as all_page_home;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
 
@@ -72,7 +73,7 @@ class PageBusiness {
         animation: StyledToastAnimation.scale,
       );
       // 홈 페이지로 이동
-      _context.go("/");
+      _context.goNamed(all_page_home.pageName);
       return;
     }
   }

@@ -28,91 +28,79 @@ class PageView extends StatelessWidget {
             .state
             .pageBusiness;
 
-    return gw_page_out_frames.SliverPageOutFrame("위젯 변경 애니메이션 샘플 리스트", [
-      SliverPersistentHeader(
-        pinned: true,
-        delegate: _ShapeDelegate(),
-      ), // Other Sliver Widgets
-      BlocBuilder<page_business.BlocSampleList, bool>(builder: (c, s) {
-        return SliverList.builder(
-          itemCount: pageBusiness.pageViewModel.allSampleList.length,
-          itemBuilder: (context, index) {
-            return GestureDetector(
-                onTap: () {
-                  pageBusiness.onRouteListItemClick(index);
+    return gw_page_out_frames.PageOutFrame(
+      "위젯 변경 애니메이션 샘플 리스트",
+      SingleChildScrollView(
+        // <==== 주인공. Column 하나를 child로 가짐
+        child: Column(
+          // 물론 Row도 가능
+          children: [
+            Container(
+              color: Colors.white,
+              height: 150,
+              alignment: Alignment.center,
+              child: BlocBuilder<page_business.BlocAnimationSample, bool>(
+                builder: (c, s) {
+                  return AnimatedSwitcher(
+                      duration: pageBusiness.pageViewModel
+                          .widgetChangeAnimatedSwitcherConfig.duration,
+                      reverseDuration: pageBusiness.pageViewModel
+                          .widgetChangeAnimatedSwitcherConfig.reverseDuration,
+                      switchInCurve: pageBusiness.pageViewModel
+                          .widgetChangeAnimatedSwitcherConfig.switchInCurve,
+                      switchOutCurve: pageBusiness.pageViewModel
+                          .widgetChangeAnimatedSwitcherConfig.switchOutCurve,
+                      layoutBuilder: pageBusiness.pageViewModel
+                          .widgetChangeAnimatedSwitcherConfig.layoutBuilder,
+                      transitionBuilder: pageBusiness.pageViewModel
+                          .widgetChangeAnimatedSwitcherConfig.transitionBuilder,
+                      child: pageBusiness.pageViewModel.sampleWidget);
                 },
-                child: Column(
-                  children: [
-                    ListTile(
-                      mouseCursor: SystemMouseCursors.click,
-                      title: Text(
-                        pageBusiness
-                            .pageViewModel.allSampleList[index].sampleItemTitle,
-                        style: const TextStyle(fontFamily: "MaruBuri"),
-                      ),
-                      subtitle: Text(
-                        pageBusiness.pageViewModel.allSampleList[index]
-                            .sampleItemDescription,
-                        style: const TextStyle(fontFamily: "MaruBuri"),
-                      ),
-                      trailing: const Icon(Icons.chevron_right),
-                    ),
-                    const Divider(
-                      color: Colors.grey,
-                      height: 0.1,
-                    ),
-                  ],
-                ));
-          },
-        );
-      }),
-    ]);
-  }
-}
-
-class _ShapeDelegate extends SliverPersistentHeaderDelegate {
-  @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
-    // pageBusiness 객체
-    page_business.PageBusiness pageBusiness =
-        BlocProvider.of<gc_template_classes.BlocPageInfo>(context)
-            .state
-            .pageBusiness;
-
-    return Container(
-      color: Colors.white,
-      height: 150,
-      alignment: Alignment.center,
-      child: BlocBuilder<page_business.BlocAnimationSample, bool>(
-        builder: (c, s) {
-          return AnimatedSwitcher(
-              duration: pageBusiness
-                  .pageViewModel.widgetChangeAnimatedSwitcherConfig.duration,
-              reverseDuration: pageBusiness.pageViewModel
-                  .widgetChangeAnimatedSwitcherConfig.reverseDuration,
-              switchInCurve: pageBusiness.pageViewModel
-                  .widgetChangeAnimatedSwitcherConfig.switchInCurve,
-              switchOutCurve: pageBusiness.pageViewModel
-                  .widgetChangeAnimatedSwitcherConfig.switchOutCurve,
-              layoutBuilder: pageBusiness.pageViewModel
-                  .widgetChangeAnimatedSwitcherConfig.layoutBuilder,
-              transitionBuilder: pageBusiness.pageViewModel
-                  .widgetChangeAnimatedSwitcherConfig.transitionBuilder,
-              child: pageBusiness.pageViewModel.sampleWidget);
-        },
+              ),
+            ),
+            BlocBuilder<page_business.BlocSampleList, bool>(
+              builder: (c, s) {
+                return ListView.builder(
+                    shrinkWrap: true, // 리스트뷰 크기 고정
+                    primary: false, // 리스트뷰 내부는 스크롤 금지
+                    itemCount: pageBusiness.pageViewModel.allSampleList.length,
+                    itemBuilder: (context, index) {
+                      return GestureDetector(
+                          onTap: () {
+                            pageBusiness.onRouteListItemClick(index);
+                          },
+                          child: Column(
+                            children: [
+                              ListTile(
+                                mouseCursor: SystemMouseCursors.click,
+                                title: Text(
+                                  pageBusiness.pageViewModel
+                                      .allSampleList[index].sampleItemTitle,
+                                  style:
+                                      const TextStyle(fontFamily: "MaruBuri"),
+                                ),
+                                subtitle: Text(
+                                  pageBusiness
+                                      .pageViewModel
+                                      .allSampleList[index]
+                                      .sampleItemDescription,
+                                  style:
+                                      const TextStyle(fontFamily: "MaruBuri"),
+                                ),
+                                trailing: const Icon(Icons.chevron_right),
+                              ),
+                              const Divider(
+                                color: Colors.grey,
+                                height: 0.1,
+                              ),
+                            ],
+                          ));
+                    });
+              },
+            )
+          ],
+        ),
       ),
     );
-  }
-
-  @override
-  double get maxExtent => 150;
-
-  @override
-  double get minExtent => 150;
-
-  @override
-  bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) {
-    return false;
   }
 }
