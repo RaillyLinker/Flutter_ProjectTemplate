@@ -146,12 +146,12 @@ class PageBusiness {
           // 로딩 다이얼로그 표시
           var loadingSpinnerDialog = all_dialog_loading_spinner.PageEntrance(
               all_dialog_loading_spinner.PageInputVo(), (pageBusiness) async {
-            spw_auth_member_info.SharedPreferenceWrapperVo? signInMemberInfo =
+            spw_auth_member_info.SharedPreferenceWrapperVo? loginMemberInfo =
                 spw_auth_member_info.SharedPreferenceWrapper.get();
 
-            String? authorization = (signInMemberInfo == null)
+            String? authorization = (loginMemberInfo == null)
                 ? null
-                : "${signInMemberInfo.tokenType} ${signInMemberInfo.accessToken}";
+                : "${loginMemberInfo.tokenType} ${loginMemberInfo.accessToken}";
 
             var response = await api_main_server
                 .getService1TkV1AuthForLoggedInAsync(api_main_server
@@ -204,12 +204,12 @@ class PageBusiness {
           // 로딩 다이얼로그 표시
           var loadingSpinnerDialog = all_dialog_loading_spinner.PageEntrance(
               all_dialog_loading_spinner.PageInputVo(), (pageBusiness) async {
-            spw_auth_member_info.SharedPreferenceWrapperVo? signInMemberInfo =
+            spw_auth_member_info.SharedPreferenceWrapperVo? loginMemberInfo =
                 spw_auth_member_info.SharedPreferenceWrapper.get();
 
-            String? authorization = (signInMemberInfo == null)
+            String? authorization = (loginMemberInfo == null)
                 ? null
-                : "${signInMemberInfo.tokenType} ${signInMemberInfo.accessToken}";
+                : "${loginMemberInfo.tokenType} ${loginMemberInfo.accessToken}";
 
             var response = await api_main_server
                 .getService1TkV1AuthForDeveloperAsync(api_main_server
@@ -262,12 +262,12 @@ class PageBusiness {
           // 로딩 다이얼로그 표시
           var loadingSpinnerDialog = all_dialog_loading_spinner.PageEntrance(
               all_dialog_loading_spinner.PageInputVo(), (pageBusiness) async {
-            spw_auth_member_info.SharedPreferenceWrapperVo? signInMemberInfo =
+            spw_auth_member_info.SharedPreferenceWrapperVo? loginMemberInfo =
                 spw_auth_member_info.SharedPreferenceWrapper.get();
 
-            String? authorization = (signInMemberInfo == null)
+            String? authorization = (loginMemberInfo == null)
                 ? null
-                : "${signInMemberInfo.tokenType} ${signInMemberInfo.accessToken}";
+                : "${loginMemberInfo.tokenType} ${loginMemberInfo.accessToken}";
 
             var response = await api_main_server
                 .getService1TkV1AuthForAdminAsync(api_main_server

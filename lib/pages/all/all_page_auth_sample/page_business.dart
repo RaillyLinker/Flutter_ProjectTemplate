@@ -57,11 +57,11 @@ class PageBusiness {
     // !!!페이지 최초 실행 로직 작성!!
 
     // 검증된 현재 회원 정보 가져오기 (비회원이라면 null)
-    spw_auth_member_info.SharedPreferenceWrapperVo? nowSignInMemberInfo =
+    spw_auth_member_info.SharedPreferenceWrapperVo? nowLoginMemberInfo =
         gf_my_functions.getNowVerifiedMemberInfo();
 
     // 화면 갱신
-    await refreshScreenDataAsync(nowSignInMemberInfo);
+    await refreshScreenDataAsync(nowLoginMemberInfo);
   }
 
   // (페이지 최초 실행 or 다른 페이지에서 복귀)
@@ -69,17 +69,17 @@ class PageBusiness {
     // !!!위젯 최초 실행 및, 다른 페이지에서 복귀 로직 작성!!
 
     // 검증된 현재 회원 정보 가져오기 (비회원이라면 null)
-    spw_auth_member_info.SharedPreferenceWrapperVo? nowSignInMemberInfo =
+    spw_auth_member_info.SharedPreferenceWrapperVo? nowLoginMemberInfo =
         gf_my_functions.getNowVerifiedMemberInfo();
 
     int? nowMemberUid =
-        ((nowSignInMemberInfo == null) ? null : nowSignInMemberInfo.memberUid);
+        ((nowLoginMemberInfo == null) ? null : nowLoginMemberInfo.memberUid);
 
     if (pageViewModel.screenMemberUid != nowMemberUid) {
       // 현재 유저 정보와 페이지에 저장된 유저 정보가 다를 때
 
       // 화면 갱신
-      await refreshScreenDataAsync(nowSignInMemberInfo);
+      await refreshScreenDataAsync(nowLoginMemberInfo);
     }
   }
 
@@ -121,17 +121,16 @@ class PageBusiness {
   // 화면 전역의 StateFul 위젯의 정보 변경 처리는 여기에 모아 두어야 전체 Refresh 가 편함.
   Future<void> refreshScreenDataAsync(
       spw_auth_member_info.SharedPreferenceWrapperVo?
-          nowSignInMemberInfo) async {
-    pageViewModel.signInMemberInfo = nowSignInMemberInfo;
-    blocObjects.blocSignInMemberInfo
-        .add(!blocObjects.blocSignInMemberInfo.state);
+          nowLoginMemberInfo) async {
+    pageViewModel.loginMemberInfo = nowLoginMemberInfo;
+    blocObjects.blocLoginMemberInfo.add(!blocObjects.blocLoginMemberInfo.state);
 
     List<SampleItem> nowAllSampleList = [];
     nowAllSampleList.add(SampleItem(
         SampleItemEnum.goToAuthorizationTestSamplePage,
         "인증 / 인가 네트워크 요청 테스트 샘플 리스트",
         "인증 / 인가 상태에서 네트워크 요청 및 응답 처리 테스트 샘플 리스트"));
-    if (nowSignInMemberInfo == null) {
+    if (nowLoginMemberInfo == null) {
       nowAllSampleList.add(SampleItem(
           SampleItemEnum.goToLoginPage, "로그인 페이지", "로그인 페이지로 이동합니다."));
     } else {
@@ -149,7 +148,7 @@ class PageBusiness {
     blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
 
     int? nowMemberUid =
-        ((nowSignInMemberInfo == null) ? null : nowSignInMemberInfo.memberUid);
+        ((nowLoginMemberInfo == null) ? null : nowLoginMemberInfo.memberUid);
     pageViewModel.screenMemberUid = nowMemberUid;
   }
 
@@ -175,16 +174,16 @@ class PageBusiness {
           // 계정 로그아웃 처리
           var loadingSpinner = all_dialog_loading_spinner.PageEntrance(
               all_dialog_loading_spinner.PageInputVo(), (pageBusiness) async {
-            spw_auth_member_info.SharedPreferenceWrapperVo? signInMemberInfo =
+            spw_auth_member_info.SharedPreferenceWrapperVo? loginMemberInfo =
                 spw_auth_member_info.SharedPreferenceWrapper.get();
 
-            if (signInMemberInfo != null) {
+            if (loginMemberInfo != null) {
               // 서버 Logout API 실행
-              spw_auth_member_info.SharedPreferenceWrapperVo? signInMemberInfo =
+              spw_auth_member_info.SharedPreferenceWrapperVo? loginMemberInfo =
                   spw_auth_member_info.SharedPreferenceWrapper.get();
               await api_main_server.postService1TkV1AuthLogoutAsync(
                   api_main_server.PostService1TkV1AuthLogoutAsyncRequestHeaderVo(
-                      "${signInMemberInfo!.tokenType} ${signInMemberInfo.accessToken}"));
+                      "${loginMemberInfo!.tokenType} ${loginMemberInfo.accessToken}"));
 
               // login_user_info SPW 비우기
               spw_auth_member_info.SharedPreferenceWrapper.set(null);
@@ -207,18 +206,18 @@ class PageBusiness {
           // 모든 디바이스에서 계정 로그아웃 처리
           var loadingSpinner = all_dialog_loading_spinner.PageEntrance(
               all_dialog_loading_spinner.PageInputVo(), (pageBusiness) async {
-            spw_auth_member_info.SharedPreferenceWrapperVo? signInMemberInfo =
+            spw_auth_member_info.SharedPreferenceWrapperVo? loginMemberInfo =
                 spw_auth_member_info.SharedPreferenceWrapper.get();
 
-            if (signInMemberInfo != null) {
+            if (loginMemberInfo != null) {
               // All Logout API 실행
-              spw_auth_member_info.SharedPreferenceWrapperVo? signInMemberInfo =
+              spw_auth_member_info.SharedPreferenceWrapperVo? loginMemberInfo =
                   spw_auth_member_info.SharedPreferenceWrapper.get();
 
               await api_main_server
                   .deleteService1TkV1AuthAllAuthorizationTokenAsync(api_main_server
                       .DeleteService1TkV1AuthAllAuthorizationTokenAsyncRequestHeaderVo(
-                          "${signInMemberInfo!.tokenType} ${signInMemberInfo.accessToken}"));
+                          "${loginMemberInfo!.tokenType} ${loginMemberInfo.accessToken}"));
 
               // login_user_info SPW 비우기
               spw_auth_member_info.SharedPreferenceWrapper.set(null);
@@ -241,16 +240,16 @@ class PageBusiness {
           // (토큰 리플레시)
           var loadingSpinner = all_dialog_loading_spinner.PageEntrance(
               all_dialog_loading_spinner.PageInputVo(), (pageBusiness) async {
-            spw_auth_member_info.SharedPreferenceWrapperVo? signInMemberInfo =
+            spw_auth_member_info.SharedPreferenceWrapperVo? loginMemberInfo =
                 spw_auth_member_info.SharedPreferenceWrapper.get();
 
-            if (signInMemberInfo == null) {
+            if (loginMemberInfo == null) {
               // 비회원으로 전체 화면 갱신
               refreshScreenDataAsync(null);
             } else {
               // 리플레시 토큰 만료 여부 확인
               bool isRefreshTokenExpired = DateFormat('yyyy-MM-dd HH:mm:ss.SSS')
-                  .parse(signInMemberInfo.refreshTokenExpireWhen)
+                  .parse(loginMemberInfo.refreshTokenExpireWhen)
                   .isBefore(DateTime.now());
 
               if (isRefreshTokenExpired) {
@@ -267,10 +266,10 @@ class PageBusiness {
                     await api_main_server.postService1TkV1AuthReissueAsync(
                         api_main_server
                             .PostService1TkV1AuthReissueAsyncRequestHeaderVo(
-                                "${signInMemberInfo.tokenType} ${signInMemberInfo.accessToken}"),
+                                "${loginMemberInfo.tokenType} ${loginMemberInfo.accessToken}"),
                         api_main_server
                             .PostService1TkV1AuthReissueAsyncRequestBodyVo(
-                                "${signInMemberInfo.tokenType} ${signInMemberInfo.refreshToken}"));
+                                "${loginMemberInfo.tokenType} ${loginMemberInfo.refreshToken}"));
 
                 pageBusiness.closeDialog();
 
@@ -348,33 +347,31 @@ class PageBusiness {
                       ));
                     }
 
-                    signInMemberInfo.memberUid =
+                    loginMemberInfo.memberUid =
                         postReissueResponseBody.memberUid;
-                    signInMemberInfo.nickName =
-                        postReissueResponseBody.nickName;
-                    signInMemberInfo.roleList =
-                        postReissueResponseBody.roleList;
-                    signInMemberInfo.tokenType =
+                    loginMemberInfo.nickName = postReissueResponseBody.nickName;
+                    loginMemberInfo.roleList = postReissueResponseBody.roleList;
+                    loginMemberInfo.tokenType =
                         postReissueResponseBody.tokenType;
-                    signInMemberInfo.accessToken =
+                    loginMemberInfo.accessToken =
                         postReissueResponseBody.accessToken;
-                    signInMemberInfo.accessTokenExpireWhen =
+                    loginMemberInfo.accessTokenExpireWhen =
                         postReissueResponseBody.accessTokenExpireWhen;
-                    signInMemberInfo.refreshToken =
+                    loginMemberInfo.refreshToken =
                         postReissueResponseBody.refreshToken;
-                    signInMemberInfo.refreshTokenExpireWhen =
+                    loginMemberInfo.refreshTokenExpireWhen =
                         postReissueResponseBody.refreshTokenExpireWhen;
-                    signInMemberInfo.myOAuth2List = myOAuth2ObjectList;
-                    signInMemberInfo.myProfileList = myProfileList;
-                    signInMemberInfo.myEmailList = myEmailList;
-                    signInMemberInfo.myPhoneNumberList = myPhoneNumberList;
-                    signInMemberInfo.authPasswordIsNull =
+                    loginMemberInfo.myOAuth2List = myOAuth2ObjectList;
+                    loginMemberInfo.myProfileList = myProfileList;
+                    loginMemberInfo.myEmailList = myEmailList;
+                    loginMemberInfo.myPhoneNumberList = myPhoneNumberList;
+                    loginMemberInfo.authPasswordIsNull =
                         postReissueResponseBody.authPasswordIsNull;
 
                     spw_auth_member_info.SharedPreferenceWrapper.set(
-                        signInMemberInfo);
+                        loginMemberInfo);
 
-                    refreshScreenDataAsync(signInMemberInfo);
+                    refreshScreenDataAsync(loginMemberInfo);
                   } else {
                     var postReissueResponseHeader = networkResponseObjectOk
                             .responseHeaders! as api_main_server
@@ -471,7 +468,7 @@ class PageViewModel {
   // 현 페이지를 갱신한 시점의 멤버 고유값 (비회원은 null)
   int? screenMemberUid;
 
-  spw_auth_member_info.SharedPreferenceWrapperVo? signInMemberInfo;
+  spw_auth_member_info.SharedPreferenceWrapperVo? loginMemberInfo;
 
   // 샘플 목록 필터링용 검색창 컨트롤러 (검색창의 텍스트 정보를 가지고 있으므로 뷰모델에 저장, 여기 있어야 위젯이 변경되어도 검색어가 유지됨)
   TextEditingController sampleSearchBarTextEditController =
@@ -521,8 +518,8 @@ enum SampleItemEnum {
 //   }
 // }
 
-class BlocSignInMemberInfo extends Bloc<bool, bool> {
-  BlocSignInMemberInfo() : super(true) {
+class BlocLoginMemberInfo extends Bloc<bool, bool> {
+  BlocLoginMemberInfo() : super(true) {
     on<bool>((event, emit) {
       emit(event);
     });
@@ -545,8 +542,8 @@ class BLocProviders {
     // ex :
     // BlocProvider<BlocSample>(create: (context) => BlocSample()),
     BlocProvider<BlocSampleList>(create: (context) => BlocSampleList()),
-    BlocProvider<BlocSignInMemberInfo>(
-        create: (context) => BlocSignInMemberInfo()),
+    BlocProvider<BlocLoginMemberInfo>(
+        create: (context) => BlocLoginMemberInfo()),
   ];
 }
 
@@ -558,7 +555,7 @@ class BLocObjects {
   // ex :
   // late BlocSample blocSample;
   late BlocSampleList blocSampleList;
-  late BlocSignInMemberInfo blocSignInMemberInfo;
+  late BlocLoginMemberInfo blocLoginMemberInfo;
 
   // 생성자 설정
   BLocObjects(this._context) {
@@ -566,6 +563,6 @@ class BLocObjects {
     // ex :
     // blocSample = BlocProvider.of<BlocSample>(_context);
     blocSampleList = BlocProvider.of<BlocSampleList>(_context);
-    blocSignInMemberInfo = BlocProvider.of<BlocSignInMemberInfo>(_context);
+    blocLoginMemberInfo = BlocProvider.of<BlocLoginMemberInfo>(_context);
   }
 }

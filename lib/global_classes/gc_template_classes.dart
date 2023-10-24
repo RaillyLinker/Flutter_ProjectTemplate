@@ -16,7 +16,7 @@ class BlocPageInfoState<pageBusinessType> {
 // (페이지 정보 저장용 BLoC)
 // state 저장용이므로 이벤트 설정은 하지 않음.
 class BlocPageInfo extends Bloc<bool, BlocPageInfoState> {
-  BlocPageInfo(BlocPageInfoState firstState) : super(firstState);
+  BlocPageInfo(super.firstState);
 }
 
 // (페이지 생명주기 관련 states)

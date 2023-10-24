@@ -1,6 +1,7 @@
 // (external)
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:go_router/go_router.dart';
 
 // (page)
@@ -9,8 +10,6 @@ import 'page_entrance.dart' as page_entrance;
 // (all)
 import '../../../../repositories/network/apis/api_main_server.dart'
     as api_main_server;
-import '../../../../repositories/spws/spw_auth_member_info.dart'
-    as spw_auth_member_info;
 import '../../../dialogs/all/all_dialog_info/page_entrance.dart'
     as all_dialog_info;
 import '../../../dialogs/all/all_dialog_loading_spinner/page_entrance.dart'
@@ -19,6 +18,10 @@ import '../../../dialogs/all/all_dialog_yes_or_no/page_entrance.dart'
     as all_dialog_yes_or_no;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
+import '../../../../repositories/spws/spw_auth_member_info.dart'
+    as spw_auth_member_info;
+import '../../../global_functions/gf_my_functions.dart' as gf_my_functions;
+import '../../../pages/all/all_page_login/page_entrance.dart' as all_page_login;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
 
@@ -55,6 +58,22 @@ class PageBusiness {
   // (페이지 최초 실행 or 다른 페이지에서 복귀)
   Future<void> onPageResumeAsync() async {
     // !!!위젯 최초 실행 및, 다른 페이지에서 복귀 로직 작성!!
+
+    // 검증된 현재 회원 정보 가져오기 (비회원이라면 null)
+    spw_auth_member_info.SharedPreferenceWrapperVo? nowLoginMemberInfo =
+        gf_my_functions.getNowVerifiedMemberInfo();
+
+    if (nowLoginMemberInfo == null) {
+      // 비회원 상태라면 진입 금지
+      showToast(
+        "로그인이 필요합니다.",
+        context: _context,
+        animation: StyledToastAnimation.scale,
+      );
+      // Login 페이지로 이동
+      _context.pushNamed(all_page_login.pageName);
+      return;
+    }
   }
 
   // (페이지 종료 or 다른 페이지로 이동 (강제 종료는 탐지 못함))
@@ -288,21 +307,19 @@ class PageBusiness {
   Future<void> _requestChangePassword() async {
     var loadingSpinner = all_dialog_loading_spinner.PageEntrance(
         all_dialog_loading_spinner.PageInputVo(), (pageBusiness) async {
-      spw_auth_member_info.SharedPreferenceWrapperVo? signInMemberInfo =
+      spw_auth_member_info.SharedPreferenceWrapperVo? loginMemberInfo =
           spw_auth_member_info.SharedPreferenceWrapper.get();
 
-      if (signInMemberInfo == null) {
+      if (loginMemberInfo == null) {
+        // 비회원 상태라면 진입 금지
         if (!_context.mounted) return;
-        await showDialog(
-            barrierDismissible: true,
-            context: _context,
-            builder: (context) => all_dialog_info.PageEntrance(
-                all_dialog_info.PageInputVo("로그인이 필요합니다.",
-                    "로그인 되지 않았습니다.\n비밀번호 확인을 위하여 로그인 해주세요.", "뒤로가기"),
-                (pageBusiness) {}));
-
-        if (!_context.mounted) return;
-        _context.pop();
+        showToast(
+          "로그인이 필요합니다.",
+          context: _context,
+          animation: StyledToastAnimation.scale,
+        );
+        // Login 페이지로 이동
+        _context.pushNamed(all_page_login.pageName);
         return;
       }
 
@@ -321,7 +338,7 @@ class PageBusiness {
           await api_main_server.putService1TkV1AuthChangeAccountPasswordAsync(
               api_main_server
                   .PutService1TkV1AuthChangeAccountPasswordAsyncRequestHeaderVo(
-                      "${signInMemberInfo.tokenType} ${signInMemberInfo.accessToken}"),
+                      "${loginMemberInfo.tokenType} ${loginMemberInfo.accessToken}"),
               api_main_server
                   .PutService1TkV1AuthChangeAccountPasswordAsyncRequestBodyVo(
                       oldPw, newPw));
@@ -357,21 +374,21 @@ class PageBusiness {
                   all_dialog_loading_spinner.PageInputVo(),
                   (pageBusiness) async {
                 spw_auth_member_info.SharedPreferenceWrapperVo?
-                    signInMemberInfo =
+                    loginMemberInfo =
                     spw_auth_member_info.SharedPreferenceWrapper.get();
 
-                if (signInMemberInfo != null) {
+                if (loginMemberInfo != null) {
                   // 모든 기기에서 로그아웃 처리하기
 
                   // 서버 Logout API 실행
                   spw_auth_member_info.SharedPreferenceWrapperVo?
-                      signInMemberInfo =
+                      loginMemberInfo =
                       spw_auth_member_info.SharedPreferenceWrapper.get();
 
                   await api_main_server
                       .deleteService1TkV1AuthAllAuthorizationTokenAsync(api_main_server
                           .DeleteService1TkV1AuthAllAuthorizationTokenAsyncRequestHeaderVo(
-                              "${signInMemberInfo!.tokenType} ${signInMemberInfo.accessToken}"));
+                              "${loginMemberInfo!.tokenType} ${loginMemberInfo.accessToken}"));
 
                   // login_user_info SPW 비우기
                   spw_auth_member_info.SharedPreferenceWrapper.set(null);
@@ -392,18 +409,18 @@ class PageBusiness {
                   all_dialog_loading_spinner.PageInputVo(),
                   (pageBusiness) async {
                 spw_auth_member_info.SharedPreferenceWrapperVo?
-                    signInMemberInfo =
+                    loginMemberInfo =
                     spw_auth_member_info.SharedPreferenceWrapper.get();
 
-                if (signInMemberInfo != null) {
+                if (loginMemberInfo != null) {
                   // 서버 Logout API 실행
                   spw_auth_member_info.SharedPreferenceWrapperVo?
-                      signInMemberInfo =
+                      loginMemberInfo =
                       spw_auth_member_info.SharedPreferenceWrapper.get();
                   await api_main_server.postService1TkV1AuthLogoutAsync(
                       api_main_server
                           .PostService1TkV1AuthLogoutAsyncRequestHeaderVo(
-                              "${signInMemberInfo!.tokenType} ${signInMemberInfo.accessToken}"));
+                              "${loginMemberInfo!.tokenType} ${loginMemberInfo.accessToken}"));
 
                   // login_user_info SPW 비우기
                   spw_auth_member_info.SharedPreferenceWrapper.set(null);

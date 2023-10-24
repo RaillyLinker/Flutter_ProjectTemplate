@@ -23,6 +23,7 @@ import '../../../pages/all/all_page_find_password_with_email/page_entrance.dart'
     as all_page_find_password_with_email;
 import '../../../pages/all/all_page_join_the_membership_email_verification/page_entrance.dart'
     as all_page_join_the_membership_email_verification;
+import '../../../global_functions/gf_my_functions.dart' as gf_my_functions;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
 
@@ -59,6 +60,22 @@ class PageBusiness {
   // (페이지 최초 실행 or 다른 페이지에서 복귀)
   Future<void> onPageResumeAsync() async {
     // !!!위젯 최초 실행 및, 다른 페이지에서 복귀 로직 작성!!
+
+    // 검증된 현재 회원 정보 가져오기 (비회원이라면 null)
+    spw_auth_member_info.SharedPreferenceWrapperVo? nowLoginMemberInfo =
+        gf_my_functions.getNowVerifiedMemberInfo();
+
+    if (nowLoginMemberInfo != null) {
+      // 로그인 상태라면 진입금지
+      showToast(
+        "잘못된 진입입니다.",
+        context: _context,
+        animation: StyledToastAnimation.scale,
+      );
+      // 홈 페이지로 이동
+      _context.go("/");
+      return;
+    }
   }
 
   // (페이지 종료 or 다른 페이지로 이동 (강제 종료는 탐지 못함))
@@ -225,11 +242,11 @@ class PageBusiness {
                 accountLoginAsyncClicked = false;
                 if (!_context.mounted) return;
                 if (_context.canPop()) {
-                  // History가 있는 경우, 이전 페이지로 이동(pop)
+                  // pop 이 가능하면 pop
                   _context.pop();
                 } else {
-                  // History가 없는 경우, 앱 종료(exit)
-                  exit(0);
+                  // pop 이 불가능하면 Home 페이지로 이동
+                  _context.go("/");
                 }
               } else {
                 // 비정상 응답

@@ -26,24 +26,24 @@ String? getWidgetKeyValue(widgets.Widget widget) {
 // (현 시점 검증된 로그인 정보 가져오기)
 // 검증된 현재 회원 정보 가져오기 (비회원이라면 null)
 spw_sign_in_member_info.SharedPreferenceWrapperVo? getNowVerifiedMemberInfo() {
-  spw_sign_in_member_info.SharedPreferenceWrapperVo? nowSignInMemberInfo;
+  spw_sign_in_member_info.SharedPreferenceWrapperVo? nowLoginMemberInfo;
 
   // Shared Preferences 에 저장된 로그인 유저 정보 가져오기
-  spw_sign_in_member_info.SharedPreferenceWrapperVo? signInMemberInfo =
+  spw_sign_in_member_info.SharedPreferenceWrapperVo? loginMemberInfo =
       spw_sign_in_member_info.SharedPreferenceWrapper.get();
 
   // 로그인 검증 실행
-  if (signInMemberInfo != null) {
+  if (loginMemberInfo != null) {
     // 액세스 토큰 만료 시간이 지났는지 확인
     bool isAccessTokenExpired = DateFormat('yyyy-MM-dd HH:mm:ss.SSS')
-        .parse(signInMemberInfo.accessTokenExpireWhen)
+        .parse(loginMemberInfo.accessTokenExpireWhen)
         .isBefore(DateTime.now());
 
     if (isAccessTokenExpired) {
       // 액세스 토큰 만료
       // 리플레시 토큰 만료 시간이 지났는지 확인
       bool isRefreshTokenExpired = DateFormat('yyyy-MM-dd HH:mm:ss.SSS')
-          .parse(signInMemberInfo.refreshTokenExpireWhen)
+          .parse(loginMemberInfo.refreshTokenExpireWhen)
           .isBefore(DateTime.now());
 
       if (isRefreshTokenExpired) {
@@ -53,15 +53,15 @@ spw_sign_in_member_info.SharedPreferenceWrapperVo? getNowVerifiedMemberInfo() {
         // 재 로그인이 필요한 상황이므로 비회원으로 다루기
       } else {
         // 리플레시 토큰 만료 되지 않음 = 재발급은 하지 않고 회원 정보 승인
-        nowSignInMemberInfo = signInMemberInfo;
+        nowLoginMemberInfo = loginMemberInfo;
       }
     } else {
       // 액세스 토큰 만료 되지 않음 (= 검증된 정상 로그인 정보)
-      nowSignInMemberInfo = signInMemberInfo;
+      nowLoginMemberInfo = loginMemberInfo;
     }
   }
 
-  return nowSignInMemberInfo;
+  return nowLoginMemberInfo;
 }
 
 // Gif 정보 가져오기

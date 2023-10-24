@@ -82,13 +82,13 @@ class PageView extends StatelessWidget {
                         Expanded(
                             flex: 3,
                             child: BlocBuilder<
-                                page_business.BlocSignInMemberInfo,
+                                page_business.BlocLoginMemberInfo,
                                 bool>(builder: (c, s) {
-                              var signInMemberInfo =
-                                  pageBusiness.pageViewModel.signInMemberInfo;
-                              String text = (signInMemberInfo == null)
+                              var loginMemberInfo =
+                                  pageBusiness.pageViewModel.loginMemberInfo;
+                              String text = (loginMemberInfo == null)
                                   ? "null"
-                                  : signInMemberInfo.memberUid.toString();
+                                  : loginMemberInfo.memberUid.toString();
                               return SelectableText(
                                 text,
                                 style: const TextStyle(fontFamily: "MaruBuri"),
@@ -110,13 +110,13 @@ class PageView extends StatelessWidget {
                         Expanded(
                             flex: 3,
                             child: BlocBuilder<
-                                page_business.BlocSignInMemberInfo,
+                                page_business.BlocLoginMemberInfo,
                                 bool>(builder: (c, s) {
-                              var signInMemberInfo =
-                                  pageBusiness.pageViewModel.signInMemberInfo;
-                              String text = (signInMemberInfo == null)
+                              var loginMemberInfo =
+                                  pageBusiness.pageViewModel.loginMemberInfo;
+                              String text = (loginMemberInfo == null)
                                   ? "null"
-                                  : signInMemberInfo.tokenType;
+                                  : loginMemberInfo.tokenType;
                               return SelectableText(
                                 text,
                                 style: const TextStyle(fontFamily: "MaruBuri"),
@@ -138,13 +138,13 @@ class PageView extends StatelessWidget {
                         Expanded(
                             flex: 3,
                             child: BlocBuilder<
-                                page_business.BlocSignInMemberInfo,
+                                page_business.BlocLoginMemberInfo,
                                 bool>(builder: (c, s) {
-                              var signInMemberInfo =
-                                  pageBusiness.pageViewModel.signInMemberInfo;
-                              String text = (signInMemberInfo == null)
+                              var loginMemberInfo =
+                                  pageBusiness.pageViewModel.loginMemberInfo;
+                              String text = (loginMemberInfo == null)
                                   ? "null"
-                                  : signInMemberInfo.accessToken;
+                                  : loginMemberInfo.accessToken;
                               return SizedBox(
                                 width: 200,
                                 child: SelectableText(
@@ -170,13 +170,13 @@ class PageView extends StatelessWidget {
                         Expanded(
                             flex: 3,
                             child: BlocBuilder<
-                                page_business.BlocSignInMemberInfo,
+                                page_business.BlocLoginMemberInfo,
                                 bool>(builder: (c, s) {
-                              var signInMemberInfo =
-                                  pageBusiness.pageViewModel.signInMemberInfo;
-                              String text = (signInMemberInfo == null)
+                              var loginMemberInfo =
+                                  pageBusiness.pageViewModel.loginMemberInfo;
+                              String text = (loginMemberInfo == null)
                                   ? "null"
-                                  : signInMemberInfo.accessTokenExpireWhen;
+                                  : loginMemberInfo.accessTokenExpireWhen;
                               return SelectableText(
                                 text,
                                 style: const TextStyle(fontFamily: "MaruBuri"),
@@ -198,13 +198,13 @@ class PageView extends StatelessWidget {
                         Expanded(
                             flex: 3,
                             child: BlocBuilder<
-                                page_business.BlocSignInMemberInfo,
+                                page_business.BlocLoginMemberInfo,
                                 bool>(builder: (c, s) {
-                              var signInMemberInfo =
-                                  pageBusiness.pageViewModel.signInMemberInfo;
-                              String text = (signInMemberInfo == null)
+                              var loginMemberInfo =
+                                  pageBusiness.pageViewModel.loginMemberInfo;
+                              String text = (loginMemberInfo == null)
                                   ? "null"
-                                  : signInMemberInfo.refreshToken;
+                                  : loginMemberInfo.refreshToken;
                               return SizedBox(
                                 width: 200,
                                 child: SelectableText(
@@ -230,13 +230,13 @@ class PageView extends StatelessWidget {
                         Expanded(
                             flex: 3,
                             child: BlocBuilder<
-                                page_business.BlocSignInMemberInfo,
+                                page_business.BlocLoginMemberInfo,
                                 bool>(builder: (c, s) {
-                              var signInMemberInfo =
-                                  pageBusiness.pageViewModel.signInMemberInfo;
-                              String text = (signInMemberInfo == null)
+                              var loginMemberInfo =
+                                  pageBusiness.pageViewModel.loginMemberInfo;
+                              String text = (loginMemberInfo == null)
                                   ? "null"
-                                  : signInMemberInfo.refreshTokenExpireWhen;
+                                  : loginMemberInfo.refreshTokenExpireWhen;
                               return SelectableText(
                                 text,
                                 style: const TextStyle(fontFamily: "MaruBuri"),

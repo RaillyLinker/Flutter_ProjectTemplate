@@ -110,10 +110,10 @@ void setDioObjects() {
             // Request Header 에 Authorization 입력시, 만료된 AccessToken. (reissue, logout API 는 제외)
 
             // 액세스 토큰 재발급
-            spw_auth_member_info.SharedPreferenceWrapperVo? signInMemberInfo =
+            spw_auth_member_info.SharedPreferenceWrapperVo? loginMemberInfo =
                 spw_auth_member_info.SharedPreferenceWrapper.get();
 
-            if (signInMemberInfo == null) {
+            if (loginMemberInfo == null) {
               // 정상적으로 프로세스를 진행할 수 없으므로 그냥 스킵
               // 호출 코드로 응답 전달
               handler.next(response);
@@ -121,7 +121,7 @@ void setDioObjects() {
             } else {
               // 리플레시 토큰 만료 여부 확인
               bool isRefreshTokenExpired = DateFormat('yyyy-MM-dd HH:mm:ss.SSS')
-                  .parse(signInMemberInfo.refreshTokenExpireWhen)
+                  .parse(loginMemberInfo.refreshTokenExpireWhen)
                   .isBefore(DateTime.now());
 
               if (isRefreshTokenExpired) {
@@ -142,10 +142,10 @@ void setDioObjects() {
                     await api_main_server.postService1TkV1AuthReissueAsync(
                         api_main_server
                             .PostService1TkV1AuthReissueAsyncRequestHeaderVo(
-                                "${signInMemberInfo.tokenType} ${signInMemberInfo.accessToken}"),
+                                "${loginMemberInfo.tokenType} ${loginMemberInfo.accessToken}"),
                         api_main_server
                             .PostService1TkV1AuthReissueAsyncRequestBodyVo(
-                                "${signInMemberInfo.tokenType} ${signInMemberInfo.refreshToken}"));
+                                "${loginMemberInfo.tokenType} ${loginMemberInfo.refreshToken}"));
 
                 // 네트워크 요청 결과 처리
                 if (postReissueResponse.dioException == null) {
@@ -209,31 +209,29 @@ void setDioObjects() {
                               myPhone.phoneNumber, myPhone.isFront));
                     }
 
-                    signInMemberInfo.memberUid =
+                    loginMemberInfo.memberUid =
                         postReissueResponseBody.memberUid;
-                    signInMemberInfo.nickName =
-                        postReissueResponseBody.nickName;
-                    signInMemberInfo.roleList =
-                        postReissueResponseBody.roleList;
-                    signInMemberInfo.tokenType =
+                    loginMemberInfo.nickName = postReissueResponseBody.nickName;
+                    loginMemberInfo.roleList = postReissueResponseBody.roleList;
+                    loginMemberInfo.tokenType =
                         postReissueResponseBody.tokenType;
-                    signInMemberInfo.accessToken =
+                    loginMemberInfo.accessToken =
                         postReissueResponseBody.accessToken;
-                    signInMemberInfo.accessTokenExpireWhen =
+                    loginMemberInfo.accessTokenExpireWhen =
                         postReissueResponseBody.accessTokenExpireWhen;
-                    signInMemberInfo.refreshToken =
+                    loginMemberInfo.refreshToken =
                         postReissueResponseBody.refreshToken;
-                    signInMemberInfo.refreshTokenExpireWhen =
+                    loginMemberInfo.refreshTokenExpireWhen =
                         postReissueResponseBody.refreshTokenExpireWhen;
-                    signInMemberInfo.myOAuth2List = myOAuth2ObjectList;
-                    signInMemberInfo.myProfileList = myProfileList;
-                    signInMemberInfo.myEmailList = myEmailList;
-                    signInMemberInfo.myPhoneNumberList = myPhoneNumberList;
-                    signInMemberInfo.authPasswordIsNull =
+                    loginMemberInfo.myOAuth2List = myOAuth2ObjectList;
+                    loginMemberInfo.myProfileList = myProfileList;
+                    loginMemberInfo.myEmailList = myEmailList;
+                    loginMemberInfo.myPhoneNumberList = myPhoneNumberList;
+                    loginMemberInfo.authPasswordIsNull =
                         postReissueResponseBody.authPasswordIsNull;
 
                     spw_auth_member_info.SharedPreferenceWrapper.set(
-                        signInMemberInfo);
+                        loginMemberInfo);
 
                     // 새로운 AccessToken 으로 재요청
                     try {
@@ -241,7 +239,7 @@ void setDioObjects() {
                       RequestOptions options = response.requestOptions;
                       options.headers.remove("Authorization");
                       options.headers["Authorization"] =
-                          "${signInMemberInfo.tokenType} ${signInMemberInfo.accessToken}";
+                          "${loginMemberInfo.tokenType} ${loginMemberInfo.accessToken}";
                       Response retryResponse = await mainServerDio.request(
                         options.path,
                         data: options.data,

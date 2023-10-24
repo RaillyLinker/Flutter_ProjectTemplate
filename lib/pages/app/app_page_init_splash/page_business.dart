@@ -299,12 +299,12 @@ class PageBusiness {
 
   // (자동 로그인 확인)
   Future<void> _checkAutoLoginAsync() async {
-    spw_auth_member_info.SharedPreferenceWrapperVo? signInMemberInfo =
+    spw_auth_member_info.SharedPreferenceWrapperVo? loginMemberInfo =
         spw_auth_member_info.SharedPreferenceWrapper.get();
-    if (signInMemberInfo != null) {
+    if (loginMemberInfo != null) {
       // 리플레시 토큰 만료 여부 확인
       bool isRefreshTokenExpired = DateFormat('yyyy-MM-dd HH:mm:ss.SSS')
-          .parse(signInMemberInfo.refreshTokenExpireWhen)
+          .parse(loginMemberInfo.refreshTokenExpireWhen)
           .isBefore(DateTime.now());
 
       if (isRefreshTokenExpired) {
@@ -317,9 +317,9 @@ class PageBusiness {
         var postAutoLoginOutputVo =
             await api_main_server.postService1TkV1AuthReissueAsync(
                 api_main_server.PostService1TkV1AuthReissueAsyncRequestHeaderVo(
-                    "${signInMemberInfo.tokenType} ${signInMemberInfo.accessToken}"),
+                    "${loginMemberInfo.tokenType} ${loginMemberInfo.accessToken}"),
                 api_main_server.PostService1TkV1AuthReissueAsyncRequestBodyVo(
-                    "${signInMemberInfo.tokenType} ${signInMemberInfo.refreshToken}"));
+                    "${loginMemberInfo.tokenType} ${loginMemberInfo.refreshToken}"));
 
         // 네트워크 요청 결과 처리
         if (postAutoLoginOutputVo.dioException == null) {
@@ -386,25 +386,24 @@ class PageBusiness {
               ));
             }
 
-            signInMemberInfo.memberUid = postReissueResponseBody.memberUid;
-            signInMemberInfo.nickName = postReissueResponseBody.nickName;
-            signInMemberInfo.roleList = postReissueResponseBody.roleList;
-            signInMemberInfo.tokenType = postReissueResponseBody.tokenType;
-            signInMemberInfo.accessToken = postReissueResponseBody.accessToken;
-            signInMemberInfo.accessTokenExpireWhen =
+            loginMemberInfo.memberUid = postReissueResponseBody.memberUid;
+            loginMemberInfo.nickName = postReissueResponseBody.nickName;
+            loginMemberInfo.roleList = postReissueResponseBody.roleList;
+            loginMemberInfo.tokenType = postReissueResponseBody.tokenType;
+            loginMemberInfo.accessToken = postReissueResponseBody.accessToken;
+            loginMemberInfo.accessTokenExpireWhen =
                 postReissueResponseBody.accessTokenExpireWhen;
-            signInMemberInfo.refreshToken =
-                postReissueResponseBody.refreshToken;
-            signInMemberInfo.refreshTokenExpireWhen =
+            loginMemberInfo.refreshToken = postReissueResponseBody.refreshToken;
+            loginMemberInfo.refreshTokenExpireWhen =
                 postReissueResponseBody.refreshTokenExpireWhen;
-            signInMemberInfo.myOAuth2List = myOAuth2ObjectList;
-            signInMemberInfo.myProfileList = myProfileList;
-            signInMemberInfo.myEmailList = myEmailList;
-            signInMemberInfo.myPhoneNumberList = myPhoneNumberList;
-            signInMemberInfo.authPasswordIsNull =
+            loginMemberInfo.myOAuth2List = myOAuth2ObjectList;
+            loginMemberInfo.myProfileList = myProfileList;
+            loginMemberInfo.myEmailList = myEmailList;
+            loginMemberInfo.myPhoneNumberList = myPhoneNumberList;
+            loginMemberInfo.authPasswordIsNull =
                 postReissueResponseBody.authPasswordIsNull;
 
-            spw_auth_member_info.SharedPreferenceWrapper.set(signInMemberInfo);
+            spw_auth_member_info.SharedPreferenceWrapper.set(loginMemberInfo);
 
             _appInitLogicThreadConfluenceObj.threadComplete();
           } else {

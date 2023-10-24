@@ -1,6 +1,7 @@
 // (external)
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:go_router/go_router.dart';
 
 // (page)
@@ -19,6 +20,9 @@ import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
 import '../../../pages/all/all_page_join_the_membership_edit_member_info/page_entrance.dart'
     as all_page_join_the_membership_edit_member_info;
+import '../../../../repositories/spws/spw_auth_member_info.dart'
+    as spw_auth_member_info;
+import '../../../global_functions/gf_my_functions.dart' as gf_my_functions;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
 
@@ -55,6 +59,22 @@ class PageBusiness {
   // (페이지 최초 실행 or 다른 페이지에서 복귀)
   Future<void> onPageResumeAsync() async {
     // !!!위젯 최초 실행 및, 다른 페이지에서 복귀 로직 작성!!
+
+    // 검증된 현재 회원 정보 가져오기 (비회원이라면 null)
+    spw_auth_member_info.SharedPreferenceWrapperVo? nowLoginMemberInfo =
+        gf_my_functions.getNowVerifiedMemberInfo();
+
+    if (nowLoginMemberInfo != null) {
+      // 로그인 상태라면 진입금지
+      showToast(
+        "잘못된 진입입니다.",
+        context: _context,
+        animation: StyledToastAnimation.scale,
+      );
+      // 홈 페이지로 이동
+      _context.go("/");
+      return;
+    }
   }
 
   // (페이지 종료 or 다른 페이지로 이동 (강제 종료는 탐지 못함))

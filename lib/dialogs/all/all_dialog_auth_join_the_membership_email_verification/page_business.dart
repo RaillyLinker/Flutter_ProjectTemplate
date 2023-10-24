@@ -16,6 +16,9 @@ import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
 import '../../../../repositories/network/apis/api_main_server.dart'
     as api_main_server;
+import '../../../../repositories/spws/spw_auth_member_info.dart'
+    as spw_auth_member_info;
+import '../../../global_functions/gf_my_functions.dart' as gf_my_functions;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
 
@@ -54,6 +57,16 @@ class PageBusiness {
   // (페이지 최초 실행 or 다른 페이지에서 복귀)
   Future<void> onPageResumeAsync() async {
     // !!!위젯 최초 실행 및, 다른 페이지에서 복귀 로직 작성!!
+
+    // 검증된 현재 회원 정보 가져오기 (비회원이라면 null)
+    spw_auth_member_info.SharedPreferenceWrapperVo? nowLoginMemberInfo =
+        gf_my_functions.getNowVerifiedMemberInfo();
+
+    if (nowLoginMemberInfo != null) {
+      // 로그인 상태라면 다이얼로그 닫기
+      _context.pop();
+      return;
+    }
   }
 
   // (페이지 종료 or 다른 페이지로 이동 (강제 종료는 탐지 못함))
@@ -188,7 +201,6 @@ class PageBusiness {
                     showToast(
                       "본인 인증 코드가 일치하지 않습니다.",
                       context: _context,
-                      position: StyledToastPosition.center,
                       animation: StyledToastAnimation.scale,
                     );
                     FocusScope.of(_context).requestFocus(
