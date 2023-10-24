@@ -34,7 +34,46 @@ class PageOutFrame extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
             automaticallyImplyLeading: !kIsWeb,
-            title: Text(pageTitle, style: const TextStyle(color: Colors.white)),
+            title: Row(
+              children: [
+                SizedBox(
+                  width: 30,
+                  height: 30,
+                  child: Image(
+                    image: const AssetImage(
+                        "lib/assets/images/init_splash_logo.png"),
+                    fit: BoxFit.cover,
+                    loadingBuilder: (BuildContext context, Widget child,
+                        ImageChunkEvent? loadingProgress) {
+                      // 로딩 중일 때 플레이스 홀더를 보여줍니다.
+                      if (loadingProgress == null) {
+                        return child; // 로딩이 끝났을 경우
+                      }
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    },
+                    errorBuilder: (context, error, stackTrace) {
+                      // 에러 발생 시 설정한 에러 위젯을 반환합니다.
+                      return const Center(
+                        child: Icon(
+                          Icons.error,
+                          color: Colors.red,
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                const SizedBox(
+                  width: 15,
+                ),
+                Text(
+                  pageTitle,
+                  style: const TextStyle(
+                      color: Colors.white, fontFamily: "MaruBuri"),
+                )
+              ],
+            ),
             backgroundColor: Colors.blue,
             iconTheme:
                 const IconThemeData(color: Colors.white //change your color here
@@ -74,9 +113,45 @@ class SliverPageOutFrame extends StatelessWidget {
           automaticallyImplyLeading: !kIsWeb,
           pinned: true,
           centerTitle: false,
-          title: Text(
-            pageTitle,
-            style: const TextStyle(color: Colors.white, fontFamily: "MaruBuri"),
+          title: Row(
+            children: [
+              SizedBox(
+                width: 30,
+                height: 30,
+                child: Image(
+                  image: const AssetImage(
+                      "lib/assets/images/init_splash_logo.png"),
+                  fit: BoxFit.cover,
+                  loadingBuilder: (BuildContext context, Widget child,
+                      ImageChunkEvent? loadingProgress) {
+                    // 로딩 중일 때 플레이스 홀더를 보여줍니다.
+                    if (loadingProgress == null) {
+                      return child; // 로딩이 끝났을 경우
+                    }
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  },
+                  errorBuilder: (context, error, stackTrace) {
+                    // 에러 발생 시 설정한 에러 위젯을 반환합니다.
+                    return const Center(
+                      child: Icon(
+                        Icons.error,
+                        color: Colors.red,
+                      ),
+                    );
+                  },
+                ),
+              ),
+              const SizedBox(
+                width: 15,
+              ),
+              Text(
+                pageTitle,
+                style: const TextStyle(
+                    color: Colors.white, fontFamily: "MaruBuri"),
+              )
+            ],
           ),
           backgroundColor: Colors.blue,
           iconTheme: const IconThemeData(
