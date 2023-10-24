@@ -1,5 +1,4 @@
 // (external)
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'page_business.dart' as page_business;
 
 // (all)
+import '../../../global_widgets/gw_page_out_frames.dart' as gw_page_out_frames;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
 
@@ -29,27 +29,9 @@ class PageView extends StatelessWidget {
             .state
             .pageBusiness;
 
-    // Mobile 앱 status bar 색상 변경
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      statusBarColor: Colors.blue,
-      statusBarIconBrightness: Brightness.dark,
-      statusBarBrightness: Brightness.dark,
-    ));
-
-    return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: !kIsWeb,
-        title: const Text(
-          'Post 메소드 요청 샘플 2 (x-www-form-urlencoded)',
-          style: TextStyle(color: Colors.white, fontFamily: "MaruBuri"),
-        ),
-        backgroundColor: Colors.blue,
-        iconTheme: const IconThemeData(
-          color: Colors.white, //change your color here
-        ),
-      ),
-      backgroundColor: const Color(0xFFFFFFFF),
-      body: SingleChildScrollView(
+    return gw_page_out_frames.PageOutFrame(
+      "Post 메소드 요청 샘플 2 (x-www-form-urlencoded)",
+      SingleChildScrollView(
         child: Container(
           margin:
               const EdgeInsets.only(left: 10, right: 10, top: 20, bottom: 20),

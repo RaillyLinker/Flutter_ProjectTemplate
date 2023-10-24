@@ -96,10 +96,19 @@ class PageBusiness {
     );
   }
 
-  // (Blue 영역 클릭)
-  void onTapBlue() {
+  // (Blue 영역 외곽 Gesture 클릭)
+  void onTapBlueOuter() {
     showToast(
-      "blueAccent",
+      "onTapBlueOuter",
+      context: _context,
+      animation: StyledToastAnimation.scale,
+    );
+  }
+
+  // (Blue 영역 내부 Gesture 클릭)
+  void onTapBlueInner() {
+    showToast(
+      "onTapBlueInner",
       context: _context,
       animation: StyledToastAnimation.scale,
     );

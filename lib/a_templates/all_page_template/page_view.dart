@@ -1,18 +1,17 @@
 // (external)
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // (page)
 import 'page_business.dart' as page_business;
 
 // (all)
+import '../../../global_widgets/gw_page_out_frames.dart' as gw_page_out_frames;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
 
 // [페이지 화면 위젯 작성 파일]
-// 페이지 화면 구현을 담당합니다.
+// 페이지 화면 구현을 담당합니다. (Widget 과 Business 간의 결합을 담당)
 // 로직 처리는 pageBusiness 객체에 위임하세요.
 
 //------------------------------------------------------------------------------
@@ -29,21 +28,7 @@ class PageView extends StatelessWidget {
             .state
             .pageBusiness;
 
-    // Mobile 앱 status bar 색상 변경
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-        statusBarColor: Colors.blue,
-        statusBarIconBrightness: Brightness.dark,
-        statusBarBrightness: Brightness.dark));
-
-    return Scaffold(
-        appBar: AppBar(
-            automaticallyImplyLeading: !kIsWeb,
-            title: const Text("페이지 템플릿", style: TextStyle(color: Colors.white)),
-            backgroundColor: Colors.blue,
-            iconTheme:
-                const IconThemeData(color: Colors.white //change your color here
-                    )),
-        backgroundColor: const Color(0xFFFFFFFF),
-        body: const Center(child: Text("페이지 템플릿입니다.")));
+    return gw_page_out_frames.PageOutFrame(
+        "페이지 템플릿", const Center(child: Text("페이지 템플릿입니다.")));
   }
 }

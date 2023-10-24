@@ -1,13 +1,12 @@
 // (external)
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // (page)
 import 'page_business.dart' as page_business;
 
 // (all)
+import '../../../global_widgets/gw_page_out_frames.dart' as gw_page_out_frames;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
 
@@ -29,40 +28,9 @@ class PageView extends StatelessWidget {
             .state
             .pageBusiness;
 
-    // Mobile 앱 status bar 색상 변경
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      statusBarColor: Colors.blue,
-      statusBarIconBrightness: Brightness.dark,
-      statusBarBrightness: Brightness.dark,
-    ));
-
-    return Scaffold(
-      backgroundColor: Colors.blue,
-      appBar: AppBar(
-        automaticallyImplyLeading: !kIsWeb,
-        backgroundColor: Colors.transparent,
-        elevation: 0.0,
-        title: const Text(
-          '로그인',
-          style: TextStyle(
-              color: Colors.white,
-              fontSize: 24.0,
-              fontWeight: FontWeight.bold,
-              fontFamily: "MaruBuri"),
-        ),
-        iconTheme: const IconThemeData(
-          color: Colors.white, //change your color here
-        ),
-        centerTitle: true,
-        bottom: const PreferredSize(
-          preferredSize: Size.fromHeight(2.0),
-          child: Divider(
-            color: Colors.white,
-            height: 2.0,
-          ),
-        ),
-      ),
-      body: SingleChildScrollView(
+    return gw_page_out_frames.PageOutFrame(
+      "로그인",
+      SingleChildScrollView(
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -263,6 +231,7 @@ class PageView extends StatelessWidget {
           ),
         ),
       ),
+      isPageBackgroundBlue: true,
     );
   }
 }

@@ -1,13 +1,12 @@
 // (external)
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // (page)
 import 'page_business.dart' as page_business;
 
 // (all)
+import '../../../global_widgets/gw_page_out_frames.dart' as gw_page_out_frames;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
 
@@ -29,27 +28,9 @@ class PageView extends StatelessWidget {
             .state
             .pageBusiness;
 
-    // Mobile 앱 status bar 색상 변경
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      statusBarColor: Colors.blue,
-      statusBarIconBrightness: Brightness.dark,
-      statusBarBrightness: Brightness.dark,
-    ));
-
-    return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: !kIsWeb,
-        title: const Text(
-          "Gesture 위젯 영역 중첩 테스트",
-          style: TextStyle(color: Colors.white),
-        ),
-        backgroundColor: Colors.blue,
-        iconTheme: const IconThemeData(
-          color: Colors.white, //change your color here
-        ),
-      ),
-      backgroundColor: const Color(0xFFFFFFFF),
-      body: Stack(
+    return gw_page_out_frames.PageOutFrame(
+      "Gesture 위젯 영역 중첩 테스트",
+      Stack(
         children: [
           MouseRegion(
             cursor: SystemMouseCursors.click,
@@ -68,12 +49,17 @@ class PageView extends StatelessWidget {
             cursor: SystemMouseCursors.click,
             child: GestureDetector(
               onTap: () {
-                pageBusiness.onTapBlue();
+                pageBusiness.onTapBlueOuter();
               },
-              child: Container(
-                width: 200,
-                height: 100,
-                color: Colors.blueAccent,
+              child: GestureDetector(
+                onTap: () {
+                  pageBusiness.onTapBlueInner();
+                },
+                child: Container(
+                  width: 200,
+                  height: 100,
+                  color: Colors.blueAccent,
+                ),
               ),
             ),
           ),

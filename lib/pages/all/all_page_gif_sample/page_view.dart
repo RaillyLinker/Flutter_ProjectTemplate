@@ -9,6 +9,7 @@ import 'package:gif/gif.dart';
 import 'page_business.dart' as page_business;
 
 // (all)
+import '../../../global_widgets/gw_page_out_frames.dart' as gw_page_out_frames;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
 import '../../../global_functions/gf_my_functions.dart' as gf_my_functions;
@@ -31,27 +32,9 @@ class PageView extends StatelessWidget {
             .state
             .pageBusiness;
 
-    // Mobile 앱 status bar 색상 변경
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      statusBarColor: Colors.blue,
-      statusBarIconBrightness: Brightness.dark,
-      statusBarBrightness: Brightness.dark,
-    ));
-
-    return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: !kIsWeb,
-        title: const Text(
-          "GIF 샘플",
-          style: TextStyle(color: Colors.white, fontFamily: "MaruBuri"),
-        ),
-        backgroundColor: Colors.blue,
-        iconTheme: const IconThemeData(
-          color: Colors.white, //change your color here
-        ),
-      ),
-      backgroundColor: const Color(0xFFFFFFFF),
-      body: const Center(
+    return const gw_page_out_frames.PageOutFrame(
+      "GIF 샘플",
+      Center(
         child: SizedBox(
           width: 200,
           height: 200,

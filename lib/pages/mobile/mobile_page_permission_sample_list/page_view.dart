@@ -1,13 +1,12 @@
 // (external)
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // (page)
 import 'page_business.dart' as page_business;
 
 // (all)
+import '../../../global_widgets/gw_page_out_frames.dart' as gw_page_out_frames;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
 
@@ -29,73 +28,47 @@ class PageView extends StatelessWidget {
             .state
             .pageBusiness;
 
-    // Mobile 앱 status bar 색상 변경
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      statusBarColor: Colors.blue,
-      statusBarIconBrightness: Brightness.dark,
-      statusBarBrightness: Brightness.dark,
-    ));
-
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: CustomScrollView(
-        slivers: [
-          const SliverAppBar(
-            automaticallyImplyLeading: !kIsWeb,
-            pinned: true,
-            centerTitle: false,
-            title: Text(
-              "Mobile Permission Sample",
-              style: TextStyle(color: Colors.white, fontFamily: "MaruBuri"),
-            ),
-            backgroundColor: Colors.blue,
-            iconTheme: IconThemeData(
-              color: Colors.white, //change your color here
-            ),
-          ),
-          // Other Sliver Widgets
-          BlocBuilder<page_business.BlocSampleList, bool>(builder: (c, s) {
-            return SliverList.builder(
-              itemCount: pageBusiness.pageViewModel.filteredSampleList.length,
-              itemBuilder: (context, index) {
-                return GestureDetector(
-                    onTap: () {
-                      pageBusiness.onRouteListItemClickAsync(index);
-                    },
-                    child: Column(
-                      children: [
-                        ListTile(
-                          mouseCursor: SystemMouseCursors.click,
-                          title: Text(
-                            pageBusiness.pageViewModel.filteredSampleList[index]
-                                .sampleItemTitle,
-                            style: const TextStyle(fontFamily: "MaruBuri"),
-                          ),
-                          subtitle: Text(
-                            pageBusiness.pageViewModel.filteredSampleList[index]
-                                .sampleItemDescription,
-                            style: const TextStyle(fontFamily: "MaruBuri"),
-                          ),
-                          trailing: Switch(
-                            value: pageBusiness.pageViewModel
-                                .filteredSampleList[index].isChecked,
-                            onChanged: (value) {
-                              pageBusiness.onRouteListItemClickAsync(index);
-                            },
-                            activeColor: Colors.blueAccent,
-                          ),
-                        ),
-                        const Divider(
-                          color: Colors.grey,
-                          height: 0.1,
-                        ),
-                      ],
-                    ));
-              },
-            );
-          }),
-        ],
-      ),
-    );
+    return gw_page_out_frames.SliverPageOutFrame("모바일 권한 샘플", [
+      BlocBuilder<page_business.BlocSampleList, bool>(builder: (c, s) {
+        return SliverList.builder(
+          itemCount: pageBusiness.pageViewModel.filteredSampleList.length,
+          itemBuilder: (context, index) {
+            return GestureDetector(
+                onTap: () {
+                  pageBusiness.onRouteListItemClickAsync(index);
+                },
+                child: Column(
+                  children: [
+                    ListTile(
+                      mouseCursor: SystemMouseCursors.click,
+                      title: Text(
+                        pageBusiness.pageViewModel.filteredSampleList[index]
+                            .sampleItemTitle,
+                        style: const TextStyle(fontFamily: "MaruBuri"),
+                      ),
+                      subtitle: Text(
+                        pageBusiness.pageViewModel.filteredSampleList[index]
+                            .sampleItemDescription,
+                        style: const TextStyle(fontFamily: "MaruBuri"),
+                      ),
+                      trailing: Switch(
+                        value: pageBusiness
+                            .pageViewModel.filteredSampleList[index].isChecked,
+                        onChanged: (value) {
+                          pageBusiness.onRouteListItemClickAsync(index);
+                        },
+                        activeColor: Colors.blueAccent,
+                      ),
+                    ),
+                    const Divider(
+                      color: Colors.grey,
+                      height: 0.1,
+                    ),
+                  ],
+                ));
+          },
+        );
+      })
+    ]);
   }
 }
