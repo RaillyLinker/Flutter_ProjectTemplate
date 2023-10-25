@@ -46,6 +46,10 @@ class PageBusiness {
   // (onPageCreateAsync 실행 전 PageInputVo 체크)
   // onPageCreateAsync 과 완전히 동일하나, 입력값 체크만을 위해 분리한 생명주기
   Future<void> onCheckPageInputVoAsync(GoRouterState goRouterState) async {
+    if (kDebugMode) {
+      print("+++ onCheckPageInputVoAsync 호출됨");
+    }
+
     // !!!pageInputVo 체크!!
     // ex :
     // if (!goRouterState.uri.queryParameters
