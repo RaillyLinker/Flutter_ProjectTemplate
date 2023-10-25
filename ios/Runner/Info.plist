@@ -46,14 +46,33 @@
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 
-    <!-- MacOS 네트워크 요청 권한 -->
+    <!-- 네트워크 요청 권한 -->
 	<key>com.apple.security.network.client</key>
     <true/>
-
     <!-- MacOS 파일 선택 권한 -->
     <key>com.apple.security.files.user-selected.read-write</key>
     <true/>
     <key>com.apple.security.files.bookmarks.app-scope</key>
     <true/>
+
+    <!-- 권한 리스트 -->
+    <!-- permission_handler.camera -->
+    <key>NSCameraUsageDescription</key>
+    <string>애플 심사 및 고객 설명을 위해 권한 필요 이유 설명하기</string>
+
+    <!-- permission_handler.contacts -->
+    <key>NSContactsUsageDescription</key>
+    <string>애플 심사 및 고객 설명을 위해 권한 필요 이유 설명하기</string>
+
+    <!-- permission_handler.mediaLibrary -->
+    <key>NSAppleMusicUsageDescription</key>
+    <string>애플 심사 및 고객 설명을 위해 권한 필요 이유 설명하기</string>
+    <key>kTCCServiceMediaLibrary</key>
+    <string>애플 심사 및 고객 설명을 위해 권한 필요 이유 설명하기</string>
+
+    <!-- permission_handler.microphone -->
+    <key>NSMicrophoneUsageDescription</key>
+    <string>애플 심사 및 고객 설명을 위해 권한 필요 이유 설명하기</string>
+
 </dict>
 </plist>

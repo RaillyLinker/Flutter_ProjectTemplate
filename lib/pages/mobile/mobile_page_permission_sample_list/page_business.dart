@@ -1,10 +1,9 @@
 // (external)
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:camera/camera.dart';
 
 // (page)
 import 'page_entrance.dart' as page_entrance;
@@ -75,6 +74,74 @@ class PageBusiness {
           pageViewModel.allSampleList[cameraPermissionIndex].isChecked = true;
         } else {
           pageViewModel.allSampleList[cameraPermissionIndex].isChecked = false;
+        }
+        blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
+      });
+    }
+
+    // contacts 권한 여부 확인
+    int contactsPermissionIndex = pageViewModel.allSampleList.indexWhere(
+        (samplePage) => samplePage.sampleItemEnum == SampleItemEnum.contacts);
+
+    if (contactsPermissionIndex != -1) {
+      Permission.contacts.status.then((status) {
+        if (status.isGranted) {
+          pageViewModel.allSampleList[contactsPermissionIndex].isChecked = true;
+        } else {
+          pageViewModel.allSampleList[contactsPermissionIndex].isChecked =
+              false;
+        }
+        blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
+      });
+    }
+
+    // mediaLibrary 권한 여부 확인
+    int mediaLibraryPermissionIndex = pageViewModel.allSampleList.indexWhere(
+        (samplePage) =>
+            samplePage.sampleItemEnum == SampleItemEnum.mediaLibrary);
+
+    if (mediaLibraryPermissionIndex != -1) {
+      Permission.mediaLibrary.status.then((status) {
+        if (status.isGranted) {
+          pageViewModel.allSampleList[mediaLibraryPermissionIndex].isChecked =
+              true;
+        } else {
+          pageViewModel.allSampleList[mediaLibraryPermissionIndex].isChecked =
+              false;
+        }
+        blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
+      });
+    }
+
+    // microphone 권한 여부 확인
+    int microphonePermissionIndex = pageViewModel.allSampleList.indexWhere(
+        (samplePage) => samplePage.sampleItemEnum == SampleItemEnum.microphone);
+
+    if (microphonePermissionIndex != -1) {
+      Permission.microphone.status.then((status) {
+        if (status.isGranted) {
+          pageViewModel.allSampleList[microphonePermissionIndex].isChecked =
+              true;
+        } else {
+          pageViewModel.allSampleList[microphonePermissionIndex].isChecked =
+              false;
+        }
+        blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
+      });
+    }
+
+    // phoneState 권한 여부 확인
+    int phoneStatePermissionIndex = pageViewModel.allSampleList.indexWhere(
+        (samplePage) => samplePage.sampleItemEnum == SampleItemEnum.phone);
+
+    if (phoneStatePermissionIndex != -1) {
+      Permission.phone.status.then((status) {
+        if (status.isGranted) {
+          pageViewModel.allSampleList[phoneStatePermissionIndex].isChecked =
+              true;
+        } else {
+          pageViewModel.allSampleList[phoneStatePermissionIndex].isChecked =
+              false;
         }
         blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
       });
@@ -189,13 +256,14 @@ class PageBusiness {
         {
           if (sampleItem.isChecked) {
             // 스위치 Off 시키기
+            if (!_context.mounted) return;
             var outputVo = await showDialog(
                 barrierDismissible: true,
                 context: _context,
                 builder: (context) => all_dialog_yes_or_no.PageEntrance(
                     all_dialog_yes_or_no.PageInputVo(
                         "권한 해제",
-                        "권한 해제를 위해선 디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
+                        "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
                         "예",
                         "아니오"),
                     (pageBusiness) {}));
@@ -208,31 +276,167 @@ class PageBusiness {
           } else {
             // 스위치 On 시키기
 
-            // 가용 카메라 리스트 가져오기
-            List<CameraDescription> cameras = await availableCameras();
+            // 권한 요청
+            PermissionStatus status = await Permission.camera.request();
+            if (status.isGranted) {
+              // 권한 승인
+              _togglePermissionSwitch(index);
+            } else if (status.isPermanentlyDenied) {
+              // 권한이 영구적으로 거부된 경우
+              // 권한 설정으로 이동
+              openAppSettings();
+            }
+          }
+        }
+        break;
 
-            if (cameras.isEmpty) {
-              // 가용 카메라가 없음
-              // todo : 시뮬레이터에서는 항상 없다고 나오므로 실제 폰으로 테스트하기
-              if (!_context.mounted) return;
-              showToast(
-                "카메라가 존재하지 않습니다.",
+      case SampleItemEnum.contacts:
+        {
+          if (sampleItem.isChecked) {
+            // 스위치 Off 시키기
+            if (!_context.mounted) return;
+            var outputVo = await showDialog(
+                barrierDismissible: true,
                 context: _context,
-                animation: StyledToastAnimation.scale,
-              );
-            } else {
-              // 가용 카메라가 있음
+                builder: (context) => all_dialog_yes_or_no.PageEntrance(
+                    all_dialog_yes_or_no.PageInputVo(
+                        "권한 해제",
+                        "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
+                        "예",
+                        "아니오"),
+                    (pageBusiness) {}));
 
-              // 권한 요청
-              PermissionStatus status = await Permission.camera.request();
-              if (status.isGranted) {
-                // 권한 승인
-                _togglePermissionSwitch(index);
-              } else if (status.isPermanentlyDenied) {
-                // 권한이 영구적으로 거부된 경우
-                // 권한 설정으로 이동
-                openAppSettings();
-              }
+            if (outputVo != null && outputVo.checkPositiveBtn) {
+              // positive 버튼을 눌렀을 때
+              // 권한 설정으로 이동
+              openAppSettings();
+            }
+          } else {
+            // 스위치 On 시키기
+
+            // 권한 요청
+            PermissionStatus status = await Permission.contacts.request();
+            if (status.isGranted) {
+              // 권한 승인
+              _togglePermissionSwitch(index);
+            } else if (status.isPermanentlyDenied) {
+              // 권한이 영구적으로 거부된 경우
+              // 권한 설정으로 이동
+              openAppSettings();
+            }
+          }
+        }
+        break;
+
+      case SampleItemEnum.mediaLibrary:
+        {
+          if (sampleItem.isChecked) {
+            // 스위치 Off 시키기
+            if (!_context.mounted) return;
+            var outputVo = await showDialog(
+                barrierDismissible: true,
+                context: _context,
+                builder: (context) => all_dialog_yes_or_no.PageEntrance(
+                    all_dialog_yes_or_no.PageInputVo(
+                        "권한 해제",
+                        "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
+                        "예",
+                        "아니오"),
+                    (pageBusiness) {}));
+
+            if (outputVo != null && outputVo.checkPositiveBtn) {
+              // positive 버튼을 눌렀을 때
+              // 권한 설정으로 이동
+              openAppSettings();
+            }
+          } else {
+            // 스위치 On 시키기
+
+            // 권한 요청
+            PermissionStatus status = await Permission.mediaLibrary.request();
+            if (status.isGranted) {
+              // 권한 승인
+              _togglePermissionSwitch(index);
+            } else if (status.isPermanentlyDenied) {
+              // 권한이 영구적으로 거부된 경우
+              // 권한 설정으로 이동
+              openAppSettings();
+            }
+          }
+        }
+        break;
+
+      case SampleItemEnum.microphone:
+        {
+          if (sampleItem.isChecked) {
+            // 스위치 Off 시키기
+            if (!_context.mounted) return;
+            var outputVo = await showDialog(
+                barrierDismissible: true,
+                context: _context,
+                builder: (context) => all_dialog_yes_or_no.PageEntrance(
+                    all_dialog_yes_or_no.PageInputVo(
+                        "권한 해제",
+                        "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
+                        "예",
+                        "아니오"),
+                    (pageBusiness) {}));
+
+            if (outputVo != null && outputVo.checkPositiveBtn) {
+              // positive 버튼을 눌렀을 때
+              // 권한 설정으로 이동
+              openAppSettings();
+            }
+          } else {
+            // 스위치 On 시키기
+
+            // 권한 요청
+            PermissionStatus status = await Permission.microphone.request();
+            if (status.isGranted) {
+              // 권한 승인
+              _togglePermissionSwitch(index);
+            } else if (status.isPermanentlyDenied) {
+              // 권한이 영구적으로 거부된 경우
+              // 권한 설정으로 이동
+              openAppSettings();
+            }
+          }
+        }
+        break;
+
+      case SampleItemEnum.phone:
+        {
+          if (sampleItem.isChecked) {
+            // 스위치 Off 시키기
+            if (!_context.mounted) return;
+            var outputVo = await showDialog(
+                barrierDismissible: true,
+                context: _context,
+                builder: (context) => all_dialog_yes_or_no.PageEntrance(
+                    all_dialog_yes_or_no.PageInputVo(
+                        "권한 해제",
+                        "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
+                        "예",
+                        "아니오"),
+                    (pageBusiness) {}));
+
+            if (outputVo != null && outputVo.checkPositiveBtn) {
+              // positive 버튼을 눌렀을 때
+              // 권한 설정으로 이동
+              openAppSettings();
+            }
+          } else {
+            // 스위치 On 시키기
+
+            // 권한 요청
+            PermissionStatus status = await Permission.phone.request();
+            if (status.isGranted) {
+              // 권한 승인
+              _togglePermissionSwitch(index);
+            } else if (status.isPermanentlyDenied) {
+              // 권한이 영구적으로 거부된 경우
+              // 권한 설정으로 이동
+              openAppSettings();
             }
           }
         }
@@ -377,6 +581,34 @@ class PageViewModel {
     allSampleList.add(SampleItem(SampleItemEnum.camera, "camera 권한",
         "Android : Camera, iOS : Photos (Camera Roll and Camera)"));
 
+    allSampleList.add(SampleItem(SampleItemEnum.contacts, "contacts 권한",
+        "Android : Contacts, iOS : AddressBook"));
+
+    allSampleList.add(SampleItem(
+        SampleItemEnum.microphone, "microphone 권한", "ndroid, iOS : 녹음"));
+
+    if (Platform.isIOS) {
+      // ios 일 때
+      var versionParts = Platform.operatingSystemVersion
+          .split(' ')
+          .where((part) => part.contains('.'))
+          .first
+          .split('.');
+      var major = int.parse(versionParts[0]);
+      var minor = int.parse(versionParts[1]);
+
+      if (major > 9 || (major == 9 && minor >= 3)) {
+        // 9.3 이상일 때
+        allSampleList.add(SampleItem(SampleItemEnum.mediaLibrary,
+            "mediaLibrary 권한", "iOS : 미디어 라이브러리 접근 9.3+ only"));
+      }
+    } else if (Platform.isAndroid) {
+      // android 일때
+
+      allSampleList.add(SampleItem(
+          SampleItemEnum.phone, "phone 권한", "Android : 전화 걸기, 전화 기록 보기"));
+    }
+
     // todo 추가 및 수정
     // if (gd_const.androidApiLevel! < 33) {
     //   allSampleList.add(SampleItem(SampleItemEnum.storagePermission,
@@ -412,7 +644,16 @@ class SampleItem {
 }
 
 enum SampleItemEnum {
+  // Android : Camera, iOS : Photos (Camera Roll and Camera)
   camera,
+  // Android : Contacts, iOS : AddressBook
+  contacts,
+  // iOS : 미디어 라이브러리 접근 9.3+ only
+  mediaLibrary,
+  // Android, iOS : 녹음
+  microphone,
+  // Android : 전화 걸기, 전화 기록 보기
+  phone,
 
   // todo 추가 및 수정
   // storagePermission,
