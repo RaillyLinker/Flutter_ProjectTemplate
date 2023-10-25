@@ -133,6 +133,7 @@ class LifecycleWatcherState extends State<LifecycleWatcher>
           if (!_pageBusiness.pageViewModel.pageLifeCycleStates.isPageCreated) {
             _pageBusiness.pageViewModel.pageLifeCycleStates.isPageCreated =
                 true;
+            await _pageBusiness.onCheckPageInputVoAsync();
             await _pageBusiness.onPageCreateAsync();
           } else {}
 

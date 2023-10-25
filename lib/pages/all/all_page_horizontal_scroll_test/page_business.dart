@@ -37,14 +37,18 @@ class PageBusiness {
   // onPagePauseAsync -> onPageResumeAsync -> onPagePauseAsync -> onPageResumeAsync 반복
   // - 페이지 종료 : onPageWillPopAsync -(return true 일 때)-> onPagePauseAsync -> onPageDestroyAsync 실행
 
-  // (페이지 최초 실행)
-  Future<void> onPageCreateAsync() async {
-    // !!!페이지 최초 실행 로직 작성!!
-
+  // (onPageCreateAsync 실행 전 PageInputVo 체크)
+  // onPageCreateAsync 과 완전히 동일하나, 입력값 체크만을 위해 분리한 생명주기
+  Future<void> onCheckPageInputVoAsync() async {
     // !!!pageInputVo Null 체크!!
 
     // !!!PageInputVo 입력!!
     pageViewModel.pageInputVo = page_entrance.PageInputVo();
+  }
+
+  // (페이지 최초 실행)
+  Future<void> onPageCreateAsync() async {
+    // !!!페이지 최초 실행 로직 작성!!
   }
 
   // (페이지 최초 실행 or 다른 페이지에서 복귀)
