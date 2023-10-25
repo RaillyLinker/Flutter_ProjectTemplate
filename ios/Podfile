@@ -64,12 +64,15 @@ post_install do |installer|
         # permission_handler.reminders
         'PERMISSION_REMINDERS=1',
 
+        # permission_handler.sensors
+        'PERMISSION_SENSORS=1',
+
+        # permission_handler.speech
+        'PERMISSION_SPEECH_RECOGNIZER=1',
+
 
         ## dart: PermissionGroup.calendar
         # 'PERMISSION_EVENTS=1',
-
-        ## dart: PermissionGroup.speech
-        # 'PERMISSION_SPEECH_RECOGNIZER=1',
 
         ## dart: PermissionGroup.photos
         # 'PERMISSION_PHOTOS=1',
@@ -79,9 +82,6 @@ post_install do |installer|
 
         ## dart: PermissionGroup.notification
         # 'PERMISSION_NOTIFICATIONS=1',
-
-        ## dart: PermissionGroup.sensors
-        # 'PERMISSION_SENSORS=1',
 
         ## dart: PermissionGroup.bluetooth
         # 'PERMISSION_BLUETOOTH=1',

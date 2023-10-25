@@ -24,16 +24,22 @@
     <uses-permission android:name="android.permission.WRITE_CALL_LOG" />
     <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
 
+    <!-- permission_handler.sensors -->
+    <uses-permission android:name="android.permission.BODY_SENSORS" />
+
+    <!-- permission_handler.sensorsAlways -->
+    <uses-permission android:name="android.permission.BODY_SENSORS_BACKGROUND" />
+
+    <!-- Permissions options for the `sms` group -->
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.RECEIVE_WAP_PUSH" />
+    <uses-permission android:name="android.permission.RECEIVE_MMS" />
+
     <!--    &lt;!&ndash; Permissions options for the `storage` group &ndash;&gt;-->
     <!--    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>-->
     <!--    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>-->
-
-    <!--    &lt;!&ndash; Permissions options for the `sms` group &ndash;&gt;-->
-    <!--    <uses-permission android:name="android.permission.SEND_SMS"/>-->
-    <!--    <uses-permission android:name="android.permission.RECEIVE_SMS"/>-->
-    <!--    <uses-permission android:name="android.permission.READ_SMS"/>-->
-    <!--    <uses-permission android:name="android.permission.RECEIVE_WAP_PUSH"/>-->
-    <!--    <uses-permission android:name="android.permission.RECEIVE_MMS"/>-->
 
     <!--    &lt;!&ndash; Permissions options for the `calendar` group &ndash;&gt;-->
     <!--    <uses-permission android:name="android.permission.READ_CALENDAR" />-->
@@ -42,10 +48,6 @@
     <!--    &lt;!&ndash; Permissions options for the `location` group &ndash;&gt;-->
     <!--    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />-->
     <!--    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />-->
-
-    <!--    &lt;!&ndash; Permissions options for the `sensors` group &ndash;&gt;-->
-    <!--    <uses-permission android:name="android.permission.BODY_SENSORS" />-->
-    <!--    <uses-permission android:name="android.permission.BODY_SENSORS_BACKGROUND" />-->
 
     <!--    &lt;!&ndash; Permissions options for the `access notification policy` group &ndash;&gt;-->
     <!--    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY"/>-->

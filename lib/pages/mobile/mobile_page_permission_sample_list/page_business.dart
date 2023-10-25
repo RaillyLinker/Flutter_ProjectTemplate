@@ -162,6 +162,69 @@ class PageBusiness {
       });
     }
 
+    // sensors 권한 여부 확인
+    int sensorsPermissionIndex = pageViewModel.allSampleList.indexWhere(
+        (samplePage) => samplePage.sampleItemEnum == SampleItemEnum.sensors);
+
+    if (sensorsPermissionIndex != -1) {
+      Permission.sensors.status.then((status) {
+        if (status.isGranted) {
+          pageViewModel.allSampleList[sensorsPermissionIndex].isChecked = true;
+        } else {
+          pageViewModel.allSampleList[sensorsPermissionIndex].isChecked = false;
+        }
+        blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
+      });
+    }
+
+    // sensorsAlways 권한 여부 확인
+    int sensorsAlwaysPermissionIndex = pageViewModel.allSampleList.indexWhere(
+        (samplePage) =>
+            samplePage.sampleItemEnum == SampleItemEnum.sensorsAlways);
+
+    if (sensorsAlwaysPermissionIndex != -1) {
+      Permission.sensorsAlways.status.then((status) {
+        if (status.isGranted) {
+          pageViewModel.allSampleList[sensorsAlwaysPermissionIndex].isChecked =
+              true;
+        } else {
+          pageViewModel.allSampleList[sensorsAlwaysPermissionIndex].isChecked =
+              false;
+        }
+        blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
+      });
+    }
+
+    // sms 권한 여부 확인
+    int smsPermissionIndex = pageViewModel.allSampleList.indexWhere(
+        (samplePage) => samplePage.sampleItemEnum == SampleItemEnum.sms);
+
+    if (smsPermissionIndex != -1) {
+      Permission.sms.status.then((status) {
+        if (status.isGranted) {
+          pageViewModel.allSampleList[smsPermissionIndex].isChecked = true;
+        } else {
+          pageViewModel.allSampleList[smsPermissionIndex].isChecked = false;
+        }
+        blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
+      });
+    }
+
+    // speech 권한 여부 확인
+    int speechPermissionIndex = pageViewModel.allSampleList.indexWhere(
+        (samplePage) => samplePage.sampleItemEnum == SampleItemEnum.speech);
+
+    if (speechPermissionIndex != -1) {
+      Permission.speech.status.then((status) {
+        if (status.isGranted) {
+          pageViewModel.allSampleList[speechPermissionIndex].isChecked = true;
+        } else {
+          pageViewModel.allSampleList[speechPermissionIndex].isChecked = false;
+        }
+        blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
+      });
+    }
+
     // todo : 추가 및 수정
 
     // 권한 여부 관련 정보 화면 갱신 (다른 화면으로 이동했다가 복귀할 때마다 권한이 변경되었을 가능성이 있으므로 여기서 처리)
@@ -495,6 +558,158 @@ class PageBusiness {
         }
         break;
 
+      case SampleItemEnum.sensors:
+        {
+          if (sampleItem.isChecked) {
+            // 스위치 Off 시키기
+            if (!_context.mounted) return;
+            var outputVo = await showDialog(
+                barrierDismissible: true,
+                context: _context,
+                builder: (context) => all_dialog_yes_or_no.PageEntrance(
+                    all_dialog_yes_or_no.PageInputVo(
+                        "권한 해제",
+                        "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
+                        "예",
+                        "아니오"),
+                    (pageBusiness) {}));
+
+            if (outputVo != null && outputVo.checkPositiveBtn) {
+              // positive 버튼을 눌렀을 때
+              // 권한 설정으로 이동
+              openAppSettings();
+            }
+          } else {
+            // 스위치 On 시키기
+
+            // 권한 요청
+            PermissionStatus status = await Permission.sensors.request();
+            if (status.isGranted) {
+              // 권한 승인
+              _togglePermissionSwitch(index);
+            } else if (status.isPermanentlyDenied) {
+              // 권한이 영구적으로 거부된 경우
+              // 권한 설정으로 이동
+              openAppSettings();
+            }
+          }
+        }
+        break;
+
+      case SampleItemEnum.sensorsAlways:
+        {
+          if (sampleItem.isChecked) {
+            // 스위치 Off 시키기
+            if (!_context.mounted) return;
+            var outputVo = await showDialog(
+                barrierDismissible: true,
+                context: _context,
+                builder: (context) => all_dialog_yes_or_no.PageEntrance(
+                    all_dialog_yes_or_no.PageInputVo(
+                        "권한 해제",
+                        "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
+                        "예",
+                        "아니오"),
+                    (pageBusiness) {}));
+
+            if (outputVo != null && outputVo.checkPositiveBtn) {
+              // positive 버튼을 눌렀을 때
+              // 권한 설정으로 이동
+              openAppSettings();
+            }
+          } else {
+            // 스위치 On 시키기
+
+            // 권한 요청
+            PermissionStatus status = await Permission.sensorsAlways.request();
+            if (status.isGranted) {
+              // 권한 승인
+              _togglePermissionSwitch(index);
+            } else if (status.isPermanentlyDenied) {
+              // 권한이 영구적으로 거부된 경우
+              // 권한 설정으로 이동
+              openAppSettings();
+            }
+          }
+        }
+        break;
+
+      case SampleItemEnum.sms:
+        {
+          if (sampleItem.isChecked) {
+            // 스위치 Off 시키기
+            if (!_context.mounted) return;
+            var outputVo = await showDialog(
+                barrierDismissible: true,
+                context: _context,
+                builder: (context) => all_dialog_yes_or_no.PageEntrance(
+                    all_dialog_yes_or_no.PageInputVo(
+                        "권한 해제",
+                        "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
+                        "예",
+                        "아니오"),
+                    (pageBusiness) {}));
+
+            if (outputVo != null && outputVo.checkPositiveBtn) {
+              // positive 버튼을 눌렀을 때
+              // 권한 설정으로 이동
+              openAppSettings();
+            }
+          } else {
+            // 스위치 On 시키기
+
+            // 권한 요청
+            PermissionStatus status = await Permission.sms.request();
+            if (status.isGranted) {
+              // 권한 승인
+              _togglePermissionSwitch(index);
+            } else if (status.isPermanentlyDenied) {
+              // 권한이 영구적으로 거부된 경우
+              // 권한 설정으로 이동
+              openAppSettings();
+            }
+          }
+        }
+        break;
+
+      case SampleItemEnum.speech:
+        {
+          if (sampleItem.isChecked) {
+            // 스위치 Off 시키기
+            if (!_context.mounted) return;
+            var outputVo = await showDialog(
+                barrierDismissible: true,
+                context: _context,
+                builder: (context) => all_dialog_yes_or_no.PageEntrance(
+                    all_dialog_yes_or_no.PageInputVo(
+                        "권한 해제",
+                        "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
+                        "예",
+                        "아니오"),
+                    (pageBusiness) {}));
+
+            if (outputVo != null && outputVo.checkPositiveBtn) {
+              // positive 버튼을 눌렀을 때
+              // 권한 설정으로 이동
+              openAppSettings();
+            }
+          } else {
+            // 스위치 On 시키기
+
+            // 권한 요청
+            PermissionStatus status = await Permission.speech.request();
+            if (status.isGranted) {
+              // 권한 승인
+              _togglePermissionSwitch(index);
+            } else if (status.isPermanentlyDenied) {
+              // 권한이 영구적으로 거부된 경우
+              // 권한 설정으로 이동
+              openAppSettings();
+            }
+          }
+        }
+        break;
+
       // todo : 추가 및 수정
       // case SampleItemEnum.storagePermission:
       //   {
@@ -638,12 +853,18 @@ class PageViewModel {
         "Android : Contacts, iOS : AddressBook"));
 
     allSampleList.add(SampleItem(
-        SampleItemEnum.microphone, "microphone 권한", "ndroid, iOS : 녹음"));
+        SampleItemEnum.microphone, "microphone 권한", "Android, iOS : 녹음"));
+
+    allSampleList.add(SampleItem(SampleItemEnum.sensors, "sensors 권한",
+        "Android : Body Sensors, iOS : CoreMotion"));
 
     if (Platform.isIOS) {
       // ios 일 때
       allSampleList.add(SampleItem(
           SampleItemEnum.reminders, "reminders 권한", "iOS : Reminder 접근"));
+
+      allSampleList.add(SampleItem(SampleItemEnum.speech, "speech 권한",
+          "Android : microphone 과 동일하므로 생략, iOS : TTS 기능"));
 
       var versionParts = Platform.operatingSystemVersion
           .split(' ')
@@ -663,6 +884,12 @@ class PageViewModel {
 
       allSampleList.add(SampleItem(
           SampleItemEnum.phone, "phone 권한", "Android : 전화 걸기, 전화 기록 보기"));
+
+      allSampleList.add(SampleItem(
+          SampleItemEnum.sms, "sms 권한", "Android : sms 메세지 보내기, 읽기"));
+
+      allSampleList.add(SampleItem(SampleItemEnum.sensorsAlways,
+          "sensorsAlways 권한", "Android : Background 에서도 Body Sensors 접근"));
     }
 
     // todo 추가 및 수정
@@ -712,6 +939,15 @@ enum SampleItemEnum {
   phone,
   // iOS : Reminder 접근
   reminders,
+  // Android : Body Sensors, iOS : CoreMotion
+  sensors,
+  // todo : android 에서 sensors 승인 후 요청하면 설정으로 이동하여 선택 (UI 처리할것)
+  // Android : Background 에서도 Body Sensors 접근
+  sensorsAlways,
+  // Android : sms 메세지 보내기, 읽기
+  sms,
+  // Android : microphone 과 동일하므로 생략, iOS : TTS 기능
+  speech,
 
   // todo 추가 및 수정
   // storagePermission,
