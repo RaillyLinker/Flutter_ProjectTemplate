@@ -78,11 +78,12 @@ class PageOutFrame extends StatelessWidget {
                 const SizedBox(
                   width: 15,
                 ),
-                Text(
+                Expanded(
+                    child: Text(
                   pageTitle,
                   style: const TextStyle(
                       color: Colors.white, fontFamily: "MaruBuri"),
-                )
+                ))
               ],
             ),
             backgroundColor: Colors.blue,

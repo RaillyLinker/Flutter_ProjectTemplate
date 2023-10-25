@@ -31,7 +31,7 @@ class PageView extends StatelessWidget {
     return gw_page_out_frames.PageOutFrame("모바일 권한 샘플",
         BlocBuilder<page_business.BlocSampleList, bool>(builder: (c, s) {
       return ListView.builder(
-        itemCount: pageBusiness.pageViewModel.filteredSampleList.length,
+        itemCount: pageBusiness.pageViewModel.allSampleList.length,
         itemBuilder: (context, index) {
           return GestureDetector(
               onTap: () {
@@ -42,18 +42,18 @@ class PageView extends StatelessWidget {
                   ListTile(
                     mouseCursor: SystemMouseCursors.click,
                     title: Text(
-                      pageBusiness.pageViewModel.filteredSampleList[index]
+                      pageBusiness.pageViewModel.allSampleList[index]
                           .sampleItemTitle,
                       style: const TextStyle(fontFamily: "MaruBuri"),
                     ),
                     subtitle: Text(
-                      pageBusiness.pageViewModel.filteredSampleList[index]
+                      pageBusiness.pageViewModel.allSampleList[index]
                           .sampleItemDescription,
                       style: const TextStyle(fontFamily: "MaruBuri"),
                     ),
                     trailing: Switch(
                       value: pageBusiness
-                          .pageViewModel.filteredSampleList[index].isChecked,
+                          .pageViewModel.allSampleList[index].isChecked,
                       onChanged: (value) {
                         pageBusiness.onRouteListItemClickAsync(index);
                       },

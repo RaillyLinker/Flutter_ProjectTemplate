@@ -1,8 +1,10 @@
 // (external)
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:camera/camera.dart';
 
 // (page)
 import 'page_entrance.dart' as page_entrance;
@@ -10,7 +12,6 @@ import 'page_entrance.dart' as page_entrance;
 // (all)
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
-import '../../../global_data/gd_const.dart' as gd_const;
 import '../../../dialogs/all/all_dialog_yes_or_no/page_entrance.dart'
     as all_dialog_yes_or_no;
 
@@ -64,71 +65,88 @@ class PageBusiness {
   Future<void> onPageResumeAsync() async {
     // !!!위젯 최초 실행 및, 다른 페이지에서 복귀 로직 작성!!
 
-    // 권한 여부 관련 정보 화면 갱신 (다른 화면으로 이동했다가 복귀할 때마다 권한이 변경되었을 가능성이 있으므로 여기서 처리)
-    if (gd_const.androidApiLevel! < 33) {
-      // Storage Permission
-      int storagePermissionIndex = pageViewModel.filteredSampleList.indexWhere(
-          (samplePage) =>
-              samplePage.sampleItemEnum == SampleItemEnum.storagePermission);
+    // Camera 권한 여부 확인
+    int cameraPermissionIndex = pageViewModel.allSampleList.indexWhere(
+        (samplePage) => samplePage.sampleItemEnum == SampleItemEnum.camera);
 
-      if (storagePermissionIndex != -1) {
-        Permission.storage.status.then((status) {
-          if (status.isGranted) {
-            pageViewModel.filteredSampleList[storagePermissionIndex].isChecked =
-                true;
-          } else {
-            pageViewModel.filteredSampleList[storagePermissionIndex].isChecked =
-                false;
-          }
-          blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
-        });
-      }
-    } else {
-      // Read Storage Permission : photos And videos
-      int readStoragePermissionPhotosAndVideosIndex =
-          pageViewModel.filteredSampleList.indexWhere((samplePage) =>
-              samplePage.sampleItemEnum ==
-              SampleItemEnum.readStoragePermissionPhotosAndVideos);
-
-      if (readStoragePermissionPhotosAndVideosIndex != -1) {
-        Permission.photos.status.then((photosStatus) {
-          if (photosStatus.isGranted) {
-            Permission.videos.status.then((videosStatus) {
-              if (videosStatus.isGranted) {
-                pageViewModel
-                    .filteredSampleList[
-                        readStoragePermissionPhotosAndVideosIndex]
-                    .isChecked = true;
-              } else {
-                pageViewModel
-                    .filteredSampleList[
-                        readStoragePermissionPhotosAndVideosIndex]
-                    .isChecked = false;
-              }
-              blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
-            });
-          }
-        });
-      }
-
-      // Read Storage Permission : Audios
-      int readStoragePermissionAudiosIndex = pageViewModel.filteredSampleList
-          .indexWhere((samplePage) =>
-              samplePage.sampleItemEnum ==
-              SampleItemEnum.readStoragePermissionAudios);
-      if (readStoragePermissionAudiosIndex != -1) {
-        Permission.audio.status.then((status) {
-          if (status.isGranted) {
-            pageViewModel.filteredSampleList[readStoragePermissionAudiosIndex]
-                .isChecked = true;
-          } else {
-            pageViewModel.filteredSampleList[readStoragePermissionAudiosIndex]
-                .isChecked = false;
-          }
-          blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
-        });
-      }
+    if (cameraPermissionIndex != -1) {
+      Permission.camera.status.then((status) {
+        if (status.isGranted) {
+          pageViewModel.allSampleList[cameraPermissionIndex].isChecked = true;
+        } else {
+          pageViewModel.allSampleList[cameraPermissionIndex].isChecked = false;
+        }
+        blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
+      });
     }
+
+    // todo : 추가 및 수정
+
+    // 권한 여부 관련 정보 화면 갱신 (다른 화면으로 이동했다가 복귀할 때마다 권한이 변경되었을 가능성이 있으므로 여기서 처리)
+    // if (gd_const.androidApiLevel! < 33) {
+    //   // Storage Permission
+    //   int storagePermissionIndex = pageViewModel.allSampleList.indexWhere(
+    //       (samplePage) =>
+    //           samplePage.sampleItemEnum == SampleItemEnum.storagePermission);
+    //
+    //   if (storagePermissionIndex != -1) {
+    //     Permission.storage.status.then((status) {
+    //       if (status.isGranted) {
+    //         pageViewModel.allSampleList[storagePermissionIndex].isChecked =
+    //             true;
+    //       } else {
+    //         pageViewModel.allSampleList[storagePermissionIndex].isChecked =
+    //             false;
+    //       }
+    //       blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
+    //     });
+    //   }
+    // } else {
+    //   // Read Storage Permission : photos And videos
+    //   int readStoragePermissionPhotosAndVideosIndex =
+    //       pageViewModel.allSampleList.indexWhere((samplePage) =>
+    //           samplePage.sampleItemEnum ==
+    //           SampleItemEnum.readStoragePermissionPhotosAndVideos);
+    //
+    //   if (readStoragePermissionPhotosAndVideosIndex != -1) {
+    //     Permission.photos.status.then((photosStatus) {
+    //       if (photosStatus.isGranted) {
+    //         Permission.videos.status.then((videosStatus) {
+    //           if (videosStatus.isGranted) {
+    //             pageViewModel
+    //                 .allSampleList[
+    //                     readStoragePermissionPhotosAndVideosIndex]
+    //                 .isChecked = true;
+    //           } else {
+    //             pageViewModel
+    //                 .allSampleList[
+    //                     readStoragePermissionPhotosAndVideosIndex]
+    //                 .isChecked = false;
+    //           }
+    //           blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
+    //         });
+    //       }
+    //     });
+    //   }
+    //
+    //   // Read Storage Permission : Audios
+    //   int readStoragePermissionAudiosIndex = pageViewModel.allSampleList
+    //       .indexWhere((samplePage) =>
+    //           samplePage.sampleItemEnum ==
+    //           SampleItemEnum.readStoragePermissionAudios);
+    //   if (readStoragePermissionAudiosIndex != -1) {
+    //     Permission.audio.status.then((status) {
+    //       if (status.isGranted) {
+    //         pageViewModel.allSampleList[readStoragePermissionAudiosIndex]
+    //             .isChecked = true;
+    //       } else {
+    //         pageViewModel.allSampleList[readStoragePermissionAudiosIndex]
+    //             .isChecked = false;
+    //       }
+    //       blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
+    //     });
+    //   }
+    // }
   }
 
   // (페이지 종료 or 다른 페이지로 이동 (강제 종료는 탐지 못함))
@@ -139,7 +157,6 @@ class PageBusiness {
   // (페이지 종료 (강제 종료는 탐지 못함))
   Future<void> onPageDestroyAsync() async {
     // !!!페이지 종료 로직 작성!!
-    pageViewModel.sampleSearchBarTextEditController.dispose();
   }
 
   // (Page Pop 요청)
@@ -163,38 +180,12 @@ class PageBusiness {
 //     bLocObjects.blocSample.add(!bLocObjects.blocSample.state);
 //   }
 
-  // (검색 결과에 따라 샘플 페이지 리스트 필터링)
-  void filteringSamplePageList(String searchKeyword) {
-    if (searchKeyword == "") {
-      // 원본 리스트로 뷰모델 데이터 변경 후 이벤트 발생
-      pageViewModel.filteredSampleList = pageViewModel.allSampleList;
-      blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
-    } else {
-      // 필터링한 리스트로 뷰모델 데이터 변경 후 이벤트 발생
-      List<SampleItem> filteredSamplePageList = [];
-      // 필터링 하기
-      for (SampleItem samplePage in pageViewModel.allSampleList) {
-        if (samplePage.sampleItemTitle
-            .toLowerCase()
-            .contains(searchKeyword.toLowerCase())) {
-          filteredSamplePageList.add(samplePage);
-        } else if (samplePage.sampleItemDescription
-            .toLowerCase()
-            .contains(searchKeyword.toLowerCase())) {
-          filteredSamplePageList.add(samplePage);
-        }
-      }
-      pageViewModel.filteredSampleList = filteredSamplePageList;
-      blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
-    }
-  }
-
   // (리스트 아이템 클릭 리스너)
   Future<void> onRouteListItemClickAsync(int index) async {
-    SampleItem sampleItem = pageViewModel.filteredSampleList[index];
+    SampleItem sampleItem = pageViewModel.allSampleList[index];
 
     switch (sampleItem.sampleItemEnum) {
-      case SampleItemEnum.storagePermission:
+      case SampleItemEnum.camera:
         {
           if (sampleItem.isChecked) {
             // 스위치 Off 시키기
@@ -202,8 +193,11 @@ class PageBusiness {
                 barrierDismissible: true,
                 context: _context,
                 builder: (context) => all_dialog_yes_or_no.PageEntrance(
-                    all_dialog_yes_or_no.PageInputVo("release permission",
-                        "do you want to release permission?", "yes", "no"),
+                    all_dialog_yes_or_no.PageInputVo(
+                        "권한 해제",
+                        "권한 해제를 위해선 디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
+                        "예",
+                        "아니오"),
                     (pageBusiness) {}));
 
             if (outputVo != null && outputVo.checkPositiveBtn) {
@@ -213,89 +207,140 @@ class PageBusiness {
             }
           } else {
             // 스위치 On 시키기
-            // 권한 요청
-            PermissionStatus status = await Permission.storage.request();
-            if (status.isGranted) {
-              // 권한 승인
-              _togglePermissionSwitch(index);
-            } else if (status.isPermanentlyDenied) {
-              // 권한이 영구적으로 거부된 경우
-              // 권한 설정으로 이동
-              openAppSettings();
-            }
-          }
-        }
-        break;
-      case SampleItemEnum.readStoragePermissionPhotosAndVideos:
-        {
-          if (sampleItem.isChecked) {
-            // 스위치 Off 시키기
-            if (!_context.mounted) return;
-            var outputVo = await showDialog(
-                barrierDismissible: true,
-                context: _context,
-                builder: (context) => all_dialog_yes_or_no.PageEntrance(
-                    all_dialog_yes_or_no.PageInputVo("release permission",
-                        "do you want to release permission?", "yes", "no"),
-                    (pageBusiness) {}));
 
-            if (outputVo != null && outputVo.checkPositiveBtn) {
-              // positive 버튼을 눌렀을 때
-              // 권한 설정으로 이동
-              openAppSettings();
-            }
-          } else {
-            // 스위치 On 시키기
-            // 권한 요청
-            Map<Permission, PermissionStatus> status =
-                await [Permission.photos, Permission.videos].request();
-            if (status[Permission.photos]!.isGranted &&
-                status[Permission.videos]!.isGranted) {
-              // 권한 승인
-              _togglePermissionSwitch(index);
-            } else if (status[Permission.photos]!.isPermanentlyDenied ||
-                status[Permission.videos]!.isPermanentlyDenied) {
-              // 권한이 영구적으로 거부된 경우
-              // 권한 설정으로 이동
-              openAppSettings();
-            }
-          }
-        }
-        break;
-      case SampleItemEnum
-            .readStoragePermissionAudios: // Read Storage Permission : Audios
-        {
-          if (sampleItem.isChecked) {
-            // 스위치 Off 시키기
-            if (!_context.mounted) return;
-            var outputVo = await showDialog(
-                barrierDismissible: true,
-                context: _context,
-                builder: (context) => all_dialog_yes_or_no.PageEntrance(
-                    all_dialog_yes_or_no.PageInputVo("release permission",
-                        "do you want to release permission?", "yes", "no"),
-                    (pageBusiness) {}));
+            // 가용 카메라 리스트 가져오기
+            List<CameraDescription> cameras = await availableCameras();
 
-            if (outputVo != null && outputVo.checkPositiveBtn) {
-              // positive 버튼을 눌렀을 때
-              // 권한 설정으로 이동
-              openAppSettings();
-            }
-          } else {
-            // 스위치 On 시키기
-            // 권한 요청
-            PermissionStatus status = await Permission.audio.request();
-            if (status.isGranted) {
-              // 권한 승인
-              _togglePermissionSwitch(index);
-            } else if (status.isPermanentlyDenied) {
-              // 권한이 영구적으로 거부된 경우
-              // 권한 설정으로 이동
-              openAppSettings();
+            if (cameras.isEmpty) {
+              // 가용 카메라가 없음
+              // todo : 시뮬레이터에서는 항상 없다고 나오므로 실제 폰으로 테스트하기
+              if (!_context.mounted) return;
+              showToast(
+                "카메라가 존재하지 않습니다.",
+                context: _context,
+                animation: StyledToastAnimation.scale,
+              );
+            } else {
+              // 가용 카메라가 있음
+
+              // 권한 요청
+              PermissionStatus status = await Permission.camera.request();
+              if (status.isGranted) {
+                // 권한 승인
+                _togglePermissionSwitch(index);
+              } else if (status.isPermanentlyDenied) {
+                // 권한이 영구적으로 거부된 경우
+                // 권한 설정으로 이동
+                openAppSettings();
+              }
             }
           }
         }
         break;
+
+      // todo : 추가 및 수정
+      // case SampleItemEnum.storagePermission:
+      //   {
+      //     if (sampleItem.isChecked) {
+      //       // 스위치 Off 시키기
+      //       var outputVo = await showDialog(
+      //           barrierDismissible: true,
+      //           context: _context,
+      //           builder: (context) => all_dialog_yes_or_no.PageEntrance(
+      //               all_dialog_yes_or_no.PageInputVo("release permission",
+      //                   "do you want to release permission?", "yes", "no"),
+      //               (pageBusiness) {}));
+      //
+      //       if (outputVo != null && outputVo.checkPositiveBtn) {
+      //         // positive 버튼을 눌렀을 때
+      //         // 권한 설정으로 이동
+      //         openAppSettings();
+      //       }
+      //     } else {
+      //       // 스위치 On 시키기
+      //       // 권한 요청
+      //       PermissionStatus status = await Permission.storage.request();
+      //       if (status.isGranted) {
+      //         // 권한 승인
+      //         _togglePermissionSwitch(index);
+      //       } else if (status.isPermanentlyDenied) {
+      //         // 권한이 영구적으로 거부된 경우
+      //         // 권한 설정으로 이동
+      //         openAppSettings();
+      //       }
+      //     }
+      //   }
+      //   break;
+      // case SampleItemEnum.readStoragePermissionPhotosAndVideos:
+      //   {
+      //     if (sampleItem.isChecked) {
+      //       // 스위치 Off 시키기
+      //       if (!_context.mounted) return;
+      //       var outputVo = await showDialog(
+      //           barrierDismissible: true,
+      //           context: _context,
+      //           builder: (context) => all_dialog_yes_or_no.PageEntrance(
+      //               all_dialog_yes_or_no.PageInputVo("release permission",
+      //                   "do you want to release permission?", "yes", "no"),
+      //               (pageBusiness) {}));
+      //
+      //       if (outputVo != null && outputVo.checkPositiveBtn) {
+      //         // positive 버튼을 눌렀을 때
+      //         // 권한 설정으로 이동
+      //         openAppSettings();
+      //       }
+      //     } else {
+      //       // 스위치 On 시키기
+      //       // 권한 요청
+      //       Map<Permission, PermissionStatus> status =
+      //           await [Permission.photos, Permission.videos].request();
+      //       if (status[Permission.photos]!.isGranted &&
+      //           status[Permission.videos]!.isGranted) {
+      //         // 권한 승인
+      //         _togglePermissionSwitch(index);
+      //       } else if (status[Permission.photos]!.isPermanentlyDenied ||
+      //           status[Permission.videos]!.isPermanentlyDenied) {
+      //         // 권한이 영구적으로 거부된 경우
+      //         // 권한 설정으로 이동
+      //         openAppSettings();
+      //       }
+      //     }
+      //   }
+      //   break;
+      // case SampleItemEnum
+      //       .readStoragePermissionAudios: // Read Storage Permission : Audios
+      //   {
+      //     if (sampleItem.isChecked) {
+      //       // 스위치 Off 시키기
+      //       if (!_context.mounted) return;
+      //       var outputVo = await showDialog(
+      //           barrierDismissible: true,
+      //           context: _context,
+      //           builder: (context) => all_dialog_yes_or_no.PageEntrance(
+      //               all_dialog_yes_or_no.PageInputVo("release permission",
+      //                   "do you want to release permission?", "yes", "no"),
+      //               (pageBusiness) {}));
+      //
+      //       if (outputVo != null && outputVo.checkPositiveBtn) {
+      //         // positive 버튼을 눌렀을 때
+      //         // 권한 설정으로 이동
+      //         openAppSettings();
+      //       }
+      //     } else {
+      //       // 스위치 On 시키기
+      //       // 권한 요청
+      //       PermissionStatus status = await Permission.audio.request();
+      //       if (status.isGranted) {
+      //         // 권한 승인
+      //         _togglePermissionSwitch(index);
+      //       } else if (status.isPermanentlyDenied) {
+      //         // 권한이 영구적으로 거부된 경우
+      //         // 권한 설정으로 이동
+      //         openAppSettings();
+      //       }
+      //     }
+      //   }
+      //   break;
     }
   }
 
@@ -305,8 +350,8 @@ class PageBusiness {
 
   // (권한 스위치 토글)
   void _togglePermissionSwitch(int index) {
-    pageViewModel.filteredSampleList[index].isChecked =
-        !pageViewModel.filteredSampleList[index].isChecked;
+    pageViewModel.allSampleList[index].isChecked =
+        !pageViewModel.allSampleList[index].isChecked;
     blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
   }
 }
@@ -324,33 +369,28 @@ class PageViewModel {
   // ex :
   // int sampleNumber = 0;
 
-  // 샘플 목록 필터링용 검색창 컨트롤러 (검색창의 텍스트 정보를 가지고 있으므로 뷰모델에 저장, 여기 있어야 위젯이 변경되어도 검색어가 유지됨)
-  TextEditingController sampleSearchBarTextEditController =
-      TextEditingController();
-
   // (샘플 페이지 원본 리스트)
   List<SampleItem> allSampleList = [];
 
-  // (샘플 페이지 리스트 검색 결과)
-  List<SampleItem> filteredSampleList = [];
-
   PageViewModel() {
     // 초기 리스트 추가
-    if (gd_const.androidApiLevel! < 33) {
-      allSampleList.add(SampleItem(SampleItemEnum.storagePermission,
-          "Storage 권한", "Storage 권한"));
-    } else {
-      allSampleList.add(SampleItem(
-          SampleItemEnum.readStoragePermissionPhotosAndVideos,
-          "Storage 읽기 권한 : photos And videos",
-          "Storage 읽기 권한 : photos And videos"));
-      allSampleList.add(SampleItem(
-          SampleItemEnum.readStoragePermissionAudios,
-          "Storage 읽기 권한 : Audios",
-          "Storage 읽기 권한 : Audios"));
-    }
+    allSampleList.add(SampleItem(SampleItemEnum.camera, "camera 권한",
+        "Android : Camera, iOS : Photos (Camera Roll and Camera)"));
 
-    filteredSampleList = allSampleList;
+    // todo 추가 및 수정
+    // if (gd_const.androidApiLevel! < 33) {
+    //   allSampleList.add(SampleItem(SampleItemEnum.storagePermission,
+    //       "Storage 권한", "Storage 권한"));
+    // } else {
+    //   allSampleList.add(SampleItem(
+    //       SampleItemEnum.readStoragePermissionPhotosAndVideos,
+    //       "Storage 읽기 권한 : photos And videos",
+    //       "Storage 읽기 권한 : photos And videos"));
+    //   allSampleList.add(SampleItem(
+    //       SampleItemEnum.readStoragePermissionAudios,
+    //       "Storage 읽기 권한 : Audios",
+    //       "Storage 읽기 권한 : Audios"));
+    // }
   }
 }
 
@@ -372,9 +412,12 @@ class SampleItem {
 }
 
 enum SampleItemEnum {
-  storagePermission,
-  readStoragePermissionPhotosAndVideos,
-  readStoragePermissionAudios,
+  camera,
+
+  // todo 추가 및 수정
+  // storagePermission,
+  // readStoragePermissionPhotosAndVideos,
+  // readStoragePermissionAudios,
 }
 
 // (BLoC 클래스 모음)
