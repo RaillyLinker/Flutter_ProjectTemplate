@@ -52,7 +52,7 @@ class PageEntrance extends StatelessWidget {
         page_business.BLocProviders().blocProviders;
 
     // pageBusiness 객체 생성
-    var pageBusiness = page_business.PageBusiness(context, _goRouterState);
+    var pageBusiness = page_business.PageBusiness(context);
 
     // Page Info BLoC 추가 (pageBusiness 를 context 전역에 저장)
     blocProviders.add(
@@ -69,13 +69,15 @@ class PageEntrance extends StatelessWidget {
         // 하위 위젯에서 사용할 Businesses BLoC 프로바이더 설정
         // MultiBlocProvider 을 거치지 않는다면 하위 위젯에서 BLoC 조작을 할 수 없습니다.
         providers: blocProviders,
-        child: const LifecycleWatcher());
+        child: LifecycleWatcher(_goRouterState));
   }
 }
 
 // (페이지 생명주기 탐지용)
 class LifecycleWatcher extends StatefulWidget {
-  const LifecycleWatcher({super.key});
+  const LifecycleWatcher(this._goRouterState, {super.key});
+
+  final GoRouterState _goRouterState;
 
   @override
   LifecycleWatcherState createState() => LifecycleWatcherState();
@@ -134,8 +136,9 @@ class LifecycleWatcherState extends State<LifecycleWatcher>
                   .pageViewModel.pageLifeCycleStates.isPageCreated) {
                 _pageBusiness.pageViewModel.pageLifeCycleStates.isPageCreated =
                     true;
-                await _pageBusiness.onCheckPageInputVoAsync();
-            await _pageBusiness.onPageCreateAsync();
+                await _pageBusiness
+                    .onCheckPageInputVoAsync(widget._goRouterState);
+                await _pageBusiness.onPageCreateAsync();
               } else {}
 
               await _pageBusiness.onPageResumeAsync();

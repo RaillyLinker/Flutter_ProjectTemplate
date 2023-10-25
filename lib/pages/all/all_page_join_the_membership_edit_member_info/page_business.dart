@@ -44,8 +44,8 @@ class PageBusiness {
   late BLocObjects blocObjects;
 
   // 생성자 설정
-  PageBusiness(this._context, GoRouterState goRouterState) {
-    pageViewModel = PageViewModel(goRouterState);
+  PageBusiness(this._context) {
+    pageViewModel = PageViewModel();
   }
 
   ////
@@ -57,10 +57,14 @@ class PageBusiness {
 
   // (onPageCreateAsync 실행 전 PageInputVo 체크)
   // onPageCreateAsync 과 완전히 동일하나, 입력값 체크만을 위해 분리한 생명주기
-  Future<void> onCheckPageInputVoAsync() async {
-    // !!!pageInputVo Null 체크!!
-    if (!pageViewModel.goRouterState.uri.queryParameters
-        .containsKey("memberId")) {
+  Future<void> onCheckPageInputVoAsync(GoRouterState goRouterState) async {
+    // !!!pageInputVo 체크!!
+    // ex :
+    // if (!goRouterState.uri.queryParameters
+    //     .containsKey("inputValueString")) {
+    //   // 필수 파라미터가 없는 경우에 대한 처리
+    // }
+    if (!goRouterState.uri.queryParameters.containsKey("memberId")) {
       showToast(
         "memberId 는 필수입니다.",
         context: _context,
@@ -76,8 +80,7 @@ class PageBusiness {
       }
     }
 
-    if (!pageViewModel.goRouterState.uri.queryParameters
-        .containsKey("password")) {
+    if (!goRouterState.uri.queryParameters.containsKey("password")) {
       showToast(
         "password 는 필수입니다.",
         context: _context,
@@ -93,8 +96,7 @@ class PageBusiness {
       }
     }
 
-    if (!pageViewModel.goRouterState.uri.queryParameters
-        .containsKey("verificationCode")) {
+    if (!goRouterState.uri.queryParameters.containsKey("verificationCode")) {
       showToast(
         "verificationCode 는 필수입니다.",
         context: _context,
@@ -110,8 +112,7 @@ class PageBusiness {
       }
     }
 
-    if (!pageViewModel.goRouterState.uri.queryParameters
-        .containsKey("verificationUid")) {
+    if (!goRouterState.uri.queryParameters.containsKey("verificationUid")) {
       showToast(
         "verificationUid 는 필수입니다.",
         context: _context,
@@ -127,13 +128,12 @@ class PageBusiness {
       }
     }
 
-    // !!!pageViewModel.goRouterState 에서 PageInputVo 입력!!
+    // !!!PageInputVo 입력!!
     pageViewModel.pageInputVo = page_entrance.PageInputVo(
-      pageViewModel.goRouterState.uri.queryParameters["memberId"]!,
-      pageViewModel.goRouterState.uri.queryParameters["password"]!,
-      pageViewModel.goRouterState.uri.queryParameters["verificationCode"]!,
-      int.parse(
-          pageViewModel.goRouterState.uri.queryParameters["verificationUid"]!),
+      goRouterState.uri.queryParameters["memberId"]!,
+      goRouterState.uri.queryParameters["password"]!,
+      goRouterState.uri.queryParameters["verificationCode"]!,
+      int.parse(goRouterState.uri.queryParameters["verificationUid"]!),
     );
   }
 
@@ -604,7 +604,6 @@ class PageViewModel {
 
   // 페이지 파라미터 (아래 goRouterState 에서 가져와 대입하기)
   late page_entrance.PageInputVo pageInputVo;
-  GoRouterState goRouterState;
 
   // !!!페이지 데이터 정의!!
   // ex :
@@ -632,7 +631,7 @@ class PageViewModel {
 
   Uint8List? profileImage;
 
-  PageViewModel(this.goRouterState);
+  PageViewModel();
 }
 
 // (BLoC 클래스 모음)

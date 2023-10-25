@@ -28,8 +28,8 @@ class PageBusiness {
   late BLocObjects blocObjects;
 
   // 생성자 설정
-  PageBusiness(this._context, GoRouterState goRouterState) {
-    pageViewModel = PageViewModel(goRouterState);
+  PageBusiness(this._context) {
+    pageViewModel = PageViewModel();
   }
 
   ////
@@ -41,10 +41,14 @@ class PageBusiness {
 
   // (onPageCreateAsync 실행 전 PageInputVo 체크)
   // onPageCreateAsync 과 완전히 동일하나, 입력값 체크만을 위해 분리한 생명주기
-  Future<void> onCheckPageInputVoAsync() async {
-    // !!!pageViewModel.goRouterState 에서 pageInputVo Null 체크!!
-    if (!pageViewModel.goRouterState.uri.queryParameters
-        .containsKey("inputValueString")) {
+  Future<void> onCheckPageInputVoAsync(GoRouterState goRouterState) async {
+    // !!!pageInputVo 체크!!
+    // ex :
+    // if (!goRouterState.uri.queryParameters
+    //     .containsKey("inputValueString")) {
+    //   // 필수 파라미터가 없는 경우에 대한 처리
+    // }
+    if (!goRouterState.uri.queryParameters.containsKey("inputValueString")) {
       showToast(
         "inputValueString 은 필수입니다.",
         context: _context,
@@ -60,7 +64,7 @@ class PageBusiness {
       }
     }
 
-    if (!pageViewModel.goRouterState.uri.queryParameters
+    if (!goRouterState.uri.queryParameters
         .containsKey("inputValueStringList")) {
       showToast(
         "inputValueStringList 는 필수입니다.",
@@ -77,8 +81,7 @@ class PageBusiness {
       }
     }
 
-    if (!pageViewModel.goRouterState.uri.queryParameters
-        .containsKey("inputValueInt")) {
+    if (!goRouterState.uri.queryParameters.containsKey("inputValueInt")) {
       showToast(
         "inputValueInt 는 필수입니다.",
         context: _context,
@@ -94,14 +97,12 @@ class PageBusiness {
       }
     }
 
-    // !!!pageViewModel.goRouterState 에서 PageInputVo 입력!!
+    // !!!PageInputVo 입력!!
     pageViewModel.pageInputVo = page_entrance.PageInputVo(
-        pageViewModel.goRouterState.uri.queryParameters["inputValueString"]!,
-        pageViewModel.goRouterState.uri.queryParameters["inputValueStringOpt"],
-        pageViewModel
-            .goRouterState.uri.queryParametersAll["inputValueStringList"]!,
-        int.parse(
-            pageViewModel.goRouterState.uri.queryParameters["inputValueInt"]!));
+        goRouterState.uri.queryParameters["inputValueString"]!,
+        goRouterState.uri.queryParameters["inputValueStringOpt"],
+        goRouterState.uri.queryParametersAll["inputValueStringList"]!,
+        int.parse(goRouterState.uri.queryParameters["inputValueInt"]!));
   }
 
   // (페이지 최초 실행)
@@ -181,7 +182,6 @@ class PageViewModel {
 
   // 페이지 파라미터 (아래 goRouterState 에서 가져와 대입하기)
   late page_entrance.PageInputVo pageInputVo;
-  GoRouterState goRouterState;
 
   // !!!페이지 데이터 정의!!
   // ex :
@@ -193,7 +193,7 @@ class PageViewModel {
   TextEditingController pageOutputTextFieldController = TextEditingController();
   FocusNode pageOutputTextFieldFocus = FocusNode();
 
-  PageViewModel(this.goRouterState);
+  PageViewModel();
 }
 
 // (BLoC 클래스 모음)

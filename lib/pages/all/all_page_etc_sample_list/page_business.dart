@@ -55,8 +55,8 @@ class PageBusiness {
   late BLocObjects blocObjects;
 
   // 생성자 설정
-  PageBusiness(this._context, GoRouterState goRouterState) {
-    pageViewModel = PageViewModel(goRouterState);
+  PageBusiness(this._context) {
+    pageViewModel = PageViewModel();
   }
 
   ////
@@ -68,8 +68,13 @@ class PageBusiness {
 
   // (onPageCreateAsync 실행 전 PageInputVo 체크)
   // onPageCreateAsync 과 완전히 동일하나, 입력값 체크만을 위해 분리한 생명주기
-  Future<void> onCheckPageInputVoAsync() async {
-    // !!!pageInputVo Null 체크!!
+  Future<void> onCheckPageInputVoAsync(GoRouterState goRouterState) async {
+    // !!!pageInputVo 체크!!
+    // ex :
+    // if (!goRouterState.uri.queryParameters
+    //     .containsKey("inputValueString")) {
+    //   // 필수 파라미터가 없는 경우에 대한 처리
+    // }
 
     // !!!PageInputVo 입력!!
     pageViewModel.pageInputVo = page_entrance.PageInputVo();
@@ -204,7 +209,6 @@ class PageViewModel {
 
   // 페이지 파라미터 (아래 goRouterState 에서 가져와 대입하기)
   late page_entrance.PageInputVo pageInputVo;
-  GoRouterState goRouterState;
 
   // !!!페이지 데이터 정의!!
   // ex :
@@ -217,7 +221,7 @@ class PageViewModel {
   // (샘플 페이지 원본 리스트)
   List<SampleItem> allSampleList = [];
 
-  PageViewModel(this.goRouterState) {
+  PageViewModel() {
     // 초기 리스트 추가
     allSampleList.add(SampleItem(SampleItemEnum.horizontalScrollTest,
         "가로 스크롤 테스트", "모바일 이외 환경에서 가로 스크롤 작동을 테스트 하기 위한 샘플"));
