@@ -74,5 +74,9 @@
     <key>NSMicrophoneUsageDescription</key>
     <string>애플 심사 및 고객 설명을 위해 권한 필요 이유 설명하기</string>
 
+    <!-- permission_handler.reminder -->
+    <key>NSRemindersUsageDescription</key>
+    <string>애플 심사 및 고객 설명을 위해 권한 필요 이유 설명하기</string>
+
 </dict>
 </plist>

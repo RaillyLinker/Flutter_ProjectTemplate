@@ -130,17 +130,32 @@ class PageBusiness {
       });
     }
 
-    // phoneState 권한 여부 확인
-    int phoneStatePermissionIndex = pageViewModel.allSampleList.indexWhere(
+    // phone 권한 여부 확인
+    int phonePermissionIndex = pageViewModel.allSampleList.indexWhere(
         (samplePage) => samplePage.sampleItemEnum == SampleItemEnum.phone);
 
-    if (phoneStatePermissionIndex != -1) {
+    if (phonePermissionIndex != -1) {
       Permission.phone.status.then((status) {
         if (status.isGranted) {
-          pageViewModel.allSampleList[phoneStatePermissionIndex].isChecked =
+          pageViewModel.allSampleList[phonePermissionIndex].isChecked = true;
+        } else {
+          pageViewModel.allSampleList[phonePermissionIndex].isChecked = false;
+        }
+        blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
+      });
+    }
+
+    // reminders 권한 여부 확인
+    int remindersPermissionIndex = pageViewModel.allSampleList.indexWhere(
+        (samplePage) => samplePage.sampleItemEnum == SampleItemEnum.reminders);
+
+    if (remindersPermissionIndex != -1) {
+      Permission.reminders.status.then((status) {
+        if (status.isGranted) {
+          pageViewModel.allSampleList[remindersPermissionIndex].isChecked =
               true;
         } else {
-          pageViewModel.allSampleList[phoneStatePermissionIndex].isChecked =
+          pageViewModel.allSampleList[remindersPermissionIndex].isChecked =
               false;
         }
         blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
@@ -442,6 +457,44 @@ class PageBusiness {
         }
         break;
 
+      case SampleItemEnum.reminders:
+        {
+          if (sampleItem.isChecked) {
+            // 스위치 Off 시키기
+            if (!_context.mounted) return;
+            var outputVo = await showDialog(
+                barrierDismissible: true,
+                context: _context,
+                builder: (context) => all_dialog_yes_or_no.PageEntrance(
+                    all_dialog_yes_or_no.PageInputVo(
+                        "권한 해제",
+                        "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
+                        "예",
+                        "아니오"),
+                    (pageBusiness) {}));
+
+            if (outputVo != null && outputVo.checkPositiveBtn) {
+              // positive 버튼을 눌렀을 때
+              // 권한 설정으로 이동
+              openAppSettings();
+            }
+          } else {
+            // 스위치 On 시키기
+
+            // 권한 요청
+            PermissionStatus status = await Permission.reminders.request();
+            if (status.isGranted) {
+              // 권한 승인
+              _togglePermissionSwitch(index);
+            } else if (status.isPermanentlyDenied) {
+              // 권한이 영구적으로 거부된 경우
+              // 권한 설정으로 이동
+              openAppSettings();
+            }
+          }
+        }
+        break;
+
       // todo : 추가 및 수정
       // case SampleItemEnum.storagePermission:
       //   {
@@ -589,6 +642,9 @@ class PageViewModel {
 
     if (Platform.isIOS) {
       // ios 일 때
+      allSampleList.add(SampleItem(
+          SampleItemEnum.reminders, "reminders 권한", "iOS : Reminder 접근"));
+
       var versionParts = Platform.operatingSystemVersion
           .split(' ')
           .where((part) => part.contains('.'))
@@ -654,6 +710,8 @@ enum SampleItemEnum {
   microphone,
   // Android : 전화 걸기, 전화 기록 보기
   phone,
+  // iOS : Reminder 접근
+  reminders,
 
   // todo 추가 및 수정
   // storagePermission,
