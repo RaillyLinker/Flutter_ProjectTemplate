@@ -52,7 +52,7 @@ dependencies:
   dio: ^5.3.3
 
   # 웹 브라우저 열기
-  url_launcher: ^6.1.12
+  url_launcher: ^6.2.0
 
   # Toast
   flutter_styled_toast: ^2.1.3

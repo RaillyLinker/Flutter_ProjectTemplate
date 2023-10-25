@@ -32,6 +32,8 @@ import '../../../pages/all/all_page_gesture_area_overlap_test/page_entrance.dart
     as all_page_gesture_area_overlap_test;
 import '../../../pages/all/all_page_form_sample/page_entrance.dart'
     as all_page_form_sample;
+import '../../../pages/all/all_page_horizontal_scroll_test/page_entrance.dart'
+    as all_page_horizontal_scroll_test;
 
 // (app)
 import '../../../pages/app/app_page_server_sample/page_entrance.dart'
@@ -110,6 +112,11 @@ class PageBusiness {
     SampleItem sampleItem = pageViewModel.allSampleList[index];
 
     switch (sampleItem.sampleItemEnum) {
+      case SampleItemEnum.horizontalScrollTest:
+        {
+          _context.pushNamed(all_page_horizontal_scroll_test.pageName);
+        }
+        break;
       case SampleItemEnum.sharedPreferencesSample:
         {
           _context.pushNamed(all_page_shared_preferences_sample.pageName);
@@ -203,6 +210,8 @@ class PageViewModel {
 
   PageViewModel(this.goRouterState) {
     // 초기 리스트 추가
+    allSampleList.add(SampleItem(SampleItemEnum.horizontalScrollTest,
+        "가로 스크롤 테스트", "모바일 이외 환경에서 가로 스크롤 작동을 테스트 하기 위한 샘플"));
     allSampleList.add(SampleItem(SampleItemEnum.sharedPreferencesSample,
         "SharedPreferences 샘플", "SharedPreferences 사용 샘플"));
     allSampleList.add(SampleItem(SampleItemEnum.urlLauncherSample,
@@ -251,6 +260,7 @@ class SampleItem {
 }
 
 enum SampleItemEnum {
+  horizontalScrollTest,
   sharedPreferencesSample,
   urlLauncherSample,
   serverSample,

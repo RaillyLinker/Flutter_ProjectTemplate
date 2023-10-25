@@ -75,6 +75,8 @@ import 'pages/all/all_page_gesture_area_overlap_test/page_entrance.dart'
     as all_page_gesture_area_overlap_test;
 import 'pages/all/all_page_form_sample/page_entrance.dart'
     as all_page_form_sample;
+import 'pages/all/all_page_horizontal_scroll_test/page_entrance.dart'
+    as all_page_horizontal_scroll_test;
 
 // (app)
 import 'pages/app/app_page_init_splash/page_entrance.dart'
@@ -531,6 +533,17 @@ GoRouter getRouter() {
             key: s.pageKey,
             child: all_page_form_sample.PageEntrance(s),
             transitionsBuilder: all_page_form_sample.pageTransitionsBuilder);
+      }));
+
+  subRouteListEtcSampleList.add(GoRoute(
+      path: "horizontal-scroll-test",
+      name: all_page_horizontal_scroll_test.pageName,
+      pageBuilder: (c, s) {
+        return CustomTransitionPage(
+            key: s.pageKey,
+            child: all_page_horizontal_scroll_test.PageEntrance(s),
+            transitionsBuilder:
+                all_page_horizontal_scroll_test.pageTransitionsBuilder);
       }));
 
   // ---------------------------------------------------------------------------
