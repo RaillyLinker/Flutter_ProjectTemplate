@@ -338,16 +338,16 @@ class PageViewModel {
     // 초기 리스트 추가
     if (gd_const.androidApiLevel! < 33) {
       allSampleList.add(SampleItem(SampleItemEnum.storagePermission,
-          "Storage Permission", "Storage Permission"));
+          "Storage 권한", "Storage 권한"));
     } else {
       allSampleList.add(SampleItem(
           SampleItemEnum.readStoragePermissionPhotosAndVideos,
-          "Read Storage Permission : photos And videos",
-          "Read Storage Permission : photos And videos"));
+          "Storage 읽기 권한 : photos And videos",
+          "Storage 읽기 권한 : photos And videos"));
       allSampleList.add(SampleItem(
           SampleItemEnum.readStoragePermissionAudios,
-          "Read Storage Permission : Audios",
-          "Read Storage Permission : Audios"));
+          "Storage 읽기 권한 : Audios",
+          "Storage 읽기 권한 : Audios"));
     }
 
     filteredSampleList = allSampleList;
