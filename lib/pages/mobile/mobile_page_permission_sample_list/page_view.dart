@@ -63,39 +63,40 @@ class PageView extends StatelessWidget {
           ));
 
           if (pageBusiness.pageViewModel.allSampleList[index].sampleItemEnum ==
-                  page_business.SampleItemEnum.sensors &&
-              pageBusiness.pageViewModel.allSampleList[index].isChecked &&
-              Platform.isAndroid) {
-            listTiles.add(GestureDetector(
-              onTap: () {
-                pageBusiness.onSensorsAlwaysItemClickAsync();
-              },
-              child: Container(
-                color: Colors.grey,
-                padding: const EdgeInsets.only(left: 20),
+              page_business.SampleItemEnum.sensors) {
+            if (pageBusiness.pageViewModel.allSampleList[index].isChecked &&
+                Platform.isAndroid) {
+              listTiles.add(GestureDetector(
+                onTap: () {
+                  pageBusiness.onSensorsAlwaysItemClickAsync();
+                },
                 child: Container(
-                  color: Colors.white,
-                  child: ListTile(
-                    mouseCursor: SystemMouseCursors.click,
-                    title: const Text(
-                      "sensorsAlways 권한",
-                      style: TextStyle(fontFamily: "MaruBuri"),
-                    ),
-                    subtitle: const Text(
-                      "Android : Background 에서도 Body Sensors 접근",
-                      style: TextStyle(fontFamily: "MaruBuri"),
-                    ),
-                    trailing: Switch(
-                      value: pageBusiness.pageViewModel.sensorsAlways,
-                      onChanged: (value) {
-                        pageBusiness.onSensorsAlwaysItemClickAsync();
-                      },
-                      activeColor: Colors.blueAccent,
+                  color: Colors.blue[100],
+                  padding: const EdgeInsets.only(left: 20),
+                  child: Container(
+                    color: Colors.white,
+                    child: ListTile(
+                      mouseCursor: SystemMouseCursors.click,
+                      title: const Text(
+                        "sensorsAlways 권한",
+                        style: TextStyle(fontFamily: "MaruBuri"),
+                      ),
+                      subtitle: const Text(
+                        "Android : Background 에서도 Body Sensors 접근",
+                        style: TextStyle(fontFamily: "MaruBuri"),
+                      ),
+                      trailing: Switch(
+                        value: pageBusiness.pageViewModel.sensorsAlways,
+                        onChanged: (value) {
+                          pageBusiness.onSensorsAlwaysItemClickAsync();
+                        },
+                        activeColor: Colors.blueAccent,
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ));
+              ));
+            }
           }
 
           listTiles.add(const Divider(
