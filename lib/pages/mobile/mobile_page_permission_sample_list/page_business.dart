@@ -170,26 +170,24 @@ class PageBusiness {
       Permission.sensors.status.then((status) {
         if (status.isGranted) {
           pageViewModel.allSampleList[sensorsPermissionIndex].isChecked = true;
+
+          if (Platform.isAndroid) {
+            // android 일때
+            Permission.sensorsAlways.status.then((status) {
+              if (status.isGranted) {
+                pageViewModel.sensorsAlways = true;
+              } else {
+                pageViewModel.sensorsAlways = false;
+              }
+            });
+          }
         } else {
           pageViewModel.allSampleList[sensorsPermissionIndex].isChecked = false;
-        }
-        blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
-      });
-    }
 
-    // sensorsAlways 권한 여부 확인
-    int sensorsAlwaysPermissionIndex = pageViewModel.allSampleList.indexWhere(
-        (samplePage) =>
-            samplePage.sampleItemEnum == SampleItemEnum.sensorsAlways);
-
-    if (sensorsAlwaysPermissionIndex != -1) {
-      Permission.sensorsAlways.status.then((status) {
-        if (status.isGranted) {
-          pageViewModel.allSampleList[sensorsAlwaysPermissionIndex].isChecked =
-              true;
-        } else {
-          pageViewModel.allSampleList[sensorsAlwaysPermissionIndex].isChecked =
-              false;
+          if (Platform.isAndroid) {
+            // android 일때
+            pageViewModel.sensorsAlways = false;
+          }
         }
         blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
       });
@@ -596,44 +594,6 @@ class PageBusiness {
         }
         break;
 
-      case SampleItemEnum.sensorsAlways:
-        {
-          if (sampleItem.isChecked) {
-            // 스위치 Off 시키기
-            if (!_context.mounted) return;
-            var outputVo = await showDialog(
-                barrierDismissible: true,
-                context: _context,
-                builder: (context) => all_dialog_yes_or_no.PageEntrance(
-                    all_dialog_yes_or_no.PageInputVo(
-                        "권한 해제",
-                        "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
-                        "예",
-                        "아니오"),
-                    (pageBusiness) {}));
-
-            if (outputVo != null && outputVo.checkPositiveBtn) {
-              // positive 버튼을 눌렀을 때
-              // 권한 설정으로 이동
-              openAppSettings();
-            }
-          } else {
-            // 스위치 On 시키기
-
-            // 권한 요청
-            PermissionStatus status = await Permission.sensorsAlways.request();
-            if (status.isGranted) {
-              // 권한 승인
-              _togglePermissionSwitch(index);
-            } else if (status.isPermanentlyDenied) {
-              // 권한이 영구적으로 거부된 경우
-              // 권한 설정으로 이동
-              openAppSettings();
-            }
-          }
-        }
-        break;
-
       case SampleItemEnum.sms:
         {
           if (sampleItem.isChecked) {
@@ -816,6 +776,43 @@ class PageBusiness {
     }
   }
 
+  Future<void> onSensorsAlwaysItemClickAsync() async {
+    if (pageViewModel.sensorsAlways) {
+      // 스위치 Off 시키기
+      if (!_context.mounted) return;
+      var outputVo = await showDialog(
+          barrierDismissible: true,
+          context: _context,
+          builder: (context) => all_dialog_yes_or_no.PageEntrance(
+              all_dialog_yes_or_no.PageInputVo(
+                  "권한 해제",
+                  "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
+                  "예",
+                  "아니오"),
+              (pageBusiness) {}));
+
+      if (outputVo != null && outputVo.checkPositiveBtn) {
+        // positive 버튼을 눌렀을 때
+        // 권한 설정으로 이동
+        openAppSettings();
+      }
+    } else {
+      // 스위치 On 시키기
+
+      // 권한 요청
+      PermissionStatus status = await Permission.sensorsAlways.request();
+      if (status.isGranted) {
+        // 권한 승인
+        pageViewModel.sensorsAlways = !pageViewModel.sensorsAlways;
+        blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
+      } else if (status.isPermanentlyDenied) {
+        // 권한이 영구적으로 거부된 경우
+        // 권한 설정으로 이동
+        openAppSettings();
+      }
+    }
+  }
+
 ////
 // [내부 함수]
 // !!!내부에서만 사용할 함수를 아래에 구현!!
@@ -843,6 +840,9 @@ class PageViewModel {
 
   // (샘플 페이지 원본 리스트)
   List<SampleItem> allSampleList = [];
+
+  // Android 환경 백그라운드에서 sensors 사용 승인 여부
+  bool sensorsAlways = false;
 
   PageViewModel() {
     // 초기 리스트 추가
@@ -887,9 +887,6 @@ class PageViewModel {
 
       allSampleList.add(SampleItem(
           SampleItemEnum.sms, "sms 권한", "Android : sms 메세지 보내기, 읽기"));
-
-      allSampleList.add(SampleItem(SampleItemEnum.sensorsAlways,
-          "sensorsAlways 권한", "Android : Background 에서도 Body Sensors 접근"));
     }
 
     // todo 추가 및 수정
@@ -941,9 +938,6 @@ enum SampleItemEnum {
   reminders,
   // Android : Body Sensors, iOS : CoreMotion
   sensors,
-  // todo : android 에서 sensors 승인 후 요청하면 설정으로 이동하여 선택 (UI 처리할것)
-  // Android : Background 에서도 Body Sensors 접근
-  sensorsAlways,
   // Android : sms 메세지 보내기, 읽기
   sms,
   // Android : microphone 과 동일하므로 생략, iOS : TTS 기능

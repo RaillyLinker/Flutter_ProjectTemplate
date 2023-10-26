@@ -1,4 +1,6 @@
 // (external)
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -33,39 +35,77 @@ class PageView extends StatelessWidget {
       return ListView.builder(
         itemCount: pageBusiness.pageViewModel.allSampleList.length,
         itemBuilder: (context, index) {
-          return GestureDetector(
+          List<Widget> listTiles = [];
+          listTiles.add(GestureDetector(
+            onTap: () {
+              pageBusiness.onRouteListItemClickAsync(index);
+            },
+            child: ListTile(
+              mouseCursor: SystemMouseCursors.click,
+              title: Text(
+                pageBusiness.pageViewModel.allSampleList[index].sampleItemTitle,
+                style: const TextStyle(fontFamily: "MaruBuri"),
+              ),
+              subtitle: Text(
+                pageBusiness
+                    .pageViewModel.allSampleList[index].sampleItemDescription,
+                style: const TextStyle(fontFamily: "MaruBuri"),
+              ),
+              trailing: Switch(
+                value:
+                    pageBusiness.pageViewModel.allSampleList[index].isChecked,
+                onChanged: (value) {
+                  pageBusiness.onRouteListItemClickAsync(index);
+                },
+                activeColor: Colors.blueAccent,
+              ),
+            ),
+          ));
+
+          if (pageBusiness.pageViewModel.allSampleList[index].sampleItemEnum ==
+                  page_business.SampleItemEnum.sensors &&
+              pageBusiness.pageViewModel.allSampleList[index].isChecked &&
+              Platform.isAndroid) {
+            listTiles.add(GestureDetector(
               onTap: () {
-                pageBusiness.onRouteListItemClickAsync(index);
+                pageBusiness.onSensorsAlwaysItemClickAsync();
               },
-              child: Column(
-                children: [
-                  ListTile(
+              child: Container(
+                color: Colors.grey,
+                padding: const EdgeInsets.only(left: 20),
+                child: Container(
+                  color: Colors.white,
+                  child: ListTile(
                     mouseCursor: SystemMouseCursors.click,
-                    title: Text(
-                      pageBusiness.pageViewModel.allSampleList[index]
-                          .sampleItemTitle,
-                      style: const TextStyle(fontFamily: "MaruBuri"),
+                    title: const Text(
+                      "sensorsAlways 권한",
+                      style: TextStyle(fontFamily: "MaruBuri"),
                     ),
-                    subtitle: Text(
-                      pageBusiness.pageViewModel.allSampleList[index]
-                          .sampleItemDescription,
-                      style: const TextStyle(fontFamily: "MaruBuri"),
+                    subtitle: const Text(
+                      "Android : Background 에서도 Body Sensors 접근",
+                      style: TextStyle(fontFamily: "MaruBuri"),
                     ),
                     trailing: Switch(
-                      value: pageBusiness
-                          .pageViewModel.allSampleList[index].isChecked,
+                      value: pageBusiness.pageViewModel.sensorsAlways,
                       onChanged: (value) {
-                        pageBusiness.onRouteListItemClickAsync(index);
+                        pageBusiness.onSensorsAlwaysItemClickAsync();
                       },
                       activeColor: Colors.blueAccent,
                     ),
                   ),
-                  const Divider(
-                    color: Colors.grey,
-                    height: 0.1,
-                  ),
-                ],
-              ));
+                ),
+              ),
+            ));
+          }
+
+          listTiles.add(const Divider(
+            color: Colors.grey,
+            height: 0.1,
+          ));
+
+          return Column(
+            children: listTiles,
+          );
         },
       );
     }));
