@@ -1,5 +1,4 @@
 // (external)
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
@@ -11,6 +10,7 @@ import 'page_entrance.dart' as page_entrance;
 // (all)
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
+import '../../../pages/all/all_page_home/page_entrance.dart' as all_page_home;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
 
@@ -59,8 +59,9 @@ class PageBusiness {
         // History가 있는 경우, 이전 페이지로 이동(pop)
         _context.pop();
       } else {
-        // History가 없는 경우, 앱 종료(exit)
-        exit(0);
+        // History가 없는 경우,
+        // 홈 페이지로 이동
+        _context.goNamed(all_page_home.pageName);
       }
     }
 
@@ -76,8 +77,9 @@ class PageBusiness {
         // History가 있는 경우, 이전 페이지로 이동(pop)
         _context.pop();
       } else {
-        // History가 없는 경우, 앱 종료(exit)
-        exit(0);
+        // History가 없는 경우,
+        // 홈 페이지로 이동
+        _context.goNamed(all_page_home.pageName);
       }
     }
 
@@ -92,8 +94,9 @@ class PageBusiness {
         // History가 있는 경우, 이전 페이지로 이동(pop)
         _context.pop();
       } else {
-        // History가 없는 경우, 앱 종료(exit)
-        exit(0);
+        // History가 없는 경우,
+        // 홈 페이지로 이동
+        _context.goNamed(all_page_home.pageName);
       }
     }
 
