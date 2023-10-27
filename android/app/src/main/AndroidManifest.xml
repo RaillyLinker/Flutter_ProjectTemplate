@@ -37,9 +37,15 @@
     <uses-permission android:name="android.permission.RECEIVE_WAP_PUSH" />
     <uses-permission android:name="android.permission.RECEIVE_MMS" />
 
-    <!-- Permissions options for the `location` group -->
+    <!-- Permissions options for the `locationWhenInUse` group -->
+    <!-- 주의 : 현재 플러터 권한 라이브러리는 ACCESS_COARSE_LOCATION 하나만 사용하던지,
+    ACCESS_FINE_LOCATION 와 ACCESS_COARSE_LOCATION 를 동시에 설정하던지 2개 중 하나를 택해야합니다.
+     ACCESS_FINE_LOCATION 를 설정한 경우에는 유저가 fine location 동의를 안한 경우
+      coarse location 을 동의했어도 둘다 동의하지 않은 것으로 나옵니다.-->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <!-- Permissions options for the `locationAlways` group -->
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
 
     <!--    &lt;!&ndash; Permissions options for the `storage` group &ndash;&gt;-->
