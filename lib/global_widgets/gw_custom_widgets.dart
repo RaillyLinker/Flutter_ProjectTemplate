@@ -33,7 +33,7 @@ class HoverButtonState extends State<HoverButton> {
       child: GestureDetector(
         onTap: widget.onTap,
         child: AnimatedContainer(
-          duration: const Duration(milliseconds: 200),
+          duration: const Duration(milliseconds: 0),
           color: _isHovering ? widget.hoveringColor : Colors.transparent,
           child: MouseRegion(
             cursor: SystemMouseCursors.click,
