@@ -1,22 +1,23 @@
 // (external)
 import 'package:flutter/material.dart';
 
+// (호버링하면 커서 모양과 색상이 변하는 버튼 위젯)
 class HoverButton extends StatefulWidget {
   final Widget child;
-  final VoidCallback onClick;
-  Color? hoveringColor;
+  final VoidCallback onTap;
+  final Color? hoveringColor;
 
-  HoverButton(
+  const HoverButton(
       {super.key,
       required this.child,
-      required this.onClick,
-        required this.hoveringColor});
+      required this.onTap,
+      this.hoveringColor = Colors.grey});
 
   @override
-  _HoverButtonState createState() => _HoverButtonState();
+  HoverButtonState createState() => HoverButtonState();
 }
 
-class _HoverButtonState extends State<HoverButton> {
+class HoverButtonState extends State<HoverButton> {
   bool _isHovering = false;
 
   @override
@@ -25,7 +26,7 @@ class _HoverButtonState extends State<HoverButton> {
       onEnter: (details) => setState(() => _isHovering = true),
       onExit: (details) => setState(() => _isHovering = false),
       child: GestureDetector(
-        onTap: widget.onClick,
+        onTap: widget.onTap,
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 200),
           color: _isHovering ? widget.hoveringColor : Colors.transparent,

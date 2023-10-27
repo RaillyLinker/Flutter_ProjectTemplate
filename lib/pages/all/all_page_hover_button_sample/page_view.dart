@@ -9,7 +9,7 @@ import 'page_business.dart' as page_business;
 import '../../../global_widgets/gw_page_out_frames.dart' as gw_page_out_frames;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
-import '../../../global_widgets/gw_hover_button.dart' as gw_hover_button;
+import '../../../global_widgets/gw_custom_widgets.dart' as gw_custom_widgets;
 
 // [페이지 화면 위젯 작성 파일]
 // 페이지 화면 구현을 담당합니다. (Widget 과 Business 간의 결합을 담당)
@@ -42,8 +42,8 @@ class PageView extends StatelessWidget {
                 color: Colors.blue,
                 width: 150,
                 height: 150,
-                child: gw_hover_button.HoverButton(
-                  onClick: () {
+                child: gw_custom_widgets.HoverButton(
+                  onTap: () {
                     pageBusiness.onHoverButton1Click();
                   },
                   hoveringColor: Colors.blue[100],
@@ -63,11 +63,10 @@ class PageView extends StatelessWidget {
                 color: Colors.blue,
                 width: 150,
                 height: 150,
-                child: gw_hover_button.HoverButton(
-                  onClick: () {
+                child: gw_custom_widgets.HoverButton(
+                  onTap: () {
                     pageBusiness.onHoverButton2Click();
                   },
-                  hoveringColor: Colors.blue[100],
                   child: const Icon(
                     Icons.check,
                     color: Colors.white,

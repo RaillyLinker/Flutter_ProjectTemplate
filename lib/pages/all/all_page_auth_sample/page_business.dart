@@ -164,8 +164,6 @@ class PageBusiness {
     int? nowMemberUid =
         ((nowLoginMemberInfo == null) ? null : nowLoginMemberInfo.memberUid);
     pageViewModel.screenMemberUid = nowMemberUid;
-
-    print(nowAllSampleList.length);
   }
 
   // (리스트 아이템 클릭 리스너)
