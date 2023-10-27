@@ -52,6 +52,18 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
+    <!-- Permissions options for the `photos` group -->
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+
+    <!-- Permissions options for the `videos` group -->
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
+
+    <!-- Permissions options for the `audio` group -->
+    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
+
+    <!-- Permissions options for the `manageExternalStorage` group -->
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
+
     <!--    &lt;!&ndash; Permissions options for the `calendar` group &ndash;&gt;-->
     <!--    <uses-permission android:name="android.permission.READ_CALENDAR" />-->
     <!--    <uses-permission android:name="android.permission.WRITE_CALENDAR" />-->

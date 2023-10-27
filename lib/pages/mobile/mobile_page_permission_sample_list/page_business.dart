@@ -307,6 +307,75 @@ class PageBusiness {
       blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
     }
 
+    // photos 권한 여부 확인
+    int photosPermissionIndex = pageViewModel.allSampleList.indexWhere(
+        (samplePage) => samplePage.sampleItemEnum == SampleItemEnum.photos);
+
+    if (photosPermissionIndex != -1) {
+      PermissionStatus permissionStatus = await Permission.photos.status;
+      SampleItem sampleItem =
+          pageViewModel.allSampleList[photosPermissionIndex];
+
+      if (permissionStatus.isGranted) {
+        sampleItem.isChecked = true;
+      } else {
+        sampleItem.isChecked = false;
+      }
+      blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
+    }
+
+    // videos 권한 여부 확인
+    int videosPermissionIndex = pageViewModel.allSampleList.indexWhere(
+        (samplePage) => samplePage.sampleItemEnum == SampleItemEnum.videos);
+
+    if (videosPermissionIndex != -1) {
+      PermissionStatus permissionStatus = await Permission.videos.status;
+      SampleItem sampleItem =
+          pageViewModel.allSampleList[videosPermissionIndex];
+
+      if (permissionStatus.isGranted) {
+        sampleItem.isChecked = true;
+      } else {
+        sampleItem.isChecked = false;
+      }
+      blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
+    }
+
+    // audio 권한 여부 확인
+    int audioPermissionIndex = pageViewModel.allSampleList.indexWhere(
+        (samplePage) => samplePage.sampleItemEnum == SampleItemEnum.audio);
+
+    if (audioPermissionIndex != -1) {
+      PermissionStatus permissionStatus = await Permission.audio.status;
+      SampleItem sampleItem = pageViewModel.allSampleList[audioPermissionIndex];
+
+      if (permissionStatus.isGranted) {
+        sampleItem.isChecked = true;
+      } else {
+        sampleItem.isChecked = false;
+      }
+      blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
+    }
+
+    // manageExternalStorage 권한 여부 확인
+    int manageExternalStoragePermissionIndex = pageViewModel.allSampleList
+        .indexWhere((samplePage) =>
+            samplePage.sampleItemEnum == SampleItemEnum.manageExternalStorage);
+
+    if (manageExternalStoragePermissionIndex != -1) {
+      PermissionStatus permissionStatus =
+          await Permission.manageExternalStorage.status;
+      SampleItem sampleItem =
+          pageViewModel.allSampleList[manageExternalStoragePermissionIndex];
+
+      if (permissionStatus.isGranted) {
+        sampleItem.isChecked = true;
+      } else {
+        sampleItem.isChecked = false;
+      }
+      blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
+    }
+
     // todo : 추가 및 수정
   }
 
@@ -870,6 +939,180 @@ class PageBusiness {
         }
         break;
 
+      case SampleItemEnum.photos:
+        {
+          if (sampleItem.isChecked) {
+            // 스위치 Off 시키기
+            if (!_context.mounted) return;
+            var outputVo = await showDialog(
+                barrierDismissible: true,
+                context: _context,
+                builder: (context) => all_dialog_yes_or_no.PageEntrance(
+                    all_dialog_yes_or_no.PageInputVo(
+                        "권한 해제",
+                        "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
+                        "예",
+                        "아니오"),
+                    (pageBusiness) {}));
+
+            if (outputVo != null && outputVo.checkPositiveBtn) {
+              // positive 버튼을 눌렀을 때
+              // 권한 설정으로 이동
+              openAppSettings();
+            }
+          } else {
+            // 스위치 On 시키기
+            PermissionStatus permissionStatus = await Permission.photos.status;
+
+            if (permissionStatus.isPermanentlyDenied) {
+              // 권한이 영구적으로 거부된 경우
+              // 권한 설정으로 이동
+              openAppSettings();
+            } else {
+              // 권한 요청
+              await Permission.photos.request();
+
+              PermissionStatus status = await Permission.photos.status;
+              if (status.isGranted) {
+                // 권한 승인
+                _togglePermissionSwitch(index);
+              }
+            }
+          }
+        }
+        break;
+
+      case SampleItemEnum.videos:
+        {
+          if (sampleItem.isChecked) {
+            // 스위치 Off 시키기
+            if (!_context.mounted) return;
+            var outputVo = await showDialog(
+                barrierDismissible: true,
+                context: _context,
+                builder: (context) => all_dialog_yes_or_no.PageEntrance(
+                    all_dialog_yes_or_no.PageInputVo(
+                        "권한 해제",
+                        "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
+                        "예",
+                        "아니오"),
+                    (pageBusiness) {}));
+
+            if (outputVo != null && outputVo.checkPositiveBtn) {
+              // positive 버튼을 눌렀을 때
+              // 권한 설정으로 이동
+              openAppSettings();
+            }
+          } else {
+            // 스위치 On 시키기
+            PermissionStatus permissionStatus = await Permission.videos.status;
+
+            if (permissionStatus.isPermanentlyDenied) {
+              // 권한이 영구적으로 거부된 경우
+              // 권한 설정으로 이동
+              openAppSettings();
+            } else {
+              // 권한 요청
+              await Permission.videos.request();
+
+              PermissionStatus status = await Permission.videos.status;
+              if (status.isGranted) {
+                // 권한 승인
+                _togglePermissionSwitch(index);
+              }
+            }
+          }
+        }
+        break;
+
+      case SampleItemEnum.audio:
+        {
+          if (sampleItem.isChecked) {
+            // 스위치 Off 시키기
+            if (!_context.mounted) return;
+            var outputVo = await showDialog(
+                barrierDismissible: true,
+                context: _context,
+                builder: (context) => all_dialog_yes_or_no.PageEntrance(
+                    all_dialog_yes_or_no.PageInputVo(
+                        "권한 해제",
+                        "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
+                        "예",
+                        "아니오"),
+                    (pageBusiness) {}));
+
+            if (outputVo != null && outputVo.checkPositiveBtn) {
+              // positive 버튼을 눌렀을 때
+              // 권한 설정으로 이동
+              openAppSettings();
+            }
+          } else {
+            // 스위치 On 시키기
+            PermissionStatus permissionStatus = await Permission.audio.status;
+
+            if (permissionStatus.isPermanentlyDenied) {
+              // 권한이 영구적으로 거부된 경우
+              // 권한 설정으로 이동
+              openAppSettings();
+            } else {
+              // 권한 요청
+              await Permission.audio.request();
+
+              PermissionStatus status = await Permission.audio.status;
+              if (status.isGranted) {
+                // 권한 승인
+                _togglePermissionSwitch(index);
+              }
+            }
+          }
+        }
+        break;
+
+      case SampleItemEnum.manageExternalStorage:
+        {
+          if (sampleItem.isChecked) {
+            // 스위치 Off 시키기
+            if (!_context.mounted) return;
+            var outputVo = await showDialog(
+                barrierDismissible: true,
+                context: _context,
+                builder: (context) => all_dialog_yes_or_no.PageEntrance(
+                    all_dialog_yes_or_no.PageInputVo(
+                        "권한 해제",
+                        "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
+                        "예",
+                        "아니오"),
+                    (pageBusiness) {}));
+
+            if (outputVo != null && outputVo.checkPositiveBtn) {
+              // positive 버튼을 눌렀을 때
+              // 권한 설정으로 이동
+              openAppSettings();
+            }
+          } else {
+            // 스위치 On 시키기
+            PermissionStatus permissionStatus =
+                await Permission.manageExternalStorage.status;
+
+            if (permissionStatus.isPermanentlyDenied) {
+              // 권한이 영구적으로 거부된 경우
+              // 권한 설정으로 이동
+              openAppSettings();
+            } else {
+              // 권한 요청
+              await Permission.manageExternalStorage.request();
+
+              PermissionStatus status =
+                  await Permission.manageExternalStorage.status;
+              if (status.isGranted) {
+                // 권한 승인
+                _togglePermissionSwitch(index);
+              }
+            }
+          }
+        }
+        break;
+
       // todo : 추가 및 수정
     }
   }
@@ -1033,6 +1276,12 @@ class PageViewModel {
       var major = int.parse(versionParts[0]);
       var minor = int.parse(versionParts[1]);
 
+      if (major >= 14) {
+        // 14 이상일 때
+        allSampleList.add(SampleItem(SampleItemEnum.photos, "photos 권한",
+            "Android 13(API 33) 이상 : 외부 저장소 이미지 읽기, iOS : todo When running Photos (iOS 14+ read & write access level)"));
+      }
+
       if (major > 9 || (major == 9 && minor >= 3)) {
         // 9.3 이상일 때
         allSampleList.add(SampleItem(SampleItemEnum.mediaLibrary,
@@ -1048,10 +1297,29 @@ class PageViewModel {
           SampleItemEnum.sms, "sms 권한", "Android : sms 메세지 보내기, 읽기"));
 
       if (gd_const.androidApiLevel! < 33) {
+        // android 33 미만
         allSampleList.add(SampleItem(SampleItemEnum.storage, "storage 권한",
-            "Android 13(API 33) 미만 : 외부 저장소에 접근, iOS : `문서` 또는 `다운로드`와 같은 폴더에 액세스"));
-      }else if(gd_const.androidApiLevel! >= 33){
+            "Android 13(API 33) 미만 : 외부 저장소에 접근, iOS : todo `문서` 또는 `다운로드`와 같은 폴더에 액세스"));
+      }
 
+      if (gd_const.androidApiLevel! >= 33) {
+        // android 33 이상
+        allSampleList.add(SampleItem(SampleItemEnum.photos, "photos 권한",
+            "Android 13(API 33) 이상 : 외부 저장소 이미지 읽기, iOS : todo When running Photos (iOS 14+ read & write access level)"));
+
+        allSampleList.add(SampleItem(SampleItemEnum.videos, "videos 권한",
+            "Android 13(API 33) 이상 : 외부 저장소 비디오 읽기"));
+
+        allSampleList.add(SampleItem(SampleItemEnum.audio, "audio 권한",
+            "Android 13(API 33) 이상 : 외부 저장소 오디오 읽기"));
+      }
+
+      if (gd_const.androidApiLevel! >= 30) {
+        // android 30 이상
+        allSampleList.add(SampleItem(
+            SampleItemEnum.manageExternalStorage,
+            "manageExternalStorage 권한",
+            "Android 11(API 30) 이상 : 기기의 외부 저장소 접근 권한"));
       }
     }
 
@@ -1100,8 +1368,17 @@ enum SampleItemEnum {
   // iOS : 포그라운드 + 백그라운드 GPS 정보 접근
   locationAlways,
 
+  // todo ios 테스트
   // Android 13(API 33) 미만 : 외부 저장소에 접근, iOS : todo `문서` 또는 `다운로드`와 같은 폴더에 액세스
   storage,
+  // Android 13(API 33) 이상 : 외부 저장소 이미지 읽기, iOS : todo When running Photos (iOS 14+ read & write access level)
+  photos,
+  // Android 13(API 33) 이상 : 외부 저장소 비디오 읽기
+  videos,
+  // Android 13(API 33) 이상 : 외부 저장소 오디오 읽기
+  audio,
+  // Android 11(API 30) 이상 : 기기의 외부 저장소 접근 권한
+  manageExternalStorage,
 
   // todo 추가 및 수정
 }
