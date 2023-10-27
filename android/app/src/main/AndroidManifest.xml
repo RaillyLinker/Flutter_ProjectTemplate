@@ -30,14 +30,14 @@
     <!-- permission_handler.sensorsAlways -->
     <uses-permission android:name="android.permission.BODY_SENSORS_BACKGROUND" />
 
-    <!-- Permissions options for the `sms` group -->
+    <!-- permission_handler.sms -->
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.RECEIVE_WAP_PUSH" />
     <uses-permission android:name="android.permission.RECEIVE_MMS" />
 
-    <!-- Permissions options for the `locationWhenInUse` group -->
+    <!-- permission_handler.locationWhenInUse -->
     <!-- 주의 : 현재 플러터 권한 라이브러리는 ACCESS_COARSE_LOCATION 하나만 사용하던지,
     ACCESS_FINE_LOCATION 와 ACCESS_COARSE_LOCATION 를 동시에 설정하던지 2개 중 하나를 택해야합니다.
      ACCESS_FINE_LOCATION 를 설정한 경우에는 유저가 fine location 동의를 안한 경우
@@ -45,24 +45,27 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
-    <!-- Permissions options for the `locationAlways` group -->
+    <!-- permission_handler.locationAlways -->
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
 
-    <!-- Permissions options for the `storage` group -->
+    <!-- permission_handler.storage -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
-    <!-- Permissions options for the `photos` group -->
+    <!-- permission_handler.photos -->
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
 
-    <!-- Permissions options for the `videos` group -->
+    <!-- permission_handler.videos -->
     <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
 
-    <!-- Permissions options for the `audio` group -->
+    <!-- permission_handler.audio -->
     <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
 
-    <!-- Permissions options for the `manageExternalStorage` group -->
+    <!-- permission_handler.manageExternalStorage -->
     <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
+
+    <!-- permission_handler.accessMediaLocation  -->
+    <uses-permission android:name="android.permission.ACCESS_MEDIA_LOCATION" />
 
     <!--    &lt;!&ndash; Permissions options for the `calendar` group &ndash;&gt;-->
     <!--    <uses-permission android:name="android.permission.READ_CALENDAR" />-->

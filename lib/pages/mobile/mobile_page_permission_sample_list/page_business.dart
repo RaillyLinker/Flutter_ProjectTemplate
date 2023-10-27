@@ -376,6 +376,43 @@ class PageBusiness {
       blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
     }
 
+    // photosAddOnly 권한 여부 확인
+    int photosAddOnlyPermissionIndex = pageViewModel.allSampleList.indexWhere(
+        (samplePage) =>
+            samplePage.sampleItemEnum == SampleItemEnum.photosAddOnly);
+
+    if (photosAddOnlyPermissionIndex != -1) {
+      PermissionStatus permissionStatus = await Permission.photosAddOnly.status;
+      SampleItem sampleItem =
+          pageViewModel.allSampleList[photosAddOnlyPermissionIndex];
+
+      if (permissionStatus.isGranted) {
+        sampleItem.isChecked = true;
+      } else {
+        sampleItem.isChecked = false;
+      }
+      blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
+    }
+
+    // accessMediaLocation 권한 여부 확인
+    int accessMediaLocationPermissionIndex = pageViewModel.allSampleList
+        .indexWhere((samplePage) =>
+            samplePage.sampleItemEnum == SampleItemEnum.accessMediaLocation);
+
+    if (accessMediaLocationPermissionIndex != -1) {
+      PermissionStatus permissionStatus =
+          await Permission.accessMediaLocation.status;
+      SampleItem sampleItem =
+          pageViewModel.allSampleList[accessMediaLocationPermissionIndex];
+
+      if (permissionStatus.isGranted) {
+        sampleItem.isChecked = true;
+      } else {
+        sampleItem.isChecked = false;
+      }
+      blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
+    }
+
     // todo : 추가 및 수정
   }
 
@@ -1113,6 +1150,95 @@ class PageBusiness {
         }
         break;
 
+      case SampleItemEnum.photosAddOnly:
+        {
+          if (sampleItem.isChecked) {
+            // 스위치 Off 시키기
+            if (!_context.mounted) return;
+            var outputVo = await showDialog(
+                barrierDismissible: true,
+                context: _context,
+                builder: (context) => all_dialog_yes_or_no.PageEntrance(
+                    all_dialog_yes_or_no.PageInputVo(
+                        "권한 해제",
+                        "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
+                        "예",
+                        "아니오"),
+                    (pageBusiness) {}));
+
+            if (outputVo != null && outputVo.checkPositiveBtn) {
+              // positive 버튼을 눌렀을 때
+              // 권한 설정으로 이동
+              openAppSettings();
+            }
+          } else {
+            // 스위치 On 시키기
+            PermissionStatus permissionStatus =
+                await Permission.photosAddOnly.status;
+
+            if (permissionStatus.isPermanentlyDenied) {
+              // 권한이 영구적으로 거부된 경우
+              // 권한 설정으로 이동
+              openAppSettings();
+            } else {
+              // 권한 요청
+              await Permission.photosAddOnly.request();
+
+              PermissionStatus status = await Permission.photosAddOnly.status;
+              if (status.isGranted) {
+                // 권한 승인
+                _togglePermissionSwitch(index);
+              }
+            }
+          }
+        }
+        break;
+
+      case SampleItemEnum.accessMediaLocation:
+        {
+          if (sampleItem.isChecked) {
+            // 스위치 Off 시키기
+            if (!_context.mounted) return;
+            var outputVo = await showDialog(
+                barrierDismissible: true,
+                context: _context,
+                builder: (context) => all_dialog_yes_or_no.PageEntrance(
+                    all_dialog_yes_or_no.PageInputVo(
+                        "권한 해제",
+                        "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
+                        "예",
+                        "아니오"),
+                    (pageBusiness) {}));
+
+            if (outputVo != null && outputVo.checkPositiveBtn) {
+              // positive 버튼을 눌렀을 때
+              // 권한 설정으로 이동
+              openAppSettings();
+            }
+          } else {
+            // 스위치 On 시키기
+            PermissionStatus permissionStatus =
+                await Permission.accessMediaLocation.status;
+
+            if (permissionStatus.isPermanentlyDenied) {
+              // 권한이 영구적으로 거부된 경우
+              // 권한 설정으로 이동
+              openAppSettings();
+            } else {
+              // 권한 요청
+              await Permission.accessMediaLocation.request();
+
+              PermissionStatus status =
+                  await Permission.accessMediaLocation.status;
+              if (status.isGranted) {
+                // 권한 승인
+                _togglePermissionSwitch(index);
+              }
+            }
+          }
+        }
+        break;
+
       // todo : 추가 및 수정
     }
   }
@@ -1280,6 +1406,8 @@ class PageViewModel {
         // 14 이상일 때
         allSampleList.add(SampleItem(SampleItemEnum.photos, "photos 권한",
             "Android 13(API 33) 이상 : 외부 저장소 이미지 읽기, iOS : todo When running Photos (iOS 14+ read & write access level)"));
+        allSampleList.add(SampleItem(SampleItemEnum.photosAddOnly,
+            "photosAddOnly 권한", "iOS 14+ : todo photo 라이브러리 쓰기"));
       }
 
       if (major > 9 || (major == 9 && minor >= 3)) {
@@ -1320,6 +1448,14 @@ class PageViewModel {
             SampleItemEnum.manageExternalStorage,
             "manageExternalStorage 권한",
             "Android 11(API 30) 이상 : 기기의 외부 저장소 접근 권한"));
+      }
+
+      if (gd_const.androidApiLevel! >= 29) {
+        // android 29 이상
+        allSampleList.add(SampleItem(
+            SampleItemEnum.accessMediaLocation,
+            "accessMediaLocation 권한",
+            "Android 10(API 29) 이상 : 사용자의 공유 컬렉션에 저장된 모든 지리적 위치에 액세스"));
       }
     }
 
@@ -1368,10 +1504,9 @@ enum SampleItemEnum {
   // iOS : 포그라운드 + 백그라운드 GPS 정보 접근
   locationAlways,
 
-  // todo ios 테스트
   // Android 13(API 33) 미만 : 외부 저장소에 접근, iOS : todo `문서` 또는 `다운로드`와 같은 폴더에 액세스
   storage,
-  // Android 13(API 33) 이상 : 외부 저장소 이미지 읽기, iOS : todo When running Photos (iOS 14+ read & write access level)
+  // Android 13(API 33) 이상 : 외부 저장소 이미지 읽기, iOS 14+ : todo photo 라이브러리 읽기 쓰기
   photos,
   // Android 13(API 33) 이상 : 외부 저장소 비디오 읽기
   videos,
@@ -1379,6 +1514,10 @@ enum SampleItemEnum {
   audio,
   // Android 11(API 30) 이상 : 기기의 외부 저장소 접근 권한
   manageExternalStorage,
+  // iOS 14+ : todo photo 라이브러리 쓰기
+  photosAddOnly,
+  // Android 10(API 29) 이상 : 사용자의 공유 컬렉션에 저장된 모든 지리적 위치에 액세스
+  accessMediaLocation,
 
   // todo 추가 및 수정
 }
