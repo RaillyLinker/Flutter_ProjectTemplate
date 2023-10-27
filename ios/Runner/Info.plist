@@ -86,5 +86,15 @@
     <key>NSSpeechRecognitionUsageDescription</key>
     <string>애플 심사 및 고객 설명을 위해 권한 필요 이유 설명하기</string>
 
+    <!-- Permission options for the `location` group -->
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>애플 심사 및 고객 설명을 위해 권한 필요 이유 설명하기</string>
+    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>애플 심사 및 고객 설명을 위해 권한 필요 이유 설명하기</string>
+    <key>NSLocationUsageDescription</key>
+    <string>애플 심사 및 고객 설명을 위해 권한 필요 이유 설명하기</string>
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string>애플 심사 및 고객 설명을 위해 권한 필요 이유 설명하기</string>
+
 </dict>
 </plist>

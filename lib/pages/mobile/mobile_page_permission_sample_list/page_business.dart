@@ -15,7 +15,7 @@ import '../../../dialogs/all/all_dialog_yes_or_no/page_entrance.dart'
     as all_dialog_yes_or_no;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
-// todo : ios 테스트
+// todo location serviceStatus.isEnabled 체크
 
 //------------------------------------------------------------------------------
 // 페이지의 비즈니스 로직 및 뷰모델 담당
@@ -234,6 +234,61 @@ class PageBusiness {
       blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
     }
 
+    // locationWhenInUse 권한 여부 확인
+    int locationWhenInUsePermissionIndex = pageViewModel.allSampleList
+        .indexWhere((samplePage) =>
+            samplePage.sampleItemEnum == SampleItemEnum.locationWhenInUse);
+
+    if (locationWhenInUsePermissionIndex != -1) {
+      PermissionStatus permissionStatus =
+          await Permission.locationWhenInUse.status;
+      SampleItem sampleItem =
+          pageViewModel.allSampleList[locationWhenInUsePermissionIndex];
+
+      if (permissionStatus.isGranted) {
+        sampleItem.isChecked = true;
+
+        if (Platform.isAndroid) {
+          // android 일때
+          PermissionStatus locationAlwaysPs =
+              await Permission.locationAlways.status;
+
+          if (locationAlwaysPs.isGranted) {
+            pageViewModel.androidLocationAlways = true;
+          } else {
+            pageViewModel.androidLocationAlways = false;
+          }
+        }
+      } else {
+        sampleItem.isChecked = false;
+
+        if (Platform.isAndroid) {
+          // android 일때
+          pageViewModel.androidLocationAlways = false;
+        }
+      }
+      blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
+    }
+
+    // locationAlways 권한 여부 확인
+    int locationAlwaysPermissionIndex = pageViewModel.allSampleList.indexWhere(
+        (samplePage) =>
+            samplePage.sampleItemEnum == SampleItemEnum.locationAlways);
+
+    if (locationAlwaysPermissionIndex != -1) {
+      PermissionStatus permissionStatus =
+          await Permission.locationAlways.status;
+      SampleItem sampleItem =
+          pageViewModel.allSampleList[locationAlwaysPermissionIndex];
+
+      if (permissionStatus.isGranted) {
+        sampleItem.isChecked = true;
+      } else {
+        sampleItem.isChecked = false;
+      }
+      blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
+    }
+
     // todo : 추가 및 수정
   }
 
@@ -304,7 +359,9 @@ class PageBusiness {
               openAppSettings();
             } else {
               // 권한 요청
-              PermissionStatus status = await Permission.camera.request();
+              await Permission.camera.request();
+
+              PermissionStatus status = await Permission.camera.status;
               if (status.isGranted) {
                 // 권한 승인
                 _togglePermissionSwitch(index);
@@ -346,7 +403,9 @@ class PageBusiness {
               openAppSettings();
             } else {
               // 권한 요청
-              PermissionStatus status = await Permission.contacts.request();
+              await Permission.contacts.request();
+
+              PermissionStatus status = await Permission.contacts.status;
               if (status.isGranted) {
                 // 권한 승인
                 _togglePermissionSwitch(index);
@@ -388,7 +447,9 @@ class PageBusiness {
               openAppSettings();
             } else {
               // 권한 요청
-              PermissionStatus status = await Permission.mediaLibrary.request();
+              await Permission.mediaLibrary.request();
+
+              PermissionStatus status = await Permission.mediaLibrary.status;
               if (status.isGranted) {
                 // 권한 승인
                 _togglePermissionSwitch(index);
@@ -430,7 +491,9 @@ class PageBusiness {
               openAppSettings();
             } else {
               // 권한 요청
-              PermissionStatus status = await Permission.microphone.request();
+              await Permission.microphone.request();
+
+              PermissionStatus status = await Permission.microphone.status;
               if (status.isGranted) {
                 // 권한 승인
                 _togglePermissionSwitch(index);
@@ -472,7 +535,9 @@ class PageBusiness {
             } else {
               // 권한 요청
               // phone 권한은 전화 로그와 전화 걸기 권한을 모두 요청합니다.
-              PermissionStatus status = await Permission.phone.request();
+              await Permission.phone.request();
+
+              PermissionStatus status = await Permission.phone.status;
               if (status.isGranted) {
                 // 권한 승인
                 _togglePermissionSwitch(index);
@@ -514,7 +579,9 @@ class PageBusiness {
               openAppSettings();
             } else {
               // 권한 요청
-              PermissionStatus status = await Permission.reminders.request();
+              await Permission.reminders.request();
+
+              PermissionStatus status = await Permission.reminders.status;
               if (status.isGranted) {
                 // 권한 승인
                 _togglePermissionSwitch(index);
@@ -555,7 +622,9 @@ class PageBusiness {
               openAppSettings();
             } else {
               // 권한 요청
-              PermissionStatus status = await Permission.sensors.request();
+              await Permission.sensors.request();
+
+              PermissionStatus status = await Permission.sensors.status;
               if (status.isGranted) {
                 // 권한 승인
                 _togglePermissionSwitch(index);
@@ -596,7 +665,9 @@ class PageBusiness {
               openAppSettings();
             } else {
               // 권한 요청
-              PermissionStatus status = await Permission.sms.request();
+              await Permission.sms.request();
+
+              PermissionStatus status = await Permission.sms.status;
               if (status.isGranted) {
                 // 권한 승인
                 _togglePermissionSwitch(index);
@@ -637,7 +708,98 @@ class PageBusiness {
               openAppSettings();
             } else {
               // 권한 요청
-              PermissionStatus status = await Permission.speech.request();
+              await Permission.speech.request();
+
+              PermissionStatus status = await Permission.speech.status;
+              if (status.isGranted) {
+                // 권한 승인
+                _togglePermissionSwitch(index);
+              }
+            }
+          }
+        }
+        break;
+
+      case SampleItemEnum.locationWhenInUse:
+        {
+          if (sampleItem.isChecked) {
+            // 스위치 Off 시키기
+            if (!_context.mounted) return;
+            var outputVo = await showDialog(
+                barrierDismissible: true,
+                context: _context,
+                builder: (context) => all_dialog_yes_or_no.PageEntrance(
+                    all_dialog_yes_or_no.PageInputVo(
+                        "권한 해제",
+                        "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
+                        "예",
+                        "아니오"),
+                    (pageBusiness) {}));
+
+            if (outputVo != null && outputVo.checkPositiveBtn) {
+              // positive 버튼을 눌렀을 때
+              // 권한 설정으로 이동
+              openAppSettings();
+            }
+          } else {
+            // 스위치 On 시키기
+            PermissionStatus permissionStatus =
+                await Permission.locationWhenInUse.status;
+
+            if (permissionStatus.isPermanentlyDenied) {
+              // 권한이 영구적으로 거부된 경우
+              // 권한 설정으로 이동
+              openAppSettings();
+            } else {
+              // 권한 요청
+              await Permission.locationWhenInUse.request();
+
+              PermissionStatus status =
+                  await Permission.locationWhenInUse.status;
+              if (status.isGranted) {
+                // 권한 승인
+                _togglePermissionSwitch(index);
+              }
+            }
+          }
+        }
+        break;
+
+      case SampleItemEnum.locationAlways:
+        {
+          if (sampleItem.isChecked) {
+            // 스위치 Off 시키기
+            if (!_context.mounted) return;
+            var outputVo = await showDialog(
+                barrierDismissible: true,
+                context: _context,
+                builder: (context) => all_dialog_yes_or_no.PageEntrance(
+                    all_dialog_yes_or_no.PageInputVo(
+                        "권한 해제",
+                        "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
+                        "예",
+                        "아니오"),
+                    (pageBusiness) {}));
+
+            if (outputVo != null && outputVo.checkPositiveBtn) {
+              // positive 버튼을 눌렀을 때
+              // 권한 설정으로 이동
+              openAppSettings();
+            }
+          } else {
+            // 스위치 On 시키기
+            PermissionStatus permissionStatus =
+                await Permission.locationAlways.status;
+
+            if (permissionStatus.isPermanentlyDenied) {
+              // 권한이 영구적으로 거부된 경우
+              // 권한 설정으로 이동
+              openAppSettings();
+            } else {
+              // 권한 요청
+              await Permission.locationAlways.request();
+
+              PermissionStatus status = await Permission.locationAlways.status;
               if (status.isGranted) {
                 // 권한 승인
                 _togglePermissionSwitch(index);
@@ -681,10 +843,56 @@ class PageBusiness {
         openAppSettings();
       } else {
         // 권한 요청
-        PermissionStatus status = await Permission.sensorsAlways.request();
+        await Permission.sensorsAlways.request();
+
+        PermissionStatus status = await Permission.sensorsAlways.status;
         if (status.isGranted) {
           // 권한 승인
           pageViewModel.sensorsAlways = !pageViewModel.sensorsAlways;
+          blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
+        }
+      }
+    }
+  }
+
+  Future<void> onLocationAlwaysItemClickAsync() async {
+    if (pageViewModel.androidLocationAlways) {
+      // 스위치 Off 시키기
+      if (!_context.mounted) return;
+      var outputVo = await showDialog(
+          barrierDismissible: true,
+          context: _context,
+          builder: (context) => all_dialog_yes_or_no.PageEntrance(
+              all_dialog_yes_or_no.PageInputVo(
+                  "권한 해제",
+                  "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
+                  "예",
+                  "아니오"),
+              (pageBusiness) {}));
+
+      if (outputVo != null && outputVo.checkPositiveBtn) {
+        // positive 버튼을 눌렀을 때
+        // 권한 설정으로 이동
+        openAppSettings();
+      }
+    } else {
+      // 스위치 On 시키기
+      PermissionStatus permissionStatus =
+          await Permission.locationAlways.status;
+
+      if (permissionStatus.isPermanentlyDenied) {
+        // 권한이 영구적으로 거부된 경우
+        // 권한 설정으로 이동
+        openAppSettings();
+      } else {
+        // 권한 요청
+        await Permission.locationAlways.request();
+
+        PermissionStatus status = await Permission.locationAlways.status;
+        if (status.isGranted) {
+          // 권한 승인
+          pageViewModel.androidLocationAlways =
+              !pageViewModel.androidLocationAlways;
           blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
         }
       }
@@ -722,6 +930,9 @@ class PageViewModel {
   // Android 환경 백그라운드에서 sensors 사용 승인 여부
   bool sensorsAlways = false;
 
+  // Android 환경 백그라운드에서 location 사용 승인 여부
+  bool androidLocationAlways = false;
+
   PageViewModel() {
     // 초기 리스트 추가
     allSampleList.add(SampleItem(SampleItemEnum.camera, "camera 권한",
@@ -736,6 +947,9 @@ class PageViewModel {
     allSampleList.add(SampleItem(SampleItemEnum.sensors, "sensors 권한",
         "Android : Body Sensors, iOS : CoreMotion"));
 
+    allSampleList.add(SampleItem(SampleItemEnum.locationWhenInUse,
+        "locationWhenInUse 권한", "Android, iOS : 포그라운드 GPS 정보 접근"));
+
     if (Platform.isIOS) {
       // ios 일 때
       allSampleList.add(SampleItem(
@@ -743,6 +957,9 @@ class PageViewModel {
 
       allSampleList.add(SampleItem(SampleItemEnum.speech, "speech 권한",
           "Android : microphone 과 동일하므로 생략, iOS : TTS 기능"));
+
+      allSampleList.add(SampleItem(SampleItemEnum.locationAlways,
+          "locationAlways 권한", "iOS : 포그라운드 + 백그라운드 GPS 정보 접근"));
 
       var versionParts = Platform.operatingSystemVersion
           .split(' ')
@@ -807,6 +1024,10 @@ enum SampleItemEnum {
   sms,
   // Android : microphone 과 동일하므로 생략, iOS : TTS 기능
   speech,
+  // Android, iOS : 포그라운드 GPS 정보 접근
+  locationWhenInUse,
+  // iOS : 포그라운드 + 백그라운드 GPS 정보 접근
+  locationAlways,
 
   // todo 추가 및 수정
 }

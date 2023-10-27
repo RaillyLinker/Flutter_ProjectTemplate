@@ -97,6 +97,42 @@ class PageView extends StatelessWidget {
                 ),
               ));
             }
+          } else if (pageBusiness
+                  .pageViewModel.allSampleList[index].sampleItemEnum ==
+              page_business.SampleItemEnum.locationWhenInUse) {
+            if (pageBusiness.pageViewModel.allSampleList[index].isChecked &&
+                Platform.isAndroid) {
+              listTiles.add(GestureDetector(
+                onTap: () {
+                  pageBusiness.onLocationAlwaysItemClickAsync();
+                },
+                child: Container(
+                  color: Colors.blue[100],
+                  padding: const EdgeInsets.only(left: 20),
+                  child: Container(
+                    color: Colors.white,
+                    child: ListTile(
+                      mouseCursor: SystemMouseCursors.click,
+                      title: const Text(
+                        "locationAlways 권한",
+                        style: TextStyle(fontFamily: "MaruBuri"),
+                      ),
+                      subtitle: const Text(
+                        "Android : Background 에서도 location 정보 접근",
+                        style: TextStyle(fontFamily: "MaruBuri"),
+                      ),
+                      trailing: Switch(
+                        value: pageBusiness.pageViewModel.androidLocationAlways,
+                        onChanged: (value) {
+                          pageBusiness.onLocationAlwaysItemClickAsync();
+                        },
+                        activeColor: Colors.blueAccent,
+                      ),
+                    ),
+                  ),
+                ),
+              ));
+            }
           }
 
           listTiles.add(const Divider(
