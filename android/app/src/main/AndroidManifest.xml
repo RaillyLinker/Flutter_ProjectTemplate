@@ -48,9 +48,9 @@
     <!-- Permissions options for the `locationAlways` group -->
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
 
-    <!--    &lt;!&ndash; Permissions options for the `storage` group &ndash;&gt;-->
-    <!--    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>-->
-    <!--    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>-->
+    <!-- Permissions options for the `storage` group -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <!--    &lt;!&ndash; Permissions options for the `calendar` group &ndash;&gt;-->
     <!--    <uses-permission android:name="android.permission.READ_CALENDAR" />-->

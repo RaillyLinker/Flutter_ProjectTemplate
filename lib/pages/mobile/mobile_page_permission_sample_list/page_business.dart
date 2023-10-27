@@ -13,6 +13,7 @@ import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
 import '../../../dialogs/all/all_dialog_yes_or_no/page_entrance.dart'
     as all_dialog_yes_or_no;
+import '../../../global_data/gd_const.dart' as gd_const;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
 // todo location serviceStatus.isEnabled 체크
@@ -280,6 +281,23 @@ class PageBusiness {
           await Permission.locationAlways.status;
       SampleItem sampleItem =
           pageViewModel.allSampleList[locationAlwaysPermissionIndex];
+
+      if (permissionStatus.isGranted) {
+        sampleItem.isChecked = true;
+      } else {
+        sampleItem.isChecked = false;
+      }
+      blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
+    }
+
+    // storage 권한 여부 확인
+    int storagePermissionIndex = pageViewModel.allSampleList.indexWhere(
+        (samplePage) => samplePage.sampleItemEnum == SampleItemEnum.storage);
+
+    if (storagePermissionIndex != -1) {
+      PermissionStatus permissionStatus = await Permission.storage.status;
+      SampleItem sampleItem =
+          pageViewModel.allSampleList[storagePermissionIndex];
 
       if (permissionStatus.isGranted) {
         sampleItem.isChecked = true;
@@ -809,6 +827,49 @@ class PageBusiness {
         }
         break;
 
+      case SampleItemEnum.storage:
+        {
+          if (sampleItem.isChecked) {
+            // 스위치 Off 시키기
+            if (!_context.mounted) return;
+            var outputVo = await showDialog(
+                barrierDismissible: true,
+                context: _context,
+                builder: (context) => all_dialog_yes_or_no.PageEntrance(
+                    all_dialog_yes_or_no.PageInputVo(
+                        "권한 해제",
+                        "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
+                        "예",
+                        "아니오"),
+                    (pageBusiness) {}));
+
+            if (outputVo != null && outputVo.checkPositiveBtn) {
+              // positive 버튼을 눌렀을 때
+              // 권한 설정으로 이동
+              openAppSettings();
+            }
+          } else {
+            // 스위치 On 시키기
+            PermissionStatus permissionStatus = await Permission.storage.status;
+
+            if (permissionStatus.isPermanentlyDenied) {
+              // 권한이 영구적으로 거부된 경우
+              // 권한 설정으로 이동
+              openAppSettings();
+            } else {
+              // 권한 요청
+              await Permission.storage.request();
+
+              PermissionStatus status = await Permission.storage.status;
+              if (status.isGranted) {
+                // 권한 승인
+                _togglePermissionSwitch(index);
+              }
+            }
+          }
+        }
+        break;
+
       // todo : 추가 및 수정
     }
   }
@@ -961,6 +1022,9 @@ class PageViewModel {
       allSampleList.add(SampleItem(SampleItemEnum.locationAlways,
           "locationAlways 권한", "iOS : 포그라운드 + 백그라운드 GPS 정보 접근"));
 
+      allSampleList.add(SampleItem(SampleItemEnum.storage, "storage 권한",
+          "Android 13(API 33) 이하 : 외부 저장소에 접근, iOS : `문서` 또는 `다운로드`와 같은 폴더에 액세스"));
+
       var versionParts = Platform.operatingSystemVersion
           .split(' ')
           .where((part) => part.contains('.'))
@@ -982,6 +1046,13 @@ class PageViewModel {
 
       allSampleList.add(SampleItem(
           SampleItemEnum.sms, "sms 권한", "Android : sms 메세지 보내기, 읽기"));
+
+      if (gd_const.androidApiLevel! < 33) {
+        allSampleList.add(SampleItem(SampleItemEnum.storage, "storage 권한",
+            "Android 13(API 33) 미만 : 외부 저장소에 접근, iOS : `문서` 또는 `다운로드`와 같은 폴더에 액세스"));
+      }else if(gd_const.androidApiLevel! >= 33){
+
+      }
     }
 
     // todo 추가 및 수정
@@ -1028,6 +1099,9 @@ enum SampleItemEnum {
   locationWhenInUse,
   // iOS : 포그라운드 + 백그라운드 GPS 정보 접근
   locationAlways,
+
+  // Android 13(API 33) 미만 : 외부 저장소에 접근, iOS : todo `문서` 또는 `다운로드`와 같은 폴더에 액세스
+  storage,
 
   // todo 추가 및 수정
 }
