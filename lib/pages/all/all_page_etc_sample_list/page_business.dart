@@ -34,6 +34,8 @@ import '../../../pages/all/all_page_form_sample/page_entrance.dart'
     as all_page_form_sample;
 import '../../../pages/all/all_page_horizontal_scroll_test/page_entrance.dart'
     as all_page_horizontal_scroll_test;
+import '../../../pages/all/all_page_hover_button_sample/page_entrance.dart'
+    as all_page_hover_button_sample;
 
 // (app)
 import '../../../pages/app/app_page_server_sample/page_entrance.dart'
@@ -193,6 +195,11 @@ class PageBusiness {
           _context.pushNamed(all_page_form_sample.pageName);
         }
         break;
+      case SampleItemEnum.hoverButtonSample:
+        {
+          _context.pushNamed(all_page_hover_button_sample.pageName);
+        }
+        break;
     }
   }
 
@@ -252,6 +259,8 @@ class PageViewModel {
         "Gesture 위젯 영역 중첩 테스트", "Gesture 위젯 영역 중첩시 동작을 테스트합니다."));
     allSampleList.add(
         SampleItem(SampleItemEnum.formSample, "Form 입력 샘플", "Form 입력 작성 샘플"));
+    allSampleList.add(SampleItem(SampleItemEnum.hoverButtonSample, "호버 버튼 샘플",
+        "어떤 위젯이든 버튼처럼 호버링하면 색이 변하고, 커서도 변하는 호버 버튼 위젯 샘플"));
   }
 }
 
@@ -286,6 +295,7 @@ enum SampleItemEnum {
   contextMenuSample,
   gestureAreaOverlapTest,
   formSample,
+  hoverButtonSample,
 }
 
 // (BLoC 클래스 모음)
