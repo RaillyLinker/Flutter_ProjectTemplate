@@ -4,6 +4,9 @@
     <!-- 인터넷 권한 -->
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <!-- permission_handler.bluetooth -->
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+
     <!-- 요청 권한 -->
     <!-- permission_handler.camera -->
     <uses-permission android:name="android.permission.CAMERA" />
@@ -81,7 +84,7 @@
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
     <!-- permission_handler.accessNotificationPolicy -->
-    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY"/>
+    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
 
     <!-- permission_handler.nearbyWifiDevices -->
     <uses-permission android:name="android.permission.NEARBY_WIFI_DEVICES" />
@@ -90,11 +93,20 @@
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
 
     <!-- permission_handler.notification -->
-    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <!-- permission_handler.calendar -->
     <uses-permission android:name="android.permission.READ_CALENDAR" />
     <uses-permission android:name="android.permission.WRITE_CALENDAR" />
+
+    <!-- permission_handler.bluetoothScan -->
+    <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
+
+    <!-- permission_handler.bluetoothAdvertise -->
+    <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE" />
+
+    <!-- permission_handler.bluetoothConnect -->
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
 
     <application
         android:name="${applicationName}"

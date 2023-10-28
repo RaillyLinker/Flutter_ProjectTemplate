@@ -643,6 +643,79 @@ class PageBusiness {
       blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
     }
 
+    // bluetooth 권한 여부 확인
+    int bluetoothPermissionIndex = pageViewModel.allSampleList.indexWhere(
+        (samplePage) => samplePage.sampleItemEnum == SampleItemEnum.bluetooth);
+
+    if (bluetoothPermissionIndex != -1) {
+      PermissionStatus permissionStatus = await Permission.bluetooth.status;
+      SampleItem sampleItem =
+          pageViewModel.allSampleList[bluetoothPermissionIndex];
+
+      if (permissionStatus.isGranted) {
+        sampleItem.isChecked = true;
+      } else {
+        sampleItem.isChecked = false;
+      }
+      blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
+    }
+
+    // bluetoothScan 권한 여부 확인
+    int bluetoothScanPermissionIndex = pageViewModel.allSampleList.indexWhere(
+        (samplePage) =>
+            samplePage.sampleItemEnum == SampleItemEnum.bluetoothScan);
+
+    if (bluetoothScanPermissionIndex != -1) {
+      PermissionStatus permissionStatus = await Permission.bluetoothScan.status;
+      SampleItem sampleItem =
+          pageViewModel.allSampleList[bluetoothScanPermissionIndex];
+
+      if (permissionStatus.isGranted) {
+        sampleItem.isChecked = true;
+      } else {
+        sampleItem.isChecked = false;
+      }
+      blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
+    }
+
+    // bluetoothAdvertise 권한 여부 확인
+    int bluetoothAdvertisePermissionIndex = pageViewModel.allSampleList
+        .indexWhere((samplePage) =>
+            samplePage.sampleItemEnum == SampleItemEnum.bluetoothAdvertise);
+
+    if (bluetoothAdvertisePermissionIndex != -1) {
+      PermissionStatus permissionStatus =
+          await Permission.bluetoothAdvertise.status;
+      SampleItem sampleItem =
+          pageViewModel.allSampleList[bluetoothAdvertisePermissionIndex];
+
+      if (permissionStatus.isGranted) {
+        sampleItem.isChecked = true;
+      } else {
+        sampleItem.isChecked = false;
+      }
+      blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
+    }
+
+    // bluetoothConnect 권한 여부 확인
+    int bluetoothConnectPermissionIndex = pageViewModel.allSampleList
+        .indexWhere((samplePage) =>
+            samplePage.sampleItemEnum == SampleItemEnum.bluetoothConnect);
+
+    if (bluetoothConnectPermissionIndex != -1) {
+      PermissionStatus permissionStatus =
+          await Permission.bluetoothConnect.status;
+      SampleItem sampleItem =
+          pageViewModel.allSampleList[bluetoothConnectPermissionIndex];
+
+      if (permissionStatus.isGranted) {
+        sampleItem.isChecked = true;
+      } else {
+        sampleItem.isChecked = false;
+      }
+      blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
+    }
+
     // todo : 추가 및 수정
   }
 
@@ -2007,7 +2080,183 @@ class PageBusiness {
         }
         break;
 
-      // todo : 추가 및 수정
+      case SampleItemEnum.bluetooth:
+        {
+          if (sampleItem.isChecked) {
+            // 스위치 Off 시키기
+            if (!_context.mounted) return;
+            var outputVo = await showDialog(
+                barrierDismissible: true,
+                context: _context,
+                builder: (context) => all_dialog_yes_or_no.PageEntrance(
+                    all_dialog_yes_or_no.PageInputVo(
+                        "권한 해제",
+                        "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
+                        "예",
+                        "아니오"),
+                    (pageBusiness) {}));
+
+            if (outputVo != null && outputVo.checkPositiveBtn) {
+              // positive 버튼을 눌렀을 때
+              // 권한 설정으로 이동
+              openAppSettings();
+            }
+          } else {
+            // 스위치 On 시키기
+            PermissionStatus permissionStatus =
+                await Permission.bluetooth.status;
+
+            if (permissionStatus.isPermanentlyDenied) {
+              // 권한이 영구적으로 거부된 경우
+              // 권한 설정으로 이동
+              openAppSettings();
+            } else {
+              // 권한 요청
+              await Permission.bluetooth.request();
+
+              PermissionStatus status = await Permission.bluetooth.status;
+              if (status.isGranted) {
+                // 권한 승인
+                _togglePermissionSwitch(index);
+              }
+            }
+          }
+        }
+        break;
+
+      case SampleItemEnum.bluetoothScan:
+        {
+          if (sampleItem.isChecked) {
+            // 스위치 Off 시키기
+            if (!_context.mounted) return;
+            var outputVo = await showDialog(
+                barrierDismissible: true,
+                context: _context,
+                builder: (context) => all_dialog_yes_or_no.PageEntrance(
+                    all_dialog_yes_or_no.PageInputVo(
+                        "권한 해제",
+                        "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
+                        "예",
+                        "아니오"),
+                    (pageBusiness) {}));
+
+            if (outputVo != null && outputVo.checkPositiveBtn) {
+              // positive 버튼을 눌렀을 때
+              // 권한 설정으로 이동
+              openAppSettings();
+            }
+          } else {
+            // 스위치 On 시키기
+            PermissionStatus permissionStatus =
+                await Permission.bluetoothScan.status;
+
+            if (permissionStatus.isPermanentlyDenied) {
+              // 권한이 영구적으로 거부된 경우
+              // 권한 설정으로 이동
+              openAppSettings();
+            } else {
+              // 권한 요청
+              await Permission.bluetoothScan.request();
+
+              PermissionStatus status = await Permission.bluetoothScan.status;
+              if (status.isGranted) {
+                // 권한 승인
+                _togglePermissionSwitch(index);
+              }
+            }
+          }
+        }
+        break;
+
+      case SampleItemEnum.bluetoothAdvertise:
+        {
+          if (sampleItem.isChecked) {
+            // 스위치 Off 시키기
+            if (!_context.mounted) return;
+            var outputVo = await showDialog(
+                barrierDismissible: true,
+                context: _context,
+                builder: (context) => all_dialog_yes_or_no.PageEntrance(
+                    all_dialog_yes_or_no.PageInputVo(
+                        "권한 해제",
+                        "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
+                        "예",
+                        "아니오"),
+                    (pageBusiness) {}));
+
+            if (outputVo != null && outputVo.checkPositiveBtn) {
+              // positive 버튼을 눌렀을 때
+              // 권한 설정으로 이동
+              openAppSettings();
+            }
+          } else {
+            // 스위치 On 시키기
+            PermissionStatus permissionStatus =
+                await Permission.bluetoothAdvertise.status;
+
+            if (permissionStatus.isPermanentlyDenied) {
+              // 권한이 영구적으로 거부된 경우
+              // 권한 설정으로 이동
+              openAppSettings();
+            } else {
+              // 권한 요청
+              await Permission.bluetoothAdvertise.request();
+
+              PermissionStatus status =
+                  await Permission.bluetoothAdvertise.status;
+              if (status.isGranted) {
+                // 권한 승인
+                _togglePermissionSwitch(index);
+              }
+            }
+          }
+        }
+        break;
+
+      case SampleItemEnum.bluetoothConnect:
+        {
+          if (sampleItem.isChecked) {
+            // 스위치 Off 시키기
+            if (!_context.mounted) return;
+            var outputVo = await showDialog(
+                barrierDismissible: true,
+                context: _context,
+                builder: (context) => all_dialog_yes_or_no.PageEntrance(
+                    all_dialog_yes_or_no.PageInputVo(
+                        "권한 해제",
+                        "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
+                        "예",
+                        "아니오"),
+                    (pageBusiness) {}));
+
+            if (outputVo != null && outputVo.checkPositiveBtn) {
+              // positive 버튼을 눌렀을 때
+              // 권한 설정으로 이동
+              openAppSettings();
+            }
+          } else {
+            // 스위치 On 시키기
+            PermissionStatus permissionStatus =
+                await Permission.bluetoothConnect.status;
+
+            if (permissionStatus.isPermanentlyDenied) {
+              // 권한이 영구적으로 거부된 경우
+              // 권한 설정으로 이동
+              openAppSettings();
+            } else {
+              // 권한 요청
+              await Permission.bluetoothConnect.request();
+
+              PermissionStatus status =
+                  await Permission.bluetoothConnect.status;
+              if (status.isGranted) {
+                // 권한 승인
+                _togglePermissionSwitch(index);
+              }
+            }
+          }
+        }
+        break;
     }
   }
 
@@ -2200,6 +2449,12 @@ class PageViewModel {
             "photosAddOnly 권한", "iOS 14+ : todo photo 라이브러리 쓰기"));
       }
 
+      if (major >= 13) {
+        // 13 이상일 때
+        allSampleList.add(SampleItem(SampleItemEnum.bluetooth, "bluetooth 권한",
+            "Android : 항상 승인됨, todo iOS 13 보다 큼 : 블루투스 코어 매니저 권한, iOS 13 : 블루투스 코어 매니저 권한이지만 항상 false(처리 필요) iOS 13 보다 작음 : 항상 승인"));
+      }
+
       if (major > 9 || (major == 9 && minor >= 3)) {
         // 9.3 이상일 때
         allSampleList.add(SampleItem(SampleItemEnum.mediaLibrary,
@@ -2247,6 +2502,19 @@ class PageViewModel {
         // android 31 이상
         allSampleList.add(SampleItem(SampleItemEnum.scheduleExactAlarm,
             "scheduleExactAlarm 권한", "Android 12(API 31) 이상 : 정확한 알람 권한"));
+
+        allSampleList.add(SampleItem(SampleItemEnum.bluetoothScan,
+            "bluetoothScan 권한", "Android 12(API 31) 이상 : 블루투스 장치 스캔"));
+
+        allSampleList.add(SampleItem(
+            SampleItemEnum.bluetoothAdvertise,
+            "bluetoothAdvertise 권한",
+            "Android 12(API 31) 이상 : 블루투스 기기 광고에 대한 권한. 이 장치를 다른 Bluetooth 에서 검색할 수 있도록 허용"));
+
+        allSampleList.add(SampleItem(
+            SampleItemEnum.bluetoothConnect,
+            "bluetoothConnect 권한",
+            "Android 12(API 31) 이상 : 블루투스 기기 연결을 위한 권한. 이미 페어링된 Bluetooth 장치에 연결할 수 있도록 허용"));
       }
 
       if (gd_const.androidApiLevel! >= 30) {
@@ -2365,6 +2633,32 @@ enum SampleItemEnum {
   appTrackingTransparency,
   // todo iOS : 중요한 알림을 보내기 위한 권한, 벨소리를 무시하는 알림 전송을 허용합니다.
   criticalAlerts,
+  // Permission for accessing the device's bluetooth adapter state.
+  // Depending on the platform and version, the requirements are slightly
+  // different:
+  // **Android:**
+  // - Always allowed.
+  // **iOS:**
+  // - iOS 13 and above: The authorization state of Core Bluetooth manager.
+  // - iOS below 13: always allowed.
+  // Limitations:
+  // - iOS 13.0 only: [bluetooth.status] is always [PermissionStatus.denied],
+  // regardless of the actual status. For the actual permission state, use
+  // [bluetooth.request]. Note that this will show a permission dialog if the
+  // permission was not yet requested.
+  // - All iOS versions: [bluetooth.serviceStatus] will **always** return
+  // [ServiceStatus.disabled] when the Bluetooth permission was denied by the
+  // user. It is impossible to obtain the actual Bluetooth service status
+  // without having the Bluetooth permission granted. The method will prompt
+  // the user for Bluetooth permission if the permission was not yet requested.
+  // Android : 항상 승인됨, todo iOS 13 보다 큼 : 블루투스 코어 매니저 권한, iOS 13 : 블루투스 코어 매니저 권한이지만 항상 false(처리 필요) iOS 13 보다 작음 : 항상 승인
+  bluetooth,
+  // Android 12(API 31) 이상 : 블루투스 장치 스캔
+  bluetoothScan,
+  // Android 12(API 31) 이상 : 블루투스 기기 광고에 대한 권한. 이 장치를 다른 Bluetooth 에서 검색할 수 있도록 허용
+  bluetoothAdvertise,
+  // Android 12(API 31) 이상 : 블루투스 기기 연결을 위한 권한. 이미 페어링된 Bluetooth 장치에 연결할 수 있도록 허용
+  bluetoothConnect,
 
   // todo 추가 및 수정
 }
