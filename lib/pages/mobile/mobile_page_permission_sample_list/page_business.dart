@@ -510,6 +510,100 @@ class PageBusiness {
       blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
     }
 
+    // nearbyWifiDevices 권한 여부 확인
+    int nearbyWifiDevicesPermissionIndex = pageViewModel.allSampleList
+        .indexWhere((samplePage) =>
+            samplePage.sampleItemEnum == SampleItemEnum.nearbyWifiDevices);
+
+    if (nearbyWifiDevicesPermissionIndex != -1) {
+      PermissionStatus permissionStatus =
+          await Permission.nearbyWifiDevices.status;
+      SampleItem sampleItem =
+          pageViewModel.allSampleList[nearbyWifiDevicesPermissionIndex];
+
+      if (permissionStatus.isGranted) {
+        sampleItem.isChecked = true;
+      } else {
+        sampleItem.isChecked = false;
+      }
+      blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
+    }
+
+    // scheduleExactAlarm 권한 여부 확인
+    int scheduleExactAlarmPermissionIndex = pageViewModel.allSampleList
+        .indexWhere((samplePage) =>
+            samplePage.sampleItemEnum == SampleItemEnum.scheduleExactAlarm);
+
+    if (scheduleExactAlarmPermissionIndex != -1) {
+      PermissionStatus permissionStatus =
+          await Permission.scheduleExactAlarm.status;
+      SampleItem sampleItem =
+          pageViewModel.allSampleList[scheduleExactAlarmPermissionIndex];
+
+      if (permissionStatus.isGranted) {
+        sampleItem.isChecked = true;
+      } else {
+        sampleItem.isChecked = false;
+      }
+      blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
+    }
+
+    // notification 권한 여부 확인
+    int notificationPermissionIndex = pageViewModel.allSampleList.indexWhere(
+        (samplePage) =>
+            samplePage.sampleItemEnum == SampleItemEnum.notification);
+
+    if (notificationPermissionIndex != -1) {
+      PermissionStatus permissionStatus = await Permission.notification.status;
+      SampleItem sampleItem =
+          pageViewModel.allSampleList[notificationPermissionIndex];
+
+      if (permissionStatus.isGranted) {
+        sampleItem.isChecked = true;
+      } else {
+        sampleItem.isChecked = false;
+      }
+      blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
+    }
+
+    // calendarFullAccess 권한 여부 확인
+    int calendarFullAccessPermissionIndex = pageViewModel.allSampleList
+        .indexWhere((samplePage) =>
+            samplePage.sampleItemEnum == SampleItemEnum.calendarFullAccess);
+
+    if (calendarFullAccessPermissionIndex != -1) {
+      PermissionStatus permissionStatus =
+          await Permission.calendarFullAccess.status;
+      SampleItem sampleItem =
+          pageViewModel.allSampleList[calendarFullAccessPermissionIndex];
+
+      if (permissionStatus.isGranted) {
+        sampleItem.isChecked = true;
+      } else {
+        sampleItem.isChecked = false;
+      }
+      blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
+    }
+
+    // calendarReadOnly 권한 여부 확인
+    int calendarReadOnlyPermissionIndex = pageViewModel.allSampleList
+        .indexWhere((samplePage) =>
+            samplePage.sampleItemEnum == SampleItemEnum.calendarReadOnly);
+
+    if (calendarReadOnlyPermissionIndex != -1) {
+      PermissionStatus permissionStatus =
+          await Permission.calendarReadOnly.status;
+      SampleItem sampleItem =
+          pageViewModel.allSampleList[calendarReadOnlyPermissionIndex];
+
+      if (permissionStatus.isGranted) {
+        sampleItem.isChecked = true;
+      } else {
+        sampleItem.isChecked = false;
+      }
+      blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
+    }
+
     // todo : 추가 및 수정
   }
 
@@ -1561,6 +1655,230 @@ class PageBusiness {
         }
         break;
 
+      case SampleItemEnum.nearbyWifiDevices:
+        {
+          if (sampleItem.isChecked) {
+            // 스위치 Off 시키기
+            if (!_context.mounted) return;
+            var outputVo = await showDialog(
+                barrierDismissible: true,
+                context: _context,
+                builder: (context) => all_dialog_yes_or_no.PageEntrance(
+                    all_dialog_yes_or_no.PageInputVo(
+                        "권한 해제",
+                        "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
+                        "예",
+                        "아니오"),
+                    (pageBusiness) {}));
+
+            if (outputVo != null && outputVo.checkPositiveBtn) {
+              // positive 버튼을 눌렀을 때
+              // 권한 설정으로 이동
+              openAppSettings();
+            }
+          } else {
+            // 스위치 On 시키기
+            PermissionStatus permissionStatus =
+                await Permission.nearbyWifiDevices.status;
+
+            if (permissionStatus.isPermanentlyDenied) {
+              // 권한이 영구적으로 거부된 경우
+              // 권한 설정으로 이동
+              openAppSettings();
+            } else {
+              // 권한 요청
+              await Permission.nearbyWifiDevices.request();
+
+              PermissionStatus status =
+                  await Permission.nearbyWifiDevices.status;
+              if (status.isGranted) {
+                // 권한 승인
+                _togglePermissionSwitch(index);
+              }
+            }
+          }
+        }
+        break;
+
+      case SampleItemEnum.scheduleExactAlarm:
+        {
+          if (sampleItem.isChecked) {
+            // 스위치 Off 시키기
+            if (!_context.mounted) return;
+            var outputVo = await showDialog(
+                barrierDismissible: true,
+                context: _context,
+                builder: (context) => all_dialog_yes_or_no.PageEntrance(
+                    all_dialog_yes_or_no.PageInputVo(
+                        "권한 해제",
+                        "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
+                        "예",
+                        "아니오"),
+                    (pageBusiness) {}));
+
+            if (outputVo != null && outputVo.checkPositiveBtn) {
+              // positive 버튼을 눌렀을 때
+              // 권한 설정으로 이동
+              openAppSettings();
+            }
+          } else {
+            // 스위치 On 시키기
+            PermissionStatus permissionStatus =
+                await Permission.scheduleExactAlarm.status;
+
+            if (permissionStatus.isPermanentlyDenied) {
+              // 권한이 영구적으로 거부된 경우
+              // 권한 설정으로 이동
+              openAppSettings();
+            } else {
+              // 권한 요청
+              await Permission.scheduleExactAlarm.request();
+
+              PermissionStatus status =
+                  await Permission.scheduleExactAlarm.status;
+              if (status.isGranted) {
+                // 권한 승인
+                _togglePermissionSwitch(index);
+              }
+            }
+          }
+        }
+        break;
+
+      case SampleItemEnum.notification:
+        {
+          if (sampleItem.isChecked) {
+            // 스위치 Off 시키기
+            if (!_context.mounted) return;
+            var outputVo = await showDialog(
+                barrierDismissible: true,
+                context: _context,
+                builder: (context) => all_dialog_yes_or_no.PageEntrance(
+                    all_dialog_yes_or_no.PageInputVo(
+                        "권한 해제",
+                        "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
+                        "예",
+                        "아니오"),
+                    (pageBusiness) {}));
+
+            if (outputVo != null && outputVo.checkPositiveBtn) {
+              // positive 버튼을 눌렀을 때
+              // 권한 설정으로 이동
+              openAppSettings();
+            }
+          } else {
+            // 스위치 On 시키기
+            PermissionStatus permissionStatus =
+                await Permission.notification.status;
+
+            if (permissionStatus.isPermanentlyDenied) {
+              // 권한이 영구적으로 거부된 경우
+              // 권한 설정으로 이동
+              openAppSettings();
+            } else {
+              // 권한 요청
+              await Permission.notification.request();
+
+              PermissionStatus status = await Permission.notification.status;
+              if (status.isGranted) {
+                // 권한 승인
+                _togglePermissionSwitch(index);
+              }
+            }
+          }
+        }
+        break;
+
+      case SampleItemEnum.calendarFullAccess:
+        {
+          if (sampleItem.isChecked) {
+            // 스위치 Off 시키기
+            if (!_context.mounted) return;
+            var outputVo = await showDialog(
+                barrierDismissible: true,
+                context: _context,
+                builder: (context) => all_dialog_yes_or_no.PageEntrance(
+                    all_dialog_yes_or_no.PageInputVo(
+                        "권한 해제",
+                        "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
+                        "예",
+                        "아니오"),
+                    (pageBusiness) {}));
+
+            if (outputVo != null && outputVo.checkPositiveBtn) {
+              // positive 버튼을 눌렀을 때
+              // 권한 설정으로 이동
+              openAppSettings();
+            }
+          } else {
+            // 스위치 On 시키기
+            PermissionStatus permissionStatus =
+                await Permission.calendarFullAccess.status;
+
+            if (permissionStatus.isPermanentlyDenied) {
+              // 권한이 영구적으로 거부된 경우
+              // 권한 설정으로 이동
+              openAppSettings();
+            } else {
+              // 권한 요청
+              await Permission.calendarFullAccess.request();
+
+              PermissionStatus status =
+                  await Permission.calendarFullAccess.status;
+              if (status.isGranted) {
+                // 권한 승인
+                _togglePermissionSwitch(index);
+              }
+            }
+          }
+        }
+        break;
+
+      case SampleItemEnum.calendarReadOnly:
+        {
+          if (sampleItem.isChecked) {
+            // 스위치 Off 시키기
+            if (!_context.mounted) return;
+            var outputVo = await showDialog(
+                barrierDismissible: true,
+                context: _context,
+                builder: (context) => all_dialog_yes_or_no.PageEntrance(
+                    all_dialog_yes_or_no.PageInputVo(
+                        "권한 해제",
+                        "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
+                        "예",
+                        "아니오"),
+                    (pageBusiness) {}));
+
+            if (outputVo != null && outputVo.checkPositiveBtn) {
+              // positive 버튼을 눌렀을 때
+              // 권한 설정으로 이동
+              openAppSettings();
+            }
+          } else {
+            // 스위치 On 시키기
+            PermissionStatus permissionStatus =
+                await Permission.calendarReadOnly.status;
+
+            if (permissionStatus.isPermanentlyDenied) {
+              // 권한이 영구적으로 거부된 경우
+              // 권한 설정으로 이동
+              openAppSettings();
+            } else {
+              // 권한 요청
+              await Permission.calendarReadOnly.request();
+
+              PermissionStatus status =
+                  await Permission.calendarReadOnly.status;
+              if (status.isGranted) {
+                // 권한 승인
+                _togglePermissionSwitch(index);
+              }
+            }
+          }
+        }
+        break;
+
       // todo : 추가 및 수정
     }
   }
@@ -1702,6 +2020,12 @@ class PageViewModel {
     allSampleList.add(SampleItem(SampleItemEnum.locationWhenInUse,
         "locationWhenInUse 권한", "Android, iOS : 포그라운드 GPS 정보 접근"));
 
+    allSampleList.add(SampleItem(SampleItemEnum.notification, "notification 권한",
+        "Android, todo iOS : 노티피케이션 표시 권한"));
+
+    allSampleList.add(SampleItem(SampleItemEnum.calendarFullAccess,
+        "calendarFullAccess 권한", "Android, todo iOS : 캘린더 입력, 읽기 권한"));
+
     if (Platform.isIOS) {
       // ios 일 때
       allSampleList.add(SampleItem(
@@ -1723,6 +2047,14 @@ class PageViewModel {
           .split('.');
       var major = int.parse(versionParts[0]);
       var minor = int.parse(versionParts[1]);
+
+      if (major > 16) {
+        // 16 보다 클 때
+        allSampleList.add(SampleItem(
+            SampleItemEnum.calendarReadOnly,
+            "calendarReadOnly 권한",
+            "todo iOS : 캘린더 읽기 권한 (iOS 16 이하에서는 calendarFullAccess 와 동일)"));
+      }
 
       if (major >= 14) {
         // 14 이상일 때
@@ -1768,6 +2100,17 @@ class PageViewModel {
 
         allSampleList.add(SampleItem(SampleItemEnum.audio, "audio 권한",
             "Android 13(API 33) 이상 : 외부 저장소 오디오 읽기"));
+
+        allSampleList.add(SampleItem(
+            SampleItemEnum.nearbyWifiDevices,
+            "nearbyWifiDevices 권한",
+            "Android 13(API 33) 이상 : wi-fi 로 근처 디바이스 접속 권한"));
+      }
+
+      if (gd_const.androidApiLevel! >= 31) {
+        // android 31 이상
+        allSampleList.add(SampleItem(SampleItemEnum.scheduleExactAlarm,
+            "scheduleExactAlarm 권한", "Android 12(API 31) 이상 : 정확한 알람 권한"));
       }
 
       if (gd_const.androidApiLevel! >= 30) {
@@ -1872,6 +2215,16 @@ enum SampleItemEnum {
   requestInstallPackages,
   // Android (API 23) 이상 : 방해 금지 모드
   accessNotificationPolicy,
+  // Android 13(API 33) 이상 : wi-fi 로 근처 디바이스 접속 권한
+  nearbyWifiDevices,
+  // Android 12(API 31) 이상 : 정확한 알람 권한
+  scheduleExactAlarm,
+  // Android, todo iOS : 노티피케이션 표시 권한
+  notification,
+  // Android, todo iOS : 캘린더 입력, 읽기 권한
+  calendarFullAccess,
+  // todo iOS : 캘린더 읽기 권한 (iOS 16 이하에서는 calendarFullAccess 와 동일)
+  calendarReadOnly,
 
   // todo 추가 및 수정
 }
