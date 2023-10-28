@@ -31,51 +31,83 @@ class PageView extends StatelessWidget {
 
     return gw_page_out_frames.PageOutFrame(
         "호버 버튼 샘플",
-        Column(
-          children: [
-            const SizedBox(
-              height: 50,
-            ),
-            Center(
-              child: ClipOval(
-                  child: Container(
-                color: Colors.blue,
-                width: 150,
-                height: 150,
-                child: gw_custom_widgets.HoverButton(
-                  onTap: () {
-                    pageBusiness.onHoverButton1Click();
-                  },
-                  hoveringColor: Colors.blue[100],
-                  child: const Icon(
-                    Icons.check,
-                    color: Colors.white,
-                    size: 120,
+        SingleChildScrollView(
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 50,
+              ),
+              Center(
+                child: ClipOval(
+                    child: Container(
+                  color: Colors.blue,
+                  width: 150,
+                  height: 150,
+                  child: gw_custom_widgets.HoverButton(
+                    onTap: () {
+                      pageBusiness.onHoverButton1Click();
+                    },
+                    hoveringColor: Colors.blue[100],
+                    child: const Icon(
+                      Icons.check,
+                      color: Colors.white,
+                      size: 120,
+                    ),
                   ),
-                ),
-              )),
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            Center(
-              child: Container(
-                color: Colors.blue,
-                width: 150,
-                height: 150,
-                child: gw_custom_widgets.HoverButton(
-                  onTap: () {
-                    pageBusiness.onHoverButton2Click();
-                  },
-                  child: const Icon(
-                    Icons.check,
-                    color: Colors.white,
-                    size: 120,
+                )),
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              Center(
+                child: Container(
+                  color: Colors.blue,
+                  width: 150,
+                  height: 150,
+                  child: gw_custom_widgets.HoverButton(
+                    hoveringColor: Colors.blue[100],
+                    onTap: () {
+                      pageBusiness.onHoverButton2Click();
+                    },
+                    child: const Icon(
+                      Icons.check,
+                      color: Colors.white,
+                      size: 120,
+                    ),
                   ),
                 ),
               ),
-            )
-          ],
+              const SizedBox(
+                height: 30,
+              ),
+              ListView.builder(
+                itemCount: 5,
+                shrinkWrap: true, // 리스트뷰 크기 고정
+                primary: false, // 리스트뷰 내부는 스크롤 금지
+                itemBuilder: (context, index) {
+                  return gw_custom_widgets.HoverButton(
+                      onTap: () {
+                        // todo
+                      },
+                      child: Column(
+                        children: [
+                          ListTile(
+                            mouseCursor: SystemMouseCursors.click,
+                            title: Text(
+                              "item$index",
+                              style: const TextStyle(fontFamily: "MaruBuri"),
+                            ),
+                          ),
+                          const Divider(
+                            color: Colors.grey,
+                            height: 0.1,
+                          ),
+                        ],
+                      ));
+                },
+              )
+            ],
+          ),
         ));
   }
 }

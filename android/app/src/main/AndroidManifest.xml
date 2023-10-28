@@ -1,9 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <!-- 암묵적 권한 -->
     <!-- 인터넷 권한 -->
     <uses-permission android:name="android.permission.INTERNET" />
 
-    <!-- 권한 추가 -->
+    <!-- 요청 권한 -->
     <!-- permission_handler.camera -->
     <uses-permission android:name="android.permission.CAMERA" />
 
@@ -67,12 +68,17 @@
     <!-- permission_handler.accessMediaLocation  -->
     <uses-permission android:name="android.permission.ACCESS_MEDIA_LOCATION" />
 
-    <!--    &lt;!&ndash; Permissions options for the `calendar` group &ndash;&gt;-->
-    <!--    <uses-permission android:name="android.permission.READ_CALENDAR" />-->
-    <!--    <uses-permission android:name="android.permission.WRITE_CALENDAR" />-->
+    <!-- permission_handler.ignoreBatteryOptimizations -->
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
 
-    <!--    &lt;!&ndash; Permissions options for the `access notification policy` group &ndash;&gt;-->
-    <!--    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY"/>-->
+    <!-- permission_handler.activityRecognition -->
+    <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
+
+    <!-- permission_handler.systemAlertWindows -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
+    <!-- Permissions options for the `request install packages` group -->
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
     <application
         android:name="${applicationName}"

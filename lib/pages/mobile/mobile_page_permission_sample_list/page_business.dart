@@ -413,6 +413,83 @@ class PageBusiness {
       blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
     }
 
+    // ignoreBatteryOptimizations 권한 여부 확인
+    int ignoreBatteryOptimizationsPermissionIndex = pageViewModel.allSampleList
+        .indexWhere((samplePage) =>
+            samplePage.sampleItemEnum ==
+            SampleItemEnum.ignoreBatteryOptimizations);
+
+    if (ignoreBatteryOptimizationsPermissionIndex != -1) {
+      PermissionStatus permissionStatus =
+          await Permission.ignoreBatteryOptimizations.status;
+      SampleItem sampleItem = pageViewModel
+          .allSampleList[ignoreBatteryOptimizationsPermissionIndex];
+
+      if (permissionStatus.isGranted) {
+        sampleItem.isChecked = true;
+      } else {
+        sampleItem.isChecked = false;
+      }
+      blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
+    }
+
+    // activityRecognition 권한 여부 확인
+    int activityRecognitionPermissionIndex = pageViewModel.allSampleList
+        .indexWhere((samplePage) =>
+            samplePage.sampleItemEnum == SampleItemEnum.activityRecognition);
+
+    if (activityRecognitionPermissionIndex != -1) {
+      PermissionStatus permissionStatus =
+          await Permission.activityRecognition.status;
+      SampleItem sampleItem =
+          pageViewModel.allSampleList[activityRecognitionPermissionIndex];
+
+      if (permissionStatus.isGranted) {
+        sampleItem.isChecked = true;
+      } else {
+        sampleItem.isChecked = false;
+      }
+      blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
+    }
+
+    // systemAlertWindow 권한 여부 확인
+    int systemAlertWindowPermissionIndex = pageViewModel.allSampleList
+        .indexWhere((samplePage) =>
+            samplePage.sampleItemEnum == SampleItemEnum.systemAlertWindow);
+
+    if (systemAlertWindowPermissionIndex != -1) {
+      PermissionStatus permissionStatus =
+          await Permission.systemAlertWindow.status;
+      SampleItem sampleItem =
+          pageViewModel.allSampleList[systemAlertWindowPermissionIndex];
+
+      if (permissionStatus.isGranted) {
+        sampleItem.isChecked = true;
+      } else {
+        sampleItem.isChecked = false;
+      }
+      blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
+    }
+
+    // requestInstallPackages 권한 여부 확인
+    int requestInstallPackagesPermissionIndex = pageViewModel.allSampleList
+        .indexWhere((samplePage) =>
+            samplePage.sampleItemEnum == SampleItemEnum.requestInstallPackages);
+
+    if (requestInstallPackagesPermissionIndex != -1) {
+      PermissionStatus permissionStatus =
+          await Permission.requestInstallPackages.status;
+      SampleItem sampleItem =
+          pageViewModel.allSampleList[requestInstallPackagesPermissionIndex];
+
+      if (permissionStatus.isGranted) {
+        sampleItem.isChecked = true;
+      } else {
+        sampleItem.isChecked = false;
+      }
+      blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
+    }
+
     // todo : 추가 및 수정
   }
 
@@ -1239,6 +1316,186 @@ class PageBusiness {
         }
         break;
 
+      case SampleItemEnum.ignoreBatteryOptimizations:
+        {
+          if (sampleItem.isChecked) {
+            // 스위치 Off 시키기
+            if (!_context.mounted) return;
+            var outputVo = await showDialog(
+                barrierDismissible: true,
+                context: _context,
+                builder: (context) => all_dialog_yes_or_no.PageEntrance(
+                    all_dialog_yes_or_no.PageInputVo(
+                        "권한 해제",
+                        "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
+                        "예",
+                        "아니오"),
+                    (pageBusiness) {}));
+
+            if (outputVo != null && outputVo.checkPositiveBtn) {
+              // positive 버튼을 눌렀을 때
+              // 권한 설정으로 이동
+              openAppSettings();
+            }
+          } else {
+            // 스위치 On 시키기
+            PermissionStatus permissionStatus =
+                await Permission.ignoreBatteryOptimizations.status;
+
+            if (permissionStatus.isPermanentlyDenied) {
+              // 권한이 영구적으로 거부된 경우
+              // 권한 설정으로 이동
+              openAppSettings();
+            } else {
+              // 권한 요청
+              await Permission.ignoreBatteryOptimizations.request();
+
+              PermissionStatus status =
+                  await Permission.ignoreBatteryOptimizations.status;
+              if (status.isGranted) {
+                // 권한 승인
+                _togglePermissionSwitch(index);
+              }
+            }
+          }
+        }
+        break;
+
+      case SampleItemEnum.activityRecognition:
+        {
+          if (sampleItem.isChecked) {
+            // 스위치 Off 시키기
+            if (!_context.mounted) return;
+            var outputVo = await showDialog(
+                barrierDismissible: true,
+                context: _context,
+                builder: (context) => all_dialog_yes_or_no.PageEntrance(
+                    all_dialog_yes_or_no.PageInputVo(
+                        "권한 해제",
+                        "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
+                        "예",
+                        "아니오"),
+                    (pageBusiness) {}));
+
+            if (outputVo != null && outputVo.checkPositiveBtn) {
+              // positive 버튼을 눌렀을 때
+              // 권한 설정으로 이동
+              openAppSettings();
+            }
+          } else {
+            // 스위치 On 시키기
+            PermissionStatus permissionStatus =
+                await Permission.activityRecognition.status;
+
+            if (permissionStatus.isPermanentlyDenied) {
+              // 권한이 영구적으로 거부된 경우
+              // 권한 설정으로 이동
+              openAppSettings();
+            } else {
+              // 권한 요청
+              await Permission.activityRecognition.request();
+
+              PermissionStatus status =
+                  await Permission.activityRecognition.status;
+              if (status.isGranted) {
+                // 권한 승인
+                _togglePermissionSwitch(index);
+              }
+            }
+          }
+        }
+        break;
+
+      case SampleItemEnum.systemAlertWindow:
+        {
+          if (sampleItem.isChecked) {
+            // 스위치 Off 시키기
+            if (!_context.mounted) return;
+            var outputVo = await showDialog(
+                barrierDismissible: true,
+                context: _context,
+                builder: (context) => all_dialog_yes_or_no.PageEntrance(
+                    all_dialog_yes_or_no.PageInputVo(
+                        "권한 해제",
+                        "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
+                        "예",
+                        "아니오"),
+                    (pageBusiness) {}));
+
+            if (outputVo != null && outputVo.checkPositiveBtn) {
+              // positive 버튼을 눌렀을 때
+              // 권한 설정으로 이동
+              openAppSettings();
+            }
+          } else {
+            // 스위치 On 시키기
+            PermissionStatus permissionStatus =
+                await Permission.systemAlertWindow.status;
+
+            if (permissionStatus.isPermanentlyDenied) {
+              // 권한이 영구적으로 거부된 경우
+              // 권한 설정으로 이동
+              openAppSettings();
+            } else {
+              // 권한 요청
+              await Permission.systemAlertWindow.request();
+
+              PermissionStatus status =
+                  await Permission.systemAlertWindow.status;
+              if (status.isGranted) {
+                // 권한 승인
+                _togglePermissionSwitch(index);
+              }
+            }
+          }
+        }
+        break;
+
+      case SampleItemEnum.requestInstallPackages:
+        {
+          if (sampleItem.isChecked) {
+            // 스위치 Off 시키기
+            if (!_context.mounted) return;
+            var outputVo = await showDialog(
+                barrierDismissible: true,
+                context: _context,
+                builder: (context) => all_dialog_yes_or_no.PageEntrance(
+                    all_dialog_yes_or_no.PageInputVo(
+                        "권한 해제",
+                        "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
+                        "예",
+                        "아니오"),
+                    (pageBusiness) {}));
+
+            if (outputVo != null && outputVo.checkPositiveBtn) {
+              // positive 버튼을 눌렀을 때
+              // 권한 설정으로 이동
+              openAppSettings();
+            }
+          } else {
+            // 스위치 On 시키기
+            PermissionStatus permissionStatus =
+                await Permission.requestInstallPackages.status;
+
+            if (permissionStatus.isPermanentlyDenied) {
+              // 권한이 영구적으로 거부된 경우
+              // 권한 설정으로 이동
+              openAppSettings();
+            } else {
+              // 권한 요청
+              await Permission.requestInstallPackages.request();
+
+              PermissionStatus status =
+                  await Permission.requestInstallPackages.status;
+              if (status.isGranted) {
+                // 권한 승인
+                _togglePermissionSwitch(index);
+              }
+            }
+          }
+        }
+        break;
+
       // todo : 추가 및 수정
     }
   }
@@ -1424,6 +1681,12 @@ class PageViewModel {
       allSampleList.add(SampleItem(
           SampleItemEnum.sms, "sms 권한", "Android : sms 메세지 보내기, 읽기"));
 
+      allSampleList.add(SampleItem(SampleItemEnum.ignoreBatteryOptimizations,
+          "ignoreBatteryOptimizations 권한", "Android : 배터리 최적화 무시 권한"));
+
+      allSampleList.add(SampleItem(SampleItemEnum.systemAlertWindow,
+          "systemAlertWindow 권한", "Android : 모든 앱보다 중요하게 표시되는 시스템 경고 띄우기 권한"));
+
       if (gd_const.androidApiLevel! < 33) {
         // android 33 미만
         allSampleList.add(SampleItem(SampleItemEnum.storage, "storage 권한",
@@ -1456,6 +1719,19 @@ class PageViewModel {
             SampleItemEnum.accessMediaLocation,
             "accessMediaLocation 권한",
             "Android 10(API 29) 이상 : 사용자의 공유 컬렉션에 저장된 모든 지리적 위치에 액세스"));
+
+        allSampleList.add(SampleItem(
+            SampleItemEnum.activityRecognition,
+            "activityRecognition 권한",
+            "Android 10(API 29) 이상 : 사용자의 활동 상태(걷기, 자전거, 자동차 등)를 알려주는 권한"));
+      }
+
+      if (gd_const.androidApiLevel! >= 23) {
+        // android 23 이상
+        allSampleList.add(SampleItem(
+            SampleItemEnum.requestInstallPackages,
+            "requestInstallPackages 권한",
+            "Android (API 23) 이상 : 앱 내에서 다른 앱 설치 요청"));
       }
     }
 
@@ -1503,7 +1779,6 @@ enum SampleItemEnum {
   locationWhenInUse,
   // iOS : 포그라운드 + 백그라운드 GPS 정보 접근
   locationAlways,
-
   // Android 13(API 33) 미만 : 외부 저장소에 접근, iOS : todo `문서` 또는 `다운로드`와 같은 폴더에 액세스
   storage,
   // Android 13(API 33) 이상 : 외부 저장소 이미지 읽기, iOS 14+ : todo photo 라이브러리 읽기 쓰기
@@ -1518,6 +1793,14 @@ enum SampleItemEnum {
   photosAddOnly,
   // Android 10(API 29) 이상 : 사용자의 공유 컬렉션에 저장된 모든 지리적 위치에 액세스
   accessMediaLocation,
+  // Android : 배터리 최적화 무시 권한
+  ignoreBatteryOptimizations,
+  // Android 10(API 29) 이상 : 사용자의 활동 상태(걷기, 자전거, 자동차 등)를 알려주는 권한
+  activityRecognition,
+  // Android : 모든 앱보다 중요하게 표시되는 시스템 경고 띄우기 권한
+  systemAlertWindow,
+  // Android (API 23) 이상 : 앱 내에서 다른 앱 설치 요청
+  requestInstallPackages,
 
   // todo 추가 및 수정
 }
