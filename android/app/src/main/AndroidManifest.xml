@@ -77,8 +77,11 @@
     <!-- permission_handler.systemAlertWindows -->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
-    <!-- Permissions options for the `request install packages` group -->
+    <!-- permission_handler.requestInstallPackages -->
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+
+    <!-- permission_handler.accessNotificationPolicy -->
+    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY"/>
 
     <application
         android:name="${applicationName}"

@@ -490,6 +490,26 @@ class PageBusiness {
       blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
     }
 
+    // accessNotificationPolicy 권한 여부 확인
+    int accessNotificationPolicyPermissionIndex = pageViewModel.allSampleList
+        .indexWhere((samplePage) =>
+            samplePage.sampleItemEnum ==
+            SampleItemEnum.accessNotificationPolicy);
+
+    if (accessNotificationPolicyPermissionIndex != -1) {
+      PermissionStatus permissionStatus =
+          await Permission.accessNotificationPolicy.status;
+      SampleItem sampleItem =
+          pageViewModel.allSampleList[accessNotificationPolicyPermissionIndex];
+
+      if (permissionStatus.isGranted) {
+        sampleItem.isChecked = true;
+      } else {
+        sampleItem.isChecked = false;
+      }
+      blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
+    }
+
     // todo : 추가 및 수정
   }
 
@@ -1496,6 +1516,51 @@ class PageBusiness {
         }
         break;
 
+      case SampleItemEnum.accessNotificationPolicy:
+        {
+          if (sampleItem.isChecked) {
+            // 스위치 Off 시키기
+            if (!_context.mounted) return;
+            var outputVo = await showDialog(
+                barrierDismissible: true,
+                context: _context,
+                builder: (context) => all_dialog_yes_or_no.PageEntrance(
+                    all_dialog_yes_or_no.PageInputVo(
+                        "권한 해제",
+                        "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
+                        "예",
+                        "아니오"),
+                    (pageBusiness) {}));
+
+            if (outputVo != null && outputVo.checkPositiveBtn) {
+              // positive 버튼을 눌렀을 때
+              // 권한 설정으로 이동
+              openAppSettings();
+            }
+          } else {
+            // 스위치 On 시키기
+            PermissionStatus permissionStatus =
+                await Permission.accessNotificationPolicy.status;
+
+            if (permissionStatus.isPermanentlyDenied) {
+              // 권한이 영구적으로 거부된 경우
+              // 권한 설정으로 이동
+              openAppSettings();
+            } else {
+              // 권한 요청
+              await Permission.accessNotificationPolicy.request();
+
+              PermissionStatus status =
+                  await Permission.accessNotificationPolicy.status;
+              if (status.isGranted) {
+                // 권한 승인
+                _togglePermissionSwitch(index);
+              }
+            }
+          }
+        }
+        break;
+
       // todo : 추가 및 수정
     }
   }
@@ -1732,6 +1797,10 @@ class PageViewModel {
             SampleItemEnum.requestInstallPackages,
             "requestInstallPackages 권한",
             "Android (API 23) 이상 : 앱 내에서 다른 앱 설치 요청"));
+        allSampleList.add(SampleItem(
+            SampleItemEnum.accessNotificationPolicy,
+            "accessNotificationPolicy 권한",
+            "Android (API 23) 이상 : 디바이스 소리, 진동, 무음 모드 변경 권한"));
       }
     }
 
@@ -1801,6 +1870,8 @@ enum SampleItemEnum {
   systemAlertWindow,
   // Android (API 23) 이상 : 앱 내에서 다른 앱 설치 요청
   requestInstallPackages,
+  // Android (API 23) 이상 : 방해 금지 모드
+  accessNotificationPolicy,
 
   // todo 추가 및 수정
 }
