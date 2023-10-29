@@ -46,8 +46,10 @@ class PageOutFrame extends StatelessWidget {
                     height: 35,
                     child: gw_custom_widgets.HoverButton(
                       hoveringWidget: Container(
-                        color: Colors.blue.withOpacity(0.5),
-                      ),
+                          width: 35,
+                          height: 35,
+                          color: Colors.blue.withOpacity(0.5),
+                          child: const Icon(Icons.home)),
                       onTap: () {
                         context.goNamed(all_page_home.pageName);
                       },
