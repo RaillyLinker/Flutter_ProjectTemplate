@@ -93,33 +93,41 @@ class PageBusiness {
 //     bLocObjects.blocSample.add(!bLocObjects.blocSample.state);
 //   }
 
-  void onHoverButton1Click() {
+  void onRectHoverButtonClick() {
     showToast(
-      "HoverButton1 클릭",
+      "네모 위젯 클릭",
       context: _context,
       animation: StyledToastAnimation.scale,
     );
   }
 
-  void onHoverButton2Click() {
+  void onCircleHoverButtonClick() {
     showToast(
-      "HoverButton2 클릭",
+      "둥근 위젯 클릭",
       context: _context,
       animation: StyledToastAnimation.scale,
     );
   }
 
-  void onHoverButton3Click() {
+  void onImageHoverButtonClick() {
     showToast(
-      "HoverButton3 클릭",
+      "이미지 위젯 클릭",
       context: _context,
       animation: StyledToastAnimation.scale,
     );
   }
 
-  void onHoverButton4Click() {
+  void onHorizontalListHoverButtonClick(int index) {
     showToast(
-      "HoverButton4 클릭",
+      "가로 리스트 아이템$index 클릭",
+      context: _context,
+      animation: StyledToastAnimation.scale,
+    );
+  }
+
+  void onVerticalListHoverButtonClick(int index) {
+    showToast(
+      "세로 리스트 아이템$index 클릭",
       context: _context,
       animation: StyledToastAnimation.scale,
     );

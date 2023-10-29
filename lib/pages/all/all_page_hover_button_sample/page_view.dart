@@ -38,6 +38,27 @@ class PageView extends StatelessWidget {
                 height: 50,
               ),
               Center(
+                child: Container(
+                  color: Colors.blue,
+                  width: 150,
+                  height: 150,
+                  child: gw_custom_widgets.HoverButton(
+                    hoveringColor: Colors.blue.withOpacity(0.5),
+                    onTap: () {
+                      pageBusiness.onRectHoverButtonClick();
+                    },
+                    child: const Icon(
+                      Icons.check,
+                      color: Colors.white,
+                      size: 120,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              Center(
                 child: ClipOval(
                     child: Container(
                   color: Colors.blue,
@@ -45,9 +66,9 @@ class PageView extends StatelessWidget {
                   height: 150,
                   child: gw_custom_widgets.HoverButton(
                     onTap: () {
-                      pageBusiness.onHoverButton1Click();
+                      pageBusiness.onCircleHoverButtonClick();
                     },
-                    hoveringColor: Colors.blue[100],
+                    hoveringColor: Colors.blue.withOpacity(0.5),
                     child: const Icon(
                       Icons.check,
                       color: Colors.white,
@@ -65,30 +86,9 @@ class PageView extends StatelessWidget {
                   width: 150,
                   height: 150,
                   child: gw_custom_widgets.HoverButton(
-                    hoveringColor: Colors.blue[100],
+                    hoveringColor: Colors.blue.withOpacity(0.5),
                     onTap: () {
-                      pageBusiness.onHoverButton2Click();
-                    },
-                    child: const Icon(
-                      Icons.check,
-                      color: Colors.white,
-                      size: 120,
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              Center(
-                child: Container(
-                  color: Colors.blue,
-                  width: 150,
-                  height: 150,
-                  child: gw_custom_widgets.HoverButton(
-                    hoveringColor: Colors.blue[100],
-                    onTap: () {
-                      pageBusiness.onHoverButton3Click();
+                      pageBusiness.onImageHoverButtonClick();
                     },
                     child: Image(
                       image: const AssetImage(
@@ -120,31 +120,65 @@ class PageView extends StatelessWidget {
               const SizedBox(
                 height: 30,
               ),
+              Container(
+                padding: const EdgeInsets.only(left: 10),
+                height: 100, // ListView의 높이를 설정합니다. (옵션)
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: 9,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Container(
+                      width: 100, // 각 아이템의 너비를 설정합니다.
+                      margin: const EdgeInsets.only(right: 10),
+                      color: Colors.blue[(index + 1) * 100],
+                      child: gw_custom_widgets.HoverButton(
+                        onTap: () {
+                          pageBusiness.onHorizontalListHoverButtonClick(index);
+                        },
+                        hoveringColor: Colors.blue.withOpacity(0.5),
+                        child: Center(
+                          child: Text(
+                            'Item $index',
+                            style: const TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+              const SizedBox(
+                height: 30,
+              ),
               ListView.builder(
                 itemCount: 5,
                 shrinkWrap: true, // 리스트뷰 크기 고정
                 primary: false, // 리스트뷰 내부는 스크롤 금지
                 itemBuilder: (context, index) {
-                  return gw_custom_widgets.HoverButton(
-                      hoveringColor: Colors.blue[100],
-                      onTap: () {
-                        pageBusiness.onHoverButton4Click();
-                      },
-                      child: Column(
-                        children: [
-                          ListTile(
-                            mouseCursor: SystemMouseCursors.click,
-                            title: Text(
-                              "item$index",
-                              style: const TextStyle(fontFamily: "MaruBuri"),
-                            ),
-                          ),
-                          const Divider(
-                            color: Colors.grey,
-                            height: 0.1,
-                          ),
-                        ],
-                      ));
+                  return Column(
+                    children: [
+                      // List 아이템은 Height 가 무한이므로 이를 제한하기 위해 IntrinsicHeight 를 사용해야 합니다.
+                      IntrinsicHeight(
+                        child: gw_custom_widgets.HoverButton(
+                            hoveringColor: Colors.blue.withOpacity(0.5),
+                            onTap: () {
+                              pageBusiness
+                                  .onVerticalListHoverButtonClick(index);
+                            },
+                            child: ListTile(
+                              mouseCursor: SystemMouseCursors.click,
+                              title: Text(
+                                "item$index",
+                                style: const TextStyle(fontFamily: "MaruBuri"),
+                              ),
+                            )),
+                      ),
+                      const Divider(
+                        color: Colors.grey,
+                        height: 0.1,
+                      ),
+                    ],
+                  );
                 },
               )
             ],
