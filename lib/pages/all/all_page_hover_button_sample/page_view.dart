@@ -43,7 +43,9 @@ class PageView extends StatelessWidget {
                   width: 150,
                   height: 150,
                   child: gw_custom_widgets.HoverButton(
-                    hoveringColor: Colors.blue.withOpacity(0.5),
+                    hoveringWidget: Container(
+                      color: Colors.blue.withOpacity(0.5),
+                    ),
                     onTap: () {
                       pageBusiness.onRectHoverButtonClick();
                     },
@@ -68,7 +70,9 @@ class PageView extends StatelessWidget {
                     onTap: () {
                       pageBusiness.onCircleHoverButtonClick();
                     },
-                    hoveringColor: Colors.blue.withOpacity(0.5),
+                    hoveringWidget: Container(
+                      color: Colors.blue.withOpacity(0.5),
+                    ),
                     child: const Icon(
                       Icons.check,
                       color: Colors.white,
@@ -86,7 +90,9 @@ class PageView extends StatelessWidget {
                   width: 150,
                   height: 150,
                   child: gw_custom_widgets.HoverButton(
-                    hoveringColor: Colors.blue.withOpacity(0.5),
+                    hoveringWidget: Container(
+                      color: Colors.blue.withOpacity(0.5),
+                    ),
                     onTap: () {
                       pageBusiness.onImageHoverButtonClick();
                     },
@@ -135,7 +141,9 @@ class PageView extends StatelessWidget {
                         onTap: () {
                           pageBusiness.onHorizontalListHoverButtonClick(index);
                         },
-                        hoveringColor: Colors.blue.withOpacity(0.5),
+                        hoveringWidget: Container(
+                          color: Colors.blue.withOpacity(0.5),
+                        ),
                         child: Center(
                           child: Text(
                             'Item $index',
@@ -160,7 +168,9 @@ class PageView extends StatelessWidget {
                       // List 아이템은 Height 가 무한이므로 이를 제한하기 위해 IntrinsicHeight 를 사용해야 합니다.
                       IntrinsicHeight(
                         child: gw_custom_widgets.HoverButton(
-                            hoveringColor: Colors.blue.withOpacity(0.5),
+                            hoveringWidget: Container(
+                              color: Colors.blue.withOpacity(0.5),
+                            ),
                             onTap: () {
                               pageBusiness
                                   .onVerticalListHoverButtonClick(index);

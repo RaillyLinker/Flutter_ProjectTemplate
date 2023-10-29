@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 
 // (all)
 import '../../../pages/all/all_page_home/page_entrance.dart' as all_page_home;
+import 'gw_custom_widgets.dart' as gw_custom_widgets;
 
 // [페이지의 외곽 프레임 위젯 작성 파일]
 // 전역의 페이지에서 사용 가능한 위젯입니다.
@@ -39,12 +40,14 @@ class PageOutFrame extends StatelessWidget {
             automaticallyImplyLeading: !kIsWeb,
             title: Row(
               children: [
-                SizedBox(
-                  width: 35,
-                  height: 35,
-                  child: MouseRegion(
-                    cursor: SystemMouseCursors.click,
-                    child: GestureDetector(
+                ClipOval(
+                  child: SizedBox(
+                    width: 35,
+                    height: 35,
+                    child: gw_custom_widgets.HoverButton(
+                      hoveringWidget: Container(
+                        color: Colors.blue.withOpacity(0.5),
+                      ),
                       onTap: () {
                         context.goNamed(all_page_home.pageName);
                       },

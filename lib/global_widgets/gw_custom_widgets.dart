@@ -7,15 +7,20 @@ import 'package:flutter/material.dart';
 //------------------------------------------------------------------------------
 // (페이지 최외곽 프레임 템플릿)
 class HoverButton extends StatefulWidget {
+  // 버튼 위젯 child
   final Widget child;
+
+  // 버튼 위젯 클릭 콜백
   final VoidCallback onTap;
-  final Color? hoveringColor;
+
+  // 버튼 호버링시 child 위에 덮을 위젯
+  final Widget hoveringWidget;
 
   const HoverButton({
     super.key,
     required this.child,
     required this.onTap,
-    required this.hoveringColor,
+    required this.hoveringWidget,
   });
 
   @override
@@ -37,9 +42,9 @@ class HoverButtonState extends State<HoverButton> {
           alignment: Alignment.center,
           children: [
             widget.child,
-            AnimatedContainer(
-              duration: const Duration(milliseconds: 100),
-              color: _isHovering ? widget.hoveringColor : Colors.transparent,
+            Opacity(
+              opacity: _isHovering ? 1.0 : 0.0, // 0.0: 완전 투명, 1.0: 완전 불투명
+              child: widget.hoveringWidget,
             ),
           ],
         ),
