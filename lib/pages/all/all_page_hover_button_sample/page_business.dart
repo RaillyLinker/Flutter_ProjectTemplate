@@ -109,6 +109,22 @@ class PageBusiness {
     );
   }
 
+  void onHoverButton3Click() {
+    showToast(
+      "HoverButton3 클릭",
+      context: _context,
+      animation: StyledToastAnimation.scale,
+    );
+  }
+
+  void onHoverButton4Click() {
+    showToast(
+      "HoverButton4 클릭",
+      context: _context,
+      animation: StyledToastAnimation.scale,
+    );
+  }
+
 ////
 // [내부 함수]
 // !!!내부에서만 사용할 함수를 아래에 구현!!

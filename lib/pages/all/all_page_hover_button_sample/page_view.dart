@@ -80,14 +80,55 @@ class PageView extends StatelessWidget {
               const SizedBox(
                 height: 30,
               ),
+              Center(
+                child: Container(
+                  color: Colors.blue,
+                  width: 150,
+                  height: 150,
+                  child: gw_custom_widgets.HoverButton(
+                    hoveringColor: Colors.blue[100],
+                    onTap: () {
+                      pageBusiness.onHoverButton3Click();
+                    },
+                    child: Image(
+                      image: const AssetImage(
+                          "lib/assets/images/init_splash_logo.png"),
+                      fit: BoxFit.cover,
+                      loadingBuilder: (BuildContext context, Widget child,
+                          ImageChunkEvent? loadingProgress) {
+                        // 로딩 중일 때 플레이스 홀더를 보여줍니다.
+                        if (loadingProgress == null) {
+                          return child; // 로딩이 끝났을 경우
+                        }
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      },
+                      errorBuilder: (context, error, stackTrace) {
+                        // 에러 발생 시 설정한 에러 위젯을 반환합니다.
+                        return const Center(
+                          child: Icon(
+                            Icons.error,
+                            color: Colors.red,
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 30,
+              ),
               ListView.builder(
                 itemCount: 5,
                 shrinkWrap: true, // 리스트뷰 크기 고정
                 primary: false, // 리스트뷰 내부는 스크롤 금지
                 itemBuilder: (context, index) {
                   return gw_custom_widgets.HoverButton(
+                      hoveringColor: Colors.blue[100],
                       onTap: () {
-                        // todo
+                        pageBusiness.onHoverButton4Click();
                       },
                       child: Column(
                         children: [
