@@ -6,7 +6,6 @@ import 'package:go_router/go_router.dart';
 
 // (all)
 import '../../../pages/all/all_page_home/page_entrance.dart' as all_page_home;
-import 'gw_custom_widgets.dart' as gw_custom_widgets;
 
 // [페이지의 외곽 프레임 위젯 작성 파일]
 // 전역의 페이지에서 사용 가능한 위젯입니다.
@@ -40,46 +39,7 @@ class PageOutFrame extends StatelessWidget {
             automaticallyImplyLeading: !kIsWeb,
             title: Row(
               children: [
-                ClipOval(
-                  child: SizedBox(
-                    width: 35,
-                    height: 35,
-                    child: gw_custom_widgets.HoverButton(
-                      hoveringWidget: Container(
-                          width: 35,
-                          height: 35,
-                          color: Colors.blue.withOpacity(0.5),
-                          child: const Icon(Icons.home)),
-                      onTap: () {
-                        context.goNamed(all_page_home.pageName);
-                      },
-                      child: Image(
-                        image: const AssetImage(
-                            "lib/assets/images/app_logo_img.png"),
-                        fit: BoxFit.cover,
-                        loadingBuilder: (BuildContext context, Widget child,
-                            ImageChunkEvent? loadingProgress) {
-                          // 로딩 중일 때 플레이스 홀더를 보여줍니다.
-                          if (loadingProgress == null) {
-                            return child; // 로딩이 끝났을 경우
-                          }
-                          return const Center(
-                            child: CircularProgressIndicator(),
-                          );
-                        },
-                        errorBuilder: (context, error, stackTrace) {
-                          // 에러 발생 시 설정한 에러 위젯을 반환합니다.
-                          return const Center(
-                            child: Icon(
-                              Icons.error,
-                              color: Colors.red,
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-                  ),
-                ),
+                const _HeaderGoToHomeIconBtn(),
                 const SizedBox(
                   width: 15,
                 ),
@@ -98,5 +58,77 @@ class PageOutFrame extends StatelessWidget {
         backgroundColor:
             isPageBackgroundBlue ? Colors.blue : const Color(0xFFFFFFFF),
         body: child);
+  }
+}
+
+// 헤더 아이콘(호버링 표시 + 클릭시 홈 페이지로 이동)
+class _HeaderGoToHomeIconBtn extends StatefulWidget {
+  const _HeaderGoToHomeIconBtn();
+
+  @override
+  _HeaderGoToHomeIconBtnState createState() => _HeaderGoToHomeIconBtnState();
+}
+
+class _HeaderGoToHomeIconBtnState extends State<_HeaderGoToHomeIconBtn> {
+  bool _isHovering = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipOval(
+      child: MouseRegion(
+        // 커서 변경 및 호버링 상태 변경
+        cursor: SystemMouseCursors.click,
+        onEnter: (details) => setState(() => _isHovering = true),
+        onExit: (details) => setState(() => _isHovering = false),
+        child: GestureDetector(
+          // 클릭시 제스쳐 콜백
+          onTap: () {
+            context.goNamed(all_page_home.pageName);
+          },
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              // 보여줄 위젯
+              SizedBox(
+                width: 35,
+                height: 35,
+                child: Image(
+                  image: const AssetImage("lib/assets/images/app_logo_img.png"),
+                  fit: BoxFit.cover,
+                  loadingBuilder: (BuildContext context, Widget child,
+                      ImageChunkEvent? loadingProgress) {
+                    // 로딩 중일 때 플레이스 홀더를 보여줍니다.
+                    if (loadingProgress == null) {
+                      return child; // 로딩이 끝났을 경우
+                    }
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  },
+                  errorBuilder: (context, error, stackTrace) {
+                    // 에러 발생 시 설정한 에러 위젯을 반환합니다.
+                    return const Center(
+                      child: Icon(
+                        Icons.error,
+                        color: Colors.red,
+                      ),
+                    );
+                  },
+                ),
+              ),
+              // 호버링시 가릴 위젯(보여줄 위젯과 동일한 사이즈를 준비)
+              Opacity(
+                opacity: _isHovering ? 1.0 : 0.0, // 0.0: 완전 투명, 1.0: 완전 불투명
+                child: Container(
+                    width: 35,
+                    height: 35,
+                    color: Colors.blue.withOpacity(0.5),
+                    child: const Icon(Icons.home)),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

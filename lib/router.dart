@@ -77,8 +77,6 @@ import 'pages/all/all_page_form_sample/page_entrance.dart'
     as all_page_form_sample;
 import 'pages/all/all_page_horizontal_scroll_test/page_entrance.dart'
     as all_page_horizontal_scroll_test;
-import 'pages/all/all_page_hover_button_sample/page_entrance.dart'
-    as all_page_hover_button_sample;
 
 // (app)
 import 'pages/app/app_page_init_splash/page_entrance.dart'
@@ -546,17 +544,6 @@ GoRouter getRouter() {
             child: all_page_horizontal_scroll_test.PageEntrance(s),
             transitionsBuilder:
                 all_page_horizontal_scroll_test.pageTransitionsBuilder);
-      }));
-
-  subRouteListEtcSampleList.add(GoRoute(
-      path: "hover_button_sample",
-      name: all_page_hover_button_sample.pageName,
-      pageBuilder: (c, s) {
-        return CustomTransitionPage(
-            key: s.pageKey,
-            child: all_page_hover_button_sample.PageEntrance(s),
-            transitionsBuilder:
-                all_page_hover_button_sample.pageTransitionsBuilder);
       }));
 
   // ---------------------------------------------------------------------------
