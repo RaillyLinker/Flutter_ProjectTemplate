@@ -33,12 +33,11 @@ class PageView extends StatelessWidget {
       return ListView.builder(
         itemCount: pageBusiness.pageViewModel.allSampleList.length,
         itemBuilder: (context, index) {
-          return GestureDetector(
-              onTap: () {
-                pageBusiness.onRouteListItemClick(index);
-              },
-              child: Column(
-                children: [
+          return Column(
+            children: [
+              _HoverListTileWrapper(
+                  index,
+                  pageBusiness.onRouteListItemClick,
                   ListTile(
                     mouseCursor: SystemMouseCursors.click,
                     title: Text(
@@ -52,15 +51,52 @@ class PageView extends StatelessWidget {
                       style: const TextStyle(fontFamily: "MaruBuri"),
                     ),
                     trailing: const Icon(Icons.chevron_right),
-                  ),
-                  const Divider(
-                    color: Colors.grey,
-                    height: 0.1,
-                  ),
-                ],
-              ));
+                  )),
+              const Divider(
+                color: Colors.grey,
+                height: 0.1,
+              ),
+            ],
+          );
         },
       );
     }));
+  }
+}
+
+// 호버 리스트 타일 래퍼
+class _HoverListTileWrapper extends StatefulWidget {
+  const _HoverListTileWrapper(
+      this.index, this.onRouteListItemClick, this.listTileChild);
+
+  final int index;
+  final void Function(int index) onRouteListItemClick;
+  final Widget listTileChild;
+
+  @override
+  _HoverListTileWrapperState createState() => _HoverListTileWrapperState();
+}
+
+class _HoverListTileWrapperState extends State<_HoverListTileWrapper> {
+  bool _isHovering = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      // 커서 변경 및 호버링 상태 변경
+      cursor: SystemMouseCursors.click,
+      onEnter: (details) => setState(() => _isHovering = true),
+      onExit: (details) => setState(() => _isHovering = false),
+      child: GestureDetector(
+        // 클릭시 제스쳐 콜백
+        onTap: () {
+          widget.onRouteListItemClick(widget.index);
+        },
+        child: Container(
+          color: _isHovering ? Colors.blue.withOpacity(0.2) : Colors.white,
+          child: widget.listTileChild,
+        ),
+      ),
+    );
   }
 }
