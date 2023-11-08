@@ -16,7 +16,7 @@ import '../../../global_classes/gc_my_classes.dart' as gc_my_classes;
 
 //------------------------------------------------------------------------------
 // (페이지 UI 위젯)
-// !!!세부 화면 정의!!
+// !!!세부 화면 정의!!!
 class PageView extends StatelessWidget {
   const PageView({super.key});
 

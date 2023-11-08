@@ -20,7 +20,7 @@ import '../../../global_functions/gf_my_functions.dart' as gf_my_functions;
 
 //------------------------------------------------------------------------------
 // (페이지 UI 위젯)
-// !!!세부 화면 정의!!
+// !!!세부 화면 정의!!!
 class PageView extends StatelessWidget {
   const PageView({super.key});
 

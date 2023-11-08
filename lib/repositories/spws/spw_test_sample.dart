@@ -13,12 +13,12 @@ import '../../../global_functions/gf_crypto.dart' as gf_crypto;
 // -----------------------------------------------------------------------------
 class SharedPreferenceWrapper {
   // (전역 키 이름)
-  // !!!전역 키 이름 설정!!
+  // !!!전역 키 이름 설정!!!
   // 적용 구역이 전역이므로 중복되지 않도록 spws 안의 파일명을 적을 것
   static const String globalKeyName = "spw_test_sample";
 
   // (저장 데이터 암호 설정)
-  // !!!AES256 에서 사용할 secretKey, secretIv 설정!!
+  // !!!AES256 에서 사용할 secretKey, secretIv 설정!!!
   // 암복호화에 들어가는 연산량 증가가 존재하지만, 보안적 측면의 우위를 위해 암호화를 사용하기로 결정
   // 암호화 키 (32 byte)
   static const String secretKey = "aaaaaaaaaabbbbbbbbbbccccccccccdd";
@@ -47,7 +47,7 @@ class SharedPreferenceWrapper {
         String decryptedJsonString =
             gf_crypto.aes256Decrypt(savedJsonString, secretKey, secretIv);
 
-        // !!! Map 을 Object 로 변경!!
+        // !!! Map 을 Object 로 변경!!!
         // map 키는 Object 의 변수명과 동일
         Map<String, dynamic> map = jsonDecode(decryptedJsonString);
         var resultObject =
@@ -78,7 +78,7 @@ class SharedPreferenceWrapper {
         semaphore.release();
       });
     } else {
-      // !!!Object 를 Map 으로 변경!!
+      // !!!Object 를 Map 으로 변경!!!
       // map 키는 Object 의 변수명과 동일하게 설정
       Map<String, dynamic> map = {
         "sampleInt": value.sampleInt,
@@ -99,7 +99,7 @@ class SharedPreferenceWrapper {
   }
 }
 
-// !!!저장 정보 데이터 형태 작성!!
+// !!!저장 정보 데이터 형태 작성!!!
 class SharedPreferenceWrapperVo {
   int sampleInt; // 샘플 int 데이터
   String sampleString; // 샘플 String 데이터

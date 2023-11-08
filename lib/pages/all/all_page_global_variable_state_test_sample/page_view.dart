@@ -17,7 +17,7 @@ import '../../../global_data/gd_variable_my_data.dart' as gd_variable_my_data;
 
 //------------------------------------------------------------------------------
 // (페이지 UI 위젯)
-// !!!세부 화면 정의!!
+// !!!세부 화면 정의!!!
 class PageView extends StatelessWidget {
   const PageView({super.key});
 

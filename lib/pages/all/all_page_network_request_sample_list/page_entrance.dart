@@ -15,11 +15,11 @@ import '../../../global_classes/gc_template_classes.dart'
 // [페이지 진입 파일]
 
 //------------------------------------------------------------------------------
-// !!!페이지 진입 라우트 Name 정의!!
+// !!!페이지 진입 라우트 Name 정의!!!
 // 폴더명과 동일하게 작성하세요.
 const pageName = "all_page_network_request_sample_list";
 
-// !!!페이지 호출/반납 애니메이션!!
+// !!!페이지 호출/반납 애니메이션!!!
 // 동적으로 변경이 가능합니다.
 Widget Function(BuildContext context, Animation<double> animation,
         Animation<double> secondaryAnimation, Widget child)
@@ -28,11 +28,11 @@ Widget Function(BuildContext context, Animation<double> animation,
 };
 
 // (페이지 호출시 필요한 입력값 데이터 형태)
-// !!!페이지 입력 데이터 정의!!
+// !!!페이지 입력 데이터 정의!!!
 class PageInputVo {}
 
 // (이전 페이지로 전달할 결과 데이터 형태)
-// !!!페이지 반환 데이터 정의!!
+// !!!페이지 반환 데이터 정의!!!
 class PageOutputVo {}
 
 //------------------------------------------------------------------------------

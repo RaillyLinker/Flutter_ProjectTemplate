@@ -15,7 +15,7 @@ import 'page_business.dart' as page_business;
 
 //------------------------------------------------------------------------------
 // (페이지 호출시 필요한 입력값 데이터 형태)
-// !!!페이지 입력 데이터 정의!!
+// !!!페이지 입력 데이터 정의!!!
 class PageInputVo {
   String emailAddress;
 
@@ -28,7 +28,7 @@ class PageInputVo {
 }
 
 // (이전 페이지로 전달할 결과 데이터 형태)
-// !!!페이지 반환 데이터 정의!!
+// !!!페이지 반환 데이터 정의!!!
 class PageOutputVo {
   String checkedVerificationCode;
 

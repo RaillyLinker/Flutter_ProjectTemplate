@@ -15,7 +15,7 @@ import '../../../global_classes/gc_template_classes.dart'
 
 //------------------------------------------------------------------------------
 // (페이지 호출시 필요한 입력값 데이터 형태)
-// !!!페이지 입력 데이터 정의!!
+// !!!페이지 입력 데이터 정의!!!
 class PageInputVo {
   // 다이얼로그 타이틀
   String dialogTitle;
@@ -34,7 +34,7 @@ class PageInputVo {
 }
 
 // (이전 페이지로 전달할 결과 데이터 형태)
-// !!!페이지 반환 데이터 정의!!
+// !!!페이지 반환 데이터 정의!!!
 class PageOutputVo {
   // 다이얼로그 결과 : 긍정 버튼을 눌렀으면 true, 부정 버튼을 누르면 false
   bool checkPositiveBtn;

@@ -15,7 +15,7 @@ import '../spws/spw_auth_member_info.dart' as spw_auth_member_info;
 // 요청 객체는 아래에 선언 및 초기 설정 이후, api_ dart 파일에서 사용됨
 
 // -----------------------------------------------------------------------------
-// !!!서버별 네트워크 요청 객체를 선언, 생성합니다.!!
+// !!!서버별 네트워크 요청 객체를 선언, 생성합니다.!!!
 // (메인 서버 Dio)
 var mainServerDio = Dio(BaseOptions(
     baseUrl: (gd_const_config.isDebugMode)
@@ -37,7 +37,7 @@ var mainServerDio = Dio(BaseOptions(
     }));
 
 // -----------------------------------------------------------------------------
-// !!!네트워크 요청 객체에 대한 초기 설정을 해줍니다.!!
+// !!!네트워크 요청 객체에 대한 초기 설정을 해줍니다.!!!
 // 아래 함수는 main 함수에서 실행됩니다.
 void setDioObjects() {
   // (로깅 인터셉터 설정)
@@ -64,7 +64,7 @@ void setDioObjects() {
     // 요청 바디 (ex : {"testBody" : "test text body"})
     // dynamic requestBody = options.data;
 
-    // !!!매 네트워크 요청마다 수행할 로직 설정!!
+    // !!!매 네트워크 요청마다 수행할 로직 설정!!!
 
     // 서버로 요청 전송
     handler.next(options);
@@ -80,7 +80,7 @@ void setDioObjects() {
     // 응답 바디 (ex : {"testBody" : "test text body"})
     // dynamic responseBody = response.data;
 
-    // !!!매 네트워크 응답마다 수행할 로직 설정!!
+    // !!!매 네트워크 응답마다 수행할 로직 설정!!!
 
     // (Authorization JWT 토큰 관련 처리)
     // 가정 : 서버는 RequestHeader 로 {"Authorization" : "Bearer aaaaaaaaaa"} 와 같이 JWT 를 보냈을 때는 토큰 적합성 검사를 합니다.
