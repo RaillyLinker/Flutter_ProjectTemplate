@@ -18,16 +18,24 @@ class PageBusiness {
   // 페이지 컨텍스트 객체
   final BuildContext _context;
 
-  // 페이지 뷰모델 (StateFul 위젯 State 데이터는 모두 여기에 저장됨)
-  late PageViewModel pageViewModel;
-
   // BLoC 객체 모음
   late BLocObjects blocObjects;
 
+  // 페이지 생명주기 관련 states
+  var pageLifeCycleStates = gc_template_classes.PageLifeCycleStates();
+
+  // 페이지 파라미터
+  page_entrance.PageInputVo pageInputVo;
+
+  // 다이얼로그 호출시 pageBusiness 를 전달하기 위한 콜백
+  late void Function(PageBusiness) onDialogPageCreated;
+
+  // !!!페이지 데이터 정의!!!
+  // ex :
+  // int sampleNumber = 0;
+
   // 생성자 설정
-  PageBusiness(this._context, page_entrance.PageInputVo pageInputVo) {
-    pageViewModel = PageViewModel(pageInputVo);
-  }
+  PageBusiness(this._context, this.pageInputVo);
 
   ////
   // [페이지 생명주기]
@@ -71,10 +79,10 @@ class PageBusiness {
 // !!!외부에서 사용할 비즈니스 로직은 아래에 공개 함수로 구현!!!
 // ex :
 //   void changeSampleNumber(int newSampleNumber) {
-//     // 뷰모델 state 변경
-//     pageViewModel.sampleNumber = newSampleNumber;
-//     // 위젯 변경 트리거 발동
-//     bLocObjects.blocSample.add(!bLocObjects.blocSample.state);
+//     // BLoC 위젯 상태 변수 변경
+//     blocObjects.blocSample.sampleInt = newSampleNumber;
+//     // BLoC 위젯 변경 트리거 발동
+//     blocObjects.blocSample.refresh();
 //   }
 
 ////
@@ -82,30 +90,20 @@ class PageBusiness {
 // !!!내부에서만 사용할 함수를 아래에 구현!!!
 }
 
-// (페이지 뷰 모델 데이터 형태)
-// 페이지의 모든 화면 관련 데이터는 여기에 정의되며, Business 인스턴스 안에 객체로 저장 됩니다.
-class PageViewModel {
-  // 페이지 생명주기 관련 states
-  var pageLifeCycleStates = gc_template_classes.PageLifeCycleStates();
-
-  // 페이지 파라미터
-  page_entrance.PageInputVo pageInputVo;
-
-  // 다이얼로그 호출시 pageBusiness 를 전달하기 위한 콜백
-  late void Function(PageBusiness) onDialogPageCreated;
-
-  // !!!페이지 데이터 정의!!!
-  // ex :
-  // int sampleNumber = 0;
-
-  PageViewModel(this.pageInputVo);
-}
-
+// todo : page_view 에서 선언하기
 // (BLoC 클래스 모음)
 // 아래엔 런타임 위젯 변경의 트리거가 되는 BLoC 클래스들을 작성해 둡니다.
 // !!!각 BLoC 클래스는 아래 예시를 '그대로' 복사 붙여넣기를 하여 클래스 이름만 변경합니다.!!!
 // ex :
 // class BlocSample extends Bloc<bool, bool> {
+//   // BLoC 위젯 갱신 함수
+//   void refresh() {
+//     add(!state);
+//   }
+//
+//   // !!!BLoC 위젯 뷰 모델 변수 선언!!!
+//   // ex : int sampleInt = 0;
+//
 //   BlocSample() : super(true) {
 //     on<bool>((event, emit) {
 //       emit(event);
@@ -116,13 +114,14 @@ class PageViewModel {
 // (BLoC 프로바이더 클래스)
 // 본 페이지에서 사용할 BLoC 객체를 모아두어 PageEntrance 에서 페이지 전역 설정에 사용 됩니다.
 class BLocProviders {
-// !!!위에 정의된 BLoC 클래스들에 대한 Provider 객체들을 아래 리스트에 모두 넣어줄 것!!!
+// !!!이 페이지에서 사용할 "모든" BLoC 클래스들에 대한 Provider 객체들을 아래 리스트에 넣어줄 것!!!
   List<BlocProvider<dynamic>> blocProviders = [
     // ex :
     // BlocProvider<BlocSample>(create: (context) => BlocSample())
   ];
 }
 
+// todo : 그냥 조작 객체 밖에다 둘까?
 class BLocObjects {
   // 페이지 컨텍스트 객체
   final BuildContext _context;
