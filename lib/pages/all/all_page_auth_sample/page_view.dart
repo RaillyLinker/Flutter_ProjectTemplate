@@ -66,11 +66,8 @@ class PageView extends StatelessWidget {
                               child: BlocBuilder<
                                   page_business.BlocLoginMemberInfo,
                                   bool>(builder: (c, s) {
-                                page_business.BlocLoginMemberInfo
-                                    blocLoginMemberInfo = BlocProvider.of<
-                                        page_business.BlocLoginMemberInfo>(c);
                                 var loginMemberInfo =
-                                    blocLoginMemberInfo.loginMemberInfo;
+                                    pageBusiness.pageViewModel.loginMemberInfo;
                                 String text = (loginMemberInfo == null)
                                     ? "null"
                                     : loginMemberInfo.memberUid.toString();
@@ -98,11 +95,8 @@ class PageView extends StatelessWidget {
                               child: BlocBuilder<
                                   page_business.BlocLoginMemberInfo,
                                   bool>(builder: (c, s) {
-                                page_business.BlocLoginMemberInfo
-                                    blocLoginMemberInfo = BlocProvider.of<
-                                        page_business.BlocLoginMemberInfo>(c);
                                 var loginMemberInfo =
-                                    blocLoginMemberInfo.loginMemberInfo;
+                                    pageBusiness.pageViewModel.loginMemberInfo;
                                 String text = (loginMemberInfo == null)
                                     ? "null"
                                     : loginMemberInfo.tokenType;
@@ -130,11 +124,8 @@ class PageView extends StatelessWidget {
                               child: BlocBuilder<
                                   page_business.BlocLoginMemberInfo,
                                   bool>(builder: (c, s) {
-                                page_business.BlocLoginMemberInfo
-                                    blocLoginMemberInfo = BlocProvider.of<
-                                        page_business.BlocLoginMemberInfo>(c);
                                 var loginMemberInfo =
-                                    blocLoginMemberInfo.loginMemberInfo;
+                                    pageBusiness.pageViewModel.loginMemberInfo;
                                 String text = (loginMemberInfo == null)
                                     ? "null"
                                     : loginMemberInfo.accessToken;
@@ -165,11 +156,8 @@ class PageView extends StatelessWidget {
                               child: BlocBuilder<
                                   page_business.BlocLoginMemberInfo,
                                   bool>(builder: (c, s) {
-                                page_business.BlocLoginMemberInfo
-                                    blocLoginMemberInfo = BlocProvider.of<
-                                        page_business.BlocLoginMemberInfo>(c);
                                 var loginMemberInfo =
-                                    blocLoginMemberInfo.loginMemberInfo;
+                                    pageBusiness.pageViewModel.loginMemberInfo;
                                 String text = (loginMemberInfo == null)
                                     ? "null"
                                     : loginMemberInfo.accessTokenExpireWhen;
@@ -197,11 +185,8 @@ class PageView extends StatelessWidget {
                               child: BlocBuilder<
                                   page_business.BlocLoginMemberInfo,
                                   bool>(builder: (c, s) {
-                                page_business.BlocLoginMemberInfo
-                                    blocLoginMemberInfo = BlocProvider.of<
-                                        page_business.BlocLoginMemberInfo>(c);
                                 var loginMemberInfo =
-                                    blocLoginMemberInfo.loginMemberInfo;
+                                    pageBusiness.pageViewModel.loginMemberInfo;
                                 String text = (loginMemberInfo == null)
                                     ? "null"
                                     : loginMemberInfo.refreshToken;
@@ -232,11 +217,8 @@ class PageView extends StatelessWidget {
                               child: BlocBuilder<
                                   page_business.BlocLoginMemberInfo,
                                   bool>(builder: (c, s) {
-                                page_business.BlocLoginMemberInfo
-                                    blocLoginMemberInfo = BlocProvider.of<
-                                        page_business.BlocLoginMemberInfo>(c);
                                 var loginMemberInfo =
-                                    blocLoginMemberInfo.loginMemberInfo;
+                                    pageBusiness.pageViewModel.loginMemberInfo;
                                 String text = (loginMemberInfo == null)
                                     ? "null"
                                     : loginMemberInfo.refreshTokenExpireWhen;

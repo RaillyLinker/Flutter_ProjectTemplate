@@ -96,7 +96,7 @@ class PageBusiness {
 
   // (다이얼로그 완료)
   Future<void> dialogComplete() async {
-    blocObjects.blocOuterContainerForComplete.isComplete = true;
+    pageViewModel.isComplete = true;
     blocObjects.blocOuterContainerForComplete.refresh();
 
     // 애니메이션의 지속 시간만큼 지연
@@ -118,6 +118,9 @@ class PageViewModel {
   // !!!페이지 데이터 정의!!!
   // ex :
   // int sampleNumber = 0;
+
+  // 다이얼로그 작업 완료 여부
+  bool isComplete = false;
 
   PageViewModel();
 }
@@ -142,11 +145,6 @@ class BlocOuterContainerForComplete extends Bloc<bool, bool> {
   void refresh() {
     add(!state);
   }
-
-  // !!!BLoC 위젯 상태 변수 선언 및 초기화!!!
-
-  // 다이얼로그 작업 완료 여부
-  bool isComplete = false;
 
   BlocOuterContainerForComplete() : super(true) {
     on<bool>((event, emit) {

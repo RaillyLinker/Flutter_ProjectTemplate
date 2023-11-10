@@ -47,30 +47,27 @@ class PageView extends StatelessWidget {
                             Expanded(child: BlocBuilder<
                                 page_business.BlocPasswordTextField,
                                 bool>(builder: (c, s) {
-                              page_business.BlocPasswordTextField
-                                  blocPasswordTextField = BlocProvider.of<
-                                      page_business.BlocPasswordTextField>(c);
-
                               return TextFormField(
                                 onChanged: (text) {
                                   pageBusiness.passwordTextEditOnChanged();
                                 },
-                                focusNode: blocPasswordTextField
-                                    .passwordTextFieldFocus,
-                                controller: blocPasswordTextField
-                                    .passwordTextFieldController,
-                                obscureText: blocPasswordTextField.hidePassword,
+                                focusNode: pageBusiness
+                                    .pageViewModel.passwordTextFieldFocus,
+                                controller: pageBusiness
+                                    .pageViewModel.passwordTextFieldController,
+                                obscureText:
+                                    pageBusiness.pageViewModel.hidePassword,
                                 onFieldSubmitted: (value) {
                                   pageBusiness.onPasswordFieldSubmitted();
                                 },
                                 decoration: InputDecoration(
-                                  errorText: blocPasswordTextField
-                                      .passwordTextEditErrorMsg,
+                                  errorText: pageBusiness
+                                      .pageViewModel.passwordTextEditErrorMsg,
                                   labelText: "현재 비밀번호 입력",
                                   hintText: 'xxxxxxxxxxx',
                                   suffixIcon: IconButton(
                                     icon: Icon(
-                                        blocPasswordTextField.hidePassword
+                                        pageBusiness.pageViewModel.hidePassword
                                             ? Icons.visibility
                                             : Icons.visibility_off),
                                     onPressed: () {
@@ -87,34 +84,29 @@ class PageView extends StatelessWidget {
                             Expanded(child: BlocBuilder<
                                 page_business.BlocNewPasswordTextField,
                                 bool>(builder: (c, s) {
-                              page_business.BlocNewPasswordTextField
-                                  blocNewPasswordTextField = BlocProvider.of<
-                                      page_business
-                                      .BlocNewPasswordTextField>(c);
-
                               return TextFormField(
                                 onChanged: (text) {
                                   pageBusiness.newPasswordTextEditOnChanged();
                                 },
-                                focusNode: blocNewPasswordTextField
-                                    .newPasswordTextFieldFocus,
-                                controller: blocNewPasswordTextField
+                                focusNode: pageBusiness
+                                    .pageViewModel.newPasswordTextFieldFocus,
+                                controller: pageBusiness.pageViewModel
                                     .newPasswordTextFieldController,
                                 obscureText:
-                                    blocNewPasswordTextField.hideNewPassword,
+                                    pageBusiness.pageViewModel.hideNewPassword,
                                 onFieldSubmitted: (value) {
                                   pageBusiness.onNewPasswordFieldSubmitted();
                                 },
                                 decoration: InputDecoration(
-                                  errorText: blocNewPasswordTextField
+                                  errorText: pageBusiness.pageViewModel
                                       .newPasswordTextEditErrorMsg,
                                   labelText: "새 비밀번호 입력",
                                   hintText: 'xxxxxxxxxxx',
                                   suffixIcon: IconButton(
-                                    icon: Icon(
-                                        blocNewPasswordTextField.hideNewPassword
-                                            ? Icons.visibility
-                                            : Icons.visibility_off),
+                                    icon: Icon(pageBusiness
+                                            .pageViewModel.hideNewPassword
+                                        ? Icons.visibility
+                                        : Icons.visibility_off),
                                     onPressed: () {
                                       pageBusiness.toggleHideNewPassword();
                                     },
@@ -133,12 +125,8 @@ class PageView extends StatelessWidget {
                             child: BlocBuilder<
                                 page_business.BlocPasswordInputRule,
                                 bool>(builder: (c, s) {
-                              page_business.BlocPasswordInputRule
-                                  blocPasswordInputRule = BlocProvider.of<
-                                      page_business.BlocPasswordInputRule>(c);
-
-                              var passwordInputRule = blocPasswordInputRule
-                                      .passwordInputRuleHide
+                              var passwordInputRule = pageBusiness
+                                      .pageViewModel.passwordInputRuleHide
                                   ? const SingleChildScrollView(
                                       child: Column(
                                         children: [
@@ -229,35 +217,29 @@ class PageView extends StatelessWidget {
                             Expanded(child: BlocBuilder<
                                 page_business.BlocNewPasswordCheckTextField,
                                 bool>(builder: (c, s) {
-                              page_business.BlocNewPasswordCheckTextField
-                                  blocNewPasswordCheckTextField =
-                                  BlocProvider.of<
-                                      page_business
-                                      .BlocNewPasswordCheckTextField>(c);
-
                               return TextFormField(
                                 onChanged: (text) {
                                   pageBusiness
                                       .newPasswordCheckTextEditOnChanged();
                                 },
-                                focusNode: blocNewPasswordCheckTextField
+                                focusNode: pageBusiness.pageViewModel
                                     .newPasswordCheckTextFieldFocus,
-                                controller: blocNewPasswordCheckTextField
+                                controller: pageBusiness.pageViewModel
                                     .newPasswordCheckTextFieldController,
-                                obscureText: blocNewPasswordCheckTextField
-                                    .hideNewPasswordCheck,
+                                obscureText: pageBusiness
+                                    .pageViewModel.hideNewPasswordCheck,
                                 onFieldSubmitted: (value) {
                                   pageBusiness
                                       .onNewPasswordCheckFieldSubmitted();
                                 },
                                 decoration: InputDecoration(
-                                  errorText: blocNewPasswordCheckTextField
+                                  errorText: pageBusiness.pageViewModel
                                       .newPasswordCheckTextEditErrorMsg,
                                   labelText: "새 비밀번호 확인 입력",
                                   hintText: 'xxxxxxxxxxx',
                                   suffixIcon: IconButton(
-                                    icon: Icon(blocNewPasswordCheckTextField
-                                            .hideNewPasswordCheck
+                                    icon: Icon(pageBusiness
+                                            .pageViewModel.hideNewPasswordCheck
                                         ? Icons.visibility
                                         : Icons.visibility_off),
                                     onPressed: () {

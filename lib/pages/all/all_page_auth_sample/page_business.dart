@@ -138,7 +138,7 @@ class PageBusiness {
   Future<void> refreshScreenDataAsync(
       spw_auth_member_info.SharedPreferenceWrapperVo?
           nowLoginMemberInfo) async {
-    blocObjects.blocLoginMemberInfo.loginMemberInfo = nowLoginMemberInfo;
+    pageViewModel.loginMemberInfo = nowLoginMemberInfo;
     blocObjects.blocLoginMemberInfo.refresh();
 
     List<SampleItem> nowAllSampleList = [];
@@ -483,6 +483,8 @@ class PageViewModel {
   // 현 페이지를 갱신한 시점의 멤버 고유값 (비회원은 null)
   int? screenMemberUid;
 
+  spw_auth_member_info.SharedPreferenceWrapperVo? loginMemberInfo;
+
   PageViewModel();
 }
 
@@ -532,9 +534,6 @@ class BlocLoginMemberInfo extends Bloc<bool, bool> {
   void refresh() {
     add(!state);
   }
-
-  // !!!BLoC 위젯 상태 변수 선언 및 초기화!!!
-  spw_auth_member_info.SharedPreferenceWrapperVo? loginMemberInfo;
 
   BlocLoginMemberInfo() : super(true) {
     on<bool>((event, emit) {

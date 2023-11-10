@@ -103,16 +103,12 @@ class PageBusiness {
   // (페이지 종료 (강제 종료는 탐지 못함))
   Future<void> onPageDestroyAsync() async {
     // !!!페이지 종료 로직 작성!!!
-    blocObjects.blocPasswordTextField.passwordTextFieldController.dispose();
-    blocObjects.blocPasswordTextField.passwordTextFieldFocus.dispose();
-    blocObjects.blocNewPasswordTextField.newPasswordTextFieldController
-        .dispose();
-    blocObjects.blocNewPasswordTextField.newPasswordTextFieldFocus.dispose();
-    blocObjects
-        .blocNewPasswordCheckTextField.newPasswordCheckTextFieldController
-        .dispose();
-    blocObjects.blocNewPasswordCheckTextField.newPasswordCheckTextFieldFocus
-        .dispose();
+    pageViewModel.passwordTextFieldController.dispose();
+    pageViewModel.passwordTextFieldFocus.dispose();
+    pageViewModel.newPasswordTextFieldController.dispose();
+    pageViewModel.newPasswordTextFieldFocus.dispose();
+    pageViewModel.newPasswordCheckTextFieldController.dispose();
+    pageViewModel.newPasswordCheckTextFieldFocus.dispose();
   }
 
   // (Page Pop 요청)
@@ -138,114 +134,86 @@ class PageBusiness {
 
   void passwordTextEditOnChanged() {
     // 입력창의 에러를 지우기
-    blocObjects.blocPasswordTextField.passwordTextEditErrorMsg = null;
-    blocObjects.blocPasswordTextField
-        .add(!blocObjects.blocPasswordTextField.state);
+    pageViewModel.passwordTextEditErrorMsg = null;
+    blocObjects.blocPasswordTextField.refresh();
   }
 
   void newPasswordCheckTextEditOnChanged() {
     // 입력창의 에러를 지우기
-    blocObjects.blocNewPasswordCheckTextField.newPasswordCheckTextEditErrorMsg =
-        null;
-    blocObjects.blocNewPasswordCheckTextField
-        .add(!blocObjects.blocNewPasswordCheckTextField.state);
+    pageViewModel.newPasswordCheckTextEditErrorMsg = null;
+    blocObjects.blocNewPasswordCheckTextField.refresh();
   }
 
   void newPasswordTextEditOnChanged() {
     // 입력창의 에러를 지우기
-    blocObjects.blocNewPasswordTextField.newPasswordTextEditErrorMsg = null;
-    blocObjects.blocNewPasswordTextField
-        .add(!blocObjects.blocNewPasswordTextField.state);
+    pageViewModel.newPasswordTextEditErrorMsg = null;
+    blocObjects.blocNewPasswordTextField.refresh();
   }
 
   void onPasswordFieldSubmitted() {
-    if (blocObjects.blocPasswordTextField.passwordTextFieldController.text ==
-        "") {
-      blocObjects.blocPasswordTextField.passwordTextEditErrorMsg =
-          "현재 비밀번호를 입력하세요.";
-      blocObjects.blocPasswordTextField
-          .add(!blocObjects.blocPasswordTextField.state);
-      FocusScope.of(_context).requestFocus(
-          blocObjects.blocPasswordTextField.passwordTextFieldFocus);
+    if (pageViewModel.passwordTextFieldController.text == "") {
+      pageViewModel.passwordTextEditErrorMsg = "현재 비밀번호를 입력하세요.";
+      blocObjects.blocPasswordTextField.refresh();
+      FocusScope.of(_context)
+          .requestFocus(pageViewModel.passwordTextFieldFocus);
     } else {
-      FocusScope.of(_context).requestFocus(
-          blocObjects.blocNewPasswordTextField.newPasswordTextFieldFocus);
+      FocusScope.of(_context)
+          .requestFocus(pageViewModel.newPasswordTextFieldFocus);
     }
   }
 
   void onNewPasswordFieldSubmitted() {
-    if (blocObjects
-            .blocNewPasswordTextField.newPasswordTextFieldController.text ==
-        "") {
-      blocObjects.blocNewPasswordTextField.newPasswordTextEditErrorMsg =
-          "새 비밀번호를 입력하세요.";
-      blocObjects.blocNewPasswordTextField
-          .add(!blocObjects.blocNewPasswordTextField.state);
-      FocusScope.of(_context).requestFocus(
-          blocObjects.blocNewPasswordTextField.newPasswordTextFieldFocus);
+    if (pageViewModel.newPasswordTextFieldController.text == "") {
+      pageViewModel.newPasswordTextEditErrorMsg = "새 비밀번호를 입력하세요.";
+      blocObjects.blocNewPasswordTextField.refresh();
+      FocusScope.of(_context)
+          .requestFocus(pageViewModel.newPasswordTextFieldFocus);
     } else {
-      if (blocObjects
-          .blocNewPasswordTextField.newPasswordTextFieldController.text
-          .contains(" ")) {
-        blocObjects.blocNewPasswordTextField.newPasswordTextEditErrorMsg =
-            "비밀번호에 공백은 허용되지 않습니다.";
-        blocObjects.blocNewPasswordTextField
-            .add(!blocObjects.blocNewPasswordTextField.state);
-        FocusScope.of(_context).requestFocus(
-            blocObjects.blocNewPasswordTextField.newPasswordTextFieldFocus);
-      } else if (blocObjects.blocNewPasswordTextField
-              .newPasswordTextFieldController.text.length <
-          8) {
-        blocObjects.blocNewPasswordTextField.newPasswordTextEditErrorMsg =
-            "비밀번호는 최소 8자 이상 입력하세요.";
-        blocObjects.blocNewPasswordTextField
-            .add(!blocObjects.blocNewPasswordTextField.state);
-        FocusScope.of(_context).requestFocus(
-            blocObjects.blocNewPasswordTextField.newPasswordTextFieldFocus);
-      } else if (!RegExp(r'^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$&*])').hasMatch(
-          blocObjects
-              .blocNewPasswordTextField.newPasswordTextFieldController.text)) {
-        blocObjects.blocNewPasswordTextField.newPasswordTextEditErrorMsg =
+      if (pageViewModel.newPasswordTextFieldController.text.contains(" ")) {
+        pageViewModel.newPasswordTextEditErrorMsg = "비밀번호에 공백은 허용되지 않습니다.";
+        blocObjects.blocNewPasswordTextField.refresh();
+        FocusScope.of(_context)
+            .requestFocus(pageViewModel.newPasswordTextFieldFocus);
+      } else if (pageViewModel.newPasswordTextFieldController.text.length < 8) {
+        pageViewModel.newPasswordTextEditErrorMsg = "비밀번호는 최소 8자 이상 입력하세요.";
+        blocObjects.blocNewPasswordTextField.refresh();
+        FocusScope.of(_context)
+            .requestFocus(pageViewModel.newPasswordTextFieldFocus);
+      } else if (!RegExp(r'^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$&*])')
+          .hasMatch(pageViewModel.newPasswordTextFieldController.text)) {
+        pageViewModel.newPasswordTextEditErrorMsg =
             "비밀번호는 영문 대/소문자, 숫자, 그리고 특수문자의 조합을 입력하세요.";
-        blocObjects.blocNewPasswordTextField
-            .add(!blocObjects.blocNewPasswordTextField.state);
-        FocusScope.of(_context).requestFocus(
-            blocObjects.blocNewPasswordTextField.newPasswordTextFieldFocus);
-      } else if (RegExp(r'[<>()#’/|]').hasMatch(blocObjects
-          .blocNewPasswordTextField.newPasswordTextFieldController.text)) {
-        blocObjects.blocNewPasswordTextField.newPasswordTextEditErrorMsg =
+        blocObjects.blocNewPasswordTextField.refresh();
+        FocusScope.of(_context)
+            .requestFocus(pageViewModel.newPasswordTextFieldFocus);
+      } else if (RegExp(r'[<>()#’/|]')
+          .hasMatch(pageViewModel.newPasswordTextFieldController.text)) {
+        pageViewModel.newPasswordTextEditErrorMsg =
             "특수문자 < > ( ) # ’ / | 는 사용할 수 없습니다.";
-        blocObjects.blocNewPasswordTextField
-            .add(!blocObjects.blocNewPasswordTextField.state);
-        FocusScope.of(_context).requestFocus(
-            blocObjects.blocNewPasswordTextField.newPasswordTextFieldFocus);
+        blocObjects.blocNewPasswordTextField.refresh();
+        FocusScope.of(_context)
+            .requestFocus(pageViewModel.newPasswordTextFieldFocus);
       } else {
-        FocusScope.of(_context).requestFocus(blocObjects
-            .blocNewPasswordCheckTextField.newPasswordCheckTextFieldFocus);
+        FocusScope.of(_context)
+            .requestFocus(pageViewModel.newPasswordCheckTextFieldFocus);
       }
     }
   }
 
   void toggleHidePassword() {
-    blocObjects.blocPasswordTextField.hidePassword =
-        !blocObjects.blocPasswordTextField.hidePassword;
-    blocObjects.blocPasswordTextField
-        .add(!blocObjects.blocPasswordTextField.state);
+    pageViewModel.hidePassword = !pageViewModel.hidePassword;
+    blocObjects.blocPasswordTextField.refresh();
   }
 
   // (비번 숨기기 버튼 토글링)
   void toggleHideNewPassword() {
-    blocObjects.blocNewPasswordTextField.hideNewPassword =
-        !blocObjects.blocNewPasswordTextField.hideNewPassword;
-    blocObjects.blocNewPasswordTextField
-        .add(!blocObjects.blocNewPasswordTextField.state);
+    pageViewModel.hideNewPassword = !pageViewModel.hideNewPassword;
+    blocObjects.blocNewPasswordTextField.refresh();
   }
 
   void toggleHideNewPasswordCheck() {
-    blocObjects.blocNewPasswordCheckTextField.hideNewPasswordCheck =
-        !blocObjects.blocNewPasswordCheckTextField.hideNewPasswordCheck;
-    blocObjects.blocNewPasswordCheckTextField
-        .add(!blocObjects.blocNewPasswordCheckTextField.state);
+    pageViewModel.hideNewPasswordCheck = !pageViewModel.hideNewPasswordCheck;
+    blocObjects.blocNewPasswordCheckTextField.refresh();
   }
 
   void onNewPasswordCheckFieldSubmitted() {
@@ -261,89 +229,59 @@ class PageBusiness {
     }
     changePasswordStart = true;
 
-    blocObjects.blocPasswordTextField.passwordTextEditErrorMsg = null;
-    blocObjects.blocPasswordTextField
-        .add(!blocObjects.blocPasswordTextField.state);
-    blocObjects.blocNewPasswordTextField.newPasswordTextEditErrorMsg = null;
-    blocObjects.blocNewPasswordTextField
-        .add(!blocObjects.blocNewPasswordTextField.state);
-    blocObjects.blocNewPasswordCheckTextField.newPasswordCheckTextEditErrorMsg =
-        null;
-    blocObjects.blocNewPasswordCheckTextField
-        .add(!blocObjects.blocNewPasswordCheckTextField.state);
+    pageViewModel.passwordTextEditErrorMsg = null;
+    blocObjects.blocPasswordTextField.refresh();
+    pageViewModel.newPasswordTextEditErrorMsg = null;
+    blocObjects.blocNewPasswordTextField.refresh();
+    pageViewModel.newPasswordCheckTextEditErrorMsg = null;
+    blocObjects.blocNewPasswordCheckTextField.refresh();
 
-    if (blocObjects.blocPasswordTextField.passwordTextFieldController.text ==
-        "") {
-      blocObjects.blocPasswordTextField.passwordTextEditErrorMsg =
-          "현재 비밀번호를 입력하세요.";
-      blocObjects.blocPasswordTextField
-          .add(!blocObjects.blocPasswordTextField.state);
-      FocusScope.of(_context).requestFocus(
-          blocObjects.blocPasswordTextField.passwordTextFieldFocus);
-    } else if (blocObjects
-            .blocNewPasswordTextField.newPasswordTextFieldController.text ==
-        "") {
-      blocObjects.blocNewPasswordTextField.newPasswordTextEditErrorMsg =
-          "새 비밀번호를 입력하세요.";
-      blocObjects.blocNewPasswordTextField
-          .add(!blocObjects.blocNewPasswordTextField.state);
-      FocusScope.of(_context).requestFocus(
-          blocObjects.blocNewPasswordTextField.newPasswordTextFieldFocus);
+    if (pageViewModel.passwordTextFieldController.text == "") {
+      pageViewModel.passwordTextEditErrorMsg = "현재 비밀번호를 입력하세요.";
+      blocObjects.blocPasswordTextField.refresh();
+      FocusScope.of(_context)
+          .requestFocus(pageViewModel.passwordTextFieldFocus);
+    } else if (pageViewModel.newPasswordTextFieldController.text == "") {
+      pageViewModel.newPasswordTextEditErrorMsg = "새 비밀번호를 입력하세요.";
+      blocObjects.blocNewPasswordTextField.refresh();
+      FocusScope.of(_context)
+          .requestFocus(pageViewModel.newPasswordTextFieldFocus);
     } else {
-      if (blocObjects
-          .blocNewPasswordTextField.newPasswordTextFieldController.text
-          .contains(" ")) {
-        blocObjects.blocNewPasswordTextField.newPasswordTextEditErrorMsg =
-            "새 비밀번호에 공백은 허용되지 않습니다.";
-        blocObjects.blocNewPasswordTextField
-            .add(!blocObjects.blocNewPasswordTextField.state);
-        FocusScope.of(_context).requestFocus(
-            blocObjects.blocNewPasswordTextField.newPasswordTextFieldFocus);
-      } else if (blocObjects.blocNewPasswordTextField
-              .newPasswordTextFieldController.text.length <
-          8) {
-        blocObjects.blocNewPasswordTextField.newPasswordTextEditErrorMsg =
-            "새 비밀번호는 최소 8자 이상 입력하세요.";
-        blocObjects.blocNewPasswordTextField
-            .add(!blocObjects.blocNewPasswordTextField.state);
-        FocusScope.of(_context).requestFocus(
-            blocObjects.blocNewPasswordTextField.newPasswordTextFieldFocus);
-      } else if (!RegExp(r'^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$&*])').hasMatch(
-          blocObjects
-              .blocNewPasswordTextField.newPasswordTextFieldController.text)) {
-        blocObjects.blocNewPasswordTextField.newPasswordTextEditErrorMsg =
+      if (pageViewModel.newPasswordTextFieldController.text.contains(" ")) {
+        pageViewModel.newPasswordTextEditErrorMsg = "새 비밀번호에 공백은 허용되지 않습니다.";
+        blocObjects.blocNewPasswordTextField.refresh();
+        FocusScope.of(_context)
+            .requestFocus(pageViewModel.newPasswordTextFieldFocus);
+      } else if (pageViewModel.newPasswordTextFieldController.text.length < 8) {
+        pageViewModel.newPasswordTextEditErrorMsg = "새 비밀번호는 최소 8자 이상 입력하세요.";
+        blocObjects.blocNewPasswordTextField.refresh();
+        FocusScope.of(_context)
+            .requestFocus(pageViewModel.newPasswordTextFieldFocus);
+      } else if (!RegExp(r'^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$&*])')
+          .hasMatch(pageViewModel.newPasswordTextFieldController.text)) {
+        pageViewModel.newPasswordTextEditErrorMsg =
             "새 비밀번호는 영문 대/소문자, 숫자, 그리고 특수문자의 조합을 입력하세요.";
-        blocObjects.blocNewPasswordTextField
-            .add(!blocObjects.blocNewPasswordTextField.state);
-        FocusScope.of(_context).requestFocus(
-            blocObjects.blocNewPasswordTextField.newPasswordTextFieldFocus);
-      } else if (RegExp(r'[<>()#’/|]').hasMatch(blocObjects
-          .blocNewPasswordTextField.newPasswordTextFieldController.text)) {
-        blocObjects.blocNewPasswordTextField.newPasswordTextEditErrorMsg =
+        blocObjects.blocNewPasswordTextField.refresh();
+        FocusScope.of(_context)
+            .requestFocus(pageViewModel.newPasswordTextFieldFocus);
+      } else if (RegExp(r'[<>()#’/|]')
+          .hasMatch(pageViewModel.newPasswordTextFieldController.text)) {
+        pageViewModel.newPasswordTextEditErrorMsg =
             "특수문자 < > ( ) # ’ / | 는 사용할 수 없습니다.";
-        blocObjects.blocNewPasswordTextField
-            .add(!blocObjects.blocNewPasswordTextField.state);
-        FocusScope.of(_context).requestFocus(
-            blocObjects.blocNewPasswordTextField.newPasswordTextFieldFocus);
-      } else if (blocObjects.blocNewPasswordCheckTextField
-              .newPasswordCheckTextFieldController.text ==
-          "") {
-        blocObjects.blocNewPasswordCheckTextField
-            .newPasswordCheckTextEditErrorMsg = "새 비밀번호 확인을 입력하세요.";
-        blocObjects.blocNewPasswordCheckTextField
-            .add(!blocObjects.blocNewPasswordCheckTextField.state);
-        FocusScope.of(_context).requestFocus(blocObjects
-            .blocNewPasswordCheckTextField.newPasswordCheckTextFieldFocus);
-      } else if (blocObjects.blocNewPasswordCheckTextField
-              .newPasswordCheckTextFieldController.text !=
-          blocObjects
-              .blocNewPasswordTextField.newPasswordTextFieldController.text) {
-        blocObjects.blocNewPasswordCheckTextField
-            .newPasswordCheckTextEditErrorMsg = "새 비밀번호와 일치하지 않습니다.";
-        blocObjects.blocNewPasswordCheckTextField
-            .add(!blocObjects.blocNewPasswordCheckTextField.state);
-        FocusScope.of(_context).requestFocus(blocObjects
-            .blocNewPasswordCheckTextField.newPasswordCheckTextFieldFocus);
+        blocObjects.blocNewPasswordTextField.refresh();
+        FocusScope.of(_context)
+            .requestFocus(pageViewModel.newPasswordTextFieldFocus);
+      } else if (pageViewModel.newPasswordCheckTextFieldController.text == "") {
+        pageViewModel.newPasswordCheckTextEditErrorMsg = "새 비밀번호 확인을 입력하세요.";
+        blocObjects.blocNewPasswordCheckTextField.refresh();
+        FocusScope.of(_context)
+            .requestFocus(pageViewModel.newPasswordCheckTextFieldFocus);
+      } else if (pageViewModel.newPasswordCheckTextFieldController.text !=
+          pageViewModel.newPasswordTextFieldController.text) {
+        pageViewModel.newPasswordCheckTextEditErrorMsg = "새 비밀번호와 일치하지 않습니다.";
+        blocObjects.blocNewPasswordCheckTextField.refresh();
+        FocusScope.of(_context)
+            .requestFocus(pageViewModel.newPasswordCheckTextFieldFocus);
       } else {
         await _requestChangePassword();
       }
@@ -354,10 +292,8 @@ class PageBusiness {
 
   // 비밀번호 입력 규칙 클릭
   void onPasswordInputRuleTap() {
-    blocObjects.blocPasswordInputRule.passwordInputRuleHide =
-        !blocObjects.blocPasswordInputRule.passwordInputRuleHide;
-    blocObjects.blocPasswordInputRule
-        .add(!blocObjects.blocPasswordInputRule.state);
+    pageViewModel.passwordInputRuleHide = !pageViewModel.passwordInputRuleHide;
+    blocObjects.blocPasswordInputRule.refresh();
   }
 
 ////
@@ -385,19 +321,12 @@ class PageBusiness {
       String? oldPw;
       String? newPw;
 
-      if (blocObjects.blocPasswordTextField.passwordTextFieldController.text
-              .trim() !=
-          "") {
-        oldPw =
-            blocObjects.blocPasswordTextField.passwordTextFieldController.text;
+      if (pageViewModel.passwordTextFieldController.text.trim() != "") {
+        oldPw = pageViewModel.passwordTextFieldController.text;
       }
 
-      if (blocObjects
-              .blocNewPasswordTextField.newPasswordTextFieldController.text
-              .trim() !=
-          "") {
-        newPw = blocObjects
-            .blocNewPasswordTextField.newPasswordTextFieldController.text;
+      if (pageViewModel.newPasswordTextFieldController.text.trim() != "") {
+        newPw = pageViewModel.newPasswordTextFieldController.text;
       }
 
       var response =
@@ -604,6 +533,25 @@ class PageViewModel {
   // ex :
   // int sampleNumber = 0;
 
+  FocusNode passwordTextFieldFocus = FocusNode();
+  TextEditingController passwordTextFieldController = TextEditingController();
+  bool hidePassword = true;
+  String? passwordTextEditErrorMsg;
+
+  FocusNode newPasswordTextFieldFocus = FocusNode();
+  TextEditingController newPasswordTextFieldController =
+      TextEditingController();
+  bool hideNewPassword = true;
+  String? newPasswordTextEditErrorMsg;
+
+  FocusNode newPasswordCheckTextFieldFocus = FocusNode();
+  TextEditingController newPasswordCheckTextFieldController =
+      TextEditingController();
+  bool hideNewPasswordCheck = true;
+  String? newPasswordCheckTextEditErrorMsg;
+
+  bool passwordInputRuleHide = true;
+
   PageViewModel();
 }
 
@@ -628,12 +576,6 @@ class BlocPasswordTextField extends Bloc<bool, bool> {
     add(!state);
   }
 
-  // !!!BLoC 위젯 상태 변수 선언 및 초기화!!!
-  FocusNode passwordTextFieldFocus = FocusNode();
-  TextEditingController passwordTextFieldController = TextEditingController();
-  bool hidePassword = true;
-  String? passwordTextEditErrorMsg;
-
   BlocPasswordTextField() : super(true) {
     on<bool>((event, emit) {
       emit(event);
@@ -646,13 +588,6 @@ class BlocNewPasswordTextField extends Bloc<bool, bool> {
   void refresh() {
     add(!state);
   }
-
-  // !!!BLoC 위젯 상태 변수 선언 및 초기화!!!
-  FocusNode newPasswordTextFieldFocus = FocusNode();
-  TextEditingController newPasswordTextFieldController =
-      TextEditingController();
-  bool hideNewPassword = true;
-  String? newPasswordTextEditErrorMsg;
 
   BlocNewPasswordTextField() : super(true) {
     on<bool>((event, emit) {
@@ -667,13 +602,6 @@ class BlocNewPasswordCheckTextField extends Bloc<bool, bool> {
     add(!state);
   }
 
-  // !!!BLoC 위젯 상태 변수 선언 및 초기화!!!
-  FocusNode newPasswordCheckTextFieldFocus = FocusNode();
-  TextEditingController newPasswordCheckTextFieldController =
-      TextEditingController();
-  bool hideNewPasswordCheck = true;
-  String? newPasswordCheckTextEditErrorMsg;
-
   BlocNewPasswordCheckTextField() : super(true) {
     on<bool>((event, emit) {
       emit(event);
@@ -686,9 +614,6 @@ class BlocPasswordInputRule extends Bloc<bool, bool> {
   void refresh() {
     add(!state);
   }
-
-  // !!!BLoC 위젯 상태 변수 선언 및 초기화!!!
-  bool passwordInputRuleHide = true;
 
   BlocPasswordInputRule() : super(true) {
     on<bool>((event, emit) {
