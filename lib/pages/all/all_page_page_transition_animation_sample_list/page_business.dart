@@ -15,6 +15,7 @@ import '../../../pages/all/all_page_page_transition_animation_sample_list/page_e
     as all_page_page_transition_animation_sample_list;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
+// todo : 새로운 템플릿 적용
 
 //------------------------------------------------------------------------------
 // 페이지의 비즈니스 로직 및 뷰모델 담당

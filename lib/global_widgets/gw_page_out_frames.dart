@@ -49,11 +49,11 @@ class PageOutFrame extends StatelessWidget {
                       cursor: SystemMouseCursors.click,
                       onEnter: (details) {
                         blocSampleNumber.isHovering = true;
-                        blocSampleNumber.doRefresh();
+                        blocSampleNumber.refresh();
                       },
                       onExit: (details) {
                         blocSampleNumber.isHovering = false;
-                        blocSampleNumber.doRefresh();
+                        blocSampleNumber.refresh();
                       },
                       child: GestureDetector(
                         // 클릭시 제스쳐 콜백
@@ -130,13 +130,15 @@ class PageOutFrame extends StatelessWidget {
   }
 }
 
+// (헤더 아이콘 버튼 BLoC)
+// BLoC 클래스를 만들었다면, 이를 사용하려는 page_business.dart 안의 blocProviders 리스트 안에 꼭 입력 해야 사용이 가능 합니다.
 class BlocHeaderGoToHomeIconBtn extends Bloc<bool, bool> {
   // BLoC 위젯 갱신 함수
-  void doRefresh() {
+  void refresh() {
     add(!state);
   }
 
-  // !!!BLoC 위젯 뷰 모델 변수 선언!!!
+  // !!!BLoC 위젯 상태 변수 선언 및 초기화!!!
   bool isHovering = false;
 
   BlocHeaderGoToHomeIconBtn() : super(true) {

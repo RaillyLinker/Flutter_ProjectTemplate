@@ -103,54 +103,32 @@ class PageBusiness {
 // !!!내부에서만 사용할 함수를 아래에 구현!!!
 }
 
-// todo : page_view 에서 선언하기
-// (BLoC 클래스 모음)
-// 아래엔 런타임 위젯 변경의 트리거가 되는 BLoC 클래스들을 작성해 둡니다.
-// !!!각 BLoC 클래스는 아래 예시를 '그대로' 복사 붙여넣기를 하여 클래스 이름만 변경합니다.!!!
-// ex :
-// class BlocSample extends Bloc<bool, bool> {
-//   // BLoC 위젯 갱신 함수
-//   void refresh() {
-//     add(!state);
-//   }
-//
-//   // !!!BLoC 위젯 뷰 모델 변수 선언!!!
-//   // ex : int sampleInt = 0;
-//
-//   BlocSample() : super(true) {
-//     on<bool>((event, emit) {
-//       emit(event);
-//     });
-//   }
-// }
-
 // (BLoC 프로바이더 클래스)
 // 본 페이지에서 사용할 BLoC 객체를 모아두어 PageEntrance 에서 페이지 전역 설정에 사용 됩니다.
 class BLocProviders {
 // !!!이 페이지에서 사용할 "모든" BLoC 클래스들에 대한 Provider 객체들을 아래 리스트에 넣어줄 것!!!
   List<BlocProvider<dynamic>> blocProviders = [
     // ex :
-    // BlocProvider<BlocSample>(create: (context) => BlocSample()),
+    // BlocProvider<page_view.BlocSample>(create: (context) => page_view.BlocSample()),
     BlocProvider<gw_page_out_frames.BlocHeaderGoToHomeIconBtn>(
         create: (context) => gw_page_out_frames.BlocHeaderGoToHomeIconBtn()),
   ];
 }
 
-// todo : 그냥 조작 객체 밖에다 둘까?
 class BLocObjects {
   // 페이지 컨텍스트 객체
   final BuildContext _context;
 
   // !!!BLoC 조작 객체 변수 선언!!!
   // ex :
-  // late BlocSample blocSample;
+  // late page_view.BlocSample blocSample;
   late gw_page_out_frames.BlocHeaderGoToHomeIconBtn blocHeaderGoToHomeIconBtn;
 
   // 생성자 설정
   BLocObjects(this._context) {
     // !!!BLoC 조작 객체 생성!!!
     // ex :
-    // blocSample = BlocProvider.of<BlocSample>(_context);
+    // blocSample = BlocProvider.of<page_view.BlocSample>(_context);
     blocHeaderGoToHomeIconBtn =
         BlocProvider.of<gw_page_out_frames.BlocHeaderGoToHomeIconBtn>(_context);
   }

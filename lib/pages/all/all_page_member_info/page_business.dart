@@ -21,6 +21,7 @@ import '../../../dialogs/all/all_dialog_yes_or_no/page_entrance.dart'
     as all_dialog_yes_or_no;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
+// todo : 새로운 템플릿 적용
 // todo : 회원 정보 페이지에서 닉네임 변경 기능 추가
 // todo : 회원 정보 페이지에서 프로필 추가 / 삭제 / 대표 프로필 변경 기능 추가
 // todo : 회원 정보 페이지에서 이메일 추가 / 삭제 기능 추가

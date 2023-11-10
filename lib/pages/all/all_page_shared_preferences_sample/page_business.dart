@@ -13,6 +13,7 @@ import '../../../global_classes/gc_template_classes.dart'
 import '../../../../repositories/spws/spw_test_sample.dart' as spw_test_sample;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
+// todo : 새로운 템플릿 적용
 
 //------------------------------------------------------------------------------
 // 페이지의 비즈니스 로직 및 뷰모델 담당

@@ -29,6 +29,7 @@ import '../../../global_functions/gf_my_functions.dart' as gf_my_functions;
 import '../../../pages/all/all_page_home/page_entrance.dart' as all_page_home;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
+// todo : 새로운 템플릿 적용
 // todo : ios에서 테스트.
 
 //------------------------------------------------------------------------------

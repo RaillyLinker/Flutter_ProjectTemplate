@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // [BLoC 위젯 샘플 템플릿]
-// BLoC 클래스를 만들었다면, 이를 사용하려는 page_business.dart 안의 blocProviders 리스트 안에 꼭 입력 해줘야 만 사용이 가능 합니다.
+// BLoC 클래스를 만들었다면, 이를 사용하려는 page_business.dart 안의 blocProviders 리스트 안에 꼭 입력 해야 사용이 가능 합니다.
 class BlocTemplate extends Bloc<bool, bool> {
   // BLoC 위젯 갱신 함수
   void refresh() {
@@ -21,6 +21,8 @@ class BlocTemplate extends Bloc<bool, bool> {
 }
 
 // 아래는 위에서 만든 BLoC 클래스를 사용하여 위젯을 만든 예시
+// BlocTemplate blocTemplate = BlocProvider.of<BlocTemplate>(c);
+// 이렇게 BLoC 객체를 가져와서 상태 변수 변경, refresh 를 하면 위젯이 갱신됩니다.
 var blocBuilderSample = BlocBuilder<BlocTemplate, bool>(builder: (c, s) {
   BlocTemplate blocTemplate = BlocProvider.of<BlocTemplate>(c);
 

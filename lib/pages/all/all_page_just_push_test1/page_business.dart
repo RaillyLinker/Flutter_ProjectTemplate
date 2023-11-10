@@ -18,6 +18,7 @@ import '../../../global_classes/gc_template_classes.dart'
 import '../../../global_widgets/gw_page_out_frames.dart' as gw_page_out_frames;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
+// todo : 새로운 템플릿 적용
 
 //------------------------------------------------------------------------------
 // 페이지의 비즈니스 로직 및 뷰모델 담당

@@ -14,6 +14,7 @@ import '../../../global_classes/gc_template_classes.dart'
 import '../../../global_functions/gf_crypto.dart' as gf_crypto;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
+// todo : 새로운 템플릿 적용
 
 // 암호화, 복화화가 잘 이루어지는지 확인하는 샘플입니다.
 // 변환 함수에 원하는 암/복호화 알고리즘을 적용하고, 화면의 버튼을 눌러 결과를 확인할 수 있습니다.
