@@ -161,8 +161,8 @@ class PageBusiness {
 // !!!외부에서 사용할 비즈니스 로직은 아래에 공개 함수로 구현!!!
 // ex :
 //   void changeSampleNumber(int newSampleNumber) {
-//     // BLoC 위젯 상태 변수 변경
-//     blocObjects.blocSample.sampleInt = newSampleNumber;
+//     // BLoC 위젯 관련 상태 변수 변경
+//     pageViewModel.sampleNumber = newSampleNumber;
 //     // BLoC 위젯 변경 트리거 발동
 //     blocObjects.blocSample.refresh();
 //   }
@@ -212,9 +212,6 @@ class PageViewModel {
 //   void refresh() {
 //     add(!state);
 //   }
-//
-//   // !!!BLoC 위젯 상태 변수 선언 및 초기화!!!
-//   int sampleInt = 0;
 //
 //   BlocSample() : super(true) {
 //     on<bool>((event, emit) {
