@@ -20,7 +20,6 @@ import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
-// todo : 새로운 템플릿 적용
 
 //------------------------------------------------------------------------------
 // 페이지의 비즈니스 로직 담당
@@ -108,7 +107,7 @@ class PageBusiness {
 
   // (리스트 아이템 클릭 리스너)
   void onRouteListItemClick(int index) {
-    SampleItem sampleItem = pageViewModel.allSampleList[index];
+    SampleItem sampleItem = blocObjects.blocSampleList.allSampleList[index];
 
     switch (sampleItem.sampleItemEnum) {
       case SampleItemEnum.serverAccessTest:
@@ -355,20 +354,7 @@ class PageViewModel {
   // ex :
   // int sampleNumber = 0;
 
-  // (샘플 페이지 원본 리스트)
-  List<SampleItem> allSampleList = [];
-
-  PageViewModel() {
-    // 초기 리스트 추가
-    allSampleList.add(SampleItem(SampleItemEnum.serverAccessTest,
-        "비 로그인 접속 테스트", "비 로그인 상태에서도 호출 가능한 API"));
-    allSampleList.add(SampleItem(SampleItemEnum.signedInServerAccessTest,
-        "로그인 접속 테스트", "로그인 상태에서 호출 가능한 API"));
-    allSampleList.add(SampleItem(SampleItemEnum.developerServerAccessTest,
-        "Developer 권한 진입 테스트", "ADMIN 혹은 DEVELOPER 권한이 있는 상태에서 호출 가능한 API"));
-    allSampleList.add(SampleItem(SampleItemEnum.adminServerAccessTest,
-        "ADMIN 권한 진입 테스트", "ADMIN 권한이 있는 상태에서 호출 가능한 API"));
-  }
+  PageViewModel();
 }
 
 class SampleItem {
@@ -395,14 +381,6 @@ enum SampleItemEnum {
   adminServerAccessTest,
 }
 
-class BlocSampleList extends Bloc<bool, bool> {
-  BlocSampleList() : super(true) {
-    on<bool>((event, emit) {
-      emit(event);
-    });
-  }
-}
-
 // (BLoC 클래스)
 // ex :
 // class BlocSample extends Bloc<bool, bool> {
@@ -420,6 +398,33 @@ class BlocSampleList extends Bloc<bool, bool> {
 //     });
 //   }
 // }
+
+class BlocSampleList extends Bloc<bool, bool> {
+  // BLoC 위젯 갱신 함수
+  void refresh() {
+    add(!state);
+  }
+
+  // !!!BLoC 위젯 상태 변수 선언 및 초기화!!!
+
+  // (샘플 페이지 원본 리스트)
+  List<SampleItem> allSampleList = [
+    SampleItem(SampleItemEnum.serverAccessTest, "비 로그인 접속 테스트",
+        "비 로그인 상태에서도 호출 가능한 API"),
+    SampleItem(SampleItemEnum.signedInServerAccessTest, "로그인 접속 테스트",
+        "로그인 상태에서 호출 가능한 API"),
+    SampleItem(SampleItemEnum.developerServerAccessTest, "Developer 권한 진입 테스트",
+        "ADMIN 혹은 DEVELOPER 권한이 있는 상태에서 호출 가능한 API"),
+    SampleItem(SampleItemEnum.adminServerAccessTest, "ADMIN 권한 진입 테스트",
+        "ADMIN 권한이 있는 상태에서 호출 가능한 API"),
+  ];
+
+  BlocSampleList() : super(true) {
+    on<bool>((event, emit) {
+      emit(event);
+    });
+  }
+}
 
 // (BLoC 프로바이더 클래스)
 // 본 페이지에서 사용할 BLoC 객체를 모아두어 PageEntrance 에서 페이지 전역 설정에 사용 됩니다.

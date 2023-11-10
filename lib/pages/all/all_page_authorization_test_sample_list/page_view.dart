@@ -30,8 +30,11 @@ class PageView extends StatelessWidget {
 
     return gw_page_out_frames.PageOutFrame("인증 / 인가 네트워크 요청 테스트 샘플 리스트",
         BlocBuilder<page_business.BlocSampleList, bool>(builder: (c, s) {
+      page_business.BlocSampleList blocSampleList =
+          BlocProvider.of<page_business.BlocSampleList>(c);
+
       return ListView.builder(
-        itemCount: pageBusiness.pageViewModel.allSampleList.length,
+        itemCount: blocSampleList.allSampleList.length,
         itemBuilder: (context, index) {
           return GestureDetector(
               onTap: () {
@@ -42,13 +45,11 @@ class PageView extends StatelessWidget {
                   ListTile(
                     mouseCursor: SystemMouseCursors.click,
                     title: Text(
-                      pageBusiness
-                          .pageViewModel.allSampleList[index].sampleItemTitle,
+                      blocSampleList.allSampleList[index].sampleItemTitle,
                       style: const TextStyle(fontFamily: "MaruBuri"),
                     ),
                     subtitle: Text(
-                      pageBusiness.pageViewModel.allSampleList[index]
-                          .sampleItemDescription,
+                      blocSampleList.allSampleList[index].sampleItemDescription,
                       style: const TextStyle(fontFamily: "MaruBuri"),
                     ),
                     trailing: const Icon(Icons.chevron_right),
