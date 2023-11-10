@@ -102,17 +102,20 @@ void main() async {
 
   // 첫 화면 실행
   runApp(
-      // 검색 엔진 로봇 방문 감지
-      RobotDetector(
-          debug: gd_const_config.isDebugMode,
-          child: MaterialApp.router(
-              // 웹 브라우저 탭 타이틀 설정
-              title: gd_const_config.title,
-              // 디버그 모드에서 디버그 리본 적용
-              debugShowCheckedModeBanner: gd_const_config.isDebugMode,
-              routerConfig: router.getRouter(), // 라우트 경로 주입
-              // Mobile 외 환경의 스크롤링을 마우스 터치로 가능하도록 처리
-              scrollBehavior: MouseTouchScrollBehavior())));
+    // 검색 엔진 로봇 방문 감지
+    RobotDetector(
+      debug: gd_const_config.isDebugMode,
+      child: MaterialApp.router(
+        // 웹 브라우저 탭 타이틀 설정
+        title: gd_const_config.title,
+        // 디버그 모드에서 디버그 리본 적용
+        debugShowCheckedModeBanner: gd_const_config.isDebugMode,
+        routerConfig: router.getRouter(), // 라우트 경로 주입
+        // Mobile 외 환경의 스크롤링을 마우스 터치로 가능하도록 처리
+        scrollBehavior: MouseTouchScrollBehavior(),
+      ),
+    ),
+  );
 }
 
 // Web 에서의 스크롤링을 마우스 터치로 가능하도록 처리

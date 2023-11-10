@@ -28,16 +28,24 @@ class PageView extends StatelessWidget {
             .pageBusiness;
 
     return Dialog(
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        child: SingleChildScrollView(
-            child: Container(
-                height: 280,
-                width: 300,
-                decoration: const BoxDecoration(
-                    color: Colors.white,
-                    shape: BoxShape.rectangle,
-                    borderRadius: BorderRadius.all(Radius.circular(16))),
-                child: const Center(child: Text("다이얼로그 템플릿")))));
+      elevation: 0,
+      backgroundColor: Colors.transparent,
+      child: SingleChildScrollView(
+        child: Container(
+          height: 280,
+          width: 300,
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            shape: BoxShape.rectangle,
+            borderRadius: BorderRadius.all(
+              Radius.circular(16),
+            ),
+          ),
+          child: const Center(
+            child: Text("다이얼로그 템플릿"),
+          ),
+        ),
+      ),
+    );
   }
 }

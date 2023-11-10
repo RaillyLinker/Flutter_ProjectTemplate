@@ -66,8 +66,11 @@ class PageView extends StatelessWidget {
                               child: BlocBuilder<
                                   page_business.BlocLoginMemberInfo,
                                   bool>(builder: (c, s) {
+                                page_business.BlocLoginMemberInfo
+                                    blocLoginMemberInfo = BlocProvider.of<
+                                        page_business.BlocLoginMemberInfo>(c);
                                 var loginMemberInfo =
-                                    pageBusiness.pageViewModel.loginMemberInfo;
+                                    blocLoginMemberInfo.loginMemberInfo;
                                 String text = (loginMemberInfo == null)
                                     ? "null"
                                     : loginMemberInfo.memberUid.toString();
@@ -95,8 +98,11 @@ class PageView extends StatelessWidget {
                               child: BlocBuilder<
                                   page_business.BlocLoginMemberInfo,
                                   bool>(builder: (c, s) {
+                                page_business.BlocLoginMemberInfo
+                                    blocLoginMemberInfo = BlocProvider.of<
+                                        page_business.BlocLoginMemberInfo>(c);
                                 var loginMemberInfo =
-                                    pageBusiness.pageViewModel.loginMemberInfo;
+                                    blocLoginMemberInfo.loginMemberInfo;
                                 String text = (loginMemberInfo == null)
                                     ? "null"
                                     : loginMemberInfo.tokenType;
@@ -124,8 +130,11 @@ class PageView extends StatelessWidget {
                               child: BlocBuilder<
                                   page_business.BlocLoginMemberInfo,
                                   bool>(builder: (c, s) {
+                                page_business.BlocLoginMemberInfo
+                                    blocLoginMemberInfo = BlocProvider.of<
+                                        page_business.BlocLoginMemberInfo>(c);
                                 var loginMemberInfo =
-                                    pageBusiness.pageViewModel.loginMemberInfo;
+                                    blocLoginMemberInfo.loginMemberInfo;
                                 String text = (loginMemberInfo == null)
                                     ? "null"
                                     : loginMemberInfo.accessToken;
@@ -156,8 +165,11 @@ class PageView extends StatelessWidget {
                               child: BlocBuilder<
                                   page_business.BlocLoginMemberInfo,
                                   bool>(builder: (c, s) {
+                                page_business.BlocLoginMemberInfo
+                                    blocLoginMemberInfo = BlocProvider.of<
+                                        page_business.BlocLoginMemberInfo>(c);
                                 var loginMemberInfo =
-                                    pageBusiness.pageViewModel.loginMemberInfo;
+                                    blocLoginMemberInfo.loginMemberInfo;
                                 String text = (loginMemberInfo == null)
                                     ? "null"
                                     : loginMemberInfo.accessTokenExpireWhen;
@@ -185,8 +197,11 @@ class PageView extends StatelessWidget {
                               child: BlocBuilder<
                                   page_business.BlocLoginMemberInfo,
                                   bool>(builder: (c, s) {
+                                page_business.BlocLoginMemberInfo
+                                    blocLoginMemberInfo = BlocProvider.of<
+                                        page_business.BlocLoginMemberInfo>(c);
                                 var loginMemberInfo =
-                                    pageBusiness.pageViewModel.loginMemberInfo;
+                                    blocLoginMemberInfo.loginMemberInfo;
                                 String text = (loginMemberInfo == null)
                                     ? "null"
                                     : loginMemberInfo.refreshToken;
@@ -217,8 +232,11 @@ class PageView extends StatelessWidget {
                               child: BlocBuilder<
                                   page_business.BlocLoginMemberInfo,
                                   bool>(builder: (c, s) {
+                                page_business.BlocLoginMemberInfo
+                                    blocLoginMemberInfo = BlocProvider.of<
+                                        page_business.BlocLoginMemberInfo>(c);
                                 var loginMemberInfo =
-                                    pageBusiness.pageViewModel.loginMemberInfo;
+                                    blocLoginMemberInfo.loginMemberInfo;
                                 String text = (loginMemberInfo == null)
                                     ? "null"
                                     : loginMemberInfo.refreshTokenExpireWhen;
@@ -242,10 +260,12 @@ class PageView extends StatelessWidget {
               ),
               BlocBuilder<page_business.BlocSampleList, bool>(
                 builder: (c, s) {
+                  page_business.BlocSampleList blocSampleList =
+                      BlocProvider.of<page_business.BlocSampleList>(c);
                   return ListView.builder(
                     shrinkWrap: true, // 리스트뷰 크기 고정
                     primary: false, // 리스트뷰 내부는 스크롤 금지
-                    itemCount: pageBusiness.pageViewModel.allSampleList.length,
+                    itemCount: blocSampleList.allSampleList.length,
                     itemBuilder: (context, index) {
                       return GestureDetector(
                           onTap: () {
@@ -256,15 +276,13 @@ class PageView extends StatelessWidget {
                               ListTile(
                                 mouseCursor: SystemMouseCursors.click,
                                 title: Text(
-                                  pageBusiness.pageViewModel
+                                  blocSampleList
                                       .allSampleList[index].sampleItemTitle,
                                   style:
                                       const TextStyle(fontFamily: "MaruBuri"),
                                 ),
                                 subtitle: Text(
-                                  pageBusiness
-                                      .pageViewModel
-                                      .allSampleList[index]
+                                  blocSampleList.allSampleList[index]
                                       .sampleItemDescription,
                                   style:
                                       const TextStyle(fontFamily: "MaruBuri"),

@@ -14,8 +14,8 @@ import '../../../global_classes/gc_template_classes.dart'
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
 
 //------------------------------------------------------------------------------
-// 페이지의 비즈니스 로직 및 뷰모델 담당
-// PageBusiness 인스턴스는 PageView 가 재생성 되어도 재활용이 되며 PageViewModel 인스턴스 역시 유지됨.
+// 페이지의 비즈니스 로직 담당
+// PageBusiness 인스턴스는 context 안에 저장되어, 해당 페이지가 소멸하기 전까지 활용됩니다.
 class PageBusiness {
   // 페이지 컨텍스트 객체
   final BuildContext _context;
@@ -103,7 +103,7 @@ class PageBusiness {
 }
 
 // (페이지 뷰 모델 클래스)
-// 페이지 전역의 데이터는 여기에 정의되며, Business 인스턴스 안에 객체로 저장 됩니다.
+// 페이지 전역의 데이터는 여기에 정의되며, Business 인스턴스 안의 pageViewModel 변수로 저장 됩니다.
 class PageViewModel {
   // !!!페이지 데이터 정의!!!
   // ex :
@@ -112,15 +112,34 @@ class PageViewModel {
   PageViewModel();
 }
 
+// (BLoC 클래스)
+// ex :
+// class BlocSample extends Bloc<bool, bool> {
+//   // BLoC 위젯 갱신 함수
+//   void refresh() {
+//     add(!state);
+//   }
+//
+//   // !!!BLoC 위젯 상태 변수 선언 및 초기화!!!
+//   int sampleInt = 0;
+//
+//   BlocSample() : super(true) {
+//     on<bool>((event, emit) {
+//       emit(event);
+//     });
+//   }
+// }
+
 // (BLoC 프로바이더 클래스)
 // 본 페이지에서 사용할 BLoC 객체를 모아두어 PageEntrance 에서 페이지 전역 설정에 사용 됩니다.
 class BLocProviders {
 // !!!이 페이지에서 사용할 "모든" BLoC 클래스들에 대한 Provider 객체들을 아래 리스트에 넣어줄 것!!!
   List<BlocProvider<dynamic>> blocProviders = [
     // ex :
-    // BlocProvider<page_view.BlocSample>(create: (context) => page_view.BlocSample()),
+    // BlocProvider<BlocSample>(create: (context) => BlocSample()),
     BlocProvider<gw_page_out_frames.BlocHeaderGoToHomeIconBtn>(
-        create: (context) => gw_page_out_frames.BlocHeaderGoToHomeIconBtn()),
+      create: (context) => gw_page_out_frames.BlocHeaderGoToHomeIconBtn(),
+    )
   ];
 }
 
@@ -130,14 +149,14 @@ class BLocObjects {
 
   // !!!BLoC 조작 객체 변수 선언!!!
   // ex :
-  // late page_view.BlocSample blocSample;
+  // late BlocSample blocSample;
   late gw_page_out_frames.BlocHeaderGoToHomeIconBtn blocHeaderGoToHomeIconBtn;
 
   // 생성자 설정
   BLocObjects(this._context) {
     // !!!BLoC 조작 객체 생성!!!
     // ex :
-    // blocSample = BlocProvider.of<page_view.BlocSample>(_context);
+    // blocSample = BlocProvider.of<BlocSample>(_context);
     blocHeaderGoToHomeIconBtn =
         BlocProvider.of<gw_page_out_frames.BlocHeaderGoToHomeIconBtn>(_context);
   }

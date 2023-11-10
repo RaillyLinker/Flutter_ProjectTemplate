@@ -28,72 +28,63 @@ class PageView extends StatelessWidget {
             .pageBusiness;
 
     return Dialog(
-      elevation: 0,
-      backgroundColor: Colors.transparent,
-      child: SingleChildScrollView(
-        child: Container(
-          height: 280,
-          width: 300,
-          decoration: const BoxDecoration(
-              color: Colors.white,
-              shape: BoxShape.rectangle,
-              borderRadius: BorderRadius.all(Radius.circular(16))),
-          child: Center(
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  ElevatedButton(
-                    onPressed: () {
-                      pageBusiness.showInfoDialog();
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue,
-                    ),
-                    child: const Text(
-                      "확인 다이얼로그 호출",
-                      style: TextStyle(
-                          color: Colors.white, fontFamily: "MaruBuri"),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      pageBusiness.showLoadingDialog();
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue,
-                    ),
-                    child: const Text(
-                      "로딩 스피너 다이얼로그 호출",
-                      style: TextStyle(
-                          color: Colors.white, fontFamily: "MaruBuri"),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      pageBusiness.showDialogInDialog();
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue,
-                    ),
-                    child: const Text(
-                      "다중 다이얼로그 샘플 호출",
-                      style: TextStyle(
-                          color: Colors.white, fontFamily: "MaruBuri"),
-                    ),
-                  )
-                ],
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        child: SingleChildScrollView(
+            child: Container(
+                height: 280,
+                width: 300,
+                decoration: const BoxDecoration(
+                    color: Colors.white,
+                    shape: BoxShape.rectangle,
+                    borderRadius: BorderRadius.all(Radius.circular(16))),
+                child: Center(
+                    child: SingleChildScrollView(
+                        child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                      ElevatedButton(
+                        onPressed: () {
+                          pageBusiness.showInfoDialog();
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blue,
+                        ),
+                        child: const Text(
+                          "확인 다이얼로그 호출",
+                          style: TextStyle(
+                              color: Colors.white, fontFamily: "MaruBuri"),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          pageBusiness.showLoadingDialog();
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blue,
+                        ),
+                        child: const Text(
+                          "로딩 스피너 다이얼로그 호출",
+                          style: TextStyle(
+                              color: Colors.white, fontFamily: "MaruBuri"),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      ElevatedButton(
+                          onPressed: () {
+                            pageBusiness.showDialogInDialog();
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.blue,
+                          ),
+                          child: const Text("다중 다이얼로그 샘플 호출",
+                              style: TextStyle(
+                                  color: Colors.white, fontFamily: "MaruBuri")))
+                    ]))))));
   }
 }

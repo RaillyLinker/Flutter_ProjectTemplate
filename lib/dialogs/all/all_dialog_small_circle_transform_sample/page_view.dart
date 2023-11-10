@@ -33,12 +33,16 @@ class PageView extends StatelessWidget {
       child: SingleChildScrollView(
         child: BlocBuilder<page_business.BlocOuterContainerForComplete, bool>(
           builder: (c, s) {
+            page_business.BlocOuterContainerForComplete
+                blocOuterContainerForComplete =
+                BlocProvider.of<page_business.BlocOuterContainerForComplete>(c);
+
             return AnimatedContainer(
-              width: pageBusiness.pageViewModel.isComplete ? 64 : 300,
-              height: pageBusiness.pageViewModel.isComplete ? 64 : 220,
+              width: blocOuterContainerForComplete.isComplete ? 64 : 300,
+              height: blocOuterContainerForComplete.isComplete ? 64 : 220,
               curve: Curves.fastOutSlowIn,
               duration: const Duration(milliseconds: 500),
-              child: pageBusiness.pageViewModel.isComplete
+              child: blocOuterContainerForComplete.isComplete
                   ? CompleteCircleContainer()
                   : Container(
                       height: 280,

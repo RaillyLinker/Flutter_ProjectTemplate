@@ -29,49 +29,43 @@ class PageView extends StatelessWidget {
             .pageBusiness;
 
     return Dialog(
-      elevation: 0,
-      backgroundColor: Colors.transparent,
-      child: SingleChildScrollView(
-        child: Container(
-          height: 280,
-          width: 300,
-          decoration: const BoxDecoration(
-              color: Colors.white,
-              shape: BoxShape.rectangle,
-              borderRadius: BorderRadius.all(Radius.circular(16))),
-          child: Center(
-            child: gc_my_classes.ContextMenuRegion(
-              contextMenuRegionItemVoList: [
-                gc_my_classes.ContextMenuRegionItemVo(
-                    const Text(
-                      "토스트 테스트",
-                      style: TextStyle(
-                          color: Colors.black, fontFamily: "MaruBuri"),
-                    ), () {
-                  pageBusiness.toastTestMenuBtn();
-                }),
-                gc_my_classes.ContextMenuRegionItemVo(
-                    const Text(
-                      "다이얼로그 닫기",
-                      style: TextStyle(
-                          color: Colors.black, fontFamily: "MaruBuri"),
-                    ), () {
-                  pageBusiness.dialogTestMenuBtn();
-                }),
-              ],
-              child: Container(
-                padding: const EdgeInsets.only(
-                    top: 10, bottom: 10, left: 10, right: 10),
-                color: Colors.blue[100], // 옅은 파란색
-                child: const Text(
-                  '우클릭 해보세요.',
-                  style: TextStyle(color: Colors.black, fontFamily: "MaruBuri"),
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        child: SingleChildScrollView(
+            child: Container(
+                height: 280,
+                width: 300,
+                decoration: const BoxDecoration(
+                    color: Colors.white,
+                    shape: BoxShape.rectangle,
+                    borderRadius: BorderRadius.all(Radius.circular(16))),
+                child: Center(
+                    child: gc_my_classes.ContextMenuRegion(
+                        contextMenuRegionItemVoList: [
+                      gc_my_classes.ContextMenuRegionItemVo(
+                          const Text(
+                            "토스트 테스트",
+                            style: TextStyle(
+                                color: Colors.black, fontFamily: "MaruBuri"),
+                          ), () {
+                        pageBusiness.toastTestMenuBtn();
+                      }),
+                      gc_my_classes.ContextMenuRegionItemVo(
+                          const Text(
+                            "다이얼로그 닫기",
+                            style: TextStyle(
+                                color: Colors.black, fontFamily: "MaruBuri"),
+                          ), () {
+                        pageBusiness.dialogTestMenuBtn();
+                      }),
+                    ],
+                        child: Container(
+                            padding: const EdgeInsets.only(
+                                top: 10, bottom: 10, left: 10, right: 10),
+                            color: Colors.blue[100], // 옅은 파란색
+                            child: const Text('우클릭 해보세요.',
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontFamily: "MaruBuri"))))))));
   }
 }

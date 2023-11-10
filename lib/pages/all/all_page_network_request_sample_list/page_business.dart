@@ -31,22 +31,26 @@ import '../../../global_classes/gc_template_classes.dart'
 // todo : 새로운 템플릿 적용
 
 //------------------------------------------------------------------------------
-// 페이지의 비즈니스 로직 및 뷰모델 담당
-// PageBusiness 인스턴스는 PageView 가 재생성 되어도 재활용이 되며 PageViewModel 인스턴스 역시 유지됨.
+// 페이지의 비즈니스 로직 담당
+// PageBusiness 인스턴스는 context 안에 저장되어, 해당 페이지가 소멸하기 전까지 활용됩니다.
 class PageBusiness {
   // 페이지 컨텍스트 객체
   final BuildContext _context;
 
-  // 페이지 뷰모델 (StateFul 위젯 State 데이터는 모두 여기에 저장됨)
-  late PageViewModel pageViewModel;
-
   // BLoC 객체 모음
   late BLocObjects blocObjects;
 
+  // 페이지 생명주기 관련 states
+  var pageLifeCycleStates = gc_template_classes.PageLifeCycleStates();
+
+  // 페이지 파라미터 (아래 goRouterState 에서 가져와 대입하기)
+  late page_entrance.PageInputVo pageInputVo;
+
+  // 페이지 뷰모델 객체
+  PageViewModel pageViewModel = PageViewModel();
+
   // 생성자 설정
-  PageBusiness(this._context) {
-    pageViewModel = PageViewModel();
-  }
+  PageBusiness(this._context);
 
   ////
   // [페이지 생명주기]
@@ -66,7 +70,7 @@ class PageBusiness {
     // }
 
     // !!!PageInputVo 입력!!!
-    pageViewModel.pageInputVo = page_entrance.PageInputVo();
+    pageInputVo = page_entrance.PageInputVo();
   }
 
   // (페이지 최초 실행)
@@ -104,10 +108,10 @@ class PageBusiness {
 // !!!외부에서 사용할 비즈니스 로직은 아래에 공개 함수로 구현!!!
 // ex :
 //   void changeSampleNumber(int newSampleNumber) {
-//     // 뷰모델 state 변경
-//     pageViewModel.sampleNumber = newSampleNumber;
-//     // 위젯 변경 트리거 발동
-//     bLocObjects.blocSample.add(!bLocObjects.blocSample.state);
+//     // BLoC 위젯 상태 변수 변경
+//     blocObjects.blocSample.sampleInt = newSampleNumber;
+//     // BLoC 위젯 변경 트리거 발동
+//     blocObjects.blocSample.refresh();
 //   }
 
   // (리스트 아이템 클릭 리스너)
@@ -320,8 +324,8 @@ class PageBusiness {
 // !!!내부에서만 사용할 함수를 아래에 구현!!!
 }
 
-// (페이지 뷰 모델 데이터 형태)
-// 페이지의 모든 화면 관련 데이터는 여기에 정의되며, Business 인스턴스 안에 객체로 저장 됩니다.
+// (페이지 뷰 모델 클래스)
+// 페이지 전역의 데이터는 여기에 정의되며, Business 인스턴스 안의 pageViewModel 변수로 저장 됩니다.
 class PageViewModel {
   // 페이지 생명주기 관련 states
   var pageLifeCycleStates = gc_template_classes.PageLifeCycleStates();
@@ -391,18 +395,6 @@ enum SampleItemEnum {
   getHtmlResponseSample,
 }
 
-// (BLoC 클래스 모음)
-// 아래엔 런타임 위젯 변경의 트리거가 되는 BLoC 클래스들을 작성해 둡니다.
-// !!!각 BLoC 클래스는 아래 예시를 '그대로' 복사 붙여넣기를 하여 클래스 이름만 변경합니다.!!!
-// ex :
-// class BlocSample extends Bloc<bool, bool> {
-//   BlocSample() : super(true) {
-//     on<bool>((event, emit) {
-//       emit(event);
-//     });
-//   }
-// }
-
 class BlocSampleList extends Bloc<bool, bool> {
   BlocSampleList() : super(true) {
     on<bool>((event, emit) {
@@ -411,13 +403,31 @@ class BlocSampleList extends Bloc<bool, bool> {
   }
 }
 
+// (BLoC 클래스)
+// ex :
+// class BlocSample extends Bloc<bool, bool> {
+//   // BLoC 위젯 갱신 함수
+//   void refresh() {
+//     add(!state);
+//   }
+//
+//   // !!!BLoC 위젯 상태 변수 선언 및 초기화!!!
+//   int sampleInt = 0;
+//
+//   BlocSample() : super(true) {
+//     on<bool>((event, emit) {
+//       emit(event);
+//     });
+//   }
+// }
+
 // (BLoC 프로바이더 클래스)
 // 본 페이지에서 사용할 BLoC 객체를 모아두어 PageEntrance 에서 페이지 전역 설정에 사용 됩니다.
 class BLocProviders {
 // !!!이 페이지에서 사용할 "모든" BLoC 클래스들에 대한 Provider 객체들을 아래 리스트에 넣어줄 것!!!
   List<BlocProvider<dynamic>> blocProviders = [
     // ex :
-    // BlocProvider<BlocSample>(create: (context) => BlocSample()),
+    // BlocProvider<BlocSample>(create: (context) => BlocSample())
     BlocProvider<gw_page_out_frames.BlocHeaderGoToHomeIconBtn>(
         create: (context) => gw_page_out_frames.BlocHeaderGoToHomeIconBtn()),
     BlocProvider<BlocSampleList>(create: (context) => BlocSampleList()),

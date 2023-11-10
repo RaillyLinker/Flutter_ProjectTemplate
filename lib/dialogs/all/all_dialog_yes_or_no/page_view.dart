@@ -50,7 +50,7 @@ class PageView extends StatelessWidget {
                     child: Text(
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      pageBusiness.pageViewModel.pageInputVo.dialogTitle,
+                      pageBusiness.pageInputVo.dialogTitle,
                       style: const TextStyle(
                           fontSize: 17,
                           fontFamily: "MaruBuri",
@@ -68,7 +68,7 @@ class PageView extends StatelessWidget {
                     padding: const EdgeInsets.only(left: 17, right: 17),
                     child: SingleChildScrollView(
                       child: Text(
-                        pageBusiness.pageViewModel.pageInputVo.dialogContent,
+                        pageBusiness.pageInputVo.dialogContent,
                         style: const TextStyle(
                             fontFamily: "MaruBuri", color: Colors.black),
                         textAlign: TextAlign.center,
@@ -107,8 +107,7 @@ class PageView extends StatelessWidget {
                               backgroundColor: Colors.blue,
                             ),
                             child: Text(
-                              pageBusiness
-                                  .pageViewModel.pageInputVo.negativeBtnTitle,
+                              pageBusiness.pageInputVo.negativeBtnTitle,
                               style: const TextStyle(
                                   color: Colors.white, fontFamily: "MaruBuri"),
                             ),
@@ -127,8 +126,7 @@ class PageView extends StatelessWidget {
                               backgroundColor: Colors.blue,
                             ),
                             child: Text(
-                              pageBusiness
-                                  .pageViewModel.pageInputVo.positiveBtnTitle,
+                              pageBusiness.pageInputVo.positiveBtnTitle,
                               style: const TextStyle(
                                   color: Colors.white, fontFamily: "MaruBuri"),
                             ),

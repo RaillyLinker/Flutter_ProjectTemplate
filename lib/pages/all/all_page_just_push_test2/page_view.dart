@@ -48,8 +48,10 @@ class PageView extends StatelessWidget {
                     margin: const EdgeInsets.only(bottom: 20),
                     child: BlocBuilder<page_business.BlocSampleNumber, bool>(
                       builder: (c, s) {
+                        page_business.BlocSampleNumber blocSampleNumber = BlocProvider.of<page_business.BlocSampleNumber>(c);
+
                         return Text(
-                            "${pageBusiness.pageViewModel.sampleNumber}",
+                            "${blocSampleNumber.sampleNumber}",
                             style: const TextStyle(
                                 fontSize: 20,
                                 color: Colors.black,

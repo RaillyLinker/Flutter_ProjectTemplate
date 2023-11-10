@@ -77,13 +77,17 @@ Future<
       // Object List 타입이 넘어오면 List<Map<String, dynamic>> 으로 받아서 처리
 
       responseBody = GetGetRequestSampleAsyncResponseBodyVo(
-          responseBodyMap["responseBodyString"],
-          responseBodyMap["responseBodyStringNullable"],
-          List<String>.from(responseBodyMap["responseBodyStringList"]),
-          (responseBodyMap["responseBodyStringListNullable"] == null)
-              ? null
-              : List<String>.from(
-                  responseBodyMap["responseBodyStringListNullable"]));
+        responseBodyMap["responseBodyString"],
+        responseBodyMap["responseBodyStringNullable"],
+        List<String>.from(
+          responseBodyMap["responseBodyStringList"],
+        ),
+        (responseBodyMap["responseBodyStringListNullable"] == null)
+            ? null
+            : List<String>.from(
+                responseBodyMap["responseBodyStringListNullable"],
+              ),
+      );
     }
 
     return gc_template_classes.NetworkResponseObject(

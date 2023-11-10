@@ -20,9 +20,7 @@ class BlocTemplate extends Bloc<bool, bool> {
   }
 }
 
-// 아래는 위에서 만든 BLoC 클래스를 사용하여 위젯을 만든 예시
-// BlocTemplate blocTemplate = BlocProvider.of<BlocTemplate>(c);
-// 이렇게 BLoC 객체를 가져와서 상태 변수 변경, refresh 를 하면 위젯이 갱신됩니다.
+// 위젯 샘플
 var blocBuilderSample = BlocBuilder<BlocTemplate, bool>(builder: (c, s) {
   BlocTemplate blocTemplate = BlocProvider.of<BlocTemplate>(c);
 
@@ -37,7 +35,9 @@ var blocBuilderSample = BlocBuilder<BlocTemplate, bool>(builder: (c, s) {
     child: MouseRegion(
       cursor: SystemMouseCursors.click,
       // BLoC 상태 변수를 위젯에 반영
-      child: Text(blocTemplate.sampleNumber.toString()),
+      child: Text(
+        blocTemplate.sampleNumber.toString(),
+      ),
     ),
   );
 });
