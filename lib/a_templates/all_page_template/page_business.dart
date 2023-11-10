@@ -29,9 +29,8 @@ class PageBusiness {
   // 페이지 파라미터 (아래 goRouterState 에서 가져와 대입하기)
   late page_entrance.PageInputVo pageInputVo;
 
-  // !!!페이지 데이터 정의!!!
-  // ex :
-  // int sampleNumber = 0;
+  // 페이지 뷰모델 객체
+  PageViewModel pageViewModel = PageViewModel();
 
   // 생성자 설정
   PageBusiness(this._context);
@@ -101,6 +100,16 @@ class PageBusiness {
 ////
 // [내부 함수]
 // !!!내부에서만 사용할 함수를 아래에 구현!!!
+}
+
+// (페이지 뷰 모델 클래스)
+// 페이지 전역의 데이터는 여기에 정의되며, Business 인스턴스 안에 객체로 저장 됩니다.
+class PageViewModel {
+  // !!!페이지 데이터 정의!!!
+  // ex :
+  // int sampleNumber = 0;
+
+  PageViewModel();
 }
 
 // (BLoC 프로바이더 클래스)

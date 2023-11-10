@@ -35,6 +35,7 @@ var blocBuilderSample = BlocBuilder<BlocTemplate, bool>(builder: (c, s) {
       blocTemplate.refresh();
     },
     child: MouseRegion(
+      cursor: SystemMouseCursors.click,
       // BLoC 상태 변수를 위젯에 반영
       child: Text(blocTemplate.sampleNumber.toString()),
     ),
