@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+// (external)
 
 // [커스텀 위젯 작성 파일]
 // 전역의 페이지에서 사용 가능한 위젯입니다.
