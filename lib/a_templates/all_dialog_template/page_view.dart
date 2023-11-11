@@ -42,7 +42,7 @@ class PageView extends StatelessWidget {
             ),
           ),
           child: const Center(
-            child: Text("다이얼로그 템플릿"),
+            child: Text("다이얼로그 템플릿", style: TextStyle(fontFamily: "MaruBuri")),
           ),
         ),
       ),

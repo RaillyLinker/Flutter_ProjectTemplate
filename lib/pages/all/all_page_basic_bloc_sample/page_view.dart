@@ -28,10 +28,24 @@ class PageView extends StatelessWidget {
             .state
             .pageBusiness;
 
-    return const gw_page_out_frames.PageOutFrame(
-      "페이지 템플릿",
+    return gw_page_out_frames.PageOutFrame(
+      "기본 BLoC 샘플",
       Center(
-        child: Text("페이지 템플릿입니다.", style: TextStyle(fontFamily: "MaruBuri")),
+        child: BlocBuilder<page_business.BlocSample, bool>(builder: (c, s) {
+          return Text(pageBusiness.pageViewModel.sampleNumber.toString(),
+              style: const TextStyle(
+                  fontFamily: "MaruBuri",
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold));
+        }),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          pageBusiness
+              .changeSampleNumber(pageBusiness.pageViewModel.sampleNumber + 1);
+        },
+        tooltip: 'Increment',
+        child: const Icon(Icons.add),
       ),
     );
   }

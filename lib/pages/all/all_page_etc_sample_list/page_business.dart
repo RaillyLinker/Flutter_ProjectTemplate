@@ -11,6 +11,8 @@ import 'page_entrance.dart' as page_entrance;
 import '../../../global_widgets/gw_page_out_frames.dart' as gw_page_out_frames;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
+import '../../../pages/all/all_page_basic_bloc_sample/page_entrance.dart'
+    as all_page_basic_bloc_sample;
 import '../../../pages/all/all_page_crypt_sample/page_entrance.dart'
     as all_page_crypt_sample;
 import '../../../pages/all/all_page_global_variable_state_test_sample/page_entrance.dart'
@@ -198,6 +200,11 @@ class PageBusiness {
           _context.pushNamed(all_page_form_sample.pageName);
         }
         break;
+      case SampleItemEnum.basicBlocSample:
+        {
+          _context.pushNamed(all_page_basic_bloc_sample.pageName);
+        }
+        break;
     }
   }
 
@@ -228,6 +235,8 @@ class PageViewModel {
 
   PageViewModel() {
     // 초기 리스트 추가
+    allSampleList.add(SampleItem(
+        SampleItemEnum.basicBlocSample, "기본 BLoC 샘플", "기본 BLoC 적용 샘플"));
     allSampleList.add(SampleItem(SampleItemEnum.horizontalScrollTest,
         "가로 스크롤 테스트", "모바일 이외 환경에서 가로 스크롤 작동을 테스트 하기 위한 샘플"));
     allSampleList.add(SampleItem(SampleItemEnum.sharedPreferencesSample,
@@ -278,6 +287,7 @@ class SampleItem {
 }
 
 enum SampleItemEnum {
+  basicBlocSample,
   horizontalScrollTest,
   sharedPreferencesSample,
   urlLauncherSample,

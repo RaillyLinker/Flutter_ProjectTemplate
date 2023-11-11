@@ -16,7 +16,9 @@ import '../../../pages/all/all_page_home/page_entrance.dart' as all_page_home;
 // (페이지 최외곽 프레임 템플릿)
 class PageOutFrame extends StatelessWidget {
   const PageOutFrame(this.pageTitle, this.child,
-      {super.key, this.isPageBackgroundBlue = false});
+      {super.key,
+      this.isPageBackgroundBlue = false,
+      this.floatingActionButton});
 
   // 페이지 타이틀
   final String pageTitle;
@@ -26,6 +28,8 @@ class PageOutFrame extends StatelessWidget {
 
   // 페이지 배경색을 파란색으로 할지 여부
   final bool isPageBackgroundBlue;
+
+  final FloatingActionButton? floatingActionButton;
 
   @override
   Widget build(BuildContext context) {
@@ -126,6 +130,7 @@ class PageOutFrame extends StatelessWidget {
                     )),
         backgroundColor:
             isPageBackgroundBlue ? Colors.blue : const Color(0xFFFFFFFF),
+        floatingActionButton: floatingActionButton,
         body: child);
   }
 }
