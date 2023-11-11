@@ -13,7 +13,6 @@ import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
-// todo : 새로운 템플릿 적용
 
 //------------------------------------------------------------------------------
 // 페이지의 비즈니스 로직 담당
@@ -123,16 +122,16 @@ class PageBusiness {
       // bind 실패
       onServerBtnClicked = false;
       pageViewModel.logList.insert(0, "++++ $bindError");
-      blocObjects.blocLogList.add(!blocObjects.blocLogList.state);
+      blocObjects.blocLogList.refresh();
       return;
     }
 
     pageViewModel.logList.insert(0, "++++ 서버를 열었습니다.");
-    blocObjects.blocLogList.add(!blocObjects.blocLogList.state);
+    blocObjects.blocLogList.refresh();
 
     pageViewModel.server!.listen((request) async {
       pageViewModel.logList.insert(0, "++++ ${request.headers}");
-      blocObjects.blocLogList.add(!blocObjects.blocLogList.state);
+      blocObjects.blocLogList.refresh();
 
       // send response
       request.response.statusCode = 200;
@@ -142,7 +141,7 @@ class PageBusiness {
     });
 
     pageViewModel.serverBtn = "서버 닫기";
-    blocObjects.blocServerBtn.add(!blocObjects.blocServerBtn.state);
+    blocObjects.blocServerBtn.refresh();
 
     onServerBtnClicked = false;
   }
@@ -155,10 +154,10 @@ class PageBusiness {
 
     await pageViewModel.server?.close();
     pageViewModel.logList.insert(0, "++++ 서버를 닫았습니다.");
-    blocObjects.blocLogList.add(!blocObjects.blocLogList.state);
+    blocObjects.blocLogList.refresh();
 
     pageViewModel.serverBtn = "서버 열기";
-    blocObjects.blocServerBtn.add(!blocObjects.blocServerBtn.state);
+    blocObjects.blocServerBtn.refresh();
 
     onServerBtnClicked = false;
   }
@@ -191,24 +190,6 @@ class PageViewModel {
   PageViewModel();
 }
 
-// [서버 로그 리스트]
-class BlocLogList extends Bloc<bool, bool> {
-  BlocLogList() : super(true) {
-    on<bool>((event, emit) {
-      emit(event);
-    });
-  }
-}
-
-// [서버 버튼]
-class BlocServerBtn extends Bloc<bool, bool> {
-  BlocServerBtn() : super(true) {
-    on<bool>((event, emit) {
-      emit(event);
-    });
-  }
-}
-
 // (BLoC 클래스)
 // ex :
 // class BlocSample extends Bloc<bool, bool> {
@@ -223,6 +204,34 @@ class BlocServerBtn extends Bloc<bool, bool> {
 //     });
 //   }
 // }
+
+// [서버 로그 리스트]
+class BlocLogList extends Bloc<bool, bool> {
+  // BLoC 위젯 갱신 함수
+  void refresh() {
+    add(!state);
+  }
+
+  BlocLogList() : super(true) {
+    on<bool>((event, emit) {
+      emit(event);
+    });
+  }
+}
+
+// [서버 버튼]
+class BlocServerBtn extends Bloc<bool, bool> {
+  // BLoC 위젯 갱신 함수
+  void refresh() {
+    add(!state);
+  }
+
+  BlocServerBtn() : super(true) {
+    on<bool>((event, emit) {
+      emit(event);
+    });
+  }
+}
 
 // (BLoC 프로바이더 클래스)
 // 본 페이지에서 사용할 BLoC 객체를 모아두어 PageEntrance 에서 페이지 전역 설정에 사용 됩니다.

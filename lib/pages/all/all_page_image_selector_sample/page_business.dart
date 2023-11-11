@@ -18,7 +18,6 @@ import '../../../dialogs/all/all_dialog_image_selector_menu/page_entrance.dart'
     as all_dialog_image_selector_menu;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
-// todo : 새로운 템플릿 적용
 
 //------------------------------------------------------------------------------
 // 페이지의 비즈니스 로직 담당
@@ -134,8 +133,7 @@ class PageBusiness {
                 var image = XFile(pickedFile.path);
                 var bytes = await image.readAsBytes();
                 pageViewModel.selectedImage = bytes;
-                blocObjects.blocProfileImage
-                    .add(!blocObjects.blocProfileImage.state);
+                blocObjects.blocProfileImage.refresh();
               }
             } catch (_) {}
           }
@@ -155,8 +153,7 @@ class PageBusiness {
                 var image = XFile(pickedFile.path);
                 var bytes = await image.readAsBytes();
                 pageViewModel.selectedImage = bytes;
-                blocObjects.blocProfileImage
-                    .add(!blocObjects.blocProfileImage.state);
+                blocObjects.blocProfileImage.refresh();
               }
             } catch (_) {}
           }
@@ -165,8 +162,7 @@ class PageBusiness {
           {
             // 기본 프로필 이미지 적용
             pageViewModel.selectedImage = null;
-            blocObjects.blocProfileImage
-                .add(!blocObjects.blocProfileImage.state);
+            blocObjects.blocProfileImage.refresh();
           }
           break;
         default:
@@ -222,7 +218,7 @@ class PageBusiness {
                   pageViewModel.imageFiles.add(bytes);
                 }
 
-                blocObjects.blocImageList.add(!blocObjects.blocImageList.state);
+                blocObjects.blocImageList.refresh();
               }
             } catch (_) {}
           }
@@ -243,7 +239,7 @@ class PageBusiness {
                 var bytes = await image.readAsBytes();
                 pageViewModel.imageFiles.add(bytes);
 
-                blocObjects.blocImageList.add(!blocObjects.blocImageList.state);
+                blocObjects.blocImageList.refresh();
               }
             } catch (_) {}
           }
@@ -252,7 +248,7 @@ class PageBusiness {
           {
             // 기본 프로필 이미지 적용
             pageViewModel.selectedImage = null;
-            blocObjects.blocImageList.add(!blocObjects.blocImageList.state);
+            blocObjects.blocImageList.refresh();
           }
           break;
         default:
@@ -266,7 +262,7 @@ class PageBusiness {
 
   void pressDeletePicture(int pictureListItemIdx) {
     pageViewModel.imageFiles.removeAt(pictureListItemIdx);
-    blocObjects.blocImageList.add(!blocObjects.blocImageList.state);
+    blocObjects.blocImageList.refresh();
   }
 
 ////
@@ -302,22 +298,6 @@ class PageViewModel {
   PageViewModel();
 }
 
-class BlocProfileImage extends Bloc<bool, bool> {
-  BlocProfileImage() : super(true) {
-    on<bool>((event, emit) {
-      emit(event);
-    });
-  }
-}
-
-class BlocImageList extends Bloc<bool, bool> {
-  BlocImageList() : super(true) {
-    on<bool>((event, emit) {
-      emit(event);
-    });
-  }
-}
-
 // (BLoC 클래스)
 // ex :
 // class BlocSample extends Bloc<bool, bool> {
@@ -332,6 +312,32 @@ class BlocImageList extends Bloc<bool, bool> {
 //     });
 //   }
 // }
+
+class BlocProfileImage extends Bloc<bool, bool> {
+  // BLoC 위젯 갱신 함수
+  void refresh() {
+    add(!state);
+  }
+
+  BlocProfileImage() : super(true) {
+    on<bool>((event, emit) {
+      emit(event);
+    });
+  }
+}
+
+class BlocImageList extends Bloc<bool, bool> {
+  // BLoC 위젯 갱신 함수
+  void refresh() {
+    add(!state);
+  }
+
+  BlocImageList() : super(true) {
+    on<bool>((event, emit) {
+      emit(event);
+    });
+  }
+}
 
 // (BLoC 프로바이더 클래스)
 // 본 페이지에서 사용할 BLoC 객체를 모아두어 PageEntrance 에서 페이지 전역 설정에 사용 됩니다.

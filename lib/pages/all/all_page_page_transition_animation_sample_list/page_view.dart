@@ -31,7 +31,7 @@ class PageView extends StatelessWidget {
     return gw_page_out_frames.PageOutFrame("페이지 이동 애니메이션 샘플 리스트",
         BlocBuilder<page_business.BlocSampleList, bool>(builder: (c, s) {
       return ListView.builder(
-        itemCount: pageBusiness.pageViewModel.filteredSampleList.length,
+        itemCount: pageBusiness.pageViewModel.allSampleList.length,
         itemBuilder: (context, index) {
           return GestureDetector(
               onTap: () {
@@ -42,12 +42,12 @@ class PageView extends StatelessWidget {
                   ListTile(
                     mouseCursor: SystemMouseCursors.click,
                     title: Text(
-                      pageBusiness.pageViewModel.filteredSampleList[index]
-                          .sampleItemTitle,
+                      pageBusiness
+                          .pageViewModel.allSampleList[index].sampleItemTitle,
                       style: const TextStyle(fontFamily: "MaruBuri"),
                     ),
                     subtitle: Text(
-                      pageBusiness.pageViewModel.filteredSampleList[index]
+                      pageBusiness.pageViewModel.allSampleList[index]
                           .sampleItemDescription,
                       style: const TextStyle(fontFamily: "MaruBuri"),
                     ),

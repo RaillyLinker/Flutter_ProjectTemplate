@@ -30,7 +30,6 @@ import '../../../pages/mobile/mobile_page_permission_sample_list/page_entrance.d
     as mobile_page_permission_sample_list;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
-// todo : 새로운 템플릿 적용
 
 //------------------------------------------------------------------------------
 // 페이지의 비즈니스 로직 담당
@@ -233,14 +232,6 @@ enum SampleItemEnum {
   etcSampleList,
 }
 
-class BlocSampleList extends Bloc<bool, bool> {
-  BlocSampleList() : super(true) {
-    on<bool>((event, emit) {
-      emit(event);
-    });
-  }
-}
-
 // (BLoC 클래스)
 // ex :
 // class BlocSample extends Bloc<bool, bool> {
@@ -255,6 +246,19 @@ class BlocSampleList extends Bloc<bool, bool> {
 //     });
 //   }
 // }
+
+class BlocSampleList extends Bloc<bool, bool> {
+  // BLoC 위젯 갱신 함수
+  void refresh() {
+    add(!state);
+  }
+
+  BlocSampleList() : super(true) {
+    on<bool>((event, emit) {
+      emit(event);
+    });
+  }
+}
 
 // (BLoC 프로바이더 클래스)
 // 본 페이지에서 사용할 BLoC 객체를 모아두어 PageEntrance 에서 페이지 전역 설정에 사용 됩니다.

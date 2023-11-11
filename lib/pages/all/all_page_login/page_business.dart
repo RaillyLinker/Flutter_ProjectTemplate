@@ -27,7 +27,6 @@ import '../../../global_functions/gf_my_functions.dart' as gf_my_functions;
 import '../../../pages/all/all_page_home/page_entrance.dart' as all_page_home;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
-// todo : 새로운 템플릿 적용
 // todo : 입력 부분 Form 방식 변경
 
 //------------------------------------------------------------------------------
@@ -137,8 +136,7 @@ class PageBusiness {
   // (비번 숨기기 버튼 토글링)
   void toggleHidePassword() {
     pageViewModel.hidePassword = !pageViewModel.hidePassword;
-    blocObjects.blocPasswordTextField
-        .add(!blocObjects.blocPasswordTextField.state);
+    blocObjects.blocPasswordTextField.refresh();
   }
 
   // (계정 로그인 버튼 클릭)
@@ -499,14 +497,6 @@ class PageViewModel {
   PageViewModel();
 }
 
-class BlocPasswordTextField extends Bloc<bool, bool> {
-  BlocPasswordTextField() : super(true) {
-    on<bool>((event, emit) {
-      emit(event);
-    });
-  }
-}
-
 // (BLoC 클래스)
 // ex :
 // class BlocSample extends Bloc<bool, bool> {
@@ -521,6 +511,19 @@ class BlocPasswordTextField extends Bloc<bool, bool> {
 //     });
 //   }
 // }
+
+class BlocPasswordTextField extends Bloc<bool, bool> {
+  // BLoC 위젯 갱신 함수
+  void refresh() {
+    add(!state);
+  }
+
+  BlocPasswordTextField() : super(true) {
+    on<bool>((event, emit) {
+      emit(event);
+    });
+  }
+}
 
 // (BLoC 프로바이더 클래스)
 // 본 페이지에서 사용할 BLoC 객체를 모아두어 PageEntrance 에서 페이지 전역 설정에 사용 됩니다.

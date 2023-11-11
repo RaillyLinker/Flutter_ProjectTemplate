@@ -16,7 +16,6 @@ import '../../../global_classes/gc_animated_builder.dart'
     as gc_animated_builder;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
-// todo : 새로운 템플릿 적용
 
 //------------------------------------------------------------------------------
 // 페이지의 비즈니스 로직 담당
@@ -157,8 +156,7 @@ class PageBusiness {
           pageViewModel.widgetChangeAnimatedSwitcherConfig =
               gc_my_classes.AnimatedSwitcherConfig(
                   const Duration(milliseconds: 0));
-          blocObjects.blocAnimationSample
-              .add(!blocObjects.blocAnimationSample.state);
+          blocObjects.blocAnimationSample.refresh();
         }
         break;
       case SampleItemEnum.fadeAnimation:
@@ -216,8 +214,7 @@ class PageBusiness {
                       (Widget child, Animation<double> animation) {
             return FadeTransition(opacity: animation, child: child);
           });
-          blocObjects.blocAnimationSample
-              .add(!blocObjects.blocAnimationSample.state);
+          blocObjects.blocAnimationSample.refresh();
         }
         break;
       case SampleItemEnum.scaleTransition:
@@ -275,8 +272,7 @@ class PageBusiness {
                       (Widget child, Animation<double> animation) {
             return ScaleTransition(scale: animation, child: child);
           });
-          blocObjects.blocAnimationSample
-              .add(!blocObjects.blocAnimationSample.state);
+          blocObjects.blocAnimationSample.refresh();
         }
         break;
       case SampleItemEnum.flipAnimation:
@@ -320,8 +316,7 @@ class PageBusiness {
                       (Widget child, Animation<double> animation) {
             return gc_animated_builder.wrapAnimatedBuilder(child, animation);
           });
-          blocObjects.blocAnimationSample
-              .add(!blocObjects.blocAnimationSample.state);
+          blocObjects.blocAnimationSample.refresh();
         }
         break;
     }
@@ -415,23 +410,6 @@ enum SampleWidgetEnum {
   blueSquareWidget,
 }
 
-class BlocSampleList extends Bloc<bool, bool> {
-  BlocSampleList() : super(true) {
-    on<bool>((event, emit) {
-      emit(event);
-    });
-  }
-}
-
-// (애니메이션 적용 샘플 위젯)
-class BlocAnimationSample extends Bloc<bool, bool> {
-  BlocAnimationSample() : super(true) {
-    on<bool>((event, emit) {
-      emit(event);
-    });
-  }
-}
-
 // (BLoC 클래스)
 // ex :
 // class BlocSample extends Bloc<bool, bool> {
@@ -446,6 +424,33 @@ class BlocAnimationSample extends Bloc<bool, bool> {
 //     });
 //   }
 // }
+
+class BlocSampleList extends Bloc<bool, bool> {
+  // BLoC 위젯 갱신 함수
+  void refresh() {
+    add(!state);
+  }
+
+  BlocSampleList() : super(true) {
+    on<bool>((event, emit) {
+      emit(event);
+    });
+  }
+}
+
+// (애니메이션 적용 샘플 위젯)
+class BlocAnimationSample extends Bloc<bool, bool> {
+  // BLoC 위젯 갱신 함수
+  void refresh() {
+    add(!state);
+  }
+
+  BlocAnimationSample() : super(true) {
+    on<bool>((event, emit) {
+      emit(event);
+    });
+  }
+}
 
 // (BLoC 프로바이더 클래스)
 // 본 페이지에서 사용할 BLoC 객체를 모아두어 PageEntrance 에서 페이지 전역 설정에 사용 됩니다.

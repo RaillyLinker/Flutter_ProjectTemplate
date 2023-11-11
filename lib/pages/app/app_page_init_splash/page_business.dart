@@ -29,7 +29,6 @@ import '../../../global_data/gd_const_config.dart' as gd_const_config;
 import '../../../pages/all/all_page_home/page_entrance.dart' as all_page_home;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
-// todo : 새로운 템플릿 적용
 
 //------------------------------------------------------------------------------
 // 페이지의 비즈니스 로직 담당
@@ -146,8 +145,7 @@ class PageBusiness {
       _screenWaitingTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
         // 뷰모델 State 변경 및 자동 이벤트 발동
         pageViewModel.countNumber = pageViewModel.countNumber - 1;
-        blocObjects.blocCountDownNumber
-            .add(!blocObjects.blocCountDownNumber.state);
+        blocObjects.blocCountDownNumber.refresh();
 
         if (pageViewModel.countNumber <= 0) {
           // 카운팅 완료
@@ -591,15 +589,6 @@ class AnimationLogoControllers {
       this.animationController, this.fadeAnimation, this.scaleAnimation);
 }
 
-// [카운트 다운 숫자]
-class BlocCountDownNumber extends Bloc<bool, bool> {
-  BlocCountDownNumber() : super(true) {
-    on<bool>((event, emit) {
-      emit(event);
-    });
-  }
-}
-
 // (BLoC 클래스)
 // ex :
 // class BlocSample extends Bloc<bool, bool> {
@@ -614,6 +603,20 @@ class BlocCountDownNumber extends Bloc<bool, bool> {
 //     });
 //   }
 // }
+
+// [카운트 다운 숫자]
+class BlocCountDownNumber extends Bloc<bool, bool> {
+  // BLoC 위젯 갱신 함수
+  void refresh() {
+    add(!state);
+  }
+
+  BlocCountDownNumber() : super(true) {
+    on<bool>((event, emit) {
+      emit(event);
+    });
+  }
+}
 
 // (BLoC 프로바이더 클래스)
 // 본 페이지에서 사용할 BLoC 객체를 모아두어 PageEntrance 에서 페이지 전역 설정에 사용 됩니다.

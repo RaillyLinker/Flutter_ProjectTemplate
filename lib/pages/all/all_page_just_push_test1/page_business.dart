@@ -18,7 +18,6 @@ import '../../../global_classes/gc_template_classes.dart'
 import '../../../global_widgets/gw_page_out_frames.dart' as gw_page_out_frames;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
-// todo : 새로운 템플릿 적용
 
 //------------------------------------------------------------------------------
 // 페이지의 비즈니스 로직 담당
@@ -142,8 +141,8 @@ class PageBusiness {
 
   // (화면 카운트 +1)
   void countPlus1() {
-    blocObjects.blocSampleNumber.sampleNumber += 1;
-    blocObjects.blocSampleNumber.add(!blocObjects.blocSampleNumber.state);
+    pageViewModel.sampleNumber += 1;
+    blocObjects.blocSampleNumber.refresh();
   }
 
 ////
@@ -163,6 +162,8 @@ class PageViewModel {
   // !!!페이지 데이터 정의!!!
   // ex :
   // int sampleNumber = 0;
+
+  int sampleNumber = 0;
 
   PageViewModel();
 }
@@ -187,9 +188,6 @@ class BlocSampleNumber extends Bloc<bool, bool> {
   void refresh() {
     add(!state);
   }
-
-  // !!!BLoC 위젯 상태 변수 선언 및 초기화!!!
-  int sampleNumber = 0;
 
   BlocSampleNumber() : super(true) {
     on<bool>((event, emit) {

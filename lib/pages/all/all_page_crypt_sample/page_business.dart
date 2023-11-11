@@ -14,7 +14,6 @@ import '../../../global_classes/gc_template_classes.dart'
 import '../../../global_functions/gf_crypto.dart' as gf_crypto;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
-// todo : 새로운 템플릿 적용
 // todo : 입력 부분 Form 방식 변경
 
 // 암호화, 복화화가 잘 이루어지는지 확인하는 샘플입니다.
@@ -125,8 +124,7 @@ class PageBusiness {
       }
     }
 
-    blocObjects.blocEncryptResultText
-        .add(!blocObjects.blocEncryptResultText.state);
+    blocObjects.blocEncryptResultText.refresh();
   }
 
   // (복호화 함수)
@@ -146,8 +144,7 @@ class PageBusiness {
       }
     }
 
-    blocObjects.blocDecryptResultText
-        .add(!blocObjects.blocDecryptResultText.state);
+    blocObjects.blocDecryptResultText.refresh();
   }
 
 ////
@@ -180,24 +177,6 @@ class PageViewModel {
   PageViewModel();
 }
 
-// (암호화 결과 텍스트 위젯)
-class BlocEncryptResultText extends Bloc<bool, bool> {
-  BlocEncryptResultText() : super(true) {
-    on<bool>((event, emit) {
-      emit(event);
-    });
-  }
-}
-
-// (복호화 결과 텍스트 위젯)
-class BlocDecryptResultText extends Bloc<bool, bool> {
-  BlocDecryptResultText() : super(true) {
-    on<bool>((event, emit) {
-      emit(event);
-    });
-  }
-}
-
 // (BLoC 클래스)
 // ex :
 // class BlocSample extends Bloc<bool, bool> {
@@ -212,6 +191,34 @@ class BlocDecryptResultText extends Bloc<bool, bool> {
 //     });
 //   }
 // }
+
+// (암호화 결과 텍스트 위젯)
+class BlocEncryptResultText extends Bloc<bool, bool> {
+  // BLoC 위젯 갱신 함수
+  void refresh() {
+    add(!state);
+  }
+
+  BlocEncryptResultText() : super(true) {
+    on<bool>((event, emit) {
+      emit(event);
+    });
+  }
+}
+
+// (복호화 결과 텍스트 위젯)
+class BlocDecryptResultText extends Bloc<bool, bool> {
+  // BLoC 위젯 갱신 함수
+  void refresh() {
+    add(!state);
+  }
+
+  BlocDecryptResultText() : super(true) {
+    on<bool>((event, emit) {
+      emit(event);
+    });
+  }
+}
 
 // (BLoC 프로바이더 클래스)
 // 본 페이지에서 사용할 BLoC 객체를 모아두어 PageEntrance 에서 페이지 전역 설정에 사용 됩니다.

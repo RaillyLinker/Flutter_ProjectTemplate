@@ -17,11 +17,8 @@ import '../../../global_functions/gf_my_functions.dart' as gf_my_functions;
 import '../../../pages/all/all_page_membership_withdrawal/page_entrance.dart'
     as all_page_membership_withdrawal;
 import '../../../pages/all/all_page_login/page_entrance.dart' as all_page_login;
-import '../../../dialogs/all/all_dialog_yes_or_no/page_entrance.dart'
-    as all_dialog_yes_or_no;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
-// todo : 새로운 템플릿 적용
 // todo : 회원 정보 페이지에서 닉네임 변경 기능 추가
 // todo : 회원 정보 페이지에서 프로필 추가 / 삭제 / 대표 프로필 변경 기능 추가
 // todo : 회원 정보 페이지에서 이메일 추가 / 삭제 기능 추가
@@ -113,12 +110,12 @@ class PageBusiness {
     pageViewModel.myPhoneNumberList = nowLoginMemberInfo.myPhoneNumberList;
     pageViewModel.authPasswordIsNull = nowLoginMemberInfo.authPasswordIsNull;
 
-    blocObjects.blocProfileImage.add(!blocObjects.blocProfileImage.state);
-    blocObjects.blocNickname.add(!blocObjects.blocNickname.state);
-    blocObjects.blocEmail.add(!blocObjects.blocEmail.state);
-    blocObjects.blocPhoneNumber.add(!blocObjects.blocPhoneNumber.state);
-    blocObjects.blocPermission.add(!blocObjects.blocPermission.state);
-    blocObjects.blocOAuth2.add(!blocObjects.blocOAuth2.state);
+    blocObjects.blocProfileImage.refresh();
+    blocObjects.blocNickname.refresh();
+    blocObjects.blocEmail.refresh();
+    blocObjects.blocPhoneNumber.refresh();
+    blocObjects.blocPermission.refresh();
+    blocObjects.blocOAuth2.refresh();
   }
 
   // (페이지 종료 or 다른 페이지로 이동 (강제 종료는 탐지 못함))
@@ -197,54 +194,6 @@ class PageViewModel {
   PageViewModel();
 }
 
-class BlocProfileImage extends Bloc<bool, bool> {
-  BlocProfileImage() : super(true) {
-    on<bool>((event, emit) {
-      emit(event);
-    });
-  }
-}
-
-class BlocNickname extends Bloc<bool, bool> {
-  BlocNickname() : super(true) {
-    on<bool>((event, emit) {
-      emit(event);
-    });
-  }
-}
-
-class BlocEmail extends Bloc<bool, bool> {
-  BlocEmail() : super(true) {
-    on<bool>((event, emit) {
-      emit(event);
-    });
-  }
-}
-
-class BlocPhoneNumber extends Bloc<bool, bool> {
-  BlocPhoneNumber() : super(true) {
-    on<bool>((event, emit) {
-      emit(event);
-    });
-  }
-}
-
-class BlocPermission extends Bloc<bool, bool> {
-  BlocPermission() : super(true) {
-    on<bool>((event, emit) {
-      emit(event);
-    });
-  }
-}
-
-class BlocOAuth2 extends Bloc<bool, bool> {
-  BlocOAuth2() : super(true) {
-    on<bool>((event, emit) {
-      emit(event);
-    });
-  }
-}
-
 // (BLoC 클래스)
 // ex :
 // class BlocSample extends Bloc<bool, bool> {
@@ -259,6 +208,84 @@ class BlocOAuth2 extends Bloc<bool, bool> {
 //     });
 //   }
 // }
+
+class BlocProfileImage extends Bloc<bool, bool> {
+  // BLoC 위젯 갱신 함수
+  void refresh() {
+    add(!state);
+  }
+
+  BlocProfileImage() : super(true) {
+    on<bool>((event, emit) {
+      emit(event);
+    });
+  }
+}
+
+class BlocNickname extends Bloc<bool, bool> {
+  // BLoC 위젯 갱신 함수
+  void refresh() {
+    add(!state);
+  }
+
+  BlocNickname() : super(true) {
+    on<bool>((event, emit) {
+      emit(event);
+    });
+  }
+}
+
+class BlocEmail extends Bloc<bool, bool> {
+  // BLoC 위젯 갱신 함수
+  void refresh() {
+    add(!state);
+  }
+
+  BlocEmail() : super(true) {
+    on<bool>((event, emit) {
+      emit(event);
+    });
+  }
+}
+
+class BlocPhoneNumber extends Bloc<bool, bool> {
+  // BLoC 위젯 갱신 함수
+  void refresh() {
+    add(!state);
+  }
+
+  BlocPhoneNumber() : super(true) {
+    on<bool>((event, emit) {
+      emit(event);
+    });
+  }
+}
+
+class BlocPermission extends Bloc<bool, bool> {
+  // BLoC 위젯 갱신 함수
+  void refresh() {
+    add(!state);
+  }
+
+  BlocPermission() : super(true) {
+    on<bool>((event, emit) {
+      emit(event);
+    });
+  }
+}
+
+class BlocOAuth2 extends Bloc<bool, bool> {
+  // BLoC 위젯 갱신 함수
+  void refresh() {
+    add(!state);
+  }
+
+  BlocOAuth2() : super(true) {
+    on<bool>((event, emit) {
+      emit(event);
+    });
+  }
+}
 
 // (BLoC 프로바이더 클래스)
 // 본 페이지에서 사용할 BLoC 객체를 모아두어 PageEntrance 에서 페이지 전역 설정에 사용 됩니다.

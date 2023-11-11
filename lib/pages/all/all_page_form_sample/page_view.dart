@@ -208,9 +208,8 @@ class PageView extends StatelessWidget {
                                     .pageViewModel.inputSecretTextFieldHide =
                                 !pageBusiness
                                     .pageViewModel.inputSecretTextFieldHide;
-                            pageBusiness.blocObjects.blocSecretTestInput.add(
-                                !pageBusiness
-                                    .blocObjects.blocSecretTestInput.state);
+                            pageBusiness.blocObjects.blocSecretTestInput
+                                .refresh();
                           },
                         ),
                       ),

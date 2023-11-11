@@ -15,7 +15,6 @@ import '../../../pages/all/all_page_page_transition_animation_sample_list/page_e
     as all_page_page_transition_animation_sample_list;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
-// todo : 새로운 템플릿 적용
 
 //------------------------------------------------------------------------------
 // 페이지의 비즈니스 로직 담당
@@ -84,9 +83,6 @@ class PageBusiness {
   // (페이지 종료 (강제 종료는 탐지 못함))
   Future<void> onPageDestroyAsync() async {
     // !!!페이지 종료 로직 작성!!!
-
-    // 검색창 컨트롤러 닫기
-    pageViewModel.sampleSearchBarTextEditController.dispose();
   }
 
   // (Page Pop 요청)
@@ -110,35 +106,9 @@ class PageBusiness {
 //     blocObjects.blocSample.refresh();
 //   }
 
-  // (검색 결과에 따라 샘플 페이지 리스트 필터링)
-  void filteringSamplePageList(String searchKeyword) {
-    if (searchKeyword == "") {
-      // 원본 리스트로 뷰모델 데이터 변경 후 이벤트 발생
-      pageViewModel.filteredSampleList = pageViewModel.allSampleList;
-      blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
-    } else {
-      // 필터링한 리스트로 뷰모델 데이터 변경 후 이벤트 발생
-      List<SampleItem> filteredSamplePageList = [];
-      // 필터링 하기
-      for (SampleItem samplePage in pageViewModel.allSampleList) {
-        if (samplePage.sampleItemTitle
-            .toLowerCase()
-            .contains(searchKeyword.toLowerCase())) {
-          filteredSamplePageList.add(samplePage);
-        } else if (samplePage.sampleItemDescription
-            .toLowerCase()
-            .contains(searchKeyword.toLowerCase())) {
-          filteredSamplePageList.add(samplePage);
-        }
-      }
-      pageViewModel.filteredSampleList = filteredSamplePageList;
-      blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
-    }
-  }
-
   // (리스트 아이템 클릭 리스너)
   void onRouteListItemClick(int index) {
-    SampleItem sampleItem = pageViewModel.filteredSampleList[index];
+    SampleItem sampleItem = pageViewModel.allSampleList[index];
 
     switch (sampleItem.sampleItemEnum) {
       case SampleItemEnum.fadeAnimation:
@@ -201,15 +171,8 @@ class PageViewModel {
   // ex :
   // int sampleNumber = 0;
 
-  // 샘플 목록 필터링용 검색창 컨트롤러 (검색창의 텍스트 정보를 가지고 있으므로 뷰모델에 저장, 여기 있어야 위젯이 변경되어도 검색어가 유지됨)
-  TextEditingController sampleSearchBarTextEditController =
-      TextEditingController();
-
   // (샘플 페이지 원본 리스트)
   List<SampleItem> allSampleList = [];
-
-  // (샘플 페이지 리스트 검색 결과)
-  List<SampleItem> filteredSampleList = [];
 
   PageViewModel() {
     // 초기 리스트 추가
@@ -217,8 +180,6 @@ class PageViewModel {
         "Fade In / Out 을 사용한 화면 전환 애니메이션"));
     allSampleList.add(SampleItem(SampleItemEnum.slideUpAnimation,
         "Slide Up 애니메이션", "Slide 가 위로 올라오는 화면 전환 애니메이션"));
-
-    filteredSampleList = allSampleList;
   }
 }
 
@@ -244,14 +205,6 @@ enum SampleItemEnum {
   slideUpAnimation,
 }
 
-class BlocSampleList extends Bloc<bool, bool> {
-  BlocSampleList() : super(true) {
-    on<bool>((event, emit) {
-      emit(event);
-    });
-  }
-}
-
 // (BLoC 클래스)
 // ex :
 // class BlocSample extends Bloc<bool, bool> {
@@ -266,6 +219,19 @@ class BlocSampleList extends Bloc<bool, bool> {
 //     });
 //   }
 // }
+
+class BlocSampleList extends Bloc<bool, bool> {
+  // BLoC 위젯 갱신 함수
+  void refresh() {
+    add(!state);
+  }
+
+  BlocSampleList() : super(true) {
+    on<bool>((event, emit) {
+      emit(event);
+    });
+  }
+}
 
 // (BLoC 프로바이더 클래스)
 // 본 페이지에서 사용할 BLoC 객체를 모아두어 PageEntrance 에서 페이지 전역 설정에 사용 됩니다.

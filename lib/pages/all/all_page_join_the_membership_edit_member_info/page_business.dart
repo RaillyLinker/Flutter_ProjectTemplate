@@ -29,7 +29,6 @@ import '../../../global_functions/gf_my_functions.dart' as gf_my_functions;
 import '../../../pages/all/all_page_home/page_entrance.dart' as all_page_home;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
-// todo : 새로운 템플릿 적용
 // todo : ios에서 테스트.
 // todo : 입력 부분 Form 방식 변경
 
@@ -216,28 +215,24 @@ class PageBusiness {
       // 중복 확인 버튼을 눌렀을 때
       // 입력창의 에러를 지우기
       pageViewModel.nickNameTextEditErrorMsg = null;
-      blocObjects.blocNicknameEditText
-          .add(!blocObjects.blocNicknameEditText.state);
+      blocObjects.blocNicknameEditText.refresh();
 
       if (pageViewModel.nickNameTextEditController.text == "") {
         pageViewModel.nickNameTextEditErrorMsg = "닉네임을 입력하세요.";
-        blocObjects.blocNicknameEditText
-            .add(!blocObjects.blocNicknameEditText.state);
+        blocObjects.blocNicknameEditText.refresh();
         FocusScope.of(_context)
             .requestFocus(pageViewModel.nickNameTextEditFocus);
 
         onNickNameCheckBtnAsyncClicked = false;
       } else if (pageViewModel.nickNameTextEditController.text.contains(" ")) {
         pageViewModel.nickNameTextEditErrorMsg = "닉네임에 공백은 허용되지 않습니다.";
-        blocObjects.blocNicknameEditText
-            .add(!blocObjects.blocNicknameEditText.state);
+        blocObjects.blocNicknameEditText.refresh();
         FocusScope.of(_context)
             .requestFocus(pageViewModel.nickNameTextEditFocus);
         onNickNameCheckBtnAsyncClicked = false;
       } else if (pageViewModel.nickNameTextEditController.text.length < 2) {
         pageViewModel.nickNameTextEditErrorMsg = "닉네임은 최소 2자 이상 입력하세요.";
-        blocObjects.blocNicknameEditText
-            .add(!blocObjects.blocNicknameEditText.state);
+        blocObjects.blocNicknameEditText.refresh();
         FocusScope.of(_context)
             .requestFocus(pageViewModel.nickNameTextEditFocus);
         onNickNameCheckBtnAsyncClicked = false;
@@ -245,8 +240,7 @@ class PageBusiness {
           .hasMatch(pageViewModel.nickNameTextEditController.text)) {
         pageViewModel.nickNameTextEditErrorMsg =
             "특수문자 < > ( ) # ’ / | 는 사용할 수 없습니다.";
-        blocObjects.blocNicknameEditText
-            .add(!blocObjects.blocNicknameEditText.state);
+        blocObjects.blocNicknameEditText.refresh();
         FocusScope.of(_context)
             .requestFocus(pageViewModel.nickNameTextEditFocus);
         onNickNameCheckBtnAsyncClicked = false;
@@ -268,17 +262,14 @@ class PageBusiness {
             if (responseBody.duplicated) {
               // 중복시 에러표시
               pageViewModel.nickNameTextEditErrorMsg = "이미 사용중인 닉네임입니다.";
-              blocObjects.blocNicknameEditText
-                  .add(!blocObjects.blocNicknameEditText.state);
+              blocObjects.blocNicknameEditText.refresh();
             } else {
               // 중복이 아니라면 에딧 비활성화 및 버튼명 변경
               pageViewModel.nickNameTextEditEnabled = false;
-              blocObjects.blocNicknameEditText
-                  .add(!blocObjects.blocNicknameEditText.state);
+              blocObjects.blocNicknameEditText.refresh();
 
               pageViewModel.nickNameCheckBtn = "재입력";
-              blocObjects.blocNicknameCheckBtn
-                  .add(!blocObjects.blocNicknameCheckBtn.state);
+              blocObjects.blocNicknameCheckBtn.refresh();
             }
 
             onNickNameCheckBtnAsyncClicked = false;
@@ -311,12 +302,10 @@ class PageBusiness {
     } else {
       // 다시 입력 버튼을 눌렀을 때
       pageViewModel.nickNameTextEditEnabled = true;
-      blocObjects.blocNicknameEditText
-          .add(!blocObjects.blocNicknameEditText.state);
+      blocObjects.blocNicknameEditText.refresh();
 
       pageViewModel.nickNameCheckBtn = "중복\n확인";
-      blocObjects.blocNicknameCheckBtn
-          .add(!blocObjects.blocNicknameCheckBtn.state);
+      blocObjects.blocNicknameCheckBtn.refresh();
 
       onNickNameCheckBtnAsyncClicked = false;
     }
@@ -337,8 +326,7 @@ class PageBusiness {
       FocusScope.of(_context).requestFocus(pageViewModel.nickNameTextEditFocus);
 
       pageViewModel.nickNameTextEditErrorMsg = "닉네임 중복 확인이 필요합니다.";
-      blocObjects.blocNicknameEditText
-          .add(!blocObjects.blocNicknameEditText.state);
+      blocObjects.blocNicknameEditText.refresh();
 
       onRegisterBtnClickClicked = false;
     } else {
@@ -471,11 +459,9 @@ class PageBusiness {
                 {
                   // 이미 사용중인 닉네임
                   pageViewModel.nickNameTextEditErrorMsg = "이미 사용중인 닉네임입니다.";
-                  blocObjects.blocNicknameEditText
-                      .add(!blocObjects.blocNicknameEditText.state);
+                  blocObjects.blocNicknameEditText.refresh();
                   pageViewModel.nickNameCheckBtn = "중복\n확인";
-                  blocObjects.blocNicknameCheckBtn
-                      .add(!blocObjects.blocNicknameCheckBtn.state);
+                  blocObjects.blocNicknameCheckBtn.refresh();
                   onRegisterBtnClickClicked = false;
                 }
                 break;
@@ -506,15 +492,13 @@ class PageBusiness {
   void nickNameTextEditOnChanged() {
     // 입력창의 에러를 지우기
     pageViewModel.nickNameTextEditErrorMsg = null;
-    blocObjects.blocNicknameEditText
-        .add(!blocObjects.blocNicknameEditText.state);
+    blocObjects.blocNicknameEditText.refresh();
   }
 
   // 닉네임 입력 규칙 클릭
   void onNicknameInputRuleTap() {
     pageViewModel.nicknameInputRuleHide = !pageViewModel.nicknameInputRuleHide;
-    blocObjects.blocNicknameInputRule
-        .add(!blocObjects.blocNicknameInputRule.state);
+    blocObjects.blocNicknameInputRule.refresh();
   }
 
   // 프로필 이미지 클릭
@@ -549,8 +533,7 @@ class PageBusiness {
                 var image = XFile(pickedFile.path);
                 var bytes = await image.readAsBytes();
                 pageViewModel.profileImage = bytes;
-                blocObjects.blocProfileImage
-                    .add(!blocObjects.blocProfileImage.state);
+                blocObjects.blocProfileImage.refresh();
               }
             } catch (_) {}
           }
@@ -571,8 +554,7 @@ class PageBusiness {
                 var image = XFile(pickedFile.path);
                 var bytes = await image.readAsBytes();
                 pageViewModel.profileImage = bytes;
-                blocObjects.blocProfileImage
-                    .add(!blocObjects.blocProfileImage.state);
+                blocObjects.blocProfileImage.refresh();
               }
             } catch (_) {}
           }
@@ -582,8 +564,7 @@ class PageBusiness {
           {
             // 기본 프로필 이미지 적용
             pageViewModel.profileImage = null;
-            blocObjects.blocProfileImage
-                .add(!blocObjects.blocProfileImage.state);
+            blocObjects.blocProfileImage.refresh();
           }
           break;
         default:
@@ -638,40 +619,6 @@ class PageViewModel {
   PageViewModel();
 }
 
-// (닉네임 텍스트 에딧)
-class BlocNicknameEditText extends Bloc<bool, bool> {
-  BlocNicknameEditText() : super(true) {
-    on<bool>((event, emit) {
-      emit(event);
-    });
-  }
-}
-
-// (중복 확인 버튼)
-class BlocNicknameCheckBtn extends Bloc<bool, bool> {
-  BlocNicknameCheckBtn() : super(true) {
-    on<bool>((event, emit) {
-      emit(event);
-    });
-  }
-}
-
-class BlocNicknameInputRule extends Bloc<bool, bool> {
-  BlocNicknameInputRule() : super(true) {
-    on<bool>((event, emit) {
-      emit(event);
-    });
-  }
-}
-
-class BlocProfileImage extends Bloc<bool, bool> {
-  BlocProfileImage() : super(true) {
-    on<bool>((event, emit) {
-      emit(event);
-    });
-  }
-}
-
 // (BLoC 클래스)
 // ex :
 // class BlocSample extends Bloc<bool, bool> {
@@ -686,6 +633,60 @@ class BlocProfileImage extends Bloc<bool, bool> {
 //     });
 //   }
 // }
+
+// (닉네임 텍스트 에딧)
+class BlocNicknameEditText extends Bloc<bool, bool> {
+  // BLoC 위젯 갱신 함수
+  void refresh() {
+    add(!state);
+  }
+
+  BlocNicknameEditText() : super(true) {
+    on<bool>((event, emit) {
+      emit(event);
+    });
+  }
+}
+
+// (중복 확인 버튼)
+class BlocNicknameCheckBtn extends Bloc<bool, bool> {
+  // BLoC 위젯 갱신 함수
+  void refresh() {
+    add(!state);
+  }
+
+  BlocNicknameCheckBtn() : super(true) {
+    on<bool>((event, emit) {
+      emit(event);
+    });
+  }
+}
+
+class BlocNicknameInputRule extends Bloc<bool, bool> {
+  // BLoC 위젯 갱신 함수
+  void refresh() {
+    add(!state);
+  }
+
+  BlocNicknameInputRule() : super(true) {
+    on<bool>((event, emit) {
+      emit(event);
+    });
+  }
+}
+
+class BlocProfileImage extends Bloc<bool, bool> {
+  // BLoC 위젯 갱신 함수
+  void refresh() {
+    add(!state);
+  }
+
+  BlocProfileImage() : super(true) {
+    on<bool>((event, emit) {
+      emit(event);
+    });
+  }
+}
 
 // (BLoC 프로바이더 클래스)
 // 본 페이지에서 사용할 BLoC 객체를 모아두어 PageEntrance 에서 페이지 전역 설정에 사용 됩니다.

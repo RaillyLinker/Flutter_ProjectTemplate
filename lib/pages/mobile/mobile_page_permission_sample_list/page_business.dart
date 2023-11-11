@@ -17,7 +17,6 @@ import '../../../dialogs/all/all_dialog_yes_or_no/page_entrance.dart'
 import '../../../global_data/gd_const.dart' as gd_const;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
-// todo : 새로운 템플릿 적용
 // todo location serviceStatus.isEnabled 체크
 
 //------------------------------------------------------------------------------
@@ -86,7 +85,7 @@ class PageBusiness {
       } else {
         sampleItem.isChecked = false;
       }
-      blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
+      blocObjects.blocSampleList.refresh();
     }
 
     // contacts 권한 여부 확인
@@ -103,7 +102,7 @@ class PageBusiness {
       } else {
         sampleItem.isChecked = false;
       }
-      blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
+      blocObjects.blocSampleList.refresh();
     }
 
     // mediaLibrary 권한 여부 확인
@@ -121,7 +120,7 @@ class PageBusiness {
       } else {
         sampleItem.isChecked = false;
       }
-      blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
+      blocObjects.blocSampleList.refresh();
     }
 
     // microphone 권한 여부 확인
@@ -138,7 +137,7 @@ class PageBusiness {
       } else {
         sampleItem.isChecked = false;
       }
-      blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
+      blocObjects.blocSampleList.refresh();
     }
 
     // phone 권한 여부 확인
@@ -154,7 +153,7 @@ class PageBusiness {
       } else {
         sampleItem.isChecked = false;
       }
-      blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
+      blocObjects.blocSampleList.refresh();
     }
 
     // reminders 권한 여부 확인
@@ -171,7 +170,7 @@ class PageBusiness {
       } else {
         sampleItem.isChecked = false;
       }
-      blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
+      blocObjects.blocSampleList.refresh();
     }
 
     // sensors 권한 여부 확인
@@ -205,7 +204,7 @@ class PageBusiness {
           pageViewModel.sensorsAlways = false;
         }
       }
-      blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
+      blocObjects.blocSampleList.refresh();
     }
 
     // sms 권한 여부 확인
@@ -221,7 +220,7 @@ class PageBusiness {
       } else {
         sampleItem.isChecked = false;
       }
-      blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
+      blocObjects.blocSampleList.refresh();
     }
 
     // speech 권한 여부 확인
@@ -238,7 +237,7 @@ class PageBusiness {
       } else {
         sampleItem.isChecked = false;
       }
-      blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
+      blocObjects.blocSampleList.refresh();
     }
 
     // locationWhenInUse 권한 여부 확인
@@ -274,7 +273,7 @@ class PageBusiness {
           pageViewModel.androidLocationAlways = false;
         }
       }
-      blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
+      blocObjects.blocSampleList.refresh();
     }
 
     // locationAlways 권한 여부 확인
@@ -293,7 +292,7 @@ class PageBusiness {
       } else {
         sampleItem.isChecked = false;
       }
-      blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
+      blocObjects.blocSampleList.refresh();
     }
 
     // storage 권한 여부 확인
@@ -310,7 +309,7 @@ class PageBusiness {
       } else {
         sampleItem.isChecked = false;
       }
-      blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
+      blocObjects.blocSampleList.refresh();
     }
 
     // photos 권한 여부 확인
@@ -327,7 +326,7 @@ class PageBusiness {
       } else {
         sampleItem.isChecked = false;
       }
-      blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
+      blocObjects.blocSampleList.refresh();
     }
 
     // videos 권한 여부 확인
@@ -344,7 +343,7 @@ class PageBusiness {
       } else {
         sampleItem.isChecked = false;
       }
-      blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
+      blocObjects.blocSampleList.refresh();
     }
 
     // audio 권한 여부 확인
@@ -360,7 +359,7 @@ class PageBusiness {
       } else {
         sampleItem.isChecked = false;
       }
-      blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
+      blocObjects.blocSampleList.refresh();
     }
 
     // manageExternalStorage 권한 여부 확인
@@ -379,7 +378,7 @@ class PageBusiness {
       } else {
         sampleItem.isChecked = false;
       }
-      blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
+      blocObjects.blocSampleList.refresh();
     }
 
     // photosAddOnly 권한 여부 확인
@@ -397,7 +396,7 @@ class PageBusiness {
       } else {
         sampleItem.isChecked = false;
       }
-      blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
+      blocObjects.blocSampleList.refresh();
     }
 
     // accessMediaLocation 권한 여부 확인
@@ -416,7 +415,7 @@ class PageBusiness {
       } else {
         sampleItem.isChecked = false;
       }
-      blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
+      blocObjects.blocSampleList.refresh();
     }
 
     // ignoreBatteryOptimizations 권한 여부 확인
@@ -436,7 +435,7 @@ class PageBusiness {
       } else {
         sampleItem.isChecked = false;
       }
-      blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
+      blocObjects.blocSampleList.refresh();
     }
 
     // activityRecognition 권한 여부 확인
@@ -455,7 +454,7 @@ class PageBusiness {
       } else {
         sampleItem.isChecked = false;
       }
-      blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
+      blocObjects.blocSampleList.refresh();
     }
 
     // systemAlertWindow 권한 여부 확인
@@ -474,7 +473,7 @@ class PageBusiness {
       } else {
         sampleItem.isChecked = false;
       }
-      blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
+      blocObjects.blocSampleList.refresh();
     }
 
     // requestInstallPackages 권한 여부 확인
@@ -493,7 +492,7 @@ class PageBusiness {
       } else {
         sampleItem.isChecked = false;
       }
-      blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
+      blocObjects.blocSampleList.refresh();
     }
 
     // accessNotificationPolicy 권한 여부 확인
@@ -513,7 +512,7 @@ class PageBusiness {
       } else {
         sampleItem.isChecked = false;
       }
-      blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
+      blocObjects.blocSampleList.refresh();
     }
 
     // nearbyWifiDevices 권한 여부 확인
@@ -532,7 +531,7 @@ class PageBusiness {
       } else {
         sampleItem.isChecked = false;
       }
-      blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
+      blocObjects.blocSampleList.refresh();
     }
 
     // scheduleExactAlarm 권한 여부 확인
@@ -551,7 +550,7 @@ class PageBusiness {
       } else {
         sampleItem.isChecked = false;
       }
-      blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
+      blocObjects.blocSampleList.refresh();
     }
 
     // notification 권한 여부 확인
@@ -569,7 +568,7 @@ class PageBusiness {
       } else {
         sampleItem.isChecked = false;
       }
-      blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
+      blocObjects.blocSampleList.refresh();
     }
 
     // calendarFullAccess 권한 여부 확인
@@ -588,7 +587,7 @@ class PageBusiness {
       } else {
         sampleItem.isChecked = false;
       }
-      blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
+      blocObjects.blocSampleList.refresh();
     }
 
     // calendarReadOnly 권한 여부 확인
@@ -607,7 +606,7 @@ class PageBusiness {
       } else {
         sampleItem.isChecked = false;
       }
-      blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
+      blocObjects.blocSampleList.refresh();
     }
 
     // appTrackingTransparency 권한 여부 확인
@@ -627,7 +626,7 @@ class PageBusiness {
       } else {
         sampleItem.isChecked = false;
       }
-      blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
+      blocObjects.blocSampleList.refresh();
     }
 
     // criticalAlerts 권한 여부 확인
@@ -646,7 +645,7 @@ class PageBusiness {
       } else {
         sampleItem.isChecked = false;
       }
-      blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
+      blocObjects.blocSampleList.refresh();
     }
 
     // bluetooth 권한 여부 확인
@@ -663,7 +662,7 @@ class PageBusiness {
       } else {
         sampleItem.isChecked = false;
       }
-      blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
+      blocObjects.blocSampleList.refresh();
     }
 
     // bluetoothScan 권한 여부 확인
@@ -681,7 +680,7 @@ class PageBusiness {
       } else {
         sampleItem.isChecked = false;
       }
-      blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
+      blocObjects.blocSampleList.refresh();
     }
 
     // bluetoothAdvertise 권한 여부 확인
@@ -700,7 +699,7 @@ class PageBusiness {
       } else {
         sampleItem.isChecked = false;
       }
-      blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
+      blocObjects.blocSampleList.refresh();
     }
 
     // bluetoothConnect 권한 여부 확인
@@ -719,7 +718,7 @@ class PageBusiness {
       } else {
         sampleItem.isChecked = false;
       }
-      blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
+      blocObjects.blocSampleList.refresh();
     }
 
     // todo : 추가 및 수정
@@ -2302,7 +2301,7 @@ class PageBusiness {
         if (status.isGranted) {
           // 권한 승인
           pageViewModel.sensorsAlways = !pageViewModel.sensorsAlways;
-          blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
+          blocObjects.blocSampleList.refresh();
         }
       }
     }
@@ -2346,7 +2345,7 @@ class PageBusiness {
           // 권한 승인
           pageViewModel.androidLocationAlways =
               !pageViewModel.androidLocationAlways;
-          blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
+          blocObjects.blocSampleList.refresh();
         }
       }
     }
@@ -2360,7 +2359,7 @@ class PageBusiness {
   void _togglePermissionSwitch(int index) {
     pageViewModel.allSampleList[index].isChecked =
         !pageViewModel.allSampleList[index].isChecked;
-    blocObjects.blocSampleList.add(!blocObjects.blocSampleList.state);
+    blocObjects.blocSampleList.refresh();
   }
 }
 
@@ -2669,14 +2668,6 @@ enum SampleItemEnum {
   // todo 추가 및 수정
 }
 
-class BlocSampleList extends Bloc<bool, bool> {
-  BlocSampleList() : super(true) {
-    on<bool>((event, emit) {
-      emit(event);
-    });
-  }
-}
-
 // (BLoC 클래스)
 // ex :
 // class BlocSample extends Bloc<bool, bool> {
@@ -2691,6 +2682,19 @@ class BlocSampleList extends Bloc<bool, bool> {
 //     });
 //   }
 // }
+
+class BlocSampleList extends Bloc<bool, bool> {
+  // BLoC 위젯 갱신 함수
+  void refresh() {
+    add(!state);
+  }
+
+  BlocSampleList() : super(true) {
+    on<bool>((event, emit) {
+      emit(event);
+    });
+  }
+}
 
 // (BLoC 프로바이더 클래스)
 // 본 페이지에서 사용할 BLoC 객체를 모아두어 PageEntrance 에서 페이지 전역 설정에 사용 됩니다.

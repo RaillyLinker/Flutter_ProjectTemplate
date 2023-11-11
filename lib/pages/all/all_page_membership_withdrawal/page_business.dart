@@ -25,7 +25,6 @@ import '../../../global_functions/gf_my_functions.dart' as gf_my_functions;
 import '../../../pages/all/all_page_login/page_entrance.dart' as all_page_login;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
-// todo : 새로운 템플릿 적용
 
 //------------------------------------------------------------------------------
 // 페이지의 비즈니스 로직 담당
@@ -130,7 +129,7 @@ class PageBusiness {
   // (동의 버튼 클릭시)
   void toggleAgreeButton() {
     pageViewModel.withdrawalAgree = !pageViewModel.withdrawalAgree;
-    blocObjects.blocAgreeCheckBox.add(!blocObjects.blocAgreeCheckBox.state);
+    blocObjects.blocAgreeCheckBox.refresh();
   }
 
   // (계정 비번으로 회원탈퇴)
@@ -274,14 +273,6 @@ class PageViewModel {
   PageViewModel();
 }
 
-class BlocAgreeCheckBox extends Bloc<bool, bool> {
-  BlocAgreeCheckBox() : super(true) {
-    on<bool>((event, emit) {
-      emit(event);
-    });
-  }
-}
-
 // (BLoC 클래스)
 // ex :
 // class BlocSample extends Bloc<bool, bool> {
@@ -296,6 +287,19 @@ class BlocAgreeCheckBox extends Bloc<bool, bool> {
 //     });
 //   }
 // }
+
+class BlocAgreeCheckBox extends Bloc<bool, bool> {
+  // BLoC 위젯 갱신 함수
+  void refresh() {
+    add(!state);
+  }
+
+  BlocAgreeCheckBox() : super(true) {
+    on<bool>((event, emit) {
+      emit(event);
+    });
+  }
+}
 
 // (BLoC 프로바이더 클래스)
 // 본 페이지에서 사용할 BLoC 객체를 모아두어 PageEntrance 에서 페이지 전역 설정에 사용 됩니다.

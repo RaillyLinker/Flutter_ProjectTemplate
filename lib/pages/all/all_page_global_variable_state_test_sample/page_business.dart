@@ -13,7 +13,6 @@ import '../../../global_classes/gc_template_classes.dart'
 import '../../../global_data/gd_variable_my_data.dart' as gd_variable_my_data;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
-// todo : 새로운 템플릿 적용
 
 //------------------------------------------------------------------------------
 // 페이지의 비즈니스 로직 담당
@@ -102,7 +101,7 @@ class PageBusiness {
   // (화면 카운트 +1)
   void countPlus1() {
     gd_variable_my_data.sampleNumber = gd_variable_my_data.sampleNumber + 1;
-    blocObjects.blocSampleNumber.add(!blocObjects.blocSampleNumber.state);
+    blocObjects.blocSampleNumber.refresh();
   }
 
 ////
@@ -126,15 +125,6 @@ class PageViewModel {
   PageViewModel();
 }
 
-// (샘플 번호 위젯)
-class BlocSampleNumber extends Bloc<bool, bool> {
-  BlocSampleNumber() : super(true) {
-    on<bool>((event, emit) {
-      emit(event);
-    });
-  }
-}
-
 // (BLoC 클래스)
 // ex :
 // class BlocSample extends Bloc<bool, bool> {
@@ -149,6 +139,20 @@ class BlocSampleNumber extends Bloc<bool, bool> {
 //     });
 //   }
 // }
+
+// (샘플 번호 위젯)
+class BlocSampleNumber extends Bloc<bool, bool> {
+  // BLoC 위젯 갱신 함수
+  void refresh() {
+    add(!state);
+  }
+
+  BlocSampleNumber() : super(true) {
+    on<bool>((event, emit) {
+      emit(event);
+    });
+  }
+}
 
 // (BLoC 프로바이더 클래스)
 // 본 페이지에서 사용할 BLoC 객체를 모아두어 PageEntrance 에서 페이지 전역 설정에 사용 됩니다.

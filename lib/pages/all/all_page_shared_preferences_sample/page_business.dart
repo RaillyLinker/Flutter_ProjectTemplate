@@ -13,7 +13,6 @@ import '../../../global_classes/gc_template_classes.dart'
 import '../../../../repositories/spws/spw_test_sample.dart' as spw_test_sample;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
-// todo : 새로운 템플릿 적용
 // todo : 입력 부분 Form 방식 변경
 
 //------------------------------------------------------------------------------
@@ -112,16 +111,16 @@ class PageBusiness {
     if (value == null) {
       pageViewModel.sampleInt = null;
       pageViewModel.sampleString = null;
-      blocObjects.blocSampleInt.add(!blocObjects.blocSampleInt.state);
-      blocObjects.blocSampleString.add(!blocObjects.blocSampleString.state);
+      blocObjects.blocSampleInt.refresh();
+      blocObjects.blocSampleString.refresh();
     } else {
       int sampleInt = value.sampleInt;
       String sampleString = value.sampleString;
 
       pageViewModel.sampleInt = sampleInt;
       pageViewModel.sampleString = "\"$sampleString\"";
-      blocObjects.blocSampleInt.add(!blocObjects.blocSampleInt.state);
-      blocObjects.blocSampleString.add(!blocObjects.blocSampleString.state);
+      blocObjects.blocSampleInt.refresh();
+      blocObjects.blocSampleString.refresh();
     }
   }
 
@@ -135,12 +134,10 @@ class PageBusiness {
       // 필요 값이 모두 충족 되었을 때
 
       pageViewModel.sampleIntTextFieldErrorMsg = null;
-      blocObjects.blocSampleIntTextField
-          .add(!blocObjects.blocSampleIntTextField.state);
+      blocObjects.blocSampleIntTextField.refresh();
 
       pageViewModel.sampleStringTextFieldErrorMsg = null;
-      blocObjects.blocSampleStringTextField
-          .add(!blocObjects.blocSampleStringTextField.state);
+      blocObjects.blocSampleStringTextField.refresh();
 
       // SPW 값 갱신
       spw_test_sample.SharedPreferenceWrapper.set(
@@ -155,29 +152,27 @@ class PageBusiness {
       if (value == null) {
         pageViewModel.sampleInt = null;
         pageViewModel.sampleString = null;
-        blocObjects.blocSampleInt.add(!blocObjects.blocSampleInt.state);
-        blocObjects.blocSampleString.add(!blocObjects.blocSampleString.state);
+        blocObjects.blocSampleInt.refresh();
+        blocObjects.blocSampleString.refresh();
       } else {
         int sampleInt = value.sampleInt;
         String sampleString = value.sampleString;
 
         pageViewModel.sampleInt = sampleInt;
         pageViewModel.sampleString = "\"$sampleString\"";
-        blocObjects.blocSampleInt.add(!blocObjects.blocSampleInt.state);
-        blocObjects.blocSampleString.add(!blocObjects.blocSampleString.state);
+        blocObjects.blocSampleInt.refresh();
+        blocObjects.blocSampleString.refresh();
       }
     } else {
       // 필요 값 미충족
       if (sampleIntInput == "") {
         pageViewModel.sampleIntTextFieldErrorMsg = "필수";
-        blocObjects.blocSampleIntTextField
-            .add(!blocObjects.blocSampleIntTextField.state);
+        blocObjects.blocSampleIntTextField.refresh();
       }
 
       if (sampleStringInput == "") {
         pageViewModel.sampleStringTextFieldErrorMsg = "필수";
-        blocObjects.blocSampleStringTextField
-            .add(!blocObjects.blocSampleStringTextField.state);
+        blocObjects.blocSampleStringTextField.refresh();
       }
     }
   }
@@ -185,15 +180,13 @@ class PageBusiness {
   // (텍스트 필드 입력시 콜백)
   void sampleIntTextFieldOnChanged(String value) {
     pageViewModel.sampleIntTextFieldErrorMsg = null;
-    blocObjects.blocSampleIntTextField
-        .add(!blocObjects.blocSampleIntTextField.state);
+    blocObjects.blocSampleIntTextField.refresh();
   }
 
   // (텍스트 필드 입력시 콜백)
   void sampleStringTextFieldOnChanged(String value) {
     pageViewModel.sampleStringTextFieldErrorMsg = null;
-    blocObjects.blocSampleStringTextField
-        .add(!blocObjects.blocSampleStringTextField.state);
+    blocObjects.blocSampleStringTextField.refresh();
   }
 
   // (SP 값 삭제 버튼 클릭)
@@ -207,16 +200,16 @@ class PageBusiness {
     if (value == null) {
       pageViewModel.sampleInt = null;
       pageViewModel.sampleString = null;
-      blocObjects.blocSampleInt.add(!blocObjects.blocSampleInt.state);
-      blocObjects.blocSampleString.add(!blocObjects.blocSampleString.state);
+      blocObjects.blocSampleInt.refresh();
+      blocObjects.blocSampleString.refresh();
     } else {
       int sampleInt = value.sampleInt;
       String sampleString = value.sampleString;
 
       pageViewModel.sampleInt = sampleInt;
       pageViewModel.sampleString = "\"$sampleString\"";
-      blocObjects.blocSampleInt.add(!blocObjects.blocSampleInt.state);
-      blocObjects.blocSampleString.add(!blocObjects.blocSampleString.state);
+      blocObjects.blocSampleInt.refresh();
+      blocObjects.blocSampleString.refresh();
     }
   }
 
@@ -254,38 +247,6 @@ class PageViewModel {
   PageViewModel();
 }
 
-class BlocSampleInt extends Bloc<bool, bool> {
-  BlocSampleInt() : super(true) {
-    on<bool>((event, emit) {
-      emit(event);
-    });
-  }
-}
-
-class BlocSampleString extends Bloc<bool, bool> {
-  BlocSampleString() : super(true) {
-    on<bool>((event, emit) {
-      emit(event);
-    });
-  }
-}
-
-class BlocSampleIntTextField extends Bloc<bool, bool> {
-  BlocSampleIntTextField() : super(true) {
-    on<bool>((event, emit) {
-      emit(event);
-    });
-  }
-}
-
-class BlocSampleStringTextField extends Bloc<bool, bool> {
-  BlocSampleStringTextField() : super(true) {
-    on<bool>((event, emit) {
-      emit(event);
-    });
-  }
-}
-
 // (BLoC 클래스)
 // ex :
 // class BlocSample extends Bloc<bool, bool> {
@@ -300,6 +261,58 @@ class BlocSampleStringTextField extends Bloc<bool, bool> {
 //     });
 //   }
 // }
+
+class BlocSampleInt extends Bloc<bool, bool> {
+  // BLoC 위젯 갱신 함수
+  void refresh() {
+    add(!state);
+  }
+
+  BlocSampleInt() : super(true) {
+    on<bool>((event, emit) {
+      emit(event);
+    });
+  }
+}
+
+class BlocSampleString extends Bloc<bool, bool> {
+  // BLoC 위젯 갱신 함수
+  void refresh() {
+    add(!state);
+  }
+
+  BlocSampleString() : super(true) {
+    on<bool>((event, emit) {
+      emit(event);
+    });
+  }
+}
+
+class BlocSampleIntTextField extends Bloc<bool, bool> {
+  // BLoC 위젯 갱신 함수
+  void refresh() {
+    add(!state);
+  }
+
+  BlocSampleIntTextField() : super(true) {
+    on<bool>((event, emit) {
+      emit(event);
+    });
+  }
+}
+
+class BlocSampleStringTextField extends Bloc<bool, bool> {
+  // BLoC 위젯 갱신 함수
+  void refresh() {
+    add(!state);
+  }
+
+  BlocSampleStringTextField() : super(true) {
+    on<bool>((event, emit) {
+      emit(event);
+    });
+  }
+}
 
 // (BLoC 프로바이더 클래스)
 // 본 페이지에서 사용할 BLoC 객체를 모아두어 PageEntrance 에서 페이지 전역 설정에 사용 됩니다.

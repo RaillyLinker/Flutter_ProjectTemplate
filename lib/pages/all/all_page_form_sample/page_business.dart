@@ -14,9 +14,9 @@ import '../../../dialogs/all/all_dialog_info/page_entrance.dart'
     as all_dialog_info;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
-// todo : 새로운 템플릿 적용
 // Flutter 에서 값 입력 처리 방식은 여러가지인데,
 // Form 형식의 데이터를 입력받는 가장 최적의 방식을 정리한 샘플입니다.
+// todo : 에러 처리 개선
 
 //------------------------------------------------------------------------------
 // 페이지의 비즈니스 로직 담당
@@ -180,14 +180,6 @@ class PageViewModel {
   PageViewModel();
 }
 
-class BlocSecretTestInput extends Bloc<bool, bool> {
-  BlocSecretTestInput() : super(true) {
-    on<bool>((event, emit) {
-      emit(event);
-    });
-  }
-}
-
 // (BLoC 클래스)
 // ex :
 // class BlocSample extends Bloc<bool, bool> {
@@ -202,6 +194,19 @@ class BlocSecretTestInput extends Bloc<bool, bool> {
 //     });
 //   }
 // }
+
+class BlocSecretTestInput extends Bloc<bool, bool> {
+  // BLoC 위젯 갱신 함수
+  void refresh() {
+    add(!state);
+  }
+
+  BlocSecretTestInput() : super(true) {
+    on<bool>((event, emit) {
+      emit(event);
+    });
+  }
+}
 
 // (BLoC 프로바이더 클래스)
 // 본 페이지에서 사용할 BLoC 객체를 모아두어 PageEntrance 에서 페이지 전역 설정에 사용 됩니다.

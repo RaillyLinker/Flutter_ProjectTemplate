@@ -23,7 +23,6 @@ import '../../../global_functions/gf_my_functions.dart' as gf_my_functions;
 import '../../../pages/all/all_page_home/page_entrance.dart' as all_page_home;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
-// todo : 새로운 템플릿 적용
 // todo : 입력 부분 Form 방식 변경
 
 //------------------------------------------------------------------------------
@@ -142,13 +141,13 @@ class PageBusiness {
     var email = pageViewModel.emailTextEditController.text.trim();
     if (email == "") {
       pageViewModel.emailTextEditErrorMsg = "이메일 주소를 입력하세요.";
-      blocObjects.blocEmailEditText.add(!blocObjects.blocEmailEditText.state);
+      blocObjects.blocEmailEditText.refresh();
       isSendVerificationEmailClicked = false;
       FocusScope.of(_context).requestFocus(pageViewModel.emailTextEditFocus);
     } else if (!RegExp(r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)*(\.[a-zA-Z]{2,})$')
         .hasMatch(pageViewModel.emailTextEditController.text)) {
       pageViewModel.emailTextEditErrorMsg = "올바른 이메일 형식이 아닙니다.";
-      blocObjects.blocEmailEditText.add(!blocObjects.blocEmailEditText.state);
+      blocObjects.blocEmailEditText.refresh();
       isSendVerificationEmailClicked = false;
       FocusScope.of(_context).requestFocus(pageViewModel.emailTextEditFocus);
     } else {
@@ -174,8 +173,7 @@ class PageBusiness {
 
             // 정상 응답
             pageViewModel.emailTextEditErrorMsg = null;
-            blocObjects.blocEmailEditText
-                .add(!blocObjects.blocEmailEditText.state);
+            blocObjects.blocEmailEditText.refresh();
 
             pageViewModel.emailVerificationUid =
                 networkResponseObjectBody.verificationUid;
@@ -255,22 +253,20 @@ class PageBusiness {
   void emailTextEditOnChanged() {
     // 입력창의 에러를 지우기
     pageViewModel.emailTextEditErrorMsg = null;
-    blocObjects.blocEmailEditText.add(!blocObjects.blocEmailEditText.state);
+    blocObjects.blocEmailEditText.refresh();
   }
 
   void verificationCodeTextEditOnChanged() {
     // 입력창의 에러를 지우기
     pageViewModel.verificationCodeTextEditErrorMsg = null;
-    blocObjects.blocVerificationCodeTextField
-        .add(!blocObjects.blocVerificationCodeTextField.state);
+    blocObjects.blocVerificationCodeTextField.refresh();
   }
 
   // (검증 코드 입력창에서 엔터를 친 경우)
   void onVerificationCodeFieldSubmitted() {
     if (pageViewModel.verificationCodeTextFieldController.text.trim() == "") {
       pageViewModel.verificationCodeTextEditErrorMsg = "본인 인증 코드를 입력하세요.";
-      blocObjects.blocVerificationCodeTextField
-          .add(!blocObjects.blocVerificationCodeTextField.state);
+      blocObjects.blocVerificationCodeTextField.refresh();
       FocusScope.of(_context)
           .requestFocus(pageViewModel.verificationCodeTextFieldFocus);
     } else {
@@ -281,28 +277,26 @@ class PageBusiness {
   // (비밀번호 찾기)
   Future<void> findPassword() async {
     pageViewModel.emailTextEditErrorMsg = null;
-    blocObjects.blocEmailEditText.add(!blocObjects.blocEmailEditText.state);
+    blocObjects.blocEmailEditText.refresh();
     pageViewModel.verificationCodeTextEditErrorMsg = null;
-    blocObjects.blocVerificationCodeTextField
-        .add(!blocObjects.blocVerificationCodeTextField.state);
+    blocObjects.blocVerificationCodeTextField.refresh();
 
     var email = pageViewModel.emailTextEditController.text.trim();
     if (email == "") {
       pageViewModel.emailTextEditErrorMsg = "이메일 주소를 입력하세요.";
-      blocObjects.blocEmailEditText.add(!blocObjects.blocEmailEditText.state);
+      blocObjects.blocEmailEditText.refresh();
       isSendVerificationEmailClicked = false;
       FocusScope.of(_context).requestFocus(pageViewModel.emailTextEditFocus);
     } else if (!RegExp(r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)*(\.[a-zA-Z]{2,})$')
         .hasMatch(pageViewModel.emailTextEditController.text)) {
       pageViewModel.emailTextEditErrorMsg = "올바른 이메일 형식이 아닙니다.";
-      blocObjects.blocEmailEditText.add(!blocObjects.blocEmailEditText.state);
+      blocObjects.blocEmailEditText.refresh();
       isSendVerificationEmailClicked = false;
       FocusScope.of(_context).requestFocus(pageViewModel.emailTextEditFocus);
     } else if (pageViewModel.verificationCodeTextFieldController.text.trim() ==
         "") {
       pageViewModel.verificationCodeTextEditErrorMsg = "본인 인증 코드를 입력하세요.";
-      blocObjects.blocVerificationCodeTextField
-          .add(!blocObjects.blocVerificationCodeTextField.state);
+      blocObjects.blocVerificationCodeTextField.refresh();
       FocusScope.of(_context)
           .requestFocus(pageViewModel.verificationCodeTextFieldFocus);
     } else {
@@ -327,8 +321,7 @@ class PageBusiness {
           if (networkResponseObjectOk.responseStatusCode == 200) {
             // 정상 응답
             pageViewModel.emailTextEditErrorMsg = null;
-            blocObjects.blocEmailEditText
-                .add(!blocObjects.blocEmailEditText.state);
+            blocObjects.blocEmailEditText.refresh();
 
             if (!_context.mounted) return;
             await showDialog(
@@ -489,22 +482,6 @@ class PageViewModel {
   PageViewModel();
 }
 
-class BlocEmailEditText extends Bloc<bool, bool> {
-  BlocEmailEditText() : super(true) {
-    on<bool>((event, emit) {
-      emit(event);
-    });
-  }
-}
-
-class BlocVerificationCodeTextField extends Bloc<bool, bool> {
-  BlocVerificationCodeTextField() : super(true) {
-    on<bool>((event, emit) {
-      emit(event);
-    });
-  }
-}
-
 // (BLoC 클래스)
 // ex :
 // class BlocSample extends Bloc<bool, bool> {
@@ -519,6 +496,32 @@ class BlocVerificationCodeTextField extends Bloc<bool, bool> {
 //     });
 //   }
 // }
+
+class BlocEmailEditText extends Bloc<bool, bool> {
+  // BLoC 위젯 갱신 함수
+  void refresh() {
+    add(!state);
+  }
+
+  BlocEmailEditText() : super(true) {
+    on<bool>((event, emit) {
+      emit(event);
+    });
+  }
+}
+
+class BlocVerificationCodeTextField extends Bloc<bool, bool> {
+  // BLoC 위젯 갱신 함수
+  void refresh() {
+    add(!state);
+  }
+
+  BlocVerificationCodeTextField() : super(true) {
+    on<bool>((event, emit) {
+      emit(event);
+    });
+  }
+}
 
 // (BLoC 프로바이더 클래스)
 // 본 페이지에서 사용할 BLoC 객체를 모아두어 PageEntrance 에서 페이지 전역 설정에 사용 됩니다.

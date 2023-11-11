@@ -23,7 +23,6 @@ import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
-// todo : 새로운 템플릿 적용
 // todo : 입력 부분 Form 방식 변경
 
 //------------------------------------------------------------------------------
@@ -129,30 +128,26 @@ class PageBusiness {
   void addNetworkRequestParamTextFieldValue9() {
     pageViewModel.networkRequestParamTextFieldValue9
         .add(TextEditingController()..text = "testString");
-    blocObjects.blocNetworkRequestParamTextFieldValue9
-        .add(!blocObjects.blocNetworkRequestParamTextFieldValue9.state);
+    blocObjects.blocNetworkRequestParamTextFieldValue9.refresh();
   }
 
   // (리스트 파라미터 제거)
   void deleteNetworkRequestParamTextFieldValue9(int idx) {
     pageViewModel.networkRequestParamTextFieldValue9.removeAt(idx);
-    blocObjects.blocNetworkRequestParamTextFieldValue9
-        .add(!blocObjects.blocNetworkRequestParamTextFieldValue9.state);
+    blocObjects.blocNetworkRequestParamTextFieldValue9.refresh();
   }
 
   // (리스트 파라미터 추가)
   void addNetworkRequestParamTextFieldValue10() {
     pageViewModel.networkRequestParamTextFieldValue10
         .add(TextEditingController()..text = "testString");
-    blocObjects.blocNetworkRequestParamTextFieldValue10
-        .add(!blocObjects.blocNetworkRequestParamTextFieldValue10.state);
+    blocObjects.blocNetworkRequestParamTextFieldValue10.refresh();
   }
 
   // (리스트 파라미터 제거)
   void deleteNetworkRequestParamTextFieldValue10(int idx) {
     pageViewModel.networkRequestParamTextFieldValue10.removeAt(idx);
-    blocObjects.blocNetworkRequestParamTextFieldValue10
-        .add(!blocObjects.blocNetworkRequestParamTextFieldValue10.state);
+    blocObjects.blocNetworkRequestParamTextFieldValue10.refresh();
   }
 
   // (네트워크 리퀘스트)
@@ -370,38 +365,6 @@ class PageViewModel {
   PageViewModel();
 }
 
-class BlocNetworkRequestParamTextFieldValue9 extends Bloc<bool, bool> {
-  BlocNetworkRequestParamTextFieldValue9() : super(true) {
-    on<bool>((event, emit) {
-      emit(event);
-    });
-  }
-}
-
-class BlocNetworkRequestParamTextFieldValue10 extends Bloc<bool, bool> {
-  BlocNetworkRequestParamTextFieldValue10() : super(true) {
-    on<bool>((event, emit) {
-      emit(event);
-    });
-  }
-}
-
-class BlocNetworkRequestParamMultipartPath11 extends Bloc<bool, bool> {
-  BlocNetworkRequestParamMultipartPath11() : super(true) {
-    on<bool>((event, emit) {
-      emit(event);
-    });
-  }
-}
-
-class BlocNetworkRequestParamMultipartPath12 extends Bloc<bool, bool> {
-  BlocNetworkRequestParamMultipartPath12() : super(true) {
-    on<bool>((event, emit) {
-      emit(event);
-    });
-  }
-}
-
 // (BLoC 클래스)
 // ex :
 // class BlocSample extends Bloc<bool, bool> {
@@ -416,6 +379,58 @@ class BlocNetworkRequestParamMultipartPath12 extends Bloc<bool, bool> {
 //     });
 //   }
 // }
+
+class BlocNetworkRequestParamTextFieldValue9 extends Bloc<bool, bool> {
+  // BLoC 위젯 갱신 함수
+  void refresh() {
+    add(!state);
+  }
+
+  BlocNetworkRequestParamTextFieldValue9() : super(true) {
+    on<bool>((event, emit) {
+      emit(event);
+    });
+  }
+}
+
+class BlocNetworkRequestParamTextFieldValue10 extends Bloc<bool, bool> {
+  // BLoC 위젯 갱신 함수
+  void refresh() {
+    add(!state);
+  }
+
+  BlocNetworkRequestParamTextFieldValue10() : super(true) {
+    on<bool>((event, emit) {
+      emit(event);
+    });
+  }
+}
+
+class BlocNetworkRequestParamMultipartPath11 extends Bloc<bool, bool> {
+  // BLoC 위젯 갱신 함수
+  void refresh() {
+    add(!state);
+  }
+
+  BlocNetworkRequestParamMultipartPath11() : super(true) {
+    on<bool>((event, emit) {
+      emit(event);
+    });
+  }
+}
+
+class BlocNetworkRequestParamMultipartPath12 extends Bloc<bool, bool> {
+  // BLoC 위젯 갱신 함수
+  void refresh() {
+    add(!state);
+  }
+
+  BlocNetworkRequestParamMultipartPath12() : super(true) {
+    on<bool>((event, emit) {
+      emit(event);
+    });
+  }
+}
 
 // (BLoC 프로바이더 클래스)
 // 본 페이지에서 사용할 BLoC 객체를 모아두어 PageEntrance 에서 페이지 전역 설정에 사용 됩니다.
