@@ -106,7 +106,7 @@ class PageBusiness {
 //   }
 
   // (리스트 아이템 클릭 리스너)
-  void onRouteListItemClick(int index) {
+  Future<void> onRouteListItemClick(int index) async {
     SampleItem sampleItem = pageViewModel.allSampleList[index];
 
     switch (sampleItem.sampleItemEnum) {
@@ -115,48 +115,49 @@ class PageBusiness {
           // 서버 접속 테스트
           // 로딩 다이얼로그 표시
           var loadingSpinnerDialog = all_dialog_loading_spinner.PageEntrance(
-              all_dialog_loading_spinner.PageInputVo(), (pageBusiness) async {
-            var response =
-                await api_main_server.getService1TkV1AuthForNoLoggedInAsync();
-
-            // 로딩 다이얼로그 제거
-            pageBusiness.closeDialog();
-
-            if (response.dioException == null) {
-              // Dio 네트워크 응답
-
-              var networkResponseObjectOk = response.networkResponseObjectOk!;
-
-              var responseBody = networkResponseObjectOk.responseBody;
-
-              // (확인 다이얼로그 호출)
-              if (!_context.mounted) return;
-              showDialog(
-                  barrierDismissible: true,
-                  context: _context,
-                  builder: (context) => all_dialog_info.PageEntrance(
-                      all_dialog_info.PageInputVo(
-                          "응답 결과",
-                          "Http Status Code : ${networkResponseObjectOk.responseStatusCode}\n\nResponse Body:\n${responseBody.toString()}",
-                          "확인"),
-                      (pageBusiness) {})).then((outputVo) {});
-            } else {
-              // Dio 네트워크 에러
-              if (!_context.mounted) return;
-              showDialog(
-                  barrierDismissible: true,
-                  context: _context,
-                  builder: (context) => all_dialog_info.PageEntrance(
-                      all_dialog_info.PageInputVo(
-                          "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
-                      (pageBusiness) {}));
-            }
-          });
+            all_dialog_loading_spinner.PageInputVo(),
+          );
 
           showDialog(
               barrierDismissible: false,
               context: _context,
               builder: (context) => loadingSpinnerDialog).then((outputVo) {});
+
+          var response =
+              await api_main_server.getService1TkV1AuthForNoLoggedInAsync();
+
+          // 로딩 다이얼로그 제거
+          loadingSpinnerDialog.pageBusiness.closeDialog();
+
+          if (response.dioException == null) {
+            // Dio 네트워크 응답
+
+            var networkResponseObjectOk = response.networkResponseObjectOk!;
+
+            var responseBody = networkResponseObjectOk.responseBody;
+
+            // (확인 다이얼로그 호출)
+            if (!_context.mounted) return;
+            showDialog(
+                barrierDismissible: true,
+                context: _context,
+                builder: (context) => all_dialog_info.PageEntrance(
+                      all_dialog_info.PageInputVo(
+                          "응답 결과",
+                          "Http Status Code : ${networkResponseObjectOk.responseStatusCode}\n\nResponse Body:\n${responseBody.toString()}",
+                          "확인"),
+                    )).then((outputVo) {});
+          } else {
+            // Dio 네트워크 에러
+            if (!_context.mounted) return;
+            showDialog(
+                barrierDismissible: true,
+                context: _context,
+                builder: (context) => all_dialog_info.PageEntrance(
+                      all_dialog_info.PageInputVo(
+                          "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
+                    ));
+          }
         }
         break;
       case SampleItemEnum.signedInServerAccessTest:
@@ -164,57 +165,58 @@ class PageBusiness {
           // 무권한 로그인 진입 테스트
           // 로딩 다이얼로그 표시
           var loadingSpinnerDialog = all_dialog_loading_spinner.PageEntrance(
-              all_dialog_loading_spinner.PageInputVo(), (pageBusiness) async {
-            spw_auth_member_info.SharedPreferenceWrapperVo? loginMemberInfo =
-                spw_auth_member_info.SharedPreferenceWrapper.get();
-
-            String? authorization = (loginMemberInfo == null)
-                ? null
-                : "${loginMemberInfo.tokenType} ${loginMemberInfo.accessToken}";
-
-            var response = await api_main_server
-                .getService1TkV1AuthForLoggedInAsync(api_main_server
-                    .GetService1TkV1AuthForLoggedInAsyncRequestHeaderVo(
-                        authorization));
-
-            // 로딩 다이얼로그 제거
-            pageBusiness.closeDialog();
-
-            if (response.dioException == null) {
-              // Dio 네트워크 응답
-
-              var networkResponseObjectOk = response.networkResponseObjectOk!;
-
-              var responseBody = networkResponseObjectOk.responseBody;
-
-              // (확인 다이얼로그 호출)
-              if (!_context.mounted) return;
-              showDialog(
-                  barrierDismissible: true,
-                  context: _context,
-                  builder: (context) => all_dialog_info.PageEntrance(
-                      all_dialog_info.PageInputVo(
-                          "응답 결과",
-                          "Http Status Code : ${networkResponseObjectOk.responseStatusCode}\n\nResponse Body:\n${responseBody.toString()}",
-                          "확인"),
-                      (pageBusiness) {})).then((outputVo) {});
-            } else {
-              // Dio 네트워크 에러
-              if (!_context.mounted) return;
-              showDialog(
-                  barrierDismissible: true,
-                  context: _context,
-                  builder: (context) => all_dialog_info.PageEntrance(
-                      all_dialog_info.PageInputVo(
-                          "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
-                      (pageBusiness) {}));
-            }
-          });
+            all_dialog_loading_spinner.PageInputVo(),
+          );
 
           showDialog(
               barrierDismissible: false,
               context: _context,
               builder: (context) => loadingSpinnerDialog).then((outputVo) {});
+
+          spw_auth_member_info.SharedPreferenceWrapperVo? loginMemberInfo =
+              spw_auth_member_info.SharedPreferenceWrapper.get();
+
+          String? authorization = (loginMemberInfo == null)
+              ? null
+              : "${loginMemberInfo.tokenType} ${loginMemberInfo.accessToken}";
+
+          var response = await api_main_server
+              .getService1TkV1AuthForLoggedInAsync(api_main_server
+                  .GetService1TkV1AuthForLoggedInAsyncRequestHeaderVo(
+                      authorization));
+
+          // 로딩 다이얼로그 제거
+          loadingSpinnerDialog.pageBusiness.closeDialog();
+
+          if (response.dioException == null) {
+            // Dio 네트워크 응답
+
+            var networkResponseObjectOk = response.networkResponseObjectOk!;
+
+            var responseBody = networkResponseObjectOk.responseBody;
+
+            // (확인 다이얼로그 호출)
+            if (!_context.mounted) return;
+            showDialog(
+                barrierDismissible: true,
+                context: _context,
+                builder: (context) => all_dialog_info.PageEntrance(
+                      all_dialog_info.PageInputVo(
+                          "응답 결과",
+                          "Http Status Code : ${networkResponseObjectOk.responseStatusCode}\n\nResponse Body:\n${responseBody.toString()}",
+                          "확인"),
+                    )).then((outputVo) {});
+          } else {
+            // Dio 네트워크 에러
+            if (!_context.mounted) return;
+            showDialog(
+                barrierDismissible: true,
+                context: _context,
+                builder: (context) => all_dialog_info.PageEntrance(
+                      all_dialog_info.PageInputVo(
+                          "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
+                    ));
+          }
         }
         break;
       case SampleItemEnum.developerServerAccessTest:
@@ -222,57 +224,58 @@ class PageBusiness {
           // DEVELOPER 권한 진입 테스트
           // 로딩 다이얼로그 표시
           var loadingSpinnerDialog = all_dialog_loading_spinner.PageEntrance(
-              all_dialog_loading_spinner.PageInputVo(), (pageBusiness) async {
-            spw_auth_member_info.SharedPreferenceWrapperVo? loginMemberInfo =
-                spw_auth_member_info.SharedPreferenceWrapper.get();
-
-            String? authorization = (loginMemberInfo == null)
-                ? null
-                : "${loginMemberInfo.tokenType} ${loginMemberInfo.accessToken}";
-
-            var response = await api_main_server
-                .getService1TkV1AuthForDeveloperAsync(api_main_server
-                    .GetService1TkV1AuthForDeveloperAsyncRequestHeaderVo(
-                        authorization));
-
-            // 로딩 다이얼로그 제거
-            pageBusiness.closeDialog();
-
-            if (response.dioException == null) {
-              // Dio 네트워크 응답
-
-              var networkResponseObjectOk = response.networkResponseObjectOk!;
-
-              var responseBody = networkResponseObjectOk.responseBody;
-
-              // (확인 다이얼로그 호출)
-              if (!_context.mounted) return;
-              showDialog(
-                  barrierDismissible: true,
-                  context: _context,
-                  builder: (context) => all_dialog_info.PageEntrance(
-                      all_dialog_info.PageInputVo(
-                          "응답 결과",
-                          "Http Status Code : ${networkResponseObjectOk.responseStatusCode}\n\nResponse Body:\n${responseBody.toString()}",
-                          "확인"),
-                      (pageBusiness) {})).then((outputVo) {});
-            } else {
-              // Dio 네트워크 에러
-              if (!_context.mounted) return;
-              showDialog(
-                  barrierDismissible: true,
-                  context: _context,
-                  builder: (context) => all_dialog_info.PageEntrance(
-                      all_dialog_info.PageInputVo(
-                          "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
-                      (pageBusiness) {}));
-            }
-          });
+            all_dialog_loading_spinner.PageInputVo(),
+          );
 
           showDialog(
               barrierDismissible: false,
               context: _context,
               builder: (context) => loadingSpinnerDialog).then((outputVo) {});
+
+          spw_auth_member_info.SharedPreferenceWrapperVo? loginMemberInfo =
+              spw_auth_member_info.SharedPreferenceWrapper.get();
+
+          String? authorization = (loginMemberInfo == null)
+              ? null
+              : "${loginMemberInfo.tokenType} ${loginMemberInfo.accessToken}";
+
+          var response = await api_main_server
+              .getService1TkV1AuthForDeveloperAsync(api_main_server
+                  .GetService1TkV1AuthForDeveloperAsyncRequestHeaderVo(
+                      authorization));
+
+          // 로딩 다이얼로그 제거
+          loadingSpinnerDialog.pageBusiness.closeDialog();
+
+          if (response.dioException == null) {
+            // Dio 네트워크 응답
+
+            var networkResponseObjectOk = response.networkResponseObjectOk!;
+
+            var responseBody = networkResponseObjectOk.responseBody;
+
+            // (확인 다이얼로그 호출)
+            if (!_context.mounted) return;
+            showDialog(
+                barrierDismissible: true,
+                context: _context,
+                builder: (context) => all_dialog_info.PageEntrance(
+                      all_dialog_info.PageInputVo(
+                          "응답 결과",
+                          "Http Status Code : ${networkResponseObjectOk.responseStatusCode}\n\nResponse Body:\n${responseBody.toString()}",
+                          "확인"),
+                    )).then((outputVo) {});
+          } else {
+            // Dio 네트워크 에러
+            if (!_context.mounted) return;
+            showDialog(
+                barrierDismissible: true,
+                context: _context,
+                builder: (context) => all_dialog_info.PageEntrance(
+                      all_dialog_info.PageInputVo(
+                          "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
+                    ));
+          }
         }
         break;
       case SampleItemEnum.adminServerAccessTest:
@@ -280,57 +283,57 @@ class PageBusiness {
           // ADMIN 권한 진입 테스트
           // 로딩 다이얼로그 표시
           var loadingSpinnerDialog = all_dialog_loading_spinner.PageEntrance(
-              all_dialog_loading_spinner.PageInputVo(), (pageBusiness) async {
-            spw_auth_member_info.SharedPreferenceWrapperVo? loginMemberInfo =
-                spw_auth_member_info.SharedPreferenceWrapper.get();
-
-            String? authorization = (loginMemberInfo == null)
-                ? null
-                : "${loginMemberInfo.tokenType} ${loginMemberInfo.accessToken}";
-
-            var response = await api_main_server
-                .getService1TkV1AuthForAdminAsync(api_main_server
-                    .GetService1TkV1AuthForAdminAsyncRequestHeaderVo(
-                        authorization));
-
-            // 로딩 다이얼로그 제거
-            pageBusiness.closeDialog();
-
-            if (response.dioException == null) {
-              // Dio 네트워크 응답
-
-              var networkResponseObjectOk = response.networkResponseObjectOk!;
-
-              var responseBody = networkResponseObjectOk.responseBody;
-
-              // (확인 다이얼로그 호출)
-              if (!_context.mounted) return;
-              showDialog(
-                  barrierDismissible: true,
-                  context: _context,
-                  builder: (context) => all_dialog_info.PageEntrance(
-                      all_dialog_info.PageInputVo(
-                          "응답 결과",
-                          "Http Status Code : ${networkResponseObjectOk.responseStatusCode}\n\nResponse Body:\n${responseBody.toString()}",
-                          "확인"),
-                      (pageBusiness) {})).then((outputVo) {});
-            } else {
-              // Dio 네트워크 에러
-              if (!_context.mounted) return;
-              showDialog(
-                  barrierDismissible: true,
-                  context: _context,
-                  builder: (context) => all_dialog_info.PageEntrance(
-                      all_dialog_info.PageInputVo(
-                          "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
-                      (pageBusiness) {}));
-            }
-          });
+            all_dialog_loading_spinner.PageInputVo(),
+          );
 
           showDialog(
               barrierDismissible: false,
               context: _context,
               builder: (context) => loadingSpinnerDialog).then((outputVo) {});
+
+          spw_auth_member_info.SharedPreferenceWrapperVo? loginMemberInfo =
+              spw_auth_member_info.SharedPreferenceWrapper.get();
+
+          String? authorization = (loginMemberInfo == null)
+              ? null
+              : "${loginMemberInfo.tokenType} ${loginMemberInfo.accessToken}";
+
+          var response = await api_main_server.getService1TkV1AuthForAdminAsync(
+              api_main_server.GetService1TkV1AuthForAdminAsyncRequestHeaderVo(
+                  authorization));
+
+          // 로딩 다이얼로그 제거
+          loadingSpinnerDialog.pageBusiness.closeDialog();
+
+          if (response.dioException == null) {
+            // Dio 네트워크 응답
+
+            var networkResponseObjectOk = response.networkResponseObjectOk!;
+
+            var responseBody = networkResponseObjectOk.responseBody;
+
+            // (확인 다이얼로그 호출)
+            if (!_context.mounted) return;
+            showDialog(
+                barrierDismissible: true,
+                context: _context,
+                builder: (context) => all_dialog_info.PageEntrance(
+                      all_dialog_info.PageInputVo(
+                          "응답 결과",
+                          "Http Status Code : ${networkResponseObjectOk.responseStatusCode}\n\nResponse Body:\n${responseBody.toString()}",
+                          "확인"),
+                    )).then((outputVo) {});
+          } else {
+            // Dio 네트워크 에러
+            if (!_context.mounted) return;
+            showDialog(
+                barrierDismissible: true,
+                context: _context,
+                builder: (context) => all_dialog_info.PageEntrance(
+                      all_dialog_info.PageInputVo(
+                          "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
+                    ));
+          }
         }
         break;
     }

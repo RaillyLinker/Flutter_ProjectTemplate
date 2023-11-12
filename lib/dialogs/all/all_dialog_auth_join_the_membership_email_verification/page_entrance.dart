@@ -46,9 +46,9 @@ class PageEntrance extends StatelessWidget {
   final PageInputVo _pageInputVo;
 
   // 페이지 생성 시점 콜백
-  final void Function(page_business.PageBusiness) _onDialogPageCreated;
+  late page_business.PageBusiness pageBusiness;
 
-  const PageEntrance(this._pageInputVo, this._onDialogPageCreated, {super.key});
+  PageEntrance(this._pageInputVo, {super.key});
 
   // 화면 빌드
   @override
@@ -58,14 +58,13 @@ class PageEntrance extends StatelessWidget {
         page_business.BLocProviders().blocProviders;
 
     // pageBusiness 객체 생성
-    var pageBusiness = page_business.PageBusiness(context, _pageInputVo);
+    pageBusiness = page_business.PageBusiness(context, _pageInputVo);
 
     // Page Info BLoC 추가 (pageBusiness 를 context 전역에 저장)
     blocProviders.add(
         BlocProvider<gc_template_classes.BlocPageInfo>(create: (innerContext) {
       // pageBusiness 내의 bloc 객체 모음 생성
       pageBusiness.blocObjects = page_business.BLocObjects(innerContext);
-      pageBusiness.onDialogPageCreated = _onDialogPageCreated;
       return gc_template_classes.BlocPageInfo(
           gc_template_classes.BlocPageInfoState<page_business.PageBusiness>(
               pageBusiness));
@@ -139,7 +138,6 @@ class LifecycleWatcherState extends State<LifecycleWatcher>
             onFocusGained: () async {
               if (!_pageBusiness.pageLifeCycleStates.isPageCreated) {
                 _pageBusiness.pageLifeCycleStates.isPageCreated = true;
-                _pageBusiness.onDialogPageCreated(_pageBusiness);
                 await _pageBusiness.onPageCreateAsync();
               } else {}
 

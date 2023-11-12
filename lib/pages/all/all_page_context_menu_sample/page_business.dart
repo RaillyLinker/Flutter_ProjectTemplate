@@ -115,9 +115,9 @@ class PageBusiness {
         barrierDismissible: true,
         context: _context,
         builder: (context) => all_dialog_info.PageEntrance(
-            all_dialog_info.PageInputVo(
-                "컨텍스트 메뉴 테스트", "다이얼로그 테스트 메뉴가\n선택되었습니다.", "확인"),
-            (pageBusiness) {}));
+              all_dialog_info.PageInputVo(
+                  "컨텍스트 메뉴 테스트", "다이얼로그 테스트 메뉴가\n선택되었습니다.", "확인"),
+            ));
   }
 
   // (context 메뉴의 뒤로가기 항목을 클릭)

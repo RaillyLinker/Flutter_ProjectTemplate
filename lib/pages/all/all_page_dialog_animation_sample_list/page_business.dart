@@ -121,7 +121,8 @@ class PageBusiness {
               return Transform.rotate(
                 angle: math.radians(a1.value * 360),
                 child: all_dialog_template.PageEntrance(
-                    all_dialog_template.PageInputVo(), (pageBusiness) {}),
+                  all_dialog_template.PageInputVo(),
+                ),
               );
             },
             transitionDuration: const Duration(milliseconds: 300),
@@ -143,7 +144,8 @@ class PageBusiness {
               return Transform.scale(
                 scale: curve,
                 child: all_dialog_template.PageEntrance(
-                    all_dialog_template.PageInputVo(), (pageBusiness) {}),
+                  all_dialog_template.PageInputVo(),
+                ),
               );
             },
             transitionDuration: const Duration(milliseconds: 300),
@@ -167,7 +169,8 @@ class PageBusiness {
                 transform:
                     Matrix4.translationValues(0.0, curvedValue * 1600, 0.0),
                 child: all_dialog_template.PageEntrance(
-                    all_dialog_template.PageInputVo(), (pageBusiness) {}),
+                  all_dialog_template.PageInputVo(),
+                ),
               );
             },
             transitionDuration: const Duration(milliseconds: 300),
@@ -182,8 +185,8 @@ class PageBusiness {
               context: _context,
               builder: (context) =>
                   all_dialog_small_circle_transform_sample.PageEntrance(
-                      all_dialog_small_circle_transform_sample.PageInputVo(),
-                      (pageBusiness) {})).then((outputVo) {});
+                    all_dialog_small_circle_transform_sample.PageInputVo(),
+                  )).then((outputVo) {});
         }
         break;
     }

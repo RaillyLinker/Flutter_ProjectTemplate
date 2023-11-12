@@ -125,15 +125,15 @@ class PageBusiness {
         barrierDismissible: true,
         context: _context,
         builder: (context) => all_dialog_info.PageEntrance(
-            all_dialog_info.PageInputVo(
-              "폼 입력 결과",
-              "입력1 : $input1\n"
-                  "입력2 : $input2\n"
-                  "입력3 : $input3\n"
-                  "입력4 : $input4",
-              "확인",
-            ),
-            (pageBusiness) {}));
+              all_dialog_info.PageInputVo(
+                "폼 입력 결과",
+                "입력1 : $input1\n"
+                    "입력2 : $input2\n"
+                    "입력3 : $input3\n"
+                    "입력4 : $input4",
+                "확인",
+              ),
+            ));
   }
 
 ////

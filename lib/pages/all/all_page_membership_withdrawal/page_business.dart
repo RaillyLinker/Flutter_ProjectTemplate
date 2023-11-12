@@ -175,77 +175,77 @@ class PageBusiness {
         barrierDismissible: true,
         context: _context,
         builder: (context) => all_dialog_yes_or_no.PageEntrance(
-            all_dialog_yes_or_no.PageInputVo(
-                "회원 탈퇴", "회원 탈퇴를 진행하시겠습니까?", "예", "아니오"),
-            (pageBusiness) {})).then((outputVo) {
+              all_dialog_yes_or_no.PageInputVo(
+                  "회원 탈퇴", "회원 탈퇴를 진행하시겠습니까?", "예", "아니오"),
+            )).then((outputVo) async {
       if (outputVo.checkPositiveBtn) {
         var loadingSpinner = all_dialog_loading_spinner.PageEntrance(
-            all_dialog_loading_spinner.PageInputVo(), (pageBusiness) async {
-          // 네트워크 요청
-          var responseVo =
-              await api_main_server.deleteService1TkV1AuthWithdrawalAsync(
-            api_main_server
-                .DeleteService1TkV1AuthWithdrawalAsyncRequestHeaderVo(
-                    "${signInInfo.tokenType} ${signInInfo.accessToken}"),
-          );
-
-          pageBusiness.closeDialog();
-
-          if (responseVo.dioException == null) {
-            // Dio 네트워크 응답
-            var networkResponseObjectOk = responseVo.networkResponseObjectOk!;
-
-            if (networkResponseObjectOk.responseStatusCode == 200) {
-              // 정상 응답
-              // 로그아웃 처리
-              spw_auth_member_info.SharedPreferenceWrapper.set(null);
-              if (!_context.mounted) return;
-              await showDialog(
-                  barrierDismissible: true,
-                  context: _context,
-                  builder: (context) => all_dialog_info.PageEntrance(
-                      all_dialog_info.PageInputVo(
-                          "회원 탈퇴 완료", "회원 탈퇴가 완료되었습니다.\n안녕히 가세요.", "확인"),
-                      (pageBusiness) {}));
-              if (!_context.mounted) return;
-              _context.pop(page_entrance.PageOutputVo(true));
-            } else if (networkResponseObjectOk.responseStatusCode == 401) {
-              // 비회원 처리됨
-              if (!_context.mounted) return;
-              showToast(
-                "로그인이 필요합니다.",
-                context: _context,
-                animation: StyledToastAnimation.scale,
-              );
-              _context.pop();
-              return;
-            } else {
-              // 비정상 응답
-              if (!_context.mounted) return;
-              showDialog(
-                  barrierDismissible: true,
-                  context: _context,
-                  builder: (context) => all_dialog_info.PageEntrance(
-                      all_dialog_info.PageInputVo(
-                          "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
-                      (pageBusiness) {}));
-            }
-          } else {
-            if (!_context.mounted) return;
-            showDialog(
-                barrierDismissible: true,
-                context: _context,
-                builder: (context) => all_dialog_info.PageEntrance(
-                    all_dialog_info.PageInputVo(
-                        "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
-                    (pageBusiness) {}));
-          }
-        });
+          all_dialog_loading_spinner.PageInputVo(),
+        );
 
         showDialog(
             barrierDismissible: false,
             context: _context,
             builder: (context) => loadingSpinner);
+
+        // 네트워크 요청
+        var responseVo =
+            await api_main_server.deleteService1TkV1AuthWithdrawalAsync(
+          api_main_server.DeleteService1TkV1AuthWithdrawalAsyncRequestHeaderVo(
+              "${signInInfo.tokenType} ${signInInfo.accessToken}"),
+        );
+
+        loadingSpinner.pageBusiness.closeDialog();
+
+        if (responseVo.dioException == null) {
+          // Dio 네트워크 응답
+          var networkResponseObjectOk = responseVo.networkResponseObjectOk!;
+
+          if (networkResponseObjectOk.responseStatusCode == 200) {
+            // 정상 응답
+            // 로그아웃 처리
+            spw_auth_member_info.SharedPreferenceWrapper.set(null);
+            if (!_context.mounted) return;
+            await showDialog(
+                barrierDismissible: true,
+                context: _context,
+                builder: (context) => all_dialog_info.PageEntrance(
+                      all_dialog_info.PageInputVo(
+                          "회원 탈퇴 완료", "회원 탈퇴가 완료되었습니다.\n안녕히 가세요.", "확인"),
+                    ));
+            if (!_context.mounted) return;
+            _context.pop(page_entrance.PageOutputVo(true));
+          } else if (networkResponseObjectOk.responseStatusCode == 401) {
+            // 비회원 처리됨
+            if (!_context.mounted) return;
+            showToast(
+              "로그인이 필요합니다.",
+              context: _context,
+              animation: StyledToastAnimation.scale,
+            );
+            _context.pop();
+            return;
+          } else {
+            // 비정상 응답
+            if (!_context.mounted) return;
+            showDialog(
+                barrierDismissible: true,
+                context: _context,
+                builder: (context) => all_dialog_info.PageEntrance(
+                      all_dialog_info.PageInputVo(
+                          "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
+                    ));
+          }
+        } else {
+          if (!_context.mounted) return;
+          showDialog(
+              barrierDismissible: true,
+              context: _context,
+              builder: (context) => all_dialog_info.PageEntrance(
+                    all_dialog_info.PageInputVo(
+                        "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
+                  ));
+        }
       }
     });
   }

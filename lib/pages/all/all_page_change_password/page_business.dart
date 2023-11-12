@@ -301,59 +301,66 @@ class PageBusiness {
 // !!!내부에서만 사용할 함수를 아래에 구현!!!
   Future<void> _requestChangePassword() async {
     var loadingSpinner = all_dialog_loading_spinner.PageEntrance(
-        all_dialog_loading_spinner.PageInputVo(), (pageBusiness) async {
-      spw_auth_member_info.SharedPreferenceWrapperVo? loginMemberInfo =
-          spw_auth_member_info.SharedPreferenceWrapper.get();
+      all_dialog_loading_spinner.PageInputVo(),
+    );
 
-      if (loginMemberInfo == null) {
-        // 비회원 상태라면 진입 금지
+    showDialog(
+        barrierDismissible: false,
+        context: _context,
+        builder: (context) => loadingSpinner).then((outputVo) {});
+
+    spw_auth_member_info.SharedPreferenceWrapperVo? loginMemberInfo =
+        spw_auth_member_info.SharedPreferenceWrapper.get();
+
+    if (loginMemberInfo == null) {
+      // 비회원 상태라면 진입 금지
+      if (!_context.mounted) return;
+      showToast(
+        "로그인이 필요합니다.",
+        context: _context,
+        animation: StyledToastAnimation.scale,
+      );
+      // Login 페이지로 이동
+      _context.pushNamed(all_page_login.pageName);
+      return;
+    }
+
+    String? oldPw;
+    String? newPw;
+
+    if (pageViewModel.passwordTextFieldController.text.trim() != "") {
+      oldPw = pageViewModel.passwordTextFieldController.text;
+    }
+
+    if (pageViewModel.newPasswordTextFieldController.text.trim() != "") {
+      newPw = pageViewModel.newPasswordTextFieldController.text;
+    }
+
+    var response =
+        await api_main_server.putService1TkV1AuthChangeAccountPasswordAsync(
+            api_main_server
+                .PutService1TkV1AuthChangeAccountPasswordAsyncRequestHeaderVo(
+                    "${loginMemberInfo.tokenType} ${loginMemberInfo.accessToken}"),
+            api_main_server
+                .PutService1TkV1AuthChangeAccountPasswordAsyncRequestBodyVo(
+                    oldPw, newPw));
+
+    // 로딩 다이얼로그 제거
+    loadingSpinner.pageBusiness.closeDialog();
+
+    if (response.dioException == null) {
+      // Dio 네트워크 응답
+      var networkResponseObjectOk = response.networkResponseObjectOk!;
+
+      if (networkResponseObjectOk.responseStatusCode == 200) {
+        // 정상 응답
+
+        // 확인 다이얼로그 호출
         if (!_context.mounted) return;
-        showToast(
-          "로그인이 필요합니다.",
-          context: _context,
-          animation: StyledToastAnimation.scale,
-        );
-        // Login 페이지로 이동
-        _context.pushNamed(all_page_login.pageName);
-        return;
-      }
-
-      String? oldPw;
-      String? newPw;
-
-      if (pageViewModel.passwordTextFieldController.text.trim() != "") {
-        oldPw = pageViewModel.passwordTextFieldController.text;
-      }
-
-      if (pageViewModel.newPasswordTextFieldController.text.trim() != "") {
-        newPw = pageViewModel.newPasswordTextFieldController.text;
-      }
-
-      var response =
-          await api_main_server.putService1TkV1AuthChangeAccountPasswordAsync(
-              api_main_server
-                  .PutService1TkV1AuthChangeAccountPasswordAsyncRequestHeaderVo(
-                      "${loginMemberInfo.tokenType} ${loginMemberInfo.accessToken}"),
-              api_main_server
-                  .PutService1TkV1AuthChangeAccountPasswordAsyncRequestBodyVo(
-                      oldPw, newPw));
-
-      // 로딩 다이얼로그 제거
-      pageBusiness.closeDialog();
-
-      if (response.dioException == null) {
-        // Dio 네트워크 응답
-        var networkResponseObjectOk = response.networkResponseObjectOk!;
-
-        if (networkResponseObjectOk.responseStatusCode == 200) {
-          // 정상 응답
-
-          // 확인 다이얼로그 호출
-          if (!_context.mounted) return;
-          showDialog(
-              barrierDismissible: true,
-              context: _context,
-              builder: (context) => all_dialog_yes_or_no.PageEntrance(
+        showDialog(
+            barrierDismissible: true,
+            context: _context,
+            builder: (context) => all_dialog_yes_or_no.PageEntrance(
                   all_dialog_yes_or_no.PageInputVo(
                       "비밀번호 변경",
                       "비밀번호 변경이 완료되었습니다.\n"
@@ -362,161 +369,150 @@ class PageBusiness {
                           "로그아웃 처리를 하겠습니까?",
                       "예",
                       "아니오"),
-                  (pageBusiness) {})).then((outputVo) {
-            if (outputVo.checkPositiveBtn) {
-              // 계정 로그아웃 처리
-              var loadingSpinner = all_dialog_loading_spinner.PageEntrance(
-                  all_dialog_loading_spinner.PageInputVo(),
-                  (pageBusiness) async {
-                spw_auth_member_info.SharedPreferenceWrapperVo?
-                    loginMemberInfo =
-                    spw_auth_member_info.SharedPreferenceWrapper.get();
+                )).then((outputVo) async {
+          if (outputVo.checkPositiveBtn) {
+            // 계정 로그아웃 처리
+            var loadingSpinner = all_dialog_loading_spinner.PageEntrance(
+              all_dialog_loading_spinner.PageInputVo(),
+            );
 
-                if (loginMemberInfo != null) {
-                  // 모든 기기에서 로그아웃 처리하기
-
-                  // 서버 Logout API 실행
-                  spw_auth_member_info.SharedPreferenceWrapperVo?
-                      loginMemberInfo =
-                      spw_auth_member_info.SharedPreferenceWrapper.get();
-
-                  await api_main_server
-                      .deleteService1TkV1AuthAllAuthorizationTokenAsync(api_main_server
-                          .DeleteService1TkV1AuthAllAuthorizationTokenAsyncRequestHeaderVo(
-                              "${loginMemberInfo!.tokenType} ${loginMemberInfo.accessToken}"));
-
-                  // login_user_info SPW 비우기
-                  spw_auth_member_info.SharedPreferenceWrapper.set(null);
-                }
-
-                pageBusiness.closeDialog();
-                if (!_context.mounted) return;
-                _context.pop();
-              });
-
-              showDialog(
-                  barrierDismissible: false,
-                  context: _context,
-                  builder: (context) => loadingSpinner).then((outputVo) {});
-            } else {
-              // 계정 로그아웃 처리
-              var loadingSpinner = all_dialog_loading_spinner.PageEntrance(
-                  all_dialog_loading_spinner.PageInputVo(),
-                  (pageBusiness) async {
-                spw_auth_member_info.SharedPreferenceWrapperVo?
-                    loginMemberInfo =
-                    spw_auth_member_info.SharedPreferenceWrapper.get();
-
-                if (loginMemberInfo != null) {
-                  // 서버 Logout API 실행
-                  spw_auth_member_info.SharedPreferenceWrapperVo?
-                      loginMemberInfo =
-                      spw_auth_member_info.SharedPreferenceWrapper.get();
-                  await api_main_server.postService1TkV1AuthLogoutAsync(
-                      api_main_server
-                          .PostService1TkV1AuthLogoutAsyncRequestHeaderVo(
-                              "${loginMemberInfo!.tokenType} ${loginMemberInfo.accessToken}"));
-
-                  // login_user_info SPW 비우기
-                  spw_auth_member_info.SharedPreferenceWrapper.set(null);
-                }
-
-                pageBusiness.closeDialog();
-                if (!_context.mounted) return;
-                _context.pop();
-              });
-
-              showDialog(
-                  barrierDismissible: false,
-                  context: _context,
-                  builder: (context) => loadingSpinner).then((outputVo) {});
-            }
-          });
-        } else {
-          var responseHeaders = networkResponseObjectOk.responseHeaders
-              as api_main_server
-              .PutService1TkV1AuthChangeAccountPasswordAsyncResponseHeaderVo;
-
-          // 비정상 응답
-          if (responseHeaders.apiResultCode == null) {
-            // 비정상 응답이면서 서버에서 에러 원인 코드가 전달되지 않았을 때
-            if (!_context.mounted) return;
             showDialog(
-                barrierDismissible: true,
+                barrierDismissible: false,
                 context: _context,
-                builder: (context) => all_dialog_info.PageEntrance(
+                builder: (context) => loadingSpinner).then((outputVo) {});
+
+            spw_auth_member_info.SharedPreferenceWrapperVo? loginMemberInfo =
+                spw_auth_member_info.SharedPreferenceWrapper.get();
+
+            if (loginMemberInfo != null) {
+              // 모든 기기에서 로그아웃 처리하기
+
+              // 서버 Logout API 실행
+              spw_auth_member_info.SharedPreferenceWrapperVo? loginMemberInfo =
+                  spw_auth_member_info.SharedPreferenceWrapper.get();
+
+              await api_main_server
+                  .deleteService1TkV1AuthAllAuthorizationTokenAsync(api_main_server
+                      .DeleteService1TkV1AuthAllAuthorizationTokenAsyncRequestHeaderVo(
+                          "${loginMemberInfo!.tokenType} ${loginMemberInfo.accessToken}"));
+
+              // login_user_info SPW 비우기
+              spw_auth_member_info.SharedPreferenceWrapper.set(null);
+            }
+
+            loadingSpinner.pageBusiness.closeDialog();
+            if (!_context.mounted) return;
+            _context.pop();
+          } else {
+            // 계정 로그아웃 처리
+            var loadingSpinner = all_dialog_loading_spinner.PageEntrance(
+              all_dialog_loading_spinner.PageInputVo(),
+            );
+
+            showDialog(
+                barrierDismissible: false,
+                context: _context,
+                builder: (context) => loadingSpinner).then((outputVo) {});
+
+            spw_auth_member_info.SharedPreferenceWrapperVo? loginMemberInfo =
+                spw_auth_member_info.SharedPreferenceWrapper.get();
+
+            if (loginMemberInfo != null) {
+              // 서버 Logout API 실행
+              spw_auth_member_info.SharedPreferenceWrapperVo? loginMemberInfo =
+                  spw_auth_member_info.SharedPreferenceWrapper.get();
+              await api_main_server.postService1TkV1AuthLogoutAsync(
+                  api_main_server.PostService1TkV1AuthLogoutAsyncRequestHeaderVo(
+                      "${loginMemberInfo!.tokenType} ${loginMemberInfo.accessToken}"));
+
+              // login_user_info SPW 비우기
+              spw_auth_member_info.SharedPreferenceWrapper.set(null);
+            }
+
+            loadingSpinner.pageBusiness.closeDialog();
+            if (!_context.mounted) return;
+            _context.pop();
+          }
+        });
+      } else {
+        var responseHeaders = networkResponseObjectOk.responseHeaders
+            as api_main_server
+            .PutService1TkV1AuthChangeAccountPasswordAsyncResponseHeaderVo;
+
+        // 비정상 응답
+        if (responseHeaders.apiResultCode == null) {
+          // 비정상 응답이면서 서버에서 에러 원인 코드가 전달되지 않았을 때
+          if (!_context.mounted) return;
+          showDialog(
+              barrierDismissible: true,
+              context: _context,
+              builder: (context) => all_dialog_info.PageEntrance(
                     all_dialog_info.PageInputVo(
                         "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
-                    (pageBusiness) {}));
-          } else {
-            // 서버 지정 에러 코드를 전달 받았을 때
-            String apiResultCode = responseHeaders.apiResultCode!;
+                  ));
+        } else {
+          // 서버 지정 에러 코드를 전달 받았을 때
+          String apiResultCode = responseHeaders.apiResultCode!;
 
-            switch (apiResultCode) {
-              case "1":
-                {
-                  // 탈퇴된 회원
-                  if (!_context.mounted) return;
-                  await showDialog(
-                      barrierDismissible: true,
-                      context: _context,
-                      builder: (context) => all_dialog_info.PageEntrance(
+          switch (apiResultCode) {
+            case "1":
+              {
+                // 탈퇴된 회원
+                if (!_context.mounted) return;
+                await showDialog(
+                    barrierDismissible: true,
+                    context: _context,
+                    builder: (context) => all_dialog_info.PageEntrance(
                           all_dialog_info.PageInputVo(
                               "비밀번호 변경 실패", "탈퇴된 회원입니다.", "확인"),
-                          (pageBusiness) {}));
-                }
-                break;
-              case "2":
-                {
-                  // 기존 비밀번호가 일치하지 않음
-                  if (!_context.mounted) return;
-                  await showDialog(
-                      barrierDismissible: true,
-                      context: _context,
-                      builder: (context) => all_dialog_info.PageEntrance(
+                        ));
+              }
+              break;
+            case "2":
+              {
+                // 기존 비밀번호가 일치하지 않음
+                if (!_context.mounted) return;
+                await showDialog(
+                    barrierDismissible: true,
+                    context: _context,
+                    builder: (context) => all_dialog_info.PageEntrance(
                           all_dialog_info.PageInputVo(
                               "비밀번호 변경 실패", "입력한 현재 비밀번호가\n일치하지 않습니다.", "확인"),
-                          (pageBusiness) {}));
-                }
-                break;
-              case "3":
-                {
-                  // 비번을 null 로 만들려고 할 때 account 외의 OAuth2 인증이 없기에 비번 제거 불가
-                  if (!_context.mounted) return;
-                  await showDialog(
-                      barrierDismissible: true,
-                      context: _context,
-                      builder: (context) => all_dialog_info.PageEntrance(
+                        ));
+              }
+              break;
+            case "3":
+              {
+                // 비번을 null 로 만들려고 할 때 account 외의 OAuth2 인증이 없기에 비번 제거 불가
+                if (!_context.mounted) return;
+                await showDialog(
+                    barrierDismissible: true,
+                    context: _context,
+                    builder: (context) => all_dialog_info.PageEntrance(
                           all_dialog_info.PageInputVo(
                               "비밀번호 변경 실패", "비밀번호를 제거할 수 없습니다.", "확인"),
-                          (pageBusiness) {}));
-                }
-                break;
-              default:
-                {
-                  // 알 수 없는 코드일 때
-                  throw Exception("unKnown Error Code");
-                }
-            }
+                        ));
+              }
+              break;
+            default:
+              {
+                // 알 수 없는 코드일 때
+                throw Exception("unKnown Error Code");
+              }
           }
         }
-      } else {
-        // Dio 네트워크 에러
-        if (!_context.mounted) return;
-        showDialog(
-            barrierDismissible: true,
-            context: _context,
-            builder: (context) => all_dialog_info.PageEntrance(
+      }
+    } else {
+      // Dio 네트워크 에러
+      if (!_context.mounted) return;
+      showDialog(
+          barrierDismissible: true,
+          context: _context,
+          builder: (context) => all_dialog_info.PageEntrance(
                 all_dialog_info.PageInputVo(
                     "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
-                (pageBusiness) {}));
-      }
-    });
-
-    showDialog(
-        barrierDismissible: false,
-        context: _context,
-        builder: (context) => loadingSpinner).then((outputVo) {});
+              ));
+    }
   }
 }
 

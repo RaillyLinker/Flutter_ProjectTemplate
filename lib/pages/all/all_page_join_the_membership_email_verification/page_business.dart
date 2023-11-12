@@ -175,108 +175,108 @@ class PageBusiness {
       // 입력값 검증 완료
       // (로딩 스피너 다이얼로그 호출)
       var loadingSpinner = all_dialog_loading_spinner.PageEntrance(
-          all_dialog_loading_spinner.PageInputVo(), (pageBusiness) async {
-        var responseVo = await api_main_server
-            .postService1TkV1AuthJoinTheMembershipEmailVerificationAsync(
-                api_main_server
-                    .PostService1TkV1AuthJoinTheMembershipEmailVerificationAsyncRequestBodyVo(
-                        email));
-
-        if (responseVo.dioException == null) {
-          // Dio 네트워크 응답
-          pageBusiness.closeDialog();
-          var networkResponseObjectOk = responseVo.networkResponseObjectOk!;
-
-          if (networkResponseObjectOk.responseStatusCode == 200) {
-            var responseBody = networkResponseObjectOk.responseBody
-                as api_main_server
-                .PostService1TkV1AuthJoinTheMembershipEmailVerificationAsyncResponseBodyVo;
-
-            // 정상 응답
-            // 검증번호 입력 다이얼로그 띄우기
-            if (!_context.mounted) return;
-            all_dialog_auth_join_the_membership_email_verification.PageOutputVo?
-                dialogResult = await showDialog(
-                    barrierDismissible: false,
-                    context: _context,
-                    builder: (context) =>
-                        all_dialog_auth_join_the_membership_email_verification
-                            .PageEntrance(
-                                all_dialog_auth_join_the_membership_email_verification
-                                    .PageInputVo(
-                                        email, responseBody.verificationUid),
-                                (pageBusiness) {}));
-
-            if (dialogResult != null) {
-              pageViewModel.verificationUid = responseBody.verificationUid;
-              pageViewModel.checkedEmailVerificationCode =
-                  dialogResult.checkedVerificationCode;
-              pageViewModel.emailTextEditEnabled = false;
-              pageViewModel.emailTextEditErrorMsg = null;
-              blocObjects.blocEmailEditText.refresh();
-
-              pageViewModel.emailCheckBtn = "인증\n초기화";
-              blocObjects.blocEmailCheckBtn.refresh();
-            }
-          } else {
-            // 비정상 응답
-            var responseHeaders = networkResponseObjectOk.responseHeaders!
-                as api_main_server
-                .PostService1TkV1AuthJoinTheMembershipEmailVerificationAsyncResponseHeaderVo;
-
-            if (responseHeaders.apiResultCode == null) {
-              // 비정상 응답이면서 서버에서 에러 원인 코드가 전달되지 않았을 때
-              if (!_context.mounted) return;
-              showDialog(
-                  barrierDismissible: true,
-                  context: _context,
-                  builder: (context) => all_dialog_info.PageEntrance(
-                      all_dialog_info.PageInputVo(
-                          "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
-                      (pageBusiness) {}));
-            } else {
-              // 서버 지정 에러 코드를 전달 받았을 때
-              String apiResultCode = responseHeaders.apiResultCode!;
-
-              switch (apiResultCode) {
-                case "1":
-                  {
-                    // 기존 회원 존재
-                    if (!_context.mounted) return;
-                    showDialog(
-                        barrierDismissible: true,
-                        context: _context,
-                        builder: (context) => all_dialog_info.PageEntrance(
-                            all_dialog_info.PageInputVo(
-                                "인증 이메일 발송 실패", "이미 가입된 이메일입니다.", "확인"),
-                            (pageBusiness) {}));
-                  }
-                  break;
-                default:
-                  {
-                    // 알 수 없는 코드일 때
-                    throw Exception("unKnown Error Code");
-                  }
-              }
-            }
-          }
-        } else {
-          pageBusiness.closeDialog();
-          if (!_context.mounted) return;
-          showDialog(
-              barrierDismissible: true,
-              context: _context,
-              builder: (context) => all_dialog_info.PageEntrance(
-                  all_dialog_info.PageInputVo(
-                      "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
-                  (pageBusiness) {}));
-        }
-      });
+        all_dialog_loading_spinner.PageInputVo(),
+      );
 
       showDialog(
           barrierDismissible: false,
           context: _context,
           builder: (context) => loadingSpinner).then((outputVo) {});
+
+      var responseVo = await api_main_server
+          .postService1TkV1AuthJoinTheMembershipEmailVerificationAsync(
+              api_main_server
+                  .PostService1TkV1AuthJoinTheMembershipEmailVerificationAsyncRequestBodyVo(
+                      email));
+
+      if (responseVo.dioException == null) {
+        // Dio 네트워크 응답
+        loadingSpinner.pageBusiness.closeDialog();
+        var networkResponseObjectOk = responseVo.networkResponseObjectOk!;
+
+        if (networkResponseObjectOk.responseStatusCode == 200) {
+          var responseBody = networkResponseObjectOk.responseBody
+              as api_main_server
+              .PostService1TkV1AuthJoinTheMembershipEmailVerificationAsyncResponseBodyVo;
+
+          // 정상 응답
+          // 검증번호 입력 다이얼로그 띄우기
+          if (!_context.mounted) return;
+          all_dialog_auth_join_the_membership_email_verification.PageOutputVo?
+              dialogResult = await showDialog(
+                  barrierDismissible: false,
+                  context: _context,
+                  builder: (context) =>
+                      all_dialog_auth_join_the_membership_email_verification
+                          .PageEntrance(
+                        all_dialog_auth_join_the_membership_email_verification
+                            .PageInputVo(email, responseBody.verificationUid),
+                      ));
+
+          if (dialogResult != null) {
+            pageViewModel.verificationUid = responseBody.verificationUid;
+            pageViewModel.checkedEmailVerificationCode =
+                dialogResult.checkedVerificationCode;
+            pageViewModel.emailTextEditEnabled = false;
+            pageViewModel.emailTextEditErrorMsg = null;
+            blocObjects.blocEmailEditText.refresh();
+
+            pageViewModel.emailCheckBtn = "인증\n초기화";
+            blocObjects.blocEmailCheckBtn.refresh();
+          }
+        } else {
+          // 비정상 응답
+          var responseHeaders = networkResponseObjectOk.responseHeaders!
+              as api_main_server
+              .PostService1TkV1AuthJoinTheMembershipEmailVerificationAsyncResponseHeaderVo;
+
+          if (responseHeaders.apiResultCode == null) {
+            // 비정상 응답이면서 서버에서 에러 원인 코드가 전달되지 않았을 때
+            if (!_context.mounted) return;
+            showDialog(
+                barrierDismissible: true,
+                context: _context,
+                builder: (context) => all_dialog_info.PageEntrance(
+                      all_dialog_info.PageInputVo(
+                          "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
+                    ));
+          } else {
+            // 서버 지정 에러 코드를 전달 받았을 때
+            String apiResultCode = responseHeaders.apiResultCode!;
+
+            switch (apiResultCode) {
+              case "1":
+                {
+                  // 기존 회원 존재
+                  if (!_context.mounted) return;
+                  showDialog(
+                      barrierDismissible: true,
+                      context: _context,
+                      builder: (context) => all_dialog_info.PageEntrance(
+                            all_dialog_info.PageInputVo(
+                                "인증 이메일 발송 실패", "이미 가입된 이메일입니다.", "확인"),
+                          ));
+                }
+                break;
+              default:
+                {
+                  // 알 수 없는 코드일 때
+                  throw Exception("unKnown Error Code");
+                }
+            }
+          }
+        }
+      } else {
+        loadingSpinner.pageBusiness.closeDialog();
+        if (!_context.mounted) return;
+        showDialog(
+            barrierDismissible: true,
+            context: _context,
+            builder: (context) => all_dialog_info.PageEntrance(
+                  all_dialog_info.PageInputVo(
+                      "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
+                ));
+      }
 
       isSendVerificationEmailClicked = false;
     }

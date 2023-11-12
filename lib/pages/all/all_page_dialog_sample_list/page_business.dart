@@ -121,11 +121,11 @@ class PageBusiness {
         {
           // (템플릿 다이얼로그 호출)
           showDialog(
-                  barrierDismissible: true,
-                  context: _context,
-                  builder: (context) => all_dialog_template.PageEntrance(
-                      all_dialog_template.PageInputVo(), (pageBusiness) {}))
-              .then((outputVo) {});
+              barrierDismissible: true,
+              context: _context,
+              builder: (context) => all_dialog_template.PageEntrance(
+                    all_dialog_template.PageInputVo(),
+                  )).then((outputVo) {});
         }
         break;
       case SampleItemEnum.infoDialog:
@@ -135,9 +135,9 @@ class PageBusiness {
               barrierDismissible: true,
               context: _context,
               builder: (context) => all_dialog_info.PageEntrance(
-                  all_dialog_info.PageInputVo(
-                      "확인 다이얼로그", "확인 다이얼로그를 호출했습니다.", "확인"),
-                  (pageBusiness) {})).then((outputVo) {});
+                    all_dialog_info.PageInputVo(
+                        "확인 다이얼로그", "확인 다이얼로그를 호출했습니다.", "확인"),
+                  )).then((outputVo) {});
         }
         break;
       case SampleItemEnum.yesOrNoDialog:
@@ -147,9 +147,12 @@ class PageBusiness {
               barrierDismissible: true,
               context: _context,
               builder: (context) => all_dialog_yes_or_no.PageEntrance(
-                  all_dialog_yes_or_no.PageInputVo("예/아니오 다이얼로그",
-                      "예/아니오 다이얼로그를 호출했습니다.\n예, 혹은 아니오 버튼을 누르세요.", "예", "아니오"),
-                  (pageBusiness) {})).then((outputVo) {
+                    all_dialog_yes_or_no.PageInputVo(
+                        "예/아니오 다이얼로그",
+                        "예/아니오 다이얼로그를 호출했습니다.\n예, 혹은 아니오 버튼을 누르세요.",
+                        "예",
+                        "아니오"),
+                  )).then((outputVo) {
             if (outputVo == null) {
               // 아무것도 누르지 않았을 때
               showToast(
@@ -179,17 +182,18 @@ class PageBusiness {
         {
           // (로딩 스피너 다이얼로그 호출)
           var loadingSpinner = all_dialog_loading_spinner.PageEntrance(
-              all_dialog_loading_spinner.PageInputVo(), (pageBusiness) {
-            // 3초 후 닫힘
-            Future.delayed(const Duration(seconds: 2)).then((value) {
-              pageBusiness.closeDialog();
-            });
-          });
+            all_dialog_loading_spinner.PageInputVo(),
+          );
 
           showDialog(
               barrierDismissible: false,
               context: _context,
               builder: (context) => loadingSpinner).then((outputVo) {});
+
+          // 3초 후 닫힘
+          Future.delayed(const Duration(seconds: 2)).then((value) {
+            loadingSpinner.pageBusiness.closeDialog();
+          });
         }
         break;
       case SampleItemEnum.modalBottomSheetDialog:
@@ -206,8 +210,8 @@ class PageBusiness {
             // 슬라이드 가능여부
             builder: (context) =>
                 all_dialog_modal_bottom_sheet_sample.PageEntrance(
-                    all_dialog_modal_bottom_sheet_sample.PageInputVo(),
-                    (pageBusiness) {}),
+              all_dialog_modal_bottom_sheet_sample.PageInputVo(),
+            ),
           ).then((outputVo) {});
         }
         break;
@@ -218,20 +222,20 @@ class PageBusiness {
               barrierDismissible: true,
               context: _context,
               builder: (context) => all_dialog_dialog_in_dialog.PageEntrance(
-                  all_dialog_dialog_in_dialog.PageInputVo(),
-                  (pageBusiness) {})).then((outputVo) {});
+                    all_dialog_dialog_in_dialog.PageInputVo(),
+                  )).then((outputVo) {});
         }
         break;
       case SampleItemEnum.dialogOutsideColorSample:
         {
           // 다이얼로그 외부 색 설정
           showDialog(
-                  barrierDismissible: true,
-                  context: _context,
-                  barrierColor: Colors.blue.withOpacity(0.5),
-                  builder: (context) => all_dialog_template.PageEntrance(
-                      all_dialog_template.PageInputVo(), (pageBusiness) {}))
-              .then((outputVo) {});
+              barrierDismissible: true,
+              context: _context,
+              barrierColor: Colors.blue.withOpacity(0.5),
+              builder: (context) => all_dialog_template.PageEntrance(
+                    all_dialog_template.PageInputVo(),
+                  )).then((outputVo) {});
         }
         break;
       case SampleItemEnum.contextMenuSample:
@@ -241,8 +245,8 @@ class PageBusiness {
               barrierDismissible: true,
               context: _context,
               builder: (context) => all_dialog_context_menu_sample.PageEntrance(
-                  all_dialog_context_menu_sample.PageInputVo(),
-                  (pageBusiness) {})).then((outputVo) {});
+                    all_dialog_context_menu_sample.PageInputVo(),
+                  )).then((outputVo) {});
         }
         break;
     }

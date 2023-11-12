@@ -33,9 +33,6 @@ class PageBusiness {
   // 페이지 파라미터
   page_entrance.PageInputVo pageInputVo;
 
-  // 다이얼로그 호출시 pageBusiness 를 전달하기 위한 콜백
-  late void Function(PageBusiness) onDialogPageCreated;
-
   // 페이지 뷰모델 객체
   PageViewModel pageViewModel = PageViewModel();
 
@@ -96,14 +93,16 @@ class PageBusiness {
         barrierDismissible: true,
         context: _context,
         builder: (context) => all_dialog_info.PageEntrance(
-            all_dialog_info.PageInputVo("확인 다이얼로그", "확인 다이얼로그를 호출했습니다.", "확인"),
-            (pageBusiness) {})).then((outputVo) {});
+              all_dialog_info.PageInputVo(
+                  "확인 다이얼로그", "확인 다이얼로그를 호출했습니다.", "확인"),
+            )).then((outputVo) {});
   }
 
   // (Loading 다이얼로그 호출)
   void showLoadingDialog() {
     var loadingSpinner = all_dialog_loading_spinner.PageEntrance(
-        all_dialog_loading_spinner.PageInputVo(), (pageBusiness) {});
+      all_dialog_loading_spinner.PageInputVo(),
+    );
 
     showDialog(
         barrierDismissible: true,
@@ -115,11 +114,11 @@ class PageBusiness {
   void showDialogInDialog() {
     // 다이얼로그에서 다른 다이얼로그를 호출하는 샘플
     showDialog(
-            barrierDismissible: true,
-            context: _context,
-            builder: (context) => all_dialog_dialog_in_dialog.PageEntrance(
-                all_dialog_dialog_in_dialog.PageInputVo(), (pageBusiness) {}))
-        .then((outputVo) {});
+        barrierDismissible: true,
+        context: _context,
+        builder: (context) => all_dialog_dialog_in_dialog.PageEntrance(
+              all_dialog_dialog_in_dialog.PageInputVo(),
+            )).then((outputVo) {});
   }
 
 ////

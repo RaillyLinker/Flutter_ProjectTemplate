@@ -178,162 +178,163 @@ class PageBusiness {
           }
 
           var loadingSpinner = all_dialog_loading_spinner.PageEntrance(
-              all_dialog_loading_spinner.PageInputVo(), (pageBusiness) async {
-            // 네트워크 요청
-            var responseVo = await api_main_server
-                .postService1TkV1AuthLoginWithPasswordAsync(api_main_server
-                    .PostService1TkV1AuthLoginWithPasswordAsyncRequestBodyVo(
-                        1, id, password));
-
-            pageBusiness.closeDialog();
-
-            if (responseVo.dioException == null) {
-              // Dio 네트워크 응답
-              var networkResponseObjectOk = responseVo.networkResponseObjectOk!;
-
-              if (networkResponseObjectOk.responseStatusCode == 200) {
-                // 정상 응답
-                var responseBody = responseVo.networkResponseObjectOk!
-                        .responseBody! as api_main_server
-                    .PostService1TkV1AuthLoginWithPasswordAsyncResponseBodyVo;
-
-                List<spw_auth_member_info.SharedPreferenceWrapperVoOAuth2Info>
-                    myOAuth2ObjectList = [];
-                for (var myOAuth2 in responseBody.myOAuth2List) {
-                  myOAuth2ObjectList.add(
-                      spw_auth_member_info.SharedPreferenceWrapperVoOAuth2Info(
-                    myOAuth2.uid,
-                    myOAuth2.oauth2TypeCode,
-                    myOAuth2.oauth2Id,
-                  ));
-                }
-
-                List<spw_auth_member_info.SharedPreferenceWrapperVoProfileInfo>
-                    myProfileObjectList = [];
-                for (var myProfile in responseBody.myProfileList) {
-                  myProfileObjectList.add(
-                      spw_auth_member_info.SharedPreferenceWrapperVoProfileInfo(
-                    myProfile.uid,
-                    myProfile.imageFullUrl,
-                    myProfile.isFront,
-                  ));
-                }
-
-                List<spw_auth_member_info.SharedPreferenceWrapperVoEmailInfo>
-                    myEmailList = [];
-                for (var myProfile in responseBody.myEmailList) {
-                  myEmailList.add(
-                      spw_auth_member_info.SharedPreferenceWrapperVoEmailInfo(
-                    myProfile.uid,
-                    myProfile.emailAddress,
-                    myProfile.isFront,
-                  ));
-                }
-
-                List<spw_auth_member_info.SharedPreferenceWrapperVoPhoneInfo>
-                    myPhoneNumberList = [];
-                for (var myProfile in responseBody.myPhoneNumberList) {
-                  myPhoneNumberList.add(
-                      spw_auth_member_info.SharedPreferenceWrapperVoPhoneInfo(
-                    myProfile.uid,
-                    myProfile.phoneNumber,
-                    myProfile.isFront,
-                  ));
-                }
-
-                spw_auth_member_info.SharedPreferenceWrapper.set(
-                    spw_auth_member_info.SharedPreferenceWrapperVo(
-                  responseBody.memberUid,
-                  responseBody.nickName,
-                  responseBody.roleList,
-                  responseBody.tokenType,
-                  responseBody.accessToken,
-                  responseBody.accessTokenExpireWhen,
-                  responseBody.refreshToken,
-                  responseBody.refreshTokenExpireWhen,
-                  myOAuth2ObjectList,
-                  myProfileObjectList,
-                  myEmailList,
-                  myPhoneNumberList,
-                  responseBody.authPasswordIsNull,
-                ));
-
-                accountLoginAsyncClicked = false;
-                if (!_context.mounted) return;
-                if (_context.canPop()) {
-                  // pop 이 가능하면 pop
-                  _context.pop();
-                } else {
-                  // pop 이 불가능하면 Home 페이지로 이동
-                  _context.goNamed(all_page_home.pageName);
-                }
-              } else {
-                // 비정상 응답
-                var responseHeaderVo = networkResponseObjectOk.responseHeaders
-                    as api_main_server
-                    .PostService1TkV1AuthLoginWithPasswordAsyncResponseHeaderVo;
-
-                switch (responseHeaderVo.apiResultCode) {
-                  case "1":
-                    {
-                      // 가입 되지 않은 회원
-                      if (!_context.mounted) return;
-                      showDialog(
-                          barrierDismissible: true,
-                          context: _context,
-                          builder: (context) => all_dialog_info.PageEntrance(
-                              all_dialog_info.PageInputVo(
-                                  "로그인 실패", "가입되지 않은 회원입니다.", "확인"),
-                              (pageBusiness) {}));
-                      accountLoginAsyncClicked = false;
-                    }
-                    break;
-                  case "2":
-                    {
-                      // 로그인 정보 검증 불일치
-                      if (!_context.mounted) return;
-                      showDialog(
-                          barrierDismissible: true,
-                          context: _context,
-                          builder: (context) => all_dialog_info.PageEntrance(
-                              all_dialog_info.PageInputVo(
-                                  "로그인 실패", "비밀번호가 일치하지 않습니다.", "확인"),
-                              (pageBusiness) {}));
-                      accountLoginAsyncClicked = false;
-                    }
-                    break;
-                  default:
-                    {
-                      // 비정상 응답이면서 서버에서 에러 원인 코드가 전달되지 않았을 때
-                      if (!_context.mounted) return;
-                      showDialog(
-                          barrierDismissible: true,
-                          context: _context,
-                          builder: (context) => all_dialog_info.PageEntrance(
-                              all_dialog_info.PageInputVo("네트워크 에러",
-                                  "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
-                              (pageBusiness) {}));
-                      accountLoginAsyncClicked = false;
-                    }
-                }
-              }
-            } else {
-              if (!_context.mounted) return;
-              showDialog(
-                  barrierDismissible: true,
-                  context: _context,
-                  builder: (context) => all_dialog_info.PageEntrance(
-                      all_dialog_info.PageInputVo(
-                          "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
-                      (pageBusiness) {}));
-              accountLoginAsyncClicked = false;
-            }
-          });
+            all_dialog_loading_spinner.PageInputVo(),
+          );
 
           showDialog(
               barrierDismissible: false,
               context: _context,
               builder: (context) => loadingSpinner);
+
+          // 네트워크 요청
+          var responseVo = await api_main_server
+              .postService1TkV1AuthLoginWithPasswordAsync(api_main_server
+                  .PostService1TkV1AuthLoginWithPasswordAsyncRequestBodyVo(
+                      1, id, password));
+
+          loadingSpinner.pageBusiness.closeDialog();
+
+          if (responseVo.dioException == null) {
+            // Dio 네트워크 응답
+            var networkResponseObjectOk = responseVo.networkResponseObjectOk!;
+
+            if (networkResponseObjectOk.responseStatusCode == 200) {
+              // 정상 응답
+              var responseBody = responseVo
+                      .networkResponseObjectOk!.responseBody! as api_main_server
+                  .PostService1TkV1AuthLoginWithPasswordAsyncResponseBodyVo;
+
+              List<spw_auth_member_info.SharedPreferenceWrapperVoOAuth2Info>
+                  myOAuth2ObjectList = [];
+              for (var myOAuth2 in responseBody.myOAuth2List) {
+                myOAuth2ObjectList.add(
+                    spw_auth_member_info.SharedPreferenceWrapperVoOAuth2Info(
+                  myOAuth2.uid,
+                  myOAuth2.oauth2TypeCode,
+                  myOAuth2.oauth2Id,
+                ));
+              }
+
+              List<spw_auth_member_info.SharedPreferenceWrapperVoProfileInfo>
+                  myProfileObjectList = [];
+              for (var myProfile in responseBody.myProfileList) {
+                myProfileObjectList.add(
+                    spw_auth_member_info.SharedPreferenceWrapperVoProfileInfo(
+                  myProfile.uid,
+                  myProfile.imageFullUrl,
+                  myProfile.isFront,
+                ));
+              }
+
+              List<spw_auth_member_info.SharedPreferenceWrapperVoEmailInfo>
+                  myEmailList = [];
+              for (var myProfile in responseBody.myEmailList) {
+                myEmailList.add(
+                    spw_auth_member_info.SharedPreferenceWrapperVoEmailInfo(
+                  myProfile.uid,
+                  myProfile.emailAddress,
+                  myProfile.isFront,
+                ));
+              }
+
+              List<spw_auth_member_info.SharedPreferenceWrapperVoPhoneInfo>
+                  myPhoneNumberList = [];
+              for (var myProfile in responseBody.myPhoneNumberList) {
+                myPhoneNumberList.add(
+                    spw_auth_member_info.SharedPreferenceWrapperVoPhoneInfo(
+                  myProfile.uid,
+                  myProfile.phoneNumber,
+                  myProfile.isFront,
+                ));
+              }
+
+              spw_auth_member_info.SharedPreferenceWrapper.set(
+                  spw_auth_member_info.SharedPreferenceWrapperVo(
+                responseBody.memberUid,
+                responseBody.nickName,
+                responseBody.roleList,
+                responseBody.tokenType,
+                responseBody.accessToken,
+                responseBody.accessTokenExpireWhen,
+                responseBody.refreshToken,
+                responseBody.refreshTokenExpireWhen,
+                myOAuth2ObjectList,
+                myProfileObjectList,
+                myEmailList,
+                myPhoneNumberList,
+                responseBody.authPasswordIsNull,
+              ));
+
+              accountLoginAsyncClicked = false;
+              if (!_context.mounted) return;
+              if (_context.canPop()) {
+                // pop 이 가능하면 pop
+                _context.pop();
+              } else {
+                // pop 이 불가능하면 Home 페이지로 이동
+                _context.goNamed(all_page_home.pageName);
+              }
+            } else {
+              // 비정상 응답
+              var responseHeaderVo = networkResponseObjectOk.responseHeaders
+                  as api_main_server
+                  .PostService1TkV1AuthLoginWithPasswordAsyncResponseHeaderVo;
+
+              switch (responseHeaderVo.apiResultCode) {
+                case "1":
+                  {
+                    // 가입 되지 않은 회원
+                    if (!_context.mounted) return;
+                    showDialog(
+                        barrierDismissible: true,
+                        context: _context,
+                        builder: (context) => all_dialog_info.PageEntrance(
+                              all_dialog_info.PageInputVo(
+                                  "로그인 실패", "가입되지 않은 회원입니다.", "확인"),
+                            ));
+                    accountLoginAsyncClicked = false;
+                  }
+                  break;
+                case "2":
+                  {
+                    // 로그인 정보 검증 불일치
+                    if (!_context.mounted) return;
+                    showDialog(
+                        barrierDismissible: true,
+                        context: _context,
+                        builder: (context) => all_dialog_info.PageEntrance(
+                              all_dialog_info.PageInputVo(
+                                  "로그인 실패", "비밀번호가 일치하지 않습니다.", "확인"),
+                            ));
+                    accountLoginAsyncClicked = false;
+                  }
+                  break;
+                default:
+                  {
+                    // 비정상 응답이면서 서버에서 에러 원인 코드가 전달되지 않았을 때
+                    if (!_context.mounted) return;
+                    showDialog(
+                        barrierDismissible: true,
+                        context: _context,
+                        builder: (context) => all_dialog_info.PageEntrance(
+                              all_dialog_info.PageInputVo("네트워크 에러",
+                                  "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
+                            ));
+                    accountLoginAsyncClicked = false;
+                  }
+              }
+            }
+          } else {
+            if (!_context.mounted) return;
+            showDialog(
+                barrierDismissible: true,
+                context: _context,
+                builder: (context) => all_dialog_info.PageEntrance(
+                      all_dialog_info.PageInputVo(
+                          "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
+                    ));
+            accountLoginAsyncClicked = false;
+          }
         } else {
           // 비밀번호 미입력 처리
           // 입력창에 Focus 주기

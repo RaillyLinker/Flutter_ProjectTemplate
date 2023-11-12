@@ -769,12 +769,12 @@ class PageBusiness {
                 barrierDismissible: true,
                 context: _context,
                 builder: (context) => all_dialog_yes_or_no.PageEntrance(
-                    all_dialog_yes_or_no.PageInputVo(
-                        "권한 해제",
-                        "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
-                        "예",
-                        "아니오"),
-                    (pageBusiness) {}));
+                      all_dialog_yes_or_no.PageInputVo(
+                          "권한 해제",
+                          "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
+                          "예",
+                          "아니오"),
+                    ));
 
             if (outputVo != null && outputVo.checkPositiveBtn) {
               // positive 버튼을 눌렀을 때
@@ -812,12 +812,12 @@ class PageBusiness {
                 barrierDismissible: true,
                 context: _context,
                 builder: (context) => all_dialog_yes_or_no.PageEntrance(
-                    all_dialog_yes_or_no.PageInputVo(
-                        "권한 해제",
-                        "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
-                        "예",
-                        "아니오"),
-                    (pageBusiness) {}));
+                      all_dialog_yes_or_no.PageInputVo(
+                          "권한 해제",
+                          "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
+                          "예",
+                          "아니오"),
+                    ));
 
             if (outputVo != null && outputVo.checkPositiveBtn) {
               // positive 버튼을 눌렀을 때
@@ -856,12 +856,12 @@ class PageBusiness {
                 barrierDismissible: true,
                 context: _context,
                 builder: (context) => all_dialog_yes_or_no.PageEntrance(
-                    all_dialog_yes_or_no.PageInputVo(
-                        "권한 해제",
-                        "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
-                        "예",
-                        "아니오"),
-                    (pageBusiness) {}));
+                      all_dialog_yes_or_no.PageInputVo(
+                          "권한 해제",
+                          "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
+                          "예",
+                          "아니오"),
+                    ));
 
             if (outputVo != null && outputVo.checkPositiveBtn) {
               // positive 버튼을 눌렀을 때
@@ -900,12 +900,12 @@ class PageBusiness {
                 barrierDismissible: true,
                 context: _context,
                 builder: (context) => all_dialog_yes_or_no.PageEntrance(
-                    all_dialog_yes_or_no.PageInputVo(
-                        "권한 해제",
-                        "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
-                        "예",
-                        "아니오"),
-                    (pageBusiness) {}));
+                      all_dialog_yes_or_no.PageInputVo(
+                          "권한 해제",
+                          "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
+                          "예",
+                          "아니오"),
+                    ));
 
             if (outputVo != null && outputVo.checkPositiveBtn) {
               // positive 버튼을 눌렀을 때
@@ -944,12 +944,12 @@ class PageBusiness {
                 barrierDismissible: true,
                 context: _context,
                 builder: (context) => all_dialog_yes_or_no.PageEntrance(
-                    all_dialog_yes_or_no.PageInputVo(
-                        "권한 해제",
-                        "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
-                        "예",
-                        "아니오"),
-                    (pageBusiness) {}));
+                      all_dialog_yes_or_no.PageInputVo(
+                          "권한 해제",
+                          "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
+                          "예",
+                          "아니오"),
+                    ));
 
             if (outputVo != null && outputVo.checkPositiveBtn) {
               // positive 버튼을 눌렀을 때
@@ -988,12 +988,12 @@ class PageBusiness {
                 barrierDismissible: true,
                 context: _context,
                 builder: (context) => all_dialog_yes_or_no.PageEntrance(
-                    all_dialog_yes_or_no.PageInputVo(
-                        "권한 해제",
-                        "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
-                        "예",
-                        "아니오"),
-                    (pageBusiness) {}));
+                      all_dialog_yes_or_no.PageInputVo(
+                          "권한 해제",
+                          "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
+                          "예",
+                          "아니오"),
+                    ));
 
             if (outputVo != null && outputVo.checkPositiveBtn) {
               // positive 버튼을 눌렀을 때
@@ -1032,12 +1032,12 @@ class PageBusiness {
                 barrierDismissible: true,
                 context: _context,
                 builder: (context) => all_dialog_yes_or_no.PageEntrance(
-                    all_dialog_yes_or_no.PageInputVo(
-                        "권한 해제",
-                        "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
-                        "예",
-                        "아니오"),
-                    (pageBusiness) {}));
+                      all_dialog_yes_or_no.PageInputVo(
+                          "권한 해제",
+                          "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
+                          "예",
+                          "아니오"),
+                    ));
 
             if (outputVo != null && outputVo.checkPositiveBtn) {
               // positive 버튼을 눌렀을 때
@@ -1075,12 +1075,12 @@ class PageBusiness {
                 barrierDismissible: true,
                 context: _context,
                 builder: (context) => all_dialog_yes_or_no.PageEntrance(
-                    all_dialog_yes_or_no.PageInputVo(
-                        "권한 해제",
-                        "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
-                        "예",
-                        "아니오"),
-                    (pageBusiness) {}));
+                      all_dialog_yes_or_no.PageInputVo(
+                          "권한 해제",
+                          "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
+                          "예",
+                          "아니오"),
+                    ));
 
             if (outputVo != null && outputVo.checkPositiveBtn) {
               // positive 버튼을 눌렀을 때
@@ -1118,12 +1118,12 @@ class PageBusiness {
                 barrierDismissible: true,
                 context: _context,
                 builder: (context) => all_dialog_yes_or_no.PageEntrance(
-                    all_dialog_yes_or_no.PageInputVo(
-                        "권한 해제",
-                        "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
-                        "예",
-                        "아니오"),
-                    (pageBusiness) {}));
+                      all_dialog_yes_or_no.PageInputVo(
+                          "권한 해제",
+                          "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
+                          "예",
+                          "아니오"),
+                    ));
 
             if (outputVo != null && outputVo.checkPositiveBtn) {
               // positive 버튼을 눌렀을 때
@@ -1161,12 +1161,12 @@ class PageBusiness {
                 barrierDismissible: true,
                 context: _context,
                 builder: (context) => all_dialog_yes_or_no.PageEntrance(
-                    all_dialog_yes_or_no.PageInputVo(
-                        "권한 해제",
-                        "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
-                        "예",
-                        "아니오"),
-                    (pageBusiness) {}));
+                      all_dialog_yes_or_no.PageInputVo(
+                          "권한 해제",
+                          "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
+                          "예",
+                          "아니오"),
+                    ));
 
             if (outputVo != null && outputVo.checkPositiveBtn) {
               // positive 버튼을 눌렀을 때
@@ -1206,12 +1206,12 @@ class PageBusiness {
                 barrierDismissible: true,
                 context: _context,
                 builder: (context) => all_dialog_yes_or_no.PageEntrance(
-                    all_dialog_yes_or_no.PageInputVo(
-                        "권한 해제",
-                        "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
-                        "예",
-                        "아니오"),
-                    (pageBusiness) {}));
+                      all_dialog_yes_or_no.PageInputVo(
+                          "권한 해제",
+                          "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
+                          "예",
+                          "아니오"),
+                    ));
 
             if (outputVo != null && outputVo.checkPositiveBtn) {
               // positive 버튼을 눌렀을 때
@@ -1250,12 +1250,12 @@ class PageBusiness {
                 barrierDismissible: true,
                 context: _context,
                 builder: (context) => all_dialog_yes_or_no.PageEntrance(
-                    all_dialog_yes_or_no.PageInputVo(
-                        "권한 해제",
-                        "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
-                        "예",
-                        "아니오"),
-                    (pageBusiness) {}));
+                      all_dialog_yes_or_no.PageInputVo(
+                          "권한 해제",
+                          "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
+                          "예",
+                          "아니오"),
+                    ));
 
             if (outputVo != null && outputVo.checkPositiveBtn) {
               // positive 버튼을 눌렀을 때
@@ -1293,12 +1293,12 @@ class PageBusiness {
                 barrierDismissible: true,
                 context: _context,
                 builder: (context) => all_dialog_yes_or_no.PageEntrance(
-                    all_dialog_yes_or_no.PageInputVo(
-                        "권한 해제",
-                        "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
-                        "예",
-                        "아니오"),
-                    (pageBusiness) {}));
+                      all_dialog_yes_or_no.PageInputVo(
+                          "권한 해제",
+                          "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
+                          "예",
+                          "아니오"),
+                    ));
 
             if (outputVo != null && outputVo.checkPositiveBtn) {
               // positive 버튼을 눌렀을 때
@@ -1336,12 +1336,12 @@ class PageBusiness {
                 barrierDismissible: true,
                 context: _context,
                 builder: (context) => all_dialog_yes_or_no.PageEntrance(
-                    all_dialog_yes_or_no.PageInputVo(
-                        "권한 해제",
-                        "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
-                        "예",
-                        "아니오"),
-                    (pageBusiness) {}));
+                      all_dialog_yes_or_no.PageInputVo(
+                          "권한 해제",
+                          "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
+                          "예",
+                          "아니오"),
+                    ));
 
             if (outputVo != null && outputVo.checkPositiveBtn) {
               // positive 버튼을 눌렀을 때
@@ -1379,12 +1379,12 @@ class PageBusiness {
                 barrierDismissible: true,
                 context: _context,
                 builder: (context) => all_dialog_yes_or_no.PageEntrance(
-                    all_dialog_yes_or_no.PageInputVo(
-                        "권한 해제",
-                        "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
-                        "예",
-                        "아니오"),
-                    (pageBusiness) {}));
+                      all_dialog_yes_or_no.PageInputVo(
+                          "권한 해제",
+                          "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
+                          "예",
+                          "아니오"),
+                    ));
 
             if (outputVo != null && outputVo.checkPositiveBtn) {
               // positive 버튼을 눌렀을 때
@@ -1422,12 +1422,12 @@ class PageBusiness {
                 barrierDismissible: true,
                 context: _context,
                 builder: (context) => all_dialog_yes_or_no.PageEntrance(
-                    all_dialog_yes_or_no.PageInputVo(
-                        "권한 해제",
-                        "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
-                        "예",
-                        "아니오"),
-                    (pageBusiness) {}));
+                      all_dialog_yes_or_no.PageInputVo(
+                          "권한 해제",
+                          "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
+                          "예",
+                          "아니오"),
+                    ));
 
             if (outputVo != null && outputVo.checkPositiveBtn) {
               // positive 버튼을 눌렀을 때
@@ -1467,12 +1467,12 @@ class PageBusiness {
                 barrierDismissible: true,
                 context: _context,
                 builder: (context) => all_dialog_yes_or_no.PageEntrance(
-                    all_dialog_yes_or_no.PageInputVo(
-                        "권한 해제",
-                        "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
-                        "예",
-                        "아니오"),
-                    (pageBusiness) {}));
+                      all_dialog_yes_or_no.PageInputVo(
+                          "권한 해제",
+                          "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
+                          "예",
+                          "아니오"),
+                    ));
 
             if (outputVo != null && outputVo.checkPositiveBtn) {
               // positive 버튼을 눌렀을 때
@@ -1511,12 +1511,12 @@ class PageBusiness {
                 barrierDismissible: true,
                 context: _context,
                 builder: (context) => all_dialog_yes_or_no.PageEntrance(
-                    all_dialog_yes_or_no.PageInputVo(
-                        "권한 해제",
-                        "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
-                        "예",
-                        "아니오"),
-                    (pageBusiness) {}));
+                      all_dialog_yes_or_no.PageInputVo(
+                          "권한 해제",
+                          "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
+                          "예",
+                          "아니오"),
+                    ));
 
             if (outputVo != null && outputVo.checkPositiveBtn) {
               // positive 버튼을 눌렀을 때
@@ -1556,12 +1556,12 @@ class PageBusiness {
                 barrierDismissible: true,
                 context: _context,
                 builder: (context) => all_dialog_yes_or_no.PageEntrance(
-                    all_dialog_yes_or_no.PageInputVo(
-                        "권한 해제",
-                        "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
-                        "예",
-                        "아니오"),
-                    (pageBusiness) {}));
+                      all_dialog_yes_or_no.PageInputVo(
+                          "권한 해제",
+                          "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
+                          "예",
+                          "아니오"),
+                    ));
 
             if (outputVo != null && outputVo.checkPositiveBtn) {
               // positive 버튼을 눌렀을 때
@@ -1601,12 +1601,12 @@ class PageBusiness {
                 barrierDismissible: true,
                 context: _context,
                 builder: (context) => all_dialog_yes_or_no.PageEntrance(
-                    all_dialog_yes_or_no.PageInputVo(
-                        "권한 해제",
-                        "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
-                        "예",
-                        "아니오"),
-                    (pageBusiness) {}));
+                      all_dialog_yes_or_no.PageInputVo(
+                          "권한 해제",
+                          "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
+                          "예",
+                          "아니오"),
+                    ));
 
             if (outputVo != null && outputVo.checkPositiveBtn) {
               // positive 버튼을 눌렀을 때
@@ -1646,12 +1646,12 @@ class PageBusiness {
                 barrierDismissible: true,
                 context: _context,
                 builder: (context) => all_dialog_yes_or_no.PageEntrance(
-                    all_dialog_yes_or_no.PageInputVo(
-                        "권한 해제",
-                        "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
-                        "예",
-                        "아니오"),
-                    (pageBusiness) {}));
+                      all_dialog_yes_or_no.PageInputVo(
+                          "권한 해제",
+                          "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
+                          "예",
+                          "아니오"),
+                    ));
 
             if (outputVo != null && outputVo.checkPositiveBtn) {
               // positive 버튼을 눌렀을 때
@@ -1691,12 +1691,12 @@ class PageBusiness {
                 barrierDismissible: true,
                 context: _context,
                 builder: (context) => all_dialog_yes_or_no.PageEntrance(
-                    all_dialog_yes_or_no.PageInputVo(
-                        "권한 해제",
-                        "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
-                        "예",
-                        "아니오"),
-                    (pageBusiness) {}));
+                      all_dialog_yes_or_no.PageInputVo(
+                          "권한 해제",
+                          "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
+                          "예",
+                          "아니오"),
+                    ));
 
             if (outputVo != null && outputVo.checkPositiveBtn) {
               // positive 버튼을 눌렀을 때
@@ -1736,12 +1736,12 @@ class PageBusiness {
                 barrierDismissible: true,
                 context: _context,
                 builder: (context) => all_dialog_yes_or_no.PageEntrance(
-                    all_dialog_yes_or_no.PageInputVo(
-                        "권한 해제",
-                        "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
-                        "예",
-                        "아니오"),
-                    (pageBusiness) {}));
+                      all_dialog_yes_or_no.PageInputVo(
+                          "권한 해제",
+                          "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
+                          "예",
+                          "아니오"),
+                    ));
 
             if (outputVo != null && outputVo.checkPositiveBtn) {
               // positive 버튼을 눌렀을 때
@@ -1781,12 +1781,12 @@ class PageBusiness {
                 barrierDismissible: true,
                 context: _context,
                 builder: (context) => all_dialog_yes_or_no.PageEntrance(
-                    all_dialog_yes_or_no.PageInputVo(
-                        "권한 해제",
-                        "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
-                        "예",
-                        "아니오"),
-                    (pageBusiness) {}));
+                      all_dialog_yes_or_no.PageInputVo(
+                          "권한 해제",
+                          "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
+                          "예",
+                          "아니오"),
+                    ));
 
             if (outputVo != null && outputVo.checkPositiveBtn) {
               // positive 버튼을 눌렀을 때
@@ -1826,12 +1826,12 @@ class PageBusiness {
                 barrierDismissible: true,
                 context: _context,
                 builder: (context) => all_dialog_yes_or_no.PageEntrance(
-                    all_dialog_yes_or_no.PageInputVo(
-                        "권한 해제",
-                        "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
-                        "예",
-                        "아니오"),
-                    (pageBusiness) {}));
+                      all_dialog_yes_or_no.PageInputVo(
+                          "권한 해제",
+                          "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
+                          "예",
+                          "아니오"),
+                    ));
 
             if (outputVo != null && outputVo.checkPositiveBtn) {
               // positive 버튼을 눌렀을 때
@@ -1871,12 +1871,12 @@ class PageBusiness {
                 barrierDismissible: true,
                 context: _context,
                 builder: (context) => all_dialog_yes_or_no.PageEntrance(
-                    all_dialog_yes_or_no.PageInputVo(
-                        "권한 해제",
-                        "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
-                        "예",
-                        "아니오"),
-                    (pageBusiness) {}));
+                      all_dialog_yes_or_no.PageInputVo(
+                          "권한 해제",
+                          "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
+                          "예",
+                          "아니오"),
+                    ));
 
             if (outputVo != null && outputVo.checkPositiveBtn) {
               // positive 버튼을 눌렀을 때
@@ -1915,12 +1915,12 @@ class PageBusiness {
                 barrierDismissible: true,
                 context: _context,
                 builder: (context) => all_dialog_yes_or_no.PageEntrance(
-                    all_dialog_yes_or_no.PageInputVo(
-                        "권한 해제",
-                        "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
-                        "예",
-                        "아니오"),
-                    (pageBusiness) {}));
+                      all_dialog_yes_or_no.PageInputVo(
+                          "권한 해제",
+                          "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
+                          "예",
+                          "아니오"),
+                    ));
 
             if (outputVo != null && outputVo.checkPositiveBtn) {
               // positive 버튼을 눌렀을 때
@@ -1960,12 +1960,12 @@ class PageBusiness {
                 barrierDismissible: true,
                 context: _context,
                 builder: (context) => all_dialog_yes_or_no.PageEntrance(
-                    all_dialog_yes_or_no.PageInputVo(
-                        "권한 해제",
-                        "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
-                        "예",
-                        "아니오"),
-                    (pageBusiness) {}));
+                      all_dialog_yes_or_no.PageInputVo(
+                          "권한 해제",
+                          "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
+                          "예",
+                          "아니오"),
+                    ));
 
             if (outputVo != null && outputVo.checkPositiveBtn) {
               // positive 버튼을 눌렀을 때
@@ -2005,12 +2005,12 @@ class PageBusiness {
                 barrierDismissible: true,
                 context: _context,
                 builder: (context) => all_dialog_yes_or_no.PageEntrance(
-                    all_dialog_yes_or_no.PageInputVo(
-                        "권한 해제",
-                        "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
-                        "예",
-                        "아니오"),
-                    (pageBusiness) {}));
+                      all_dialog_yes_or_no.PageInputVo(
+                          "권한 해제",
+                          "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
+                          "예",
+                          "아니오"),
+                    ));
 
             if (outputVo != null && outputVo.checkPositiveBtn) {
               // positive 버튼을 눌렀을 때
@@ -2050,12 +2050,12 @@ class PageBusiness {
                 barrierDismissible: true,
                 context: _context,
                 builder: (context) => all_dialog_yes_or_no.PageEntrance(
-                    all_dialog_yes_or_no.PageInputVo(
-                        "권한 해제",
-                        "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
-                        "예",
-                        "아니오"),
-                    (pageBusiness) {}));
+                      all_dialog_yes_or_no.PageInputVo(
+                          "권한 해제",
+                          "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
+                          "예",
+                          "아니오"),
+                    ));
 
             if (outputVo != null && outputVo.checkPositiveBtn) {
               // positive 버튼을 눌렀을 때
@@ -2094,12 +2094,12 @@ class PageBusiness {
                 barrierDismissible: true,
                 context: _context,
                 builder: (context) => all_dialog_yes_or_no.PageEntrance(
-                    all_dialog_yes_or_no.PageInputVo(
-                        "권한 해제",
-                        "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
-                        "예",
-                        "아니오"),
-                    (pageBusiness) {}));
+                      all_dialog_yes_or_no.PageInputVo(
+                          "권한 해제",
+                          "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
+                          "예",
+                          "아니오"),
+                    ));
 
             if (outputVo != null && outputVo.checkPositiveBtn) {
               // positive 버튼을 눌렀을 때
@@ -2138,12 +2138,12 @@ class PageBusiness {
                 barrierDismissible: true,
                 context: _context,
                 builder: (context) => all_dialog_yes_or_no.PageEntrance(
-                    all_dialog_yes_or_no.PageInputVo(
-                        "권한 해제",
-                        "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
-                        "예",
-                        "아니오"),
-                    (pageBusiness) {}));
+                      all_dialog_yes_or_no.PageInputVo(
+                          "권한 해제",
+                          "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
+                          "예",
+                          "아니오"),
+                    ));
 
             if (outputVo != null && outputVo.checkPositiveBtn) {
               // positive 버튼을 눌렀을 때
@@ -2182,12 +2182,12 @@ class PageBusiness {
                 barrierDismissible: true,
                 context: _context,
                 builder: (context) => all_dialog_yes_or_no.PageEntrance(
-                    all_dialog_yes_or_no.PageInputVo(
-                        "권한 해제",
-                        "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
-                        "예",
-                        "아니오"),
-                    (pageBusiness) {}));
+                      all_dialog_yes_or_no.PageInputVo(
+                          "권한 해제",
+                          "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
+                          "예",
+                          "아니오"),
+                    ));
 
             if (outputVo != null && outputVo.checkPositiveBtn) {
               // positive 버튼을 눌렀을 때
@@ -2227,12 +2227,12 @@ class PageBusiness {
                 barrierDismissible: true,
                 context: _context,
                 builder: (context) => all_dialog_yes_or_no.PageEntrance(
-                    all_dialog_yes_or_no.PageInputVo(
-                        "권한 해제",
-                        "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
-                        "예",
-                        "아니오"),
-                    (pageBusiness) {}));
+                      all_dialog_yes_or_no.PageInputVo(
+                          "권한 해제",
+                          "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
+                          "예",
+                          "아니오"),
+                    ));
 
             if (outputVo != null && outputVo.checkPositiveBtn) {
               // positive 버튼을 눌렀을 때
@@ -2273,12 +2273,12 @@ class PageBusiness {
           barrierDismissible: true,
           context: _context,
           builder: (context) => all_dialog_yes_or_no.PageEntrance(
-              all_dialog_yes_or_no.PageInputVo(
-                  "권한 해제",
-                  "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
-                  "예",
-                  "아니오"),
-              (pageBusiness) {}));
+                all_dialog_yes_or_no.PageInputVo(
+                    "권한 해제",
+                    "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
+                    "예",
+                    "아니오"),
+              ));
 
       if (outputVo != null && outputVo.checkPositiveBtn) {
         // positive 버튼을 눌렀을 때
@@ -2315,12 +2315,12 @@ class PageBusiness {
           barrierDismissible: true,
           context: _context,
           builder: (context) => all_dialog_yes_or_no.PageEntrance(
-              all_dialog_yes_or_no.PageInputVo(
-                  "권한 해제",
-                  "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
-                  "예",
-                  "아니오"),
-              (pageBusiness) {}));
+                all_dialog_yes_or_no.PageInputVo(
+                    "권한 해제",
+                    "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
+                    "예",
+                    "아니오"),
+              ));
 
       if (outputVo != null && outputVo.checkPositiveBtn) {
         // positive 버튼을 눌렀을 때

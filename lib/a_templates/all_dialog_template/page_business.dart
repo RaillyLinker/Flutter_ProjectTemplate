@@ -27,9 +27,6 @@ class PageBusiness {
   // 페이지 파라미터
   page_entrance.PageInputVo pageInputVo;
 
-  // 다이얼로그 호출시 pageBusiness 를 전달하기 위한 콜백
-  late void Function(PageBusiness) onDialogPageCreated;
-
   // 페이지 뷰모델 객체
   PageViewModel pageViewModel = PageViewModel();
 

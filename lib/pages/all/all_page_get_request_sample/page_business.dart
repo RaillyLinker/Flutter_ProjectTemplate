@@ -146,103 +146,104 @@ class PageBusiness {
   }
 
   // (네트워크 리퀘스트)
-  void doNetworkRequest() {
+  Future<void> doNetworkRequest() async {
     // 로딩 다이얼로그 표시
     var loadingSpinnerDialog = all_dialog_loading_spinner.PageEntrance(
-        all_dialog_loading_spinner.PageInputVo(), (pageBusiness) async {
-      List<String> queryParamStringList = [];
-      for (TextEditingController tec
-          in pageViewModel.networkRequestParamTextFieldValue9) {
-        queryParamStringList.add(tec.text);
-      }
-
-      List<String>? queryParamStringListNullable;
-      if (pageViewModel.networkRequestParamTextFieldValue10.isNotEmpty) {
-        queryParamStringListNullable = [];
-        for (TextEditingController tec
-            in pageViewModel.networkRequestParamTextFieldValue10) {
-          queryParamStringListNullable.add(tec.text);
-        }
-      }
-
-      var response = await api_main_server.getService1TkV1RequestTestGetRequestAsync(
-          api_main_server.GetService1TkV1RequestTestGetRequestAsyncRequestQueryVo(
-              pageViewModel.networkRequestParamTextFieldController1.text,
-              (pageViewModel.networkRequestParamTextFieldController2.text == "")
-                  ? null
-                  : pageViewModel.networkRequestParamTextFieldController2.text,
-              int.parse(
-                  pageViewModel.networkRequestParamTextFieldController3.text),
-              (pageViewModel.networkRequestParamTextFieldController4.text == "")
-                  ? null
-                  : int.parse(pageViewModel
-                      .networkRequestParamTextFieldController4.text),
-              double.parse(
-                  pageViewModel.networkRequestParamTextFieldController5.text),
-              (pageViewModel.networkRequestParamTextFieldController6.text == "")
-                  ? null
-                  : double.parse(pageViewModel
-                      .networkRequestParamTextFieldController6.text),
-              pageViewModel.networkRequestParamTextFieldValue7,
-              pageViewModel.networkRequestParamTextFieldValue8,
-              queryParamStringList,
-              queryParamStringListNullable));
-
-      // 로딩 다이얼로그 제거
-      pageBusiness.closeDialog();
-
-      if (response.dioException == null) {
-        // Dio 네트워크 응답
-
-        var networkResponseObjectOk = response.networkResponseObjectOk!;
-
-        if (networkResponseObjectOk.responseStatusCode == 200) {
-          // 정상 응답
-
-          // 응답 body
-          var responseBody = networkResponseObjectOk.responseBody
-              as api_main_server
-              .GetService1TkV1RequestTestGetRequestAsyncResponseBodyVo;
-
-          // 확인 다이얼로그 호출
-          if (!_context.mounted) return;
-          showDialog(
-              barrierDismissible: true,
-              context: _context,
-              builder: (context) => all_dialog_info.PageEntrance(
-                  all_dialog_info.PageInputVo(
-                      "응답 결과",
-                      "Http Status Code : ${networkResponseObjectOk.responseStatusCode}\n\nResponse Body:\n${responseBody.toString()}",
-                      "확인"),
-                  (pageBusiness) {})).then((outputVo) {});
-        } else {
-          // 비정상 응답
-          if (!_context.mounted) return;
-          showDialog(
-              barrierDismissible: false,
-              context: _context,
-              builder: (context) => all_dialog_info.PageEntrance(
-                  all_dialog_info.PageInputVo(
-                      "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
-                  (pageBusiness) {}));
-        }
-      } else {
-        // Dio 네트워크 에러
-        if (!_context.mounted) return;
-        showDialog(
-            barrierDismissible: true,
-            context: _context,
-            builder: (context) => all_dialog_info.PageEntrance(
-                all_dialog_info.PageInputVo(
-                    "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
-                (pageBusiness) {}));
-      }
-    });
+      all_dialog_loading_spinner.PageInputVo(),
+    );
 
     showDialog(
         barrierDismissible: false,
         context: _context,
         builder: (context) => loadingSpinnerDialog).then((outputVo) {});
+
+    List<String> queryParamStringList = [];
+    for (TextEditingController tec
+        in pageViewModel.networkRequestParamTextFieldValue9) {
+      queryParamStringList.add(tec.text);
+    }
+
+    List<String>? queryParamStringListNullable;
+    if (pageViewModel.networkRequestParamTextFieldValue10.isNotEmpty) {
+      queryParamStringListNullable = [];
+      for (TextEditingController tec
+          in pageViewModel.networkRequestParamTextFieldValue10) {
+        queryParamStringListNullable.add(tec.text);
+      }
+    }
+
+    var response = await api_main_server.getService1TkV1RequestTestGetRequestAsync(
+        api_main_server.GetService1TkV1RequestTestGetRequestAsyncRequestQueryVo(
+            pageViewModel.networkRequestParamTextFieldController1.text,
+            (pageViewModel.networkRequestParamTextFieldController2.text == "")
+                ? null
+                : pageViewModel.networkRequestParamTextFieldController2.text,
+            int.parse(
+                pageViewModel.networkRequestParamTextFieldController3.text),
+            (pageViewModel.networkRequestParamTextFieldController4.text == "")
+                ? null
+                : int.parse(
+                    pageViewModel.networkRequestParamTextFieldController4.text),
+            double.parse(
+                pageViewModel.networkRequestParamTextFieldController5.text),
+            (pageViewModel.networkRequestParamTextFieldController6.text == "")
+                ? null
+                : double.parse(
+                    pageViewModel.networkRequestParamTextFieldController6.text),
+            pageViewModel.networkRequestParamTextFieldValue7,
+            pageViewModel.networkRequestParamTextFieldValue8,
+            queryParamStringList,
+            queryParamStringListNullable));
+
+    // 로딩 다이얼로그 제거
+    loadingSpinnerDialog.pageBusiness.closeDialog();
+
+    if (response.dioException == null) {
+      // Dio 네트워크 응답
+
+      var networkResponseObjectOk = response.networkResponseObjectOk!;
+
+      if (networkResponseObjectOk.responseStatusCode == 200) {
+        // 정상 응답
+
+        // 응답 body
+        var responseBody = networkResponseObjectOk.responseBody
+            as api_main_server
+            .GetService1TkV1RequestTestGetRequestAsyncResponseBodyVo;
+
+        // 확인 다이얼로그 호출
+        if (!_context.mounted) return;
+        showDialog(
+            barrierDismissible: true,
+            context: _context,
+            builder: (context) => all_dialog_info.PageEntrance(
+                  all_dialog_info.PageInputVo(
+                      "응답 결과",
+                      "Http Status Code : ${networkResponseObjectOk.responseStatusCode}\n\nResponse Body:\n${responseBody.toString()}",
+                      "확인"),
+                )).then((outputVo) {});
+      } else {
+        // 비정상 응답
+        if (!_context.mounted) return;
+        showDialog(
+            barrierDismissible: false,
+            context: _context,
+            builder: (context) => all_dialog_info.PageEntrance(
+                  all_dialog_info.PageInputVo(
+                      "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
+                ));
+      }
+    } else {
+      // Dio 네트워크 에러
+      if (!_context.mounted) return;
+      showDialog(
+          barrierDismissible: true,
+          context: _context,
+          builder: (context) => all_dialog_info.PageEntrance(
+                all_dialog_info.PageInputVo(
+                    "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
+              ));
+    }
   }
 
 ////

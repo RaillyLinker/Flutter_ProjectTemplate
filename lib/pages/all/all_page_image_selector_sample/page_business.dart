@@ -111,10 +111,10 @@ class PageBusiness {
             barrierDismissible: true,
             context: _context,
             builder: (context) => all_dialog_image_selector_menu.PageEntrance(
-                all_dialog_image_selector_menu.PageInputVo(
-                    // 카메라는 모바일 환경에서만
-                    !kIsWeb && (Platform.isAndroid || Platform.isIOS)),
-                (pageBusiness) {}));
+                  all_dialog_image_selector_menu.PageInputVo(
+                      // 카메라는 모바일 환경에서만
+                      !kIsWeb && (Platform.isAndroid || Platform.isIOS)),
+                ));
 
     if (pageOutputVo != null) {
       switch (pageOutputVo.imageSourceType) {
@@ -190,10 +190,10 @@ class PageBusiness {
             barrierDismissible: true,
             context: _context,
             builder: (context) => all_dialog_image_selector_menu.PageEntrance(
-                all_dialog_image_selector_menu.PageInputVo(
-                    // 카메라는 모바일 환경에서만
-                    !kIsWeb && (Platform.isAndroid || Platform.isIOS)),
-                (pageBusiness) {}));
+                  all_dialog_image_selector_menu.PageInputVo(
+                      // 카메라는 모바일 환경에서만
+                      !kIsWeb && (Platform.isAndroid || Platform.isIOS)),
+                ));
 
     // todo : 추가시 로딩 다이얼로그
     if (pageOutputVo != null) {

@@ -38,9 +38,6 @@ class PageBusiness {
   // 페이지 파라미터
   page_entrance.PageInputVo pageInputVo;
 
-  // 다이얼로그 호출시 pageBusiness 를 전달하기 위한 콜백
-  late void Function(PageBusiness) onDialogPageCreated;
-
   // 페이지 뷰모델 객체
   PageViewModel pageViewModel = PageViewModel();
 
@@ -126,170 +123,37 @@ class PageBusiness {
       // 코드 검증
       // (로딩 스피너 다이얼로그 호출)
       var loadingSpinner = all_dialog_loading_spinner.PageEntrance(
-          all_dialog_loading_spinner.PageInputVo(), (pageBusiness) async {
-        var responseVo = await api_main_server
-            .getService1TkV1AuthJoinTheMembershipEmailVerificationCheckAsync(
-                api_main_server
-                    .GetService1TkV1AuthJoinTheMembershipEmailVerificationCheckAsyncRequestQueryVo(
-                        pageViewModel.verificationUid,
-                        pageInputVo.emailAddress,
-                        pageViewModel
-                            .verificationCodeTextFieldController.text));
-
-        if (responseVo.dioException == null) {
-          // Dio 네트워크 응답
-          pageBusiness.closeDialog();
-          var networkResponseObjectOk = responseVo.networkResponseObjectOk!;
-
-          if (networkResponseObjectOk.responseStatusCode == 200) {
-            // 정상 응답
-
-            // 검증 완료
-            if (!_context.mounted) return;
-            _context.pop(page_entrance.PageOutputVo(
-                pageViewModel.verificationCodeTextFieldController.text));
-          } else {
-            var responseHeaders = networkResponseObjectOk.responseHeaders
-                as api_main_server
-                .GetService1TkV1AuthJoinTheMembershipEmailVerificationCheckAsyncResponseHeaderVo;
-
-            // 비정상 응답
-            if (responseHeaders.apiResultCode == null) {
-              // 비정상 응답이면서 서버에서 에러 원인 코드가 전달되지 않았을 때
-              if (!_context.mounted) return;
-              showDialog(
-                  barrierDismissible: true,
-                  context: _context,
-                  builder: (context) => all_dialog_info.PageEntrance(
-                      all_dialog_info.PageInputVo(
-                          "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
-                      (pageBusiness) {}));
-            } else {
-              // 서버 지정 에러 코드를 전달 받았을 때
-              String apiResultCode = responseHeaders.apiResultCode!;
-
-              switch (apiResultCode) {
-                case "1":
-                  {
-                    // 이메일 검증 요청을 보낸 적 없음
-                    if (!_context.mounted) return;
-                    await showDialog(
-                        barrierDismissible: true,
-                        context: _context,
-                        builder: (context) => all_dialog_info.PageEntrance(
-                            all_dialog_info.PageInputVo(
-                                "본인 인증 코드 검증 실패",
-                                "본인 인증 요청 정보가 없습니다.\n본인 인증 코드 재전송 버튼을 눌러주세요.",
-                                "확인"),
-                            (pageBusiness) {}));
-                  }
-                  break;
-                case "2":
-                  {
-                    // 이메일 검증 요청이 만료됨
-                    if (!_context.mounted) return;
-                    await showDialog(
-                        barrierDismissible: true,
-                        context: _context,
-                        builder: (context) => all_dialog_info.PageEntrance(
-                            all_dialog_info.PageInputVo(
-                                "본인 인증 코드 검증 실패",
-                                "본인 인증 요청 정보가 만료되었습니다.\n본인 인증 코드 재전송 버튼을 눌러주세요.",
-                                "확인"),
-                            (pageBusiness) {}));
-                  }
-                  break;
-                case "3":
-                  {
-                    // verificationCode 가 일치하지 않음
-
-                    // 검증 실패
-                    if (!_context.mounted) return;
-                    showToast(
-                      "본인 인증 코드가 일치하지 않습니다.",
-                      context: _context,
-                      animation: StyledToastAnimation.scale,
-                    );
-                    FocusScope.of(_context).requestFocus(
-                        pageViewModel.verificationCodeTextFieldFocus);
-                  }
-                  break;
-                default:
-                  {
-                    // 알 수 없는 코드일 때
-                    throw Exception("unKnown Error Code");
-                  }
-              }
-            }
-          }
-        } else {
-          pageBusiness.closeDialog();
-          if (!_context.mounted) return;
-          showDialog(
-              barrierDismissible: true,
-              context: _context,
-              builder: (context) => all_dialog_info.PageEntrance(
-                  all_dialog_info.PageInputVo(
-                      "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
-                  (pageBusiness) {}));
-        }
-      });
+          all_dialog_loading_spinner.PageInputVo());
 
       showDialog(
           barrierDismissible: false,
           context: _context,
           builder: (context) => loadingSpinner).then((outputVo) {});
 
-      isVerifyCodeAndGoNextDoing = false;
-    } else {
-      isVerifyCodeAndGoNextDoing = false;
-      FocusScope.of(_context)
-          .requestFocus(pageViewModel.verificationCodeTextFieldFocus);
-    }
-  }
-
-  // (검증 이메일 다시 전송)
-  void resendVerificationEmail() {
-    // 입력값 검증 완료
-    // (로딩 스피너 다이얼로그 호출)
-    var loadingSpinner = all_dialog_loading_spinner.PageEntrance(
-        all_dialog_loading_spinner.PageInputVo(), (pageBusiness) async {
       var responseVo = await api_main_server
-          .postService1TkV1AuthJoinTheMembershipEmailVerificationAsync(
+          .getService1TkV1AuthJoinTheMembershipEmailVerificationCheckAsync(
               api_main_server
-                  .PostService1TkV1AuthJoinTheMembershipEmailVerificationAsyncRequestBodyVo(
-                      pageInputVo.emailAddress));
+                  .GetService1TkV1AuthJoinTheMembershipEmailVerificationCheckAsyncRequestQueryVo(
+                      pageViewModel.verificationUid,
+                      pageInputVo.emailAddress,
+                      pageViewModel.verificationCodeTextFieldController.text));
 
       if (responseVo.dioException == null) {
         // Dio 네트워크 응답
-        pageBusiness.closeDialog();
+        loadingSpinner.pageBusiness.closeDialog();
         var networkResponseObjectOk = responseVo.networkResponseObjectOk!;
 
         if (networkResponseObjectOk.responseStatusCode == 200) {
-          var responseBody = networkResponseObjectOk.responseBody
-              as api_main_server
-              .PostService1TkV1AuthJoinTheMembershipEmailVerificationAsyncResponseBodyVo;
-
-          pageViewModel.verificationUid = responseBody.verificationUid;
-
           // 정상 응답
+
+          // 검증 완료
           if (!_context.mounted) return;
-          await showDialog(
-              barrierDismissible: true,
-              context: _context,
-              builder: (context) => all_dialog_info.PageEntrance(
-                  all_dialog_info.PageInputVo(
-                      "이메일 재발송 성공",
-                      "본인 인증 이메일이 재발송 되었습니다.\n(${pageInputVo.emailAddress})",
-                      "확인"),
-                  (pageBusiness) {}));
-          if (!_context.mounted) return;
-          FocusScope.of(_context)
-              .requestFocus(pageViewModel.verificationCodeTextFieldFocus);
+          _context.pop(page_entrance.PageOutputVo(
+              pageViewModel.verificationCodeTextFieldController.text));
         } else {
           var responseHeaders = networkResponseObjectOk.responseHeaders
               as api_main_server
-              .PostService1TkV1AuthJoinTheMembershipEmailVerificationAsyncResponseHeaderVo;
+              .GetService1TkV1AuthJoinTheMembershipEmailVerificationCheckAsyncResponseHeaderVo;
 
           // 비정상 응답
           if (responseHeaders.apiResultCode == null) {
@@ -299,9 +163,9 @@ class PageBusiness {
                 barrierDismissible: true,
                 context: _context,
                 builder: (context) => all_dialog_info.PageEntrance(
-                    all_dialog_info.PageInputVo(
-                        "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
-                    (pageBusiness) {}));
+                      all_dialog_info.PageInputVo(
+                          "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
+                    ));
           } else {
             // 서버 지정 에러 코드를 전달 받았을 때
             String apiResultCode = responseHeaders.apiResultCode!;
@@ -309,17 +173,47 @@ class PageBusiness {
             switch (apiResultCode) {
               case "1":
                 {
-                  // 기존 회원 존재
+                  // 이메일 검증 요청을 보낸 적 없음
                   if (!_context.mounted) return;
                   await showDialog(
                       barrierDismissible: true,
                       context: _context,
                       builder: (context) => all_dialog_info.PageEntrance(
-                          all_dialog_info.PageInputVo(
-                              "인증 이메일 발송 실패", "이미 가입된 이메일입니다.", "확인"),
-                          (pageBusiness) {}));
+                            all_dialog_info.PageInputVo(
+                                "본인 인증 코드 검증 실패",
+                                "본인 인증 요청 정보가 없습니다.\n본인 인증 코드 재전송 버튼을 눌러주세요.",
+                                "확인"),
+                          ));
+                }
+                break;
+              case "2":
+                {
+                  // 이메일 검증 요청이 만료됨
                   if (!_context.mounted) return;
-                  _context.pop();
+                  await showDialog(
+                      barrierDismissible: true,
+                      context: _context,
+                      builder: (context) => all_dialog_info.PageEntrance(
+                            all_dialog_info.PageInputVo(
+                                "본인 인증 코드 검증 실패",
+                                "본인 인증 요청 정보가 만료되었습니다.\n본인 인증 코드 재전송 버튼을 눌러주세요.",
+                                "확인"),
+                          ));
+                }
+                break;
+              case "3":
+                {
+                  // verificationCode 가 일치하지 않음
+
+                  // 검증 실패
+                  if (!_context.mounted) return;
+                  showToast(
+                    "본인 인증 코드가 일치하지 않습니다.",
+                    context: _context,
+                    animation: StyledToastAnimation.scale,
+                  );
+                  FocusScope.of(_context).requestFocus(
+                      pageViewModel.verificationCodeTextFieldFocus);
                 }
                 break;
               default:
@@ -331,22 +225,124 @@ class PageBusiness {
           }
         }
       } else {
-        pageBusiness.closeDialog();
+        loadingSpinner.pageBusiness.closeDialog();
         if (!_context.mounted) return;
         showDialog(
             barrierDismissible: true,
             context: _context,
             builder: (context) => all_dialog_info.PageEntrance(
-                all_dialog_info.PageInputVo(
-                    "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
-                (pageBusiness) {}));
+                  all_dialog_info.PageInputVo(
+                      "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
+                ));
       }
-    });
+
+      isVerifyCodeAndGoNextDoing = false;
+    } else {
+      isVerifyCodeAndGoNextDoing = false;
+      FocusScope.of(_context)
+          .requestFocus(pageViewModel.verificationCodeTextFieldFocus);
+    }
+  }
+
+  // (검증 이메일 다시 전송)
+  Future<void> resendVerificationEmail() async {
+    // 입력값 검증 완료
+    // (로딩 스피너 다이얼로그 호출)
+    var loadingSpinner = all_dialog_loading_spinner.PageEntrance(
+      all_dialog_loading_spinner.PageInputVo(),
+    );
 
     showDialog(
         barrierDismissible: false,
         context: _context,
         builder: (context) => loadingSpinner).then((outputVo) {});
+
+    var responseVo = await api_main_server
+        .postService1TkV1AuthJoinTheMembershipEmailVerificationAsync(api_main_server
+            .PostService1TkV1AuthJoinTheMembershipEmailVerificationAsyncRequestBodyVo(
+                pageInputVo.emailAddress));
+
+    if (responseVo.dioException == null) {
+      // Dio 네트워크 응답
+      loadingSpinner.pageBusiness.closeDialog();
+      var networkResponseObjectOk = responseVo.networkResponseObjectOk!;
+
+      if (networkResponseObjectOk.responseStatusCode == 200) {
+        var responseBody = networkResponseObjectOk.responseBody
+            as api_main_server
+            .PostService1TkV1AuthJoinTheMembershipEmailVerificationAsyncResponseBodyVo;
+
+        pageViewModel.verificationUid = responseBody.verificationUid;
+
+        // 정상 응답
+        if (!_context.mounted) return;
+        await showDialog(
+            barrierDismissible: true,
+            context: _context,
+            builder: (context) => all_dialog_info.PageEntrance(
+                  all_dialog_info.PageInputVo(
+                      "이메일 재발송 성공",
+                      "본인 인증 이메일이 재발송 되었습니다.\n(${pageInputVo.emailAddress})",
+                      "확인"),
+                ));
+        if (!_context.mounted) return;
+        FocusScope.of(_context)
+            .requestFocus(pageViewModel.verificationCodeTextFieldFocus);
+      } else {
+        var responseHeaders = networkResponseObjectOk.responseHeaders
+            as api_main_server
+            .PostService1TkV1AuthJoinTheMembershipEmailVerificationAsyncResponseHeaderVo;
+
+        // 비정상 응답
+        if (responseHeaders.apiResultCode == null) {
+          // 비정상 응답이면서 서버에서 에러 원인 코드가 전달되지 않았을 때
+          if (!_context.mounted) return;
+          showDialog(
+              barrierDismissible: true,
+              context: _context,
+              builder: (context) => all_dialog_info.PageEntrance(
+                    all_dialog_info.PageInputVo(
+                        "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
+                  ));
+        } else {
+          // 서버 지정 에러 코드를 전달 받았을 때
+          String apiResultCode = responseHeaders.apiResultCode!;
+
+          switch (apiResultCode) {
+            case "1":
+              {
+                // 기존 회원 존재
+                if (!_context.mounted) return;
+                await showDialog(
+                    barrierDismissible: true,
+                    context: _context,
+                    builder: (context) => all_dialog_info.PageEntrance(
+                          all_dialog_info.PageInputVo(
+                              "인증 이메일 발송 실패", "이미 가입된 이메일입니다.", "확인"),
+                        ));
+                if (!_context.mounted) return;
+                _context.pop();
+              }
+              break;
+            default:
+              {
+                // 알 수 없는 코드일 때
+                throw Exception("unKnown Error Code");
+              }
+          }
+        }
+      }
+    } else {
+      loadingSpinner.pageBusiness.closeDialog();
+      if (!_context.mounted) return;
+      showDialog(
+          barrierDismissible: true,
+          context: _context,
+          builder: (context) => all_dialog_info.PageEntrance(
+                all_dialog_info.PageInputVo(
+                    "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
+              ));
+    }
   }
 
 ////

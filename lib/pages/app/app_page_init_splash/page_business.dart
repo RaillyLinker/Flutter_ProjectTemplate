@@ -233,9 +233,9 @@ class PageBusiness {
                 barrierDismissible: true,
                 context: _context,
                 builder: (context) => all_dialog_info.PageEntrance(
-                    all_dialog_info.PageInputVo(
-                        "업데이트 필요", "새 버전 업데이트가 필요합니다.", "확인"),
-                    (pageBusiness) {})).then((value) {
+                      all_dialog_info.PageInputVo(
+                          "업데이트 필요", "새 버전 업데이트가 필요합니다.", "확인"),
+                    )).then((value) {
               // 앱 업데이트 스토어로 이동
               try {
                 // !!!스토어 리다이렉트 경로 설정!!!
@@ -254,9 +254,9 @@ class PageBusiness {
                 barrierDismissible: true,
                 context: _context,
                 builder: (context) => all_dialog_info.PageEntrance(
-                    all_dialog_info.PageInputVo(
-                        "업데이트 필요", "새 버전 업데이트가 필요합니다.", "확인"),
-                    (pageBusiness) {})).then((value) {
+                      all_dialog_info.PageInputVo(
+                          "업데이트 필요", "새 버전 업데이트가 필요합니다.", "확인"),
+                    )).then((value) {
               // !!!앱 업데이트 사이트로 이동!!!
               launchUrl(Uri.parse('https://todo.com')).then((value) {
                 exit(0);
@@ -276,9 +276,9 @@ class PageBusiness {
             barrierDismissible: false,
             context: _context,
             builder: (context) => all_dialog_yes_or_no.PageEntrance(
-                all_dialog_yes_or_no.PageInputVo(
-                    "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "다시 시도", "종료"),
-                (pageBusiness) {})).then((outputVo) async {
+                  all_dialog_yes_or_no.PageInputVo(
+                      "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "다시 시도", "종료"),
+                )).then((outputVo) async {
           if (outputVo == null || !outputVo.checkPositiveBtn) {
             // 아무것도 누르지 않거나 negative 버튼을 눌렀을 때
 
@@ -298,9 +298,9 @@ class PageBusiness {
           barrierDismissible: false,
           context: _context,
           builder: (context) => all_dialog_yes_or_no.PageEntrance(
-              all_dialog_yes_or_no.PageInputVo(
-                  "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "다시 시도", "종료"),
-              (pageBusiness) {})).then((outputVo) async {
+                all_dialog_yes_or_no.PageInputVo(
+                    "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "다시 시도", "종료"),
+              )).then((outputVo) async {
         if (outputVo == null || !outputVo.checkPositiveBtn) {
           // 아무것도 누르지 않거나 negative 버튼을 눌렀을 때
 
@@ -441,9 +441,9 @@ class PageBusiness {
                     barrierDismissible: true,
                     context: _context,
                     builder: (context) => all_dialog_info.PageEntrance(
-                        all_dialog_info.PageInputVo("로그인 실패",
-                            "저장된 로그인 정보를 사용할 수 없습니다.\n비회원 상태로 전환합니다.", "확인"),
-                        (pageBusiness) {}));
+                          all_dialog_info.PageInputVo("로그인 실패",
+                              "저장된 로그인 정보를 사용할 수 없습니다.\n비회원 상태로 전환합니다.", "확인"),
+                        ));
 
                 // login_user_info SSW 비우기 (= 로그아웃 처리)
                 spw_auth_member_info.SharedPreferenceWrapper.set(null);
@@ -456,9 +456,9 @@ class PageBusiness {
                   barrierDismissible: false,
                   context: _context,
                   builder: (context) => all_dialog_yes_or_no.PageEntrance(
-                      all_dialog_yes_or_no.PageInputVo("네트워크 에러",
-                          "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "다시 시도", "종료"),
-                      (pageBusiness) {})).then((outputVo) async {
+                        all_dialog_yes_or_no.PageInputVo("네트워크 에러",
+                            "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "다시 시도", "종료"),
+                      )).then((outputVo) async {
                 if (outputVo == null || !outputVo.checkPositiveBtn) {
                   // 아무것도 누르지 않거나 negative 버튼을 눌렀을 때
 
@@ -505,9 +505,9 @@ class PageBusiness {
                 barrierDismissible: true,
                 context: _context,
                 builder: (context) => all_dialog_info.PageEntrance(
-                    all_dialog_info.PageInputVo("로그인 실패",
-                        "저장된 로그인 정보를 사용할 수 없습니다.\n비회원 상태로 전환합니다.", "확인"),
-                    (pageBusiness) {}));
+                      all_dialog_info.PageInputVo("로그인 실패",
+                          "저장된 로그인 정보를 사용할 수 없습니다.\n비회원 상태로 전환합니다.", "확인"),
+                    ));
 
             // login_user_info SSW 비우기 (= 로그아웃 처리)
             spw_auth_member_info.SharedPreferenceWrapper.set(null);
@@ -521,9 +521,9 @@ class PageBusiness {
               barrierDismissible: false,
               context: _context,
               builder: (context) => all_dialog_yes_or_no.PageEntrance(
-                  all_dialog_yes_or_no.PageInputVo(
-                      "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "다시 시도", "종료"),
-                  (pageBusiness) {})).then((outputVo) async {
+                    all_dialog_yes_or_no.PageInputVo("네트워크 에러",
+                        "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "다시 시도", "종료"),
+                  )).then((outputVo) async {
             if (outputVo == null || !outputVo.checkPositiveBtn) {
               // 아무것도 누르지 않거나 negative 버튼을 눌렀을 때
 

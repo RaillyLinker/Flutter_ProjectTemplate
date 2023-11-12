@@ -279,9 +279,9 @@ class PageBusiness {
                 barrierDismissible: true,
                 context: _context,
                 builder: (context) => all_dialog_info.PageEntrance(
-                    all_dialog_info.PageInputVo(
-                        "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
-                    (pageBusiness) {}));
+                      all_dialog_info.PageInputVo(
+                          "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
+                    ));
 
             onNickNameCheckBtnAsyncClicked = false;
           }
@@ -292,9 +292,9 @@ class PageBusiness {
               barrierDismissible: true,
               context: _context,
               builder: (context) => all_dialog_info.PageEntrance(
-                  all_dialog_info.PageInputVo(
-                      "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
-                  (pageBusiness) {}));
+                    all_dialog_info.PageInputVo(
+                        "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
+                  ));
 
           onNickNameCheckBtnAsyncClicked = false;
         }
@@ -358,9 +358,9 @@ class PageBusiness {
               barrierDismissible: true,
               context: _context,
               builder: (context) => all_dialog_info.PageEntrance(
-                  all_dialog_info.PageInputVo(
-                      "회원가입 완료", "회원가입이 완료되었습니다.\n환영합니다.", "확인"),
-                  (pageBusiness) {}));
+                    all_dialog_info.PageInputVo(
+                        "회원가입 완료", "회원가입이 완료되었습니다.\n환영합니다.", "확인"),
+                  ));
 
           onRegisterBtnClickClicked = false;
           if (!_context.mounted) return;
@@ -378,9 +378,9 @@ class PageBusiness {
                 barrierDismissible: true,
                 context: _context,
                 builder: (context) => all_dialog_info.PageEntrance(
-                    all_dialog_info.PageInputVo(
-                        "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
-                    (pageBusiness) {}));
+                      all_dialog_info.PageInputVo(
+                          "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
+                    ));
             onRegisterBtnClickClicked = false;
           } else {
             // 서버 지정 에러 코드를 전달 받았을 때
@@ -395,9 +395,9 @@ class PageBusiness {
                       barrierDismissible: true,
                       context: _context,
                       builder: (context) => all_dialog_info.PageEntrance(
-                          all_dialog_info.PageInputVo("회원가입 실패",
-                              "본인 인증 요청 정보가 없습니다.\n다시 인증해주세요.", "확인"),
-                          (pageBusiness) {}));
+                            all_dialog_info.PageInputVo("회원가입 실패",
+                                "본인 인증 요청 정보가 없습니다.\n다시 인증해주세요.", "확인"),
+                          ));
 
                   onRegisterBtnClickClicked = false;
                   if (!_context.mounted) return;
@@ -412,9 +412,9 @@ class PageBusiness {
                       barrierDismissible: true,
                       context: _context,
                       builder: (context) => all_dialog_info.PageEntrance(
-                          all_dialog_info.PageInputVo("회원가입 실패",
-                              "본인 인증 요청 정보가 만료되었습니다.\n다시 인증해주세요.", "확인"),
-                          (pageBusiness) {}));
+                            all_dialog_info.PageInputVo("회원가입 실패",
+                                "본인 인증 요청 정보가 만료되었습니다.\n다시 인증해주세요.", "확인"),
+                          ));
 
                   onRegisterBtnClickClicked = false;
                   if (!_context.mounted) return;
@@ -429,9 +429,9 @@ class PageBusiness {
                       barrierDismissible: true,
                       context: _context,
                       builder: (context) => all_dialog_info.PageEntrance(
-                          all_dialog_info.PageInputVo("회원가입 실패",
-                              "본인 인증 요청 정보가 만료되었습니다.\n다시 인증해주세요.", "확인"),
-                          (pageBusiness) {}));
+                            all_dialog_info.PageInputVo("회원가입 실패",
+                                "본인 인증 요청 정보가 만료되었습니다.\n다시 인증해주세요.", "확인"),
+                          ));
 
                   onRegisterBtnClickClicked = false;
                   if (!_context.mounted) return;
@@ -446,9 +446,9 @@ class PageBusiness {
                       barrierDismissible: true,
                       context: _context,
                       builder: (context) => all_dialog_info.PageEntrance(
-                          all_dialog_info.PageInputVo(
-                              "회원가입 실패", "이미 가입된 회원 정보입니다.", "확인"),
-                          (pageBusiness) {}));
+                            all_dialog_info.PageInputVo(
+                                "회원가입 실패", "이미 가입된 회원 정보입니다.", "확인"),
+                          ));
 
                   onRegisterBtnClickClicked = false;
                   if (!_context.mounted) return;
@@ -480,9 +480,9 @@ class PageBusiness {
             barrierDismissible: true,
             context: _context,
             builder: (context) => all_dialog_info.PageEntrance(
-                all_dialog_info.PageInputVo(
-                    "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
-                (pageBusiness) {}));
+                  all_dialog_info.PageInputVo(
+                      "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
+                ));
         onRegisterBtnClickClicked = false;
       }
     }
@@ -511,9 +511,9 @@ class PageBusiness {
             builder: (context) =>
                 all_dialog_auth_join_the_membership_select_member_profile_image_src
                     .PageEntrance(
-                        all_dialog_auth_join_the_membership_select_member_profile_image_src
-                            .PageInputVo(),
-                        (pageBusiness) {}));
+                  all_dialog_auth_join_the_membership_select_member_profile_image_src
+                      .PageInputVo(),
+                ));
 
     if (pageOutputVo != null) {
       switch (pageOutputVo.imageSourceType) {
