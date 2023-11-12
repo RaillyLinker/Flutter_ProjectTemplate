@@ -100,7 +100,7 @@ class PageBusiness {
     // !!!위젯 종료 및, 다른 페이지로 이동 로직 작성!!!
   }
 
-  // (페이지 종료 (강제 종료는 탐지 못함))
+  // (페이지 종료 (강제 종료, web 에서 브라우저 뒤로가기 버튼을 눌렀을 때는 탐지 못함))
   Future<void> onPageDestroyAsync() async {
     // !!!페이지 종료 로직 작성!!!
     pageViewModel.passwordTextFieldController.dispose();
