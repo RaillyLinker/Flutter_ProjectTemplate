@@ -59,55 +59,58 @@ class PageOutFrame extends StatelessWidget {
                         blocSampleNumber.isHovering = false;
                         blocSampleNumber.refresh();
                       },
-                      child: GestureDetector(
-                        // 클릭시 제스쳐 콜백
-                        onTap: () {
-                          context.goNamed(all_page_home.pageName);
-                        },
-                        child: Stack(
-                          alignment: Alignment.center,
-                          children: [
-                            // 보여줄 위젯
-                            SizedBox(
-                              width: 35,
-                              height: 35,
-                              child: Image(
-                                image: const AssetImage(
-                                    "lib/assets/images/app_logo_img.png"),
-                                fit: BoxFit.cover,
-                                loadingBuilder: (BuildContext context,
-                                    Widget child,
-                                    ImageChunkEvent? loadingProgress) {
-                                  // 로딩 중일 때 플레이스 홀더를 보여줍니다.
-                                  if (loadingProgress == null) {
-                                    return child; // 로딩이 끝났을 경우
-                                  }
-                                  return const Center(
-                                    child: CircularProgressIndicator(),
-                                  );
-                                },
-                                errorBuilder: (context, error, stackTrace) {
-                                  // 에러 발생 시 설정한 에러 위젯을 반환합니다.
-                                  return const Center(
-                                    child: Icon(
-                                      Icons.error,
-                                      color: Colors.red,
-                                    ),
-                                  );
-                                },
+                      child: Tooltip(
+                        message: "홈으로",
+                        child: GestureDetector(
+                          // 클릭시 제스쳐 콜백
+                          onTap: () {
+                            context.goNamed(all_page_home.pageName);
+                          },
+                          child: Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              // 보여줄 위젯
+                              SizedBox(
+                                width: 35,
+                                height: 35,
+                                child: Image(
+                                  image: const AssetImage(
+                                      "lib/assets/images/app_logo_img.png"),
+                                  fit: BoxFit.cover,
+                                  loadingBuilder: (BuildContext context,
+                                      Widget child,
+                                      ImageChunkEvent? loadingProgress) {
+                                    // 로딩 중일 때 플레이스 홀더를 보여줍니다.
+                                    if (loadingProgress == null) {
+                                      return child; // 로딩이 끝났을 경우
+                                    }
+                                    return const Center(
+                                      child: CircularProgressIndicator(),
+                                    );
+                                  },
+                                  errorBuilder: (context, error, stackTrace) {
+                                    // 에러 발생 시 설정한 에러 위젯을 반환합니다.
+                                    return const Center(
+                                      child: Icon(
+                                        Icons.error,
+                                        color: Colors.red,
+                                      ),
+                                    );
+                                  },
+                                ),
                               ),
-                            ),
-                            // 호버링시 가릴 위젯(보여줄 위젯과 동일한 사이즈를 준비)
-                            Opacity(
-                              opacity: blocSampleNumber.isHovering ? 1.0 : 0.0,
-                              // 0.0: 완전 투명, 1.0: 완전 불투명
-                              child: Container(
-                                  width: 35,
-                                  height: 35,
-                                  color: Colors.blue.withOpacity(0.5),
-                                  child: const Icon(Icons.home)),
-                            ),
-                          ],
+                              // 호버링시 가릴 위젯(보여줄 위젯과 동일한 사이즈를 준비)
+                              Opacity(
+                                opacity: blocSampleNumber.isHovering ? 1.0 : 0.0,
+                                // 0.0: 완전 투명, 1.0: 완전 불투명
+                                child: Container(
+                                    width: 35,
+                                    height: 35,
+                                    color: Colors.blue.withOpacity(0.5),
+                                    child: const Icon(Icons.home)),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
