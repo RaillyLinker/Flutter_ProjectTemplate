@@ -27,7 +27,6 @@ import '../../../pages/all/all_page_member_info/page_entrance.dart'
     as all_page_member_info;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
-// todo : 리스트 아이템 호버링 처리
 
 //------------------------------------------------------------------------------
 // 페이지의 비즈니스 로직 담당
@@ -226,6 +225,7 @@ class PageBusiness {
             all_dialog_loading_spinner.PageInputVo(),
           );
 
+          if (!_context.mounted) return;
           showDialog(
               barrierDismissible: false,
               context: _context,
@@ -261,6 +261,7 @@ class PageBusiness {
             all_dialog_loading_spinner.PageInputVo(),
           );
 
+          if (!_context.mounted) return;
           showDialog(
               barrierDismissible: false,
               context: _context,
@@ -451,6 +452,7 @@ class PageBusiness {
       case SampleItemEnum.goToMemberInfo:
         {
           // 회원정보 페이지로 이동
+          if (!_context.mounted) return;
           _context.pushNamed(all_page_member_info.pageName);
         }
         break;

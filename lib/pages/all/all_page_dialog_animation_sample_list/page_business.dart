@@ -17,7 +17,6 @@ import '../../../dialogs/all/all_dialog_small_circle_transform_sample/page_entra
     as all_dialog_small_circle_transform_sample;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
-// todo : 리스트 아이템 호버링 처리
 
 //------------------------------------------------------------------------------
 // 페이지의 비즈니스 로직 담당
