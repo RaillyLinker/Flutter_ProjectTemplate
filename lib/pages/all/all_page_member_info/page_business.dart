@@ -295,8 +295,6 @@ class BLocProviders {
   List<BlocProvider<dynamic>> blocProviders = [
     // ex :
     // BlocProvider<BlocSample>(create: (context) => BlocSample())
-    BlocProvider<gw_page_out_frames.BlocHeaderGoToHomeIconBtn>(
-        create: (context) => gw_page_out_frames.BlocHeaderGoToHomeIconBtn()),
     BlocProvider<BlocProfileImage>(create: (context) => BlocProfileImage()),
     BlocProvider<BlocNickname>(create: (context) => BlocNickname()),
     BlocProvider<BlocEmail>(create: (context) => BlocEmail()),

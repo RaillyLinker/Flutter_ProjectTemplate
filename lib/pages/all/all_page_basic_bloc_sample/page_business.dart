@@ -155,10 +155,7 @@ class BLocProviders {
 // !!!이 페이지에서 사용할 "모든" BLoC 클래스들에 대한 Provider 객체들을 아래 리스트에 넣어줄 것!!!
   List<BlocProvider<dynamic>> blocProviders = [
     // ex :
-    // BlocProvider<BlocSample>(create: (context) => BlocSample()),
-    BlocProvider<gw_page_out_frames.BlocHeaderGoToHomeIconBtn>(
-      create: (context) => gw_page_out_frames.BlocHeaderGoToHomeIconBtn(),
-    ),
+    // BlocProvider<BlocSample>(create: (context) => BlocSample()),widget._pageBusiness!
     BlocProvider<BlocSample>(create: (context) => BlocSample()),
   ];
 }
@@ -170,7 +167,6 @@ class BLocObjects {
   // !!!BLoC 조작 객체 변수 선언!!!
   // ex :
   // late BlocSample blocSample;
-  late gw_page_out_frames.BlocHeaderGoToHomeIconBtn blocHeaderGoToHomeIconBtn;
   late BlocSample blocSample;
 
   // 생성자 설정
@@ -178,8 +174,6 @@ class BLocObjects {
     // !!!BLoC 조작 객체 생성!!!
     // ex :
     // blocSample = BlocProvider.of<BlocSample>(_context);
-    blocHeaderGoToHomeIconBtn =
-        BlocProvider.of<gw_page_out_frames.BlocHeaderGoToHomeIconBtn>(_context);
     blocSample = BlocProvider.of<BlocSample>(_context);
   }
 }

@@ -32,7 +32,7 @@ class PageView extends StatelessWidget {
             .state
             .pageBusiness;
 
-    return const gw_page_out_frames.PageOutFrame(
+    return gw_page_out_frames.PageOutFrame(
       "GIF 샘플",
       Center(
         child: SizedBox(

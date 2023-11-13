@@ -37,6 +37,6 @@ class StatefulWidgetTemplateState extends State<StatefulWidgetTemplate> {
   @override
   Widget build(BuildContext context) {
     // !!!widget.viewModel 의 상태 변수를 반영한 하위 위젯 작성!!!
-    return Text(widget.viewModel.toString());
+    return Text(widget.viewModel.sampleInt.toString());
   }
 }

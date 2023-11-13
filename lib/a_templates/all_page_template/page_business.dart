@@ -7,7 +7,6 @@ import 'package:go_router/go_router.dart';
 import 'page_entrance.dart' as page_entrance;
 
 // (all)
-import '../../../global_widgets/gw_page_out_frames.dart' as gw_page_out_frames;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
 
@@ -135,9 +134,6 @@ class BLocProviders {
   List<BlocProvider<dynamic>> blocProviders = [
     // ex :
     // BlocProvider<BlocSample>(create: (context) => BlocSample()),
-    BlocProvider<gw_page_out_frames.BlocHeaderGoToHomeIconBtn>(
-      create: (context) => gw_page_out_frames.BlocHeaderGoToHomeIconBtn(),
-    )
   ];
 }
 
@@ -148,14 +144,11 @@ class BLocObjects {
   // !!!BLoC 조작 객체 변수 선언!!!
   // ex :
   // late BlocSample blocSample;
-  late gw_page_out_frames.BlocHeaderGoToHomeIconBtn blocHeaderGoToHomeIconBtn;
 
   // 생성자 설정
   BLocObjects(this._context) {
     // !!!BLoC 조작 객체 생성!!!
     // ex :
     // blocSample = BlocProvider.of<BlocSample>(_context);
-    blocHeaderGoToHomeIconBtn =
-        BlocProvider.of<gw_page_out_frames.BlocHeaderGoToHomeIconBtn>(_context);
   }
 }
