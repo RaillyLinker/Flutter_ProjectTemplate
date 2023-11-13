@@ -43,7 +43,7 @@ class PageEntrance extends StatelessWidget {
   // 페이지 진입 파라미터
   final PageInputVo _pageInputVo;
 
-  // 페이지 생성 시점 콜백
+  // 페이지 비즈니스 객체
   late page_business.PageBusiness pageBusiness;
 
   PageEntrance(this._pageInputVo, {super.key});
