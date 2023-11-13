@@ -17,8 +17,8 @@ const pageName = "all_page_template";
 // !!!페이지 호출/반납 애니메이션!!!
 // 동적으로 변경이 가능합니다.
 Widget Function(BuildContext context, Animation<double> animation,
-        Animation<double> secondaryAnimation, Widget child)
-    pageTransitionsBuilder = (context, animation, secondaryAnimation, child) {
+    Animation<double> secondaryAnimation, Widget child)
+pageTransitionsBuilder = (context, animation, secondaryAnimation, child) {
   return FadeTransition(opacity: animation, child: child);
 };
 
@@ -49,14 +49,14 @@ class PageEntrance extends StatefulWidget {
 
 class PageEntranceState extends State<PageEntrance> {
   // 페이지 비즈니스 객체
-  late page_business.PageBusiness _pageBusiness;
+  page_business.PageBusiness? _pageBusiness;
 
   @override
   Widget build(BuildContext context) {
-    _pageBusiness = page_business.PageBusiness(context);
-    widget.pageBusiness = _pageBusiness;
+    _pageBusiness ??= page_business.PageBusiness(context);
+    widget.pageBusiness = _pageBusiness!;
 
-    return LifecycleWatcher(widget._goRouterState, _pageBusiness);
+    return LifecycleWatcher(widget._goRouterState, _pageBusiness!);
   }
 }
 
@@ -112,7 +112,7 @@ class LifecycleWatcherState extends State<LifecycleWatcher>
         },
         // 페이지 생명주기를 Business 에 넘겨주기
         child: FocusDetector(
-            // Businesses 에 focus 콜백 전달
+          // Businesses 에 focus 콜백 전달
             onFocusGained: () async {
               if (!widget._pageBusiness.pageLifeCycleStates.isPageCreated) {
                 widget._pageBusiness.pageLifeCycleStates.isPageCreated = true;

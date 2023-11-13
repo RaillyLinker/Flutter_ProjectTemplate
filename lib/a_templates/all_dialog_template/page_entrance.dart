@@ -36,14 +36,14 @@ class PageEntrance extends StatefulWidget {
 
 class PageEntranceState extends State<PageEntrance> {
   // 페이지 비즈니스 객체
-  late page_business.PageBusiness _pageBusiness;
+  page_business.PageBusiness? _pageBusiness;
 
   @override
   Widget build(BuildContext context) {
-    _pageBusiness = page_business.PageBusiness(context, widget._pageInputVo);
-    widget.pageBusiness = _pageBusiness;
+    _pageBusiness ??= page_business.PageBusiness(context, widget._pageInputVo);
+    widget.pageBusiness = _pageBusiness!;
 
-    return LifecycleWatcher(_pageBusiness);
+    return LifecycleWatcher(_pageBusiness!);
   }
 }
 

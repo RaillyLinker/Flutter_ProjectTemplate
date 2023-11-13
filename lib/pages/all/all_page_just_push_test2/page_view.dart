@@ -1,14 +1,11 @@
 // (external)
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 // (page)
 import 'page_business.dart' as page_business;
 
 // (all)
 import '../../../global_widgets/gw_page_out_frames.dart' as gw_page_out_frames;
-import '../../../global_classes/gc_template_classes.dart'
-    as gc_template_classes;
 
 // [페이지 화면 위젯 작성 파일]
 // 페이지 화면 구현을 담당합니다.
@@ -18,16 +15,13 @@ import '../../../global_classes/gc_template_classes.dart'
 // (페이지 UI 위젯)
 // !!!세부 화면 정의!!!
 class PageView extends StatelessWidget {
-  const PageView({super.key});
+  const PageView(this._pageBusiness, {super.key});
+
+  // 페이지 비즈니스 객체
+  final page_business.PageBusiness _pageBusiness;
 
   @override
   Widget build(BuildContext context) {
-    // pageBusiness 객체
-    page_business.PageBusiness pageBusiness =
-        BlocProvider.of<gc_template_classes.BlocPageInfo>(context)
-            .state
-            .pageBusiness;
-
     return gw_page_out_frames.PageOutFrame(
       "페이지 Push 테스트2",
       Center(
@@ -39,29 +33,24 @@ class PageView extends StatelessWidget {
                 cursor: SystemMouseCursors.click,
                 child: GestureDetector(
                   onTap: () {
-                    pageBusiness.countPlus1();
+                    _pageBusiness.countPlus1();
                   },
                   child: Container(
                     decoration: const BoxDecoration(
                       border: Border(bottom: BorderSide(color: Colors.black)),
                     ),
                     margin: const EdgeInsets.only(bottom: 20),
-                    child: BlocBuilder<page_business.BlocSampleNumber, bool>(
-                      builder: (c, s) {
-                        return Text(
-                            "${pageBusiness.pageViewModel.sampleNumber}",
-                            style: const TextStyle(
-                                fontSize: 20,
-                                color: Colors.black,
-                                fontFamily: "MaruBuri"));
-                      },
+                    child: StatefulWidgetSampleNumber(
+                      _pageBusiness.pageViewModel.statefulWidgetSampleNumberVm,
+                      key: _pageBusiness
+                          .pageViewModel.statefulWidgetSampleNumberStateGk,
                     ),
                   ),
                 ),
               ),
               ElevatedButton(
                   onPressed: () {
-                    pageBusiness.goToJustPushTest1Page();
+                    _pageBusiness.goToJustPushTest1Page();
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue,
@@ -76,7 +65,7 @@ class PageView extends StatelessWidget {
               ),
               ElevatedButton(
                   onPressed: () {
-                    pageBusiness.goToJustPushTest2Page();
+                    _pageBusiness.goToJustPushTest2Page();
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue,
@@ -94,5 +83,68 @@ class PageView extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+// (Stateful Widget 생성 예시)
+// class StatefulWidgetSample extends StatefulWidget {
+//   const StatefulWidgetSample(this.viewModel, {super.key});
+//
+//   final StatefulWidgetSampleViewModel viewModel;
+//
+//   @override
+//   StatefulWidgetSampleState createState() => StatefulWidgetSampleState();
+// }
+//
+// class StatefulWidgetSampleViewModel {
+//   StatefulWidgetSampleViewModel(this.sampleNumber);
+//
+//   // !!!State 에서 사용할 상태 변수 선언!!!
+//   int sampleNumber;
+// }
+//
+// class StatefulWidgetSampleState extends State<StatefulWidgetSample> {
+//   // Stateful Widget 화면 갱신
+//   void refresh() {
+//     setState(() {});
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     // !!!widget.viewModel 의 상태 변수를 반영한 하위 위젯 작성!!!
+//     return Text(widget.viewModel.sampleNumber.toString());
+//   }
+// }
+
+class StatefulWidgetSampleNumber extends StatefulWidget {
+  const StatefulWidgetSampleNumber(this.viewModel, {super.key});
+
+  final StatefulWidgetSampleNumberViewModel viewModel;
+
+  @override
+  StatefulWidgetSampleNumberState createState() =>
+      StatefulWidgetSampleNumberState();
+}
+
+class StatefulWidgetSampleNumberViewModel {
+  StatefulWidgetSampleNumberViewModel(this.sampleNumber);
+
+  // !!!State 에서 사용할 상태 변수 선언!!!
+  int sampleNumber;
+}
+
+class StatefulWidgetSampleNumberState
+    extends State<StatefulWidgetSampleNumber> {
+  // Stateful Widget 화면 갱신
+  void refresh() {
+    setState(() {});
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // !!!widget.viewModel 의 상태 변수를 반영한 하위 위젯 작성!!!
+    return Text(widget.viewModel.sampleNumber.toString(),
+        style: const TextStyle(
+            fontSize: 20, color: Colors.black, fontFamily: "MaruBuri"));
   }
 }

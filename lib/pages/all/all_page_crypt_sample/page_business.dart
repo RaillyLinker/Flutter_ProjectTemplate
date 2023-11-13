@@ -33,7 +33,7 @@ class PageBusiness {
   // 페이지 생명주기 관련 states
   var pageLifeCycleStates = gc_template_classes.PageLifeCycleStates();
 
-  // 페이지 파라미터 (아래 goRouterState 에서 가져와 대입하기)
+  // 페이지 파라미터 (아래 onCheckPageInputVoAsync 에서 조립)
   late page_entrance.PageInputVo pageInputVo;
 
   // 페이지 뷰모델 객체
@@ -159,7 +159,7 @@ class PageViewModel {
   // 페이지 생명주기 관련 states
   var pageLifeCycleStates = gc_template_classes.PageLifeCycleStates();
 
-  // 페이지 파라미터 (아래 goRouterState 에서 가져와 대입하기)
+  // 페이지 파라미터 (아래 onCheckPageInputVoAsync 에서 조립)
   late page_entrance.PageInputVo pageInputVo;
 
   // !!!페이지 데이터 정의!!!
