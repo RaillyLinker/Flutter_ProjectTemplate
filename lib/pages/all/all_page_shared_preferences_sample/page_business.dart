@@ -18,7 +18,7 @@ import '../../../../repositories/spws/spw_test_sample.dart' as spw_test_sample;
 
 //------------------------------------------------------------------------------
 // 페이지의 비즈니스 로직 담당
-// PageBusiness 인스턴스는 context 안에 저장되어, 해당 페이지가 소멸하기 전까지 활용됩니다.
+// PageBusiness 인스턴스는 해당 페이지가 소멸하기 전까지 활용됩니다.
 class PageBusiness {
   // 페이지 컨텍스트 객체
   final BuildContext _context;
@@ -99,9 +99,9 @@ class PageBusiness {
 // ex :
 //   void changeSampleNumber(int newSampleNumber) {
 //     // BLoC 위젯 관련 상태 변수 변경
-//     pageViewModel.sampleNumber = newSampleNumber;
+//     pageViewModel.statefulWidgetSampleVm.sampleNumber = newSampleNumber;
 //     // BLoC 위젯 변경 트리거 발동
-//     blocObjects.blocSample.refresh();
+//     pageViewModel.statefulWidgetSampleStateGk.currentState?.refresh();
 //   }
 
   // (화면 전역 갱신 함수)
@@ -229,8 +229,12 @@ class PageViewModel {
   late page_entrance.PageInputVo pageInputVo;
 
   // !!!페이지 데이터 정의!!!
+  // 하위 Stateful Widget 의 GlobalKey 와 ViewModel, 그리고 Stateless Widget 의 데이터를 저장
   // ex :
-  // int sampleNumber = 0;
+  // final GlobalKey<page_view.StatefulWidgetSampleState>
+  //     statefulWidgetSampleStateGk = GlobalKey();
+  // page_view.StatefulWidgetSampleViewModel statefulWidgetSampleVm =
+  //     page_view.StatefulWidgetSampleViewModel(0);
 
   String spwKey = spw_test_sample.SharedPreferenceWrapper.globalKeyName;
 

@@ -1,6 +1,5 @@
 // (external)
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 // (page)
@@ -11,17 +10,13 @@ import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
-// todo : BLoC to Stateful
 
 //------------------------------------------------------------------------------
 // 페이지의 비즈니스 로직 담당
-// PageBusiness 인스턴스는 context 안에 저장되어, 해당 페이지가 소멸하기 전까지 활용됩니다.
+// PageBusiness 인스턴스는 해당 페이지가 소멸하기 전까지 활용됩니다.
 class PageBusiness {
   // 페이지 컨텍스트 객체
   final BuildContext _context;
-
-  // BLoC 객체 모음
-  late BLocObjects blocObjects;
 
   // 페이지 생명주기 관련 states
   var pageLifeCycleStates = gc_template_classes.PageLifeCycleStates();
@@ -78,9 +73,9 @@ class PageBusiness {
 // ex :
 //   void changeSampleNumber(int newSampleNumber) {
 //     // BLoC 위젯 관련 상태 변수 변경
-//     pageViewModel.sampleNumber = newSampleNumber;
+//     pageViewModel.statefulWidgetSampleVm.sampleNumber = newSampleNumber;
 //     // BLoC 위젯 변경 트리거 발동
-//     blocObjects.blocSample.refresh();
+//     pageViewModel.statefulWidgetSampleStateGk.currentState?.refresh();
 //   }
 
   // (다이얼로그 종료 함수)
@@ -97,49 +92,12 @@ class PageBusiness {
 // 페이지 전역의 데이터는 여기에 정의되며, Business 인스턴스 안의 pageViewModel 변수로 저장 됩니다.
 class PageViewModel {
   // !!!페이지 데이터 정의!!!
+  // 하위 Stateful Widget 의 GlobalKey 와 ViewModel, 그리고 Stateless Widget 의 데이터를 저장
   // ex :
-  // int sampleNumber = 0;
+  // final GlobalKey<page_view.StatefulWidgetSampleState>
+  //     statefulWidgetSampleStateGk = GlobalKey();
+  // page_view.StatefulWidgetSampleViewModel statefulWidgetSampleVm =
+  //     page_view.StatefulWidgetSampleViewModel(0);
 
   PageViewModel();
-}
-
-// (BLoC 클래스)
-// ex :
-// class BlocSample extends Bloc<bool, bool> {
-//   // BLoC 위젯 갱신 함수
-//   void refresh() {
-//     add(!state);
-//   }
-//
-//   BlocSample() : super(true) {
-//     on<bool>((event, emit) {
-//       emit(event);
-//     });
-//   }
-// }
-
-// (BLoC 프로바이더 클래스)
-// 본 페이지에서 사용할 BLoC 객체를 모아두어 PageEntrance 에서 페이지 전역 설정에 사용 됩니다.
-class BLocProviders {
-// !!!이 페이지에서 사용할 "모든" BLoC 클래스들에 대한 Provider 객체들을 아래 리스트에 넣어줄 것!!!
-  List<BlocProvider<dynamic>> blocProviders = [
-    // ex :
-    // BlocProvider<BlocSample>(create: (context) => BlocSample())
-  ];
-}
-
-class BLocObjects {
-  // 페이지 컨텍스트 객체
-  final BuildContext _context;
-
-  // !!!BLoC 조작 객체 변수 선언!!!
-  // ex :
-  // late BlocSample blocSample;
-
-  // 생성자 설정
-  BLocObjects(this._context) {
-    // !!!BLoC 조작 객체 생성!!!
-    // ex :
-    // blocSample = BlocProvider.of<BlocSample>(_context);
-  }
 }

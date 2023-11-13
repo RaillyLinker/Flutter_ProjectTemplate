@@ -87,9 +87,9 @@ class PageBusiness {
 // ex :
 //   void changeSampleNumber(int newSampleNumber) {
 //     // BLoC 위젯 관련 상태 변수 변경
-//     pageViewModel.sampleVm.sampleNumber = newSampleNumber;
+//     pageViewModel.statefulWidgetSampleVm.sampleNumber = newSampleNumber;
 //     // BLoC 위젯 변경 트리거 발동
-//     pageViewModel.sampleStateGk.currentState?.refresh();
+//     pageViewModel.statefulWidgetSampleStateGk.currentState?.refresh();
 //   }
 
 ////
@@ -101,10 +101,12 @@ class PageBusiness {
 // 페이지 전역의 데이터는 여기에 정의되며, Business 인스턴스 안의 pageViewModel 변수로 저장 됩니다.
 class PageViewModel {
   // !!!페이지 데이터 정의!!!
-  // 주로 하위 Stateful Widget 의 GlobalKey 와 ViewModel 을 저장하세요.
+  // 하위 Stateful Widget 의 GlobalKey 와 ViewModel, 그리고 Stateless Widget 의 데이터를 저장
   // ex :
-  // final GlobalKey<page_view.SampleState> sampleStateGk = GlobalKey();
-  // page_view.SampleViewModel sampleVm = page_view.SampleViewModel();
+  // final GlobalKey<page_view.StatefulWidgetSampleState>
+  //     statefulWidgetSampleStateGk = GlobalKey();
+  // page_view.StatefulWidgetSampleViewModel statefulWidgetSampleVm =
+  //     page_view.StatefulWidgetSampleViewModel(0);
 
   PageViewModel();
 }

@@ -1,32 +1,26 @@
 // (external)
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 // (page)
 import 'page_business.dart' as page_business;
 
 // (all)
-import '../../../global_classes/gc_template_classes.dart'
-    as gc_template_classes;
 
 // [페이지 화면 위젯 작성 파일]
-// 페이지 화면 구현을 담당합니다.
+// 페이지 화면 구현을 담당합니다. (Widget 과 Business 간의 결합을 담당)
 // 로직 처리는 pageBusiness 객체에 위임하세요.
 
 //------------------------------------------------------------------------------
 // (페이지 UI 위젯)
 // !!!세부 화면 정의!!!
 class PageView extends StatelessWidget {
-  const PageView({super.key});
+  const PageView(this._pageBusiness, {super.key});
+
+  // 페이지 비즈니스 객체
+  final page_business.PageBusiness _pageBusiness;
 
   @override
   Widget build(BuildContext context) {
-    // pageBusiness 객체
-    page_business.PageBusiness pageBusiness =
-        BlocProvider.of<gc_template_classes.BlocPageInfo>(context)
-            .state
-            .pageBusiness;
-
     return Dialog(
       elevation: 0,
       backgroundColor: Colors.transparent,
@@ -49,3 +43,33 @@ class PageView extends StatelessWidget {
     );
   }
 }
+
+// (Stateful Widget 생성 예시)
+// class StatefulWidgetSample extends StatefulWidget {
+//   const StatefulWidgetSample(this.viewModel, {super.key});
+//
+//   final StatefulWidgetSampleViewModel viewModel;
+//
+//   @override
+//   StatefulWidgetSampleState createState() => StatefulWidgetSampleState();
+// }
+//
+// class StatefulWidgetSampleViewModel {
+//   StatefulWidgetSampleViewModel(this.sampleNumber);
+//
+//   // !!!State 에서 사용할 상태 변수 선언!!!
+//   int sampleNumber;
+// }
+//
+// class StatefulWidgetSampleState extends State<StatefulWidgetSample> {
+//   // Stateful Widget 화면 갱신
+//   void refresh() {
+//     setState(() {});
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     // !!!widget.viewModel 의 상태 변수를 반영한 하위 위젯 작성!!!
+//     return Text(widget.viewModel.sampleNumber.toString());
+//   }
+// }
