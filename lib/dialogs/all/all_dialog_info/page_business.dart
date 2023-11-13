@@ -87,6 +87,10 @@ class PageBusiness {
     _context.pop();
   }
 
+  void closeDialog() {
+    _context.pop();
+  }
+
 ////
 // [내부 함수]
 // !!!내부에서만 사용할 함수를 아래에 구현!!!
