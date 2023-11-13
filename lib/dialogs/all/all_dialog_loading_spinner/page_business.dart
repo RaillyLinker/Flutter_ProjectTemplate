@@ -83,7 +83,7 @@ class PageBusiness {
 //     blocObjects.blocSample.refresh();
 //   }
 
-  // (다이얼로그 종료)
+  // (다이얼로그 종료 함수)
   void closeDialog() {
     _context.pop();
   }

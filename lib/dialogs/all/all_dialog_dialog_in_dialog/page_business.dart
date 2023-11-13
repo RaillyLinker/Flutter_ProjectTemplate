@@ -1,6 +1,7 @@
 // (external)
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 // (page)
 import 'page_entrance.dart' as page_entrance;
@@ -86,6 +87,11 @@ class PageBusiness {
 //     // BLoC 위젯 변경 트리거 발동
 //     blocObjects.blocSample.refresh();
 //   }
+
+  // (다이얼로그 종료 함수)
+  void closeDialog() {
+    _context.pop();
+  }
 
   // (Info 다이얼로그 호출)
   void showInfoDialog() {

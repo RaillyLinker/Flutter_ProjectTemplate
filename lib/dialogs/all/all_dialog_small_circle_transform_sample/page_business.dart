@@ -91,6 +91,11 @@ class PageBusiness {
 //     blocObjects.blocSample.refresh();
 //   }
 
+  // (다이얼로그 종료 함수)
+  void closeDialog() {
+    _context.pop();
+  }
+
   // (다이얼로그 완료)
   Future<void> dialogComplete() async {
     pageViewModel.isComplete = true;

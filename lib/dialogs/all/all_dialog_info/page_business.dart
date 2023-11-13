@@ -82,12 +82,13 @@ class PageBusiness {
 //     blocObjects.blocSample.refresh();
 //   }
 
-  // (확인 버튼 클릭시)
-  void onCheckBtnClicked() {
+  // (다이얼로그 종료 함수)
+  void closeDialog() {
     _context.pop();
   }
 
-  void closeDialog() {
+  // (확인 버튼 클릭시)
+  void onCheckBtnClicked() {
     _context.pop();
   }
 

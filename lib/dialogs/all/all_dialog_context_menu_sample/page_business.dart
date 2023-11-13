@@ -83,6 +83,11 @@ class PageBusiness {
 //     blocObjects.blocSample.refresh();
 //   }
 
+  // (다이얼로그 종료 함수)
+  void closeDialog() {
+    _context.pop();
+  }
+
   // (context 메뉴의 토스트 테스트 항목을 클릭)
   void toastTestMenuBtn() {
     showToast(
@@ -90,11 +95,6 @@ class PageBusiness {
       context: _context,
       animation: StyledToastAnimation.scale,
     );
-  }
-
-  // (context 메뉴의 다이얼로그 테스트 항목을 클릭)
-  void dialogTestMenuBtn() {
-    _context.pop();
   }
 
 ////

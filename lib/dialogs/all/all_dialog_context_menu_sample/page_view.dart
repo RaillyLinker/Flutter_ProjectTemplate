@@ -56,7 +56,7 @@ class PageView extends StatelessWidget {
                             style: TextStyle(
                                 color: Colors.black, fontFamily: "MaruBuri"),
                           ), () {
-                        pageBusiness.dialogTestMenuBtn();
+                        pageBusiness.closeDialog();
                       }),
                     ],
                         child: Container(

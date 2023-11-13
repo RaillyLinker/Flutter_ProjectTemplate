@@ -106,8 +106,8 @@ class PageBusiness {
 //     blocObjects.blocSample.refresh();
 //   }
 
-  // (우측 상단 닫기 버튼 클릭)
-  void pushCloseBtn() {
+  // (다이얼로그 종료 함수)
+  void closeDialog() {
     _context.pop();
   }
 

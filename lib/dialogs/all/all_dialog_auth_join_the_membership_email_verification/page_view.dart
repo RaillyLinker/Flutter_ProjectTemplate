@@ -50,7 +50,7 @@ class PageView extends StatelessWidget {
                                   color: Colors.grey,
                                 ),
                                 onPressed: () {
-                                  pageBusiness.pushCloseBtn();
+                                  pageBusiness.closeDialog();
                                 },
                               )),
                           Container(

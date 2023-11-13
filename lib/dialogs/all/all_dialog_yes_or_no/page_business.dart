@@ -82,6 +82,11 @@ class PageBusiness {
 //     blocObjects.blocSample.refresh();
 //   }
 
+  // (다이얼로그 종료 함수)
+  void closeDialog() {
+    _context.pop();
+  }
+
   // (긍정 버튼 클릭시)
   void onPositiveBtnClicked() {
     _context.pop(page_entrance.PageOutputVo(true));
