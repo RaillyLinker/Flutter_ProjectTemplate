@@ -101,8 +101,8 @@ class SharedPreferenceWrapper {
 
 // !!!저장 정보 데이터 형태 작성!!!
 class SharedPreferenceWrapperVo {
+  SharedPreferenceWrapperVo(this.sampleInt, this.sampleString);
+
   int sampleInt; // 샘플 int 데이터
   String sampleString; // 샘플 String 데이터
-
-  SharedPreferenceWrapperVo(this.sampleInt, this.sampleString);
 }

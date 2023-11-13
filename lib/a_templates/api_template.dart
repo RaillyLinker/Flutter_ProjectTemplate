@@ -102,37 +102,37 @@ Future<
 }
 
 class GetGetRequestSampleAsyncRequestQueryVo {
-  String queryParamString; // String 쿼리 파라미터
-  String? queryParamStringNullable; // String 쿼리 파라미터 Nullable
-  List<String> queryParamStringList; // StringList 쿼리 파라미터
-  List<String>? queryParamStringListNullable; // StringList 쿼리 파라미터 Nullable
-
   GetGetRequestSampleAsyncRequestQueryVo(
       this.queryParamString,
       this.queryParamStringNullable,
       this.queryParamStringList,
       this.queryParamStringListNullable);
+
+  String queryParamString; // String 쿼리 파라미터
+  String? queryParamStringNullable; // String 쿼리 파라미터 Nullable
+  List<String> queryParamStringList; // StringList 쿼리 파라미터
+  List<String>? queryParamStringListNullable; // StringList 쿼리 파라미터 Nullable
 }
 
 class GetGetRequestSampleAsyncResponseHeaderVo {
+  GetGetRequestSampleAsyncResponseHeaderVo(this.contentType);
+
   // content-type : ResponseHeader 예시용
   List<String> contentType;
-
-  GetGetRequestSampleAsyncResponseHeaderVo(this.contentType);
 }
 
 class GetGetRequestSampleAsyncResponseBodyVo {
-  String responseBodyString; // 입력한 String 쿼리 파라미터
-  String? responseBodyStringNullable; // 입력한 String 쿼리 파라미터 Nullable
-  List<String> responseBodyStringList; // 입력한 StringList 쿼리 파라미터
-  List<String>?
-      responseBodyStringListNullable; // 입력한 StringList 쿼리 파라미터 Nullable
-
   GetGetRequestSampleAsyncResponseBodyVo(
       this.responseBodyString,
       this.responseBodyStringNullable,
       this.responseBodyStringList,
       this.responseBodyStringListNullable);
+
+  String responseBodyString; // 입력한 String 쿼리 파라미터
+  String? responseBodyStringNullable; // 입력한 String 쿼리 파라미터 Nullable
+  List<String> responseBodyStringList; // 입력한 StringList 쿼리 파라미터
+  List<String>?
+      responseBodyStringListNullable; // 입력한 StringList 쿼리 파라미터 Nullable
 }
 
 ////
@@ -214,37 +214,37 @@ Future<
 }
 
 class PostPostRequestSampleAsyncRequestBodyVo {
-  String requestBodyString; // String 쿼리 파라미터
-  String? requestBodyStringNullable; // String 쿼리 파라미터 Nullable
-  List<String> requestBodyStringList; // StringList 쿼리 파라미터
-  List<String>? requestBodyStringListNullable; // StringList 쿼리 파라미터 Nullable
-
   PostPostRequestSampleAsyncRequestBodyVo(
       this.requestBodyString,
       this.requestBodyStringNullable,
       this.requestBodyStringList,
       this.requestBodyStringListNullable);
+
+  String requestBodyString; // String 쿼리 파라미터
+  String? requestBodyStringNullable; // String 쿼리 파라미터 Nullable
+  List<String> requestBodyStringList; // StringList 쿼리 파라미터
+  List<String>? requestBodyStringListNullable; // StringList 쿼리 파라미터 Nullable
 }
 
 class PostPostRequestSampleAsyncResponseHeaderVo {
+  PostPostRequestSampleAsyncResponseHeaderVo(this.contentType);
+
   // content-type : ResponseHeader 예시용
   List<String> contentType;
-
-  PostPostRequestSampleAsyncResponseHeaderVo(this.contentType);
 }
 
 class PostPostRequestSampleAsyncResponseBodyVo {
-  String responseBodyString; // 입력한 String 쿼리 파라미터
-  String? responseBodyStringNullable; // 입력한 String 쿼리 파라미터 Nullable
-  List<String> responseBodyStringList; // 입력한 StringList 쿼리 파라미터
-  List<String>?
-      responseBodyStringListNullable; // 입력한 StringList 쿼리 파라미터 Nullable
-
   PostPostRequestSampleAsyncResponseBodyVo(
       this.responseBodyString,
       this.responseBodyStringNullable,
       this.responseBodyStringList,
       this.responseBodyStringListNullable);
+
+  String responseBodyString; // 입력한 String 쿼리 파라미터
+  String? responseBodyStringNullable; // 입력한 String 쿼리 파라미터 Nullable
+  List<String> responseBodyStringList; // 입력한 StringList 쿼리 파라미터
+  List<String>?
+      responseBodyStringListNullable; // 입력한 StringList 쿼리 파라미터 Nullable
 }
 
 ////
@@ -331,38 +331,38 @@ Future<
 }
 
 class PostPostRequestSampleXWwwFormUrlencodedAsyncRequestBodyVo {
-  String requestFormString; // String 쿼리 파라미터
-  String? requestFormStringNullable; // String 쿼리 파라미터 Nullable
-  List<String> requestFormStringList; // StringList 쿼리 파라미터
-  List<String>? requestFormStringListNullable; // StringList 쿼리 파라미터 Nullable
-
   PostPostRequestSampleXWwwFormUrlencodedAsyncRequestBodyVo(
       this.requestFormString,
       this.requestFormStringNullable,
       this.requestFormStringList,
       this.requestFormStringListNullable);
+
+  String requestFormString; // String 쿼리 파라미터
+  String? requestFormStringNullable; // String 쿼리 파라미터 Nullable
+  List<String> requestFormStringList; // StringList 쿼리 파라미터
+  List<String>? requestFormStringListNullable; // StringList 쿼리 파라미터 Nullable
 }
 
 class PostPostRequestSampleXWwwFormUrlencodedAsyncResponseHeaderVo {
-  // content-type : ResponseHeader 예시용
-  List<String> contentType;
-
   PostPostRequestSampleXWwwFormUrlencodedAsyncResponseHeaderVo(
       this.contentType);
+
+  // content-type : ResponseHeader 예시용
+  List<String> contentType;
 }
 
 class PostPostRequestSampleXWwwFormUrlencodedAsyncResponseBodyVo {
-  String responseBodyString; // 입력한 String 쿼리 파라미터
-  String? responseBodyStringNullable; // 입력한 String 쿼리 파라미터 Nullable
-  List<String> responseBodyStringList; // 입력한 StringList 쿼리 파라미터
-  List<String>?
-      responseBodyStringListNullable; // 입력한 StringList 쿼리 파라미터 Nullable
-
   PostPostRequestSampleXWwwFormUrlencodedAsyncResponseBodyVo(
       this.responseBodyString,
       this.responseBodyStringNullable,
       this.responseBodyStringList,
       this.responseBodyStringListNullable);
+
+  String responseBodyString; // 입력한 String 쿼리 파라미터
+  String? responseBodyStringNullable; // 입력한 String 쿼리 파라미터 Nullable
+  List<String> responseBodyStringList; // 입력한 StringList 쿼리 파라미터
+  List<String>?
+      responseBodyStringListNullable; // 입력한 StringList 쿼리 파라미터 Nullable
 }
 
 ////
@@ -454,13 +454,6 @@ Future<
 }
 
 class PostPostRequestSampleMultipartFormDataAsyncRequestBodyVo {
-  String requestFormString; // String 쿼리 파라미터
-  String? requestFormStringNullable; // String 쿼리 파라미터 Nullable
-  List<String> requestFormStringList; // StringList 쿼리 파라미터
-  List<String>? requestFormStringListNullable; // StringList 쿼리 파라미터 Nullable
-  MultipartFile multipartFile; // 멀티 파트 파일
-  MultipartFile? multipartFileNullable; // 멀티 파트 파일 Nullable
-
   PostPostRequestSampleMultipartFormDataAsyncRequestBodyVo(
       this.requestFormString,
       this.requestFormStringNullable,
@@ -468,27 +461,34 @@ class PostPostRequestSampleMultipartFormDataAsyncRequestBodyVo {
       this.requestFormStringListNullable,
       this.multipartFile,
       this.multipartFileNullable);
+
+  String requestFormString; // String 쿼리 파라미터
+  String? requestFormStringNullable; // String 쿼리 파라미터 Nullable
+  List<String> requestFormStringList; // StringList 쿼리 파라미터
+  List<String>? requestFormStringListNullable; // StringList 쿼리 파라미터 Nullable
+  MultipartFile multipartFile; // 멀티 파트 파일
+  MultipartFile? multipartFileNullable; // 멀티 파트 파일 Nullable
 }
 
 class PostPostRequestSampleMultipartFormDataAsyncResponseHeaderVo {
+  PostPostRequestSampleMultipartFormDataAsyncResponseHeaderVo(this.contentType);
+
   // content-type : ResponseHeader 예시용
   List<String> contentType;
-
-  PostPostRequestSampleMultipartFormDataAsyncResponseHeaderVo(this.contentType);
 }
 
 class PostPostRequestSampleMultipartFormDataAsyncResponseBodyVo {
-  String responseBodyString; // 입력한 String 쿼리 파라미터
-  String? responseBodyStringNullable; // 입력한 String 쿼리 파라미터 Nullable
-  List<String> responseBodyStringList; // 입력한 StringList 쿼리 파라미터
-  List<String>?
-      responseBodyStringListNullable; // 입력한 StringList 쿼리 파라미터 Nullable
-
   PostPostRequestSampleMultipartFormDataAsyncResponseBodyVo(
       this.responseBodyString,
       this.responseBodyStringNullable,
       this.responseBodyStringList,
       this.responseBodyStringListNullable);
+
+  String responseBodyString; // 입력한 String 쿼리 파라미터
+  String? responseBodyStringNullable; // 입력한 String 쿼리 파라미터 Nullable
+  List<String> responseBodyStringList; // 입력한 StringList 쿼리 파라미터
+  List<String>?
+      responseBodyStringListNullable; // 입력한 StringList 쿼리 파라미터 Nullable
 }
 
 ////
@@ -545,10 +545,10 @@ Future<
 }
 
 class GetReturnTextStringSampleAsyncResponseHeaderVo {
+  GetReturnTextStringSampleAsyncResponseHeaderVo(this.contentType);
+
   // content-type : ResponseHeader 예시용
   List<String> contentType;
-
-  GetReturnTextStringSampleAsyncResponseHeaderVo(this.contentType);
 }
 
 ////
@@ -605,8 +605,8 @@ Future<
 }
 
 class GetReturnTextHtmlSampleAsyncResponseHeaderVo {
+  GetReturnTextHtmlSampleAsyncResponseHeaderVo(this.contentType);
+
   // content-type : ResponseHeader 예시용
   List<String> contentType;
-
-  GetReturnTextHtmlSampleAsyncResponseHeaderVo(this.contentType);
 }

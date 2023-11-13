@@ -112,17 +112,6 @@ Future<
 }
 
 class GetService1TkV1RequestTestGetRequestAsyncRequestQueryVo {
-  String queryParamString; // String 쿼리 파라미터
-  String? queryParamStringNullable; // String 쿼리 파라미터 Nullable
-  int queryParamInt; // int 쿼리 파라미터
-  int? queryParamIntNullable; // int 쿼리 파라미터 Nullable
-  double queryParamDouble; // double 쿼리 파라미터
-  double? queryParamDoubleNullable; // double 쿼리 파라미터 Nullable
-  bool queryParamBoolean; // bool 쿼리 파라미터
-  bool? queryParamBooleanNullable; // bool 쿼리 파라미터 Nullable
-  List<String> queryParamStringList; // StringList 쿼리 파라미터
-  List<String>? queryParamStringListNullable; // StringList 쿼리 파라미터 Nullable
-
   GetService1TkV1RequestTestGetRequestAsyncRequestQueryVo(
       this.queryParamString,
       this.queryParamStringNullable,
@@ -134,28 +123,28 @@ class GetService1TkV1RequestTestGetRequestAsyncRequestQueryVo {
       this.queryParamBooleanNullable,
       this.queryParamStringList,
       this.queryParamStringListNullable);
+
+  String queryParamString; // String 쿼리 파라미터
+  String? queryParamStringNullable; // String 쿼리 파라미터 Nullable
+  int queryParamInt; // int 쿼리 파라미터
+  int? queryParamIntNullable; // int 쿼리 파라미터 Nullable
+  double queryParamDouble; // double 쿼리 파라미터
+  double? queryParamDoubleNullable; // double 쿼리 파라미터 Nullable
+  bool queryParamBoolean; // bool 쿼리 파라미터
+  bool? queryParamBooleanNullable; // bool 쿼리 파라미터 Nullable
+  List<String> queryParamStringList; // StringList 쿼리 파라미터
+  List<String>? queryParamStringListNullable; // StringList 쿼리 파라미터 Nullable
 }
 
 class GetService1TkV1RequestTestGetRequestAsyncResponseHeaderVo {
+  GetService1TkV1RequestTestGetRequestAsyncResponseHeaderVo(this.apiResultCode);
+
   // (api-result-code)
   // 0 : 정상 동작
   String? apiResultCode;
-
-  GetService1TkV1RequestTestGetRequestAsyncResponseHeaderVo(this.apiResultCode);
 }
 
 class GetService1TkV1RequestTestGetRequestAsyncResponseBodyVo {
-  String queryParamString; // 입력한 String 쿼리 파라미터
-  String? queryParamStringNullable; // 입력한 String 쿼리 파라미터 Nullable
-  int queryParamInt; // 입력한 int 쿼리 파라미터
-  int? queryParamIntNullable; // 입력한 int 쿼리 파라미터 Nullable
-  double queryParamDouble; // 입력한 double 쿼리 파라미터
-  double? queryParamDoubleNullable; // 입력한 double 쿼리 파라미터 Nullable
-  bool queryParamBoolean; // 입력한 bool 쿼리 파라미터
-  bool? queryParamBooleanNullable; // 입력한 bool 쿼리 파라미터 Nullable
-  List<String> queryParamStringList; // 입력한 StringList 쿼리 파라미터
-  List<String>? queryParamStringListNullable; // 입력한 StringList 쿼리 파라미터 Nullable
-
   GetService1TkV1RequestTestGetRequestAsyncResponseBodyVo(
       this.queryParamString,
       this.queryParamStringNullable,
@@ -167,6 +156,17 @@ class GetService1TkV1RequestTestGetRequestAsyncResponseBodyVo {
       this.queryParamBooleanNullable,
       this.queryParamStringList,
       this.queryParamStringListNullable);
+
+  String queryParamString; // 입력한 String 쿼리 파라미터
+  String? queryParamStringNullable; // 입력한 String 쿼리 파라미터 Nullable
+  int queryParamInt; // 입력한 int 쿼리 파라미터
+  int? queryParamIntNullable; // 입력한 int 쿼리 파라미터 Nullable
+  double queryParamDouble; // 입력한 double 쿼리 파라미터
+  double? queryParamDoubleNullable; // 입력한 double 쿼리 파라미터 Nullable
+  bool queryParamBoolean; // 입력한 bool 쿼리 파라미터
+  bool? queryParamBooleanNullable; // 입력한 bool 쿼리 파라미터 Nullable
+  List<String> queryParamStringList; // 입력한 StringList 쿼리 파라미터
+  List<String>? queryParamStringListNullable; // 입력한 StringList 쿼리 파라미터 Nullable
 
   @override
   String toString() {
@@ -283,17 +283,6 @@ Future<
 }
 
 class PostService1TkV1RequestTestPostRequestApplicationJsonAsyncRequestBodyVo {
-  String requestBodyString; // String 쿼리 파라미터
-  String? requestBodyStringNullable; // String 쿼리 파라미터 Nullable
-  int requestBodyInt; // int 쿼리 파라미터
-  int? requestBodyIntNullable; // int 쿼리 파라미터 Nullable
-  double requestBodyDouble; // double 쿼리 파라미터
-  double? requestBodyDoubleNullable; // double 쿼리 파라미터 Nullable
-  bool requestBodyBoolean; // bool 쿼리 파라미터
-  bool? requestBodyBooleanNullable; // bool 쿼리 파라미터 Nullable
-  List<String> requestBodyStringList; // StringList 쿼리 파라미터
-  List<String>? requestBodyStringListNullable; // StringList 쿼리 파라미터 Nullable
-
   PostService1TkV1RequestTestPostRequestApplicationJsonAsyncRequestBodyVo(
       this.requestBodyString,
       this.requestBodyStringNullable,
@@ -305,30 +294,29 @@ class PostService1TkV1RequestTestPostRequestApplicationJsonAsyncRequestBodyVo {
       this.requestBodyBooleanNullable,
       this.requestBodyStringList,
       this.requestBodyStringListNullable);
+
+  String requestBodyString; // String 쿼리 파라미터
+  String? requestBodyStringNullable; // String 쿼리 파라미터 Nullable
+  int requestBodyInt; // int 쿼리 파라미터
+  int? requestBodyIntNullable; // int 쿼리 파라미터 Nullable
+  double requestBodyDouble; // double 쿼리 파라미터
+  double? requestBodyDoubleNullable; // double 쿼리 파라미터 Nullable
+  bool requestBodyBoolean; // bool 쿼리 파라미터
+  bool? requestBodyBooleanNullable; // bool 쿼리 파라미터 Nullable
+  List<String> requestBodyStringList; // StringList 쿼리 파라미터
+  List<String>? requestBodyStringListNullable; // StringList 쿼리 파라미터 Nullable
 }
 
 class PostService1TkV1RequestTestPostRequestApplicationJsonAsyncResponseHeaderVo {
+  PostService1TkV1RequestTestPostRequestApplicationJsonAsyncResponseHeaderVo(
+      this.apiResultCode);
+
   // (api-result-code)
   // 0 : 정상 동작
   String apiResultCode;
-
-  PostService1TkV1RequestTestPostRequestApplicationJsonAsyncResponseHeaderVo(
-      this.apiResultCode);
 }
 
 class PostService1TkV1RequestTestPostRequestApplicationJsonAsyncResponseBodyVo {
-  String requestBodyString; // 입력한 String 쿼리 파라미터
-  String? requestBodyStringNullable; // 입력한 String 쿼리 파라미터 Nullable
-  int requestBodyInt; // 입력한 int 쿼리 파라미터
-  int? requestBodyIntNullable; // 입력한 int 쿼리 파라미터 Nullable
-  double requestBodyDouble; // 입력한 double 쿼리 파라미터
-  double? requestBodyDoubleNullable; // 입력한 double 쿼리 파라미터 Nullable
-  bool requestBodyBoolean; // 입력한 bool 쿼리 파라미터
-  bool? requestBodyBooleanNullable; // 입력한 bool 쿼리 파라미터 Nullable
-  List<String> requestBodyStringList; // 입력한 StringList 쿼리 파라미터
-  List<String>?
-      requestBodyStringListNullable; // 입력한 StringList 쿼리 파라미터 Nullable
-
   PostService1TkV1RequestTestPostRequestApplicationJsonAsyncResponseBodyVo(
       this.requestBodyString,
       this.requestBodyStringNullable,
@@ -340,6 +328,18 @@ class PostService1TkV1RequestTestPostRequestApplicationJsonAsyncResponseBodyVo {
       this.requestBodyBooleanNullable,
       this.requestBodyStringList,
       this.requestBodyStringListNullable);
+
+  String requestBodyString; // 입력한 String 쿼리 파라미터
+  String? requestBodyStringNullable; // 입력한 String 쿼리 파라미터 Nullable
+  int requestBodyInt; // 입력한 int 쿼리 파라미터
+  int? requestBodyIntNullable; // 입력한 int 쿼리 파라미터 Nullable
+  double requestBodyDouble; // 입력한 double 쿼리 파라미터
+  double? requestBodyDoubleNullable; // 입력한 double 쿼리 파라미터 Nullable
+  bool requestBodyBoolean; // 입력한 bool 쿼리 파라미터
+  bool? requestBodyBooleanNullable; // 입력한 bool 쿼리 파라미터 Nullable
+  List<String> requestBodyStringList; // 입력한 StringList 쿼리 파라미터
+  List<String>?
+      requestBodyStringListNullable; // 입력한 StringList 쿼리 파라미터 Nullable
 
   @override
   String toString() {
@@ -456,17 +456,6 @@ Future<
 }
 
 class PostService1TkV1RequestTestPostRequestXWwwFromUrlencodedAsyncRequestBodyVo {
-  String requestFormString; // String 쿼리 파라미터
-  String? requestFormStringNullable; // String 쿼리 파라미터 Nullable
-  int requestFormInt; // int 쿼리 파라미터
-  int? requestFormIntNullable; // int 쿼리 파라미터 Nullable
-  double requestFormDouble; // double 쿼리 파라미터
-  double? requestFormDoubleNullable; // double 쿼리 파라미터 Nullable
-  bool requestFormBoolean; // bool 쿼리 파라미터
-  bool? requestFormBooleanNullable; // bool 쿼리 파라미터 Nullable
-  List<String> requestFormStringList; // StringList 쿼리 파라미터
-  List<String>? requestFormStringListNullable; // StringList 쿼리 파라미터 Nullable
-
   PostService1TkV1RequestTestPostRequestXWwwFromUrlencodedAsyncRequestBodyVo(
       this.requestFormString,
       this.requestFormStringNullable,
@@ -478,30 +467,29 @@ class PostService1TkV1RequestTestPostRequestXWwwFromUrlencodedAsyncRequestBodyVo
       this.requestFormBooleanNullable,
       this.requestFormStringList,
       this.requestFormStringListNullable);
+
+  String requestFormString; // String 쿼리 파라미터
+  String? requestFormStringNullable; // String 쿼리 파라미터 Nullable
+  int requestFormInt; // int 쿼리 파라미터
+  int? requestFormIntNullable; // int 쿼리 파라미터 Nullable
+  double requestFormDouble; // double 쿼리 파라미터
+  double? requestFormDoubleNullable; // double 쿼리 파라미터 Nullable
+  bool requestFormBoolean; // bool 쿼리 파라미터
+  bool? requestFormBooleanNullable; // bool 쿼리 파라미터 Nullable
+  List<String> requestFormStringList; // StringList 쿼리 파라미터
+  List<String>? requestFormStringListNullable; // StringList 쿼리 파라미터 Nullable
 }
 
 class PostService1TkV1RequestTestPostRequestXWwwFromUrlencodedAsyncResponseHeaderVo {
+  PostService1TkV1RequestTestPostRequestXWwwFromUrlencodedAsyncResponseHeaderVo(
+      this.apiResultCode);
+
   // (api-result-code)
   // 0 : 정상 동작
   String? apiResultCode;
-
-  PostService1TkV1RequestTestPostRequestXWwwFromUrlencodedAsyncResponseHeaderVo(
-      this.apiResultCode);
 }
 
 class PostService1TkV1RequestTestPostRequestXWwwFromUrlencodedAsyncResponseBodyVo {
-  String requestFormString; // 입력한 String 쿼리 파라미터
-  String? requestFormStringNullable; // 입력한 String 쿼리 파라미터 Nullable
-  int requestFormInt; // 입력한 int 쿼리 파라미터
-  int? requestFormIntNullable; // 입력한 int 쿼리 파라미터 Nullable
-  double requestFormDouble; // 입력한 double 쿼리 파라미터
-  double? requestFormDoubleNullable; // 입력한 double 쿼리 파라미터 Nullable
-  bool requestFormBoolean; // 입력한 bool 쿼리 파라미터
-  bool? requestFormBooleanNullable; // 입력한 bool 쿼리 파라미터 Nullable
-  List<String> requestFormStringList; // 입력한 StringList 쿼리 파라미터
-  List<String>?
-      requestFormStringListNullable; // 입력한 StringList 쿼리 파라미터 Nullable
-
   PostService1TkV1RequestTestPostRequestXWwwFromUrlencodedAsyncResponseBodyVo(
       this.requestFormString,
       this.requestFormStringNullable,
@@ -513,6 +501,18 @@ class PostService1TkV1RequestTestPostRequestXWwwFromUrlencodedAsyncResponseBodyV
       this.requestFormBooleanNullable,
       this.requestFormStringList,
       this.requestFormStringListNullable);
+
+  String requestFormString; // 입력한 String 쿼리 파라미터
+  String? requestFormStringNullable; // 입력한 String 쿼리 파라미터 Nullable
+  int requestFormInt; // 입력한 int 쿼리 파라미터
+  int? requestFormIntNullable; // 입력한 int 쿼리 파라미터 Nullable
+  double requestFormDouble; // 입력한 double 쿼리 파라미터
+  double? requestFormDoubleNullable; // 입력한 double 쿼리 파라미터 Nullable
+  bool requestFormBoolean; // 입력한 bool 쿼리 파라미터
+  bool? requestFormBooleanNullable; // 입력한 bool 쿼리 파라미터 Nullable
+  List<String> requestFormStringList; // 입력한 StringList 쿼리 파라미터
+  List<String>?
+      requestFormStringListNullable; // 입력한 StringList 쿼리 파라미터 Nullable
 
   @override
   String toString() {
@@ -645,19 +645,6 @@ Future<
 }
 
 class PostService1TkV1RequestTestPostRequestMultipartFormDataAsyncRequestBodyVo {
-  String requestFormString; // String 쿼리 파라미터
-  String? requestFormStringNullable; // String 쿼리 파라미터 Nullable
-  int requestFormInt; // int 쿼리 파라미터
-  int? requestFormIntNullable; // int 쿼리 파라미터 Nullable
-  double requestFormDouble; // double 쿼리 파라미터
-  double? requestFormDoubleNullable; // double 쿼리 파라미터 Nullable
-  bool requestFormBoolean; // bool 쿼리 파라미터
-  bool? requestFormBooleanNullable; // bool 쿼리 파라미터 Nullable
-  List<String> requestFormStringList; // StringList 쿼리 파라미터
-  List<String>? requestFormStringListNullable; // StringList 쿼리 파라미터 Nullable
-  MultipartFile multipartFile; // 멀티 파트 파일
-  MultipartFile? multipartFileNullable; // 멀티 파트 파일 Nullable
-
   PostService1TkV1RequestTestPostRequestMultipartFormDataAsyncRequestBodyVo(
       this.requestFormString,
       this.requestFormStringNullable,
@@ -671,30 +658,31 @@ class PostService1TkV1RequestTestPostRequestMultipartFormDataAsyncRequestBodyVo 
       this.requestFormStringListNullable,
       this.multipartFile,
       this.multipartFileNullable);
+
+  String requestFormString; // String 쿼리 파라미터
+  String? requestFormStringNullable; // String 쿼리 파라미터 Nullable
+  int requestFormInt; // int 쿼리 파라미터
+  int? requestFormIntNullable; // int 쿼리 파라미터 Nullable
+  double requestFormDouble; // double 쿼리 파라미터
+  double? requestFormDoubleNullable; // double 쿼리 파라미터 Nullable
+  bool requestFormBoolean; // bool 쿼리 파라미터
+  bool? requestFormBooleanNullable; // bool 쿼리 파라미터 Nullable
+  List<String> requestFormStringList; // StringList 쿼리 파라미터
+  List<String>? requestFormStringListNullable; // StringList 쿼리 파라미터 Nullable
+  MultipartFile multipartFile; // 멀티 파트 파일
+  MultipartFile? multipartFileNullable; // 멀티 파트 파일 Nullable
 }
 
 class PostService1TkV1RequestTestPostRequestMultipartFormDataAsyncResponseHeaderVo {
+  PostService1TkV1RequestTestPostRequestMultipartFormDataAsyncResponseHeaderVo(
+      this.apiResultCode);
+
   // (api-result-code)
   // 0 : 정상 동작
   String? apiResultCode;
-
-  PostService1TkV1RequestTestPostRequestMultipartFormDataAsyncResponseHeaderVo(
-      this.apiResultCode);
 }
 
 class PostService1TkV1RequestTestPostRequestMultipartFormDataAsyncResponseBodyVo {
-  String requestFormString; // 입력한 String 쿼리 파라미터
-  String? requestFormStringNullable; // 입력한 String 쿼리 파라미터 Nullable
-  int requestFormInt; // 입력한 int 쿼리 파라미터
-  int? requestFormIntNullable; // 입력한 int 쿼리 파라미터 Nullable
-  double requestFormDouble; // 입력한 double 쿼리 파라미터
-  double? requestFormDoubleNullable; // 입력한 double 쿼리 파라미터 Nullable
-  bool requestFormBoolean; // 입력한 bool 쿼리 파라미터
-  bool? requestFormBooleanNullable; // 입력한 bool 쿼리 파라미터 Nullable
-  List<String> requestFormStringList; // 입력한 StringList 쿼리 파라미터
-  List<String>?
-      requestFormStringListNullable; // 입력한 StringList 쿼리 파라미터 Nullable
-
   PostService1TkV1RequestTestPostRequestMultipartFormDataAsyncResponseBodyVo(
       this.requestFormString,
       this.requestFormStringNullable,
@@ -706,6 +694,18 @@ class PostService1TkV1RequestTestPostRequestMultipartFormDataAsyncResponseBodyVo
       this.requestFormBooleanNullable,
       this.requestFormStringList,
       this.requestFormStringListNullable);
+
+  String requestFormString; // 입력한 String 쿼리 파라미터
+  String? requestFormStringNullable; // 입력한 String 쿼리 파라미터 Nullable
+  int requestFormInt; // 입력한 int 쿼리 파라미터
+  int? requestFormIntNullable; // 입력한 int 쿼리 파라미터 Nullable
+  double requestFormDouble; // 입력한 double 쿼리 파라미터
+  double? requestFormDoubleNullable; // 입력한 double 쿼리 파라미터 Nullable
+  bool requestFormBoolean; // 입력한 bool 쿼리 파라미터
+  bool? requestFormBooleanNullable; // 입력한 bool 쿼리 파라미터 Nullable
+  List<String> requestFormStringList; // 입력한 StringList 쿼리 파라미터
+  List<String>?
+      requestFormStringListNullable; // 입력한 StringList 쿼리 파라미터 Nullable
 
   @override
   String toString() {
@@ -816,6 +816,9 @@ Future<
 }
 
 class PostService1TkV1RequestTestPostRequestMultipartFormDataJsonAsyncRequestBodyVo {
+  PostService1TkV1RequestTestPostRequestMultipartFormDataJsonAsyncRequestBodyVo(
+      this.jsonString, this.multipartFile, this.multipartFileNullable);
+
   // "jsonString" 형식 :
   // {
   // "requestFormString" :	String, // String 바디 파라미터
@@ -832,33 +835,18 @@ class PostService1TkV1RequestTestPostRequestMultipartFormDataJsonAsyncRequestBod
   String jsonString; // json 형식 String
   MultipartFile multipartFile; // 멀티 파트 파일
   MultipartFile? multipartFileNullable; // 멀티 파트 파일 Nullable
-
-  PostService1TkV1RequestTestPostRequestMultipartFormDataJsonAsyncRequestBodyVo(
-      this.jsonString, this.multipartFile, this.multipartFileNullable);
 }
 
 class PostService1TkV1RequestTestPostRequestMultipartFormDataJsonAsyncResponseHeaderVo {
+  PostService1TkV1RequestTestPostRequestMultipartFormDataJsonAsyncResponseHeaderVo(
+      this.apiResultCode);
+
   // (api-result-code)
   // 0 : 정상 동작
   String? apiResultCode;
-
-  PostService1TkV1RequestTestPostRequestMultipartFormDataJsonAsyncResponseHeaderVo(
-      this.apiResultCode);
 }
 
 class PostService1TkV1RequestTestPostRequestMultipartFormDataJsonAsyncResponseBodyVo {
-  String requestFormString; // 입력한 String 쿼리 파라미터
-  String? requestFormStringNullable; // 입력한 String 쿼리 파라미터 Nullable
-  int requestFormInt; // 입력한 int 쿼리 파라미터
-  int? requestFormIntNullable; // 입력한 int 쿼리 파라미터 Nullable
-  double requestFormDouble; // 입력한 double 쿼리 파라미터
-  double? requestFormDoubleNullable; // 입력한 double 쿼리 파라미터 Nullable
-  bool requestFormBoolean; // 입력한 bool 쿼리 파라미터
-  bool? requestFormBooleanNullable; // 입력한 bool 쿼리 파라미터 Nullable
-  List<String> requestFormStringList; // 입력한 StringList 쿼리 파라미터
-  List<String>?
-      requestFormStringListNullable; // 입력한 StringList 쿼리 파라미터 Nullable
-
   PostService1TkV1RequestTestPostRequestMultipartFormDataJsonAsyncResponseBodyVo(
       this.requestFormString,
       this.requestFormStringNullable,
@@ -870,6 +858,18 @@ class PostService1TkV1RequestTestPostRequestMultipartFormDataJsonAsyncResponseBo
       this.requestFormBooleanNullable,
       this.requestFormStringList,
       this.requestFormStringListNullable);
+
+  String requestFormString; // 입력한 String 쿼리 파라미터
+  String? requestFormStringNullable; // 입력한 String 쿼리 파라미터 Nullable
+  int requestFormInt; // 입력한 int 쿼리 파라미터
+  int? requestFormIntNullable; // 입력한 int 쿼리 파라미터 Nullable
+  double requestFormDouble; // 입력한 double 쿼리 파라미터
+  double? requestFormDoubleNullable; // 입력한 double 쿼리 파라미터 Nullable
+  bool requestFormBoolean; // 입력한 bool 쿼리 파라미터
+  bool? requestFormBooleanNullable; // 입력한 bool 쿼리 파라미터 Nullable
+  List<String> requestFormStringList; // 입력한 StringList 쿼리 파라미터
+  List<String>?
+      requestFormStringListNullable; // 입력한 StringList 쿼리 파라미터 Nullable
 
   @override
   String toString() {
@@ -940,12 +940,12 @@ Future<
 }
 
 class PostService1TkV1RequestTestGenerateErrorAsyncResponseHeaderVo {
+  PostService1TkV1RequestTestGenerateErrorAsyncResponseHeaderVo(
+      this.apiResultCode);
+
   // (api-result-code)
   // 0 : 정상 동작
   String? apiResultCode;
-
-  PostService1TkV1RequestTestGenerateErrorAsyncResponseHeaderVo(
-      this.apiResultCode);
 }
 
 class PostService1TkV1RequestTestGenerateErrorAsyncResponseBodyVo {}
@@ -1008,12 +1008,12 @@ Future<
 }
 
 class GetService1TkV1RequestTestReturnTextStringAsyncResponseHeaderVo {
+  GetService1TkV1RequestTestReturnTextStringAsyncResponseHeaderVo(
+      this.apiResultCode);
+
   // (api-result-code)
   // 0 : 정상 동작
   String? apiResultCode;
-
-  GetService1TkV1RequestTestReturnTextStringAsyncResponseHeaderVo(
-      this.apiResultCode);
 }
 
 class GetRequestReturnTextStringAsyncResponseBodyVo {
@@ -1077,12 +1077,12 @@ Future<
 }
 
 class GetService1TkV1RequestTestReturnTextHtmlAsyncResponseHeaderVo {
+  GetService1TkV1RequestTestReturnTextHtmlAsyncResponseHeaderVo(
+      this.apiResultCode);
+
   // (api-result-code)
   // 0 : 정상 동작
   String? apiResultCode;
-
-  GetService1TkV1RequestTestReturnTextHtmlAsyncResponseHeaderVo(
-      this.apiResultCode);
 }
 
 class GetRequestReturnTextHtmlAsyncResponseBodyVo {
@@ -1162,26 +1162,26 @@ Future<
 }
 
 class GetMobileAppVersionInfoAsyncRequestQueryVo {
+  GetMobileAppVersionInfoAsyncRequestQueryVo(this.platformCode);
+
   // 플랫폼 코드 (1 : web, 2 : android, 3 : ios, 4 : windows, 5 : macos, 6 : linux)
   int platformCode;
-
-  GetMobileAppVersionInfoAsyncRequestQueryVo(this.platformCode);
 }
 
 class GetMobileAppVersionInfoAsyncResponseHeaderVo {
+  GetMobileAppVersionInfoAsyncResponseHeaderVo(this.apiResultCode);
+
   // (api-result-code)
   // 0 : 정상 동작
   String? apiResultCode;
-
-  GetMobileAppVersionInfoAsyncResponseHeaderVo(this.apiResultCode);
 }
 
 class GetMobileAppVersionInfoAsyncResponseBodyVo {
-  String minUpgradeVersion; // 최소 필요 버전, ex : "1.0.0"
-  String latestVersion; // 최신 버전, ex : "1.0.0"
-
   GetMobileAppVersionInfoAsyncResponseBodyVo(
       this.minUpgradeVersion, this.latestVersion);
+
+  String minUpgradeVersion; // 최소 필요 버전, ex : "1.0.0"
+  String latestVersion; // 최신 버전, ex : "1.0.0"
 }
 
 ////
@@ -1304,26 +1304,41 @@ Future<
 }
 
 class PostService1TkV1AuthLoginWithPasswordAsyncRequestBodyVo {
+  PostService1TkV1AuthLoginWithPasswordAsyncRequestBodyVo(
+      this.loginTypeCode, this.id, this.password);
+
   int loginTypeCode; // 로그인 타입 (0 : 닉네임, 1 : 이메일, 2 : 전화번호)
   String id; // 아이디 (0 : 홍길동, 1 : test@gmail.com, 2 : 82)000-0000-0000)
   String password; // 비밀번호
-
-  PostService1TkV1AuthLoginWithPasswordAsyncRequestBodyVo(
-      this.loginTypeCode, this.id, this.password);
 }
 
 class PostService1TkV1AuthLoginWithPasswordAsyncResponseHeaderVo {
+  PostService1TkV1AuthLoginWithPasswordAsyncResponseHeaderVo(
+      this.apiResultCode);
+
   // (api-result-code)
   // 0 : 정상 동작
   // 1 : 가입 되지 않은 회원
   // 2 : 패스워드 불일치
   String? apiResultCode;
-
-  PostService1TkV1AuthLoginWithPasswordAsyncResponseHeaderVo(
-      this.apiResultCode);
 }
 
 class PostService1TkV1AuthLoginWithPasswordAsyncResponseBodyVo {
+  PostService1TkV1AuthLoginWithPasswordAsyncResponseBodyVo(
+      this.memberUid,
+      this.nickName,
+      this.roleList,
+      this.tokenType,
+      this.accessToken,
+      this.refreshToken,
+      this.accessTokenExpireWhen,
+      this.refreshTokenExpireWhen,
+      this.myOAuth2List,
+      this.myProfileList,
+      this.myEmailList,
+      this.myPhoneNumberList,
+      this.authPasswordIsNull);
+
   int memberUid; // 멤버 고유값
   String nickName; // 닉네임
   List<String> roleList; // 권한 리스트 (관리자 : ROLE_ADMIN, 개발자 : ROLE_DEVELOPER)
@@ -1342,57 +1357,42 @@ class PostService1TkV1AuthLoginWithPasswordAsyncResponseBodyVo {
       myPhoneNumberList; // 내가 등록한 전화번호 정보 리스트
   bool
       authPasswordIsNull; // 계정 로그인 비밀번호 설정 Null 여부 (OAuth2 만으로 회원가입한 경우는 비밀번호가 없으므로 true)
-
-  PostService1TkV1AuthLoginWithPasswordAsyncResponseBodyVo(
-      this.memberUid,
-      this.nickName,
-      this.roleList,
-      this.tokenType,
-      this.accessToken,
-      this.refreshToken,
-      this.accessTokenExpireWhen,
-      this.refreshTokenExpireWhen,
-      this.myOAuth2List,
-      this.myProfileList,
-      this.myEmailList,
-      this.myPhoneNumberList,
-      this.authPasswordIsNull);
 }
 
 class PostSignInWithPasswordAsyncResponseBodyVoOAuth2Info {
+  PostSignInWithPasswordAsyncResponseBodyVoOAuth2Info(
+      this.uid, this.oauth2TypeCode, this.oauth2Id);
+
   int uid; // 행 고유값
   int oauth2TypeCode; // OAuth2 (1 : Google, 2 : Naver, 3 : Kakao, 4 : Apple)
   String oauth2Id; // oAuth2 고유값 아이디
-
-  PostSignInWithPasswordAsyncResponseBodyVoOAuth2Info(
-      this.uid, this.oauth2TypeCode, this.oauth2Id);
 }
 
 class PostSignInWithPasswordAsyncResponseBodyVoProfile {
+  PostSignInWithPasswordAsyncResponseBodyVoProfile(
+      this.uid, this.imageFullUrl, this.isFront);
+
   int uid; // 행 고유값
   String imageFullUrl; // 프로필 이미지 Full URL
   bool isFront; // 표 프로필 여부
-
-  PostSignInWithPasswordAsyncResponseBodyVoProfile(
-      this.uid, this.imageFullUrl, this.isFront);
 }
 
 class PostSignInWithPasswordAsyncResponseBodyVoEmail {
+  PostSignInWithPasswordAsyncResponseBodyVoEmail(
+      this.uid, this.emailAddress, this.isFront);
+
   int uid; // 행 고유값
   String emailAddress; // 이메일 주소
   bool isFront; // 대표 이메일 여부
-
-  PostSignInWithPasswordAsyncResponseBodyVoEmail(
-      this.uid, this.emailAddress, this.isFront);
 }
 
 class PostSignInWithPasswordAsyncResponseBodyVoPhone {
+  PostSignInWithPasswordAsyncResponseBodyVoPhone(
+      this.uid, this.phoneNumber, this.isFront);
+
   int uid; // 행 고유값
   String phoneNumber; // 전화번호
   bool isFront; // 대표 전화번호 여부
-
-  PostSignInWithPasswordAsyncResponseBodyVoPhone(
-      this.uid, this.phoneNumber, this.isFront);
 }
 
 ////
@@ -1449,18 +1449,18 @@ Future<
 }
 
 class PostService1TkV1AuthLogoutAsyncRequestHeaderVo {
+  PostService1TkV1AuthLogoutAsyncRequestHeaderVo(this.authorization);
+
   // 인증 토큰 (ex : "Bearer abcd1234!@#$")
   String authorization;
-
-  PostService1TkV1AuthLogoutAsyncRequestHeaderVo(this.authorization);
 }
 
 class PostService1TkV1AuthLogoutAsyncResponseHeaderVo {
+  PostService1TkV1AuthLogoutAsyncResponseHeaderVo(this.apiResultCode);
+
   // (api-result-code)
   // 0 : 정상 동작
   String? apiResultCode;
-
-  PostService1TkV1AuthLogoutAsyncResponseHeaderVo(this.apiResultCode);
 }
 
 class PostService1TkV1AuthLogoutAsyncResponseBodyVo {}
@@ -1524,20 +1524,20 @@ Future<
 }
 
 class DeleteService1TkV1AuthAllAuthorizationTokenAsyncRequestHeaderVo {
-  // 인증 토큰 (ex : "Bearer abcd1234!@#$")
-  String authorization;
-
   DeleteService1TkV1AuthAllAuthorizationTokenAsyncRequestHeaderVo(
       this.authorization);
+
+  // 인증 토큰 (ex : "Bearer abcd1234!@#$")
+  String authorization;
 }
 
 class DeleteService1TkV1AuthAllAuthorizationTokenAsyncResponseHeaderVo {
+  DeleteService1TkV1AuthAllAuthorizationTokenAsyncResponseHeaderVo(
+      this.apiResultCode);
+
   // (api-result-code)
   // 0 : 정상 동작
   String? apiResultCode;
-
-  DeleteService1TkV1AuthAllAuthorizationTokenAsyncResponseHeaderVo(
-      this.apiResultCode);
 }
 
 class DeleteService1TkV1AuthAllAuthorizationTokenAsyncResponseBodyVo {}
@@ -1657,19 +1657,21 @@ Future<
 }
 
 class PostService1TkV1AuthReissueAsyncRequestHeaderVo {
+  PostService1TkV1AuthReissueAsyncRequestHeaderVo(this.authorization);
+
   // 인증 토큰 (ex : "Bearer abcd1234!@#$")
   String authorization;
-
-  PostService1TkV1AuthReissueAsyncRequestHeaderVo(this.authorization);
 }
 
 class PostService1TkV1AuthReissueAsyncRequestBodyVo {
-  String refreshToken; // 리플래시 토큰 (토큰 타입을 앞에 붙이기)
-
   PostService1TkV1AuthReissueAsyncRequestBodyVo(this.refreshToken);
+
+  String refreshToken; // 리플래시 토큰 (토큰 타입을 앞에 붙이기)
 }
 
 class PostService1TkV1AuthReissueAsyncResponseHeaderVo {
+  PostService1TkV1AuthReissueAsyncResponseHeaderVo(this.apiResultCode);
+
   // (api-result-code)
   // 0 : 정상 동작
   // 1 : 탈퇴된 회원
@@ -1677,11 +1679,24 @@ class PostService1TkV1AuthReissueAsyncResponseHeaderVo {
   // 3 : 리프레시 토큰 만료
   // 4 : 리프레시 토큰이 액세스 토큰과 매칭되지 않음
   String? apiResultCode;
-
-  PostService1TkV1AuthReissueAsyncResponseHeaderVo(this.apiResultCode);
 }
 
 class PostService1TkV1AuthReissueAsyncResponseBodyVo {
+  PostService1TkV1AuthReissueAsyncResponseBodyVo(
+      this.memberUid,
+      this.nickName,
+      this.roleList,
+      this.tokenType,
+      this.accessToken,
+      this.refreshToken,
+      this.accessTokenExpireWhen,
+      this.refreshTokenExpireWhen,
+      this.myOAuth2List,
+      this.myProfileList,
+      this.myEmailList,
+      this.myPhoneNumberList,
+      this.authPasswordIsNull);
+
   int memberUid; // 멤버 고유값
   String nickName; // 닉네임
   List<String> roleList; // 권한 리스트 (관리자 : ROLE_ADMIN, 개발자 : ROLE_DEVELOPER)
@@ -1699,56 +1714,41 @@ class PostService1TkV1AuthReissueAsyncResponseBodyVo {
       myPhoneNumberList; // 내가 등록한 전화번호 정보 리스트
   bool
       authPasswordIsNull; // 계정 로그인 비밀번호 설정 Null 여부 (OAuth2 만으로 회원가입한 경우는 비밀번호가 없으므로 true)
-
-  PostService1TkV1AuthReissueAsyncResponseBodyVo(
-      this.memberUid,
-      this.nickName,
-      this.roleList,
-      this.tokenType,
-      this.accessToken,
-      this.refreshToken,
-      this.accessTokenExpireWhen,
-      this.refreshTokenExpireWhen,
-      this.myOAuth2List,
-      this.myProfileList,
-      this.myEmailList,
-      this.myPhoneNumberList,
-      this.authPasswordIsNull);
 }
 
 class PostReissueAsyncResponseBodyVoOAuth2Info {
+  PostReissueAsyncResponseBodyVoOAuth2Info(
+      this.uid, this.oauth2TypeCode, this.oauth2Id);
+
   int uid; // 행 고유값
   int oauth2TypeCode; // OAuth2 (1 : Google, 2 : Naver, 3 : Kakao, 4 : Apple)
   String oauth2Id; // oAuth2 고유값 아이디
-
-  PostReissueAsyncResponseBodyVoOAuth2Info(
-      this.uid, this.oauth2TypeCode, this.oauth2Id);
 }
 
 class PostReissueAsyncResponseBodyVoProfile {
+  PostReissueAsyncResponseBodyVoProfile(
+      this.uid, this.imageFullUrl, this.isFront);
+
   int uid; // 행 고유값
   String imageFullUrl; // 프로필 이미지 Full URL
   bool isFront; // 표 프로필 여부
-
-  PostReissueAsyncResponseBodyVoProfile(
-      this.uid, this.imageFullUrl, this.isFront);
 }
 
 class PostReissueAsyncResponseBodyVoEmail {
+  PostReissueAsyncResponseBodyVoEmail(
+      this.uid, this.emailAddress, this.isFront);
+
   int uid; // 행 고유값
   String emailAddress; // 이메일 주소
   bool isFront; // 대표 이메일 여부
-
-  PostReissueAsyncResponseBodyVoEmail(
-      this.uid, this.emailAddress, this.isFront);
 }
 
 class PostReissueAsyncResponseBodyVoPhone {
+  PostReissueAsyncResponseBodyVoPhone(this.uid, this.phoneNumber, this.isFront);
+
   int uid; // 행 고유값
   String phoneNumber; // 전화번호
   bool isFront; // 대표 전화번호 여부
-
-  PostReissueAsyncResponseBodyVoPhone(this.uid, this.phoneNumber, this.isFront);
 }
 
 ////
@@ -1813,17 +1813,17 @@ Future<
 }
 
 class GetService1TkV1AuthForNoLoggedInAsyncResponseHeaderVo {
+  GetService1TkV1AuthForNoLoggedInAsyncResponseHeaderVo(this.apiResultCode);
+
   // (api-result-code)
   // 0 : 정상 동작
   String? apiResultCode;
-
-  GetService1TkV1AuthForNoLoggedInAsyncResponseHeaderVo(this.apiResultCode);
 }
 
 class GetService1TkV1AuthForNoLoggedInAsyncResponseBodyVo {
-  String result;
-
   GetService1TkV1AuthForNoLoggedInAsyncResponseBodyVo(this.result);
+
+  String result;
 
   @override
   String toString() {
@@ -1899,24 +1899,24 @@ Future<
 }
 
 class GetService1TkV1AuthForLoggedInAsyncRequestHeaderVo {
+  GetService1TkV1AuthForLoggedInAsyncRequestHeaderVo(this.authorization);
+
   // 인증 토큰 (ex : "Bearer abcd1234!@#$")
   String? authorization;
-
-  GetService1TkV1AuthForLoggedInAsyncRequestHeaderVo(this.authorization);
 }
 
 class GetService1TkV1AuthForLoggedInAsyncResponseHeaderVo {
+  GetService1TkV1AuthForLoggedInAsyncResponseHeaderVo(this.apiResultCode);
+
   // (api-result-code)
   // 0 : 정상 동작
   String? apiResultCode;
-
-  GetService1TkV1AuthForLoggedInAsyncResponseHeaderVo(this.apiResultCode);
 }
 
 class GetService1TkV1AuthForLoggedInAsyncResponseBodyVo {
-  String result;
-
   GetService1TkV1AuthForLoggedInAsyncResponseBodyVo(this.result);
+
+  String result;
 
   @override
   String toString() {
@@ -1992,24 +1992,24 @@ Future<
 }
 
 class GetService1TkV1AuthForDeveloperAsyncRequestHeaderVo {
+  GetService1TkV1AuthForDeveloperAsyncRequestHeaderVo(this.authorization);
+
   // 인증 토큰 (ex : "Bearer abcd1234!@#$")
   String? authorization;
-
-  GetService1TkV1AuthForDeveloperAsyncRequestHeaderVo(this.authorization);
 }
 
 class GetService1TkV1AuthForDeveloperAsyncResponseHeaderVo {
+  GetService1TkV1AuthForDeveloperAsyncResponseHeaderVo(this.apiResultCode);
+
   // (api-result-code)
   // 0 : 정상 동작
   String? apiResultCode;
-
-  GetService1TkV1AuthForDeveloperAsyncResponseHeaderVo(this.apiResultCode);
 }
 
 class GetService1TkV1AuthForDeveloperAsyncResponseBodyVo {
-  String result;
-
   GetService1TkV1AuthForDeveloperAsyncResponseBodyVo(this.result);
+
+  String result;
 
   @override
   String toString() {
@@ -2084,24 +2084,24 @@ Future<
 }
 
 class GetService1TkV1AuthForAdminAsyncRequestHeaderVo {
+  GetService1TkV1AuthForAdminAsyncRequestHeaderVo(this.authorization);
+
   // 인증 토큰 (ex : "Bearer abcd1234!@#$")
   String? authorization;
-
-  GetService1TkV1AuthForAdminAsyncRequestHeaderVo(this.authorization);
 }
 
 class GetService1TkV1AuthForAdminAsyncResponseHeaderVo {
+  GetService1TkV1AuthForAdminAsyncResponseHeaderVo(this.apiResultCode);
+
   // (api-result-code)
   // 0 : 정상 동작
   String? apiResultCode;
-
-  GetService1TkV1AuthForAdminAsyncResponseHeaderVo(this.apiResultCode);
 }
 
 class GetService1TkV1AuthForAdminAsyncResponseBodyVo {
-  String result;
-
   GetService1TkV1AuthForAdminAsyncResponseBodyVo(this.result);
+
+  String result;
 
   @override
   String toString() {
@@ -2177,24 +2177,24 @@ Future<
 }
 
 class GetService1TkV1AuthNicknameDuplicateCheckAsyncRequestQueryVo {
-  String nickName;
-
   GetService1TkV1AuthNicknameDuplicateCheckAsyncRequestQueryVo(this.nickName);
+
+  String nickName;
 }
 
 class GetService1TkV1AuthNicknameDuplicateCheckAsyncResponseHeaderVo {
+  GetService1TkV1AuthNicknameDuplicateCheckAsyncResponseHeaderVo(
+      this.apiResultCode);
+
   // (api-result-code)
   // 0 : 정상 동작
   String? apiResultCode;
-
-  GetService1TkV1AuthNicknameDuplicateCheckAsyncResponseHeaderVo(
-      this.apiResultCode);
 }
 
 class GetService1TkV1AuthNicknameDuplicateCheckAsyncResponseBodyVo {
-  bool duplicated;
-
   GetService1TkV1AuthNicknameDuplicateCheckAsyncResponseBodyVo(this.duplicated);
+
+  bool duplicated;
 }
 
 ////
@@ -2274,28 +2274,28 @@ Future<
 }
 
 class PostService1TkV1AuthJoinTheMembershipEmailVerificationAsyncRequestBodyVo {
-  String email; // 수신 이메일
-
   PostService1TkV1AuthJoinTheMembershipEmailVerificationAsyncRequestBodyVo(
       this.email);
+
+  String email; // 수신 이메일
 }
 
 class PostService1TkV1AuthJoinTheMembershipEmailVerificationAsyncResponseHeaderVo {
+  PostService1TkV1AuthJoinTheMembershipEmailVerificationAsyncResponseHeaderVo(
+      this.apiResultCode);
+
   // (api-result-code)
   // 0 : 정상 동작
   // 1 : 기존 회원 존재
   String? apiResultCode;
-
-  PostService1TkV1AuthJoinTheMembershipEmailVerificationAsyncResponseHeaderVo(
-      this.apiResultCode);
 }
 
 class PostService1TkV1AuthJoinTheMembershipEmailVerificationAsyncResponseBodyVo {
-  int verificationUid; // 검증 고유값
-  String verificationExpireWhen; // 검증 만료 시간 (yyyy-MM-dd HH:mm:ss.SSS)
-
   PostService1TkV1AuthJoinTheMembershipEmailVerificationAsyncResponseBodyVo(
       this.verificationUid, this.verificationExpireWhen);
+
+  int verificationUid; // 검증 고유값
+  String verificationExpireWhen; // 검증 만료 시간 (yyyy-MM-dd HH:mm:ss.SSS)
 }
 
 ////
@@ -2371,31 +2371,31 @@ Future<
 }
 
 class GetService1TkV1AuthJoinTheMembershipEmailVerificationCheckAsyncRequestQueryVo {
+  GetService1TkV1AuthJoinTheMembershipEmailVerificationCheckAsyncRequestQueryVo(
+      this.verificationUid, this.email, this.verificationCode);
+
   int verificationUid; // 검증 고유값
   String email; // 확인 이메일
   String verificationCode; // 확인 이메일에 전송된 코드
-
-  GetService1TkV1AuthJoinTheMembershipEmailVerificationCheckAsyncRequestQueryVo(
-      this.verificationUid, this.email, this.verificationCode);
 }
 
 class GetService1TkV1AuthJoinTheMembershipEmailVerificationCheckAsyncResponseHeaderVo {
+  GetService1TkV1AuthJoinTheMembershipEmailVerificationCheckAsyncResponseHeaderVo(
+      this.apiResultCode);
+
   // (api-result-code)
   // 0 : 정상 동작
   // 1 : 이메일 검증 요청을 보낸 적 없음
   // 2 : 이메일 검증 요청이 만료됨
   // 3 : verificationCode 가 일치하지 않음
   String? apiResultCode;
-
-  GetService1TkV1AuthJoinTheMembershipEmailVerificationCheckAsyncResponseHeaderVo(
-      this.apiResultCode);
 }
 
 class GetService1TkV1AuthJoinTheMembershipEmailVerificationCheckAsyncResponseBodyVo {
-  String expireWhen; // 인증 완료시 새로 늘어난 검증 만료 시간 (yyyy-MM-dd HH:mm:ss.SSS)
-
   GetService1TkV1AuthJoinTheMembershipEmailVerificationCheckAsyncResponseBodyVo(
       this.expireWhen);
+
+  String expireWhen; // 인증 완료시 새로 늘어난 검증 만료 시간 (yyyy-MM-dd HH:mm:ss.SSS)
 }
 
 ////
@@ -2473,13 +2473,6 @@ Future<
 }
 
 class PostService1TkV1AuthJoinTheMembershipWithEmailAsyncRequestBodyVo {
-  int verificationUid; // 검증 고유값
-  String email; // 아이디 - 이메일
-  String password; // 사용할 비밀번호
-  String nickName; // 닉네임
-  String verificationCode; // oauth2Id 검증에 사용한 코드
-  MultipartFile? profileImageFile; // 프로필 사진 파일
-
   PostService1TkV1AuthJoinTheMembershipWithEmailAsyncRequestBodyVo(
       this.verificationUid,
       this.email,
@@ -2487,9 +2480,19 @@ class PostService1TkV1AuthJoinTheMembershipWithEmailAsyncRequestBodyVo {
       this.nickName,
       this.verificationCode,
       this.profileImageFile);
+
+  int verificationUid; // 검증 고유값
+  String email; // 아이디 - 이메일
+  String password; // 사용할 비밀번호
+  String nickName; // 닉네임
+  String verificationCode; // oauth2Id 검증에 사용한 코드
+  MultipartFile? profileImageFile; // 프로필 사진 파일
 }
 
 class PostService1TkV1AuthJoinTheMembershipWithEmailAsyncResponseHeaderVo {
+  PostService1TkV1AuthJoinTheMembershipWithEmailAsyncResponseHeaderVo(
+      this.apiResultCode);
+
   // (api-result-code)
   // 0 : 정상 동작
   // 1 : 이메일 검증 요청을 보낸 적 없음
@@ -2498,9 +2501,6 @@ class PostService1TkV1AuthJoinTheMembershipWithEmailAsyncResponseHeaderVo {
   // 4 : 이미 가입된 회원이 있습니다.
   // 5 : 이미 사용중인 닉네임
   String? apiResultCode;
-
-  PostService1TkV1AuthJoinTheMembershipWithEmailAsyncResponseHeaderVo(
-      this.apiResultCode);
 }
 
 class PostService1TkV1AuthJoinTheMembershipWithEmailAsyncResponseBodyVo {}
@@ -2577,28 +2577,28 @@ Future<
 }
 
 class PostService1TkV1AuthFindPasswordEmailVerificationAsyncRequestBodyVo {
-  String email; // 수신 이메일
-
   PostService1TkV1AuthFindPasswordEmailVerificationAsyncRequestBodyVo(
       this.email);
+
+  String email; // 수신 이메일
 }
 
 class PostService1TkV1AuthFindPasswordEmailVerificationAsyncResponseHeaderVo {
+  PostService1TkV1AuthFindPasswordEmailVerificationAsyncResponseHeaderVo(
+      this.apiResultCode);
+
   // (api-result-code)
   // 0 : 정상 동작
   // 1 : 가입되지 않은 회원
   String? apiResultCode;
-
-  PostService1TkV1AuthFindPasswordEmailVerificationAsyncResponseHeaderVo(
-      this.apiResultCode);
 }
 
 class PostService1TkV1AuthFindPasswordEmailVerificationAsyncResponseBodyVo {
-  int verificationUid; // 검증 고유값
-  String verificationExpireWhen; // 검증 만료 시간 (yyyy-MM-dd HH:mm:ss.SSS)
-
   PostService1TkV1AuthFindPasswordEmailVerificationAsyncResponseBodyVo(
       this.verificationUid, this.verificationExpireWhen);
+
+  int verificationUid; // 검증 고유값
+  String verificationExpireWhen; // 검증 만료 시간 (yyyy-MM-dd HH:mm:ss.SSS)
 }
 
 ////
@@ -2671,15 +2671,18 @@ Future<
 }
 
 class PostService1TkV1AuthFindPasswordWithEmailAsyncRequestBodyVo {
+  PostService1TkV1AuthFindPasswordWithEmailAsyncRequestBodyVo(
+      this.email, this.verificationUid, this.verificationCode);
+
   String email; // 비밀번호를 찾을 계정 이메일
   int verificationUid; // 검증 고유값
   String verificationCode; // 이메일 검증에 사용한 코드
-
-  PostService1TkV1AuthFindPasswordWithEmailAsyncRequestBodyVo(
-      this.email, this.verificationUid, this.verificationCode);
 }
 
 class PostService1TkV1AuthFindPasswordWithEmailAsyncResponseHeaderVo {
+  PostService1TkV1AuthFindPasswordWithEmailAsyncResponseHeaderVo(
+      this.apiResultCode);
+
   // (api-result-code)
   // 0 : 정상 동작
   // 1 : 이메일 검증 요청을 보낸 적 없음
@@ -2687,9 +2690,6 @@ class PostService1TkV1AuthFindPasswordWithEmailAsyncResponseHeaderVo {
   // 3 : verificationCode 가 일치하지 않음
   // 4 : 탈퇴한 회원입니다.
   String? apiResultCode;
-
-  PostService1TkV1AuthFindPasswordWithEmailAsyncResponseHeaderVo(
-      this.apiResultCode);
 }
 
 class PostService1TkV1AuthFindPasswordWithEmailAsyncResponseBodyVo {
@@ -2761,18 +2761,18 @@ Future<
 }
 
 class DeleteService1TkV1AuthWithdrawalAsyncRequestHeaderVo {
+  DeleteService1TkV1AuthWithdrawalAsyncRequestHeaderVo(this.authorization);
+
   // 인증 토큰 (ex : "Bearer abcd1234!@#$")
   String authorization;
-
-  DeleteService1TkV1AuthWithdrawalAsyncRequestHeaderVo(this.authorization);
 }
 
 class DeleteService1TkV1AuthWithdrawalAsyncResponseHeaderVo {
+  DeleteService1TkV1AuthWithdrawalAsyncResponseHeaderVo(this.apiResultCode);
+
   // (api-result-code)
   // 0 : 정상 동작
   String? apiResultCode;
-
-  DeleteService1TkV1AuthWithdrawalAsyncResponseHeaderVo(this.apiResultCode);
 }
 
 class DeleteService1TkV1AuthWithdrawalAsyncResponseBodyVo {
@@ -2851,32 +2851,32 @@ Future<
 }
 
 class PutService1TkV1AuthChangeAccountPasswordAsyncRequestHeaderVo {
-  // 인증 토큰 (ex : "Bearer abcd1234!@#$")
-  String authorization;
-
   PutService1TkV1AuthChangeAccountPasswordAsyncRequestHeaderVo(
       this.authorization);
+
+  // 인증 토큰 (ex : "Bearer abcd1234!@#$")
+  String authorization;
 }
 
 class PutService1TkV1AuthChangeAccountPasswordAsyncRequestBodyVo {
+  PutService1TkV1AuthChangeAccountPasswordAsyncRequestBodyVo(
+      this.oldPassword, this.newPassword);
+
   // 인증 토큰 (ex : "Bearer abcd1234!@#$")
   String? oldPassword; // 기존 이메일 로그인용 비밀번호(기존 비밀번호가 없다면 null)
   String? newPassword; // 새 이메일 로그인용 비밀번호(비밀번호를 없애려면 null)
-
-  PutService1TkV1AuthChangeAccountPasswordAsyncRequestBodyVo(
-      this.oldPassword, this.newPassword);
 }
 
 class PutService1TkV1AuthChangeAccountPasswordAsyncResponseHeaderVo {
+  PutService1TkV1AuthChangeAccountPasswordAsyncResponseHeaderVo(
+      this.apiResultCode);
+
   // (api-result-code)
   // 0 : 정상 동작
   // 1 : 탈퇴된 회원
   // 2 : 기존 비밀번호가 일치하지 않음
   // 3 : 비번을 null 로 만들려고 할 때 account 외의 OAuth2 인증이 없기에 비번 제거 불가
   String? apiResultCode;
-
-  PutService1TkV1AuthChangeAccountPasswordAsyncResponseHeaderVo(
-      this.apiResultCode);
 }
 
 class PutService1TkV1AuthChangeAccountPasswordAsyncResponseBodyVo {

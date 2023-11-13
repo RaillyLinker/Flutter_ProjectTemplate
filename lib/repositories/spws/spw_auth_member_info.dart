@@ -231,12 +231,12 @@ class SharedPreferenceWrapperVo {
 }
 
 class SharedPreferenceWrapperVoOAuth2Info {
+  SharedPreferenceWrapperVoOAuth2Info(
+      this.uid, this.oauth2TypeCode, this.oauth2Id);
+
   int uid; // 행 고유값
   int oauth2TypeCode; // OAuth2 (1 : Google, 2 : Naver, 3 : Kakao, 4 : Apple)
   String oauth2Id; // oAuth2 고유값 아이디
-
-  SharedPreferenceWrapperVoOAuth2Info(
-      this.uid, this.oauth2TypeCode, this.oauth2Id);
 }
 
 class SharedPreferenceWrapperVoProfileInfo {

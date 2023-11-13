@@ -34,7 +34,7 @@ class PageOutFrame extends StatelessWidget {
       GlobalKey();
 
   final StatefulWidgetTemplateViewModel statefulWidgetTemplateViewModel =
-      StatefulWidgetTemplateViewModel(false);
+      StatefulWidgetTemplateViewModel();
 
   @override
   Widget build(BuildContext context) {
@@ -85,10 +85,10 @@ class StatefulWidgetTemplate extends StatefulWidget {
 }
 
 class StatefulWidgetTemplateViewModel {
-  StatefulWidgetTemplateViewModel(this.isHovering);
+  StatefulWidgetTemplateViewModel();
 
   // !!!State 에서 사용할 상태 변수 선언!!!
-  bool isHovering;
+  bool isHovering = false;
 }
 
 class StatefulWidgetTemplateState extends State<StatefulWidgetTemplate> {

@@ -23,13 +23,13 @@ import 'package:flutter/material.dart';
 // 를 해줍니다.
 // 여기선 threadConfluenceObj.threadComplete(); 가 2번 동작하면 합류 객체에 넘겨준 콜백이 실행되는 것입니다.
 class ThreadConfluenceObj {
+  ThreadConfluenceObj(this.numberOfThreadsBeingJoined, this._onComplete);
+
   late int numberOfThreadsBeingJoined;
   late final void Function() _onComplete;
 
   int _threadAccessCount = 0;
   final Semaphore _threadAccessCountSemaphore = Semaphore(1);
-
-  ThreadConfluenceObj(this.numberOfThreadsBeingJoined, this._onComplete);
 
   void threadComplete() {
     () async {
@@ -56,19 +56,19 @@ class ThreadConfluenceObj {
 
 // (AnimatedSwitcher 설정)
 class AnimatedSwitcherConfig {
-  Duration duration;
-  Duration? reverseDuration;
-  Curve switchInCurve;
-  Curve switchOutCurve;
-  AnimatedSwitcherTransitionBuilder transitionBuilder;
-  AnimatedSwitcherLayoutBuilder layoutBuilder;
-
   AnimatedSwitcherConfig(this.duration,
       {this.reverseDuration,
       this.switchInCurve = Curves.linear,
       this.switchOutCurve = Curves.linear,
       this.transitionBuilder = AnimatedSwitcher.defaultTransitionBuilder,
       this.layoutBuilder = AnimatedSwitcher.defaultLayoutBuilder});
+
+  Duration duration;
+  Duration? reverseDuration;
+  Curve switchInCurve;
+  Curve switchOutCurve;
+  AnimatedSwitcherTransitionBuilder transitionBuilder;
+  AnimatedSwitcherLayoutBuilder layoutBuilder;
 
   AnimatedSwitcherConfig clone() {
     return AnimatedSwitcherConfig(duration,
@@ -82,16 +82,16 @@ class AnimatedSwitcherConfig {
 
 // (우클릭 컨텍스트 메뉴 영역 클래스)
 class ContextMenuRegionItemVo {
-  Widget menuItemWidget;
-  void Function() menuItemCallback;
-
-  late String itemUid;
-
   ContextMenuRegionItemVo(this.menuItemWidget, this.menuItemCallback) {
     String menuItemWidgetCode = menuItemWidget.hashCode.toString();
     String menuItemCallbackCode = menuItemWidget.hashCode.toString();
     itemUid = "${menuItemWidgetCode}_$menuItemCallbackCode";
   }
+
+  Widget menuItemWidget;
+  void Function() menuItemCallback;
+
+  late String itemUid;
 }
 
 class ContextMenuRegion extends StatefulWidget {

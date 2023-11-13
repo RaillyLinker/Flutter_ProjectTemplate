@@ -12,7 +12,7 @@ import 'page_business.dart' as page_business;
 //------------------------------------------------------------------------------
 // !!!페이지 진입 라우트 Name 정의!!!
 // 폴더명과 동일하게 작성하세요.
-const pageName = "all_page_template";
+const pageName = "all_page_just_page_test1";
 
 // !!!페이지 호출/반납 애니메이션!!!
 // 동적으로 변경이 가능합니다.
@@ -41,22 +41,28 @@ class PageEntrance extends StatefulWidget {
   final GoRouterState _goRouterState;
 
   // 페이지 비즈니스 객체
-  late page_business.PageBusiness pageBusiness;
+  page_business.PageBusiness? pageBusiness;
 
   @override
   PageEntranceState createState() => PageEntranceState();
 }
 
 class PageEntranceState extends State<PageEntrance> {
+  // Stateful Widget 화면 갱신
+  void refresh() {
+    setState(() {});
+  }
+
+  // !!!위젯 상태 변수 선언하기!!!
   // 페이지 비즈니스 객체
-  late page_business.PageBusiness _pageBusiness;
+  page_business.PageBusiness? pageBusiness;
 
   @override
   Widget build(BuildContext context) {
-    _pageBusiness = page_business.PageBusiness(context);
-    widget.pageBusiness = _pageBusiness;
+    pageBusiness ??= page_business.PageBusiness(context);
+    widget.pageBusiness = pageBusiness;
 
-    return LifecycleWatcher(widget._goRouterState, _pageBusiness);
+    return LifecycleWatcher(widget._goRouterState, pageBusiness!);
   }
 }
 
