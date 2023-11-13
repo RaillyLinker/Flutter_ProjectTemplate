@@ -14,6 +14,7 @@ import '../../../dialogs/all/all_dialog_info/page_entrance.dart'
     as all_dialog_info;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
+// todo : BLoC to Stateful
 // Flutter 에서 값 입력 처리 방식은 여러가지인데,
 // Form 형식의 데이터를 입력받는 가장 최적의 방식을 정리한 샘플입니다.
 // todo : 에러 처리 개선

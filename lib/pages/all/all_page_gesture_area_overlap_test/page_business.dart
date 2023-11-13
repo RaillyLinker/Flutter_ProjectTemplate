@@ -13,6 +13,7 @@ import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
+// todo : BLoC to Stateful
 // 단순한 테스트용 페이지로,
 // 결과적으로 앞에 위치한 위젯의 제스쳐,
 // 제스쳐 위젯 안쪽의 최신 제스쳐만 동작됩니다.

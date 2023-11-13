@@ -23,6 +23,7 @@ import '../../../pages/all/all_page_grid_sample/page_entrance.dart'
     as all_page_grid_sample;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
+// todo : BLoC to Stateful
 
 //------------------------------------------------------------------------------
 // 페이지의 비즈니스 로직 담당

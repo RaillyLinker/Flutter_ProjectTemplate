@@ -14,6 +14,7 @@ import '../../../global_classes/gc_template_classes.dart'
 import '../../../pages/all/all_page_home/page_entrance.dart' as all_page_home;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
+// todo : BLoC to Stateful
 
 //------------------------------------------------------------------------------
 // 페이지의 비즈니스 로직 담당

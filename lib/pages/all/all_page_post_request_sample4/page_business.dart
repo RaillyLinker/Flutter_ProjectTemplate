@@ -23,6 +23,7 @@ import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
+// todo : BLoC to Stateful
 // todo : 입력 부분 Form 방식 변경
 
 //------------------------------------------------------------------------------

@@ -14,6 +14,7 @@ import '../../../global_classes/gc_template_classes.dart'
 import '../../../global_functions/gf_crypto.dart' as gf_crypto;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
+// todo : BLoC to Stateful
 // todo : 입력 부분 Form 방식 변경
 
 // 암호화, 복화화가 잘 이루어지는지 확인하는 샘플입니다.

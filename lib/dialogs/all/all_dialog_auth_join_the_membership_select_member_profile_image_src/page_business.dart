@@ -14,6 +14,7 @@ import '../../../../repositories/spws/spw_auth_member_info.dart'
 import '../../../global_functions/gf_my_functions.dart' as gf_my_functions;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
+// todo : BLoC to Stateful
 
 //------------------------------------------------------------------------------
 // 페이지의 비즈니스 로직 담당
