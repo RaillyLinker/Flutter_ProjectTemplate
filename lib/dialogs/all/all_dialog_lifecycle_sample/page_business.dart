@@ -1,20 +1,18 @@
 // (external)
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:go_router/go_router.dart';
+import 'dart:math';
 
 // (page)
 import 'page_view.dart' as page_view;
 import 'page_entrance.dart' as page_entrance;
 
 // (all)
-import '../../../pages/all/all_page_just_push_test1/page_entrance.dart'
-    as all_page_just_push_test1;
-import '../../../pages/all/all_page_just_push_test2/page_entrance.dart'
-    as all_page_just_push_test2;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
+import '../../../pages/all/all_page_dialog_sample_list/page_entrance.dart'
+    as all_page_dialog_sample_list;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
 
@@ -28,14 +26,14 @@ class PageBusiness {
   // 페이지 생명주기 관련 states
   var pageLifeCycleStates = gc_template_classes.PageLifeCycleStates();
 
-  // 페이지 파라미터 (아래 onCheckPageInputVoAsync 에서 조립)
-  late page_entrance.PageInputVo pageInputVo;
+  // 페이지 파라미터
+  page_entrance.PageInputVo pageInputVo;
 
   // 페이지 뷰모델 객체
   PageViewModel pageViewModel = PageViewModel();
 
   // 생성자 설정
-  PageBusiness(this._context);
+  PageBusiness(this._context, this.pageInputVo);
 
   ////
   // [페이지 생명주기]
@@ -44,44 +42,19 @@ class PageBusiness {
   // onPagePauseAsync -> onPageResumeAsync -> onPagePauseAsync -> onPageResumeAsync 반복
   // - 페이지 종료 : onPageWillPopAsync -(return true 일 때)-> onPagePauseAsync -> onPageDestroyAsync 실행
 
-  // (onPageCreateAsync 실행 전 PageInputVo 체크)
-  // onPageCreateAsync 과 완전히 동일하나, 입력값 체크만을 위해 분리한 생명주기
-  Future<void> onCheckPageInputVoAsync(GoRouterState goRouterState) async {
-    if (kDebugMode) {
-      print("--- onCheckPageInputVoAsync 호출됨");
-    }
-
-    // !!!pageInputVo 체크!!!
-    // ex :
-    // if (!goRouterState.uri.queryParameters
-    //     .containsKey("inputValueString")) {
-    //   // 필수 파라미터가 없는 경우에 대한 처리
-    // }
-
-    // !!!PageInputVo 입력!!!
-    pageInputVo = page_entrance.PageInputVo();
-  }
-
   // (페이지 최초 실행)
   Future<void> onPageCreateAsync() async {
     // !!!페이지 최초 실행 로직 작성!!!
-
     if (kDebugMode) {
-      print("--- onPageCreateAsync 호출됨");
+      print("+${pageViewModel.randString}+ onPageCreateAsync");
     }
-
-    showToast(
-      "--- onPageCreateAsync 호출됨",
-      context: _context,
-      animation: StyledToastAnimation.scale,
-    );
   }
 
   // (페이지 최초 실행 or 다른 페이지에서 복귀)
   Future<void> onPageResumeAsync() async {
     // !!!위젯 최초 실행 및, 다른 페이지에서 복귀 로직 작성!!!
     if (kDebugMode) {
-      print("--- onPageResumeAsync 호출됨");
+      print("+${pageViewModel.randString}+ onPageResumeAsync");
     }
   }
 
@@ -89,7 +62,7 @@ class PageBusiness {
   Future<void> onPagePauseAsync() async {
     // !!!위젯 종료 및, 다른 페이지로 이동 로직 작성!!!
     if (kDebugMode) {
-      print("--- onPagePauseAsync 호출됨");
+      print("+${pageViewModel.randString}+ onPagePauseAsync");
     }
   }
 
@@ -97,7 +70,7 @@ class PageBusiness {
   Future<void> onPageDestroyAsync() async {
     // !!!페이지 종료 로직 작성!!!
     if (kDebugMode) {
-      print("--- onPageDestroyAsync 호출됨");
+      print("+${pageViewModel.randString}+ onPageDestroyAsync");
     }
   }
 
@@ -108,7 +81,7 @@ class PageBusiness {
   Future<bool> onPageWillPopAsync() async {
     // !!!onWillPop 로직 작성!!!
     if (kDebugMode) {
-      print("--- onPageWillPop 호출됨");
+      print("+${pageViewModel.randString}+ onPageWillPopAsync");
     }
 
     return true;
@@ -125,20 +98,19 @@ class PageBusiness {
 //     pageViewModel.statefulWidgetSampleStateGk.currentState?.refresh();
 //   }
 
-  // (just_push_test 로 이동)
-  void goToJustPushTest1Page() {
-    _context.pushNamed(all_page_just_push_test1.pageName);
-  }
-
-  // (just_push_test 로 이동)
-  void goToJustPushTest2Page() {
-    _context.pushNamed(all_page_just_push_test2.pageName);
+  // (다이얼로그 종료 함수)
+  void closeDialog() {
+    _context.pop();
   }
 
   // (화면 카운트 +1)
   void countPlus1() {
     pageViewModel.statefulWidgetSampleNumberVm.sampleNumber += 1;
     pageViewModel.statefulWidgetSampleNumberStateGk.currentState?.refresh();
+  }
+
+  void pushToAnotherPage() {
+    _context.pushNamed(all_page_dialog_sample_list.pageName);
   }
 
 ////
@@ -149,7 +121,9 @@ class PageBusiness {
 // (페이지 뷰 모델 클래스)
 // 페이지 전역의 데이터는 여기에 정의되며, Business 인스턴스 안의 pageViewModel 변수로 저장 됩니다.
 class PageViewModel {
-  PageViewModel();
+  PageViewModel() {
+    randString = _generateRandomString(10);
+  }
 
   // !!!페이지 데이터 정의!!!
   // 하위 Stateful Widget 의 GlobalKey 와 ViewModel, 그리고 Stateless Widget 의 데이터를 저장
@@ -159,8 +133,23 @@ class PageViewModel {
   // page_view.StatefulWidgetSampleViewModel statefulWidgetSampleVm =
   //     page_view.StatefulWidgetSampleViewModel(0);
 
+  String randString = "";
+
   final GlobalKey<page_view.StatefulWidgetSampleNumberState>
       statefulWidgetSampleNumberStateGk = GlobalKey();
   page_view.StatefulWidgetSampleNumberViewModel statefulWidgetSampleNumberVm =
       page_view.StatefulWidgetSampleNumberViewModel(0);
+
+  String _generateRandomString(int length) {
+    const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+    final random = Random();
+    return String.fromCharCodes(
+      Iterable.generate(
+        length,
+        (_) => chars.codeUnitAt(
+          random.nextInt(chars.length),
+        ),
+      ),
+    );
+  }
 }

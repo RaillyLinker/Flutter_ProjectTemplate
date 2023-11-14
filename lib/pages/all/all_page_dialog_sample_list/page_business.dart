@@ -8,11 +8,12 @@ import 'package:go_router/go_router.dart';
 import 'page_entrance.dart' as page_entrance;
 
 // (all)
-import '../../../global_widgets/gw_page_out_frames.dart' as gw_page_out_frames;
 import '../../../dialogs/all/all_dialog_info/page_entrance.dart'
     as all_dialog_info;
 import '../../../a_templates/all_dialog_template/page_entrance.dart'
     as all_dialog_template;
+import '../../../dialogs/all/all_dialog_lifecycle_sample/page_entrance.dart'
+    as all_dialog_lifecycle_sample;
 import '../../../dialogs/all/all_dialog_yes_or_no/page_entrance.dart'
     as all_dialog_yes_or_no;
 import '../../../dialogs/all/all_dialog_loading_spinner/page_entrance.dart'
@@ -241,12 +242,23 @@ class PageBusiness {
         break;
       case SampleItemEnum.contextMenuSample:
         {
-          // 다이얼로그 외부 색 설정
+          // 콘텍스트 메뉴 샘플
           showDialog(
               barrierDismissible: true,
               context: _context,
               builder: (context) => all_dialog_context_menu_sample.PageEntrance(
                     all_dialog_context_menu_sample.PageInputVo(),
+                  )).then((outputVo) {});
+        }
+        break;
+      case SampleItemEnum.lifecycleSample:
+        {
+          // 생명주기 샘플
+          showDialog(
+              barrierDismissible: true,
+              context: _context,
+              builder: (context) => all_dialog_lifecycle_sample.PageEntrance(
+                    all_dialog_lifecycle_sample.PageInputVo(),
                   )).then((outputVo) {});
         }
         break;
@@ -282,6 +294,8 @@ class PageViewModel {
     // 초기 리스트 추가
     allSampleList.add(SampleItem(
         SampleItemEnum.dialogTemplate, "다이얼로그 템플릿", "템플릿 다이얼로그를 호출합니다."));
+    allSampleList.add(SampleItem(SampleItemEnum.lifecycleSample, "생명주기 샘플",
+        "다이얼로그 생명주기 및 State 처리를 확인하는 샘플을 호출합니다."));
     allSampleList.add(SampleItem(
         SampleItemEnum.infoDialog, "확인 다이얼로그", "버튼이 하나인 확인 다이얼로그를 호출합니다."));
     allSampleList.add(SampleItem(
@@ -318,6 +332,7 @@ class SampleItem {
 
 enum SampleItemEnum {
   dialogTemplate,
+  lifecycleSample,
   infoDialog,
   yesOrNoDialog,
   loadingSpinnerDialog,

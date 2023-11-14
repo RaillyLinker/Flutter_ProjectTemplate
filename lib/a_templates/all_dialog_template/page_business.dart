@@ -91,6 +91,8 @@ class PageBusiness {
 // (페이지 뷰 모델 클래스)
 // 페이지 전역의 데이터는 여기에 정의되며, Business 인스턴스 안의 pageViewModel 변수로 저장 됩니다.
 class PageViewModel {
+  PageViewModel();
+
   // !!!페이지 데이터 정의!!!
   // 하위 Stateful Widget 의 GlobalKey 와 ViewModel, 그리고 Stateless Widget 의 데이터를 저장
   // ex :
@@ -98,6 +100,4 @@ class PageViewModel {
   //     statefulWidgetSampleStateGk = GlobalKey();
   // page_view.StatefulWidgetSampleViewModel statefulWidgetSampleVm =
   //     page_view.StatefulWidgetSampleViewModel(0);
-
-  PageViewModel();
 }

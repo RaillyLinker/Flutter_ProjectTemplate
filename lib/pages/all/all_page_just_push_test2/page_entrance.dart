@@ -39,7 +39,6 @@ class PageOutputVo {}
 class PageEntrance extends StatefulWidget {
   PageEntrance(this._goRouterState, {super.key});
 
-  // 페이지 진입 파라미터
   final GoRouterState _goRouterState;
 
   // 페이지 비즈니스 객체
@@ -49,38 +48,18 @@ class PageEntrance extends StatefulWidget {
   PageEntranceState createState() => PageEntranceState();
 }
 
-class PageEntranceState extends State<PageEntrance> {
-  // 페이지 비즈니스 객체
-  page_business.PageBusiness? _pageBusiness;
-
-  @override
-  Widget build(BuildContext context) {
-    _pageBusiness ??= page_business.PageBusiness(context);
-    widget.pageBusiness = _pageBusiness!;
-
-    return LifecycleWatcher(widget._goRouterState, _pageBusiness!);
-  }
-}
-
-// (페이지 생명주기 탐지용)
-class LifecycleWatcher extends StatefulWidget {
-  const LifecycleWatcher(this._goRouterState, this._pageBusiness, {super.key});
-
-  final GoRouterState _goRouterState;
-
-  // 페이지 비즈니스 객체
-  final page_business.PageBusiness _pageBusiness;
-
-  @override
-  LifecycleWatcherState createState() => LifecycleWatcherState();
-}
-
-class LifecycleWatcherState extends State<LifecycleWatcher>
+class PageEntranceState extends State<PageEntrance>
     with WidgetsBindingObserver {
+  // 페이지 비즈니스 객체
+  late page_business.PageBusiness _pageBusiness;
+
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
+
+    _pageBusiness = page_business.PageBusiness(context);
+    widget.pageBusiness = _pageBusiness;
   }
 
   @override
@@ -89,7 +68,7 @@ class LifecycleWatcherState extends State<LifecycleWatcher>
     // Android 의 onDestroy() 와 비슷
     // mobile : history 가 둘 이상인 상태에서 pop() 사용, back 버튼으로 뒤로가기
     WidgetsBinding.instance.removeObserver(this);
-    widget._pageBusiness.pageLifeCycleStates.isDisposed = true;
+    _pageBusiness.pageLifeCycleStates.isDisposed = true;
     super.dispose();
   }
 
@@ -97,15 +76,15 @@ class LifecycleWatcherState extends State<LifecycleWatcher>
   Widget build(BuildContext context) {
     return WillPopScope(
         onWillPop: () async {
-          bool isPop = await widget._pageBusiness.onPageWillPopAsync();
+          bool isPop = await _pageBusiness.onPageWillPopAsync();
 
           if (isPop) {
             // 페이지 종료(return true) 때에는, 아래 코드 실행
             if (context.mounted) {
               if (Navigator.canPop(context)) {
-                widget._pageBusiness.pageLifeCycleStates.isCanPop = true;
+                _pageBusiness.pageLifeCycleStates.isCanPop = true;
               } else {
-                widget._pageBusiness.pageLifeCycleStates.isNoCanPop = true;
+                _pageBusiness.pageLifeCycleStates.isNoCanPop = true;
               }
             }
           }
@@ -116,21 +95,21 @@ class LifecycleWatcherState extends State<LifecycleWatcher>
         child: FocusDetector(
             // Businesses 에 focus 콜백 전달
             onFocusGained: () async {
-              if (!widget._pageBusiness.pageLifeCycleStates.isPageCreated) {
-                widget._pageBusiness.pageLifeCycleStates.isPageCreated = true;
-                await widget._pageBusiness
+              if (!_pageBusiness.pageLifeCycleStates.isPageCreated) {
+                _pageBusiness.pageLifeCycleStates.isPageCreated = true;
+                await _pageBusiness
                     .onCheckPageInputVoAsync(widget._goRouterState);
-                await widget._pageBusiness.onPageCreateAsync();
+                await _pageBusiness.onPageCreateAsync();
               } else {}
 
-              await widget._pageBusiness.onPageResumeAsync();
+              await _pageBusiness.onPageResumeAsync();
             },
             onFocusLost: () async {
-              if (widget._pageBusiness.pageLifeCycleStates.isNoCanPop) {
-                await widget._pageBusiness.onPagePauseAsync();
-                await widget._pageBusiness.onPageDestroyAsync();
+              if (_pageBusiness.pageLifeCycleStates.isNoCanPop) {
+                await _pageBusiness.onPagePauseAsync();
+                await _pageBusiness.onPageDestroyAsync();
               } else {
-                await widget._pageBusiness.onPagePauseAsync();
+                await _pageBusiness.onPagePauseAsync();
               }
             },
             onVisibilityLost: () async {
@@ -139,13 +118,13 @@ class LifecycleWatcherState extends State<LifecycleWatcher>
               // mobile : 다른 라우트 push, pop() 사용, back 버튼으로 뒤로가기
 
               // isDisposed 를 그냥 사용하면 onPause 보다 빠르게 실행되므로 실행 타이밍을 뒤로 미루기 위한 로직
-              if (widget._pageBusiness.pageLifeCycleStates.isDisposed) {
-                widget._pageBusiness.pageLifeCycleStates.isDisposed = false;
-                if (widget._pageBusiness.pageLifeCycleStates.isCanPop) {
-                  await widget._pageBusiness.onPageDestroyAsync();
+              if (_pageBusiness.pageLifeCycleStates.isDisposed) {
+                _pageBusiness.pageLifeCycleStates.isDisposed = false;
+                if (_pageBusiness.pageLifeCycleStates.isCanPop) {
+                  await _pageBusiness.onPageDestroyAsync();
                 }
               }
             },
-            child: page_view.PageView(widget._pageBusiness)));
+            child: page_view.PageView(_pageBusiness)));
   }
 }

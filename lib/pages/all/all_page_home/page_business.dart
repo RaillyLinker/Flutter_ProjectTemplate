@@ -9,7 +9,6 @@ import 'package:go_router/go_router.dart';
 import 'page_entrance.dart' as page_entrance;
 
 // (all)
-import '../../../global_widgets/gw_page_out_frames.dart' as gw_page_out_frames;
 import '../../../pages/all/all_page_auth_sample/page_entrance.dart'
     as all_page_auth_sample;
 import '../../../pages/all/all_page_dialog_sample_list/page_entrance.dart'
