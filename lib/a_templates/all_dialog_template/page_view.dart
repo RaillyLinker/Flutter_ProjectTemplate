@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 // (page)
 import 'page_business.dart' as page_business;
 
-// (all)
-
 // [페이지 화면 위젯 작성 파일]
 // 페이지 화면 구현을 담당합니다. (Widget 과 Business 간의 결합을 담당)
 // 로직 처리는 pageBusiness 객체에 위임하세요.
