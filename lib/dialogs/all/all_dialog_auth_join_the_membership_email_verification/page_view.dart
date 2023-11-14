@@ -1,13 +1,10 @@
 // (external)
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 // (page)
 import 'page_business.dart' as page_business;
 
 // (all)
-import '../../../global_classes/gc_template_classes.dart'
-    as gc_template_classes;
 
 // [페이지 화면 위젯 작성 파일]
 // 페이지 화면 구현을 담당합니다.
@@ -17,16 +14,13 @@ import '../../../global_classes/gc_template_classes.dart'
 // (페이지 UI 위젯)
 // !!!세부 화면 정의!!!
 class PageView extends StatelessWidget {
-  const PageView({super.key});
+  const PageView(this._pageBusiness, {super.key});
+
+  // 페이지 비즈니스 객체
+  final page_business.PageBusiness _pageBusiness;
 
   @override
   Widget build(BuildContext context) {
-    // pageBusiness 객체
-    page_business.PageBusiness pageBusiness =
-        BlocProvider.of<gc_template_classes.BlocPageInfo>(context)
-            .state
-            .pageBusiness;
-
     return Dialog(
         elevation: 0,
         backgroundColor: Colors.transparent,
@@ -50,7 +44,7 @@ class PageView extends StatelessWidget {
                                   color: Colors.grey,
                                 ),
                                 onPressed: () {
-                                  pageBusiness.closeDialog();
+                                  _pageBusiness.closeDialog();
                                 },
                               )),
                           Container(
@@ -85,7 +79,7 @@ class PageView extends StatelessWidget {
                           SizedBox(
                             width: 400,
                             child: Text(
-                              '이메일 회원 가입을 위하여,\n본인 인증 이메일을\n(${pageBusiness.pageInputVo.emailAddress})\n에 발송하였습니다.',
+                              '이메일 회원 가입을 위하여,\n본인 인증 이메일을\n(${_pageBusiness.pageInputVo.emailAddress})\n에 발송하였습니다.',
                               style: const TextStyle(
                                   fontSize: 16.0,
                                   fontWeight: FontWeight.normal,
@@ -96,16 +90,16 @@ class PageView extends StatelessWidget {
                           SizedBox(
                             width: 400,
                             child: Form(
-                              key: pageBusiness
+                              key: _pageBusiness
                                   .pageViewModel.verificationCodeFormKey,
                               child: TextFormField(
                                 autofocus: true,
                                 onFieldSubmitted: (value) {
-                                  pageBusiness.verifyCodeAndGoNext();
+                                  _pageBusiness.verifyCodeAndGoNext();
                                 },
-                                focusNode: pageBusiness.pageViewModel
+                                focusNode: _pageBusiness.pageViewModel
                                     .verificationCodeTextFieldFocus,
-                                controller: pageBusiness.pageViewModel
+                                controller: _pageBusiness.pageViewModel
                                     .verificationCodeTextFieldController,
                                 decoration: const InputDecoration(
                                   labelText: '본인 이메일 인증 코드',
@@ -126,7 +120,7 @@ class PageView extends StatelessWidget {
                             cursor: SystemMouseCursors.click,
                             child: GestureDetector(
                               onTap: () {
-                                pageBusiness.resendVerificationEmail();
+                                _pageBusiness.resendVerificationEmail();
                               },
                               child: Container(
                                 constraints:
@@ -163,7 +157,7 @@ class PageView extends StatelessWidget {
                           const SizedBox(height: 40.0),
                           ElevatedButton(
                               onPressed: () {
-                                pageBusiness.verifyCodeAndGoNext();
+                                _pageBusiness.verifyCodeAndGoNext();
                               },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.blue,

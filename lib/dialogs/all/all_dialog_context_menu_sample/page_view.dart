@@ -1,13 +1,10 @@
 // (external)
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 // (page)
 import 'page_business.dart' as page_business;
 
 // (all)
-import '../../../global_classes/gc_template_classes.dart'
-    as gc_template_classes;
 import '../../../global_classes/gc_my_classes.dart' as gc_my_classes;
 
 // [페이지 화면 위젯 작성 파일]
@@ -18,16 +15,13 @@ import '../../../global_classes/gc_my_classes.dart' as gc_my_classes;
 // (페이지 UI 위젯)
 // !!!세부 화면 정의!!!
 class PageView extends StatelessWidget {
-  const PageView({super.key});
+  const PageView(this._pageBusiness, {super.key});
+
+  // 페이지 비즈니스 객체
+  final page_business.PageBusiness _pageBusiness;
 
   @override
   Widget build(BuildContext context) {
-    // pageBusiness 객체
-    page_business.PageBusiness pageBusiness =
-        BlocProvider.of<gc_template_classes.BlocPageInfo>(context)
-            .state
-            .pageBusiness;
-
     return Dialog(
         elevation: 0,
         backgroundColor: Colors.transparent,
@@ -48,7 +42,7 @@ class PageView extends StatelessWidget {
                             style: TextStyle(
                                 color: Colors.black, fontFamily: "MaruBuri"),
                           ), () {
-                        pageBusiness.toastTestMenuBtn();
+                        _pageBusiness.toastTestMenuBtn();
                       }),
                       gc_my_classes.ContextMenuRegionItemVo(
                           const Text(
@@ -56,7 +50,7 @@ class PageView extends StatelessWidget {
                             style: TextStyle(
                                 color: Colors.black, fontFamily: "MaruBuri"),
                           ), () {
-                        pageBusiness.closeDialog();
+                        _pageBusiness.closeDialog();
                       }),
                     ],
                         child: Container(

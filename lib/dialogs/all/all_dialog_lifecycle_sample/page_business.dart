@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'dart:math';
 
 // (page)
-import 'page_view.dart' as page_view;
+import 'page_widgets/page_widget_custom.dart' as page_widget_custom;
 import 'page_entrance.dart' as page_entrance;
 
 // (all)
@@ -135,10 +135,11 @@ class PageViewModel {
 
   String randString = "";
 
-  final GlobalKey<page_view.StatefulWidgetSampleNumberState>
+  final GlobalKey<page_widget_custom.StatefulWidgetSampleNumberState>
       statefulWidgetSampleNumberStateGk = GlobalKey();
-  page_view.StatefulWidgetSampleNumberViewModel statefulWidgetSampleNumberVm =
-      page_view.StatefulWidgetSampleNumberViewModel(0);
+  page_widget_custom.StatefulWidgetSampleNumberViewModel
+      statefulWidgetSampleNumberVm =
+      page_widget_custom.StatefulWidgetSampleNumberViewModel(0);
 
   String _generateRandomString(int length) {
     const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
