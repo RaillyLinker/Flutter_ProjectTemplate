@@ -30,9 +30,10 @@ class PageView extends StatelessWidget {
             .pageBusiness;
 
     return gw_page_out_frames.PageOutFrame(
-        "서버 샘플",
-        Center(
-            child: Center(
+      pageBusiness.pageViewModel.pageOutFrameViewModel,
+      "서버 샘플",
+      Center(
+        child: Center(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -126,6 +127,8 @@ class PageView extends StatelessWidget {
               ),
             ],
           ),
-        )));
+        ),
+      ),
+    );
   }
 }

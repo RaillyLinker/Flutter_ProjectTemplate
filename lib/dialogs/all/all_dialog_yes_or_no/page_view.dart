@@ -1,8 +1,13 @@
 // (external)
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 // (page)
 import 'page_business.dart' as page_business;
+
+// (all)
+import '../../../global_classes/gc_template_classes.dart'
+    as gc_template_classes;
 
 // [페이지 화면 위젯 작성 파일]
 // 페이지 화면 구현을 담당합니다.
@@ -12,13 +17,16 @@ import 'page_business.dart' as page_business;
 // (페이지 UI 위젯)
 // !!!세부 화면 정의!!!
 class PageView extends StatelessWidget {
-  const PageView(this._pageBusiness, {super.key});
-
-  // 페이지 비즈니스 객체
-  final page_business.PageBusiness _pageBusiness;
+  const PageView({super.key});
 
   @override
   Widget build(BuildContext context) {
+    // pageBusiness 객체
+    page_business.PageBusiness pageBusiness =
+        BlocProvider.of<gc_template_classes.BlocPageInfo>(context)
+            .state
+            .pageBusiness;
+
     return Dialog(
       elevation: 0,
       backgroundColor: Colors.transparent,
@@ -42,7 +50,7 @@ class PageView extends StatelessWidget {
                     child: Text(
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      _pageBusiness.pageInputVo.dialogTitle,
+                      pageBusiness.pageInputVo.dialogTitle,
                       style: const TextStyle(
                           fontSize: 17,
                           fontFamily: "MaruBuri",
@@ -60,7 +68,7 @@ class PageView extends StatelessWidget {
                     padding: const EdgeInsets.only(left: 17, right: 17),
                     child: SingleChildScrollView(
                       child: Text(
-                        _pageBusiness.pageInputVo.dialogContent,
+                        pageBusiness.pageInputVo.dialogContent,
                         style: const TextStyle(
                             fontFamily: "MaruBuri", color: Colors.black),
                         textAlign: TextAlign.center,
@@ -93,13 +101,13 @@ class PageView extends StatelessWidget {
                           flex: 5,
                           child: ElevatedButton(
                             onPressed: () {
-                              _pageBusiness.onNegativeBtnClicked();
+                              pageBusiness.onNegativeBtnClicked();
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.blue,
                             ),
                             child: Text(
-                              _pageBusiness.pageInputVo.negativeBtnTitle,
+                              pageBusiness.pageInputVo.negativeBtnTitle,
                               style: const TextStyle(
                                   color: Colors.white, fontFamily: "MaruBuri"),
                             ),
@@ -112,13 +120,13 @@ class PageView extends StatelessWidget {
                           flex: 5,
                           child: ElevatedButton(
                             onPressed: () {
-                              _pageBusiness.onPositiveBtnClicked();
+                              pageBusiness.onPositiveBtnClicked();
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.blue,
                             ),
                             child: Text(
-                              _pageBusiness.pageInputVo.positiveBtnTitle,
+                              pageBusiness.pageInputVo.positiveBtnTitle,
                               style: const TextStyle(
                                   color: Colors.white, fontFamily: "MaruBuri"),
                             ),

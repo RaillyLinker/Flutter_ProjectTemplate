@@ -39,10 +39,10 @@ class PageOutputVo {}
 // 아래부터는 수정이 불필요한 코드입니다.
 // 외부에서 페이지 진입시 사용(= 라우터에 등록) 하는 역할.
 class PageEntrance extends StatelessWidget {
+  const PageEntrance(this._goRouterState, {super.key});
+
   // 페이지 진입 파라미터
   final GoRouterState _goRouterState;
-
-  const PageEntrance(this._goRouterState, {super.key});
 
   // 화면 빌드
   @override

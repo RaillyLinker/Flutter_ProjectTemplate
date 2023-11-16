@@ -28,7 +28,8 @@ class PageView extends StatelessWidget {
             .state
             .pageBusiness;
 
-    return gw_page_out_frames.PageOutFrame("네트워크 요청 샘플 리스트",
+    return gw_page_out_frames.PageOutFrame(
+        pageBusiness.pageViewModel.pageOutFrameViewModel, "네트워크 요청 샘플 리스트",
         BlocBuilder<page_business.BlocSampleList, bool>(builder: (c, s) {
       return ListView.builder(
         itemCount: pageBusiness.pageViewModel.allSampleList.length,

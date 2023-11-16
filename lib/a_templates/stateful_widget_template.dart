@@ -2,14 +2,8 @@
 import 'package:flutter/cupertino.dart';
 
 // [Stateful 위젯 샘플 템플릿]
-// Stateful 위젯은 아래와 같이 만들면 좋습니다.
-
-// StatefulWidget 의 State 에 접근 하려면, StatefulWidget 을 생성할 때 key 에,
-// GlobalKey<StatefulWidgetTemplateState> statefulWidgetTemplateGk = GlobalKey();
-// key : statefulWidgetTemplateGk
-// 위와 같이 GlobalKey 객체를 넣어 주고, 이를 이용 하여,
-// statefulWidgetTemplateGk.currentState?.refresh();
-// 이처럼 currentState 를 사용 하면 됩니다.
+// 본 프로젝트는 동적 위젯 작성에 BLoC 를 주로 사용합니다.
+// 다만, 부득이 Stateful 위젯을 사용 해야 한다면 아래와 같이 만들면 좋습니다.
 
 // -----------------------------------------------------------------------------
 class StatefulWidgetTemplate extends StatefulWidget {
@@ -24,7 +18,7 @@ class StatefulWidgetTemplate extends StatefulWidget {
 class StatefulWidgetTemplateViewModel {
   StatefulWidgetTemplateViewModel(this.sampleInt);
 
-  // !!!State 에서 사용할 상태 변수 선언!!!
+  // !!!위젯 상태 변수 선언하기!!!
   int sampleInt;
 }
 
@@ -36,7 +30,7 @@ class StatefulWidgetTemplateState extends State<StatefulWidgetTemplate> {
 
   @override
   Widget build(BuildContext context) {
-    // !!!widget.viewModel 의 상태 변수를 반영한 하위 위젯 작성!!!
+    // 하위 위젯 작성하기. (widget.viewModel 에서 데이터를 가져와 사용)
     return Text(widget.viewModel.sampleInt.toString());
   }
 }

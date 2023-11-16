@@ -81,8 +81,8 @@ GetGifDetailsOutputVo getGifDetails(ByteData data) {
 }
 
 class GetGifDetailsOutputVo {
+  GetGifDetailsOutputVo(this.frameCount, this.duration);
+
   int frameCount;
   int duration;
-
-  GetGifDetailsOutputVo(this.frameCount, this.duration);
 }

@@ -30,6 +30,7 @@ class PageView extends StatelessWidget {
             .pageBusiness;
 
     return gw_page_out_frames.PageOutFrame(
+      pageBusiness.pageViewModel.pageOutFrameViewModel,
       "Post 메소드 요청 샘플 4 (multipart/form-data - JsonString)",
       SingleChildScrollView(
         child: Container(

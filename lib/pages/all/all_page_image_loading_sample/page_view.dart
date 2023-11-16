@@ -29,6 +29,7 @@ class PageView extends StatelessWidget {
             .pageBusiness;
 
     return gw_page_out_frames.PageOutFrame(
+      pageBusiness.pageViewModel.pageOutFrameViewModel,
       "이미지 로딩 샘플",
       SingleChildScrollView(
         scrollDirection: Axis.horizontal,

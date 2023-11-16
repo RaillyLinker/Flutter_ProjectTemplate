@@ -30,6 +30,7 @@ class PageView extends StatelessWidget {
             .pageBusiness;
 
     return gw_page_out_frames.PageOutFrame(
+      pageBusiness.pageViewModel.pageOutFrameViewModel,
       "이미지 선택 샘플",
       SingleChildScrollView(
         child: Center(
@@ -136,71 +137,71 @@ class PageView extends StatelessWidget {
                 //decoration: const BoxDecoration(
                 //  color: Color.fromARGB(255, 249, 249, 249),
                 //),
-                child: Center(child:
-                    BlocBuilder<page_business.BlocImageList, bool>(
-                        builder: (context, state) {
-                  return ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount:
-                          pageBusiness.pageViewModel.imageFiles.length + 1,
-                      itemBuilder: (context, index) {
-                        // 첫번째 인덱스는 무조건 추가 버튼
-                        if (0 == index) {
-                          return Stack(
-                            children: [
-                              Positioned(
-                                  top: 50,
+                child: Center(
+                  child: BlocBuilder<page_business.BlocImageList, bool>(
+                    builder: (context, state) {
+                      return ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount:
+                            pageBusiness.pageViewModel.imageFiles.length + 1,
+                        itemBuilder: (context, index) {
+                          // 첫번째 인덱스는 무조건 추가 버튼
+                          if (0 == index) {
+                            return Stack(
+                              children: [
+                                Positioned(
+                                    top: 50,
+                                    width: 76,
+                                    child: Center(
+                                        child: Text(
+                                      "${pageBusiness.pageViewModel.imageFiles.length}/${pageBusiness.pageViewModel.imageFileListMaxCount}",
+                                      textAlign: TextAlign.center,
+                                      style: const TextStyle(
+                                          fontSize: 12,
+                                          color: Color.fromARGB(
+                                              255, 158, 158, 158)),
+                                    ))),
+                                Container(
                                   width: 76,
-                                  child: Center(
-                                      child: Text(
-                                    "${pageBusiness.pageViewModel.imageFiles.length}/${pageBusiness.pageViewModel.imageFileListMaxCount}",
-                                    textAlign: TextAlign.center,
-                                    style: const TextStyle(
-                                        fontSize: 12,
-                                        color:
-                                            Color.fromARGB(255, 158, 158, 158)),
-                                  ))),
-                              Container(
-                                width: 76,
-                                height: 76,
-                                decoration: const BoxDecoration(
-                                  border: Border(
-                                    top: BorderSide(
-                                        width: 1.0, color: Colors.black),
-                                    bottom: BorderSide(
-                                        width: 1.0, color: Colors.black),
-                                    left: BorderSide(
-                                        width: 1.0, color: Colors.black),
-                                    right: BorderSide(
-                                        width: 1.0, color: Colors.black),
+                                  height: 76,
+                                  decoration: const BoxDecoration(
+                                    border: Border(
+                                      top: BorderSide(
+                                          width: 1.0, color: Colors.black),
+                                      bottom: BorderSide(
+                                          width: 1.0, color: Colors.black),
+                                      left: BorderSide(
+                                          width: 1.0, color: Colors.black),
+                                      right: BorderSide(
+                                          width: 1.0, color: Colors.black),
+                                    ),
+                                  ),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      const SizedBox(
+                                        height: 5,
+                                      ),
+                                      IconButton(
+                                        onPressed: () {
+                                          pageBusiness.pressAddPictureBtn();
+                                        },
+                                        iconSize: 35,
+                                        color: const Color.fromARGB(
+                                            255, 158, 158, 158),
+                                        icon: const Icon(Icons.photo_library),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    const SizedBox(
-                                      height: 5,
-                                    ),
-                                    IconButton(
-                                      onPressed: () {
-                                        pageBusiness.pressAddPictureBtn();
-                                      },
-                                      iconSize: 35,
-                                      color: const Color.fromARGB(
-                                          255, 158, 158, 158),
-                                      icon: const Icon(Icons.photo_library),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          );
-                        } else {
-                          Uint8List imageFile;
-                          imageFile =
-                              pageBusiness.pageViewModel.imageFiles[index - 1];
+                              ],
+                            );
+                          } else {
+                            Uint8List imageFile;
+                            imageFile = pageBusiness
+                                .pageViewModel.imageFiles[index - 1];
 
-                          return Padding(
+                            return Padding(
                               padding: const EdgeInsets.only(left: 10),
                               child: Stack(
                                 children: [
@@ -240,23 +241,28 @@ class PageView extends StatelessWidget {
                                     top: -10,
                                     right: -10,
                                     child: IconButton(
-                                        onPressed: () {
-                                          pageBusiness
-                                              .pressDeletePicture(index - 1);
-                                        },
-                                        iconSize: 15,
-                                        color: Colors.white,
-                                        icon: const Icon(
-                                          Icons.cancel,
-                                          color: Colors.grey,
-                                          size: 15.0,
-                                        )),
+                                      onPressed: () {
+                                        pageBusiness
+                                            .pressDeletePicture(index - 1);
+                                      },
+                                      iconSize: 15,
+                                      color: Colors.white,
+                                      icon: const Icon(
+                                        Icons.cancel,
+                                        color: Colors.grey,
+                                        size: 15.0,
+                                      ),
+                                    ),
                                   ),
                                 ],
-                              ));
-                        }
-                      });
-                })),
+                              ),
+                            );
+                          }
+                        },
+                      );
+                    },
+                  ),
+                ),
               )
             ],
           ),

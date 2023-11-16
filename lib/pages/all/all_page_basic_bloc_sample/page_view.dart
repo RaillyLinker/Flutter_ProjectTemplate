@@ -29,6 +29,7 @@ class PageView extends StatelessWidget {
             .pageBusiness;
 
     return gw_page_out_frames.PageOutFrame(
+      pageBusiness.pageViewModel.pageOutFrameViewModel,
       "기본 BLoC 샘플",
       Center(
         child: BlocBuilder<page_business.BlocSample, bool>(builder: (c, s) {

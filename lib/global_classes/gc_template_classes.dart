@@ -7,10 +7,10 @@ import 'package:dio/dio.dart';
 // -----------------------------------------------------------------------------
 // (페이지 정보 저장용 BLoC State)
 class BlocPageInfoState<pageBusinessType> {
+  BlocPageInfoState(this.pageBusiness);
+
   // 하위 위젯에 전달할 비즈니스 객체
   pageBusinessType pageBusiness;
-
-  BlocPageInfoState(this.pageBusiness);
 }
 
 // (페이지 정보 저장용 BLoC)
@@ -33,16 +33,19 @@ class PageLifeCycleStates {
 
 // (네트워크 응답 Vo)
 class NetworkResponseObject<ResponseHeaderVo, ResponseBodyVo> {
+  NetworkResponseObject(this.networkResponseObjectOk, this.dioException);
+
   // Dio Error 가 나지 않은 경우 not null
   NetworkResponseObjectOk? networkResponseObjectOk;
 
   // Dio Error 가 난 경우에 not null
   DioException? dioException;
-
-  NetworkResponseObject(this.networkResponseObjectOk, this.dioException);
 }
 
 class NetworkResponseObjectOk<ResponseHeaderVo, ResponseBodyVo> {
+  NetworkResponseObjectOk(
+      this.responseStatusCode, this.responseHeaders, this.responseBody);
+
   // Http Status Code
   int responseStatusCode;
 
@@ -51,7 +54,4 @@ class NetworkResponseObjectOk<ResponseHeaderVo, ResponseBodyVo> {
 
   // Response Body Object (body 가 반환 되지 않는 조건에는 null)
   ResponseBodyVo? responseBody;
-
-  NetworkResponseObjectOk(
-      this.responseStatusCode, this.responseHeaders, this.responseBody);
 }

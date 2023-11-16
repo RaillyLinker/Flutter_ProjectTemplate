@@ -19,7 +19,6 @@ import '../../../pages/all/all_page_membership_withdrawal/page_entrance.dart'
 import '../../../pages/all/all_page_login/page_entrance.dart' as all_page_login;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
-// todo : BLoC to Stateful
 // todo : 회원 정보 페이지에서 닉네임 변경 기능 추가
 // todo : 회원 정보 페이지에서 프로필 추가 / 삭제 / 대표 프로필 변경 기능 추가
 // todo : 회원 정보 페이지에서 이메일 추가 / 삭제 기능 추가
@@ -32,6 +31,8 @@ import '../../../pages/all/all_page_login/page_entrance.dart' as all_page_login;
 // 페이지의 비즈니스 로직 담당
 // PageBusiness 인스턴스는 해당 페이지가 소멸하기 전까지 활용됩니다.
 class PageBusiness {
+  PageBusiness(this._context);
+
   // 페이지 컨텍스트 객체
   final BuildContext _context;
 
@@ -39,16 +40,14 @@ class PageBusiness {
   late BLocObjects blocObjects;
 
   // 페이지 생명주기 관련 states
-  var pageLifeCycleStates = gc_template_classes.PageLifeCycleStates();
+  final gc_template_classes.PageLifeCycleStates pageLifeCycleStates =
+      gc_template_classes.PageLifeCycleStates();
 
-  // 페이지 파라미터 (아래 onCheckPageInputVoAsync 에서 조립)
+  // 페이지 파라미터 (아래 goRouterState 에서 가져와 대입하기)
   late page_entrance.PageInputVo pageInputVo;
 
   // 페이지 뷰모델 객체
-  PageViewModel pageViewModel = PageViewModel();
-
-  // 생성자 설정
-  PageBusiness(this._context);
+  final PageViewModel pageViewModel = PageViewModel();
 
   ////
   // [페이지 생명주기]
@@ -145,9 +144,9 @@ class PageBusiness {
 // ex :
 //   void changeSampleNumber(int newSampleNumber) {
 //     // BLoC 위젯 관련 상태 변수 변경
-//     pageViewModel.statefulWidgetSampleVm.sampleNumber = newSampleNumber;
+//     pageViewModel.sampleNumber = newSampleNumber;
 //     // BLoC 위젯 변경 트리거 발동
-//     pageViewModel.statefulWidgetSampleStateGk.currentState?.refresh();
+//     blocObjects.blocSample.refresh();
 //   }
   // (회원 탈퇴 버튼 누름)
   Future<void> tapWithdrawalBtn() async {
@@ -168,19 +167,22 @@ class PageBusiness {
 // (페이지 뷰 모델 클래스)
 // 페이지 전역의 데이터는 여기에 정의되며, Business 인스턴스 안의 pageViewModel 변수로 저장 됩니다.
 class PageViewModel {
-  // 페이지 생명주기 관련 states
-  var pageLifeCycleStates = gc_template_classes.PageLifeCycleStates();
+  PageViewModel();
 
-  // 페이지 파라미터 (아래 onCheckPageInputVoAsync 에서 조립)
+  // 페이지 생명주기 관련 states
+  final gc_template_classes.PageLifeCycleStates pageLifeCycleStates =
+      gc_template_classes.PageLifeCycleStates();
+
+  // 페이지 파라미터 (아래 goRouterState 에서 가져와 대입하기)
   late page_entrance.PageInputVo pageInputVo;
 
   // !!!페이지 데이터 정의!!!
-  // 하위 Stateful Widget 의 GlobalKey 와 ViewModel, 그리고 Stateless Widget 의 데이터를 저장
   // ex :
-  // final GlobalKey<page_view.StatefulWidgetSampleState>
-  //     statefulWidgetSampleStateGk = GlobalKey();
-  // page_view.StatefulWidgetSampleViewModel statefulWidgetSampleVm =
-  //     page_view.StatefulWidgetSampleViewModel(0);
+  // int sampleNumber = 0;
+
+  // PageOutFrameViewModel
+  gw_page_out_frames.PageOutFrameViewModel pageOutFrameViewModel =
+      gw_page_out_frames.PageOutFrameViewModel();
 
   String? nickName; // 닉네임
   List<String>? roleList; // 멤버 권한 리스트 (관리자 : ROLE_ADMIN, 개발자 : ROLE_DEVELOPER)
@@ -195,100 +197,98 @@ class PageViewModel {
       myPhoneNumberList; // 내가 등록한 전화번호 정보 리스트
   bool?
       authPasswordIsNull; // 계정 로그인 비밀번호 설정 Null 여부 (OAuth2 만으로 회원가입한 경우는 비밀번호가 없으므로 true)
-
-  PageViewModel();
 }
 
 // (BLoC 클래스)
 // ex :
 // class BlocSample extends Bloc<bool, bool> {
-//   // BLoC 위젯 갱신 함수
-//   void refresh() {
-//     add(!state);
-//   }
-//
 //   BlocSample() : super(true) {
 //     on<bool>((event, emit) {
 //       emit(event);
 //     });
 //   }
+//
+//   // BLoC 위젯 갱신 함수
+//   void refresh() {
+//     add(!state);
+//   }
 // }
 
 class BlocProfileImage extends Bloc<bool, bool> {
-  // BLoC 위젯 갱신 함수
-  void refresh() {
-    add(!state);
-  }
-
   BlocProfileImage() : super(true) {
     on<bool>((event, emit) {
       emit(event);
     });
   }
-}
 
-class BlocNickname extends Bloc<bool, bool> {
   // BLoC 위젯 갱신 함수
   void refresh() {
     add(!state);
   }
+}
 
+class BlocNickname extends Bloc<bool, bool> {
   BlocNickname() : super(true) {
     on<bool>((event, emit) {
       emit(event);
     });
   }
-}
 
-class BlocEmail extends Bloc<bool, bool> {
   // BLoC 위젯 갱신 함수
   void refresh() {
     add(!state);
   }
+}
 
+class BlocEmail extends Bloc<bool, bool> {
   BlocEmail() : super(true) {
     on<bool>((event, emit) {
       emit(event);
     });
   }
-}
 
-class BlocPhoneNumber extends Bloc<bool, bool> {
   // BLoC 위젯 갱신 함수
   void refresh() {
     add(!state);
   }
+}
 
+class BlocPhoneNumber extends Bloc<bool, bool> {
   BlocPhoneNumber() : super(true) {
     on<bool>((event, emit) {
       emit(event);
     });
   }
-}
 
-class BlocPermission extends Bloc<bool, bool> {
   // BLoC 위젯 갱신 함수
   void refresh() {
     add(!state);
   }
+}
 
+class BlocPermission extends Bloc<bool, bool> {
   BlocPermission() : super(true) {
     on<bool>((event, emit) {
       emit(event);
     });
   }
-}
 
-class BlocOAuth2 extends Bloc<bool, bool> {
   // BLoC 위젯 갱신 함수
   void refresh() {
     add(!state);
   }
+}
 
+class BlocOAuth2 extends Bloc<bool, bool> {
   BlocOAuth2() : super(true) {
     on<bool>((event, emit) {
       emit(event);
     });
+  }
+
+  // BLoC 위젯 갱신 함수
+  void refresh() {
+    add(!state);
   }
 }
 
@@ -299,6 +299,8 @@ class BLocProviders {
   List<BlocProvider<dynamic>> blocProviders = [
     // ex :
     // BlocProvider<BlocSample>(create: (context) => BlocSample())
+    BlocProvider<gw_page_out_frames.BlocHeaderGoToHomeIconBtn>(
+        create: (context) => gw_page_out_frames.BlocHeaderGoToHomeIconBtn()),
     BlocProvider<BlocProfileImage>(create: (context) => BlocProfileImage()),
     BlocProvider<BlocNickname>(create: (context) => BlocNickname()),
     BlocProvider<BlocEmail>(create: (context) => BlocEmail()),
@@ -309,6 +311,18 @@ class BLocProviders {
 }
 
 class BLocObjects {
+  BLocObjects(this._context) {
+    // !!!BLoC 조작 객체 생성!!!
+    // ex :
+    // blocSample = BlocProvider.of<BlocSample>(_context);
+    blocProfileImage = BlocProvider.of<BlocProfileImage>(_context);
+    blocNickname = BlocProvider.of<BlocNickname>(_context);
+    blocEmail = BlocProvider.of<BlocEmail>(_context);
+    blocPhoneNumber = BlocProvider.of<BlocPhoneNumber>(_context);
+    blocPermission = BlocProvider.of<BlocPermission>(_context);
+    blocOAuth2 = BlocProvider.of<BlocOAuth2>(_context);
+  }
+
   // 페이지 컨텍스트 객체
   final BuildContext _context;
 
@@ -321,17 +335,4 @@ class BLocObjects {
   late BlocPhoneNumber blocPhoneNumber;
   late BlocPermission blocPermission;
   late BlocOAuth2 blocOAuth2;
-
-  // 생성자 설정
-  BLocObjects(this._context) {
-    // !!!BLoC 조작 객체 생성!!!
-    // ex :
-    // blocSample = BlocProvider.of<BlocSample>(_context);
-    blocProfileImage = BlocProvider.of<BlocProfileImage>(_context);
-    blocNickname = BlocProvider.of<BlocNickname>(_context);
-    blocEmail = BlocProvider.of<BlocEmail>(_context);
-    blocPhoneNumber = BlocProvider.of<BlocPhoneNumber>(_context);
-    blocPermission = BlocProvider.of<BlocPermission>(_context);
-    blocOAuth2 = BlocProvider.of<BlocOAuth2>(_context);
-  }
 }

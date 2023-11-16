@@ -29,7 +29,6 @@ import '../../../global_data/gd_const_config.dart' as gd_const_config;
 import '../../../pages/all/all_page_home/page_entrance.dart' as all_page_home;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
-// todo : BLoC to Stateful
 
 //------------------------------------------------------------------------------
 // 페이지의 비즈니스 로직 담당
@@ -42,13 +41,14 @@ class PageBusiness {
   late BLocObjects blocObjects;
 
   // 페이지 생명주기 관련 states
-  var pageLifeCycleStates = gc_template_classes.PageLifeCycleStates();
+  final gc_template_classes.PageLifeCycleStates pageLifeCycleStates =
+      gc_template_classes.PageLifeCycleStates();
 
-  // 페이지 파라미터 (아래 onCheckPageInputVoAsync 에서 조립)
+  // 페이지 파라미터 (아래 goRouterState 에서 가져와 대입하기)
   late page_entrance.PageInputVo pageInputVo;
 
   // 페이지 뷰모델 객체
-  PageViewModel pageViewModel = PageViewModel();
+  final PageViewModel pageViewModel = PageViewModel();
 
   // 화면 대기 시간 카운트 객체
   Timer? _screenWaitingTimer;
@@ -127,9 +127,9 @@ class PageBusiness {
 // ex :
 //   void changeSampleNumber(int newSampleNumber) {
 //     // BLoC 위젯 관련 상태 변수 변경
-//     pageViewModel.statefulWidgetSampleVm.sampleNumber = newSampleNumber;
+//     pageViewModel.sampleNumber = newSampleNumber;
 //     // BLoC 위젯 변경 트리거 발동
-//     pageViewModel.statefulWidgetSampleStateGk.currentState?.refresh();
+//     blocObjects.blocSample.refresh();
 //   }
 
 ////
@@ -555,19 +555,18 @@ class PageBusiness {
 // (페이지 뷰 모델 클래스)
 // 페이지 전역의 데이터는 여기에 정의되며, Business 인스턴스 안의 pageViewModel 변수로 저장 됩니다.
 class PageViewModel {
-  // 페이지 생명주기 관련 states
-  var pageLifeCycleStates = gc_template_classes.PageLifeCycleStates();
+  PageViewModel();
 
-  // 페이지 파라미터 (아래 onCheckPageInputVoAsync 에서 조립)
+  // 페이지 생명주기 관련 states
+  final gc_template_classes.PageLifeCycleStates pageLifeCycleStates =
+      gc_template_classes.PageLifeCycleStates();
+
+  // 페이지 파라미터 (아래 goRouterState 에서 가져와 대입하기)
   late page_entrance.PageInputVo pageInputVo;
 
   // !!!페이지 데이터 정의!!!
-  // 하위 Stateful Widget 의 GlobalKey 와 ViewModel, 그리고 Stateless Widget 의 데이터를 저장
   // ex :
-  // final GlobalKey<page_view.StatefulWidgetSampleState>
-  //     statefulWidgetSampleStateGk = GlobalKey();
-  // page_view.StatefulWidgetSampleViewModel statefulWidgetSampleVm =
-  //     page_view.StatefulWidgetSampleViewModel(0);
+  // int sampleNumber = 0;
 
   // 프로그램 최초 실행 로직 수행 여부
   bool doStartProgramLogic = false;
@@ -581,45 +580,46 @@ class PageViewModel {
   int signInRetryCount = 0;
 
   int signInRetryCountLimit = 2;
-
-  PageViewModel();
 }
 
 class AnimationLogoControllers {
+  AnimationLogoControllers(
+    this.animationController,
+    this.fadeAnimation,
+    this.scaleAnimation,
+  );
+
   AnimationController animationController;
   Animation<double> fadeAnimation;
   Animation<double> scaleAnimation;
-
-  AnimationLogoControllers(
-      this.animationController, this.fadeAnimation, this.scaleAnimation);
 }
 
 // (BLoC 클래스)
 // ex :
 // class BlocSample extends Bloc<bool, bool> {
-//   // BLoC 위젯 갱신 함수
-//   void refresh() {
-//     add(!state);
-//   }
-//
 //   BlocSample() : super(true) {
 //     on<bool>((event, emit) {
 //       emit(event);
 //     });
 //   }
+//
+//   // BLoC 위젯 갱신 함수
+//   void refresh() {
+//     add(!state);
+//   }
 // }
 
 // [카운트 다운 숫자]
 class BlocCountDownNumber extends Bloc<bool, bool> {
-  // BLoC 위젯 갱신 함수
-  void refresh() {
-    add(!state);
-  }
-
   BlocCountDownNumber() : super(true) {
     on<bool>((event, emit) {
       emit(event);
     });
+  }
+
+  // BLoC 위젯 갱신 함수
+  void refresh() {
+    add(!state);
   }
 }
 
@@ -630,12 +630,21 @@ class BLocProviders {
   List<BlocProvider<dynamic>> blocProviders = [
     // ex :
     // BlocProvider<BlocSample>(create: (context) => BlocSample())
+    BlocProvider<gw_page_out_frames.BlocHeaderGoToHomeIconBtn>(
+        create: (context) => gw_page_out_frames.BlocHeaderGoToHomeIconBtn()),
     BlocProvider<BlocCountDownNumber>(
         create: (context) => BlocCountDownNumber()),
   ];
 }
 
 class BLocObjects {
+  BLocObjects(this._context) {
+    // !!!BLoC 조작 객체 생성!!!
+    // ex :
+    // blocSample = BlocProvider.of<BlocSample>(_context);
+    blocCountDownNumber = BlocProvider.of<BlocCountDownNumber>(_context);
+  }
+
   // 페이지 컨텍스트 객체
   final BuildContext _context;
 
@@ -643,12 +652,4 @@ class BLocObjects {
   // ex :
   // late BlocSample blocSample;
   late BlocCountDownNumber blocCountDownNumber;
-
-  // 생성자 설정
-  BLocObjects(this._context) {
-    // !!!BLoC 조작 객체 생성!!!
-    // ex :
-    // blocSample = BlocProvider.of<BlocSample>(_context);
-    blocCountDownNumber = BlocProvider.of<BlocCountDownNumber>(_context);
-  }
 }

@@ -31,6 +31,7 @@ class PageView extends StatelessWidget {
             .pageBusiness;
 
     return gw_page_out_frames.PageOutFrame(
+      pageBusiness.pageViewModel.pageOutFrameViewModel,
       "폼 입력 샘플",
       SingleChildScrollView(
         child: Center(

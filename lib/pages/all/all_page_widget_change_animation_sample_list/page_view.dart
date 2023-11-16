@@ -29,6 +29,7 @@ class PageView extends StatelessWidget {
             .pageBusiness;
 
     return gw_page_out_frames.PageOutFrame(
+      pageBusiness.pageViewModel.pageOutFrameViewModel,
       "위젯 변경 애니메이션 샘플 리스트",
       SingleChildScrollView(
         // <==== 주인공. Column 하나를 child로 가짐

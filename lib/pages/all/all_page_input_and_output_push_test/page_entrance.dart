@@ -29,31 +29,31 @@ Widget Function(BuildContext context, Animation<double> animation,
 // (페이지 호출시 필요한 입력값 데이터 형태)
 // !!!페이지 입력 데이터 정의!!!
 class PageInputVo {
+  PageInputVo(this.inputValueString, this.inputValueStringOpt,
+      this.inputValueStringList, this.inputValueInt);
+
   String inputValueString;
   String? inputValueStringOpt;
   List<String> inputValueStringList;
   int inputValueInt;
-
-  PageInputVo(this.inputValueString, this.inputValueStringOpt,
-      this.inputValueStringList, this.inputValueInt);
 }
 
 // (이전 페이지로 전달할 결과 데이터 형태)
 // !!!페이지 반환 데이터 정의!!!
 class PageOutputVo {
-  String resultValue;
-
   PageOutputVo(this.resultValue);
+
+  String resultValue;
 }
 
 //------------------------------------------------------------------------------
 // 아래부터는 수정이 불필요한 코드입니다.
 // 외부에서 페이지 진입시 사용(= 라우터에 등록) 하는 역할.
 class PageEntrance extends StatelessWidget {
+  const PageEntrance(this._goRouterState, {super.key});
+
   // 페이지 진입 파라미터
   final GoRouterState _goRouterState;
-
-  const PageEntrance(this._goRouterState, {super.key});
 
   // 화면 빌드
   @override

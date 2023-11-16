@@ -23,12 +23,13 @@ import '../../../pages/all/all_page_grid_sample/page_entrance.dart'
     as all_page_grid_sample;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
-// todo : BLoC to Stateful
 
 //------------------------------------------------------------------------------
 // 페이지의 비즈니스 로직 담당
 // PageBusiness 인스턴스는 해당 페이지가 소멸하기 전까지 활용됩니다.
 class PageBusiness {
+  PageBusiness(this._context);
+
   // 페이지 컨텍스트 객체
   final BuildContext _context;
 
@@ -36,16 +37,14 @@ class PageBusiness {
   late BLocObjects blocObjects;
 
   // 페이지 생명주기 관련 states
-  var pageLifeCycleStates = gc_template_classes.PageLifeCycleStates();
+  final gc_template_classes.PageLifeCycleStates pageLifeCycleStates =
+      gc_template_classes.PageLifeCycleStates();
 
-  // 페이지 파라미터 (아래 onCheckPageInputVoAsync 에서 조립)
+  // 페이지 파라미터 (아래 goRouterState 에서 가져와 대입하기)
   late page_entrance.PageInputVo pageInputVo;
 
   // 페이지 뷰모델 객체
-  PageViewModel pageViewModel = PageViewModel();
-
-  // 생성자 설정
-  PageBusiness(this._context);
+  final PageViewModel pageViewModel = PageViewModel();
 
   ////
   // [페이지 생명주기]
@@ -111,9 +110,9 @@ class PageBusiness {
 // ex :
 //   void changeSampleNumber(int newSampleNumber) {
 //     // BLoC 위젯 관련 상태 변수 변경
-//     pageViewModel.statefulWidgetSampleVm.sampleNumber = newSampleNumber;
+//     pageViewModel.sampleNumber = newSampleNumber;
 //     // BLoC 위젯 변경 트리거 발동
-//     pageViewModel.statefulWidgetSampleStateGk.currentState?.refresh();
+//     blocObjects.blocSample.refresh();
 //   }
 
   // (리스트 아이템 클릭 리스너)
@@ -205,19 +204,36 @@ class PageBusiness {
 // (페이지 뷰 모델 클래스)
 // 페이지 전역의 데이터는 여기에 정의되며, Business 인스턴스 안의 pageViewModel 변수로 저장 됩니다.
 class PageViewModel {
-  // 페이지 생명주기 관련 states
-  var pageLifeCycleStates = gc_template_classes.PageLifeCycleStates();
+  PageViewModel() {
+    // 초기 리스트 추가
+    allSampleList.add(
+        SampleItem(SampleItemEnum.pageTemplate, "페이지 템플릿", "템플릿 페이지를 호출합니다."));
+    allSampleList.add(SampleItem(SampleItemEnum.justPushTest, "페이지 Push 테스트",
+        "페이지 Push 를 통한 페이지 이동을 테스트합니다."));
+    allSampleList.add(SampleItem(SampleItemEnum.inputAndOutputPushTest,
+        "페이지 입/출력 테스트", "페이지 Push 시에 전달하는 입력값, Pop 시에 반환하는 출력값 테스트"));
+    allSampleList.add(SampleItem(
+        SampleItemEnum.pageTransitionAnimationSampleList,
+        "페이지 이동 애니메이션 샘플 리스트",
+        "페이지 이동시 적용되는 애니메이션 샘플 리스트"));
+    allSampleList.add(SampleItem(SampleItemEnum.gridSample, "페이지 Grid 샘플",
+        "화면 사이즈에 따라 동적으로 변하는 Grid 페이지 샘플"));
+  }
 
-  // 페이지 파라미터 (아래 onCheckPageInputVoAsync 에서 조립)
+  // 페이지 생명주기 관련 states
+  final gc_template_classes.PageLifeCycleStates pageLifeCycleStates =
+      gc_template_classes.PageLifeCycleStates();
+
+  // 페이지 파라미터 (아래 goRouterState 에서 가져와 대입하기)
   late page_entrance.PageInputVo pageInputVo;
 
   // !!!페이지 데이터 정의!!!
-  // 하위 Stateful Widget 의 GlobalKey 와 ViewModel, 그리고 Stateless Widget 의 데이터를 저장
   // ex :
-  // final GlobalKey<page_view.StatefulWidgetSampleState>
-  //     statefulWidgetSampleStateGk = GlobalKey();
-  // page_view.StatefulWidgetSampleViewModel statefulWidgetSampleVm =
-  //     page_view.StatefulWidgetSampleViewModel(0);
+  // int sampleNumber = 0;
+
+  // PageOutFrameViewModel
+  gw_page_out_frames.PageOutFrameViewModel pageOutFrameViewModel =
+      gw_page_out_frames.PageOutFrameViewModel();
 
   // (샘플 페이지 원본 리스트)
   List<SampleItem> allSampleList = [];
@@ -236,25 +252,12 @@ class PageViewModel {
       inputAndOutputFormNullableInputValueTextFieldController =
       TextEditingController();
   FocusNode inputAndOutputFormNullableInputValueTextFieldFocus = FocusNode();
-
-  PageViewModel() {
-    // 초기 리스트 추가
-    allSampleList.add(
-        SampleItem(SampleItemEnum.pageTemplate, "페이지 템플릿", "템플릿 페이지를 호출합니다."));
-    allSampleList.add(SampleItem(SampleItemEnum.justPushTest, "페이지 Push 테스트",
-        "페이지 Push 를 통한 페이지 이동을 테스트합니다."));
-    allSampleList.add(SampleItem(SampleItemEnum.inputAndOutputPushTest,
-        "페이지 입/출력 테스트", "페이지 Push 시에 전달하는 입력값, Pop 시에 반환하는 출력값 테스트"));
-    allSampleList.add(SampleItem(
-        SampleItemEnum.pageTransitionAnimationSampleList,
-        "페이지 이동 애니메이션 샘플 리스트",
-        "페이지 이동시 적용되는 애니메이션 샘플 리스트"));
-    allSampleList.add(SampleItem(SampleItemEnum.gridSample, "페이지 Grid 샘플",
-        "화면 사이즈에 따라 동적으로 변하는 Grid 페이지 샘플"));
-  }
 }
 
 class SampleItem {
+  SampleItem(
+      this.sampleItemEnum, this.sampleItemTitle, this.sampleItemDescription);
+
   // 샘플 고유값
   SampleItemEnum sampleItemEnum;
 
@@ -266,9 +269,6 @@ class SampleItem {
 
   // 권한 체크 여부
   bool isChecked = false;
-
-  SampleItem(
-      this.sampleItemEnum, this.sampleItemTitle, this.sampleItemDescription);
 }
 
 enum SampleItemEnum {
@@ -282,28 +282,28 @@ enum SampleItemEnum {
 // (BLoC 클래스)
 // ex :
 // class BlocSample extends Bloc<bool, bool> {
-//   // BLoC 위젯 갱신 함수
-//   void refresh() {
-//     add(!state);
-//   }
-//
 //   BlocSample() : super(true) {
 //     on<bool>((event, emit) {
 //       emit(event);
 //     });
 //   }
+//
+//   // BLoC 위젯 갱신 함수
+//   void refresh() {
+//     add(!state);
+//   }
 // }
 
 class BlocSampleList extends Bloc<bool, bool> {
-  // BLoC 위젯 갱신 함수
-  void refresh() {
-    add(!state);
-  }
-
   BlocSampleList() : super(true) {
     on<bool>((event, emit) {
       emit(event);
     });
+  }
+
+  // BLoC 위젯 갱신 함수
+  void refresh() {
+    add(!state);
   }
 }
 
@@ -314,11 +314,20 @@ class BLocProviders {
   List<BlocProvider<dynamic>> blocProviders = [
     // ex :
     // BlocProvider<BlocSample>(create: (context) => BlocSample())
+    BlocProvider<gw_page_out_frames.BlocHeaderGoToHomeIconBtn>(
+        create: (context) => gw_page_out_frames.BlocHeaderGoToHomeIconBtn()),
     BlocProvider<BlocSampleList>(create: (context) => BlocSampleList()),
   ];
 }
 
 class BLocObjects {
+  BLocObjects(this._context) {
+    // !!!BLoC 조작 객체 생성!!!
+    // ex :
+    // blocSample = BlocProvider.of<BlocSample>(_context);
+    blocSampleList = BlocProvider.of<BlocSampleList>(_context);
+  }
+
   // 페이지 컨텍스트 객체
   final BuildContext _context;
 
@@ -326,12 +335,4 @@ class BLocObjects {
   // ex :
   // late BlocSample blocSample;
   late BlocSampleList blocSampleList;
-
-  // 생성자 설정
-  BLocObjects(this._context) {
-    // !!!BLoC 조작 객체 생성!!!
-    // ex :
-    // blocSample = BlocProvider.of<BlocSample>(_context);
-    blocSampleList = BlocProvider.of<BlocSampleList>(_context);
-  }
 }

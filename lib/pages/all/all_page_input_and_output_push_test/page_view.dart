@@ -29,6 +29,7 @@ class PageView extends StatelessWidget {
             .pageBusiness;
 
     return gw_page_out_frames.PageOutFrame(
+      pageBusiness.pageViewModel.pageOutFrameViewModel,
       "페이지 입/출력 테스트",
       Center(
         child: SingleChildScrollView(
@@ -78,22 +79,23 @@ class PageView extends StatelessWidget {
               Container(
                 margin: const EdgeInsets.only(top: 20),
                 child: ElevatedButton(
-                    onPressed: () {
-                      pageBusiness.onPressedReturnBtn();
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue,
+                  onPressed: () {
+                    pageBusiness.onPressedReturnBtn();
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blue,
+                  ),
+                  child: Container(
+                    margin: const EdgeInsets.only(top: 8, bottom: 8),
+                    child: const Text(
+                      "출력 값 반환",
+                      style: TextStyle(
+                          fontSize: 15,
+                          color: Colors.white,
+                          fontFamily: "MaruBuri"),
                     ),
-                    child: Container(
-                      margin: const EdgeInsets.only(top: 8, bottom: 8),
-                      child: const Text(
-                        "출력 값 반환",
-                        style: TextStyle(
-                            fontSize: 15,
-                            color: Colors.white,
-                            fontFamily: "MaruBuri"),
-                      ),
-                    )),
+                  ),
+                ),
               )
             ],
           ),
