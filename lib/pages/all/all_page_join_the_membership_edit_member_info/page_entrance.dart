@@ -31,11 +31,11 @@ Widget Function(BuildContext context, Animation<double> animation,
 // !!!페이지 입력 데이터 정의!!!
 class PageInputVo {
   PageInputVo(
-      this.memberId,
-      this.password,
-      this.verificationCode,
-      this.verificationUid,
-      );
+    this.memberId,
+    this.password,
+    this.verificationCode,
+    this.verificationUid,
+  );
 
   // 멤버 아이디 (이메일)
   String memberId;

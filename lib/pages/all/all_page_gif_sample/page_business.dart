@@ -18,7 +18,9 @@ import '../../../global_classes/gc_template_classes.dart'
 // 페이지의 비즈니스 로직 담당
 // PageBusiness 인스턴스는 해당 페이지가 소멸하기 전까지 활용됩니다.
 class PageBusiness {
-  PageBusiness(this._context);
+  PageBusiness(this._context) {
+    pageViewModel = PageViewModel(_context);
+  }
 
   // 페이지 컨텍스트 객체
   final BuildContext _context;
@@ -34,7 +36,7 @@ class PageBusiness {
   late page_entrance.PageInputVo pageInputVo;
 
   // 페이지 뷰모델 객체
-  final PageViewModel pageViewModel = PageViewModel();
+  late PageViewModel pageViewModel;
 
   ////
   // [페이지 생명주기]
@@ -106,7 +108,10 @@ class PageBusiness {
 // (페이지 뷰 모델 클래스)
 // 페이지 전역의 데이터는 여기에 정의되며, Business 인스턴스 안의 pageViewModel 변수로 저장 됩니다.
 class PageViewModel {
-  PageViewModel();
+  PageViewModel(this._context);
+
+  // 페이지 컨텍스트 객체
+  final BuildContext _context;
 
   // 페이지 생명주기 관련 states
   final gc_template_classes.PageLifeCycleStates pageLifeCycleStates =
