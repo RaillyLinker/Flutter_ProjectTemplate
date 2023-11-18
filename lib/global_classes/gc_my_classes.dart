@@ -1,6 +1,5 @@
 // (external)
 import 'package:sync/semaphore.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 // [전역 클래스 선언 파일]
@@ -77,108 +76,5 @@ class AnimatedSwitcherConfig {
         switchOutCurve: switchOutCurve,
         transitionBuilder: transitionBuilder,
         layoutBuilder: layoutBuilder);
-  }
-}
-
-// (우클릭 컨텍스트 메뉴 영역 클래스)
-class ContextMenuRegionItemVo {
-  ContextMenuRegionItemVo(this.menuItemWidget, this.menuItemCallback) {
-    String menuItemWidgetCode = menuItemWidget.hashCode.toString();
-    String menuItemCallbackCode = menuItemWidget.hashCode.toString();
-    itemUid = "${menuItemWidgetCode}_$menuItemCallbackCode";
-  }
-
-  Widget menuItemWidget;
-  void Function() menuItemCallback;
-
-  late String itemUid;
-}
-
-class ContextMenuRegion extends StatefulWidget {
-  ContextMenuRegion(
-      {super.key,
-      required this.child,
-      required this.contextMenuRegionItemVoList});
-
-  final Widget child;
-
-  final List<ContextMenuRegionItemVo> contextMenuRegionItemVoList;
-
-  final _ContextMenuRegionState _contextMenuRegionState =
-      _ContextMenuRegionState();
-
-  @override
-  // ignore: no_logic_in_create_state
-  State<ContextMenuRegion> createState() => _contextMenuRegionState;
-}
-
-class _ContextMenuRegionState extends State<ContextMenuRegion> {
-  Offset? _longPressOffset;
-
-  static bool get _longPressEnabled {
-    switch (defaultTargetPlatform) {
-      case TargetPlatform.android:
-      case TargetPlatform.iOS:
-        return true;
-      case TargetPlatform.macOS:
-      case TargetPlatform.fuchsia:
-      case TargetPlatform.linux:
-      case TargetPlatform.windows:
-        return false;
-    }
-  }
-
-  void _onSecondaryTapUp(TapUpDetails details) {
-    _show(details.globalPosition);
-  }
-
-  void _onLongPressStart(LongPressStartDetails details) {
-    _longPressOffset = details.globalPosition;
-  }
-
-  void _onLongPress() {
-    assert(_longPressOffset != null);
-    _show(_longPressOffset!);
-    _longPressOffset = null;
-  }
-
-  Future<void> _show(Offset position) async {
-    final RenderObject overlay =
-        Overlay.of(context).context.findRenderObject()!;
-
-    List<PopupMenuItem> popupMenuItemList = [];
-    Map popupMenuItemCallbackMap = {};
-    for (ContextMenuRegionItemVo contextMenuRegionItemVo
-        in widget.contextMenuRegionItemVoList) {
-      popupMenuItemList.add(PopupMenuItem(
-          value: contextMenuRegionItemVo.itemUid,
-          child: contextMenuRegionItemVo.menuItemWidget));
-
-      popupMenuItemCallbackMap[contextMenuRegionItemVo.itemUid] =
-          contextMenuRegionItemVo.menuItemCallback;
-    }
-
-    // !!!우클릭 메뉴 외곽을 수정하고 싶으면 이것을 수정하기!!!
-    final result = await showMenu(
-        context: context,
-        position: RelativeRect.fromRect(
-            Rect.fromLTWH(position.dx, position.dy, 100, 100),
-            Rect.fromLTWH(0, 0, overlay.paintBounds.size.width,
-                overlay.paintBounds.size.height)),
-        items: popupMenuItemList);
-
-    if (popupMenuItemCallbackMap.containsKey(result)) {
-      popupMenuItemCallbackMap[result]();
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-        behavior: HitTestBehavior.opaque,
-        onSecondaryTapUp: _onSecondaryTapUp,
-        onLongPress: _longPressEnabled ? _onLongPress : null,
-        onLongPressStart: _longPressEnabled ? _onLongPressStart : null,
-        child: widget.child);
   }
 }

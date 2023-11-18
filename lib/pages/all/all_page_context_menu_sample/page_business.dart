@@ -1,6 +1,5 @@
 // (external)
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:go_router/go_router.dart';
 
@@ -8,11 +7,12 @@ import 'package:go_router/go_router.dart';
 import 'page_entrance.dart' as page_entrance;
 
 // (all)
+import '../../../dialogs/all/all_dialog_info/page_entrance.dart'
+    as all_dialog_info;
 import '../../../global_widgets/gw_page_out_frames.dart' as gw_page_out_frames;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
-import '../../../dialogs/all/all_dialog_info/page_entrance.dart'
-    as all_dialog_info;
+import '../../../global_widgets/gw_custom_widgets.dart' as gw_custom_widgets;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
 
@@ -26,9 +26,6 @@ class PageBusiness {
 
   // 페이지 컨텍스트 객체
   final BuildContext _context;
-
-  // BLoC 객체 모음
-  late BLocObjects blocObjects;
 
   // 페이지 생명주기 관련 states
   final gc_template_classes.PageLifeCycleStates pageLifeCycleStates =
@@ -94,13 +91,6 @@ class PageBusiness {
 ////
 // [비즈니스 함수]
 // !!!외부에서 사용할 비즈니스 로직은 아래에 공개 함수로 구현!!!
-// ex :
-//   void changeSampleNumber(int newSampleNumber) {
-//     // BLoC 위젯 관련 상태 변수 변경
-//     pageViewModel.sampleNumber = newSampleNumber;
-//     // BLoC 위젯 변경 트리거 발동
-//     blocObjects.blocSample.refresh();
-//   }
 
   // (context 메뉴의 토스트 테스트 항목을 클릭)
   void toastTestMenuBtn() {
@@ -140,58 +130,22 @@ class PageViewModel {
   // 페이지 컨텍스트 객체
   final BuildContext _context;
 
-  // 페이지 생명주기 관련 states
-  final gc_template_classes.PageLifeCycleStates pageLifeCycleStates =
-      gc_template_classes.PageLifeCycleStates();
-
-  // 페이지 파라미터 (아래 goRouterState 에서 가져와 대입하기)
-  late page_entrance.PageInputVo pageInputVo;
-
   // !!!페이지 데이터 정의!!!
   // ex :
-  // int sampleNumber = 0;
+  // GlobalKey<SampleWidgetState> sampleWidgetStateGk = GlobalKey();
+  // SampleWidgetViewModel sampleWidgetViewModel = SampleWidgetViewModel();
+
+  GlobalKey<gw_custom_widgets.ContextMenuRegionState> contextMenuRegionStateGk =
+      GlobalKey();
+  gw_custom_widgets.ContextMenuRegionViewModel contextMenuRegionViewModel =
+      gw_custom_widgets.ContextMenuRegionViewModel();
+
+  GlobalKey<gw_custom_widgets.ContextMenuRegionState>
+      contextMenuRegionStateGk2 = GlobalKey();
+  gw_custom_widgets.ContextMenuRegionViewModel contextMenuRegionViewModel2 =
+      gw_custom_widgets.ContextMenuRegionViewModel();
 
   // PageOutFrameViewModel
   gw_page_out_frames.PageOutFrameViewModel pageOutFrameViewModel =
       gw_page_out_frames.PageOutFrameViewModel("컨텍스트 메뉴 샘플");
-}
-
-// (BLoC 클래스)
-// ex :
-// class BlocSample extends Bloc<bool, bool> {
-//   BlocSample() : super(true) {
-//     on<bool>((event, emit) {
-//       emit(event);
-//     });
-//   }
-//
-//   // BLoC 위젯 갱신 함수
-//   void refresh() {
-//     add(!state);
-//   }
-// }
-
-// (BLoC 프로바이더 클래스)
-// 본 페이지에서 사용할 BLoC 객체를 모아두어 PageEntrance 에서 페이지 전역 설정에 사용 됩니다.
-class BLocProviders {
-// !!!이 페이지에서 사용할 "모든" BLoC 클래스들에 대한 Provider 객체들을 아래 리스트에 넣어줄 것!!!
-  List<BlocProvider<dynamic>> blocProviders = [
-    // ex :
-    // BlocProvider<BlocSample>(create: (context) => BlocSample())
-  ];
-}
-
-class BLocObjects {
-  BLocObjects(this._context) {
-    // !!!BLoC 조작 객체 생성!!!
-    // ex :
-    // blocSample = BlocProvider.of<BlocSample>(_context);
-  }
-
-  // 페이지 컨텍스트 객체
-  final BuildContext _context;
-
-// !!!BLoC 조작 객체 변수 선언!!!
-// ex :
-// late BlocSample blocSample;
 }
