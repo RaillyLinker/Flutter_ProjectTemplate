@@ -143,9 +143,6 @@ class BLocProviders {
   List<BlocProvider<dynamic>> blocProviders = [
     // ex :
     // BlocProvider<BlocSample>(create: (context) => BlocSample()),
-    BlocProvider<gw_page_out_frames.BlocHeaderGoToHomeIconBtn>(
-      create: (context) => gw_page_out_frames.BlocHeaderGoToHomeIconBtn(),
-    )
   ];
 }
 
@@ -154,15 +151,12 @@ class BLocObjects {
     // !!!BLoC 조작 객체 생성!!!
     // ex :
     // blocSample = BlocProvider.of<BlocSample>(_context);
-    blocHeaderGoToHomeIconBtn =
-        BlocProvider.of<gw_page_out_frames.BlocHeaderGoToHomeIconBtn>(_context);
   }
 
   // 페이지 컨텍스트 객체
   final BuildContext _context;
 
-  // !!!BLoC 조작 객체 변수 선언!!!
-  // ex :
-  // late BlocSample blocSample;
-  late gw_page_out_frames.BlocHeaderGoToHomeIconBtn blocHeaderGoToHomeIconBtn;
+// !!!BLoC 조작 객체 변수 선언!!!
+// ex :
+// late BlocSample blocSample;
 }
