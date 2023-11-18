@@ -33,7 +33,6 @@ class PageView extends StatelessWidget {
 
     return gw_page_out_frames.PageOutFrame(
         pageBusiness.pageViewModel.pageOutFrameViewModel,
-        "계정 샘플",
         SingleChildScrollView(
           // <==== 주인공. Column 하나를 child로 가짐
           child: Column(

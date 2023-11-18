@@ -31,7 +31,6 @@ class PageView extends StatelessWidget {
 
     return gw_page_out_frames.PageOutFrame(
       pageBusiness.pageViewModel.pageOutFrameViewModel,
-      "서버 샘플",
       Center(
         child: Center(
           child: Column(

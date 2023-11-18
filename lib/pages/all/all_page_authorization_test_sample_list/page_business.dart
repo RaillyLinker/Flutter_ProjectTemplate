@@ -367,7 +367,7 @@ class PageViewModel {
 
   // PageOutFrameViewModel
   gw_page_out_frames.PageOutFrameViewModel pageOutFrameViewModel =
-      gw_page_out_frames.PageOutFrameViewModel();
+      gw_page_out_frames.PageOutFrameViewModel("인증 / 인가 네트워크 요청 테스트 샘플 리스트");
 
   // !!!BLoC 위젯 상태 변수 선언 및 초기화!!!
 

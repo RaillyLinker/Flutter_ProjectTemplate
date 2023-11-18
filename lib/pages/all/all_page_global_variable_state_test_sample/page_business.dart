@@ -132,7 +132,7 @@ class PageViewModel {
 
   // PageOutFrameViewModel
   gw_page_out_frames.PageOutFrameViewModel pageOutFrameViewModel =
-      gw_page_out_frames.PageOutFrameViewModel();
+      gw_page_out_frames.PageOutFrameViewModel("전역 변수 상태 확인 샘플");
 }
 
 // (BLoC 클래스)

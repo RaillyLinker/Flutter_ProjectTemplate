@@ -32,7 +32,6 @@ class PageView extends StatelessWidget {
 
     return gw_page_out_frames.PageOutFrame(
       pageBusiness.pageViewModel.pageOutFrameViewModel,
-      "모바일 권한 샘플",
       BlocBuilder<page_business.BlocSampleList, bool>(
         builder: (c, s) {
           return ListView.builder(

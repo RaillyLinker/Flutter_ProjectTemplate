@@ -30,7 +30,6 @@ class PageView extends StatelessWidget {
 
     return gw_page_out_frames.PageOutFrame(
       pageBusiness.pageViewModel.pageOutFrameViewModel,
-      "페이지 Push 테스트1",
       Center(
         child: SingleChildScrollView(
           child: Column(

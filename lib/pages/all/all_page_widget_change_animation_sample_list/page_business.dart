@@ -360,7 +360,7 @@ class PageViewModel {
 
   // PageOutFrameViewModel
   gw_page_out_frames.PageOutFrameViewModel pageOutFrameViewModel =
-      gw_page_out_frames.PageOutFrameViewModel();
+      gw_page_out_frames.PageOutFrameViewModel("위젯 변경 애니메이션 샘플 리스트");
 
   // (샘플 페이지 원본 리스트)
   List<SampleItem> allSampleList = [];

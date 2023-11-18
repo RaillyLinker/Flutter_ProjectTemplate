@@ -126,7 +126,7 @@ class PageViewModel {
 
   // PageOutFrameViewModel
   gw_page_out_frames.PageOutFrameViewModel pageOutFrameViewModel =
-      gw_page_out_frames.PageOutFrameViewModel();
+      gw_page_out_frames.PageOutFrameViewModel("GIF 샘플");
 
   // Gif 컨트롤러
   GifController? testGifController;

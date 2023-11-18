@@ -30,7 +30,6 @@ class PageView extends StatelessWidget {
 
     return gw_page_out_frames.PageOutFrame(
       pageBusiness.pageViewModel.pageOutFrameViewModel,
-      "Url Launcher 샘플",
       Center(
         child: SingleChildScrollView(
           child: Container(

@@ -451,7 +451,7 @@ class PageViewModel {
 
   // PageOutFrameViewModel
   gw_page_out_frames.PageOutFrameViewModel pageOutFrameViewModel =
-      gw_page_out_frames.PageOutFrameViewModel();
+      gw_page_out_frames.PageOutFrameViewModel("계정 샘플");
 
   // !!!BLoC 위젯 상태 변수 선언 및 초기화!!!
   // (샘플 페이지 원본 리스트)

@@ -30,7 +30,6 @@ class PageView extends StatelessWidget {
 
     return gw_page_out_frames.PageOutFrame(
       pageBusiness.pageViewModel.pageOutFrameViewModel,
-      "회원 가입 : 회원 정보 입력 (2/2)",
       SingleChildScrollView(
         child: Center(
           child: Padding(

@@ -31,7 +31,6 @@ class PageView extends StatelessWidget {
 
     return gw_page_out_frames.PageOutFrame(
       pageBusiness.pageViewModel.pageOutFrameViewModel,
-      "Get 메소드 요청 샘플",
       SingleChildScrollView(
         child: Container(
           margin:

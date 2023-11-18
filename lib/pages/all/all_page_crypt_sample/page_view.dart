@@ -31,7 +31,6 @@ class PageView extends StatelessWidget {
 
     return gw_page_out_frames.PageOutFrame(
       pageBusiness.pageViewModel.pageOutFrameViewModel,
-      "암/복호화 샘플",
       SingleChildScrollView(
         child: Center(
           child: Padding(

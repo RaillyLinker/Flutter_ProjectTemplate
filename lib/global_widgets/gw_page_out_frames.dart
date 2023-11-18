@@ -16,24 +16,16 @@ import '../../../pages/all/all_page_home/page_entrance.dart' as all_page_home;
 // (페이지 최외곽 프레임 템플릿)
 class PageOutFrame extends StatelessWidget {
   const PageOutFrame(
-    this._viewModel,
-    this.pageTitle,
+    this.viewModel,
     this.child, {
     super.key,
-    this.isPageBackgroundBlue = false,
     this.floatingActionButton,
   });
 
-  final PageOutFrameViewModel _viewModel;
-
-  // 페이지 타이틀
-  final String pageTitle;
+  final PageOutFrameViewModel viewModel;
 
   // 프레임 위젯 child
   final Widget child;
-
-  // 페이지 배경색을 파란색으로 할지 여부
-  final bool isPageBackgroundBlue;
 
   final FloatingActionButton? floatingActionButton;
 
@@ -58,11 +50,11 @@ class PageOutFrame extends StatelessWidget {
                       // 커서 변경 및 호버링 상태 변경
                       cursor: SystemMouseCursors.click,
                       onEnter: (details) {
-                        _viewModel.isHovering = true;
+                        viewModel.isHovering = true;
                         blocSampleNumber.refresh();
                       },
                       onExit: (details) {
-                        _viewModel.isHovering = false;
+                        viewModel.isHovering = false;
                         blocSampleNumber.refresh();
                       },
                       child: Tooltip(
@@ -107,7 +99,7 @@ class PageOutFrame extends StatelessWidget {
                               ),
                               // 호버링시 가릴 위젯(보여줄 위젯과 동일한 사이즈를 준비)
                               Opacity(
-                                opacity: _viewModel.isHovering ? 1.0 : 0.0,
+                                opacity: viewModel.isHovering ? 1.0 : 0.0,
                                 // 0.0: 완전 투명, 1.0: 완전 불투명
                                 child: Container(
                                     width: 35,
@@ -127,7 +119,7 @@ class PageOutFrame extends StatelessWidget {
                 ),
                 Expanded(
                     child: Text(
-                  pageTitle,
+                  viewModel.pageTitle,
                   style: const TextStyle(
                       color: Colors.white, fontFamily: "MaruBuri"),
                 ))
@@ -137,21 +129,28 @@ class PageOutFrame extends StatelessWidget {
             iconTheme:
                 const IconThemeData(color: Colors.white //change your color here
                     )),
-        backgroundColor:
-            isPageBackgroundBlue ? Colors.blue : const Color(0xFFFFFFFF),
+        backgroundColor: viewModel.isPageBackgroundBlue
+            ? Colors.blue
+            : const Color(0xFFFFFFFF),
         floatingActionButton: floatingActionButton,
         body: child);
   }
 }
 
 class PageOutFrameViewModel {
-  PageOutFrameViewModel();
+  PageOutFrameViewModel(this.pageTitle, {this.isPageBackgroundBlue = false});
 
   // !!!위젯 에서 사용할 상태 변수 선언!!!
   // 주로 여기선 BLoC 에서 사용할 변수를 선언하고,
   // 가독성을 위하여 Stateless 위젯에서 사용하는 변수는 해당 변수의 파라미터로 설정하세요.
 
   bool isHovering = false;
+
+  // 페이지 배경색을 파란색으로 할지 여부
+  final bool isPageBackgroundBlue;
+
+  // 페이지 타이틀
+  final String pageTitle;
 }
 
 // (헤더 아이콘 버튼 BLoC)

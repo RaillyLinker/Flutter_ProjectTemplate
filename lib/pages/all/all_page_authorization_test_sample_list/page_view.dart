@@ -30,7 +30,6 @@ class PageView extends StatelessWidget {
 
     return gw_page_out_frames.PageOutFrame(
         pageBusiness.pageViewModel.pageOutFrameViewModel,
-        "인증 / 인가 네트워크 요청 테스트 샘플 리스트",
         BlocBuilder<page_business.BlocSampleList, bool>(builder: (c, s) {
       return ListView.builder(
         itemCount: pageBusiness.pageViewModel.allSampleList.length,

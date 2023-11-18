@@ -31,7 +31,6 @@ class PageView extends StatelessWidget {
 
     return gw_page_out_frames.PageOutFrame(
       pageBusiness.pageViewModel.pageOutFrameViewModel,
-      "SharedPreferences 샘플",
       SingleChildScrollView(
         child: Container(
           margin: const EdgeInsets.all(20),

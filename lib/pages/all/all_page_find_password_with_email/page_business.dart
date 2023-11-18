@@ -472,7 +472,7 @@ class PageViewModel {
 
   // PageOutFrameViewModel
   gw_page_out_frames.PageOutFrameViewModel pageOutFrameViewModel =
-      gw_page_out_frames.PageOutFrameViewModel();
+      gw_page_out_frames.PageOutFrameViewModel("비밀번호 찾기");
 
   // 이메일 입력창 에러 메세지
   String? emailTextEditErrorMsg;

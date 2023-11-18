@@ -205,7 +205,7 @@ class PageViewModel {
 
   // PageOutFrameViewModel
   gw_page_out_frames.PageOutFrameViewModel pageOutFrameViewModel =
-      gw_page_out_frames.PageOutFrameViewModel();
+      gw_page_out_frames.PageOutFrameViewModel("페이지 입/출력 테스트");
 
   // 페이지 출력값 Form 필드 전체 키
   GlobalKey<FormState> pageOutputFormKey = GlobalKey<FormState>();

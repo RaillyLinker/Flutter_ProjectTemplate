@@ -30,7 +30,6 @@ class PageView extends StatelessWidget {
 
     return gw_page_out_frames.PageOutFrame(
       pageBusiness.pageViewModel.pageOutFrameViewModel,
-      "로그인",
       SingleChildScrollView(
         child: Center(
           child: Column(
@@ -232,7 +231,6 @@ class PageView extends StatelessWidget {
           ),
         ),
       ),
-      isPageBackgroundBlue: true,
     );
   }
 }

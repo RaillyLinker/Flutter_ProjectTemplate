@@ -31,7 +31,6 @@ class PageView extends StatelessWidget {
 
     return gw_page_out_frames.PageOutFrame(
       pageBusiness.pageViewModel.pageOutFrameViewModel,
-      "전역 변수 상태 확인 샘플",
       SingleChildScrollView(
         child: Container(
           height: 280,

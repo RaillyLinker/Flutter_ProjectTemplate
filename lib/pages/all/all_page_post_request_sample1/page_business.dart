@@ -277,7 +277,7 @@ class PageViewModel {
 
   // PageOutFrameViewModel
   gw_page_out_frames.PageOutFrameViewModel pageOutFrameViewModel =
-      gw_page_out_frames.PageOutFrameViewModel();
+      gw_page_out_frames.PageOutFrameViewModel("Post 메소드 요청 샘플 1");
 
   TextEditingController networkRequestParamTextFieldController1 =
       TextEditingController()..text = "testString";

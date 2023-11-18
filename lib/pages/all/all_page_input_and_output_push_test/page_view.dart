@@ -30,7 +30,6 @@ class PageView extends StatelessWidget {
 
     return gw_page_out_frames.PageOutFrame(
       pageBusiness.pageViewModel.pageOutFrameViewModel,
-      "페이지 입/출력 테스트",
       Center(
         child: SingleChildScrollView(
           child: Column(

@@ -30,7 +30,6 @@ class PageView extends StatelessWidget {
 
     return gw_page_out_frames.PageOutFrame(
       pageBusiness.pageViewModel.pageOutFrameViewModel,
-      "페이지 템플릿",
       const Center(
         child: Text(
           "페이지 템플릿입니다.",

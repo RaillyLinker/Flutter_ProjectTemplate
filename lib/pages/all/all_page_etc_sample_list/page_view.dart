@@ -30,7 +30,6 @@ class PageView extends StatelessWidget {
 
     return gw_page_out_frames.PageOutFrame(
       pageBusiness.pageViewModel.pageOutFrameViewModel,
-      "기타 샘플 리스트",
       BlocBuilder<page_business.BlocSampleList, bool>(
         builder: (c, s) {
           return ListView.builder(

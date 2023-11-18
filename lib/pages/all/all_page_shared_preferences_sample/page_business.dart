@@ -241,7 +241,7 @@ class PageViewModel {
 
   // PageOutFrameViewModel
   gw_page_out_frames.PageOutFrameViewModel pageOutFrameViewModel =
-      gw_page_out_frames.PageOutFrameViewModel();
+      gw_page_out_frames.PageOutFrameViewModel("SharedPreferences 샘플");
 
   String spwKey = spw_test_sample.SharedPreferenceWrapper.globalKeyName;
 

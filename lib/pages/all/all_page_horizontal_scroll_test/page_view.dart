@@ -34,7 +34,6 @@ class PageView extends StatelessWidget {
 
     return gw_page_out_frames.PageOutFrame(
       pageBusiness.pageViewModel.pageOutFrameViewModel,
-      "가로 스크롤 테스트",
       SingleChildScrollView(
         child: Column(
           children: [

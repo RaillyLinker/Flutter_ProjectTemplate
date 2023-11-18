@@ -29,7 +29,7 @@ class PageView extends StatelessWidget {
             .pageBusiness;
 
     return gw_page_out_frames.PageOutFrame(
-        pageBusiness.pageViewModel.pageOutFrameViewModel, "다이얼로그 샘플 리스트",
+        pageBusiness.pageViewModel.pageOutFrameViewModel,
         BlocBuilder<page_business.BlocSampleList, bool>(builder: (c, s) {
       return ListView.builder(
         itemCount: pageBusiness.pageViewModel.allSampleList.length,
