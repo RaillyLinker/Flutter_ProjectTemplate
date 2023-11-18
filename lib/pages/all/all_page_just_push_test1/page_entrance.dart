@@ -1,16 +1,11 @@
 // (external)
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:focus_detector_v2/focus_detector_v2.dart';
 import 'package:go_router/go_router.dart';
 
 // (page)
 import 'page_view.dart' as page_view;
 import 'page_business.dart' as page_business;
-
-// (all)
-import '../../../global_classes/gc_template_classes.dart'
-    as gc_template_classes;
 
 // [페이지 진입 파일]
 
@@ -38,61 +33,26 @@ class PageOutputVo {}
 //------------------------------------------------------------------------------
 // 아래부터는 수정이 불필요한 코드입니다.
 // 외부에서 페이지 진입시 사용(= 라우터에 등록) 하는 역할.
-class PageEntrance extends StatelessWidget {
+class PageEntrance extends StatefulWidget {
   const PageEntrance(this._goRouterState, {super.key});
 
-  // 페이지 진입 파라미터
-  final GoRouterState _goRouterState;
-
-  // 화면 빌드
-  @override
-  Widget build(BuildContext context) {
-    // BLoC Provider 리스트
-    List<BlocProvider<dynamic>> blocProviders =
-        page_business.BLocProviders().blocProviders;
-
-    // pageBusiness 객체 생성
-    var pageBusiness = page_business.PageBusiness(context);
-
-    // Page Info BLoC 추가 (pageBusiness 를 context 전역에 저장)
-    blocProviders.add(
-        BlocProvider<gc_template_classes.BlocPageInfo>(create: (innerContext) {
-      // pageBusiness 내의 bloc 객체 모음 생성
-      pageBusiness.blocObjects = page_business.BLocObjects(innerContext);
-      return gc_template_classes.BlocPageInfo(
-          gc_template_classes.BlocPageInfoState<page_business.PageBusiness>(
-              pageBusiness));
-    }));
-
-    // 페이지 사용 BLoC 객체를 모두 설정
-    return MultiBlocProvider(
-      // 하위 위젯에서 사용할 Businesses BLoC 프로바이더 설정
-      // MultiBlocProvider 을 거치지 않는다면 하위 위젯에서 BLoC 조작을 할 수 없습니다.
-      providers: blocProviders,
-      child: LifecycleWatcher(_goRouterState),
-    );
-  }
-}
-
-// (페이지 생명주기 탐지용)
-class LifecycleWatcher extends StatefulWidget {
-  const LifecycleWatcher(this._goRouterState, {super.key});
-
   final GoRouterState _goRouterState;
 
   @override
-  LifecycleWatcherState createState() => LifecycleWatcherState();
+  PageEntranceState createState() => PageEntranceState();
 }
 
-class LifecycleWatcherState extends State<LifecycleWatcher>
+class PageEntranceState extends State<PageEntrance>
     with WidgetsBindingObserver {
-  // Business Logic 위임 객체
+  // 페이지 비즈니스 객체
   late page_business.PageBusiness _pageBusiness;
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
+
+    _pageBusiness = page_business.PageBusiness(context);
   }
 
   @override
@@ -107,10 +67,6 @@ class LifecycleWatcherState extends State<LifecycleWatcher>
 
   @override
   Widget build(BuildContext context) {
-    gc_template_classes.BlocPageInfoState blocPageInfoState =
-        BlocProvider.of<gc_template_classes.BlocPageInfo>(context).state;
-    _pageBusiness = blocPageInfoState.pageBusiness;
-
     return WillPopScope(
         onWillPop: () async {
           bool isPop = await _pageBusiness.onPageWillPopAsync();
@@ -162,6 +118,6 @@ class LifecycleWatcherState extends State<LifecycleWatcher>
                 }
               }
             },
-            child: const page_view.PageView()));
+            child: page_view.PageView(_pageBusiness)));
   }
 }

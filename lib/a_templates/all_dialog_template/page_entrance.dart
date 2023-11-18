@@ -20,15 +20,11 @@ class PageOutputVo {}
 //------------------------------------------------------------------------------
 // 아래부터는 수정이 불필요한 코드입니다.
 // 외부에서 페이지 진입시 사용(= 라우터에 등록) 하는 역할.
-// ignore: must_be_immutable
 class PageEntrance extends StatefulWidget {
-  PageEntrance(this._pageInputVo, {super.key});
+  const PageEntrance(this._pageInputVo, {super.key});
 
   // 페이지 진입 파라미터
   final PageInputVo _pageInputVo;
-
-  // 페이지 비즈니스 객체
-  late page_business.PageBusiness pageBusiness;
 
   @override
   PageEntranceState createState() => PageEntranceState();
@@ -45,7 +41,6 @@ class PageEntranceState extends State<PageEntrance>
     WidgetsBinding.instance.addObserver(this);
 
     _pageBusiness = page_business.PageBusiness(context, widget._pageInputVo);
-    widget.pageBusiness = _pageBusiness;
   }
 
   @override

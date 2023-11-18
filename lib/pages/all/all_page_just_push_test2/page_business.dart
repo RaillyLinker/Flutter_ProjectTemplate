@@ -1,19 +1,19 @@
 // (external)
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:go_router/go_router.dart';
 
 // (page)
+import 'page_view.dart' as page_view;
 import 'page_entrance.dart' as page_entrance;
 
 // (all)
-import '../../../global_widgets/gw_page_out_frames.dart' as gw_page_out_frames;
 import '../../../pages/all/all_page_just_push_test1/page_entrance.dart'
     as all_page_just_push_test1;
 import '../../../pages/all/all_page_just_push_test2/page_entrance.dart'
     as all_page_just_push_test2;
+import '../../../global_widgets/gw_page_out_frames.dart' as gw_page_out_frames;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
 
@@ -29,9 +29,6 @@ class PageBusiness {
 
   // 페이지 컨텍스트 객체
   final BuildContext _context;
-
-  // BLoC 객체 모음
-  late BLocObjects blocObjects;
 
   // 페이지 생명주기 관련 states
   final gc_template_classes.PageLifeCycleStates pageLifeCycleStates =
@@ -53,16 +50,15 @@ class PageBusiness {
   // (onPageCreateAsync 실행 전 PageInputVo 체크)
   // onPageCreateAsync 과 완전히 동일하나, 입력값 체크만을 위해 분리한 생명주기
   Future<void> onCheckPageInputVoAsync(GoRouterState goRouterState) async {
-    if (kDebugMode) {
-      print("--- onCheckPageInputVoAsync 호출됨");
-    }
-
     // !!!pageInputVo 체크!!!
     // ex :
     // if (!goRouterState.uri.queryParameters
     //     .containsKey("inputValueString")) {
     //   // 필수 파라미터가 없는 경우에 대한 처리
     // }
+    if (kDebugMode) {
+      print("--- onCheckPageInputVoAsync 호출됨");
+    }
 
     // !!!PageInputVo 입력!!!
     pageInputVo = page_entrance.PageInputVo();
@@ -123,13 +119,6 @@ class PageBusiness {
 ////
 // [비즈니스 함수]
 // !!!외부에서 사용할 비즈니스 로직은 아래에 공개 함수로 구현!!!
-// ex :
-//   void changeSampleNumber(int newSampleNumber) {
-//     // BLoC 위젯 관련 상태 변수 변경
-//     pageViewModel.sampleNumber = newSampleNumber;
-//     // BLoC 위젯 변경 트리거 발동
-//     blocObjects.blocSample.refresh();
-//   }
 
   // (just_push_test 로 이동)
   void goToJustPushTest1Page() {
@@ -143,8 +132,8 @@ class PageBusiness {
 
   // (화면 카운트 +1)
   void countPlus1() {
-    pageViewModel.sampleNumber += 1;
-    blocObjects.blocSampleNumber.refresh();
+    pageViewModel.sampleWidgetViewModel.sampleInt += 1;
+    pageViewModel.sampleWidgetStateGk.currentState?.refresh();
   }
 
 ////
@@ -160,76 +149,16 @@ class PageViewModel {
   // 페이지 컨텍스트 객체
   final BuildContext _context;
 
-  // 페이지 생명주기 관련 states
-  final gc_template_classes.PageLifeCycleStates pageLifeCycleStates =
-      gc_template_classes.PageLifeCycleStates();
-
-  // 페이지 파라미터 (아래 goRouterState 에서 가져와 대입하기)
-  late page_entrance.PageInputVo pageInputVo;
-
   // !!!페이지 데이터 정의!!!
   // ex :
-  // int sampleNumber = 0;
+  // GlobalKey<SampleWidgetState> sampleWidgetStateGk = GlobalKey();
+  // SampleWidgetViewModel sampleWidgetViewModel = SampleWidgetViewModel();
+
+  GlobalKey<page_view.SampleNumberTextState> sampleWidgetStateGk = GlobalKey();
+  page_view.SampleNumberTextViewModel sampleWidgetViewModel =
+      page_view.SampleNumberTextViewModel();
 
   // PageOutFrameViewModel
   gw_page_out_frames.PageOutFrameViewModel pageOutFrameViewModel =
       gw_page_out_frames.PageOutFrameViewModel("페이지 Push 테스트2");
-
-  int sampleNumber = 0;
-}
-
-// (BLoC 클래스)
-// ex :
-// class BlocSample extends Bloc<bool, bool> {
-//   BlocSample() : super(true) {
-//     on<bool>((event, emit) {
-//       emit(event);
-//     });
-//   }
-//
-//   // BLoC 위젯 갱신 함수
-//   void refresh() {
-//     add(!state);
-//   }
-// }
-
-class BlocSampleNumber extends Bloc<bool, bool> {
-  BlocSampleNumber() : super(true) {
-    on<bool>((event, emit) {
-      emit(event);
-    });
-  }
-
-  // BLoC 위젯 갱신 함수
-  void refresh() {
-    add(!state);
-  }
-}
-
-// (BLoC 프로바이더 클래스)
-// 본 페이지에서 사용할 BLoC 객체를 모아두어 PageEntrance 에서 페이지 전역 설정에 사용 됩니다.
-class BLocProviders {
-// !!!이 페이지에서 사용할 "모든" BLoC 클래스들에 대한 Provider 객체들을 아래 리스트에 넣어줄 것!!!
-  List<BlocProvider<dynamic>> blocProviders = [
-    // ex :
-    // BlocProvider<BlocSample>(create: (context) => BlocSample())
-    BlocProvider<BlocSampleNumber>(create: (context) => BlocSampleNumber()),
-  ];
-}
-
-class BLocObjects {
-  BLocObjects(this._context) {
-    // !!!BLoC 조작 객체 생성!!!
-    // ex :
-    // blocSample = BlocProvider.of<BlocSample>(_context);
-    blocSampleNumber = BlocProvider.of<BlocSampleNumber>(_context);
-  }
-
-  // 페이지 컨텍스트 객체
-  final BuildContext _context;
-
-  // !!!BLoC 조작 객체 변수 선언!!!
-  // ex :
-  // late BlocSample blocSample;
-  late BlocSampleNumber blocSampleNumber;
 }
