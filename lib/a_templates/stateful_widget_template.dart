@@ -2,14 +2,18 @@
 import 'package:flutter/cupertino.dart';
 
 // [Stateful 위젯 샘플 템플릿]
-// 본 프로젝트는 동적 위젯 작성에 BLoC 를 주로 사용합니다.
-// 다만, 부득이 Stateful 위젯을 사용 해야 한다면 아래와 같이 만들면 좋습니다.
+// Stateful 위젯을 사용 해야 한다면 아래와 같이 만들면 좋습니다.
+// 외부에서 주입할 widget 은 StatefulWidget 의 파라미터로 받고, State 에 사용할 데이터는 ViewModel 에서 받습니다.
+// 외부에서는 key 와 viewModel 을 저장해두고 사용하세요.
 
 // -----------------------------------------------------------------------------
 class StatefulWidgetTemplate extends StatefulWidget {
-  const StatefulWidgetTemplate(this.viewModel, {super.key});
+  const StatefulWidgetTemplate(this.viewModel, {required super.key});
 
+  // State 뷰모델
   final StatefulWidgetTemplateViewModel viewModel;
+
+  //!!!주입 받을 하위 위젯 선언 하기!!!
 
   @override
   StatefulWidgetTemplateState createState() => StatefulWidgetTemplateState();
@@ -30,7 +34,7 @@ class StatefulWidgetTemplateState extends State<StatefulWidgetTemplate> {
 
   @override
   Widget build(BuildContext context) {
-    // 하위 위젯 작성하기. (widget.viewModel 에서 데이터를 가져와 사용)
+    // !!!하위 위젯 작성하기. (widget.viewModel 에서 데이터를 가져와 사용)!!!
     return Text(widget.viewModel.sampleInt.toString());
   }
 }

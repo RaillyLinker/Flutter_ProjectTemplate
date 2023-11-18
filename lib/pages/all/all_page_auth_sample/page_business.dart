@@ -8,6 +8,7 @@ import 'package:intl/intl.dart';
 import 'page_entrance.dart' as page_entrance;
 
 // (all)
+import '../../../global_widgets/gw_custom_widgets.dart' as gw_custom_widgets;
 import '../../../global_widgets/gw_page_out_frames.dart' as gw_page_out_frames;
 import '../../../../repositories/network/apis/api_main_server.dart'
     as api_main_server;
@@ -93,10 +94,8 @@ class PageBusiness {
     spw_auth_member_info.SharedPreferenceWrapperVo? nowLoginMemberInfo =
         gf_my_functions.getNowVerifiedMemberInfo();
 
-    int? nowMemberUid =
-        ((nowLoginMemberInfo == null) ? null : nowLoginMemberInfo.memberUid);
-
-    if (pageViewModel.screenMemberUid != nowMemberUid) {
+    if (pageViewModel.loginMemberInfo?.memberUid !=
+        nowLoginMemberInfo?.memberUid) {
       // 현재 유저 정보와 페이지에 저장된 유저 정보가 다를 때
 
       // 화면 갱신
@@ -145,320 +144,285 @@ class PageBusiness {
 
     List<SampleItem> nowAllSampleList = [];
     nowAllSampleList.add(SampleItem(
-        SampleItemEnum.goToAuthorizationTestSamplePage,
-        "인증 / 인가 네트워크 요청 테스트 샘플 리스트",
-        "인증 / 인가 상태에서 네트워크 요청 및 응답 처리 테스트 샘플 리스트"));
+        "인증 / 인가 네트워크 요청 테스트 샘플 리스트", "인증 / 인가 상태에서 네트워크 요청 및 응답 처리 테스트 샘플 리스트",
+        gw_custom_widgets.HoverListTileWrapperViewModel(() async {
+      // 인증/인가 테스트 샘플 페이지로 이동
+      _context.pushNamed(all_page_authorization_test_sample_list.pageName);
+    })));
     if (nowLoginMemberInfo == null) {
-      nowAllSampleList.add(SampleItem(
-          SampleItemEnum.goToLoginPage, "로그인 페이지", "로그인 페이지로 이동합니다."));
+      nowAllSampleList.add(SampleItem("로그인 페이지", "로그인 페이지로 이동합니다.",
+          gw_custom_widgets.HoverListTileWrapperViewModel(() async {
+        // 계정 로그인 페이지로 이동
+        _context.pushNamed(all_page_login.pageName);
+      })));
     } else {
-      nowAllSampleList
-          .add(SampleItem(SampleItemEnum.logout, "로그아웃", "로그아웃 처리를 합니다."));
-      nowAllSampleList.add(SampleItem(SampleItemEnum.logoutFromAllDevice,
-          "모든 디바이스에서 로그아웃", "현재 로그인된 모든 디바이스의 리프레시 토큰을 만료 처리 합니다."));
-      nowAllSampleList.add(SampleItem(
-          SampleItemEnum.refreshAuthToken, "인증 토큰 갱신", "인증 토큰을 갱신합니다."));
-      nowAllSampleList.add(SampleItem(
-          SampleItemEnum.goToMemberInfo, "회원 정보 페이지로 이동", "회원 정보 페이지로 이동합니다."));
-    }
+      nowAllSampleList.add(SampleItem("로그아웃", "로그아웃 처리를 합니다.",
+          gw_custom_widgets.HoverListTileWrapperViewModel(() async {
+        // 계정 로그아웃 처리
+        var loadingSpinner = all_dialog_loading_spinner.PageEntrance(
+          all_dialog_loading_spinner.PageInputVo(),
+        );
 
-    blocObjects.blocSampleList.allSampleList = nowAllSampleList;
-    blocObjects.blocSampleList.refresh();
+        showDialog(
+            barrierDismissible: false,
+            context: _context,
+            builder: (context) => loadingSpinner).then((outputVo) {});
 
-    int? nowMemberUid =
-        ((nowLoginMemberInfo == null) ? null : nowLoginMemberInfo.memberUid);
-    pageViewModel.screenMemberUid = nowMemberUid;
-  }
+        spw_auth_member_info.SharedPreferenceWrapperVo? loginMemberInfo =
+            spw_auth_member_info.SharedPreferenceWrapper.get();
 
-  // (리스트 아이템 클릭 리스너)
-  Future<void> onRouteListItemClick(int index) async {
-    SampleItem sampleItem = blocObjects.blocSampleList.allSampleList[index];
+        if (loginMemberInfo != null) {
+          // 서버 Logout API 실행
+          spw_auth_member_info.SharedPreferenceWrapperVo? loginMemberInfo =
+              spw_auth_member_info.SharedPreferenceWrapper.get();
+          await api_main_server.postService1TkV1AuthLogoutAsync(
+              api_main_server.PostService1TkV1AuthLogoutAsyncRequestHeaderVo(
+                  "${loginMemberInfo!.tokenType} ${loginMemberInfo.accessToken}"));
 
-    switch (sampleItem.sampleItemEnum) {
-      case SampleItemEnum.goToAuthorizationTestSamplePage:
-        {
-          // 인증/인가 테스트 샘플 페이지로 이동
-          _context.pushNamed(all_page_authorization_test_sample_list.pageName);
+          // login_user_info SPW 비우기
+          spw_auth_member_info.SharedPreferenceWrapper.set(null);
         }
-        break;
-      case SampleItemEnum.goToLoginPage:
-        {
-          // 계정 로그인 페이지로 이동
-          _context.pushNamed(all_page_login.pageName);
-        }
-        break;
-      case SampleItemEnum.logout:
-        {
-          // 계정 로그아웃 처리
-          var loadingSpinner = all_dialog_loading_spinner.PageEntrance(
-            all_dialog_loading_spinner.PageInputVo(),
-          );
 
-          showDialog(
-              barrierDismissible: false,
-              context: _context,
-              builder: (context) => loadingSpinner).then((outputVo) {});
+        loadingSpinner.pageBusiness.closeDialog();
 
+        // 비회원으로 전체 화면 갱신
+        refreshScreenDataAsync(null);
+      })));
+      nowAllSampleList.add(
+          SampleItem("모든 디바이스에서 로그아웃", "현재 로그인된 모든 디바이스의 리프레시 토큰을 만료 처리 합니다.",
+              gw_custom_widgets.HoverListTileWrapperViewModel(() async {
+        // 모든 디바이스에서 계정 로그아웃 처리
+        var loadingSpinner = all_dialog_loading_spinner.PageEntrance(
+          all_dialog_loading_spinner.PageInputVo(),
+        );
+
+        if (!_context.mounted) return;
+        showDialog(
+            barrierDismissible: false,
+            context: _context,
+            builder: (context) => loadingSpinner).then((outputVo) {});
+
+        spw_auth_member_info.SharedPreferenceWrapperVo? loginMemberInfo =
+            spw_auth_member_info.SharedPreferenceWrapper.get();
+
+        if (loginMemberInfo != null) {
+          // All Logout API 실행
           spw_auth_member_info.SharedPreferenceWrapperVo? loginMemberInfo =
               spw_auth_member_info.SharedPreferenceWrapper.get();
 
-          if (loginMemberInfo != null) {
-            // 서버 Logout API 실행
-            spw_auth_member_info.SharedPreferenceWrapperVo? loginMemberInfo =
-                spw_auth_member_info.SharedPreferenceWrapper.get();
-            await api_main_server.postService1TkV1AuthLogoutAsync(
-                api_main_server.PostService1TkV1AuthLogoutAsyncRequestHeaderVo(
-                    "${loginMemberInfo!.tokenType} ${loginMemberInfo.accessToken}"));
+          await api_main_server
+              .deleteService1TkV1AuthAllAuthorizationTokenAsync(api_main_server
+                  .DeleteService1TkV1AuthAllAuthorizationTokenAsyncRequestHeaderVo(
+                      "${loginMemberInfo!.tokenType} ${loginMemberInfo.accessToken}"));
 
-            // login_user_info SPW 비우기
-            spw_auth_member_info.SharedPreferenceWrapper.set(null);
-          }
+          // login_user_info SPW 비우기
+          spw_auth_member_info.SharedPreferenceWrapper.set(null);
+        }
 
-          loadingSpinner.pageBusiness.closeDialog();
+        loadingSpinner.pageBusiness.closeDialog();
 
+        // 비회원으로 전체 화면 갱신
+        refreshScreenDataAsync(null);
+      })));
+      nowAllSampleList.add(SampleItem("인증 토큰 갱신", "인증 토큰을 갱신합니다.",
+          gw_custom_widgets.HoverListTileWrapperViewModel(() async {
+        // (토큰 리플레시)
+        var loadingSpinner = all_dialog_loading_spinner.PageEntrance(
+          all_dialog_loading_spinner.PageInputVo(),
+        );
+
+        if (!_context.mounted) return;
+        showDialog(
+            barrierDismissible: false,
+            context: _context,
+            builder: (context) => loadingSpinner).then((outputVo) {});
+
+        spw_auth_member_info.SharedPreferenceWrapperVo? loginMemberInfo =
+            spw_auth_member_info.SharedPreferenceWrapper.get();
+
+        if (loginMemberInfo == null) {
           // 비회원으로 전체 화면 갱신
           refreshScreenDataAsync(null);
-        }
-        break;
-      case SampleItemEnum.logoutFromAllDevice:
-        {
-          // 모든 디바이스에서 계정 로그아웃 처리
-          var loadingSpinner = all_dialog_loading_spinner.PageEntrance(
-            all_dialog_loading_spinner.PageInputVo(),
-          );
+        } else {
+          // 리플레시 토큰 만료 여부 확인
+          bool isRefreshTokenExpired = DateFormat('yyyy-MM-dd HH:mm:ss.SSS')
+              .parse(loginMemberInfo.refreshTokenExpireWhen)
+              .isBefore(DateTime.now());
 
-          if (!_context.mounted) return;
-          showDialog(
-              barrierDismissible: false,
-              context: _context,
-              builder: (context) => loadingSpinner).then((outputVo) {});
-
-          spw_auth_member_info.SharedPreferenceWrapperVo? loginMemberInfo =
-              spw_auth_member_info.SharedPreferenceWrapper.get();
-
-          if (loginMemberInfo != null) {
-            // All Logout API 실행
-            spw_auth_member_info.SharedPreferenceWrapperVo? loginMemberInfo =
-                spw_auth_member_info.SharedPreferenceWrapper.get();
-
-            await api_main_server
-                .deleteService1TkV1AuthAllAuthorizationTokenAsync(api_main_server
-                    .DeleteService1TkV1AuthAllAuthorizationTokenAsyncRequestHeaderVo(
-                        "${loginMemberInfo!.tokenType} ${loginMemberInfo.accessToken}"));
-
+          if (isRefreshTokenExpired) {
+            // 리플래시 토큰이 사용 불가이므로 로그아웃 처리
             // login_user_info SPW 비우기
             spw_auth_member_info.SharedPreferenceWrapper.set(null);
-          }
 
-          loadingSpinner.pageBusiness.closeDialog();
+            loadingSpinner.pageBusiness.closeDialog();
 
-          // 비회원으로 전체 화면 갱신
-          refreshScreenDataAsync(null);
-        }
-        break;
-      case SampleItemEnum.refreshAuthToken:
-        {
-          // (토큰 리플레시)
-          var loadingSpinner = all_dialog_loading_spinner.PageEntrance(
-            all_dialog_loading_spinner.PageInputVo(),
-          );
-
-          if (!_context.mounted) return;
-          showDialog(
-              barrierDismissible: false,
-              context: _context,
-              builder: (context) => loadingSpinner).then((outputVo) {});
-
-          spw_auth_member_info.SharedPreferenceWrapperVo? loginMemberInfo =
-              spw_auth_member_info.SharedPreferenceWrapper.get();
-
-          if (loginMemberInfo == null) {
             // 비회원으로 전체 화면 갱신
             refreshScreenDataAsync(null);
           } else {
-            // 리플레시 토큰 만료 여부 확인
-            bool isRefreshTokenExpired = DateFormat('yyyy-MM-dd HH:mm:ss.SSS')
-                .parse(loginMemberInfo.refreshTokenExpireWhen)
-                .isBefore(DateTime.now());
+            var postAutoLoginOutputVo =
+                await api_main_server.postService1TkV1AuthReissueAsync(
+                    api_main_server.PostService1TkV1AuthReissueAsyncRequestHeaderVo(
+                        "${loginMemberInfo.tokenType} ${loginMemberInfo.accessToken}"),
+                    api_main_server.PostService1TkV1AuthReissueAsyncRequestBodyVo(
+                        "${loginMemberInfo.tokenType} ${loginMemberInfo.refreshToken}"));
 
-            if (isRefreshTokenExpired) {
-              // 리플래시 토큰이 사용 불가이므로 로그아웃 처리
-              // login_user_info SPW 비우기
-              spw_auth_member_info.SharedPreferenceWrapper.set(null);
+            loadingSpinner.pageBusiness.closeDialog();
 
-              loadingSpinner.pageBusiness.closeDialog();
+            // 네트워크 요청 결과 처리
+            if (postAutoLoginOutputVo.dioException == null) {
+              // Dio 네트워크 응답
+              var networkResponseObjectOk =
+                  postAutoLoginOutputVo.networkResponseObjectOk!;
 
-              // 비회원으로 전체 화면 갱신
-              refreshScreenDataAsync(null);
-            } else {
-              var postAutoLoginOutputVo =
-                  await api_main_server.postService1TkV1AuthReissueAsync(
-                      api_main_server
-                          .PostService1TkV1AuthReissueAsyncRequestHeaderVo(
-                              "${loginMemberInfo.tokenType} ${loginMemberInfo.accessToken}"),
-                      api_main_server.PostService1TkV1AuthReissueAsyncRequestBodyVo(
-                          "${loginMemberInfo.tokenType} ${loginMemberInfo.refreshToken}"));
+              if (networkResponseObjectOk.responseStatusCode == 200) {
+                // 정상 응답
 
-              loadingSpinner.pageBusiness.closeDialog();
+                // 응답 Body
+                var postReissueResponseBody =
+                    networkResponseObjectOk.responseBody! as api_main_server
+                        .PostService1TkV1AuthReissueAsyncResponseBodyVo;
 
-              // 네트워크 요청 결과 처리
-              if (postAutoLoginOutputVo.dioException == null) {
-                // Dio 네트워크 응답
-                var networkResponseObjectOk =
-                    postAutoLoginOutputVo.networkResponseObjectOk!;
+                // SPW 정보 갱신
+                List<spw_auth_member_info.SharedPreferenceWrapperVoOAuth2Info>
+                    myOAuth2ObjectList = [];
+                for (api_main_server
+                    .PostReissueAsyncResponseBodyVoOAuth2Info myOAuth2
+                    in postReissueResponseBody.myOAuth2List) {
+                  myOAuth2ObjectList.add(
+                      spw_auth_member_info.SharedPreferenceWrapperVoOAuth2Info(
+                    myOAuth2.uid,
+                    myOAuth2.oauth2TypeCode,
+                    myOAuth2.oauth2Id,
+                  ));
+                }
 
-                if (networkResponseObjectOk.responseStatusCode == 200) {
-                  // 정상 응답
+                List<spw_auth_member_info.SharedPreferenceWrapperVoProfileInfo>
+                    myProfileList = [];
+                for (api_main_server
+                    .PostReissueAsyncResponseBodyVoProfile myProfile
+                    in postReissueResponseBody.myProfileList) {
+                  myProfileList.add(
+                      spw_auth_member_info.SharedPreferenceWrapperVoProfileInfo(
+                    myProfile.uid,
+                    myProfile.imageFullUrl,
+                    myProfile.isFront,
+                  ));
+                }
 
-                  // 응답 Body
-                  var postReissueResponseBody =
-                      networkResponseObjectOk.responseBody! as api_main_server
-                          .PostService1TkV1AuthReissueAsyncResponseBodyVo;
+                List<spw_auth_member_info.SharedPreferenceWrapperVoEmailInfo>
+                    myEmailList = [];
+                for (api_main_server.PostReissueAsyncResponseBodyVoEmail myEmail
+                    in postReissueResponseBody.myEmailList) {
+                  myEmailList.add(
+                      spw_auth_member_info.SharedPreferenceWrapperVoEmailInfo(
+                    myEmail.uid,
+                    myEmail.emailAddress,
+                    myEmail.isFront,
+                  ));
+                }
 
-                  // SPW 정보 갱신
-                  List<spw_auth_member_info.SharedPreferenceWrapperVoOAuth2Info>
-                      myOAuth2ObjectList = [];
-                  for (api_main_server
-                      .PostReissueAsyncResponseBodyVoOAuth2Info myOAuth2
-                      in postReissueResponseBody.myOAuth2List) {
-                    myOAuth2ObjectList.add(spw_auth_member_info
-                        .SharedPreferenceWrapperVoOAuth2Info(
-                      myOAuth2.uid,
-                      myOAuth2.oauth2TypeCode,
-                      myOAuth2.oauth2Id,
-                    ));
-                  }
+                List<spw_auth_member_info.SharedPreferenceWrapperVoPhoneInfo>
+                    myPhoneNumberList = [];
+                for (api_main_server.PostReissueAsyncResponseBodyVoPhone myPhone
+                    in postReissueResponseBody.myPhoneNumberList) {
+                  myPhoneNumberList.add(
+                      spw_auth_member_info.SharedPreferenceWrapperVoPhoneInfo(
+                    myPhone.uid,
+                    myPhone.phoneNumber,
+                    myPhone.isFront,
+                  ));
+                }
 
-                  List<
-                      spw_auth_member_info
-                      .SharedPreferenceWrapperVoProfileInfo> myProfileList = [];
-                  for (api_main_server
-                      .PostReissueAsyncResponseBodyVoProfile myProfile
-                      in postReissueResponseBody.myProfileList) {
-                    myProfileList.add(spw_auth_member_info
-                        .SharedPreferenceWrapperVoProfileInfo(
-                      myProfile.uid,
-                      myProfile.imageFullUrl,
-                      myProfile.isFront,
-                    ));
-                  }
+                loginMemberInfo.memberUid = postReissueResponseBody.memberUid;
+                loginMemberInfo.nickName = postReissueResponseBody.nickName;
+                loginMemberInfo.roleList = postReissueResponseBody.roleList;
+                loginMemberInfo.tokenType = postReissueResponseBody.tokenType;
+                loginMemberInfo.accessToken =
+                    postReissueResponseBody.accessToken;
+                loginMemberInfo.accessTokenExpireWhen =
+                    postReissueResponseBody.accessTokenExpireWhen;
+                loginMemberInfo.refreshToken =
+                    postReissueResponseBody.refreshToken;
+                loginMemberInfo.refreshTokenExpireWhen =
+                    postReissueResponseBody.refreshTokenExpireWhen;
+                loginMemberInfo.myOAuth2List = myOAuth2ObjectList;
+                loginMemberInfo.myProfileList = myProfileList;
+                loginMemberInfo.myEmailList = myEmailList;
+                loginMemberInfo.myPhoneNumberList = myPhoneNumberList;
+                loginMemberInfo.authPasswordIsNull =
+                    postReissueResponseBody.authPasswordIsNull;
 
-                  List<spw_auth_member_info.SharedPreferenceWrapperVoEmailInfo>
-                      myEmailList = [];
-                  for (api_main_server
-                      .PostReissueAsyncResponseBodyVoEmail myEmail
-                      in postReissueResponseBody.myEmailList) {
-                    myEmailList.add(
-                        spw_auth_member_info.SharedPreferenceWrapperVoEmailInfo(
-                      myEmail.uid,
-                      myEmail.emailAddress,
-                      myEmail.isFront,
-                    ));
-                  }
+                spw_auth_member_info.SharedPreferenceWrapper.set(
+                    loginMemberInfo);
 
-                  List<spw_auth_member_info.SharedPreferenceWrapperVoPhoneInfo>
-                      myPhoneNumberList = [];
-                  for (api_main_server
-                      .PostReissueAsyncResponseBodyVoPhone myPhone
-                      in postReissueResponseBody.myPhoneNumberList) {
-                    myPhoneNumberList.add(
-                        spw_auth_member_info.SharedPreferenceWrapperVoPhoneInfo(
-                      myPhone.uid,
-                      myPhone.phoneNumber,
-                      myPhone.isFront,
-                    ));
-                  }
+                refreshScreenDataAsync(loginMemberInfo);
+              } else {
+                var postReissueResponseHeader =
+                    networkResponseObjectOk.responseHeaders! as api_main_server
+                        .PostService1TkV1AuthReissueAsyncResponseHeaderVo;
 
-                  loginMemberInfo.memberUid = postReissueResponseBody.memberUid;
-                  loginMemberInfo.nickName = postReissueResponseBody.nickName;
-                  loginMemberInfo.roleList = postReissueResponseBody.roleList;
-                  loginMemberInfo.tokenType = postReissueResponseBody.tokenType;
-                  loginMemberInfo.accessToken =
-                      postReissueResponseBody.accessToken;
-                  loginMemberInfo.accessTokenExpireWhen =
-                      postReissueResponseBody.accessTokenExpireWhen;
-                  loginMemberInfo.refreshToken =
-                      postReissueResponseBody.refreshToken;
-                  loginMemberInfo.refreshTokenExpireWhen =
-                      postReissueResponseBody.refreshTokenExpireWhen;
-                  loginMemberInfo.myOAuth2List = myOAuth2ObjectList;
-                  loginMemberInfo.myProfileList = myProfileList;
-                  loginMemberInfo.myEmailList = myEmailList;
-                  loginMemberInfo.myPhoneNumberList = myPhoneNumberList;
-                  loginMemberInfo.authPasswordIsNull =
-                      postReissueResponseBody.authPasswordIsNull;
-
-                  spw_auth_member_info.SharedPreferenceWrapper.set(
-                      loginMemberInfo);
-
-                  refreshScreenDataAsync(loginMemberInfo);
+                // 비정상 응답
+                if (postReissueResponseHeader.apiResultCode == null) {
+                  // 비정상 응답이면서 서버에서 에러 원인 코드가 전달되지 않았을 때
+                  if (!_context.mounted) return;
+                  showDialog(
+                      barrierDismissible: false,
+                      context: _context,
+                      builder: (context) => all_dialog_info.PageEntrance(
+                            all_dialog_info.PageInputVo("네트워크 에러",
+                                "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
+                          ));
                 } else {
-                  var postReissueResponseHeader = networkResponseObjectOk
-                          .responseHeaders! as api_main_server
-                      .PostService1TkV1AuthReissueAsyncResponseHeaderVo;
+                  // 서버 지정 에러 코드를 전달 받았을 때
+                  String apiResultCode =
+                      postReissueResponseHeader.apiResultCode!;
 
-                  // 비정상 응답
-                  if (postReissueResponseHeader.apiResultCode == null) {
-                    // 비정상 응답이면서 서버에서 에러 원인 코드가 전달되지 않았을 때
-                    if (!_context.mounted) return;
-                    showDialog(
-                        barrierDismissible: false,
-                        context: _context,
-                        builder: (context) => all_dialog_info.PageEntrance(
-                              all_dialog_info.PageInputVo("네트워크 에러",
-                                  "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
-                            ));
-                  } else {
-                    // 서버 지정 에러 코드를 전달 받았을 때
-                    String apiResultCode =
-                        postReissueResponseHeader.apiResultCode!;
+                  switch (apiResultCode) {
+                    case "1": // 탈퇴된 회원
+                    case "2": // 유효하지 않은 리프레시 토큰
+                    case "3": // 리프레시 토큰 만료
+                    case "4": // 리프레시 토큰이 액세스 토큰과 매칭되지 않음
+                      {
+                        // 리플래시 토큰이 사용 불가이므로 로그아웃 처리
+                        // login_user_info SPW 비우기
+                        spw_auth_member_info.SharedPreferenceWrapper.set(null);
 
-                    switch (apiResultCode) {
-                      case "1": // 탈퇴된 회원
-                      case "2": // 유효하지 않은 리프레시 토큰
-                      case "3": // 리프레시 토큰 만료
-                      case "4": // 리프레시 토큰이 액세스 토큰과 매칭되지 않음
-                        {
-                          // 리플래시 토큰이 사용 불가이므로 로그아웃 처리
-                          // login_user_info SPW 비우기
-                          spw_auth_member_info.SharedPreferenceWrapper.set(
-                              null);
-
-                          // 비회원으로 전체 화면 갱신
-                          refreshScreenDataAsync(null);
-                        }
-                        break;
-                      default:
-                        {
-                          // 알 수 없는 코드일 때
-                          throw Exception("unKnown Error Code");
-                        }
-                    }
+                        // 비회원으로 전체 화면 갱신
+                        refreshScreenDataAsync(null);
+                      }
+                      break;
+                    default:
+                      {
+                        // 알 수 없는 코드일 때
+                        throw Exception("unKnown Error Code");
+                      }
                   }
                 }
-              } else {
-                // Dio 네트워크 에러
-                if (!_context.mounted) return;
-                showDialog(
-                    barrierDismissible: false,
-                    context: _context,
-                    builder: (context) => all_dialog_info.PageEntrance(
-                          all_dialog_info.PageInputVo(
-                              "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
-                        ));
               }
+            } else {
+              // Dio 네트워크 에러
+              if (!_context.mounted) return;
+              showDialog(
+                  barrierDismissible: false,
+                  context: _context,
+                  builder: (context) => all_dialog_info.PageEntrance(
+                        all_dialog_info.PageInputVo(
+                            "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
+                      ));
             }
           }
         }
-        break;
-      case SampleItemEnum.goToMemberInfo:
-        {
-          // 회원정보 페이지로 이동
-          if (!_context.mounted) return;
-          _context.pushNamed(all_page_member_info.pageName);
-        }
-        break;
+      })));
+      nowAllSampleList.add(SampleItem("회원 정보 페이지로 이동", "회원 정보 페이지로 이동합니다.",
+          gw_custom_widgets.HoverListTileWrapperViewModel(() async {
+        // 회원정보 페이지로 이동
+        if (!_context.mounted) return;
+        _context.pushNamed(all_page_member_info.pageName);
+      })));
     }
+
+    pageViewModel.allSampleList = nowAllSampleList;
+    blocObjects.blocSampleList.refresh();
   }
 
 ////
@@ -489,18 +453,17 @@ class PageViewModel {
   gw_page_out_frames.PageOutFrameViewModel pageOutFrameViewModel =
       gw_page_out_frames.PageOutFrameViewModel();
 
-  // 현 페이지를 갱신한 시점의 멤버 고유값 (비회원은 null)
-  int? screenMemberUid;
+  // !!!BLoC 위젯 상태 변수 선언 및 초기화!!!
+  // (샘플 페이지 원본 리스트)
+  List<SampleItem> allSampleList = [];
 
+  // 현재 페이지의 유저 정보
   spw_auth_member_info.SharedPreferenceWrapperVo? loginMemberInfo;
 }
 
 class SampleItem {
-  SampleItem(
-      this.sampleItemEnum, this.sampleItemTitle, this.sampleItemDescription);
-
-  // 샘플 고유값
-  SampleItemEnum sampleItemEnum;
+  SampleItem(this.sampleItemTitle, this.sampleItemDescription,
+      this.hoverListTileWrapperViewModel);
 
   // 샘플 타이틀
   String sampleItemTitle;
@@ -508,17 +471,10 @@ class SampleItem {
   // 샘플 설명
   String sampleItemDescription;
 
-  // 권한 체크 여부
-  bool isChecked = false;
-}
-
-enum SampleItemEnum {
-  goToAuthorizationTestSamplePage,
-  goToLoginPage,
-  logout,
-  logoutFromAllDevice,
-  refreshAuthToken,
-  goToMemberInfo,
+  // HoverListTileWrapperState 의 key 와 viewModel
+  GlobalKey<gw_custom_widgets.HoverListTileWrapperState>
+      hoverListTileWrapperStateGk = GlobalKey();
+  gw_custom_widgets.HoverListTileWrapperViewModel hoverListTileWrapperViewModel;
 }
 
 // (BLoC 클래스)
@@ -560,10 +516,6 @@ class BlocSampleList extends Bloc<bool, bool> {
   void refresh() {
     add(!state);
   }
-
-  // !!!BLoC 위젯 상태 변수 선언 및 초기화!!!
-  // (샘플 페이지 원본 리스트)
-  List<SampleItem> allSampleList = [];
 }
 
 // (BLoC 프로바이더 클래스)
