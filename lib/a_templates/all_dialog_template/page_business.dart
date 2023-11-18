@@ -69,9 +69,9 @@ class PageBusiness {
     return true;
   }
 
-////
-// [비즈니스 함수]
-// !!!외부에서 사용할 비즈니스 로직은 아래에 공개 함수로 구현!!!
+  ////
+  // [비즈니스 함수]
+  // !!!외부에서 사용할 비즈니스 로직은 아래에 공개 함수로 구현!!!
   // (다이얼로그 종료 함수)
   void closeDialog() {
     _context.pop();
@@ -92,5 +92,6 @@ class PageViewModel {
 
 // !!!페이지 데이터 정의!!!
 // ex :
-// int sampleNumber = 0;
+// GlobalKey<SampleWidgetState> sampleWidgetStateGk = GlobalKey();
+// SampleWidgetViewModel sampleWidgetViewModel = SampleWidgetViewModel();
 }

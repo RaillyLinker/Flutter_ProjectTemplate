@@ -36,15 +36,13 @@ class PageOutFrame extends StatelessWidget {
         statusBarIconBrightness: Brightness.dark,
         statusBarBrightness: Brightness.dark));
 
-    GlobalKey<GoToHomeIconButtonState> goToHomeIconButtonStateGk = GlobalKey();
-
     return Scaffold(
         appBar: AppBar(
             automaticallyImplyLeading: !kIsWeb,
             title: Row(
               children: [
                 GoToHomeIconButton(viewModel.goToHomeIconButtonViewModel,
-                    key: goToHomeIconButtonStateGk),
+                    key: viewModel.goToHomeIconButtonStateGk),
                 const SizedBox(
                   width: 15,
                 ),
@@ -81,6 +79,8 @@ class PageOutFrameViewModel {
   // 페이지 타이틀
   final String pageTitle;
 
+  final GlobalKey<GoToHomeIconButtonState> goToHomeIconButtonStateGk =
+      GlobalKey();
   final GoToHomeIconButtonViewModel goToHomeIconButtonViewModel =
       GoToHomeIconButtonViewModel();
 }

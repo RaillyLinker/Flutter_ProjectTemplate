@@ -101,9 +101,10 @@ class PageViewModel {
   // 페이지 컨텍스트 객체
   final BuildContext _context;
 
-// !!!페이지 데이터 정의!!!
-// ex :
-// int sampleNumber = 0;
+  // !!!페이지 데이터 정의!!!
+  // ex :
+  // GlobalKey<SampleWidgetState> sampleWidgetStateGk = GlobalKey();
+  // SampleWidgetViewModel sampleWidgetViewModel = SampleWidgetViewModel();
 
   // PageOutFrameViewModel
   gw_page_out_frames.PageOutFrameViewModel pageOutFrameViewModel =
