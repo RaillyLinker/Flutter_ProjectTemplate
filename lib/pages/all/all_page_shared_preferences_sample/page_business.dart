@@ -13,6 +13,7 @@ import '../../../global_classes/gc_template_classes.dart'
 import '../../../../repositories/spws/spw_test_sample.dart' as spw_test_sample;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
+// todo : 템플릿 적용
 // todo : 입력 부분 Form 방식 변경
 
 //------------------------------------------------------------------------------

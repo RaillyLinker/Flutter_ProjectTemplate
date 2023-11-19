@@ -28,6 +28,7 @@ import '../../../pages/all/all_page_member_info/page_entrance.dart'
     as all_page_member_info;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
+// todo : 템플릿 적용
 
 //------------------------------------------------------------------------------
 // 페이지의 비즈니스 로직 담당

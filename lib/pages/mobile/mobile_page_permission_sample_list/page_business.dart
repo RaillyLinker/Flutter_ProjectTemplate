@@ -17,6 +17,7 @@ import '../../../dialogs/all/all_dialog_yes_or_no/page_entrance.dart'
 import '../../../global_data/gd_const.dart' as gd_const;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
+// todo : 템플릿 적용
 // todo location serviceStatus.isEnabled 체크
 
 //------------------------------------------------------------------------------

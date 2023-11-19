@@ -18,6 +18,7 @@ import '../../../dialogs/all/all_dialog_loading_spinner/page_entrance.dart'
     as all_dialog_loading_spinner;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
+// todo : 템플릿 적용
 // todo : 입력 부분 Form 방식 변경
 
 //------------------------------------------------------------------------------

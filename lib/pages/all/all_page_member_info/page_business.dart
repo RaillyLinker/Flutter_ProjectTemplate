@@ -24,6 +24,7 @@ import '../../../pages/all/all_page_login/page_entrance.dart' as all_page_login;
 // todo : 회원 정보 페이지에서 이메일 추가 / 삭제 기능 추가
 // todo : 회원 정보 페이지에서 전화번호 추가 / 삭제 기능 추가
 // todo : 회원 정보 페이지에서 비밀번호 없을 때 계정 비밀번호 추가하기 / 있으면 수정하기 기능 추가
+// todo : 템플릿 적용
 // 비밀번호 변경 페이지로 이동
 // _context.pushNamed(all_page_change_password.pageName);
 
