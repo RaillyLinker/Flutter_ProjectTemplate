@@ -5,8 +5,6 @@ import 'package:go_router/go_router.dart';
 
 // (all)
 import 'a_templates/all_page_template/page_entrance.dart' as all_page_template;
-import 'pages/all/all_page_basic_bloc_sample/page_entrance.dart'
-    as all_page_basic_bloc_sample;
 import 'pages/all/all_page_auth_sample/page_entrance.dart'
     as all_page_auth_sample;
 import 'pages/all/all_page_authorization_test_sample_list/page_entrance.dart'
@@ -546,17 +544,6 @@ GoRouter getRouter() {
             child: all_page_horizontal_scroll_test.PageEntrance(s),
             transitionsBuilder:
                 all_page_horizontal_scroll_test.pageTransitionsBuilder);
-      }));
-
-  subRouteListEtcSampleList.add(GoRoute(
-      path: "basic-bloc-sample",
-      name: all_page_basic_bloc_sample.pageName,
-      pageBuilder: (c, s) {
-        return CustomTransitionPage(
-            key: s.pageKey,
-            child: all_page_basic_bloc_sample.PageEntrance(s),
-            transitionsBuilder:
-                all_page_basic_bloc_sample.pageTransitionsBuilder);
       }));
 
   // ---------------------------------------------------------------------------
