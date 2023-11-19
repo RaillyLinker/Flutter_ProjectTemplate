@@ -25,6 +25,8 @@ import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
 import '../../../dialogs/all/all_dialog_context_menu_sample/page_entrance.dart'
     as all_dialog_context_menu_sample;
+import '../../../dialogs/all/all_dialog_lifecycle_sample/page_entrance.dart'
+    as all_dialog_lifecycle_sample;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
 
@@ -251,6 +253,17 @@ class PageBusiness {
                   )).then((outputVo) {});
         }
         break;
+      case SampleItemEnum.dialogLifecycleSample:
+        {
+          // 다이얼로그 생명주기 샘플
+          showDialog(
+              barrierDismissible: true,
+              context: _context,
+              builder: (context) => all_dialog_lifecycle_sample.PageEntrance(
+                    all_dialog_lifecycle_sample.PageInputVo(),
+                  )).then((outputVo) {});
+        }
+        break;
     }
   }
 
@@ -280,6 +293,8 @@ class PageViewModel {
         "다이얼로그 외부 색 설정", "다이얼로그 영역 바깥의 색상을 지정합니다."));
     allSampleList.add(SampleItem(SampleItemEnum.contextMenuSample, "컨텍스트 메뉴 샘플",
         "다이얼로그에서 컨텍스트 메뉴를 사용하는 샘플"));
+    allSampleList.add(SampleItem(SampleItemEnum.dialogLifecycleSample,
+        "다이얼로그 생명주기 샘플", "다이얼로그에서의 생명주기를 확인하는 샘플"));
   }
 
   // 페이지 컨텍스트 객체
@@ -330,6 +345,7 @@ enum SampleItemEnum {
   dialogInDialog,
   dialogOutsideColorSample,
   contextMenuSample,
+  dialogLifecycleSample,
 }
 
 // (BLoC 클래스)

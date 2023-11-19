@@ -2,10 +2,7 @@
 import 'package:flutter/material.dart';
 
 // (page)
-import 'page_widgets/page_widget_custom.dart' as page_widget_custom;
 import 'page_business.dart' as page_business;
-
-// (all)
 
 // [페이지 화면 위젯 작성 파일]
 // 페이지 화면 구현을 담당합니다. (Widget 과 Business 간의 결합을 담당)
@@ -51,7 +48,7 @@ class PageView extends StatelessWidget {
                         border: Border(bottom: BorderSide(color: Colors.black)),
                       ),
                       margin: const EdgeInsets.only(bottom: 20),
-                      child: page_widget_custom.StatefulWidgetSampleNumber(
+                      child: StatefulWidgetSampleNumber(
                         _pageBusiness
                             .pageViewModel.statefulWidgetSampleNumberVm,
                         key: _pageBusiness
@@ -81,5 +78,95 @@ class PageView extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+// ex :
+// (Stateless 위젯 템플릿)
+// class StatelessWidgetTemplate extends StatelessWidget {
+//   const StatelessWidgetTemplate(this.viewModel, {required super.key});
+//
+//   // 위젯 뷰모델
+//   final StatelessWidgetTemplateViewModel viewModel;
+//
+//   //!!!주입 받을 하위 위젯 선언 하기!!!
+//
+//   // !!!하위 위젯 작성하기. (viewModel 에서 데이터를 가져와 사용)!!!
+//   @override
+//   Widget build(BuildContext context) {
+//     return Text(viewModel.sampleText);
+//   }
+// }
+//
+// class StatelessWidgetTemplateViewModel {
+//   StatelessWidgetTemplateViewModel(this.sampleText);
+//
+//   // !!!위젯 상태 변수 선언하기!!!
+//   final String sampleText;
+// }
+
+// (Stateful 위젯 템플릿)
+// class StatefulWidgetTemplate extends StatefulWidget {
+//   const StatefulWidgetTemplate(this.viewModel, {required super.key});
+//
+//   // 위젯 뷰모델
+//   final StatefulWidgetTemplateViewModel viewModel;
+//
+//   //!!!주입 받을 하위 위젯 선언 하기!!!
+//
+//   @override
+//   StatefulWidgetTemplateState createState() => StatefulWidgetTemplateState();
+// }
+//
+// class StatefulWidgetTemplateViewModel {
+//   StatefulWidgetTemplateViewModel(this.sampleInt);
+//
+//   // !!!위젯 상태 변수 선언하기!!!
+//   int sampleInt;
+// }
+//
+// class StatefulWidgetTemplateState extends State<StatefulWidgetTemplate> {
+//   // Stateful Widget 화면 갱신
+//   void refresh() {
+//     setState(() {});
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     // !!!하위 위젯 작성하기. (widget.viewModel 에서 데이터를 가져와 사용)!!!
+//     return Text(widget.viewModel.sampleInt.toString());
+//   }
+// }
+
+class StatefulWidgetSampleNumber extends StatefulWidget {
+  const StatefulWidgetSampleNumber(this.viewModel, {super.key});
+
+  final StatefulWidgetSampleNumberViewModel viewModel;
+
+  @override
+  StatefulWidgetSampleNumberState createState() =>
+      StatefulWidgetSampleNumberState();
+}
+
+class StatefulWidgetSampleNumberViewModel {
+  StatefulWidgetSampleNumberViewModel(this.sampleNumber);
+
+  // !!!State 에서 사용할 상태 변수 선언!!!
+  int sampleNumber;
+}
+
+class StatefulWidgetSampleNumberState
+    extends State<StatefulWidgetSampleNumber> {
+  // Stateful Widget 화면 갱신
+  void refresh() {
+    setState(() {});
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // !!!widget.viewModel 의 상태 변수를 반영한 하위 위젯 작성!!!
+    return Text(widget.viewModel.sampleNumber.toString(),
+        style: const TextStyle(
+            fontSize: 20, color: Colors.black, fontFamily: "MaruBuri"));
   }
 }

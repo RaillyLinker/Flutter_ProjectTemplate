@@ -1,11 +1,12 @@
 // (external)
+import 'dart:math';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'dart:math';
 
 // (page)
-import 'page_widgets/page_widget_custom.dart' as page_widget_custom;
+import 'page_view.dart' as page_view;
 import 'page_entrance.dart' as page_entrance;
 
 // (all)
@@ -28,10 +29,11 @@ class PageBusiness {
   final BuildContext _context;
 
   // 페이지 생명주기 관련 states
-  var pageLifeCycleStates = gc_template_classes.PageLifeCycleStates();
+  final gc_template_classes.PageLifeCycleStates pageLifeCycleStates =
+      gc_template_classes.PageLifeCycleStates();
 
   // 페이지 파라미터
-  page_entrance.PageInputVo pageInputVo;
+  final page_entrance.PageInputVo pageInputVo;
 
   // 페이지 뷰모델 객체
   late PageViewModel pageViewModel;
@@ -88,17 +90,9 @@ class PageBusiness {
     return true;
   }
 
-////
-// [비즈니스 함수]
-// !!!외부에서 사용할 비즈니스 로직은 아래에 공개 함수로 구현!!!
-// ex :
-//   void changeSampleNumber(int newSampleNumber) {
-//     // BLoC 위젯 관련 상태 변수 변경
-//     pageViewModel.statefulWidgetSampleVm.sampleNumber = newSampleNumber;
-//     // BLoC 위젯 변경 트리거 발동
-//     pageViewModel.statefulWidgetSampleStateGk.currentState?.refresh();
-//   }
-
+  ////
+  // [비즈니스 함수]
+  // !!!외부에서 사용할 비즈니스 로직은 아래에 공개 함수로 구현!!!
   // (다이얼로그 종료 함수)
   void closeDialog() {
     _context.pop();
@@ -129,21 +123,17 @@ class PageViewModel {
   // 페이지 컨텍스트 객체
   final BuildContext _context;
 
-  // !!!페이지 데이터 정의!!!
-  // 하위 Stateful Widget 의 GlobalKey 와 ViewModel, 그리고 Stateless Widget 의 데이터를 저장
-  // ex :
-  // final GlobalKey<page_view.StatefulWidgetSampleState>
-  //     statefulWidgetSampleStateGk = GlobalKey();
-  // page_view.StatefulWidgetSampleViewModel statefulWidgetSampleVm =
-  //     page_view.StatefulWidgetSampleViewModel(0);
+// !!!페이지 데이터 정의!!!
+// ex :
+// GlobalKey<SampleWidgetState> sampleWidgetStateGk = GlobalKey();
+// SampleWidgetViewModel sampleWidgetViewModel = SampleWidgetViewModel();
 
   String randString = "";
 
-  final GlobalKey<page_widget_custom.StatefulWidgetSampleNumberState>
+  final GlobalKey<page_view.StatefulWidgetSampleNumberState>
       statefulWidgetSampleNumberStateGk = GlobalKey();
-  page_widget_custom.StatefulWidgetSampleNumberViewModel
-      statefulWidgetSampleNumberVm =
-      page_widget_custom.StatefulWidgetSampleNumberViewModel(0);
+  page_view.StatefulWidgetSampleNumberViewModel statefulWidgetSampleNumberVm =
+      page_view.StatefulWidgetSampleNumberViewModel(0);
 
   String _generateRandomString(int length) {
     const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
