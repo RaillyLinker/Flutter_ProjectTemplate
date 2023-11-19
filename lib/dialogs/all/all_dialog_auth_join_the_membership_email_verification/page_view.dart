@@ -1,32 +1,25 @@
 // (external)
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 // (page)
 import 'page_business.dart' as page_business;
 
-// (all)
-import '../../../global_classes/gc_template_classes.dart'
-    as gc_template_classes;
-
 // [페이지 화면 위젯 작성 파일]
-// 페이지 화면 구현을 담당합니다.
+// 페이지 화면 구현을 담당합니다. (Widget 과 Business 간의 결합을 담당)
 // 로직 처리는 pageBusiness 객체에 위임하세요.
+// todo : form 에러 처리 수정
 
 //------------------------------------------------------------------------------
 // (페이지 UI 위젯)
 // !!!세부 화면 정의!!!
 class PageView extends StatelessWidget {
-  const PageView({super.key});
+  const PageView(this._pageBusiness, {super.key});
+
+  // 페이지 비즈니스 객체
+  final page_business.PageBusiness _pageBusiness;
 
   @override
   Widget build(BuildContext context) {
-    // pageBusiness 객체
-    page_business.PageBusiness pageBusiness =
-        BlocProvider.of<gc_template_classes.BlocPageInfo>(context)
-            .state
-            .pageBusiness;
-
     return Dialog(
       elevation: 0,
       backgroundColor: Colors.transparent,
@@ -51,7 +44,7 @@ class PageView extends StatelessWidget {
                           color: Colors.grey,
                         ),
                         onPressed: () {
-                          pageBusiness.closeDialog();
+                          _pageBusiness.closeDialog();
                         },
                       )),
                   Container(
@@ -86,7 +79,7 @@ class PageView extends StatelessWidget {
                   SizedBox(
                     width: 400,
                     child: Text(
-                      '이메일 회원 가입을 위하여,\n본인 인증 이메일을\n(${pageBusiness.pageInputVo.emailAddress})\n에 발송하였습니다.',
+                      '이메일 회원 가입을 위하여,\n본인 인증 이메일을\n(${_pageBusiness.pageInputVo.emailAddress})\n에 발송하였습니다.',
                       style: const TextStyle(
                           fontSize: 16.0,
                           fontWeight: FontWeight.normal,
@@ -97,15 +90,15 @@ class PageView extends StatelessWidget {
                   SizedBox(
                     width: 400,
                     child: Form(
-                      key: pageBusiness.pageViewModel.verificationCodeFormKey,
+                      key: _pageBusiness.pageViewModel.verificationCodeFormKey,
                       child: TextFormField(
                         autofocus: true,
                         onFieldSubmitted: (value) {
-                          pageBusiness.verifyCodeAndGoNext();
+                          _pageBusiness.verifyCodeAndGoNext();
                         },
-                        focusNode: pageBusiness
+                        focusNode: _pageBusiness
                             .pageViewModel.verificationCodeTextFieldFocus,
-                        controller: pageBusiness
+                        controller: _pageBusiness
                             .pageViewModel.verificationCodeTextFieldController,
                         decoration: const InputDecoration(
                           labelText: '본인 이메일 인증 코드',
@@ -126,7 +119,7 @@ class PageView extends StatelessWidget {
                     cursor: SystemMouseCursors.click,
                     child: GestureDetector(
                       onTap: () {
-                        pageBusiness.resendVerificationEmail();
+                        _pageBusiness.resendVerificationEmail();
                       },
                       child: Container(
                         constraints: const BoxConstraints(maxWidth: 160),
@@ -162,7 +155,7 @@ class PageView extends StatelessWidget {
                   const SizedBox(height: 40.0),
                   ElevatedButton(
                     onPressed: () {
-                      pageBusiness.verifyCodeAndGoNext();
+                      _pageBusiness.verifyCodeAndGoNext();
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue,
@@ -188,3 +181,60 @@ class PageView extends StatelessWidget {
     );
   }
 }
+
+// ex :
+// (Stateless 위젯 템플릿)
+// class StatelessWidgetTemplate extends StatelessWidget {
+//   const StatelessWidgetTemplate(this.viewModel, {required super.key});
+//
+//   // 위젯 뷰모델
+//   final StatelessWidgetTemplateViewModel viewModel;
+//
+//   //!!!주입 받을 하위 위젯 선언 하기!!!
+//
+//   // !!!하위 위젯 작성하기. (viewModel 에서 데이터를 가져와 사용)!!!
+//   @override
+//   Widget build(BuildContext context) {
+//     return Text(viewModel.sampleText);
+//   }
+// }
+//
+// class StatelessWidgetTemplateViewModel {
+//   StatelessWidgetTemplateViewModel(this.sampleText);
+//
+//   // !!!위젯 상태 변수 선언하기!!!
+//   final String sampleText;
+// }
+
+// (Stateful 위젯 템플릿)
+// class StatefulWidgetTemplate extends StatefulWidget {
+//   const StatefulWidgetTemplate(this.viewModel, {required super.key});
+//
+//   // 위젯 뷰모델
+//   final StatefulWidgetTemplateViewModel viewModel;
+//
+//   //!!!주입 받을 하위 위젯 선언 하기!!!
+//
+//   @override
+//   StatefulWidgetTemplateState createState() => StatefulWidgetTemplateState();
+// }
+//
+// class StatefulWidgetTemplateViewModel {
+//   StatefulWidgetTemplateViewModel(this.sampleInt);
+//
+//   // !!!위젯 상태 변수 선언하기!!!
+//   int sampleInt;
+// }
+//
+// class StatefulWidgetTemplateState extends State<StatefulWidgetTemplate> {
+//   // Stateful Widget 화면 갱신
+//   void refresh() {
+//     setState(() {});
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     // !!!하위 위젯 작성하기. (widget.viewModel 에서 데이터를 가져와 사용)!!!
+//     return Text(widget.viewModel.sampleInt.toString());
+//   }
+// }

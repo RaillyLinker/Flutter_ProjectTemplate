@@ -1,9 +1,9 @@
 // (external)
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 // (page)
+import 'page_view.dart' as page_view;
 import 'page_entrance.dart' as page_entrance;
 
 // (all)
@@ -22,9 +22,6 @@ class PageBusiness {
 
   // 페이지 컨텍스트 객체
   final BuildContext _context;
-
-  // BLoC 객체 모음
-  late BLocObjects blocObjects;
 
   // 페이지 생명주기 관련 states
   final gc_template_classes.PageLifeCycleStates pageLifeCycleStates =
@@ -67,9 +64,6 @@ class PageBusiness {
   // (페이지 종료 (강제 종료, web 에서 브라우저 뒤로가기 버튼을 눌렀을 때는 탐지 못함))
   Future<void> onPageDestroyAsync() async {
     // !!!페이지 종료 로직 작성!!!
-
-    // 다이얼로그 완료 처리
-    dialogComplete();
   }
 
   // (Page Pop 요청)
@@ -82,33 +76,16 @@ class PageBusiness {
     return true;
   }
 
-////
-// [비즈니스 함수]
-// !!!외부에서 사용할 비즈니스 로직은 아래에 공개 함수로 구현!!!
-// ex :
-//   void changeSampleNumber(int newSampleNumber) {
-//     // BLoC 위젯 관련 상태 변수 변경
-//     pageViewModel.sampleNumber = newSampleNumber;
-//     // BLoC 위젯 변경 트리거 발동
-//     blocObjects.blocSample.refresh();
-//   }
-
+  ////
+  // [비즈니스 함수]
+  // !!!외부에서 사용할 비즈니스 로직은 아래에 공개 함수로 구현!!!
   // (다이얼로그 종료 함수)
   void closeDialog() {
     _context.pop();
   }
 
-  // (다이얼로그 완료)
-  Future<void> dialogComplete() async {
-    pageViewModel.isComplete = true;
-    blocObjects.blocOuterContainerForComplete.refresh();
-
-    // 애니메이션의 지속 시간만큼 지연
-    await Future.delayed(const Duration(milliseconds: 800));
-
-    // 다이얼로그 닫기
-    if (!_context.mounted) return;
-    _context.pop();
+  void dialogComplete() {
+    pageViewModel.sampleWidgetStateGk.currentState?.dialogComplete();
   }
 
 ////
@@ -124,68 +101,11 @@ class PageViewModel {
   // 페이지 컨텍스트 객체
   final BuildContext _context;
 
-  // !!!페이지 데이터 정의!!!
-  // ex :
-  // int sampleNumber = 0;
-
-  // 다이얼로그 작업 완료 여부
-  bool isComplete = false;
-}
-
-// (BLoC 클래스)
+// !!!페이지 데이터 정의!!!
 // ex :
-// class BlocSample extends Bloc<bool, bool> {
-//   BlocSample() : super(true) {
-//     on<bool>((event, emit) {
-//       emit(event);
-//     });
-//   }
-//
-//   // BLoC 위젯 갱신 함수
-//   void refresh() {
-//     add(!state);
-//   }
-// }
+// GlobalKey<SampleWidgetState> sampleWidgetStateGk = GlobalKey();
+// SampleWidgetViewModel sampleWidgetViewModel = SampleWidgetViewModel();
 
-class BlocOuterContainerForComplete extends Bloc<bool, bool> {
-  BlocOuterContainerForComplete() : super(true) {
-    on<bool>((event, emit) {
-      emit(event);
-    });
-  }
-
-  // BLoC 위젯 갱신 함수
-  void refresh() {
-    add(!state);
-  }
-}
-
-// (BLoC 프로바이더 클래스)
-// 본 페이지에서 사용할 BLoC 객체를 모아두어 PageEntrance 에서 페이지 전역 설정에 사용 됩니다.
-class BLocProviders {
-// !!!이 페이지에서 사용할 "모든" BLoC 클래스들에 대한 Provider 객체들을 아래 리스트에 넣어줄 것!!!
-  List<BlocProvider<dynamic>> blocProviders = [
-    // ex :
-    // BlocProvider<BlocSample>(create: (context) => BlocSample())
-    BlocProvider<BlocOuterContainerForComplete>(
-        create: (context) => BlocOuterContainerForComplete()),
-  ];
-}
-
-class BLocObjects {
-  BLocObjects(this._context) {
-    // !!!BLoC 조작 객체 생성!!!
-    // ex :
-    // blocSample = BlocProvider.of<BlocSample>(_context);
-    blocOuterContainerForComplete =
-        BlocProvider.of<BlocOuterContainerForComplete>(_context);
-  }
-
-  // 페이지 컨텍스트 객체
-  final BuildContext _context;
-
-  // !!!BLoC 조작 객체 변수 선언!!!
-  // ex :
-  // late BlocSample blocSample;
-  late BlocOuterContainerForComplete blocOuterContainerForComplete;
+  GlobalKey<page_view.TestState> sampleWidgetStateGk = GlobalKey();
+  page_view.TestViewModel sampleWidgetViewModel = page_view.TestViewModel();
 }
