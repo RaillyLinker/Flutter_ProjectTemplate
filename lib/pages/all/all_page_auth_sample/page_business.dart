@@ -1,15 +1,17 @@
 // (external)
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
 // (page)
+import 'page_view.dart' as page_view;
 import 'page_entrance.dart' as page_entrance;
 
 // (all)
-import '../../../global_widgets/gw_custom_widgets.dart' as gw_custom_widgets;
+import '../../../global_functions/gf_my_functions.dart' as gf_my_functions;
 import '../../../global_widgets/gw_page_out_frames.dart' as gw_page_out_frames;
+import '../../../global_classes/gc_template_classes.dart'
+    as gc_template_classes;
 import '../../../../repositories/network/apis/api_main_server.dart'
     as api_main_server;
 import '../../../../repositories/spws/spw_auth_member_info.dart'
@@ -18,17 +20,14 @@ import '../../../dialogs/all/all_dialog_info/page_entrance.dart'
     as all_dialog_info;
 import '../../../dialogs/all/all_dialog_loading_spinner/page_entrance.dart'
     as all_dialog_loading_spinner;
-import '../../../global_classes/gc_template_classes.dart'
-    as gc_template_classes;
-import '../../../global_functions/gf_my_functions.dart' as gf_my_functions;
-import '../../../pages/all/all_page_authorization_test_sample_list/page_entrance.dart'
-    as all_page_authorization_test_sample_list;
 import '../../../pages/all/all_page_login/page_entrance.dart' as all_page_login;
 import '../../../pages/all/all_page_member_info/page_entrance.dart'
     as all_page_member_info;
+import '../../../pages/all/all_page_authorization_test_sample_list/page_entrance.dart'
+    as all_page_authorization_test_sample_list;
+import '../../../global_widgets/gw_custom_widgets.dart' as gw_custom_widgets;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
-// todo : 템플릿 적용
 
 //------------------------------------------------------------------------------
 // 페이지의 비즈니스 로직 담당
@@ -40,9 +39,6 @@ class PageBusiness {
 
   // 페이지 컨텍스트 객체
   final BuildContext _context;
-
-  // BLoC 객체 모음
-  late BLocObjects blocObjects;
 
   // 페이지 생명주기 관련 states
   final gc_template_classes.PageLifeCycleStates pageLifeCycleStates =
@@ -78,30 +74,14 @@ class PageBusiness {
   // (페이지 최초 실행)
   Future<void> onPageCreateAsync() async {
     // !!!페이지 최초 실행 로직 작성!!!
-
-    // 검증된 현재 회원 정보 가져오기 (비회원이라면 null)
-    spw_auth_member_info.SharedPreferenceWrapperVo? nowLoginMemberInfo =
-        gf_my_functions.getNowVerifiedMemberInfo();
-
-    // 화면 갱신
-    await refreshScreenDataAsync(nowLoginMemberInfo);
   }
 
   // (페이지 최초 실행 or 다른 페이지에서 복귀)
   Future<void> onPageResumeAsync() async {
     // !!!위젯 최초 실행 및, 다른 페이지에서 복귀 로직 작성!!!
 
-    // 검증된 현재 회원 정보 가져오기 (비회원이라면 null)
-    spw_auth_member_info.SharedPreferenceWrapperVo? nowLoginMemberInfo =
-        gf_my_functions.getNowVerifiedMemberInfo();
-
-    if (pageViewModel.loginMemberInfo?.memberUid !=
-        nowLoginMemberInfo?.memberUid) {
-      // 현재 유저 정보와 페이지에 저장된 유저 정보가 다를 때
-
-      // 화면 갱신
-      await refreshScreenDataAsync(nowLoginMemberInfo);
-    }
+    // 화면 갱신
+    await refreshMainListAsync();
   }
 
   // (페이지 종료 or 다른 페이지로 이동 (강제 종료는 탐지 못함))
@@ -127,38 +107,32 @@ class PageBusiness {
 ////
 // [비즈니스 함수]
 // !!!외부에서 사용할 비즈니스 로직은 아래에 공개 함수로 구현!!!
-// ex :
-//   void changeSampleNumber(int newSampleNumber) {
-//     // BLoC 위젯 관련 상태 변수 변경
-//     pageViewModel.sampleNumber = newSampleNumber;
-//     // BLoC 위젯 변경 트리거 발동
-//     blocObjects.blocSample.refresh();
-//   }
+  // (메인 리스트 갱신 함수)
+  Future<void> refreshMainListAsync() async {
+    // 검증된 현재 회원 정보 가져오기 (비회원이라면 null)
+    spw_auth_member_info.SharedPreferenceWrapperVo? nowLoginMemberInfo =
+        gf_my_functions.getNowVerifiedMemberInfo();
 
-  // (화면 전역 갱신 함수)
-  // 화면 전역의 StateFul 위젯의 정보 변경 처리는 여기에 모아 두어야 전체 Refresh 가 편함.
-  Future<void> refreshScreenDataAsync(
-      spw_auth_member_info.SharedPreferenceWrapperVo?
-          nowLoginMemberInfo) async {
     pageViewModel.loginMemberInfo = nowLoginMemberInfo;
-    blocObjects.blocLoginMemberInfo.refresh();
 
-    List<SampleItem> nowAllSampleList = [];
-    nowAllSampleList.add(SampleItem(
+    List<page_view.MainListWidgetViewModelMainItemVo> nowAllSampleList = [];
+    nowAllSampleList.add(page_view.MainListWidgetViewModelMainItemVo(
         "인증 / 인가 네트워크 요청 테스트 샘플 리스트", "인증 / 인가 상태에서 네트워크 요청 및 응답 처리 테스트 샘플 리스트",
         gw_custom_widgets.HoverListTileWrapperViewModel(() async {
       // 인증/인가 테스트 샘플 페이지로 이동
       _context.pushNamed(all_page_authorization_test_sample_list.pageName);
     })));
-    if (nowLoginMemberInfo == null) {
-      nowAllSampleList.add(SampleItem("로그인 페이지", "로그인 페이지로 이동합니다.",
+    if (pageViewModel.loginMemberInfo == null) {
+      nowAllSampleList.add(page_view.MainListWidgetViewModelMainItemVo(
+          "로그인 페이지", "로그인 페이지로 이동합니다.",
           gw_custom_widgets.HoverListTileWrapperViewModel(() async {
         // 계정 로그인 페이지로 이동
         _context.pushNamed(all_page_login.pageName);
       })));
     } else {
-      nowAllSampleList.add(SampleItem("로그아웃", "로그아웃 처리를 합니다.",
-          gw_custom_widgets.HoverListTileWrapperViewModel(() async {
+      nowAllSampleList.add(
+          page_view.MainListWidgetViewModelMainItemVo("로그아웃", "로그아웃 처리를 합니다.",
+              gw_custom_widgets.HoverListTileWrapperViewModel(() async {
         // 계정 로그아웃 처리
         var loadingSpinner = all_dialog_loading_spinner.PageEntrance(
           all_dialog_loading_spinner.PageInputVo(),
@@ -186,12 +160,11 @@ class PageBusiness {
 
         loadingSpinner.pageBusiness.closeDialog();
 
-        // 비회원으로 전체 화면 갱신
-        refreshScreenDataAsync(null);
+        refreshMainListAsync();
       })));
-      nowAllSampleList.add(
-          SampleItem("모든 디바이스에서 로그아웃", "현재 로그인된 모든 디바이스의 리프레시 토큰을 만료 처리 합니다.",
-              gw_custom_widgets.HoverListTileWrapperViewModel(() async {
+      nowAllSampleList.add(page_view.MainListWidgetViewModelMainItemVo(
+          "모든 디바이스에서 로그아웃", "현재 로그인된 모든 디바이스의 리프레시 토큰을 만료 처리 합니다.",
+          gw_custom_widgets.HoverListTileWrapperViewModel(() async {
         // 모든 디바이스에서 계정 로그아웃 처리
         var loadingSpinner = all_dialog_loading_spinner.PageEntrance(
           all_dialog_loading_spinner.PageInputVo(),
@@ -222,10 +195,10 @@ class PageBusiness {
 
         loadingSpinner.pageBusiness.closeDialog();
 
-        // 비회원으로 전체 화면 갱신
-        refreshScreenDataAsync(null);
+        refreshMainListAsync();
       })));
-      nowAllSampleList.add(SampleItem("인증 토큰 갱신", "인증 토큰을 갱신합니다.",
+      nowAllSampleList.add(page_view.MainListWidgetViewModelMainItemVo(
+          "인증 토큰 갱신", "인증 토큰을 갱신합니다.",
           gw_custom_widgets.HoverListTileWrapperViewModel(() async {
         // (토큰 리플레시)
         var loadingSpinner = all_dialog_loading_spinner.PageEntrance(
@@ -242,8 +215,7 @@ class PageBusiness {
             spw_auth_member_info.SharedPreferenceWrapper.get();
 
         if (loginMemberInfo == null) {
-          // 비회원으로 전체 화면 갱신
-          refreshScreenDataAsync(null);
+          refreshMainListAsync();
         } else {
           // 리플레시 토큰 만료 여부 확인
           bool isRefreshTokenExpired = DateFormat('yyyy-MM-dd HH:mm:ss.SSS')
@@ -257,8 +229,7 @@ class PageBusiness {
 
             loadingSpinner.pageBusiness.closeDialog();
 
-            // 비회원으로 전체 화면 갱신
-            refreshScreenDataAsync(null);
+            refreshMainListAsync();
           } else {
             var postAutoLoginOutputVo =
                 await api_main_server.postService1TkV1AuthReissueAsync(
@@ -356,7 +327,7 @@ class PageBusiness {
                 spw_auth_member_info.SharedPreferenceWrapper.set(
                     loginMemberInfo);
 
-                refreshScreenDataAsync(loginMemberInfo);
+                refreshMainListAsync();
               } else {
                 var postReissueResponseHeader =
                     networkResponseObjectOk.responseHeaders! as api_main_server
@@ -388,8 +359,7 @@ class PageBusiness {
                         // login_user_info SPW 비우기
                         spw_auth_member_info.SharedPreferenceWrapper.set(null);
 
-                        // 비회원으로 전체 화면 갱신
-                        refreshScreenDataAsync(null);
+                        refreshMainListAsync();
                       }
                       break;
                     default:
@@ -414,7 +384,8 @@ class PageBusiness {
           }
         }
       })));
-      nowAllSampleList.add(SampleItem("회원 정보 페이지로 이동", "회원 정보 페이지로 이동합니다.",
+      nowAllSampleList.add(page_view.MainListWidgetViewModelMainItemVo(
+          "회원 정보 페이지로 이동", "회원 정보 페이지로 이동합니다.",
           gw_custom_widgets.HoverListTileWrapperViewModel(() async {
         // 회원정보 페이지로 이동
         if (!_context.mounted) return;
@@ -422,8 +393,24 @@ class PageBusiness {
       })));
     }
 
-    pageViewModel.allSampleList = nowAllSampleList;
-    blocObjects.blocSampleList.refresh();
+    pageViewModel.mainListWidgetViewModel
+        .mainListWidgetViewModelMainItemVoList = nowAllSampleList;
+
+    pageViewModel.memberInfoWidgetViewModel.memberUid =
+        pageViewModel.loginMemberInfo?.memberUid.toString();
+    pageViewModel.memberInfoWidgetViewModel.tokenType =
+        pageViewModel.loginMemberInfo?.tokenType.toString();
+    pageViewModel.memberInfoWidgetViewModel.accessToken =
+        pageViewModel.loginMemberInfo?.accessToken.toString();
+    pageViewModel.memberInfoWidgetViewModel.accessTokenExpireWhen =
+        pageViewModel.loginMemberInfo?.accessTokenExpireWhen.toString();
+    pageViewModel.memberInfoWidgetViewModel.refreshToken =
+        pageViewModel.loginMemberInfo?.refreshToken.toString();
+    pageViewModel.memberInfoWidgetViewModel.refreshTokenExpireWhen =
+        pageViewModel.loginMemberInfo?.refreshTokenExpireWhen.toString();
+
+    pageViewModel.mainListWidgetStateGk.currentState?.refresh();
+    pageViewModel.memberInfoWidgetStateGk.currentState?.refresh();
   }
 
 ////
@@ -439,114 +426,24 @@ class PageViewModel {
   // 페이지 컨텍스트 객체
   final BuildContext _context;
 
-  // 페이지 생명주기 관련 states
-  final gc_template_classes.PageLifeCycleStates pageLifeCycleStates =
-      gc_template_classes.PageLifeCycleStates();
-
-  // 페이지 파라미터 (아래 goRouterState 에서 가져와 대입하기)
-  late page_entrance.PageInputVo pageInputVo;
-
   // !!!페이지 데이터 정의!!!
   // ex :
-  // int sampleNumber = 0;
+  // GlobalKey<SampleWidgetState> sampleWidgetStateGk = GlobalKey();
+  // SampleWidgetViewModel sampleWidgetViewModel = SampleWidgetViewModel();
+
+  GlobalKey<page_view.MemberInfoWidgetState> memberInfoWidgetStateGk =
+      GlobalKey();
+  page_view.MemberInfoWidgetViewModel memberInfoWidgetViewModel =
+      page_view.MemberInfoWidgetViewModel();
+
+  GlobalKey<page_view.MainListWidgetState> mainListWidgetStateGk = GlobalKey();
+  page_view.MainListWidgetViewModel mainListWidgetViewModel =
+      page_view.MainListWidgetViewModel();
 
   // PageOutFrameViewModel
   gw_page_out_frames.PageOutFrameViewModel pageOutFrameViewModel =
       gw_page_out_frames.PageOutFrameViewModel("계정 샘플");
 
-  // !!!BLoC 위젯 상태 변수 선언 및 초기화!!!
-  // (샘플 페이지 원본 리스트)
-  List<SampleItem> allSampleList = [];
-
   // 현재 페이지의 유저 정보
   spw_auth_member_info.SharedPreferenceWrapperVo? loginMemberInfo;
-}
-
-class SampleItem {
-  SampleItem(this.sampleItemTitle, this.sampleItemDescription,
-      this.hoverListTileWrapperViewModel);
-
-  // 샘플 타이틀
-  String sampleItemTitle;
-
-  // 샘플 설명
-  String sampleItemDescription;
-
-  // HoverListTileWrapperState 의 key 와 viewModel
-  GlobalKey<gw_custom_widgets.HoverListTileWrapperState>
-      hoverListTileWrapperStateGk = GlobalKey();
-  gw_custom_widgets.HoverListTileWrapperViewModel hoverListTileWrapperViewModel;
-}
-
-// (BLoC 클래스)
-// ex :
-// class BlocSample extends Bloc<bool, bool> {
-//   BlocSample() : super(true) {
-//     on<bool>((event, emit) {
-//       emit(event);
-//     });
-//   }
-//
-//   // BLoC 위젯 갱신 함수
-//   void refresh() {
-//     add(!state);
-//   }
-// }
-
-class BlocLoginMemberInfo extends Bloc<bool, bool> {
-  BlocLoginMemberInfo() : super(true) {
-    on<bool>((event, emit) {
-      emit(event);
-    });
-  }
-
-  // BLoC 위젯 갱신 함수
-  void refresh() {
-    add(!state);
-  }
-}
-
-class BlocSampleList extends Bloc<bool, bool> {
-  BlocSampleList() : super(true) {
-    on<bool>((event, emit) {
-      emit(event);
-    });
-  }
-
-  // BLoC 위젯 갱신 함수
-  void refresh() {
-    add(!state);
-  }
-}
-
-// (BLoC 프로바이더 클래스)
-// 본 페이지에서 사용할 BLoC 객체를 모아두어 PageEntrance 에서 페이지 전역 설정에 사용 됩니다.
-class BLocProviders {
-// !!!이 페이지에서 사용할 "모든" BLoC 클래스들에 대한 Provider 객체들을 아래 리스트에 넣어줄 것!!!
-  List<BlocProvider<dynamic>> blocProviders = [
-    // ex :
-    // BlocProvider<BlocSample>(create: (context) => BlocSample())
-    BlocProvider<BlocSampleList>(create: (context) => BlocSampleList()),
-    BlocProvider<BlocLoginMemberInfo>(
-        create: (context) => BlocLoginMemberInfo()),
-  ];
-}
-
-class BLocObjects {
-  BLocObjects(this._context) {
-    // !!!BLoC 조작 객체 생성!!!
-    // ex :
-    // blocSample = BlocProvider.of<BlocSample>(_context);
-    blocSampleList = BlocProvider.of<BlocSampleList>(_context);
-    blocLoginMemberInfo = BlocProvider.of<BlocLoginMemberInfo>(_context);
-  }
-
-  // 페이지 컨텍스트 객체
-  final BuildContext _context;
-
-  // !!!BLoC 조작 객체 변수 선언!!!
-  // ex :
-  // late BlocSample blocSample;
-  late BlocSampleList blocSampleList;
-  late BlocLoginMemberInfo blocLoginMemberInfo;
 }
