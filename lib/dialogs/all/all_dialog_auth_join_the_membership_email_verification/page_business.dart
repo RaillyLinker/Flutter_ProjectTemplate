@@ -101,6 +101,22 @@ class PageBusiness {
     _context.pop();
   }
 
+  void onVerificationCodeInputChanged(String? value) {
+    if (pageViewModel.verificationCodeTextFieldErrorMsg != null) {
+      pageViewModel.verificationCodeTextFieldErrorMsg = null;
+      pageViewModel.verificationCodeTextFieldKey.currentState?.reset();
+    }
+  }
+
+  String? onVerificationCodeInputValidateAndReturnErrorMsg(String? value) {
+    // 검사 : return 으로 반환하는 에러 메세지가 null 이 아니라면 에러로 처리
+    if (value == null || value.isEmpty) {
+      pageViewModel.verificationCodeTextFieldErrorMsg = "이 항목을 입력 하세요.";
+      return pageViewModel.verificationCodeTextFieldErrorMsg;
+    }
+    return null;
+  }
+
   // (코드 검증 후 다음 단계로 이동)
   bool isVerifyCodeAndGoNextDoing = false;
 
@@ -109,7 +125,7 @@ class PageBusiness {
       return;
     }
     isVerifyCodeAndGoNextDoing = true;
-    if (pageViewModel.verificationCodeFormKey.currentState!.validate()) {
+    if (pageViewModel.verificationCodeTextFieldKey.currentState!.validate()) {
       // 코드 검증
       // (로딩 스피너 다이얼로그 호출)
       var loadingSpinner = all_dialog_loading_spinner.PageEntrance(
@@ -355,11 +371,10 @@ class PageViewModel {
 
   late int verificationUid;
 
-  // VerificationCode Form 필드 전체 키
-  GlobalKey<FormState> verificationCodeFormKey = GlobalKey<FormState>();
-
+  // VerificationCode Form 필드 관련 전체 키
   final verificationCodeTextFieldKey = GlobalKey<FormFieldState>();
-  TextEditingController verificationCodeTextFieldController =
+  final TextEditingController verificationCodeTextFieldController =
       TextEditingController();
-  FocusNode verificationCodeTextFieldFocus = FocusNode();
+  final FocusNode verificationCodeTextFieldFocus = FocusNode();
+  String? verificationCodeTextFieldErrorMsg;
 }

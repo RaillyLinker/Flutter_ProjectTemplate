@@ -1,6 +1,7 @@
 // (external)
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 // [커스텀 위젯 작성 파일]
 // 전역의 페이지에서 사용 가능한 위젯입니다.
@@ -160,5 +161,89 @@ class ContextMenuRegionState extends State<ContextMenuRegion> {
         onLongPress: _longPressEnabled ? _onLongPress : null,
         onLongPressStart: _longPressEnabled ? _onLongPressStart : null,
         child: widget.child);
+  }
+}
+
+////
+// (Dialog 용 종료 애니메이션 샘플)
+// 이 위젯을 적용 후 dialogComplete() 를 사용 하면, dialogChild 가 completeChild 로 변환된 이후 종료 됩니다.
+class DialogCompleteAnimation extends StatefulWidget {
+  const DialogCompleteAnimation(
+    this.viewModel, {
+    required super.key,
+    required this.dialogChild,
+    required this.dialogChildSize,
+    required this.completeChild,
+    required this.completeChildSize,
+    required this.completeAnimationDuration,
+    required this.completeCloseDuration,
+  });
+
+  // 위젯 뷰모델
+  final DialogCompleteAnimationViewModel viewModel;
+
+  //!!!주입 받을 하위 위젯 선언 하기!!!
+  // 다이얼로그 하위 위젯
+  final Widget dialogChild;
+  final Size dialogChildSize;
+
+  // 완료시 표시될 하위 위젯
+  final Widget completeChild;
+  final Size completeChildSize;
+
+  // 변환 애니메이션 속도
+  final Duration completeAnimationDuration;
+
+  // 다이얼로그 종료 속도(변환 애니메이션보단 길어야 애니메이션을 감상 가능)
+  final Duration completeCloseDuration;
+
+  @override
+  DialogCompleteAnimationState createState() => DialogCompleteAnimationState();
+}
+
+class DialogCompleteAnimationViewModel {
+  DialogCompleteAnimationViewModel();
+
+  // !!!위젯 상태 변수 선언하기!!!
+
+  // 다이얼로그 작업 완료 여부
+  bool isComplete = false;
+}
+
+class DialogCompleteAnimationState extends State<DialogCompleteAnimation> {
+  // Stateful Widget 화면 갱신
+  void refresh() {
+    setState(() {});
+  }
+
+  // (다이얼로그 완료)
+  Future<void> dialogComplete() async {
+    widget.viewModel.isComplete = true;
+    refresh();
+
+    // 애니메이션의 지속 시간만큼 지연
+    await Future.delayed(widget.completeCloseDuration);
+
+    // 다이얼로그 닫기
+    if (!context.mounted) return;
+    context.pop();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // !!!하위 위젯 작성하기. (widget.viewModel 에서 데이터를 가져와 사용)!!!
+    return AnimatedContainer(
+      width: widget.viewModel.isComplete
+          ? widget.completeChildSize.width
+          : widget.dialogChildSize.width,
+      height: widget.viewModel.isComplete
+          ? widget.completeChildSize.height
+          : widget.dialogChildSize.height,
+      curve: Curves.fastOutSlowIn,
+      duration: widget.completeAnimationDuration,
+      child: widget.viewModel.isComplete
+          ? widget.completeChild
+          : widget.dialogChild,
+    );
   }
 }

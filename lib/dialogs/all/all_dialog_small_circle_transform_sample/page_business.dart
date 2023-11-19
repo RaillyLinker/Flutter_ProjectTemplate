@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 // (page)
-import 'page_view.dart' as page_view;
 import 'page_entrance.dart' as page_entrance;
 
 // (all)
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
+import '../../../global_widgets/gw_custom_widgets.dart' as gw_custom_widgets;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
 
@@ -106,6 +106,8 @@ class PageViewModel {
 // GlobalKey<SampleWidgetState> sampleWidgetStateGk = GlobalKey();
 // SampleWidgetViewModel sampleWidgetViewModel = SampleWidgetViewModel();
 
-  GlobalKey<page_view.TestState> sampleWidgetStateGk = GlobalKey();
-  page_view.TestViewModel sampleWidgetViewModel = page_view.TestViewModel();
+  GlobalKey<gw_custom_widgets.DialogCompleteAnimationState>
+      sampleWidgetStateGk = GlobalKey();
+  gw_custom_widgets.DialogCompleteAnimationViewModel sampleWidgetViewModel =
+      gw_custom_widgets.DialogCompleteAnimationViewModel();
 }

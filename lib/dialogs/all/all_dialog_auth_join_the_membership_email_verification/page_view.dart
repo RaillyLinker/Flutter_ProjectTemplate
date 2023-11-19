@@ -7,7 +7,6 @@ import 'page_business.dart' as page_business;
 // [페이지 화면 위젯 작성 파일]
 // 페이지 화면 구현을 담당합니다. (Widget 과 Business 간의 결합을 담당)
 // 로직 처리는 pageBusiness 객체에 위임하세요.
-// todo : form 에러 처리 수정
 
 //------------------------------------------------------------------------------
 // (페이지 UI 위젯)
@@ -90,7 +89,6 @@ class PageView extends StatelessWidget {
                   SizedBox(
                     width: 400,
                     child: Form(
-                      key: _pageBusiness.pageViewModel.verificationCodeFormKey,
                       child: TextFormField(
                         autofocus: true,
                         onFieldSubmitted: (value) {
@@ -105,12 +103,15 @@ class PageView extends StatelessWidget {
                           hintText: "발송된 본인 이메일 인증 코드를 입력하세요.",
                         ),
                         validator: (value) {
-                          // 검사 : return 으로 반환하는 에러 메세지가 null 이 아니라면 에러로 처리
-                          if (value == null || value.isEmpty) {
-                            return '이 항목을 입력 하세요.';
-                          }
-                          return null;
+                          return _pageBusiness
+                              .onVerificationCodeInputValidateAndReturnErrorMsg(
+                                  value);
                         },
+                        onChanged: (value) {
+                          _pageBusiness.onVerificationCodeInputChanged(value);
+                        },
+                        key: _pageBusiness
+                            .pageViewModel.verificationCodeTextFieldKey,
                       ),
                     ),
                   ),
