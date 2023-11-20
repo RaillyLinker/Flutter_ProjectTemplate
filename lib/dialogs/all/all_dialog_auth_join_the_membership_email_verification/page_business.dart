@@ -138,11 +138,12 @@ class PageBusiness {
 
       var responseVo = await api_main_server
           .getService1TkV1AuthJoinTheMembershipEmailVerificationCheckAsync(
-              api_main_server
+              requestQueryVo: api_main_server
                   .GetService1TkV1AuthJoinTheMembershipEmailVerificationCheckAsyncRequestQueryVo(
-                      pageViewModel.verificationUid,
-                      pageInputVo.emailAddress,
-                      pageViewModel.verificationCodeTextFieldController.text));
+                      verificationUid: pageViewModel.verificationUid,
+                      email: pageInputVo.emailAddress,
+                      verificationCode: pageViewModel
+                          .verificationCodeTextFieldController.text));
 
       if (responseVo.dioException == null) {
         // Dio 네트워크 응답
@@ -264,9 +265,10 @@ class PageBusiness {
         builder: (context) => loadingSpinner).then((outputVo) {});
 
     var responseVo = await api_main_server
-        .postService1TkV1AuthJoinTheMembershipEmailVerificationAsync(api_main_server
-            .PostService1TkV1AuthJoinTheMembershipEmailVerificationAsyncRequestBodyVo(
-                pageInputVo.emailAddress));
+        .postService1TkV1AuthJoinTheMembershipEmailVerificationAsync(
+            requestBodyVo: api_main_server
+                .PostService1TkV1AuthJoinTheMembershipEmailVerificationAsyncRequestBodyVo(
+                    email: pageInputVo.emailAddress));
 
     if (responseVo.dioException == null) {
       // Dio 네트워크 응답

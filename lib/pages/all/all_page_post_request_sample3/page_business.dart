@@ -195,32 +195,30 @@ class PageBusiness {
               : MultipartFile.fromFileSync(pageViewModel.pickFile2!.path!));
 
       var response = await api_main_server.postService1TkV1RequestTestPostRequestMultipartFormDataAsync(
-          api_main_server.PostService1TkV1RequestTestPostRequestMultipartFormDataAsyncRequestBodyVo(
-              pageViewModel.networkRequestParamTextFieldController1.text,
-              (pageViewModel.networkRequestParamTextFieldController2.text == "")
+          requestBodyVo: api_main_server.PostService1TkV1RequestTestPostRequestMultipartFormDataAsyncRequestBodyVo(
+              requestFormString:
+                  pageViewModel.networkRequestParamTextFieldController1.text,
+              requestFormStringNullable: (pageViewModel
+                          .networkRequestParamTextFieldController2.text ==
+                      "")
                   ? null
                   : pageViewModel.networkRequestParamTextFieldController2.text,
-              int.parse(
+              requestFormInt: int.parse(
                   pageViewModel.networkRequestParamTextFieldController3.text),
-              (pageViewModel.networkRequestParamTextFieldController4.text == "")
+              requestFormIntNullable: (pageViewModel
+                          .networkRequestParamTextFieldController4.text ==
+                      "")
                   ? null
-                  : int.parse(pageViewModel
-                      .networkRequestParamTextFieldController4.text),
-              double.parse(
-                  pageViewModel.networkRequestParamTextFieldController5.text),
-              (pageViewModel.networkRequestParamTextFieldController6.text == "")
-                  ? null
-                  : double.parse(pageViewModel
-                      .networkRequestParamTextFieldController6.text),
-              pageViewModel.networkRequestParamTextFieldValue7,
-              pageViewModel.networkRequestParamTextFieldValue8,
-              queryParamStringList,
-              queryParamStringListNullable,
-              ((kIsWeb)
-                  ? MultipartFile.fromBytes(pageViewModel.pickFile1!.bytes!,
-                      filename: pageViewModel.pickFile1!.name)
-                  : MultipartFile.fromFileSync(pageViewModel.pickFile1!.path!)),
-              (pickFile2 == null) ? null : pickFile2));
+                  : int.parse(
+                      pageViewModel.networkRequestParamTextFieldController4.text),
+              requestFormDouble: double.parse(pageViewModel.networkRequestParamTextFieldController5.text),
+              requestFormDoubleNullable: (pageViewModel.networkRequestParamTextFieldController6.text == "") ? null : double.parse(pageViewModel.networkRequestParamTextFieldController6.text),
+              requestFormBoolean: pageViewModel.networkRequestParamTextFieldValue7,
+              requestFormBooleanNullable: pageViewModel.networkRequestParamTextFieldValue8,
+              requestFormStringList: queryParamStringList,
+              requestFormStringListNullable: queryParamStringListNullable,
+              multipartFile: ((kIsWeb) ? MultipartFile.fromBytes(pageViewModel.pickFile1!.bytes!, filename: pageViewModel.pickFile1!.name) : MultipartFile.fromFileSync(pageViewModel.pickFile1!.path!)),
+              multipartFileNullable: (pickFile2 == null) ? null : pickFile2));
 
       // 로딩 다이얼로그 제거
       loadingSpinnerDialog.pageBusiness.closeDialog();

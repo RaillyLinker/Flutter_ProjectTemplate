@@ -167,9 +167,10 @@ class PageBusiness {
 
       // 비번 찾기 검증 요청
       var responseVo = await api_main_server
-          .postService1TkV1AuthFindPasswordEmailVerificationAsync(api_main_server
-              .PostService1TkV1AuthFindPasswordEmailVerificationAsyncRequestBodyVo(
-                  email));
+          .postService1TkV1AuthFindPasswordEmailVerificationAsync(
+              requestBodyVo: api_main_server
+                  .PostService1TkV1AuthFindPasswordEmailVerificationAsyncRequestBodyVo(
+                      email: email));
 
       if (responseVo.dioException == null) {
         // Dio 네트워크 응답
@@ -317,12 +318,14 @@ class PageBusiness {
           builder: (context) => loadingSpinner).then((outputVo) {});
 
       // 비번 찾기 검증 요청
-      var responseVo = await api_main_server
-          .postService1TkV1AuthFindPasswordWithEmailAsync(api_main_server
-              .PostService1TkV1AuthFindPasswordWithEmailAsyncRequestBodyVo(
-                  email,
-                  pageViewModel.emailVerificationUid!,
-                  pageViewModel.verificationCodeTextFieldController.text));
+      var responseVo =
+          await api_main_server.postService1TkV1AuthFindPasswordWithEmailAsync(
+              requestBodyVo: api_main_server
+                  .PostService1TkV1AuthFindPasswordWithEmailAsyncRequestBodyVo(
+                      email: email,
+                      verificationUid: pageViewModel.emailVerificationUid!,
+                      verificationCode: pageViewModel
+                          .verificationCodeTextFieldController.text));
 
       if (responseVo.dioException == null) {
         // Dio 네트워크 응답

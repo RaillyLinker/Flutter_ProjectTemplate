@@ -249,9 +249,11 @@ class PageBusiness {
         onNickNameCheckBtnAsyncClicked = false;
       } else {
         var responseVo = await api_main_server
-            .getService1TkV1AuthNicknameDuplicateCheckAsync(api_main_server
-                .GetService1TkV1AuthNicknameDuplicateCheckAsyncRequestQueryVo(
-                    pageViewModel.nickNameTextEditController.text.trim()));
+            .getService1TkV1AuthNicknameDuplicateCheckAsync(
+                requestQueryVo: api_main_server
+                    .GetService1TkV1AuthNicknameDuplicateCheckAsyncRequestQueryVo(
+                        nickName: pageViewModel.nickNameTextEditController.text
+                            .trim()));
 
         if (responseVo.dioException == null) {
           // Dio 네트워크 응답
@@ -335,14 +337,15 @@ class PageBusiness {
     } else {
       // 회원가입 절차 진행
       var responseVo = await api_main_server
-          .postService1TkV1AuthJoinTheMembershipWithEmailAsync(api_main_server
-              .PostService1TkV1AuthJoinTheMembershipWithEmailAsyncRequestBodyVo(
-        pageInputVo.verificationUid,
-        pageInputVo.memberId,
-        pageInputVo.password,
-        pageViewModel.nickNameTextEditController.text.trim(),
-        pageInputVo.verificationCode,
-        pageViewModel.profileImage == null
+          .postService1TkV1AuthJoinTheMembershipWithEmailAsync(
+              requestBodyVo: api_main_server
+                  .PostService1TkV1AuthJoinTheMembershipWithEmailAsyncRequestBodyVo(
+        verificationUid: pageInputVo.verificationUid,
+        email: pageInputVo.memberId,
+        password: pageInputVo.password,
+        nickName: pageViewModel.nickNameTextEditController.text.trim(),
+        verificationCode: pageInputVo.verificationCode,
+        profileImageFile: pageViewModel.profileImage == null
             ? null
             : dio.MultipartFile.fromBytes(pageViewModel.profileImage!,
                 filename: "profile.png",

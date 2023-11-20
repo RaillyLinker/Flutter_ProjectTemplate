@@ -140,12 +140,14 @@ void setDioObjects() {
                 // onResponse 가 다시 실행 되어 handler.next 가 실행된 이후에 다시 여기로 복귀하는 것을 주의할것.
                 var postReissueResponse =
                     await api_main_server.postService1TkV1AuthReissueAsync(
-                        api_main_server
+                        requestHeaderVo: api_main_server
                             .PostService1TkV1AuthReissueAsyncRequestHeaderVo(
-                                "${loginMemberInfo.tokenType} ${loginMemberInfo.accessToken}"),
-                        api_main_server
+                                authorization:
+                                    "${loginMemberInfo.tokenType} ${loginMemberInfo.accessToken}"),
+                        requestBodyVo: api_main_server
                             .PostService1TkV1AuthReissueAsyncRequestBodyVo(
-                                "${loginMemberInfo.tokenType} ${loginMemberInfo.refreshToken}"));
+                                refreshToken:
+                                    "${loginMemberInfo.tokenType} ${loginMemberInfo.refreshToken}"));
 
                 // 네트워크 요청 결과 처리
                 if (postReissueResponse.dioException == null) {

@@ -194,8 +194,10 @@ class PageBusiness {
         // 네트워크 요청
         var responseVo =
             await api_main_server.deleteService1TkV1AuthWithdrawalAsync(
-          api_main_server.DeleteService1TkV1AuthWithdrawalAsyncRequestHeaderVo(
-              "${signInInfo.tokenType} ${signInInfo.accessToken}"),
+          requestHeaderVo: api_main_server
+              .DeleteService1TkV1AuthWithdrawalAsyncRequestHeaderVo(
+                  authorization:
+                      "${signInInfo.tokenType} ${signInInfo.accessToken}"),
         );
 
         loadingSpinner.pageBusiness.closeDialog();

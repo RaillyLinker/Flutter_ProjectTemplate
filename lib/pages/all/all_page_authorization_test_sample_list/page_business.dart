@@ -183,10 +183,11 @@ class PageBusiness {
               ? null
               : "${loginMemberInfo.tokenType} ${loginMemberInfo.accessToken}";
 
-          var response = await api_main_server
-              .getService1TkV1AuthForLoggedInAsync(api_main_server
-                  .GetService1TkV1AuthForLoggedInAsyncRequestHeaderVo(
-                      authorization));
+          var response =
+              await api_main_server.getService1TkV1AuthForLoggedInAsync(
+                  requestHeaderVo: api_main_server
+                      .GetService1TkV1AuthForLoggedInAsyncRequestHeaderVo(
+                          authorization: authorization));
 
           // 로딩 다이얼로그 제거
           loadingSpinnerDialog.pageBusiness.closeDialog();
@@ -242,10 +243,11 @@ class PageBusiness {
               ? null
               : "${loginMemberInfo.tokenType} ${loginMemberInfo.accessToken}";
 
-          var response = await api_main_server
-              .getService1TkV1AuthForDeveloperAsync(api_main_server
-                  .GetService1TkV1AuthForDeveloperAsyncRequestHeaderVo(
-                      authorization));
+          var response =
+              await api_main_server.getService1TkV1AuthForDeveloperAsync(
+                  requestHeaderVo: api_main_server
+                      .GetService1TkV1AuthForDeveloperAsyncRequestHeaderVo(
+                          authorization: authorization));
 
           // 로딩 다이얼로그 제거
           loadingSpinnerDialog.pageBusiness.closeDialog();
@@ -302,8 +304,9 @@ class PageBusiness {
               : "${loginMemberInfo.tokenType} ${loginMemberInfo.accessToken}";
 
           var response = await api_main_server.getService1TkV1AuthForAdminAsync(
-              api_main_server.GetService1TkV1AuthForAdminAsyncRequestHeaderVo(
-                  authorization));
+              requestHeaderVo: api_main_server
+                  .GetService1TkV1AuthForAdminAsyncRequestHeaderVo(
+                      authorization: authorization));
 
           // 로딩 다이얼로그 제거
           loadingSpinnerDialog.pageBusiness.closeDialog();

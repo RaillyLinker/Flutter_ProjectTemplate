@@ -190,10 +190,11 @@ class PageBusiness {
               builder: (context) => loadingSpinner);
 
           // 네트워크 요청
-          var responseVo = await api_main_server
-              .postService1TkV1AuthLoginWithPasswordAsync(api_main_server
-                  .PostService1TkV1AuthLoginWithPasswordAsyncRequestBodyVo(
-                      1, id, password));
+          var responseVo =
+              await api_main_server.postService1TkV1AuthLoginWithPasswordAsync(
+                  requestBodyVo: api_main_server
+                      .PostService1TkV1AuthLoginWithPasswordAsyncRequestBodyVo(
+                          loginTypeCode: 1, id: id, password: password));
 
           loadingSpinner.pageBusiness.closeDialog();
 

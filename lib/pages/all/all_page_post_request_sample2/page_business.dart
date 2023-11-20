@@ -175,31 +175,29 @@ class PageBusiness {
       }
     }
 
-    var response = await api_main_server
-        .postService1TkV1RequestTestPostRequestXWwwFromUrlencodedAsync(api_main_server
-            .PostService1TkV1RequestTestPostRequestXWwwFromUrlencodedAsyncRequestBodyVo(
+    var response = await api_main_server.postService1TkV1RequestTestPostRequestXWwwFromUrlencodedAsync(
+        requestBodyVo: api_main_server.PostService1TkV1RequestTestPostRequestXWwwFromUrlencodedAsyncRequestBodyVo(
+            requestFormString:
                 pageViewModel.networkRequestParamTextFieldController1.text,
-                (pageViewModel.networkRequestParamTextFieldController2.text == "")
+            requestFormStringNullable: (pageViewModel.networkRequestParamTextFieldController2.text == "")
+                ? null
+                : pageViewModel.networkRequestParamTextFieldController2.text,
+            requestFormInt: int.parse(
+                pageViewModel.networkRequestParamTextFieldController3.text),
+            requestFormIntNullable: (pageViewModel.networkRequestParamTextFieldController4.text == "")
+                ? null
+                : int.parse(
+                    pageViewModel.networkRequestParamTextFieldController4.text),
+            requestFormDouble: double.parse(
+                pageViewModel.networkRequestParamTextFieldController5.text),
+            requestFormDoubleNullable:
+                (pageViewModel.networkRequestParamTextFieldController6.text == "")
                     ? null
-                    : pageViewModel
-                        .networkRequestParamTextFieldController2.text,
-                int.parse(
-                    pageViewModel.networkRequestParamTextFieldController3.text),
-                (pageViewModel.networkRequestParamTextFieldController4.text == "")
-                    ? null
-                    : int.parse(pageViewModel
-                        .networkRequestParamTextFieldController4.text),
-                double.parse(
-                    pageViewModel.networkRequestParamTextFieldController5.text),
-                (pageViewModel.networkRequestParamTextFieldController6.text ==
-                        "")
-                    ? null
-                    : double.parse(pageViewModel
-                        .networkRequestParamTextFieldController6.text),
-                pageViewModel.networkRequestParamTextFieldValue7,
-                pageViewModel.networkRequestParamTextFieldValue8,
-                queryParamStringList,
-                queryParamStringListNullable));
+                    : double.parse(pageViewModel.networkRequestParamTextFieldController6.text),
+            requestFormBoolean: pageViewModel.networkRequestParamTextFieldValue7,
+            requestFormBooleanNullable: pageViewModel.networkRequestParamTextFieldValue8,
+            requestFormStringList: queryParamStringList,
+            requestFormStringListNullable: queryParamStringListNullable));
 
     // 로딩 다이얼로그 제거
     loadingSpinnerDialog.pageBusiness.closeDialog();

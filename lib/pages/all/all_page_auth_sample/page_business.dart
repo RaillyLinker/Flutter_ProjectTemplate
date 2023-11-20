@@ -154,8 +154,10 @@ class PageBusiness {
           spw_auth_member_info.SharedPreferenceWrapperVo? loginMemberInfo =
               spw_auth_member_info.SharedPreferenceWrapper.get();
           await api_main_server.postService1TkV1AuthLogoutAsync(
-              api_main_server.PostService1TkV1AuthLogoutAsyncRequestHeaderVo(
-                  "${loginMemberInfo!.tokenType} ${loginMemberInfo.accessToken}"));
+              requestHeaderVo: api_main_server
+                  .PostService1TkV1AuthLogoutAsyncRequestHeaderVo(
+                      authorization:
+                          "${loginMemberInfo!.tokenType} ${loginMemberInfo.accessToken}"));
 
           // login_user_info SPW 비우기
           spw_auth_member_info.SharedPreferenceWrapper.set(value: null);
@@ -188,10 +190,11 @@ class PageBusiness {
           spw_auth_member_info.SharedPreferenceWrapperVo? loginMemberInfo =
               spw_auth_member_info.SharedPreferenceWrapper.get();
 
-          await api_main_server
-              .deleteService1TkV1AuthAllAuthorizationTokenAsync(api_main_server
+          await api_main_server.deleteService1TkV1AuthAllAuthorizationTokenAsync(
+              requestHeaderVo: api_main_server
                   .DeleteService1TkV1AuthAllAuthorizationTokenAsyncRequestHeaderVo(
-                      "${loginMemberInfo!.tokenType} ${loginMemberInfo.accessToken}"));
+                      authorization:
+                          "${loginMemberInfo!.tokenType} ${loginMemberInfo.accessToken}"));
 
           // login_user_info SPW 비우기
           spw_auth_member_info.SharedPreferenceWrapper.set(value: null);
@@ -238,10 +241,14 @@ class PageBusiness {
           } else {
             var postAutoLoginOutputVo =
                 await api_main_server.postService1TkV1AuthReissueAsync(
-                    api_main_server.PostService1TkV1AuthReissueAsyncRequestHeaderVo(
-                        "${loginMemberInfo.tokenType} ${loginMemberInfo.accessToken}"),
-                    api_main_server.PostService1TkV1AuthReissueAsyncRequestBodyVo(
-                        "${loginMemberInfo.tokenType} ${loginMemberInfo.refreshToken}"));
+                    requestHeaderVo: api_main_server
+                        .PostService1TkV1AuthReissueAsyncRequestHeaderVo(
+                            authorization:
+                                "${loginMemberInfo.tokenType} ${loginMemberInfo.accessToken}"),
+                    requestBodyVo: api_main_server
+                        .PostService1TkV1AuthReissueAsyncRequestBodyVo(
+                            refreshToken:
+                                "${loginMemberInfo.tokenType} ${loginMemberInfo.refreshToken}"));
 
             loadingSpinner.pageBusiness.closeDialog();
 

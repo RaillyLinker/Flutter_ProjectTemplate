@@ -203,8 +203,9 @@ class PageBusiness {
 
     // 서버 앱 버전 정보 가져오기
     var responseVo = await api_main_server.getClientApplicationVersionInfoAsync(
-        api_main_server.GetMobileAppVersionInfoAsyncRequestQueryVo(
-            platformCode));
+        requestQueryVo:
+            api_main_server.GetMobileAppVersionInfoAsyncRequestQueryVo(
+                platformCode: platformCode));
 
     // 네트워크 요청 결과 처리
     if (responseVo.dioException == null) {
@@ -338,10 +339,14 @@ class PageBusiness {
       } else {
         var postAutoLoginOutputVo =
             await api_main_server.postService1TkV1AuthReissueAsync(
-                api_main_server.PostService1TkV1AuthReissueAsyncRequestHeaderVo(
-                    "${loginMemberInfo.tokenType} ${loginMemberInfo.accessToken}"),
-                api_main_server.PostService1TkV1AuthReissueAsyncRequestBodyVo(
-                    "${loginMemberInfo.tokenType} ${loginMemberInfo.refreshToken}"));
+                requestHeaderVo: api_main_server
+                    .PostService1TkV1AuthReissueAsyncRequestHeaderVo(
+                        authorization:
+                            "${loginMemberInfo.tokenType} ${loginMemberInfo.accessToken}"),
+                requestBodyVo: api_main_server
+                    .PostService1TkV1AuthReissueAsyncRequestBodyVo(
+                        refreshToken:
+                            "${loginMemberInfo.tokenType} ${loginMemberInfo.refreshToken}"));
 
         // 네트워크 요청 결과 처리
         if (postAutoLoginOutputVo.dioException == null) {

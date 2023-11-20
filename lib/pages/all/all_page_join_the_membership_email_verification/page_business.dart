@@ -188,9 +188,9 @@ class PageBusiness {
 
       var responseVo = await api_main_server
           .postService1TkV1AuthJoinTheMembershipEmailVerificationAsync(
-              api_main_server
+              requestBodyVo: api_main_server
                   .PostService1TkV1AuthJoinTheMembershipEmailVerificationAsyncRequestBodyVo(
-                      email));
+                      email: email));
 
       if (responseVo.dioException == null) {
         // Dio 네트워크 응답

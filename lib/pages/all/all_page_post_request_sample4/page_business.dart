@@ -225,16 +225,17 @@ class PageBusiness {
 
       var response = await api_main_server
           .postService1TkV1RequestTestPostRequestMultipartFormDataJsonAsync(
-              api_main_server
+              requestBodyVo: api_main_server
                   .PostService1TkV1RequestTestPostRequestMultipartFormDataJsonAsyncRequestBodyVo(
-                      requestBodyString,
-                      ((kIsWeb)
+                      jsonString: requestBodyString,
+                      multipartFile: ((kIsWeb)
                           ? MultipartFile.fromBytes(
                               pageViewModel.pickFile1!.bytes!,
                               filename: pageViewModel.pickFile1!.name)
                           : MultipartFile.fromFileSync(
                               pageViewModel.pickFile1!.path!)),
-                      (pickFile2 == null) ? null : pickFile2));
+                      multipartFileNullable:
+                          (pickFile2 == null) ? null : pickFile2));
 
       // 로딩 다이얼로그 제거
       loadingSpinnerDialog.pageBusiness.closeDialog();
