@@ -8,7 +8,7 @@ import 'package:go_router/go_router.dart';
 // View 에 해당하며, Business Logic 생성자에 콜백 함수 파라미터를 넣어주어 처리하세요.
 
 //------------------------------------------------------------------------------
-// 호버 리스트 타일 래퍼
+// (호버 리스트 타일 래퍼)
 class HoverListTileWrapper extends StatefulWidget {
   const HoverListTileWrapper(this.viewModel, this.listTileChild,
       {required super.key});
