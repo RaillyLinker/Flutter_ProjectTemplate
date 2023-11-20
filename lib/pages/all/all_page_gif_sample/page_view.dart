@@ -81,7 +81,7 @@ class TestGifState extends State<TestGif> with SingleTickerProviderStateMixin {
       // rootBundle.load 사용시 사용 하지 않은 것 대비 느려짐.
       // 고로 정확히 duration, frame count 를 알고있다면 픽스해서 사용할 것.
       rootBundle.load(gifSrc).then((value) {
-        var gifInfo = gf_my_functions.getGifDetails(value);
+        var gifInfo = gf_my_functions.getGifDetails(byteData: value);
 
         if (kDebugMode) {
           print(gifInfo.frameCount);

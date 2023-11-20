@@ -44,14 +44,16 @@ class SharedPreferenceWrapper {
       // 저장된 값이 들어있는 경우
       try {
         // 값 복호화
-        String decryptedJsonString =
-            gf_crypto.aes256Decrypt(savedJsonString, secretKey, secretIv);
+        String decryptedJsonString = gf_crypto.aes256Decrypt(
+            cipherText: savedJsonString,
+            secretKey: secretKey,
+            secretIv: secretIv);
 
         // !!! Map 을 Object 로 변경!!!
         // map 키는 Object 의 변수명과 동일
         Map<String, dynamic> map = jsonDecode(decryptedJsonString);
-        var resultObject =
-            SharedPreferenceWrapperVo(map["sampleInt"], map["sampleString"]);
+        var resultObject = SharedPreferenceWrapperVo(
+            sampleInt: map["sampleInt"], sampleString: map["sampleString"]);
         semaphore.release();
         return resultObject;
       } catch (e) {
@@ -70,7 +72,7 @@ class SharedPreferenceWrapper {
   }
 
   // (SPW 값 저장하기)
-  static void set(SharedPreferenceWrapperVo? value) {
+  static void set({required SharedPreferenceWrapperVo? value}) {
     semaphore.acquire();
     if (value == null) {
       // 키에 암호화된 값을 저장
@@ -86,8 +88,8 @@ class SharedPreferenceWrapper {
       };
 
       // 값 암호화
-      String encryptedJsonString =
-          gf_crypto.aes256Encrypt(jsonEncode(map), secretKey, secretIv);
+      String encryptedJsonString = gf_crypto.aes256Encrypt(
+          plainText: jsonEncode(map), secretKey: secretKey, secretIv: secretIv);
 
       // 키에 암호화된 값을 저장
       gd_const.sharedPreferences
@@ -101,7 +103,8 @@ class SharedPreferenceWrapper {
 
 // !!!저장 정보 데이터 형태 작성!!!
 class SharedPreferenceWrapperVo {
-  SharedPreferenceWrapperVo(this.sampleInt, this.sampleString);
+  SharedPreferenceWrapperVo(
+      {required this.sampleInt, required this.sampleString});
 
   int sampleInt; // 샘플 int 데이터
   String sampleString; // 샘플 String 데이터

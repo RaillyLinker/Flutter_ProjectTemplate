@@ -105,6 +105,8 @@ class PageViewModel {
   // ex :
   // GlobalKey<SampleWidgetState> sampleWidgetStateGk = GlobalKey();
   // SampleWidgetViewModel sampleWidgetViewModel = SampleWidgetViewModel();
-  GlobalKey<gw_custom_widgets.ContextMenuRegionState> contextMenuRegionStateGk = GlobalKey();
-  gw_custom_widgets.ContextMenuRegionViewModel contextMenuRegionViewModel = gw_custom_widgets.ContextMenuRegionViewModel();
+  GlobalKey<gw_custom_widgets.ContextMenuRegionState> contextMenuRegionStateGk =
+      GlobalKey();
+  gw_custom_widgets.ContextMenuRegionViewModel contextMenuRegionViewModel =
+      gw_custom_widgets.ContextMenuRegionViewModel();
 }

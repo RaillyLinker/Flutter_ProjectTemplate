@@ -16,12 +16,12 @@ import '../../../global_classes/gc_template_classes.dart'
 // 페이지의 비즈니스 로직 담당
 // PageBusiness 인스턴스는 해당 페이지가 소멸하기 전까지 활용됩니다.
 class PageBusiness {
-  PageBusiness(this._context) {
-    pageViewModel = PageViewModel(_context);
+  PageBusiness({required this.context}) {
+    pageViewModel = PageViewModel(context: context);
   }
 
   // 페이지 컨텍스트 객체
-  final BuildContext _context;
+  final BuildContext context;
 
   // 페이지 생명주기 관련 states
   final gc_template_classes.PageLifeCycleStates pageLifeCycleStates =
@@ -42,7 +42,8 @@ class PageBusiness {
 
   // (onPageCreateAsync 실행 전 PageInputVo 체크)
   // onPageCreateAsync 과 완전히 동일하나, 입력값 체크만을 위해 분리한 생명주기
-  Future<void> onCheckPageInputVoAsync(GoRouterState goRouterState) async {
+  Future<void> onCheckPageInputVoAsync(
+      {required GoRouterState goRouterState}) async {
     // !!!pageInputVo 체크!!!
     // ex :
     // if (!goRouterState.uri.queryParameters
@@ -96,15 +97,18 @@ class PageBusiness {
 // (페이지 뷰 모델 클래스)
 // 페이지 전역의 데이터는 여기에 정의되며, Business 인스턴스 안의 pageViewModel 변수로 저장 됩니다.
 class PageViewModel {
-  PageViewModel(this._context);
+  PageViewModel({required this.context});
 
   // 페이지 컨텍스트 객체
-  final BuildContext _context;
+  final BuildContext context;
 
   // !!!페이지 데이터 정의!!!
   // ex :
-  // GlobalKey<SampleWidgetState> sampleWidgetStateGk = GlobalKey();
-  // SampleWidgetViewModel sampleWidgetViewModel = SampleWidgetViewModel();
+  //   page_view
+  //       .StatefulWidgetTemplateBusiness statefulWidgetTemplateBusiness = page_view
+  //       .StatefulWidgetTemplateBusiness(
+  //       sampleText: "sampleText"
+  //   );
 
   // PageOutFrameViewModel
   gw_page_out_frames.PageOutFrameViewModel pageOutFrameViewModel =

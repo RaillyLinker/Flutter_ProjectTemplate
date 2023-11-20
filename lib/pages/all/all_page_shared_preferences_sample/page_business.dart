@@ -144,8 +144,9 @@ class PageBusiness {
 
       // SPW 값 갱신
       spw_test_sample.SharedPreferenceWrapper.set(
-          spw_test_sample.SharedPreferenceWrapperVo(
-              int.parse(sampleIntInput), sampleStringInput));
+          value: spw_test_sample.SharedPreferenceWrapperVo(
+              sampleInt: int.parse(sampleIntInput),
+              sampleString: sampleStringInput));
       pageViewModel.sampleIntTextEditController.text = "";
       pageViewModel.sampleStringTextEditController.text = "";
 
@@ -195,7 +196,7 @@ class PageBusiness {
   // (SP 값 삭제 버튼 클릭)
   void spValueDeleteBtnClick() {
     // SPW 값 갱신
-    spw_test_sample.SharedPreferenceWrapper.set(null);
+    spw_test_sample.SharedPreferenceWrapper.set(value: null);
 
     // SPW 값 가져오기
     var value = spw_test_sample.SharedPreferenceWrapper.get();

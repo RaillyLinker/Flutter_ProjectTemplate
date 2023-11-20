@@ -155,7 +155,7 @@ class PageBusiness {
                   "${loginMemberInfo!.tokenType} ${loginMemberInfo.accessToken}"));
 
           // login_user_info SPW 비우기
-          spw_auth_member_info.SharedPreferenceWrapper.set(null);
+          spw_auth_member_info.SharedPreferenceWrapper.set(value: null);
         }
 
         loadingSpinner.pageBusiness.closeDialog();
@@ -190,7 +190,7 @@ class PageBusiness {
                       "${loginMemberInfo!.tokenType} ${loginMemberInfo.accessToken}"));
 
           // login_user_info SPW 비우기
-          spw_auth_member_info.SharedPreferenceWrapper.set(null);
+          spw_auth_member_info.SharedPreferenceWrapper.set(value: null);
         }
 
         loadingSpinner.pageBusiness.closeDialog();
@@ -225,7 +225,7 @@ class PageBusiness {
           if (isRefreshTokenExpired) {
             // 리플래시 토큰이 사용 불가이므로 로그아웃 처리
             // login_user_info SPW 비우기
-            spw_auth_member_info.SharedPreferenceWrapper.set(null);
+            spw_auth_member_info.SharedPreferenceWrapper.set(value: null);
 
             loadingSpinner.pageBusiness.closeDialog();
 
@@ -287,9 +287,9 @@ class PageBusiness {
                     in postReissueResponseBody.myEmailList) {
                   myEmailList.add(
                       spw_auth_member_info.SharedPreferenceWrapperVoEmailInfo(
-                    myEmail.uid,
-                    myEmail.emailAddress,
-                    myEmail.isFront,
+                    uid: myEmail.uid,
+                    emailAddress: myEmail.emailAddress,
+                    isFront: myEmail.isFront,
                   ));
                 }
 
@@ -299,9 +299,9 @@ class PageBusiness {
                     in postReissueResponseBody.myPhoneNumberList) {
                   myPhoneNumberList.add(
                       spw_auth_member_info.SharedPreferenceWrapperVoPhoneInfo(
-                    myPhone.uid,
-                    myPhone.phoneNumber,
-                    myPhone.isFront,
+                    uid: myPhone.uid,
+                    phoneNumber: myPhone.phoneNumber,
+                    isFront: myPhone.isFront,
                   ));
                 }
 
@@ -325,7 +325,7 @@ class PageBusiness {
                     postReissueResponseBody.authPasswordIsNull;
 
                 spw_auth_member_info.SharedPreferenceWrapper.set(
-                    loginMemberInfo);
+                    value: loginMemberInfo);
 
                 refreshMainListAsync();
               } else {
@@ -357,7 +357,8 @@ class PageBusiness {
                       {
                         // 리플래시 토큰이 사용 불가이므로 로그아웃 처리
                         // login_user_info SPW 비우기
-                        spw_auth_member_info.SharedPreferenceWrapper.set(null);
+                        spw_auth_member_info.SharedPreferenceWrapper.set(
+                            value: null);
 
                         refreshMainListAsync();
                       }

@@ -1,7 +1,9 @@
 [TODO]
 
+- Global Widget, Dialog Template, Page Template 모두 적용하기
+- 변수 프라이빗을 모두 퍼블릭으로 바꾸기 (repository-network, Global Widget, Dialog, Page)
+- 함수, 생성자 파라미터를 모두 이름 있는 것으로 바꾸기 (repository-network, Global Widget, Dialog, Page)
 - WillPopScope 수정
-- 페이지 템플릿 모두 적용
 - 리스트 아이템 순서 바꾸기
 - 리스트 아이템 순서 갱신시 애니메이션
 - 파일 / 파일 리스트 선택 및 멀티파트 전송

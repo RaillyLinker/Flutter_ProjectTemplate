@@ -9,7 +9,7 @@
 // (RequestUrl 에 QueryParam 붙이는 함수)
 // ex : queryParams = {"testParam1" : "testParam"}, requestUrl = "/test/url" => "/test/url?testParam1=testParam"
 String mergeNetworkQueryParam(
-    Map<String, dynamic> queryParams, String requestUrl) {
+    {required Map<String, dynamic> queryParams, required String requestUrl}) {
   StringBuffer resultUrl = StringBuffer(requestUrl);
 
   int idx = 0;

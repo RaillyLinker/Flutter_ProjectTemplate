@@ -56,8 +56,8 @@ Future<
 
   // baseUrl + Request path + QueryParam
   String requestUrlAndParam = gf_template_functions.mergeNetworkQueryParam(
-      requestQueryParams,
-      (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
+      queryParams: requestQueryParams,
+      requestUrl: (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
 
   try {
     // !!!네트워크 요청 설정!!!
@@ -101,13 +101,16 @@ Future<
     }
 
     return gc_template_classes.NetworkResponseObject(
-        gc_template_classes.NetworkResponseObjectOk(
-            statusCode, responseHeader, responseBody),
-        null);
+        networkResponseObjectOk: gc_template_classes.NetworkResponseObjectOk(
+            responseStatusCode: statusCode,
+            responseHeaders: responseHeader,
+            responseBody: responseBody),
+        dioException: null);
   } on DioException catch (e) {
     // 서버에 리퀘스트가 도달하지 못한 에러 + Dio 가 에러로 규정한 Status Code
     //  = 클라이언트 입장에선 그냥 네트워크 에러로 처리
-    return gc_template_classes.NetworkResponseObject(null, e);
+    return gc_template_classes.NetworkResponseObject(
+        networkResponseObjectOk: null, dioException: e);
   }
 }
 
@@ -220,8 +223,8 @@ Future<
 
   // baseUrl + Request path + QueryParam
   String requestUrlAndParam = gf_template_functions.mergeNetworkQueryParam(
-      requestQueryParams,
-      (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
+      queryParams: requestQueryParams,
+      requestUrl: (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
 
   try {
     // !!!네트워크 요청 설정!!!
@@ -272,13 +275,16 @@ Future<
     }
 
     return gc_template_classes.NetworkResponseObject(
-        gc_template_classes.NetworkResponseObjectOk(
-            statusCode, responseHeader, responseBody),
-        null);
+        networkResponseObjectOk: gc_template_classes.NetworkResponseObjectOk(
+            responseStatusCode: statusCode,
+            responseHeaders: responseHeader,
+            responseBody: responseBody),
+        dioException: null);
   } on DioException catch (e) {
     // 서버에 리퀘스트가 도달하지 못한 에러 + Dio 가 에러로 규정한 Status Code
     //  = 클라이언트 입장에선 그냥 네트워크 에러로 처리
-    return gc_template_classes.NetworkResponseObject(null, e);
+    return gc_template_classes.NetworkResponseObject(
+        networkResponseObjectOk: null, dioException: e);
   }
 }
 
@@ -393,8 +399,8 @@ Future<
 
   // baseUrl + Request path + QueryParam
   String requestUrlAndParam = gf_template_functions.mergeNetworkQueryParam(
-      requestQueryParams,
-      (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
+      queryParams: requestQueryParams,
+      requestUrl: (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
 
   try {
     // !!!네트워크 요청 설정!!!
@@ -445,13 +451,16 @@ Future<
     }
 
     return gc_template_classes.NetworkResponseObject(
-        gc_template_classes.NetworkResponseObjectOk(
-            statusCode, responseHeader, responseBody),
-        null);
+        networkResponseObjectOk: gc_template_classes.NetworkResponseObjectOk(
+            responseStatusCode: statusCode,
+            responseHeaders: responseHeader,
+            responseBody: responseBody),
+        dioException: null);
   } on DioException catch (e) {
     // 서버에 리퀘스트가 도달하지 못한 에러 + Dio 가 에러로 규정한 Status Code
     //  = 클라이언트 입장에선 그냥 네트워크 에러로 처리
-    return gc_template_classes.NetworkResponseObject(null, e);
+    return gc_template_classes.NetworkResponseObject(
+        networkResponseObjectOk: null, dioException: e);
   }
 }
 
@@ -585,8 +594,8 @@ Future<
 
   // baseUrl + Request path + QueryParam
   String requestUrlAndParam = gf_template_functions.mergeNetworkQueryParam(
-      requestQueryParams,
-      (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
+      queryParams: requestQueryParams,
+      requestUrl: (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
 
   try {
     // !!!네트워크 요청 설정!!!
@@ -634,13 +643,16 @@ Future<
     }
 
     return gc_template_classes.NetworkResponseObject(
-        gc_template_classes.NetworkResponseObjectOk(
-            statusCode, responseHeader, responseBody),
-        null);
+        networkResponseObjectOk: gc_template_classes.NetworkResponseObjectOk(
+            responseStatusCode: statusCode,
+            responseHeaders: responseHeader,
+            responseBody: responseBody),
+        dioException: null);
   } on DioException catch (e) {
     // 서버에 리퀘스트가 도달하지 못한 에러 + Dio 가 에러로 규정한 Status Code
     //  = 클라이언트 입장에선 그냥 네트워크 에러로 처리
-    return gc_template_classes.NetworkResponseObject(null, e);
+    return gc_template_classes.NetworkResponseObject(
+        networkResponseObjectOk: null, dioException: e);
   }
 }
 
@@ -756,8 +768,8 @@ Future<
 
   // baseUrl + Request path + QueryParam
   String requestUrlAndParam = gf_template_functions.mergeNetworkQueryParam(
-      requestQueryParams,
-      (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
+      queryParams: requestQueryParams,
+      requestUrl: (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
 
   try {
     // !!!네트워크 요청 설정!!!
@@ -805,13 +817,16 @@ Future<
     }
 
     return gc_template_classes.NetworkResponseObject(
-        gc_template_classes.NetworkResponseObjectOk(
-            statusCode, responseHeader, responseBody),
-        null);
+        networkResponseObjectOk: gc_template_classes.NetworkResponseObjectOk(
+            responseStatusCode: statusCode,
+            responseHeaders: responseHeader,
+            responseBody: responseBody),
+        dioException: null);
   } on DioException catch (e) {
     // 서버에 리퀘스트가 도달하지 못한 에러 + Dio 가 에러로 규정한 Status Code
     //  = 클라이언트 입장에선 그냥 네트워크 에러로 처리
-    return gc_template_classes.NetworkResponseObject(null, e);
+    return gc_template_classes.NetworkResponseObject(
+        networkResponseObjectOk: null, dioException: e);
   }
 }
 
@@ -906,8 +921,8 @@ Future<
 
   // baseUrl + Request path + QueryParam
   String requestUrlAndParam = gf_template_functions.mergeNetworkQueryParam(
-      requestQueryParams,
-      (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
+      queryParams: requestQueryParams,
+      requestUrl: (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
 
   try {
     // !!!네트워크 요청 설정!!!
@@ -929,13 +944,16 @@ Future<
                 ? responseHeaderMap["api-result-code"][0]
                 : null);
     return gc_template_classes.NetworkResponseObject(
-        gc_template_classes.NetworkResponseObjectOk(
-            statusCode, responseHeader, responseBody),
-        null);
+        networkResponseObjectOk: gc_template_classes.NetworkResponseObjectOk(
+            responseStatusCode: statusCode,
+            responseHeaders: responseHeader,
+            responseBody: responseBody),
+        dioException: null);
   } on DioException catch (e) {
     // 서버에 리퀘스트가 도달하지 못한 에러 + Dio 가 에러로 규정한 Status Code
     //  = 클라이언트 입장에선 그냥 네트워크 에러로 처리
-    return gc_template_classes.NetworkResponseObject(null, e);
+    return gc_template_classes.NetworkResponseObject(
+        networkResponseObjectOk: null, dioException: e);
   }
 }
 
@@ -968,8 +986,8 @@ Future<
 
   // baseUrl + Request path + QueryParam
   String requestUrlAndParam = gf_template_functions.mergeNetworkQueryParam(
-      requestQueryParams,
-      (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
+      queryParams: requestQueryParams,
+      requestUrl: (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
 
   try {
     // !!!네트워크 요청 설정!!!
@@ -997,13 +1015,16 @@ Future<
     }
 
     return gc_template_classes.NetworkResponseObject(
-        gc_template_classes.NetworkResponseObjectOk(
-            statusCode, responseHeader, responseBody),
-        null);
+        networkResponseObjectOk: gc_template_classes.NetworkResponseObjectOk(
+            responseStatusCode: statusCode,
+            responseHeaders: responseHeader,
+            responseBody: responseBody),
+        dioException: null);
   } on DioException catch (e) {
     // 서버에 리퀘스트가 도달하지 못한 에러 + Dio 가 에러로 규정한 Status Code
     //  = 클라이언트 입장에선 그냥 네트워크 에러로 처리
-    return gc_template_classes.NetworkResponseObject(null, e);
+    return gc_template_classes.NetworkResponseObject(
+        networkResponseObjectOk: null, dioException: e);
   }
 }
 
@@ -1038,8 +1059,8 @@ Future<
 
   // baseUrl + Request path + QueryParam
   String requestUrlAndParam = gf_template_functions.mergeNetworkQueryParam(
-      requestQueryParams,
-      (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
+      queryParams: requestQueryParams,
+      requestUrl: (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
 
   try {
     // !!!네트워크 요청 설정!!!
@@ -1066,13 +1087,16 @@ Future<
     }
 
     return gc_template_classes.NetworkResponseObject(
-        gc_template_classes.NetworkResponseObjectOk(
-            statusCode, responseHeader, responseBody),
-        null);
+        networkResponseObjectOk: gc_template_classes.NetworkResponseObjectOk(
+            responseStatusCode: statusCode,
+            responseHeaders: responseHeader,
+            responseBody: responseBody),
+        dioException: null);
   } on DioException catch (e) {
     // 서버에 리퀘스트가 도달하지 못한 에러 + Dio 가 에러로 규정한 Status Code
     //  = 클라이언트 입장에선 그냥 네트워크 에러로 처리
-    return gc_template_classes.NetworkResponseObject(null, e);
+    return gc_template_classes.NetworkResponseObject(
+        networkResponseObjectOk: null, dioException: e);
   }
 }
 
@@ -1099,11 +1123,12 @@ Future<
         GetMobileAppVersionInfoAsyncRequestQueryVo requestQueryVo) async {
   // !!!서버 API 가 준비되면 더미 데이터 return 제거!!!
   return gc_template_classes.NetworkResponseObject(
-      gc_template_classes.NetworkResponseObjectOk(
-          200,
-          GetMobileAppVersionInfoAsyncResponseHeaderVo("0"),
-          GetMobileAppVersionInfoAsyncResponseBodyVo("1.0.0", "1.0.0")),
-      null);
+      networkResponseObjectOk: gc_template_classes.NetworkResponseObjectOk(
+          responseStatusCode: 200,
+          responseHeaders: GetMobileAppVersionInfoAsyncResponseHeaderVo("0"),
+          responseBody:
+              GetMobileAppVersionInfoAsyncResponseBodyVo("1.0.0", "1.0.0")),
+      dioException: null);
 
   // !!!개발 / 배포 모드별 요청 Path 지정!!!
   String devServerUrl = "/server-app-version-info";
@@ -1117,8 +1142,8 @@ Future<
 
   // baseUrl + Request path + QueryParam
   String requestUrlAndParam = gf_template_functions.mergeNetworkQueryParam(
-      requestQueryParams,
-      (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
+      queryParams: requestQueryParams,
+      requestUrl: (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
 
   try {
     // !!!네트워크 요청 설정!!!
@@ -1151,13 +1176,16 @@ Future<
     }
 
     return gc_template_classes.NetworkResponseObject(
-        gc_template_classes.NetworkResponseObjectOk(
-            statusCode, responseHeader, responseBody),
-        null);
+        networkResponseObjectOk: gc_template_classes.NetworkResponseObjectOk(
+            responseStatusCode: statusCode,
+            responseHeaders: responseHeader,
+            responseBody: responseBody),
+        dioException: null);
   } on DioException catch (e) {
     // 서버에 리퀘스트가 도달하지 못한 에러 + Dio 가 에러로 규정한 Status Code
     //  = 클라이언트 입장에선 그냥 네트워크 에러로 처리
-    return gc_template_classes.NetworkResponseObject(null, e);
+    return gc_template_classes.NetworkResponseObject(
+        networkResponseObjectOk: null, dioException: e);
   }
 }
 
@@ -1209,8 +1237,8 @@ Future<
 
   // baseUrl + Request path + QueryParam
   String requestUrlAndParam = gf_template_functions.mergeNetworkQueryParam(
-      requestQueryParams,
-      (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
+      queryParams: requestQueryParams,
+      requestUrl: (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
 
   try {
     // !!!네트워크 요청 설정!!!
@@ -1293,13 +1321,16 @@ Future<
     }
 
     return gc_template_classes.NetworkResponseObject(
-        gc_template_classes.NetworkResponseObjectOk(
-            statusCode, responseHeader, responseBody),
-        null);
+        networkResponseObjectOk: gc_template_classes.NetworkResponseObjectOk(
+            responseStatusCode: statusCode,
+            responseHeaders: responseHeader,
+            responseBody: responseBody),
+        dioException: null);
   } on DioException catch (e) {
     // 서버에 리퀘스트가 도달하지 못한 에러 + Dio 가 에러로 규정한 Status Code
     //  = 클라이언트 입장에선 그냥 네트워크 에러로 처리
-    return gc_template_classes.NetworkResponseObject(null, e);
+    return gc_template_classes.NetworkResponseObject(
+        networkResponseObjectOk: null, dioException: e);
   }
 }
 
@@ -1417,8 +1448,8 @@ Future<
 
   // baseUrl + Request path + QueryParam
   String requestUrlAndParam = gf_template_functions.mergeNetworkQueryParam(
-      requestQueryParams,
-      (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
+      queryParams: requestQueryParams,
+      requestUrl: (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
 
   try {
     // !!!네트워크 요청 설정!!!
@@ -1438,13 +1469,16 @@ Future<
             ? responseHeaderMap["api-result-code"][0]
             : null);
     return gc_template_classes.NetworkResponseObject(
-        gc_template_classes.NetworkResponseObjectOk(
-            statusCode, responseHeader, responseBody),
-        null);
+        networkResponseObjectOk: gc_template_classes.NetworkResponseObjectOk(
+            responseStatusCode: statusCode,
+            responseHeaders: responseHeader,
+            responseBody: responseBody),
+        dioException: null);
   } on DioException catch (e) {
     // 서버에 리퀘스트가 도달하지 못한 에러 + Dio 가 에러로 규정한 Status Code
     //  = 클라이언트 입장에선 그냥 네트워크 에러로 처리
-    return gc_template_classes.NetworkResponseObject(null, e);
+    return gc_template_classes.NetworkResponseObject(
+        networkResponseObjectOk: null, dioException: e);
   }
 }
 
@@ -1489,8 +1523,8 @@ Future<
 
   // baseUrl + Request path + QueryParam
   String requestUrlAndParam = gf_template_functions.mergeNetworkQueryParam(
-      requestQueryParams,
-      (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
+      queryParams: requestQueryParams,
+      requestUrl: (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
 
   try {
     // !!!네트워크 요청 설정!!!
@@ -1513,13 +1547,16 @@ Future<
                 ? responseHeaderMap["api-result-code"][0]
                 : null);
     return gc_template_classes.NetworkResponseObject(
-        gc_template_classes.NetworkResponseObjectOk(
-            statusCode, responseHeader, responseBody),
-        null);
+        networkResponseObjectOk: gc_template_classes.NetworkResponseObjectOk(
+            responseStatusCode: statusCode,
+            responseHeaders: responseHeader,
+            responseBody: responseBody),
+        dioException: null);
   } on DioException catch (e) {
     // 서버에 리퀘스트가 도달하지 못한 에러 + Dio 가 에러로 규정한 Status Code
     //  = 클라이언트 입장에선 그냥 네트워크 에러로 처리
-    return gc_template_classes.NetworkResponseObject(null, e);
+    return gc_template_classes.NetworkResponseObject(
+        networkResponseObjectOk: null, dioException: e);
   }
 }
 
@@ -1566,8 +1603,8 @@ Future<
 
   // baseUrl + Request path + QueryParam
   String requestUrlAndParam = gf_template_functions.mergeNetworkQueryParam(
-      requestQueryParams,
-      (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
+      queryParams: requestQueryParams,
+      requestUrl: (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
 
   try {
     // !!!네트워크 요청 설정!!!
@@ -1646,13 +1683,16 @@ Future<
     }
 
     return gc_template_classes.NetworkResponseObject(
-        gc_template_classes.NetworkResponseObjectOk(
-            statusCode, responseHeader, responseBody),
-        null);
+        networkResponseObjectOk: gc_template_classes.NetworkResponseObjectOk(
+            responseStatusCode: statusCode,
+            responseHeaders: responseHeader,
+            responseBody: responseBody),
+        dioException: null);
   } on DioException catch (e) {
     // 서버에 리퀘스트가 도달하지 못한 에러 + Dio 가 에러로 규정한 Status Code
     //  = 클라이언트 입장에선 그냥 네트워크 에러로 처리
-    return gc_template_classes.NetworkResponseObject(null, e);
+    return gc_template_classes.NetworkResponseObject(
+        networkResponseObjectOk: null, dioException: e);
   }
 }
 
@@ -1769,8 +1809,8 @@ Future<
 
   // baseUrl + Request path + QueryParam
   String requestUrlAndParam = gf_template_functions.mergeNetworkQueryParam(
-      requestQueryParams,
-      (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
+      queryParams: requestQueryParams,
+      requestUrl: (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
 
   try {
     // !!!네트워크 요청 설정!!!
@@ -1802,13 +1842,16 @@ Future<
     }
 
     return gc_template_classes.NetworkResponseObject(
-        gc_template_classes.NetworkResponseObjectOk(
-            statusCode, responseHeader, responseBody),
-        null);
+        networkResponseObjectOk: gc_template_classes.NetworkResponseObjectOk(
+            responseStatusCode: statusCode,
+            responseHeaders: responseHeader,
+            responseBody: responseBody),
+        dioException: null);
   } on DioException catch (e) {
     // 서버에 리퀘스트가 도달하지 못한 에러 + Dio 가 에러로 규정한 Status Code
     //  = 클라이언트 입장에선 그냥 네트워크 에러로 처리
-    return gc_template_classes.NetworkResponseObject(null, e);
+    return gc_template_classes.NetworkResponseObject(
+        networkResponseObjectOk: null, dioException: e);
   }
 }
 
@@ -1855,8 +1898,8 @@ Future<
 
   // baseUrl + Request path + QueryParam
   String requestUrlAndParam = gf_template_functions.mergeNetworkQueryParam(
-      requestQueryParams,
-      (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
+      queryParams: requestQueryParams,
+      requestUrl: (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
 
   try {
     // !!!네트워크 요청 설정!!!
@@ -1888,13 +1931,16 @@ Future<
     }
 
     return gc_template_classes.NetworkResponseObject(
-        gc_template_classes.NetworkResponseObjectOk(
-            statusCode, responseHeader, responseBody),
-        null);
+        networkResponseObjectOk: gc_template_classes.NetworkResponseObjectOk(
+            responseStatusCode: statusCode,
+            responseHeaders: responseHeader,
+            responseBody: responseBody),
+        dioException: null);
   } on DioException catch (e) {
     // 서버에 리퀘스트가 도달하지 못한 에러 + Dio 가 에러로 규정한 Status Code
     //  = 클라이언트 입장에선 그냥 네트워크 에러로 처리
-    return gc_template_classes.NetworkResponseObject(null, e);
+    return gc_template_classes.NetworkResponseObject(
+        networkResponseObjectOk: null, dioException: e);
   }
 }
 
@@ -1948,8 +1994,8 @@ Future<
 
   // baseUrl + Request path + QueryParam
   String requestUrlAndParam = gf_template_functions.mergeNetworkQueryParam(
-      requestQueryParams,
-      (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
+      queryParams: requestQueryParams,
+      requestUrl: (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
 
   try {
     // !!!네트워크 요청 설정!!!
@@ -1981,13 +2027,16 @@ Future<
     }
 
     return gc_template_classes.NetworkResponseObject(
-        gc_template_classes.NetworkResponseObjectOk(
-            statusCode, responseHeader, responseBody),
-        null);
+        networkResponseObjectOk: gc_template_classes.NetworkResponseObjectOk(
+            responseStatusCode: statusCode,
+            responseHeaders: responseHeader,
+            responseBody: responseBody),
+        dioException: null);
   } on DioException catch (e) {
     // 서버에 리퀘스트가 도달하지 못한 에러 + Dio 가 에러로 규정한 Status Code
     //  = 클라이언트 입장에선 그냥 네트워크 에러로 처리
-    return gc_template_classes.NetworkResponseObject(null, e);
+    return gc_template_classes.NetworkResponseObject(
+        networkResponseObjectOk: null, dioException: e);
   }
 }
 
@@ -2040,8 +2089,8 @@ Future<
 
   // baseUrl + Request path + QueryParam
   String requestUrlAndParam = gf_template_functions.mergeNetworkQueryParam(
-      requestQueryParams,
-      (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
+      queryParams: requestQueryParams,
+      requestUrl: (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
 
   try {
     // !!!네트워크 요청 설정!!!
@@ -2073,13 +2122,16 @@ Future<
     }
 
     return gc_template_classes.NetworkResponseObject(
-        gc_template_classes.NetworkResponseObjectOk(
-            statusCode, responseHeader, responseBody),
-        null);
+        networkResponseObjectOk: gc_template_classes.NetworkResponseObjectOk(
+            responseStatusCode: statusCode,
+            responseHeaders: responseHeader,
+            responseBody: responseBody),
+        dioException: null);
   } on DioException catch (e) {
     // 서버에 리퀘스트가 도달하지 못한 에러 + Dio 가 에러로 규정한 Status Code
     //  = 클라이언트 입장에선 그냥 네트워크 에러로 처리
-    return gc_template_classes.NetworkResponseObject(null, e);
+    return gc_template_classes.NetworkResponseObject(
+        networkResponseObjectOk: null, dioException: e);
   }
 }
 
@@ -2130,8 +2182,8 @@ Future<
 
   // baseUrl + Request path + QueryParam
   String requestUrlAndParam = gf_template_functions.mergeNetworkQueryParam(
-      requestQueryParams,
-      (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
+      queryParams: requestQueryParams,
+      requestUrl: (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
 
   try {
     // !!!네트워크 요청 설정!!!
@@ -2166,13 +2218,16 @@ Future<
     }
 
     return gc_template_classes.NetworkResponseObject(
-        gc_template_classes.NetworkResponseObjectOk(
-            statusCode, responseHeader, responseBody),
-        null);
+        networkResponseObjectOk: gc_template_classes.NetworkResponseObjectOk(
+            responseStatusCode: statusCode,
+            responseHeaders: responseHeader,
+            responseBody: responseBody),
+        dioException: null);
   } on DioException catch (e) {
     // 서버에 리퀘스트가 도달하지 못한 에러 + Dio 가 에러로 규정한 Status Code
     //  = 클라이언트 입장에선 그냥 네트워크 에러로 처리
-    return gc_template_classes.NetworkResponseObject(null, e);
+    return gc_template_classes.NetworkResponseObject(
+        networkResponseObjectOk: null, dioException: e);
   }
 }
 
@@ -2221,8 +2276,8 @@ Future<
 
   // baseUrl + Request path + QueryParam
   String requestUrlAndParam = gf_template_functions.mergeNetworkQueryParam(
-      requestQueryParams,
-      (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
+      queryParams: requestQueryParams,
+      requestUrl: (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
 
   try {
     // !!!네트워크 요청 설정!!!
@@ -2263,13 +2318,16 @@ Future<
     }
 
     return gc_template_classes.NetworkResponseObject(
-        gc_template_classes.NetworkResponseObjectOk(
-            statusCode, responseHeader, responseBody),
-        null);
+        networkResponseObjectOk: gc_template_classes.NetworkResponseObjectOk(
+            responseStatusCode: statusCode,
+            responseHeaders: responseHeader,
+            responseBody: responseBody),
+        dioException: null);
   } on DioException catch (e) {
     // 서버에 리퀘스트가 도달하지 못한 에러 + Dio 가 에러로 규정한 Status Code
     //  = 클라이언트 입장에선 그냥 네트워크 에러로 처리
-    return gc_template_classes.NetworkResponseObject(null, e);
+    return gc_template_classes.NetworkResponseObject(
+        networkResponseObjectOk: null, dioException: e);
   }
 }
 
@@ -2323,8 +2381,8 @@ Future<
 
   // baseUrl + Request path + QueryParam
   String requestUrlAndParam = gf_template_functions.mergeNetworkQueryParam(
-      requestQueryParams,
-      (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
+      queryParams: requestQueryParams,
+      requestUrl: (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
 
   try {
     // !!!네트워크 요청 설정!!!
@@ -2360,13 +2418,16 @@ Future<
     }
 
     return gc_template_classes.NetworkResponseObject(
-        gc_template_classes.NetworkResponseObjectOk(
-            statusCode, responseHeader, responseBody),
-        null);
+        networkResponseObjectOk: gc_template_classes.NetworkResponseObjectOk(
+            responseStatusCode: statusCode,
+            responseHeaders: responseHeader,
+            responseBody: responseBody),
+        dioException: null);
   } on DioException catch (e) {
     // 서버에 리퀘스트가 도달하지 못한 에러 + Dio 가 에러로 규정한 Status Code
     //  = 클라이언트 입장에선 그냥 네트워크 에러로 처리
-    return gc_template_classes.NetworkResponseObject(null, e);
+    return gc_template_classes.NetworkResponseObject(
+        networkResponseObjectOk: null, dioException: e);
   }
 }
 
@@ -2429,8 +2490,8 @@ Future<
 
   // baseUrl + Request path + QueryParam
   String requestUrlAndParam = gf_template_functions.mergeNetworkQueryParam(
-      requestQueryParams,
-      (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
+      queryParams: requestQueryParams,
+      requestUrl: (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
 
   try {
     // !!!네트워크 요청 설정!!!
@@ -2462,13 +2523,16 @@ Future<
     }
 
     return gc_template_classes.NetworkResponseObject(
-        gc_template_classes.NetworkResponseObjectOk(
-            statusCode, responseHeader, responseBody),
-        null);
+        networkResponseObjectOk: gc_template_classes.NetworkResponseObjectOk(
+            responseStatusCode: statusCode,
+            responseHeaders: responseHeader,
+            responseBody: responseBody),
+        dioException: null);
   } on DioException catch (e) {
     // 서버에 리퀘스트가 도달하지 못한 에러 + Dio 가 에러로 규정한 Status Code
     //  = 클라이언트 입장에선 그냥 네트워크 에러로 처리
-    return gc_template_classes.NetworkResponseObject(null, e);
+    return gc_template_classes.NetworkResponseObject(
+        networkResponseObjectOk: null, dioException: e);
   }
 }
 
@@ -2528,8 +2592,8 @@ Future<
 
   // baseUrl + Request path + QueryParam
   String requestUrlAndParam = gf_template_functions.mergeNetworkQueryParam(
-      requestQueryParams,
-      (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
+      queryParams: requestQueryParams,
+      requestUrl: (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
 
   try {
     // !!!네트워크 요청 설정!!!
@@ -2566,13 +2630,16 @@ Future<
     }
 
     return gc_template_classes.NetworkResponseObject(
-        gc_template_classes.NetworkResponseObjectOk(
-            statusCode, responseHeader, responseBody),
-        null);
+        networkResponseObjectOk: gc_template_classes.NetworkResponseObjectOk(
+            responseStatusCode: statusCode,
+            responseHeaders: responseHeader,
+            responseBody: responseBody),
+        dioException: null);
   } on DioException catch (e) {
     // 서버에 리퀘스트가 도달하지 못한 에러 + Dio 가 에러로 규정한 Status Code
     //  = 클라이언트 입장에선 그냥 네트워크 에러로 처리
-    return gc_template_classes.NetworkResponseObject(null, e);
+    return gc_template_classes.NetworkResponseObject(
+        networkResponseObjectOk: null, dioException: e);
   }
 }
 
@@ -2625,8 +2692,8 @@ Future<
 
   // baseUrl + Request path + QueryParam
   String requestUrlAndParam = gf_template_functions.mergeNetworkQueryParam(
-      requestQueryParams,
-      (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
+      queryParams: requestQueryParams,
+      requestUrl: (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
 
   try {
     // !!!네트워크 요청 설정!!!
@@ -2660,13 +2727,16 @@ Future<
     }
 
     return gc_template_classes.NetworkResponseObject(
-        gc_template_classes.NetworkResponseObjectOk(
-            statusCode, responseHeader, responseBody),
-        null);
+        networkResponseObjectOk: gc_template_classes.NetworkResponseObjectOk(
+            responseStatusCode: statusCode,
+            responseHeaders: responseHeader,
+            responseBody: responseBody),
+        dioException: null);
   } on DioException catch (e) {
     // 서버에 리퀘스트가 도달하지 못한 에러 + Dio 가 에러로 규정한 Status Code
     //  = 클라이언트 입장에선 그냥 네트워크 에러로 처리
-    return gc_template_classes.NetworkResponseObject(null, e);
+    return gc_template_classes.NetworkResponseObject(
+        networkResponseObjectOk: null, dioException: e);
   }
 }
 
@@ -2718,8 +2788,8 @@ Future<
 
   // baseUrl + Request path + QueryParam
   String requestUrlAndParam = gf_template_functions.mergeNetworkQueryParam(
-      requestQueryParams,
-      (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
+      queryParams: requestQueryParams,
+      requestUrl: (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
 
   try {
     // !!!네트워크 요청 설정!!!
@@ -2750,13 +2820,16 @@ Future<
     }
 
     return gc_template_classes.NetworkResponseObject(
-        gc_template_classes.NetworkResponseObjectOk(
-            statusCode, responseHeader, responseBody),
-        null);
+        networkResponseObjectOk: gc_template_classes.NetworkResponseObjectOk(
+            responseStatusCode: statusCode,
+            responseHeaders: responseHeader,
+            responseBody: responseBody),
+        dioException: null);
   } on DioException catch (e) {
     // 서버에 리퀘스트가 도달하지 못한 에러 + Dio 가 에러로 규정한 Status Code
     //  = 클라이언트 입장에선 그냥 네트워크 에러로 처리
-    return gc_template_classes.NetworkResponseObject(null, e);
+    return gc_template_classes.NetworkResponseObject(
+        networkResponseObjectOk: null, dioException: e);
   }
 }
 
@@ -2805,8 +2878,8 @@ Future<
 
   // baseUrl + Request path + QueryParam
   String requestUrlAndParam = gf_template_functions.mergeNetworkQueryParam(
-      requestQueryParams,
-      (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
+      queryParams: requestQueryParams,
+      requestUrl: (gd_const_config.isDebugMode) ? devServerUrl : prodServerUrl);
 
   try {
     // !!!네트워크 요청 설정!!!
@@ -2840,13 +2913,16 @@ Future<
     }
 
     return gc_template_classes.NetworkResponseObject(
-        gc_template_classes.NetworkResponseObjectOk(
-            statusCode, responseHeader, responseBody),
-        null);
+        networkResponseObjectOk: gc_template_classes.NetworkResponseObjectOk(
+            responseStatusCode: statusCode,
+            responseHeaders: responseHeader,
+            responseBody: responseBody),
+        dioException: null);
   } on DioException catch (e) {
     // 서버에 리퀘스트가 도달하지 못한 에러 + Dio 가 에러로 규정한 Status Code
     //  = 클라이언트 입장에선 그냥 네트워크 에러로 처리
-    return gc_template_classes.NetworkResponseObject(null, e);
+    return gc_template_classes.NetworkResponseObject(
+        networkResponseObjectOk: null, dioException: e);
   }
 }
 

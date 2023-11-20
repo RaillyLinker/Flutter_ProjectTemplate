@@ -61,10 +61,11 @@ class PageBusiness {
   // 앱 초기화 로직 스레드 합류 객체 (비동기로 진행되는 화면 대기 타이머와 초기화 로직이 모두 끝나면 콜백이 실행됨)
   // _appInitLogicThreadConfluenceObj.threadComplete(); 이 함수가 2번 호출되어야 콜백이 실행됨
   late final gc_my_classes.ThreadConfluenceObj
-      _appInitLogicThreadConfluenceObj =
-      gc_my_classes.ThreadConfluenceObj(2, () {
-    _onAppInitLogicThreadComplete();
-  });
+      _appInitLogicThreadConfluenceObj = gc_my_classes.ThreadConfluenceObj(
+          numberOfThreadsBeingJoined: 2,
+          onComplete: () {
+            _onAppInitLogicThreadComplete();
+          });
 
   ////
   // [페이지 생명주기]
@@ -331,7 +332,7 @@ class PageBusiness {
       if (isRefreshTokenExpired) {
         // 리플래시 토큰이 사용 불가이므로 로그아웃 처리
         // login_user_info SPW 비우기
-        spw_auth_member_info.SharedPreferenceWrapper.set(null);
+        spw_auth_member_info.SharedPreferenceWrapper.set(value: null);
 
         _appInitLogicThreadConfluenceObj.threadComplete();
       } else {
@@ -389,9 +390,9 @@ class PageBusiness {
                 in postReissueResponseBody.myEmailList) {
               myEmailList
                   .add(spw_auth_member_info.SharedPreferenceWrapperVoEmailInfo(
-                myEmail.uid,
-                myEmail.emailAddress,
-                myEmail.isFront,
+                uid: myEmail.uid,
+                emailAddress: myEmail.emailAddress,
+                isFront: myEmail.isFront,
               ));
             }
 
@@ -401,9 +402,9 @@ class PageBusiness {
                 in postReissueResponseBody.myPhoneNumberList) {
               myPhoneNumberList
                   .add(spw_auth_member_info.SharedPreferenceWrapperVoPhoneInfo(
-                myPhone.uid,
-                myPhone.phoneNumber,
-                myPhone.isFront,
+                uid: myPhone.uid,
+                phoneNumber: myPhone.phoneNumber,
+                isFront: myPhone.isFront,
               ));
             }
 
@@ -424,7 +425,8 @@ class PageBusiness {
             loginMemberInfo.authPasswordIsNull =
                 postReissueResponseBody.authPasswordIsNull;
 
-            spw_auth_member_info.SharedPreferenceWrapper.set(loginMemberInfo);
+            spw_auth_member_info.SharedPreferenceWrapper.set(
+                value: loginMemberInfo);
 
             _appInitLogicThreadConfluenceObj.threadComplete();
           } else {
@@ -449,7 +451,7 @@ class PageBusiness {
                         ));
 
                 // login_user_info SSW 비우기 (= 로그아웃 처리)
-                spw_auth_member_info.SharedPreferenceWrapper.set(null);
+                spw_auth_member_info.SharedPreferenceWrapper.set(value: null);
                 _appInitLogicThreadConfluenceObj.threadComplete();
                 return;
               }
@@ -487,7 +489,8 @@ class PageBusiness {
                     // 리플래시 토큰이 사용 불가이므로 로그아웃 처리
 
                     // login_user_info SSW 비우기 (= 로그아웃 처리)
-                    spw_auth_member_info.SharedPreferenceWrapper.set(null);
+                    spw_auth_member_info.SharedPreferenceWrapper.set(
+                        value: null);
                     _appInitLogicThreadConfluenceObj.threadComplete();
                   }
                   break;
@@ -513,7 +516,7 @@ class PageBusiness {
                     ));
 
             // login_user_info SSW 비우기 (= 로그아웃 처리)
-            spw_auth_member_info.SharedPreferenceWrapper.set(null);
+            spw_auth_member_info.SharedPreferenceWrapper.set(value: null);
             _appInitLogicThreadConfluenceObj.threadComplete();
             return;
           }

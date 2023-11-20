@@ -72,7 +72,7 @@ class PageEntrance extends StatelessWidget {
       pageBusiness.blocObjects = page_business.BLocObjects(innerContext);
       return gc_template_classes.BlocPageInfo(
           gc_template_classes.BlocPageInfoState<page_business.PageBusiness>(
-              pageBusiness));
+              pageBusiness: pageBusiness));
     }));
 
     // 페이지 사용 BLoC 객체를 모두 설정

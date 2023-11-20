@@ -6,56 +6,65 @@
 //------------------------------------------------------------------------------
 // (Stateless 위젯 템플릿)
 // class StatelessWidgetTemplate extends StatelessWidget {
-//   const StatelessWidgetTemplate(this.viewModel, {required super.key});
+//   const StatelessWidgetTemplate({super.key, required this.business});
 //
-//   // 위젯 뷰모델
-//   final StatelessWidgetTemplateViewModel viewModel;
+//   // 위젯 비즈니스
+//   final StatelessWidgetTemplateBusiness business;
 //
 //   //!!!주입 받을 하위 위젯 선언 하기!!!
 //
-//   // !!!하위 위젯 작성하기. (viewModel 에서 데이터를 가져와 사용)!!!
+//   // !!!위젯 작성하기. (business 에서 데이터를 가져와 사용)!!!
 //   @override
 //   Widget build(BuildContext context) {
-//     return Text(viewModel.sampleText);
+//     return Text(business.sampleText);
 //   }
 // }
 //
-// class StatelessWidgetTemplateViewModel {
-//   StatelessWidgetTemplateViewModel(this.sampleText);
+// class StatelessWidgetTemplateBusiness {
+//   StatelessWidgetTemplateBusiness(this.sampleText);
 //
 //   // !!!위젯 상태 변수 선언하기!!!
-//   final String sampleText;
+//   String sampleText;
+//
+//   // !!!위젯 비즈니스 로직 작성하기!!!
+//   void sampleFunc(String text) {
+//     sampleText = sampleText;
+//   }
 // }
 
 // (Stateful 위젯 템플릿)
 // class StatefulWidgetTemplate extends StatefulWidget {
-//   const StatefulWidgetTemplate(this.viewModel, {required super.key});
+//   const StatefulWidgetTemplate({super.key, required this.business});
 //
-//   // 위젯 뷰모델
-//   final StatefulWidgetTemplateViewModel viewModel;
+//   // 위젯 비즈니스
+//   final StatefulWidgetTemplateBusiness business;
 //
 //   //!!!주입 받을 하위 위젯 선언 하기!!!
 //
 //   @override
-//   StatefulWidgetTemplateState createState() => StatefulWidgetTemplateState();
+//   // ignore: no_logic_in_create_state
+//   StatefulWidgetTemplateBusiness createState() => business;
 // }
 //
-// class StatefulWidgetTemplateViewModel {
-//   StatefulWidgetTemplateViewModel(this.sampleInt);
+// class StatefulWidgetTemplateBusiness extends State<StatefulWidgetTemplate> {
+//   StatefulWidgetTemplateBusiness(this.sampleText);
 //
-//   // !!!위젯 상태 변수 선언하기!!!
-//   int sampleInt;
-// }
-//
-// class StatefulWidgetTemplateState extends State<StatefulWidgetTemplate> {
 //   // Stateful Widget 화면 갱신
 //   void refresh() {
 //     setState(() {});
 //   }
 //
+//   // !!!위젯 상태 변수 선언하기!!!
+//   String sampleText;
+//
+//   // !!!위젯 비즈니스 로직 작성하기!!!
+//   void sampleFunc(String text) {
+//     sampleText = sampleText;
+//   }
+//
+//   // !!!위젯 작성하기. (business 에서 데이터를 가져와 사용)!!!
 //   @override
 //   Widget build(BuildContext context) {
-//     // !!!하위 위젯 작성하기. (widget.viewModel 에서 데이터를 가져와 사용)!!!
-//     return Text(widget.viewModel.sampleInt.toString());
+//     return Text(sampleText);
 //   }
 // }

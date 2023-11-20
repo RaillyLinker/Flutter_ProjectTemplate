@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 // (스레드 합류 클래스)
 // 나눠진 스레드를 하나의 시점에 모을 때 사용합니다.
 // 사용법 :
-// var threadConfluenceObj = ThreadConfluenceObj(2, () {
+// var threadConfluenceObj = ThreadConfluenceObj(numberOfThreadsBeingJoined: 2, onComplete: () {
 //     print("Threads all Complete!");
 // });
 // 위와 같이 먼저 합류 객체를 만듭니다.
@@ -22,32 +22,33 @@ import 'package:flutter/material.dart';
 // 를 해줍니다.
 // 여기선 threadConfluenceObj.threadComplete(); 가 2번 동작하면 합류 객체에 넘겨준 콜백이 실행되는 것입니다.
 class ThreadConfluenceObj {
-  ThreadConfluenceObj(this.numberOfThreadsBeingJoined, this._onComplete);
+  ThreadConfluenceObj(
+      {required this.numberOfThreadsBeingJoined, required this.onComplete});
 
   late int numberOfThreadsBeingJoined;
-  late final void Function() _onComplete;
+  late final void Function() onComplete;
 
-  int _threadAccessCount = 0;
-  final Semaphore _threadAccessCountSemaphore = Semaphore(1);
+  int threadAccessCount = 0;
+  final Semaphore threadAccessCountSemaphore = Semaphore(1);
 
   void threadComplete() {
     () async {
-      _threadAccessCountSemaphore.acquire();
-      if (_threadAccessCount < 0) {
+      threadAccessCountSemaphore.acquire();
+      if (threadAccessCount < 0) {
         // 오버플로우 방지
         return;
       }
 
       // 스레드 접근 카운트 +1
-      ++_threadAccessCount;
+      ++threadAccessCount;
 
-      if (_threadAccessCount != numberOfThreadsBeingJoined) {
+      if (threadAccessCount != numberOfThreadsBeingJoined) {
         // 접근 카운트가 합류 총 개수를 넘었을 때 or 접근 카운트가 합류 총 개수에 미치지 못했을 때
-        _threadAccessCountSemaphore.release();
+        threadAccessCountSemaphore.release();
       } else {
         // 접근 카운트가 합류 총 개수에 다다랐을 때
-        _threadAccessCountSemaphore.release();
-        _onComplete();
+        threadAccessCountSemaphore.release();
+        onComplete();
       }
     }();
   }
@@ -55,8 +56,9 @@ class ThreadConfluenceObj {
 
 // (AnimatedSwitcher 설정)
 class AnimatedSwitcherConfig {
-  AnimatedSwitcherConfig(this.duration,
-      {this.reverseDuration,
+  AnimatedSwitcherConfig(
+      {required this.duration,
+      required this.reverseDuration,
       this.switchInCurve = Curves.linear,
       this.switchOutCurve = Curves.linear,
       this.transitionBuilder = AnimatedSwitcher.defaultTransitionBuilder,
@@ -70,7 +72,8 @@ class AnimatedSwitcherConfig {
   AnimatedSwitcherLayoutBuilder layoutBuilder;
 
   AnimatedSwitcherConfig clone() {
-    return AnimatedSwitcherConfig(duration,
+    return AnimatedSwitcherConfig(
+        duration: duration,
         reverseDuration: reverseDuration,
         switchInCurve: switchInCurve,
         switchOutCurve: switchOutCurve,

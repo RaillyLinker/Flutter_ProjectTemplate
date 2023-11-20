@@ -13,7 +13,7 @@ import '../../../../repositories/spws/spw_auth_member_info.dart'
 
 // -----------------------------------------------------------------------------
 // (위젯에서 앞서 설정한 키 값을 가져오기)
-String? getWidgetKeyValue(widgets.Widget widget) {
+String? getWidgetKeyValue({required widgets.Widget widget}) {
   if (widget.key == null) {
     return null;
   } else {
@@ -49,7 +49,7 @@ spw_sign_in_member_info.SharedPreferenceWrapperVo? getNowVerifiedMemberInfo() {
       if (isRefreshTokenExpired) {
         // 리플레시 토큰 만료
         // login_user_info SPW 비우기
-        spw_sign_in_member_info.SharedPreferenceWrapper.set(null);
+        spw_sign_in_member_info.SharedPreferenceWrapper.set(value: null);
         // 재 로그인이 필요한 상황이므로 비회원으로 다루기
       } else {
         // 리플레시 토큰 만료 되지 않음 = 재발급은 하지 않고 회원 정보 승인
@@ -65,9 +65,9 @@ spw_sign_in_member_info.SharedPreferenceWrapperVo? getNowVerifiedMemberInfo() {
 }
 
 // Gif 정보 가져오기
-GetGifDetailsOutputVo getGifDetails(ByteData data) {
+GetGifDetailsOutputVo getGifDetails({required ByteData byteData}) {
   // GIF 이미지 데이터 로드
-  var gif = img.decodeGif(data.buffer.asUint8List());
+  var gif = img.decodeGif(byteData.buffer.asUint8List());
 
   if (gif == null) throw 'Failed to decode gif';
 
@@ -77,11 +77,11 @@ GetGifDetailsOutputVo getGifDetails(ByteData data) {
     duration += frame.frameDuration;
   }
 
-  return GetGifDetailsOutputVo(gif.numFrames, duration);
+  return GetGifDetailsOutputVo(frameCount: gif.numFrames, duration: duration);
 }
 
 class GetGifDetailsOutputVo {
-  GetGifDetailsOutputVo(this.frameCount, this.duration);
+  GetGifDetailsOutputVo({required this.frameCount, required this.duration});
 
   int frameCount;
   int duration;

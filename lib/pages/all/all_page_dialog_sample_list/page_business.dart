@@ -129,7 +129,7 @@ class PageBusiness {
               barrierDismissible: true,
               context: _context,
               builder: (context) => all_dialog_template.PageEntrance(
-                    all_dialog_template.PageInputVo(),
+                    pageInputVo: all_dialog_template.PageInputVo(),
                   )).then((outputVo) {});
         }
         break;
@@ -239,7 +239,7 @@ class PageBusiness {
               context: _context,
               barrierColor: Colors.blue.withOpacity(0.5),
               builder: (context) => all_dialog_template.PageEntrance(
-                    all_dialog_template.PageInputVo(),
+                    pageInputVo: all_dialog_template.PageInputVo(),
                   )).then((outputVo) {});
         }
         break;

@@ -113,8 +113,8 @@ class PageBusiness {
         {
           // 애니메이션 없음
 
-          int sampleWidgetKeyValue = int.parse(
-              gf_my_functions.getWidgetKeyValue(pageViewModel.sampleWidget)!);
+          int sampleWidgetKeyValue = int.parse(gf_my_functions
+              .getWidgetKeyValue(widget: pageViewModel.sampleWidget)!);
           if (pageViewModel.sampleWidgetEnum ==
               SampleWidgetEnum.blueCircleWidget) {
             pageViewModel.sampleWidgetEnum =
@@ -158,7 +158,8 @@ class PageBusiness {
 
           pageViewModel.widgetChangeAnimatedSwitcherConfig =
               gc_my_classes.AnimatedSwitcherConfig(
-                  const Duration(milliseconds: 0));
+                  duration: const Duration(milliseconds: 0),
+                  reverseDuration: null);
           blocObjects.blocAnimationSample.refresh();
         }
         break;
@@ -166,8 +167,8 @@ class PageBusiness {
         {
           // Fade 애니메이션 적용
 
-          int sampleWidgetKeyValue = int.parse(
-              gf_my_functions.getWidgetKeyValue(pageViewModel.sampleWidget)!);
+          int sampleWidgetKeyValue = int.parse(gf_my_functions
+              .getWidgetKeyValue(widget: pageViewModel.sampleWidget)!);
           if (pageViewModel.sampleWidgetEnum ==
               SampleWidgetEnum.blueCircleWidget) {
             pageViewModel.sampleWidgetEnum =
@@ -211,12 +212,14 @@ class PageBusiness {
 
           pageViewModel.widgetChangeAnimatedSwitcherConfig =
               gc_my_classes.AnimatedSwitcherConfig(
-                  const Duration(
+                  duration: const Duration(
                     milliseconds: 500,
-                  ), transitionBuilder:
+                  ),
+                  reverseDuration: null,
+                  transitionBuilder:
                       (Widget child, Animation<double> animation) {
-            return FadeTransition(opacity: animation, child: child);
-          });
+                    return FadeTransition(opacity: animation, child: child);
+                  });
           blocObjects.blocAnimationSample.refresh();
         }
         break;
@@ -224,8 +227,8 @@ class PageBusiness {
         {
           // Scale 애니메이션 적용
 
-          int sampleWidgetKeyValue = int.parse(
-              gf_my_functions.getWidgetKeyValue(pageViewModel.sampleWidget)!);
+          int sampleWidgetKeyValue = int.parse(gf_my_functions
+              .getWidgetKeyValue(widget: pageViewModel.sampleWidget)!);
           if (pageViewModel.sampleWidgetEnum ==
               SampleWidgetEnum.blueCircleWidget) {
             pageViewModel.sampleWidgetEnum =
@@ -269,12 +272,14 @@ class PageBusiness {
 
           pageViewModel.widgetChangeAnimatedSwitcherConfig =
               gc_my_classes.AnimatedSwitcherConfig(
-                  const Duration(
+                  duration: const Duration(
                     milliseconds: 500,
-                  ), transitionBuilder:
+                  ),
+                  reverseDuration: null,
+                  transitionBuilder:
                       (Widget child, Animation<double> animation) {
-            return ScaleTransition(scale: animation, child: child);
-          });
+                    return ScaleTransition(scale: animation, child: child);
+                  });
           blocObjects.blocAnimationSample.refresh();
         }
         break;
@@ -282,8 +287,8 @@ class PageBusiness {
         {
           // Flip 애니메이션 적용
 
-          int sampleWidgetKeyValue = int.parse(
-              gf_my_functions.getWidgetKeyValue(pageViewModel.sampleWidget)!);
+          int sampleWidgetKeyValue = int.parse(gf_my_functions
+              .getWidgetKeyValue(widget: pageViewModel.sampleWidget)!);
           if (pageViewModel.sampleWidgetEnum ==
               SampleWidgetEnum.redSquareWidget) {
             pageViewModel.sampleWidgetEnum = SampleWidgetEnum.blueSquareWidget;
@@ -313,12 +318,15 @@ class PageBusiness {
 
           pageViewModel.widgetChangeAnimatedSwitcherConfig =
               gc_my_classes.AnimatedSwitcherConfig(
-                  const Duration(
+                  duration: const Duration(
                     milliseconds: 500,
-                  ), transitionBuilder:
+                  ),
+                  reverseDuration: null,
+                  transitionBuilder:
                       (Widget child, Animation<double> animation) {
-            return gc_animated_builder.wrapAnimatedBuilder(child, animation);
-          });
+                    return gc_animated_builder.wrapAnimatedBuilder(
+                        child: child, animation: animation);
+                  });
           blocObjects.blocAnimationSample.refresh();
         }
         break;
@@ -383,11 +391,13 @@ class PageViewModel {
   // 위젯 변경 애니메이션
   gc_my_classes.AnimatedSwitcherConfig widgetChangeAnimatedSwitcherConfig =
       gc_my_classes.AnimatedSwitcherConfig(
-          const Duration(
+          duration: const Duration(
             milliseconds: 0,
-          ), transitionBuilder: (Widget child, Animation<double> animation) {
-    return FadeTransition(opacity: animation, child: child);
-  });
+          ),
+          reverseDuration: null,
+          transitionBuilder: (Widget child, Animation<double> animation) {
+            return FadeTransition(opacity: animation, child: child);
+          });
 }
 
 class SampleItem {

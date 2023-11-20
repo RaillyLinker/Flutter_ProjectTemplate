@@ -15,12 +15,12 @@ import '../../../global_classes/gc_template_classes.dart'
 // 페이지의 비즈니스 로직 담당
 // PageBusiness 인스턴스는 해당 페이지가 소멸하기 전까지 활용됩니다.
 class PageBusiness {
-  PageBusiness(this._context, this.pageInputVo) {
-    pageViewModel = PageViewModel(_context);
+  PageBusiness({required this.context, required this.pageInputVo}) {
+    pageViewModel = PageViewModel(context: context);
   }
 
   // 페이지 컨텍스트 객체
-  final BuildContext _context;
+  final BuildContext context;
 
   // 페이지 생명주기 관련 states
   final gc_template_classes.PageLifeCycleStates pageLifeCycleStates =
@@ -74,7 +74,7 @@ class PageBusiness {
   // !!!외부에서 사용할 비즈니스 로직은 아래에 공개 함수로 구현!!!
   // (다이얼로그 종료 함수)
   void closeDialog() {
-    _context.pop();
+    context.pop();
   }
 
 ////
@@ -85,13 +85,16 @@ class PageBusiness {
 // (페이지 뷰 모델 클래스)
 // 페이지 전역의 데이터는 여기에 정의되며, Business 인스턴스 안의 pageViewModel 변수로 저장 됩니다.
 class PageViewModel {
-  PageViewModel(this._context);
+  PageViewModel({required this.context});
 
   // 페이지 컨텍스트 객체
-  final BuildContext _context;
+  final BuildContext context;
 
 // !!!페이지 데이터 정의!!!
 // ex :
-// GlobalKey<SampleWidgetState> sampleWidgetStateGk = GlobalKey();
-// SampleWidgetViewModel sampleWidgetViewModel = SampleWidgetViewModel();
+//   page_view
+//       .StatefulWidgetTemplateBusiness statefulWidgetTemplateBusiness = page_view
+//       .StatefulWidgetTemplateBusiness(
+//       sampleText: "sampleText"
+//   );
 }

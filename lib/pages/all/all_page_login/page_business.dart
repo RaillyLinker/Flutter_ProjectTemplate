@@ -234,9 +234,9 @@ class PageBusiness {
               for (var myProfile in responseBody.myEmailList) {
                 myEmailList.add(
                     spw_auth_member_info.SharedPreferenceWrapperVoEmailInfo(
-                  myProfile.uid,
-                  myProfile.emailAddress,
-                  myProfile.isFront,
+                  uid: myProfile.uid,
+                  emailAddress: myProfile.emailAddress,
+                  isFront: myProfile.isFront,
                 ));
               }
 
@@ -245,14 +245,14 @@ class PageBusiness {
               for (var myProfile in responseBody.myPhoneNumberList) {
                 myPhoneNumberList.add(
                     spw_auth_member_info.SharedPreferenceWrapperVoPhoneInfo(
-                  myProfile.uid,
-                  myProfile.phoneNumber,
-                  myProfile.isFront,
+                  uid: myProfile.uid,
+                  phoneNumber: myProfile.phoneNumber,
+                  isFront: myProfile.isFront,
                 ));
               }
 
               spw_auth_member_info.SharedPreferenceWrapper.set(
-                  spw_auth_member_info.SharedPreferenceWrapperVo(
+                  value: spw_auth_member_info.SharedPreferenceWrapperVo(
                 responseBody.memberUid,
                 responseBody.nickName,
                 responseBody.roleList,

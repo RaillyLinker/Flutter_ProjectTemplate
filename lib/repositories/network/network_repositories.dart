@@ -99,7 +99,7 @@ void setDioObjects() {
             // 올바르지 않은 Authorization Token
 
             // login_user_info SSW 비우기 (= 로그아웃 처리)
-            spw_auth_member_info.SharedPreferenceWrapper.set(null);
+            spw_auth_member_info.SharedPreferenceWrapper.set(value: null);
 
             // 호출 코드로 응답 전달
             handler.resolve(response);
@@ -128,7 +128,7 @@ void setDioObjects() {
                 // 리플래시 토큰이 사용 불가이므로 로그아웃 처리
 
                 // login_user_info SSW 비우기 (= 로그아웃 처리)
-                spw_auth_member_info.SharedPreferenceWrapper.set(null);
+                spw_auth_member_info.SharedPreferenceWrapper.set(value: null);
 
                 // 호출 코드로 응답 전달
                 handler.resolve(response);
@@ -193,8 +193,10 @@ void setDioObjects() {
                         .PostReissueAsyncResponseBodyVoEmail myEmail
                         in postReissueResponseBody.myEmailList) {
                       myEmailList.add(spw_auth_member_info
-                          .SharedPreferenceWrapperVoEmailInfo(myEmail.uid,
-                              myEmail.emailAddress, myEmail.isFront));
+                          .SharedPreferenceWrapperVoEmailInfo(
+                              uid: myEmail.uid,
+                              emailAddress: myEmail.emailAddress,
+                              isFront: myEmail.isFront));
                     }
 
                     List<
@@ -205,8 +207,10 @@ void setDioObjects() {
                         .PostReissueAsyncResponseBodyVoPhone myPhone
                         in postReissueResponseBody.myPhoneNumberList) {
                       myPhoneNumberList.add(spw_auth_member_info
-                          .SharedPreferenceWrapperVoPhoneInfo(myPhone.uid,
-                              myPhone.phoneNumber, myPhone.isFront));
+                          .SharedPreferenceWrapperVoPhoneInfo(
+                              uid: myPhone.uid,
+                              phoneNumber: myPhone.phoneNumber,
+                              isFront: myPhone.isFront));
                     }
 
                     loginMemberInfo.memberUid =
@@ -231,7 +235,7 @@ void setDioObjects() {
                         postReissueResponseBody.authPasswordIsNull;
 
                     spw_auth_member_info.SharedPreferenceWrapper.set(
-                        loginMemberInfo);
+                        value: loginMemberInfo);
 
                     // 새로운 AccessToken 으로 재요청
                     try {
@@ -286,7 +290,7 @@ void setDioObjects() {
 
                             // login_user_info SSW 비우기 (= 로그아웃 처리)
                             spw_auth_member_info.SharedPreferenceWrapper.set(
-                                null);
+                                value: null);
 
                             // 호출 코드로 응답 전달
                             handler.resolve(response);

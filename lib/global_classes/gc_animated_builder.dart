@@ -9,7 +9,8 @@ import 'package:flutter/cupertino.dart';
 
 // -----------------------------------------------------------------------------
 // (Flip Animation)
-Widget wrapAnimatedBuilder(Widget child, Animation<double> animation) {
+Widget wrapAnimatedBuilder(
+    {required Widget child, required Animation<double> animation}) {
   final rotate = Tween(begin: pi, end: 0.0).animate(animation);
 
   return AnimatedBuilder(

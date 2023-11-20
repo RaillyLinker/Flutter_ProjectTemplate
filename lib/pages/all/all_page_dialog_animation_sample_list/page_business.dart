@@ -124,7 +124,7 @@ class PageBusiness {
               return Transform.rotate(
                 angle: math.radians(a1.value * 360),
                 child: all_dialog_template.PageEntrance(
-                  all_dialog_template.PageInputVo(),
+                  pageInputVo: all_dialog_template.PageInputVo(),
                 ),
               );
             },
@@ -147,7 +147,7 @@ class PageBusiness {
               return Transform.scale(
                 scale: curve,
                 child: all_dialog_template.PageEntrance(
-                  all_dialog_template.PageInputVo(),
+                  pageInputVo: all_dialog_template.PageInputVo(),
                 ),
               );
             },
@@ -172,7 +172,7 @@ class PageBusiness {
                 transform:
                     Matrix4.translationValues(0.0, curvedValue * 1600, 0.0),
                 child: all_dialog_template.PageEntrance(
-                  all_dialog_template.PageInputVo(),
+                  pageInputVo: all_dialog_template.PageInputVo(),
                 ),
               );
             },

@@ -7,13 +7,13 @@ import 'package:encrypt/encrypt.dart';
 
 // -----------------------------------------------------------------------------
 // (Base64 인코딩)
-String base64Encode(String input) {
-  return base64.encode(utf8.encode(input));
+String base64Encode({required String plainText}) {
+  return base64.encode(utf8.encode(plainText));
 }
 
 // (Base64 디코딩)
-String base64Decode(String encoded) {
-  return utf8.decode(base64.decode(encoded));
+String base64Decode({required String encodedText}) {
+  return utf8.decode(base64.decode(encodedText));
 }
 
 // (AES 256 암호화 함수)
@@ -21,7 +21,10 @@ String base64Decode(String encoded) {
 // plainText : 암호화하려는 평문
 // secretKey : 암호화 키 (32 byte)
 // secretIv : 암호 초기화 백터 (16 byte)
-String aes256Encrypt(String plainText, String secretKey, String secretIv) {
+String aes256Encrypt(
+    {required String plainText,
+    required String secretKey,
+    required String secretIv}) {
   return base64.encode(
       Encrypter(AES(Key.fromUtf8(secretKey), mode: AESMode.cbc))
           .encrypt(plainText, iv: IV.fromUtf8(secretIv))
@@ -33,7 +36,10 @@ String aes256Encrypt(String plainText, String secretKey, String secretIv) {
 // cipherText : 복호화하려는 암호문
 // secretKey : 암호화 키 (32 byte)
 // secretIv : 암호 초기화 백터 (16 byte)
-String aes256Decrypt(String cipherText, String secretKey, String secretIv) {
+String aes256Decrypt(
+    {required String cipherText,
+    required String secretKey,
+    required String secretIv}) {
   return Encrypter(AES(Key.fromUtf8(secretKey), mode: AESMode.cbc))
       .decrypt64(cipherText, iv: IV.fromUtf8(secretIv));
 }

@@ -117,9 +117,9 @@ class PageBusiness {
     try {
       // !!!원하는 암호화 알고리즘을 적용!!!
       pageViewModel.aes256EncryptResultText = gf_crypto.aes256Encrypt(
-        encryptString,
-        pageViewModel.aes256SecretKeyTextController.text,
-        pageViewModel.aes256IvTextController.text,
+        plainText: encryptString,
+        secretKey: pageViewModel.aes256SecretKeyTextController.text,
+        secretIv: pageViewModel.aes256IvTextController.text,
       );
     } catch (e) {
       if (kDebugMode) {
@@ -137,9 +137,9 @@ class PageBusiness {
     try {
       // !!!원하는 복호화 알고리즘을 적용!!!
       pageViewModel.aes256DecryptResultText = gf_crypto.aes256Decrypt(
-        decryptString,
-        pageViewModel.aes256SecretKeyTextController.text,
-        pageViewModel.aes256IvTextController.text,
+        cipherText: decryptString,
+        secretKey: pageViewModel.aes256SecretKeyTextController.text,
+        secretIv: pageViewModel.aes256IvTextController.text,
       );
     } catch (e) {
       if (kDebugMode) {

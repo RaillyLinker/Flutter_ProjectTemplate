@@ -44,8 +44,10 @@ class SharedPreferenceWrapper {
       // 저장된 값이 들어있는 경우
       try {
         // 값 복호화
-        String decryptedJsonString =
-            gf_crypto.aes256Decrypt(savedJsonString, secretKey, secretIv);
+        String decryptedJsonString = gf_crypto.aes256Decrypt(
+            cipherText: savedJsonString,
+            secretKey: secretKey,
+            secretIv: secretIv);
 
         // !!! Map 을 Object 로 변경!!!
         // map 키는 Object 의 변수명과 동일
@@ -70,7 +72,9 @@ class SharedPreferenceWrapper {
         List<SharedPreferenceWrapperVoEmailInfo> myEmailObjectList = [];
         for (Map<String, dynamic> email in myEmailList) {
           myEmailObjectList.add(SharedPreferenceWrapperVoEmailInfo(
-              email["uid"], email["emailAddress"], email["isFront"]));
+              uid: email["uid"],
+              emailAddress: email["emailAddress"],
+              isFront: email["isFront"]));
         }
 
         var myPhoneNumberList =
@@ -78,7 +82,9 @@ class SharedPreferenceWrapper {
         List<SharedPreferenceWrapperVoPhoneInfo> myPhoneNumberObjectList = [];
         for (Map<String, dynamic> phone in myPhoneNumberList) {
           myPhoneNumberObjectList.add(SharedPreferenceWrapperVoPhoneInfo(
-              phone["uid"], phone["phoneNumber"], phone["isFront"]));
+              uid: phone["uid"],
+              phoneNumber: phone["phoneNumber"],
+              isFront: phone["isFront"]));
         }
 
         var resultObject = SharedPreferenceWrapperVo(
@@ -113,7 +119,7 @@ class SharedPreferenceWrapper {
   }
 
   // (SPW 값 저장하기)
-  static void set(SharedPreferenceWrapperVo? value) {
+  static void set({required SharedPreferenceWrapperVo? value}) {
     semaphore.acquire();
     if (value == null) {
       // 키에 암호화된 값을 저장
@@ -179,8 +185,8 @@ class SharedPreferenceWrapper {
       };
 
       // 값 암호화
-      String encryptedJsonString =
-          gf_crypto.aes256Encrypt(jsonEncode(map), secretKey, secretIv);
+      String encryptedJsonString = gf_crypto.aes256Encrypt(
+          plainText: jsonEncode(map), secretKey: secretKey, secretIv: secretIv);
 
       // 키에 암호화된 값을 저장
       gd_const.sharedPreferences
@@ -194,6 +200,21 @@ class SharedPreferenceWrapper {
 
 // !!!저장 정보 데이터 형태 작성!!!
 class SharedPreferenceWrapperVo {
+  SharedPreferenceWrapperVo(
+      this.memberUid,
+      this.nickName,
+      this.roleList,
+      this.tokenType,
+      this.accessToken,
+      this.accessTokenExpireWhen,
+      this.refreshToken,
+      this.refreshTokenExpireWhen,
+      this.myOAuth2List,
+      this.myProfileList,
+      this.myEmailList,
+      this.myPhoneNumberList,
+      this.authPasswordIsNull);
+
   int memberUid; // 멤버 고유값
   String nickName; // 닉네임
   List<String>
@@ -213,39 +234,24 @@ class SharedPreferenceWrapperVo {
       myPhoneNumberList; // 내가 등록한 전화번호 정보 리스트
   bool
       authPasswordIsNull; // 계정 로그인 비밀번호 설정 Null 여부 (OAuth2 만으로 회원가입한 경우는 비밀번호가 없으므로 true)
-
-  SharedPreferenceWrapperVo(
-      this.memberUid,
-      this.nickName,
-      this.roleList,
-      this.tokenType,
-      this.accessToken,
-      this.accessTokenExpireWhen,
-      this.refreshToken,
-      this.refreshTokenExpireWhen,
-      this.myOAuth2List,
-      this.myProfileList,
-      this.myEmailList,
-      this.myPhoneNumberList,
-      this.authPasswordIsNull);
 }
 
 class SharedPreferenceWrapperVoOAuth2Info {
+  SharedPreferenceWrapperVoOAuth2Info(
+      this.uid, this.oauth2TypeCode, this.oauth2Id);
+
   int uid; // 행 고유값
   int oauth2TypeCode; // OAuth2 (1 : Google, 2 : Naver, 3 : Kakao, 4 : Apple)
   String oauth2Id; // oAuth2 고유값 아이디
-
-  SharedPreferenceWrapperVoOAuth2Info(
-      this.uid, this.oauth2TypeCode, this.oauth2Id);
 }
 
 class SharedPreferenceWrapperVoProfileInfo {
+  SharedPreferenceWrapperVoProfileInfo(
+      this.uid, this.imageFullUrl, this.isFront);
+
   int uid; // 행 고유값
   String imageFullUrl; // 프로필 이미지 Full URL
   bool isFront; //대표 프로필 여부
-
-  SharedPreferenceWrapperVoProfileInfo(
-      this.uid, this.imageFullUrl, this.isFront);
 
   @override
   String toString() {
@@ -254,11 +260,12 @@ class SharedPreferenceWrapperVoProfileInfo {
 }
 
 class SharedPreferenceWrapperVoEmailInfo {
+  SharedPreferenceWrapperVoEmailInfo(
+      {required this.uid, required this.emailAddress, required this.isFront});
+
   int uid; // 행 고유값
   String emailAddress; // 이메일 주소
   bool isFront; //대표 프로필 여부
-
-  SharedPreferenceWrapperVoEmailInfo(this.uid, this.emailAddress, this.isFront);
 
   @override
   String toString() {
@@ -267,7 +274,8 @@ class SharedPreferenceWrapperVoEmailInfo {
 }
 
 class SharedPreferenceWrapperVoPhoneInfo {
-  SharedPreferenceWrapperVoPhoneInfo(this.uid, this.phoneNumber, this.isFront);
+  SharedPreferenceWrapperVoPhoneInfo(
+      {required this.uid, required this.phoneNumber, required this.isFront});
 
   int uid; // 행 고유값
   String phoneNumber; // 전화번호

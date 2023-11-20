@@ -41,8 +41,7 @@ class PageView extends StatelessWidget {
                     ),
                     margin: const EdgeInsets.only(bottom: 20),
                     child: SampleNumberText(
-                        _pageBusiness.pageViewModel.sampleWidgetViewModel,
-                        key: _pageBusiness.pageViewModel.sampleWidgetStateGk),
+                        _pageBusiness.pageViewModel.sampleWidgetState),
                   ),
                 ),
               ),
@@ -142,22 +141,15 @@ class PageView extends StatelessWidget {
 // }
 
 class SampleNumberText extends StatefulWidget {
-  const SampleNumberText(this.viewModel, {required super.key});
+  const SampleNumberText(this.state, {super.key});
 
   // 위젯 뷰모델
-  final SampleNumberTextViewModel viewModel;
+  final SampleNumberTextState state;
 
   //!!!주입 받을 하위 위젯 선언 하기!!!
 
   @override
-  SampleNumberTextState createState() => SampleNumberTextState();
-}
-
-class SampleNumberTextViewModel {
-  SampleNumberTextViewModel();
-
-  // !!!위젯 상태 변수 선언하기!!!
-  int sampleInt = 0;
+  SampleNumberTextState createState() => state;
 }
 
 class SampleNumberTextState extends State<SampleNumberText> {
@@ -166,10 +158,13 @@ class SampleNumberTextState extends State<SampleNumberText> {
     setState(() {});
   }
 
+  // !!!위젯 상태 변수 선언하기!!!
+  int sampleInt = 0;
+
   @override
   Widget build(BuildContext context) {
     // !!!하위 위젯 작성하기. (widget.viewModel 에서 데이터를 가져와 사용)!!!
-    return Text("${widget.viewModel.sampleInt}",
+    return Text("$sampleInt",
         style: const TextStyle(
             fontSize: 20, color: Colors.black, fontFamily: "MaruBuri"));
   }

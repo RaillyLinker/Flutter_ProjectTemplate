@@ -132,8 +132,8 @@ class PageBusiness {
 
   // (화면 카운트 +1)
   void countPlus1() {
-    pageViewModel.sampleWidgetViewModel.sampleInt += 1;
-    pageViewModel.sampleWidgetStateGk.currentState?.refresh();
+    pageViewModel.sampleWidgetState.sampleInt += 1;
+    pageViewModel.sampleWidgetState.refresh();
   }
 
 ////
@@ -154,9 +154,8 @@ class PageViewModel {
   // GlobalKey<SampleWidgetState> sampleWidgetStateGk = GlobalKey();
   // SampleWidgetViewModel sampleWidgetViewModel = SampleWidgetViewModel();
 
-  GlobalKey<page_view.SampleNumberTextState> sampleWidgetStateGk = GlobalKey();
-  page_view.SampleNumberTextViewModel sampleWidgetViewModel =
-      page_view.SampleNumberTextViewModel();
+  page_view.SampleNumberTextState sampleWidgetState =
+      page_view.SampleNumberTextState();
 
   // PageOutFrameViewModel
   gw_page_out_frames.PageOutFrameViewModel pageOutFrameViewModel =

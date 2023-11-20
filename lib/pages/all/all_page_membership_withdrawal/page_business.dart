@@ -207,7 +207,7 @@ class PageBusiness {
           if (networkResponseObjectOk.responseStatusCode == 200) {
             // 정상 응답
             // 로그아웃 처리
-            spw_auth_member_info.SharedPreferenceWrapper.set(null);
+            spw_auth_member_info.SharedPreferenceWrapper.set(value: null);
             if (!_context.mounted) return;
             await showDialog(
                 barrierDismissible: true,

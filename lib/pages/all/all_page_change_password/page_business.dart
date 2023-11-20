@@ -400,7 +400,7 @@ class PageBusiness {
                           "${loginMemberInfo!.tokenType} ${loginMemberInfo.accessToken}"));
 
               // login_user_info SPW 비우기
-              spw_auth_member_info.SharedPreferenceWrapper.set(null);
+              spw_auth_member_info.SharedPreferenceWrapper.set(value: null);
             }
 
             loadingSpinner.pageBusiness.closeDialog();
@@ -429,7 +429,7 @@ class PageBusiness {
                       "${loginMemberInfo!.tokenType} ${loginMemberInfo.accessToken}"));
 
               // login_user_info SPW 비우기
-              spw_auth_member_info.SharedPreferenceWrapper.set(null);
+              spw_auth_member_info.SharedPreferenceWrapper.set(value: null);
             }
 
             loadingSpinner.pageBusiness.closeDialog();
