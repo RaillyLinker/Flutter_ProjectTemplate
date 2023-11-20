@@ -1,6 +1,8 @@
 [TODO]
 
-- 작업 순서 : Global Widget 에 Widget Template 적용 -> repository-network 에 이름 파라미터 적용 및 프라이빗 제거 -> 다이얼로그 템플릿 적용 -> 페이지 템플릿 적용
+- 다이얼로그, 페이지 템플릿에서 Business 에서 뷰모델을 제거하고 비즈니스 안에 그냥 넣기
+- 작업 순서 : Global Widget 에 Widget Template 적용 -> repository-network 에 이름 파라미터 적용 및 프라이빗 제거
+    -> 페이지 템플릿에서 스테이트 유지 되는지 테스트 -> 다이얼로그 템플릿 적용 -> 페이지 템플릿 적용
 - Global Widget, Dialog Template, Page Template 모두 적용하기
 - 변수 프라이빗을 모두 퍼블릭으로 바꾸기 (repository-network, Global Widget, Dialog, Page)
 - 함수, 생성자 파라미터를 모두 이름 있는 것으로 바꾸기 (repository-network, Global Widget, Dialog, Page)
