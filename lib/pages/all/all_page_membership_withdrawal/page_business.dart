@@ -278,8 +278,8 @@ class PageViewModel {
   // int sampleNumber = 0;
 
   // PageOutFrameViewModel
-  gw_page_out_frames.PageOutFrameViewModel pageOutFrameViewModel =
-      gw_page_out_frames.PageOutFrameViewModel("회원 탈퇴");
+  gw_page_out_frames.PageOutFrameBusiness pageOutFrameBusiness =
+      gw_page_out_frames.PageOutFrameBusiness(pageTitle: "회원 탈퇴");
 
   bool withdrawalAgree = false;
 }

@@ -10,40 +10,49 @@ import 'package:go_router/go_router.dart';
 //------------------------------------------------------------------------------
 // (호버 리스트 타일 래퍼)
 class HoverListTileWrapper extends StatefulWidget {
-  const HoverListTileWrapper(this.viewModel, this.listTileChild,
-      {required super.key});
+  const HoverListTileWrapper(
+      {super.key, required this.business, required this.listTileChild});
 
-  final HoverListTileWrapperViewModel viewModel;
+  // 위젯 비즈니스
+  final HoverListTileWrapperBusiness business;
+
+  //!!!주입 받을 하위 위젯 선언 하기!!!
   final Widget listTileChild;
 
   @override
-  HoverListTileWrapperState createState() => HoverListTileWrapperState();
+  // ignore: no_logic_in_create_state
+  HoverListTileWrapperBusiness createState() => business;
 }
 
-class HoverListTileWrapperViewModel {
-  HoverListTileWrapperViewModel(this.onRouteListItemClick);
+class HoverListTileWrapperBusiness extends State<HoverListTileWrapper> {
+  HoverListTileWrapperBusiness({required this.onRouteListItemClick});
 
+  // Stateful Widget 화면 갱신
+  void refresh() {
+    setState(() {});
+  }
+
+  // !!!위젯 상태 변수 선언하기!!!
   bool isHovering = false;
   void Function() onRouteListItemClick;
-}
 
-class HoverListTileWrapperState extends State<HoverListTileWrapper> {
+  // !!!위젯 비즈니스 로직 작성하기!!!
+
+  // !!!위젯 작성하기. (business 에서 데이터를 가져와 사용)!!!
   @override
   Widget build(BuildContext context) {
     return MouseRegion(
       // 커서 변경 및 호버링 상태 변경
       cursor: SystemMouseCursors.click,
-      onEnter: (details) => setState(() => widget.viewModel.isHovering = true),
-      onExit: (details) => setState(() => widget.viewModel.isHovering = false),
+      onEnter: (details) => setState(() => isHovering = true),
+      onExit: (details) => setState(() => isHovering = false),
       child: GestureDetector(
         // 클릭시 제스쳐 콜백
         onTap: () {
-          widget.viewModel.onRouteListItemClick();
+          onRouteListItemClick();
         },
         child: Container(
-          color: widget.viewModel.isHovering
-              ? Colors.blue.withOpacity(0.2)
-              : Colors.white,
+          color: isHovering ? Colors.blue.withOpacity(0.2) : Colors.white,
           child: widget.listTileChild,
         ),
       ),
@@ -54,11 +63,14 @@ class HoverListTileWrapperState extends State<HoverListTileWrapper> {
 ////
 // (우클릭 컨텍스트 메뉴 영역 클래스)
 class ContextMenuRegion extends StatefulWidget {
-  const ContextMenuRegion(this.viewModel, this.child,
-      {required super.key, required this.contextMenuRegionItemVoList});
+  const ContextMenuRegion(
+      {super.key,
+      required this.business,
+      required this.child,
+      required this.contextMenuRegionItemVoList});
 
-  // 위젯 뷰모델
-  final ContextMenuRegionViewModel viewModel;
+  // 위젯 비즈니스
+  final ContextMenuRegionBusiness business;
 
   //!!!주입 받을 하위 위젯 선언 하기!!!
   final Widget child;
@@ -66,36 +78,22 @@ class ContextMenuRegion extends StatefulWidget {
   final List<ContextMenuRegionItemVo> contextMenuRegionItemVoList;
 
   @override
-  ContextMenuRegionState createState() => ContextMenuRegionState();
+  // ignore: no_logic_in_create_state
+  ContextMenuRegionBusiness createState() => business;
 }
 
-class ContextMenuRegionViewModel {
-  ContextMenuRegionViewModel();
+class ContextMenuRegionBusiness extends State<ContextMenuRegion> {
+  ContextMenuRegionBusiness();
 
-// !!!위젯 상태 변수 선언하기!!!
-}
-
-class ContextMenuRegionItemVo {
-  ContextMenuRegionItemVo(this.menuItemWidget, this.menuItemCallback) {
-    // itemUid =
-    //     "${menuItemWidget.hashCode.toString()}_${menuItemWidget.hashCode.toString()}";
-  }
-
-  Widget menuItemWidget;
-  void Function() menuItemCallback;
-
-// late String itemUid;
-}
-
-class ContextMenuRegionState extends State<ContextMenuRegion> {
   // Stateful Widget 화면 갱신
   void refresh() {
     setState(() {});
   }
 
-  Offset? _longPressOffset;
+  // !!!위젯 상태 변수 선언하기!!!
+  Offset? longPressOffset;
 
-  static bool get _longPressEnabled {
+  static bool get longPressEnabled {
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
       case TargetPlatform.iOS:
@@ -108,20 +106,7 @@ class ContextMenuRegionState extends State<ContextMenuRegion> {
     }
   }
 
-  void _onSecondaryTapUp(TapUpDetails details) {
-    _show(details.globalPosition);
-  }
-
-  void _onLongPressStart(LongPressStartDetails details) {
-    _longPressOffset = details.globalPosition;
-  }
-
-  void _onLongPress() {
-    assert(_longPressOffset != null);
-    _show(_longPressOffset!);
-    _longPressOffset = null;
-  }
-
+  // !!!위젯 비즈니스 로직 작성하기!!!
   Future<void> _show(Offset position) async {
     final RenderObject overlay =
         Overlay.of(context).context.findRenderObject()!;
@@ -152,16 +137,36 @@ class ContextMenuRegionState extends State<ContextMenuRegion> {
     }
   }
 
+  // !!!위젯 작성하기. (business 에서 데이터를 가져와 사용)!!!
   @override
   Widget build(BuildContext context) {
-    // !!!하위 위젯 작성하기. (widget.viewModel 에서 데이터를 가져와 사용)!!!
     return GestureDetector(
         behavior: HitTestBehavior.opaque,
-        onSecondaryTapUp: _onSecondaryTapUp,
-        onLongPress: _longPressEnabled ? _onLongPress : null,
-        onLongPressStart: _longPressEnabled ? _onLongPressStart : null,
+        onSecondaryTapUp: (TapUpDetails details) {
+          _show(details.globalPosition);
+        },
+        onLongPress: longPressEnabled
+            ? () {
+                assert(longPressOffset != null);
+                _show(longPressOffset!);
+                longPressOffset = null;
+              }
+            : null,
+        onLongPressStart: longPressEnabled
+            ? (LongPressStartDetails details) {
+                longPressOffset = details.globalPosition;
+              }
+            : null,
         child: widget.child);
   }
+}
+
+class ContextMenuRegionItemVo {
+  ContextMenuRegionItemVo(
+      {required this.menuItemWidget, required this.menuItemCallback});
+
+  Widget menuItemWidget;
+  void Function() menuItemCallback;
 }
 
 ////
@@ -169,18 +174,17 @@ class ContextMenuRegionState extends State<ContextMenuRegion> {
 // 이 위젯을 적용 후 dialogComplete() 를 사용 하면, dialogChild 가 completeChild 로 변환된 이후 종료 됩니다.
 class DialogCompleteAnimation extends StatefulWidget {
   const DialogCompleteAnimation(
-    this.viewModel, {
-    required super.key,
-    required this.dialogChild,
-    required this.dialogChildSize,
-    required this.completeChild,
-    required this.completeChildSize,
-    required this.completeAnimationDuration,
-    required this.completeCloseDuration,
-  });
+      {super.key,
+      required this.business,
+      required this.dialogChild,
+      required this.dialogChildSize,
+      required this.completeChild,
+      required this.completeChildSize,
+      required this.completeAnimationDuration,
+      required this.completeCloseDuration});
 
-  // 위젯 뷰모델
-  final DialogCompleteAnimationViewModel viewModel;
+  // 위젯 비즈니스
+  final DialogCompleteAnimationBusiness business;
 
   //!!!주입 받을 하위 위젯 선언 하기!!!
   // 다이얼로그 하위 위젯
@@ -198,27 +202,27 @@ class DialogCompleteAnimation extends StatefulWidget {
   final Duration completeCloseDuration;
 
   @override
-  DialogCompleteAnimationState createState() => DialogCompleteAnimationState();
+  // ignore: no_logic_in_create_state
+  DialogCompleteAnimationBusiness createState() => business;
 }
 
-class DialogCompleteAnimationViewModel {
-  DialogCompleteAnimationViewModel();
+class DialogCompleteAnimationBusiness extends State<DialogCompleteAnimation> {
+  DialogCompleteAnimationBusiness();
 
-  // !!!위젯 상태 변수 선언하기!!!
-
-  // 다이얼로그 작업 완료 여부
-  bool isComplete = false;
-}
-
-class DialogCompleteAnimationState extends State<DialogCompleteAnimation> {
   // Stateful Widget 화면 갱신
   void refresh() {
     setState(() {});
   }
 
+  // !!!위젯 상태 변수 선언하기!!!
+  // 다이얼로그 작업 완료 여부
+  bool isComplete = false;
+
+  // !!!위젯 비즈니스 로직 작성하기!!!
+
   // (다이얼로그 완료)
   Future<void> dialogComplete() async {
-    widget.viewModel.isComplete = true;
+    isComplete = true;
     refresh();
 
     // 애니메이션의 지속 시간만큼 지연
@@ -229,21 +233,19 @@ class DialogCompleteAnimationState extends State<DialogCompleteAnimation> {
     context.pop();
   }
 
+  // !!!위젯 작성하기. (business 에서 데이터를 가져와 사용)!!!
   @override
   Widget build(BuildContext context) {
-    // !!!하위 위젯 작성하기. (widget.viewModel 에서 데이터를 가져와 사용)!!!
     return AnimatedContainer(
-      width: widget.viewModel.isComplete
+      width: isComplete
           ? widget.completeChildSize.width
           : widget.dialogChildSize.width,
-      height: widget.viewModel.isComplete
+      height: isComplete
           ? widget.completeChildSize.height
           : widget.dialogChildSize.height,
       curve: Curves.fastOutSlowIn,
       duration: widget.completeAnimationDuration,
-      child: widget.viewModel.isComplete
-          ? widget.completeChild
-          : widget.dialogChild,
+      child: isComplete ? widget.completeChild : widget.dialogChild,
     );
   }
 }

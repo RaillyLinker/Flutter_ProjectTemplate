@@ -29,8 +29,9 @@ class PageView extends StatelessWidget {
             .pageBusiness;
 
     return gw_page_out_frames.PageOutFrame(
-      pageBusiness.pageViewModel.pageOutFrameViewModel,
-      Center(
+      business: pageBusiness.pageViewModel.pageOutFrameBusiness,
+      floatingActionButton: null,
+      child: Center(
         child: Container(
           padding:
               const EdgeInsets.only(left: 10, top: 10, right: 10, bottom: 10),

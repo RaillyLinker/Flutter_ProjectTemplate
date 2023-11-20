@@ -29,8 +29,9 @@ class PageView extends StatelessWidget {
             .pageBusiness;
 
     return gw_page_out_frames.PageOutFrame(
-      pageBusiness.pageViewModel.pageOutFrameViewModel,
-      BlocBuilder<page_business.BlocSampleList, bool>(
+      business: pageBusiness.pageViewModel.pageOutFrameBusiness,
+      floatingActionButton: null,
+      child: BlocBuilder<page_business.BlocSampleList, bool>(
         builder: (c, s) {
           return ListView.builder(
             itemCount: pageBusiness.pageViewModel.allSampleList.length,

@@ -23,8 +23,9 @@ class PageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return gw_page_out_frames.PageOutFrame(
-      _pageBusiness.pageViewModel.pageOutFrameViewModel,
-      Center(
+      business: _pageBusiness.pageViewModel.pageOutFrameBusiness,
+      floatingActionButton: null,
+      child: Center(
         child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

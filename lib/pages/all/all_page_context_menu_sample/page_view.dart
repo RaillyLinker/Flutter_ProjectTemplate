@@ -24,8 +24,9 @@ class PageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return gw_page_out_frames.PageOutFrame(
-      _pageBusiness.pageViewModel.pageOutFrameViewModel,
-      SingleChildScrollView(
+      business: _pageBusiness.pageViewModel.pageOutFrameBusiness,
+      floatingActionButton: null,
+      child: SingleChildScrollView(
         child: Center(
           child: Column(
             children: [
@@ -33,8 +34,28 @@ class PageView extends StatelessWidget {
                 height: 100,
               ),
               gw_custom_widgets.ContextMenuRegion(
-                _pageBusiness.pageViewModel.contextMenuRegionViewModel,
-                Container(
+                business: _pageBusiness.pageViewModel.contextMenuRegionBusiness,
+                contextMenuRegionItemVoList: [
+                  gw_custom_widgets.ContextMenuRegionItemVo(
+                      menuItemWidget: const Text(
+                        "토스트 테스트",
+                        style: TextStyle(
+                            color: Colors.black, fontFamily: "MaruBuri"),
+                      ),
+                      menuItemCallback: () {
+                        _pageBusiness.toastTestMenuBtn();
+                      }),
+                  gw_custom_widgets.ContextMenuRegionItemVo(
+                      menuItemWidget: const Text(
+                        "다이얼로그 테스트",
+                        style: TextStyle(
+                            color: Colors.black, fontFamily: "MaruBuri"),
+                      ),
+                      menuItemCallback: () {
+                        _pageBusiness.dialogTestMenuBtn();
+                      }),
+                ],
+                child: Container(
                   padding: const EdgeInsets.only(
                       top: 10, bottom: 10, left: 10, right: 10),
                   color: Colors.blue[100], // 옅은 파란색
@@ -44,32 +65,25 @@ class PageView extends StatelessWidget {
                         TextStyle(color: Colors.black, fontFamily: "MaruBuri"),
                   ),
                 ),
-                contextMenuRegionItemVoList: [
-                  gw_custom_widgets.ContextMenuRegionItemVo(
-                      const Text(
-                        "토스트 테스트",
-                        style: TextStyle(
-                            color: Colors.black, fontFamily: "MaruBuri"),
-                      ), () {
-                    _pageBusiness.toastTestMenuBtn();
-                  }),
-                  gw_custom_widgets.ContextMenuRegionItemVo(
-                      const Text(
-                        "다이얼로그 테스트",
-                        style: TextStyle(
-                            color: Colors.black, fontFamily: "MaruBuri"),
-                      ), () {
-                    _pageBusiness.dialogTestMenuBtn();
-                  }),
-                ],
-                key: _pageBusiness.pageViewModel.contextMenuRegionStateGk,
               ),
               const SizedBox(
                 height: 100,
               ),
               gw_custom_widgets.ContextMenuRegion(
-                _pageBusiness.pageViewModel.contextMenuRegionViewModel2,
-                Container(
+                business:
+                    _pageBusiness.pageViewModel.contextMenuRegionBusiness2,
+                contextMenuRegionItemVoList: [
+                  gw_custom_widgets.ContextMenuRegionItemVo(
+                      menuItemWidget: const Text(
+                        "뒤로가기",
+                        style: TextStyle(
+                            color: Colors.black, fontFamily: "MaruBuri"),
+                      ),
+                      menuItemCallback: () {
+                        _pageBusiness.goBackBtn();
+                      }),
+                ],
+                child: Container(
                   padding: const EdgeInsets.only(
                       top: 10, bottom: 10, left: 10, right: 10),
                   color: Colors.blue[100], // 옅은 파란색
@@ -79,17 +93,6 @@ class PageView extends StatelessWidget {
                         TextStyle(color: Colors.black, fontFamily: "MaruBuri"),
                   ),
                 ),
-                contextMenuRegionItemVoList: [
-                  gw_custom_widgets.ContextMenuRegionItemVo(
-                      const Text(
-                        "뒤로가기",
-                        style: TextStyle(
-                            color: Colors.black, fontFamily: "MaruBuri"),
-                      ), () {
-                    _pageBusiness.goBackBtn();
-                  }),
-                ],
-                key: _pageBusiness.pageViewModel.contextMenuRegionStateGk2,
               ),
             ],
           ),

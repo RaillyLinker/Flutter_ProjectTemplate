@@ -30,8 +30,9 @@ class PageView extends StatelessWidget {
             .pageBusiness;
 
     return gw_page_out_frames.PageOutFrame(
-      pageBusiness.pageViewModel.pageOutFrameViewModel,
-      Center(
+      business: pageBusiness.pageViewModel.pageOutFrameBusiness,
+      floatingActionButton: null,
+      child: Center(
         child: Center(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

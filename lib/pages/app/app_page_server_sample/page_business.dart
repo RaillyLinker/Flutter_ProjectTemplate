@@ -190,8 +190,8 @@ class PageViewModel {
   // int sampleNumber = 0;
 
   // PageOutFrameViewModel
-  gw_page_out_frames.PageOutFrameViewModel pageOutFrameViewModel =
-      gw_page_out_frames.PageOutFrameViewModel("서버 샘플");
+  gw_page_out_frames.PageOutFrameBusiness pageOutFrameBusiness =
+      gw_page_out_frames.PageOutFrameBusiness(pageTitle: "서버 샘플");
 
   TextEditingController portTextEditController = TextEditingController();
 

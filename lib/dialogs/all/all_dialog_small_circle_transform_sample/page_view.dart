@@ -24,7 +24,7 @@ class PageView extends StatelessWidget {
       elevation: 0,
       backgroundColor: Colors.transparent,
       child: gw_custom_widgets.DialogCompleteAnimation(
-        _pageBusiness.pageViewModel.sampleWidgetViewModel,
+        business: _pageBusiness.pageViewModel.sampleWidgetBusiness,
         dialogChild: SingleChildScrollView(
           child: Container(
             height: 280,
@@ -56,7 +56,6 @@ class PageView extends StatelessWidget {
         completeChildSize: const Size(64, 64),
         completeAnimationDuration: const Duration(milliseconds: 500),
         completeCloseDuration: const Duration(milliseconds: 800),
-        key: _pageBusiness.pageViewModel.sampleWidgetStateGk,
       ),
     );
   }

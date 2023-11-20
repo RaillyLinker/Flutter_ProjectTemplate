@@ -132,8 +132,8 @@ class PageViewModel {
   // int sampleNumber = 0;
 
   // PageOutFrameViewModel
-  gw_page_out_frames.PageOutFrameViewModel pageOutFrameViewModel =
-      gw_page_out_frames.PageOutFrameViewModel("전역 변수 상태 확인 샘플");
+  gw_page_out_frames.PageOutFrameBusiness pageOutFrameBusiness =
+      gw_page_out_frames.PageOutFrameBusiness(pageTitle: "전역 변수 상태 확인 샘플");
 }
 
 // (BLoC 클래스)

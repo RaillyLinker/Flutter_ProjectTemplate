@@ -29,8 +29,9 @@ class PageView extends StatelessWidget {
             .pageBusiness;
 
     return gw_page_out_frames.PageOutFrame(
-      pageBusiness.pageViewModel.pageOutFrameViewModel,
-      Stack(
+      business: pageBusiness.pageViewModel.pageOutFrameBusiness,
+      floatingActionButton: null,
+      child: Stack(
         children: [
           MouseRegion(
             cursor: SystemMouseCursors.click,

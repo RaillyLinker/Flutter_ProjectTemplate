@@ -242,8 +242,9 @@ class PageViewModel {
   // int sampleNumber = 0;
 
   // PageOutFrameViewModel
-  gw_page_out_frames.PageOutFrameViewModel pageOutFrameViewModel =
-      gw_page_out_frames.PageOutFrameViewModel("SharedPreferences 샘플");
+  gw_page_out_frames.PageOutFrameBusiness pageOutFrameBusiness =
+      gw_page_out_frames.PageOutFrameBusiness(
+          pageTitle: "SharedPreferences 샘플");
 
   String spwKey = spw_test_sample.SharedPreferenceWrapper.globalKeyName;
 

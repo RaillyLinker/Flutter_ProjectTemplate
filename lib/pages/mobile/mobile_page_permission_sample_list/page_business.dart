@@ -2558,8 +2558,8 @@ class PageViewModel {
   // int sampleNumber = 0;
 
   // PageOutFrameViewModel
-  gw_page_out_frames.PageOutFrameViewModel pageOutFrameViewModel =
-      gw_page_out_frames.PageOutFrameViewModel("모바일 권한 샘플");
+  gw_page_out_frames.PageOutFrameBusiness pageOutFrameBusiness =
+      gw_page_out_frames.PageOutFrameBusiness(pageTitle: "모바일 권한 샘플");
 
   // (샘플 페이지 원본 리스트)
   List<SampleItem> allSampleList = [];

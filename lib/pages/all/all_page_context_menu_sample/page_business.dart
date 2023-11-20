@@ -135,17 +135,13 @@ class PageViewModel {
   // GlobalKey<SampleWidgetState> sampleWidgetStateGk = GlobalKey();
   // SampleWidgetViewModel sampleWidgetViewModel = SampleWidgetViewModel();
 
-  GlobalKey<gw_custom_widgets.ContextMenuRegionState> contextMenuRegionStateGk =
-      GlobalKey();
-  gw_custom_widgets.ContextMenuRegionViewModel contextMenuRegionViewModel =
-      gw_custom_widgets.ContextMenuRegionViewModel();
+  gw_custom_widgets.ContextMenuRegionBusiness contextMenuRegionBusiness =
+      gw_custom_widgets.ContextMenuRegionBusiness();
 
-  GlobalKey<gw_custom_widgets.ContextMenuRegionState>
-      contextMenuRegionStateGk2 = GlobalKey();
-  gw_custom_widgets.ContextMenuRegionViewModel contextMenuRegionViewModel2 =
-      gw_custom_widgets.ContextMenuRegionViewModel();
+  gw_custom_widgets.ContextMenuRegionBusiness contextMenuRegionBusiness2 =
+      gw_custom_widgets.ContextMenuRegionBusiness();
 
   // PageOutFrameViewModel
-  gw_page_out_frames.PageOutFrameViewModel pageOutFrameViewModel =
-      gw_page_out_frames.PageOutFrameViewModel("컨텍스트 메뉴 샘플");
+  gw_page_out_frames.PageOutFrameBusiness pageOutFrameBusiness =
+      gw_page_out_frames.PageOutFrameBusiness(pageTitle: "컨텍스트 메뉴 샘플");
 }

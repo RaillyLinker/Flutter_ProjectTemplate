@@ -24,8 +24,9 @@ class PageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return gw_page_out_frames.PageOutFrame(
-      _pageBusiness.pageViewModel.pageOutFrameViewModel,
-      SingleChildScrollView(
+      business: _pageBusiness.pageViewModel.pageOutFrameBusiness,
+      floatingActionButton: null,
+      child: SingleChildScrollView(
         child: Column(
           children: [
             MemberInfoWidget(
@@ -299,7 +300,7 @@ class MainListWidgetViewModelMainItemVo {
   MainListWidgetViewModelMainItemVo(
     this.sampleItemTitle,
     this.sampleItemDescription,
-    this.hoverListTileWrapperViewModel,
+    this.hoverListTileWrapperBusiness,
   );
 
   // 샘플 타이틀
@@ -309,9 +310,7 @@ class MainListWidgetViewModelMainItemVo {
   String sampleItemDescription;
 
   // HoverListTileWrapperState 의 key 와 viewModel
-  GlobalKey<gw_custom_widgets.HoverListTileWrapperState>
-      hoverListTileWrapperStateGk = GlobalKey();
-  gw_custom_widgets.HoverListTileWrapperViewModel hoverListTileWrapperViewModel;
+  gw_custom_widgets.HoverListTileWrapperBusiness hoverListTileWrapperBusiness;
 }
 
 class MainListWidgetState extends State<MainListWidget> {
@@ -333,8 +332,8 @@ class MainListWidgetState extends State<MainListWidget> {
         return Column(
           children: [
             gw_custom_widgets.HoverListTileWrapper(
-              itemInfo.hoverListTileWrapperViewModel,
-              ListTile(
+              business: itemInfo.hoverListTileWrapperBusiness,
+              listTileChild: ListTile(
                 mouseCursor: SystemMouseCursors.click,
                 title: Text(
                   itemInfo.sampleItemTitle,
@@ -346,7 +345,6 @@ class MainListWidgetState extends State<MainListWidget> {
                 ),
                 trailing: const Icon(Icons.chevron_right),
               ),
-              key: itemInfo.hoverListTileWrapperStateGk,
             ),
             const Divider(
               color: Colors.grey,

@@ -274,8 +274,8 @@ class PageViewModel {
   // int sampleNumber = 0;
 
   // PageOutFrameViewModel
-  gw_page_out_frames.PageOutFrameViewModel pageOutFrameViewModel =
-      gw_page_out_frames.PageOutFrameViewModel("Get 메소드 요청 샘플");
+  gw_page_out_frames.PageOutFrameBusiness pageOutFrameBusiness =
+      gw_page_out_frames.PageOutFrameBusiness(pageTitle: "Get 메소드 요청 샘플");
 
   TextEditingController networkRequestParamTextFieldController1 =
       TextEditingController()..text = "testString";

@@ -604,8 +604,9 @@ class PageViewModel {
   // int sampleNumber = 0;
 
   // PageOutFrameViewModel
-  gw_page_out_frames.PageOutFrameViewModel pageOutFrameViewModel =
-      gw_page_out_frames.PageOutFrameViewModel("회원 가입 : 회원 정보 입력 (2/2)");
+  gw_page_out_frames.PageOutFrameBusiness pageOutFrameBusiness =
+      gw_page_out_frames.PageOutFrameBusiness(
+          pageTitle: "회원 가입 : 회원 정보 입력 (2/2)");
 
   // 이미지 선택자
   ImagePicker imagePicker = ImagePicker();

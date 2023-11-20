@@ -15,19 +15,22 @@ import '../../../pages/all/all_page_home/page_entrance.dart' as all_page_home;
 // (페이지 최외곽 프레임 템플릿)
 class PageOutFrame extends StatelessWidget {
   const PageOutFrame(
-    this.viewModel,
-    this.child, {
-    super.key,
-    this.floatingActionButton,
-  });
+      {super.key,
+      required this.business,
+      required this.child,
+      required this.floatingActionButton});
 
-  final PageOutFrameViewModel viewModel;
+  // 위젯 비즈니스
+  final PageOutFrameBusiness business;
+
+  //!!!주입 받을 하위 위젯 선언 하기!!!
 
   // 프레임 위젯 child
   final Widget child;
 
   final FloatingActionButton? floatingActionButton;
 
+  // !!!위젯 작성하기. (business 에서 데이터를 가져와 사용)!!!
   @override
   Widget build(BuildContext context) {
     // Mobile 앱 status bar 색상 변경
@@ -41,14 +44,14 @@ class PageOutFrame extends StatelessWidget {
             automaticallyImplyLeading: !kIsWeb,
             title: Row(
               children: [
-                GoToHomeIconButton(viewModel.goToHomeIconButtonViewModel,
-                    key: viewModel.goToHomeIconButtonStateGk),
+                GoToHomeIconButton(
+                    business: business.goToHomeIconButtonBusiness),
                 const SizedBox(
                   width: 15,
                 ),
                 Expanded(
                     child: Text(
-                  viewModel.pageTitle,
+                  business.pageTitle,
                   style: const TextStyle(
                       color: Colors.white, fontFamily: "MaruBuri"),
                 ))
@@ -58,7 +61,7 @@ class PageOutFrame extends StatelessWidget {
             iconTheme:
                 const IconThemeData(color: Colors.white //change your color here
                     )),
-        backgroundColor: viewModel.isPageBackgroundBlue
+        backgroundColor: business.isPageBackgroundBlue
             ? Colors.blue
             : const Color(0xFFFFFFFF),
         floatingActionButton: floatingActionButton,
@@ -66,64 +69,64 @@ class PageOutFrame extends StatelessWidget {
   }
 }
 
-class PageOutFrameViewModel {
-  PageOutFrameViewModel(this.pageTitle, {this.isPageBackgroundBlue = false});
+class PageOutFrameBusiness {
+  PageOutFrameBusiness(
+      {required this.pageTitle, this.isPageBackgroundBlue = false});
 
-  // !!!위젯 에서 사용할 상태 변수 선언!!!
-  // 주로 여기선 BLoC 에서 사용할 변수를 선언하고,
-  // 가독성을 위하여 Stateless 위젯에서 사용하는 변수는 해당 변수의 파라미터로 설정하세요.
+  // !!!위젯 상태 변수 선언하기!!!
+  // 페이지 타이틀
+  final String pageTitle;
 
   // 페이지 배경색을 파란색으로 할지 여부
   final bool isPageBackgroundBlue;
 
-  // 페이지 타이틀
-  final String pageTitle;
+  // goToHomeIconButtonBusiness
+  final GoToHomeIconButtonBusiness goToHomeIconButtonBusiness =
+      GoToHomeIconButtonBusiness();
 
-  final GlobalKey<GoToHomeIconButtonState> goToHomeIconButtonStateGk =
-      GlobalKey();
-  final GoToHomeIconButtonViewModel goToHomeIconButtonViewModel =
-      GoToHomeIconButtonViewModel();
+// !!!위젯 비즈니스 로직 작성하기!!!
 }
 
 // (아이콘 버튼)
 class GoToHomeIconButton extends StatefulWidget {
-  const GoToHomeIconButton(this.viewModel, {required super.key});
+  const GoToHomeIconButton({super.key, required this.business});
 
-  // 위젯 뷰모델
-  final GoToHomeIconButtonViewModel viewModel;
+  // 위젯 비즈니스
+  final GoToHomeIconButtonBusiness business;
 
   //!!!주입 받을 하위 위젯 선언 하기!!!
 
   @override
-  GoToHomeIconButtonState createState() => GoToHomeIconButtonState();
+  // ignore: no_logic_in_create_state
+  GoToHomeIconButtonBusiness createState() => business;
 }
 
-class GoToHomeIconButtonViewModel {
-  GoToHomeIconButtonViewModel();
+class GoToHomeIconButtonBusiness extends State<GoToHomeIconButton> {
+  GoToHomeIconButtonBusiness();
 
-  // !!!위젯 상태 변수 선언하기!!!
-  bool isHovering = false;
-}
-
-class GoToHomeIconButtonState extends State<GoToHomeIconButton> {
   // Stateful Widget 화면 갱신
   void refresh() {
     setState(() {});
   }
 
+  // !!!위젯 상태 변수 선언하기!!!
+  bool isHovering = false;
+
+  // !!!위젯 비즈니스 로직 작성하기!!!
+
+  // !!!위젯 작성하기. (business 에서 데이터를 가져와 사용)!!!
   @override
   Widget build(BuildContext context) {
-    // !!!하위 위젯 작성하기. (widget.viewModel 에서 데이터를 가져와 사용)!!!
     return ClipOval(
       child: MouseRegion(
         // 커서 변경 및 호버링 상태 변경
         cursor: SystemMouseCursors.click,
         onEnter: (details) {
-          widget.viewModel.isHovering = true;
+          isHovering = true;
           refresh();
         },
         onExit: (details) {
-          widget.viewModel.isHovering = false;
+          isHovering = false;
           refresh();
         },
         child: Tooltip(
@@ -167,7 +170,7 @@ class GoToHomeIconButtonState extends State<GoToHomeIconButton> {
                 ),
                 // 호버링시 가릴 위젯(보여줄 위젯과 동일한 사이즈를 준비)
                 Opacity(
-                  opacity: widget.viewModel.isHovering ? 1.0 : 0.0,
+                  opacity: isHovering ? 1.0 : 0.0,
                   // 0.0: 완전 투명, 1.0: 완전 불투명
                   child: Container(
                       width: 35,

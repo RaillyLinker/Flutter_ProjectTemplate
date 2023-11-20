@@ -85,7 +85,7 @@ class PageBusiness {
   }
 
   void dialogComplete() {
-    pageViewModel.sampleWidgetStateGk.currentState?.dialogComplete();
+    pageViewModel.sampleWidgetBusiness.dialogComplete();
   }
 
 ////
@@ -106,8 +106,6 @@ class PageViewModel {
 // GlobalKey<SampleWidgetState> sampleWidgetStateGk = GlobalKey();
 // SampleWidgetViewModel sampleWidgetViewModel = SampleWidgetViewModel();
 
-  GlobalKey<gw_custom_widgets.DialogCompleteAnimationState>
-      sampleWidgetStateGk = GlobalKey();
-  gw_custom_widgets.DialogCompleteAnimationViewModel sampleWidgetViewModel =
-      gw_custom_widgets.DialogCompleteAnimationViewModel();
+  gw_custom_widgets.DialogCompleteAnimationBusiness sampleWidgetBusiness =
+      gw_custom_widgets.DialogCompleteAnimationBusiness();
 }

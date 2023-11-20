@@ -23,14 +23,14 @@ class PageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return gw_page_out_frames.PageOutFrame(
-      pageBusiness.pageOutFrameViewModel,
-      const Center(
-        child: Text(
-          "페이지 템플릿입니다.",
-          style: TextStyle(fontFamily: "MaruBuri"),
-        ),
-      ),
-    );
+        business: pageBusiness.pageOutFrameBusiness,
+        floatingActionButton: null,
+        child: const Center(
+          child: Text(
+            "페이지 템플릿입니다.",
+            style: TextStyle(fontFamily: "MaruBuri"),
+          ),
+        ));
   }
 }
 
