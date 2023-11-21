@@ -58,6 +58,8 @@ class PageEntranceState extends State<PageEntrance>
 
     pageBusiness = page_business.PageBusiness(context: context);
     widget.pageBusiness = pageBusiness;
+
+    pageBusiness.onPageInit();
   }
 
   @override
@@ -66,62 +68,33 @@ class PageEntranceState extends State<PageEntrance>
     // Android 의 onDestroy() 와 비슷
     // mobile : history 가 둘 이상인 상태에서 pop() 사용, back 버튼으로 뒤로가기
     WidgetsBinding.instance.removeObserver(this);
-    pageBusiness.pageLifeCycleStates.isDisposed = true;
+    pageBusiness.onPageDispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-        onWillPop: () async {
-          bool isPop = await pageBusiness.onPageWillPopAsync();
-
-          if (isPop) {
-            // 페이지 종료(return true) 때에는, 아래 코드 실행
-            if (context.mounted) {
-              if (Navigator.canPop(context)) {
-                pageBusiness.pageLifeCycleStates.isCanPop = true;
-              } else {
-                pageBusiness.pageLifeCycleStates.isNoCanPop = true;
-              }
-            }
-          }
-
-          return isPop;
-        },
+    return PopScope(
+        canPop: pageBusiness.pageCanPop,
         // 페이지 생명주기를 Business 에 넘겨주기
         child: FocusDetector(
-            // Businesses 에 focus 콜백 전달
-            onFocusGained: () async {
-              if (!pageBusiness.pageLifeCycleStates.isPageCreated) {
-                pageBusiness.pageLifeCycleStates.isPageCreated = true;
-                await pageBusiness.onCheckPageInputVoAsync(
-                    goRouterState: widget.goRouterState);
-                await pageBusiness.onPageCreateAsync();
-              } else {}
-
-              await pageBusiness.onPageResumeAsync();
+            onFocusGained: () {
+              pageBusiness.onPageFocusGained();
             },
-            onFocusLost: () async {
-              if (pageBusiness.pageLifeCycleStates.isNoCanPop) {
-                await pageBusiness.onPagePauseAsync();
-                await pageBusiness.onPageDestroyAsync();
-              } else {
-                await pageBusiness.onPagePauseAsync();
-              }
+            onFocusLost: () {
+              pageBusiness.onPageFocusLost();
             },
-            onVisibilityLost: () async {
-              // 발동 조건
-              // 위젯이 더이상 화면에서 보이지 않는 상태
-              // mobile : 다른 라우트 push, pop() 사용, back 버튼으로 뒤로가기
-
-              // isDisposed 를 그냥 사용하면 onPause 보다 빠르게 실행되므로 실행 타이밍을 뒤로 미루기 위한 로직
-              if (pageBusiness.pageLifeCycleStates.isDisposed) {
-                pageBusiness.pageLifeCycleStates.isDisposed = false;
-                if (pageBusiness.pageLifeCycleStates.isCanPop) {
-                  await pageBusiness.onPageDestroyAsync();
-                }
-              }
+            onVisibilityGained: () {
+              pageBusiness.onPageVisibilityGained();
+            },
+            onVisibilityLost: () {
+              pageBusiness.onPageVisibilityLost();
+            },
+            onForegroundGained: () {
+              pageBusiness.onPageForegroundGained();
+            },
+            onForegroundLost: () {
+              pageBusiness.onPageForegroundLost();
             },
             child: page_view.PageView(pageBusiness: pageBusiness)));
   }

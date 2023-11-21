@@ -5,10 +5,6 @@ import 'package:go_router/go_router.dart';
 // (page)
 import 'page_entrance.dart' as page_entrance;
 
-// (all)
-import '../../../global_classes/gc_template_classes.dart'
-    as gc_template_classes;
-
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
 
 //------------------------------------------------------------------------------
@@ -20,12 +16,11 @@ class PageBusiness {
   // 페이지 컨텍스트 객체
   final BuildContext context;
 
-  // 페이지 생명주기 관련 states
-  final gc_template_classes.PageLifeCycleStates pageLifeCycleStates =
-      gc_template_classes.PageLifeCycleStates();
-
   // 페이지 파라미터
   final page_entrance.PageInputVo pageInputVo;
+
+  // !!!페이지를 pop 할수 있을지 여부를 설정!!!
+  bool pageCanPop = true;
 
   // !!!페이지 상태 변수 선언하기!!!
   // ex :
@@ -36,31 +31,25 @@ class PageBusiness {
   //   );
 
   ////
-  // [페이지 생명주기]
-  // - 페이지 최초 실행 : onPageCreateAsync -> onPageResumeAsync
-  // - 다른 페이지 호출 / 복귀, 화면 끄기 / 켜기, 모바일에서 다른 앱으로 이동 및 복귀시 :
-  // onPagePauseAsync -> onPageResumeAsync -> onPagePauseAsync -> onPageResumeAsync 반복
-  // - 페이지 종료 : onPageWillPopAsync -(return true 일 때)-> onPagePauseAsync -> onPageDestroyAsync 실행
+  // [페이지 생명주기 관련 콜백]
+  // (페이지 위젯 initState)
+  void onPageInit() {}
 
-  // (페이지 최초 실행)
-  Future<void> onPageCreateAsync() async {
-    // !!!페이지 최초 실행 로직 작성!!!
-  }
+  // (페이지 위젯 dispose)
+  void onPageDispose() {}
 
-  // (페이지 최초 실행 or 다른 페이지에서 복귀)
-  Future<void> onPageResumeAsync() async {
-    // !!!위젯 최초 실행 및, 다른 페이지에서 복귀 로직 작성!!!
-  }
+  // (페이지 위젯의 FocusDetector 콜백들)
+  void onPageFocusGained() {}
 
-  // (페이지 종료 or 다른 페이지로 이동 (강제 종료는 탐지 못함))
-  Future<void> onPagePauseAsync() async {
-    // !!!위젯 종료 및, 다른 페이지로 이동 로직 작성!!!
-  }
+  void onPageFocusLost() {}
 
-  // (페이지 종료 (강제 종료, web 에서 브라우저 뒤로가기 버튼을 눌렀을 때는 탐지 못함))
-  Future<void> onPageDestroyAsync() async {
-    // !!!페이지 종료 로직 작성!!!
-  }
+  void onPageVisibilityGained() {}
+
+  void onPageVisibilityLost() {}
+
+  void onPageForegroundGained() {}
+
+  void onPageForegroundLost() {}
 
   // (Page Pop 요청)
   // context.pop() 호출 직후 호출
