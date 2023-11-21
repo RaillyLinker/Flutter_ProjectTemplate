@@ -544,7 +544,7 @@ class PageViewModel {
 
   // PageOutFrameViewModel
   gw_page_out_frames.PageOutFrameBusiness pageOutFrameBusiness =
-      gw_page_out_frames.PageOutFrameBusiness(pageTitle: "비밀번호 변경");
+      gw_page_out_frames.PageOutFrameBusiness();
 
   FocusNode passwordTextFieldFocus = FocusNode();
   TextEditingController passwordTextFieldController = TextEditingController();

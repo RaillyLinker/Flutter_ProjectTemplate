@@ -159,5 +159,5 @@ class PageViewModel {
 
   // PageOutFrameViewModel
   gw_page_out_frames.PageOutFrameBusiness pageOutFrameBusiness =
-      gw_page_out_frames.PageOutFrameBusiness(pageTitle: "페이지 Push 테스트1");
+      gw_page_out_frames.PageOutFrameBusiness();
 }

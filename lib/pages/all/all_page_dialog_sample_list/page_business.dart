@@ -11,7 +11,7 @@ import 'page_entrance.dart' as page_entrance;
 import '../../../global_widgets/gw_page_out_frames.dart' as gw_page_out_frames;
 import '../../../dialogs/all/all_dialog_info/page_entrance.dart'
     as all_dialog_info;
-import '../../../a_templates/all_dialog_template/page_entrance.dart'
+import '../../../a_templates/all_dialog_template/page.dart'
     as all_dialog_template;
 import '../../../dialogs/all/all_dialog_yes_or_no/page_entrance.dart'
     as all_dialog_yes_or_no;
@@ -128,7 +128,8 @@ class PageBusiness {
           showDialog(
               barrierDismissible: true,
               context: _context,
-              builder: (context) => all_dialog_template.PageEntrance(
+              builder: (context) => all_dialog_template.Page(
+                    business: all_dialog_template.PageBusiness(),
                     pageInputVo: all_dialog_template.PageInputVo(),
                   )).then((outputVo) {});
         }
@@ -238,7 +239,8 @@ class PageBusiness {
               barrierDismissible: true,
               context: _context,
               barrierColor: Colors.blue.withOpacity(0.5),
-              builder: (context) => all_dialog_template.PageEntrance(
+              builder: (context) => all_dialog_template.Page(
+                    business: all_dialog_template.PageBusiness(),
                     pageInputVo: all_dialog_template.PageInputVo(),
                   )).then((outputVo) {});
         }
@@ -314,7 +316,7 @@ class PageViewModel {
 
   // PageOutFrameViewModel
   gw_page_out_frames.PageOutFrameBusiness pageOutFrameBusiness =
-      gw_page_out_frames.PageOutFrameBusiness(pageTitle: "다이얼로그 샘플 리스트");
+      gw_page_out_frames.PageOutFrameBusiness();
 
   // (샘플 페이지 원본 리스트)
   List<SampleItem> allSampleList = [];

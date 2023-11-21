@@ -176,7 +176,7 @@ class PageViewModel {
 
   // PageOutFrameViewModel
   gw_page_out_frames.PageOutFrameBusiness pageOutFrameBusiness =
-      gw_page_out_frames.PageOutFrameBusiness(pageTitle: "암/복호화 샘플");
+      gw_page_out_frames.PageOutFrameBusiness();
 
   GlobalKey<FormState> aes256FormKey = GlobalKey<FormState>();
 

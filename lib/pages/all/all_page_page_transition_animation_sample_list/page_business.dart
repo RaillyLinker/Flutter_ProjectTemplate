@@ -188,7 +188,7 @@ class PageViewModel {
 
   // PageOutFrameViewModel
   gw_page_out_frames.PageOutFrameBusiness pageOutFrameBusiness =
-      gw_page_out_frames.PageOutFrameBusiness(pageTitle: "페이지 이동 애니메이션 샘플 리스트");
+      gw_page_out_frames.PageOutFrameBusiness();
 
   // (샘플 페이지 원본 리스트)
   List<SampleItem> allSampleList = [];

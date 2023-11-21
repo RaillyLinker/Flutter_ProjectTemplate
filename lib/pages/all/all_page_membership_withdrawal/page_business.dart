@@ -281,7 +281,7 @@ class PageViewModel {
 
   // PageOutFrameViewModel
   gw_page_out_frames.PageOutFrameBusiness pageOutFrameBusiness =
-      gw_page_out_frames.PageOutFrameBusiness(pageTitle: "회원 탈퇴");
+      gw_page_out_frames.PageOutFrameBusiness();
 
   bool withdrawalAgree = false;
 }

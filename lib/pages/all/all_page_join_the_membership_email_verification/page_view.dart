@@ -29,6 +29,7 @@ class PageView extends StatelessWidget {
             .pageBusiness;
 
     return gw_page_out_frames.PageOutFrame(
+      pageTitle: "회원가입 : 본인 이메일 검증 (1/2)",
       business: pageBusiness.pageViewModel.pageOutFrameBusiness,
       floatingActionButton: null,
       child: SingleChildScrollView(

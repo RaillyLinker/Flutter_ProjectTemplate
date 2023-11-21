@@ -30,6 +30,7 @@ class PageView extends StatelessWidget {
             .pageBusiness;
 
     return gw_page_out_frames.PageOutFrame(
+        pageTitle: "페이지 / 라우터 샘플 리스트",
         business: pageBusiness.pageViewModel.pageOutFrameBusiness,
         floatingActionButton: null,
         child: BlocBuilder<page_business.BlocSampleList, bool>(builder: (c, s) {

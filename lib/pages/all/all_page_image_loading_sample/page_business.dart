@@ -126,7 +126,7 @@ class PageViewModel {
 
   // PageOutFrameViewModel
   gw_page_out_frames.PageOutFrameBusiness pageOutFrameBusiness =
-      gw_page_out_frames.PageOutFrameBusiness(pageTitle: "이미지 로딩 샘플");
+      gw_page_out_frames.PageOutFrameBusiness();
 }
 
 // (BLoC 클래스)

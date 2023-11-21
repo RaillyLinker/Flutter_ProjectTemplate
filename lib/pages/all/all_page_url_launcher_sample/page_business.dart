@@ -187,7 +187,7 @@ class PageViewModel {
 
   // PageOutFrameViewModel
   gw_page_out_frames.PageOutFrameBusiness pageOutFrameBusiness =
-      gw_page_out_frames.PageOutFrameBusiness(pageTitle: "Url Launcher 샘플");
+      gw_page_out_frames.PageOutFrameBusiness();
 
   TextEditingController urlTextEditController = TextEditingController();
 

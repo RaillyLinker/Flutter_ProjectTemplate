@@ -498,10 +498,7 @@ class PageViewModel {
 
   // PageOutFrameViewModel
   gw_page_out_frames.PageOutFrameBusiness pageOutFrameBusiness =
-      gw_page_out_frames.PageOutFrameBusiness(
-    pageTitle: "로그인",
-    isPageBackgroundBlue: true,
-  );
+      gw_page_out_frames.PageOutFrameBusiness();
 
   bool hidePassword = true;
 

@@ -30,6 +30,7 @@ class PageView extends StatelessWidget {
             .pageBusiness;
 
     return gw_page_out_frames.PageOutFrame(
+      pageTitle: "Get 메소드 요청 샘플",
       business: pageBusiness.pageViewModel.pageOutFrameBusiness,
       floatingActionButton: null,
       child: SingleChildScrollView(

@@ -33,6 +33,7 @@ class PageView extends StatelessWidget {
             .pageBusiness;
 
     return gw_page_out_frames.PageOutFrame(
+      pageTitle: "GIF 샘플",
       business: pageBusiness.pageViewModel.pageOutFrameBusiness,
       floatingActionButton: null,
       child: const Center(

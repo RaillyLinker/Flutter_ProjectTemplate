@@ -294,7 +294,7 @@ class PageViewModel {
 
   // PageOutFrameViewModel
   gw_page_out_frames.PageOutFrameBusiness pageOutFrameBusiness =
-      gw_page_out_frames.PageOutFrameBusiness(pageTitle: "이미지 선택 샘플");
+      gw_page_out_frames.PageOutFrameBusiness();
 
   // 이미지 선택자
   ImagePicker imagePicker = ImagePicker();

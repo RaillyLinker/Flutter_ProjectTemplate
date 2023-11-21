@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:go_router/go_router.dart';
 
 // (all)
-import 'a_templates/all_page_template/page_entrance.dart' as all_page_template;
+import 'a_templates/all_page_template/page.dart' as all_page_template;
 import 'pages/all/all_page_auth_sample/page_entrance.dart'
     as all_page_auth_sample;
 import 'pages/all/all_page_authorization_test_sample_list/page_entrance.dart'
@@ -157,7 +157,8 @@ GoRouter getRouter() {
       pageBuilder: (c, s) {
         return CustomTransitionPage(
             key: s.pageKey,
-            child: all_page_template.PageEntrance(goRouterState: s),
+            child: all_page_template.Page(
+                business: all_page_template.PageBusiness(), goRouterState: s),
             transitionsBuilder: all_page_template.pageTransitionsBuilder);
       }));
 

@@ -24,6 +24,7 @@ class PageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return gw_page_out_frames.PageOutFrame(
+      pageTitle: "컨텍스트 메뉴 샘플",
       business: _pageBusiness.pageViewModel.pageOutFrameBusiness,
       floatingActionButton: null,
       child: SingleChildScrollView(

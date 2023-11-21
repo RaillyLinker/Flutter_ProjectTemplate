@@ -165,7 +165,7 @@ class PageViewModel {
 
   // PageOutFrameViewModel
   gw_page_out_frames.PageOutFrameBusiness pageOutFrameBusiness =
-      gw_page_out_frames.PageOutFrameBusiness(pageTitle: "폼 입력 샘플");
+      gw_page_out_frames.PageOutFrameBusiness();
 
   // Form 필드 전체 키
   GlobalKey<FormState> testFormKey = GlobalKey<FormState>();

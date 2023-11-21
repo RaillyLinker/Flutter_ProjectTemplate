@@ -29,6 +29,7 @@ class PageView extends StatelessWidget {
             .pageBusiness;
 
     return gw_page_out_frames.PageOutFrame(
+        pageTitle: "인증 / 인가 네트워크 요청 테스트 샘플 리스트",
         business: pageBusiness.pageViewModel.pageOutFrameBusiness,
         floatingActionButton: null,
         child: BlocBuilder<page_business.BlocSampleList, bool>(builder: (c, s) {

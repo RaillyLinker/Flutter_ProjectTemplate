@@ -9,7 +9,7 @@ import 'page_entrance.dart' as page_entrance;
 
 // (all)
 import '../../../global_widgets/gw_page_out_frames.dart' as gw_page_out_frames;
-import '../../../a_templates/all_dialog_template/page_entrance.dart'
+import '../../../a_templates/all_dialog_template/page.dart'
     as all_dialog_template;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
@@ -123,7 +123,8 @@ class PageBusiness {
             transitionBuilder: (ctx, a1, a2, child) {
               return Transform.rotate(
                 angle: math.radians(a1.value * 360),
-                child: all_dialog_template.PageEntrance(
+                child: all_dialog_template.Page(
+                  business: all_dialog_template.PageBusiness(),
                   pageInputVo: all_dialog_template.PageInputVo(),
                 ),
               );
@@ -146,7 +147,8 @@ class PageBusiness {
               var curve = Curves.easeInOut.transform(a1.value);
               return Transform.scale(
                 scale: curve,
-                child: all_dialog_template.PageEntrance(
+                child: all_dialog_template.Page(
+                  business: all_dialog_template.PageBusiness(),
                   pageInputVo: all_dialog_template.PageInputVo(),
                 ),
               );
@@ -171,7 +173,8 @@ class PageBusiness {
               return Transform(
                 transform:
                     Matrix4.translationValues(0.0, curvedValue * 1600, 0.0),
-                child: all_dialog_template.PageEntrance(
+                child: all_dialog_template.Page(
+                  business: all_dialog_template.PageBusiness(),
                   pageInputVo: all_dialog_template.PageInputVo(),
                 ),
               );
@@ -231,7 +234,7 @@ class PageViewModel {
 
   // PageOutFrameViewModel
   gw_page_out_frames.PageOutFrameBusiness pageOutFrameBusiness =
-      gw_page_out_frames.PageOutFrameBusiness(pageTitle: "다이얼로그 애니메이션 샘플 리스트");
+      gw_page_out_frames.PageOutFrameBusiness();
 
   // (샘플 페이지 원본 리스트)
   List<SampleItem> allSampleList = [];

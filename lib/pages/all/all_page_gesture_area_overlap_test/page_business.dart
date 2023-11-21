@@ -157,8 +157,7 @@ class PageViewModel {
 
   // PageOutFrameViewModel
   gw_page_out_frames.PageOutFrameBusiness pageOutFrameBusiness =
-      gw_page_out_frames.PageOutFrameBusiness(
-          pageTitle: "Gesture 위젯 영역 중첩 테스트");
+      gw_page_out_frames.PageOutFrameBusiness();
 }
 
 // (BLoC 클래스)

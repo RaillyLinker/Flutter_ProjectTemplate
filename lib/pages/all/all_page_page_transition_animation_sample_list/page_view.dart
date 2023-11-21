@@ -29,6 +29,7 @@ class PageView extends StatelessWidget {
             .pageBusiness;
 
     return gw_page_out_frames.PageOutFrame(
+        pageTitle: "페이지 이동 애니메이션 샘플 리스트",
         business: pageBusiness.pageViewModel.pageOutFrameBusiness,
         floatingActionButton: null,
         child: BlocBuilder<page_business.BlocSampleList, bool>(builder: (c, s) {

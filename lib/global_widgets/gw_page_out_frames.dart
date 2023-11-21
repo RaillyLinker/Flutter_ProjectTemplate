@@ -18,19 +18,27 @@ class PageOutFrame extends StatelessWidget {
       {super.key,
       required this.business,
       required this.child,
-      required this.floatingActionButton});
+      required this.floatingActionButton,
+      required this.pageTitle,
+      this.isPageBackgroundBlue = false});
 
-  // 위젯 비즈니스
+  // [위젯 관련 변수] - State 의 setState() 를 하면 초기화 됩니다.
+  // (위젯 비즈니스)
   final PageOutFrameBusiness business;
 
-  //!!!주입 받을 하위 위젯 선언 하기!!!
-
-  // 프레임 위젯 child
+  // (하위 위젯)
   final Widget child;
 
+  // (플로팅 버튼)
   final FloatingActionButton? floatingActionButton;
 
-  // !!!위젯 작성하기. (business 에서 데이터를 가져와 사용)!!!
+  // (페이지 타이틀)
+  final String pageTitle;
+
+  // (페이지 배경색을 파란색으로 할지 여부)
+  final bool isPageBackgroundBlue;
+
+  // [내부 함수]
   @override
   Widget build(BuildContext context) {
     // Mobile 앱 status bar 색상 변경
@@ -51,7 +59,7 @@ class PageOutFrame extends StatelessWidget {
                 ),
                 Expanded(
                     child: Text(
-                  business.pageTitle,
+                  pageTitle,
                   style: const TextStyle(
                       color: Colors.white, fontFamily: "MaruBuri"),
                 ))
@@ -61,41 +69,36 @@ class PageOutFrame extends StatelessWidget {
             iconTheme:
                 const IconThemeData(color: Colors.white //change your color here
                     )),
-        backgroundColor: business.isPageBackgroundBlue
-            ? Colors.blue
-            : const Color(0xFFFFFFFF),
+        backgroundColor:
+            isPageBackgroundBlue ? Colors.blue : const Color(0xFFFFFFFF),
         floatingActionButton: floatingActionButton,
         body: child);
   }
 }
 
 class PageOutFrameBusiness {
-  PageOutFrameBusiness(
-      {required this.pageTitle, this.isPageBackgroundBlue = false});
+  PageOutFrameBusiness();
 
-  // !!!위젯 상태 변수 선언하기!!!
-  // 페이지 타이틀
-  final String pageTitle;
-
-  // 페이지 배경색을 파란색으로 할지 여부
-  final bool isPageBackgroundBlue;
+  // [위젯 관련 변수] - State 내에서 상태가 유지 됩니다.
 
   // goToHomeIconButtonBusiness
   final GoToHomeIconButtonBusiness goToHomeIconButtonBusiness =
       GoToHomeIconButtonBusiness();
 
-// !!!위젯 비즈니스 로직 작성하기!!!
+// [외부 공개 함수]
+
+// [내부 함수]
 }
 
 // (아이콘 버튼)
 class GoToHomeIconButton extends StatefulWidget {
   const GoToHomeIconButton({super.key, required this.business});
 
-  // 위젯 비즈니스
+  // [위젯 관련 변수] - State 의 setState() 를 하면 초기화 됩니다.
+  // (위젯 비즈니스)
   final GoToHomeIconButtonBusiness business;
 
-  //!!!주입 받을 하위 위젯 선언 하기!!!
-
+  // [내부 함수]
   @override
   // ignore: no_logic_in_create_state
   GoToHomeIconButtonBusiness createState() => business;
@@ -104,17 +107,17 @@ class GoToHomeIconButton extends StatefulWidget {
 class GoToHomeIconButtonBusiness extends State<GoToHomeIconButton> {
   GoToHomeIconButtonBusiness();
 
-  // Stateful Widget 화면 갱신
+  // [위젯 관련 변수] - State 내에서 상태가 유지 됩니다.
+  // (위젯 호버링 여부)
+  bool isHovering = false;
+
+  // [외부 공개 함수]
+  // (Stateful Widget 화면 갱신)
   void refresh() {
     setState(() {});
   }
 
-  // !!!위젯 상태 변수 선언하기!!!
-  bool isHovering = false;
-
-  // !!!위젯 비즈니스 로직 작성하기!!!
-
-  // !!!위젯 작성하기. (business 에서 데이터를 가져와 사용)!!!
+  // [내부 함수]
   @override
   Widget build(BuildContext context) {
     return ClipOval(

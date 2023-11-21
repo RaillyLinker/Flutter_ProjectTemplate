@@ -13,12 +13,14 @@ class HoverListTileWrapper extends StatefulWidget {
   const HoverListTileWrapper(
       {super.key, required this.business, required this.listTileChild});
 
-  // 위젯 비즈니스
+  // [위젯 관련 변수] - State 의 setState() 를 하면 초기화 됩니다.
+  // (위젯 비즈니스)
   final HoverListTileWrapperBusiness business;
 
-  //!!!주입 받을 하위 위젯 선언 하기!!!
+  // (리스트 아이템 위젯)
   final Widget listTileChild;
 
+  // [내부 함수]
   @override
   // ignore: no_logic_in_create_state
   HoverListTileWrapperBusiness createState() => business;
@@ -27,18 +29,20 @@ class HoverListTileWrapper extends StatefulWidget {
 class HoverListTileWrapperBusiness extends State<HoverListTileWrapper> {
   HoverListTileWrapperBusiness({required this.onRouteListItemClick});
 
-  // Stateful Widget 화면 갱신
+  // [위젯 관련 변수] - State 내에서 상태가 유지 됩니다.
+  // (현재 호버링 중인지 여부)
+  bool isHovering = false;
+
+  // (리스트 아이템 클릭 콜백)
+  void Function() onRouteListItemClick;
+
+  // [외부 공개 함수]
+  // (Stateful Widget 화면 갱신)
   void refresh() {
     setState(() {});
   }
 
-  // !!!위젯 상태 변수 선언하기!!!
-  bool isHovering = false;
-  void Function() onRouteListItemClick;
-
-  // !!!위젯 비즈니스 로직 작성하기!!!
-
-  // !!!위젯 작성하기. (business 에서 데이터를 가져와 사용)!!!
+  // [내부 함수]
   @override
   Widget build(BuildContext context) {
     return MouseRegion(
@@ -69,14 +73,17 @@ class ContextMenuRegion extends StatefulWidget {
       required this.child,
       required this.contextMenuRegionItemVoList});
 
-  // 위젯 비즈니스
+  // [위젯 관련 변수] - State 의 setState() 를 하면 초기화 됩니다.
+  // (위젯 비즈니스)
   final ContextMenuRegionBusiness business;
 
-  //!!!주입 받을 하위 위젯 선언 하기!!!
+  // (래핑할 대상 위젯)
   final Widget child;
 
+  // (컨텍스트 메뉴 리스트)
   final List<ContextMenuRegionItemVo> contextMenuRegionItemVoList;
 
+  // [내부 함수]
   @override
   // ignore: no_logic_in_create_state
   ContextMenuRegionBusiness createState() => business;
@@ -85,28 +92,16 @@ class ContextMenuRegion extends StatefulWidget {
 class ContextMenuRegionBusiness extends State<ContextMenuRegion> {
   ContextMenuRegionBusiness();
 
-  // Stateful Widget 화면 갱신
+  // [위젯 관련 변수] - State 내에서 상태가 유지 됩니다.
+  Offset? longPressOffset;
+
+  // [외부 공개 함수]
+  // (Stateful Widget 화면 갱신)
   void refresh() {
     setState(() {});
   }
 
-  // !!!위젯 상태 변수 선언하기!!!
-  Offset? longPressOffset;
-
-  static bool get longPressEnabled {
-    switch (defaultTargetPlatform) {
-      case TargetPlatform.android:
-      case TargetPlatform.iOS:
-        return true;
-      case TargetPlatform.macOS:
-      case TargetPlatform.fuchsia:
-      case TargetPlatform.linux:
-      case TargetPlatform.windows:
-        return false;
-    }
-  }
-
-  // !!!위젯 비즈니스 로직 작성하기!!!
+  // [내부 함수]
   Future<void> _show(Offset position) async {
     final RenderObject overlay =
         Overlay.of(context).context.findRenderObject()!;
@@ -137,7 +132,20 @@ class ContextMenuRegionBusiness extends State<ContextMenuRegion> {
     }
   }
 
-  // !!!위젯 작성하기. (business 에서 데이터를 가져와 사용)!!!
+  // (길게 누르기를 할지 우클릭을 할지 여부)
+  bool get longPressEnabled {
+    switch (defaultTargetPlatform) {
+      case TargetPlatform.android:
+      case TargetPlatform.iOS:
+        return true;
+      case TargetPlatform.macOS:
+      case TargetPlatform.fuchsia:
+      case TargetPlatform.linux:
+      case TargetPlatform.windows:
+        return false;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -183,24 +191,25 @@ class DialogCompleteAnimation extends StatefulWidget {
       required this.completeAnimationDuration,
       required this.completeCloseDuration});
 
-  // 위젯 비즈니스
+  // [위젯 관련 변수] - State 의 setState() 를 하면 초기화 됩니다.
+  // (위젯 비즈니스)
   final DialogCompleteAnimationBusiness business;
 
-  //!!!주입 받을 하위 위젯 선언 하기!!!
-  // 다이얼로그 하위 위젯
+  // (다이얼로그 위젯 정보)
   final Widget dialogChild;
   final Size dialogChildSize;
 
-  // 완료시 표시될 하위 위젯
+  // (완료시 표시될 위젯 정보)
   final Widget completeChild;
   final Size completeChildSize;
 
-  // 변환 애니메이션 속도
+  // (변환 애니메이션 속도)
   final Duration completeAnimationDuration;
 
-  // 다이얼로그 종료 속도(변환 애니메이션보단 길어야 애니메이션을 감상 가능)
+  // (다이얼로그 종료 속도 - 변환 애니메이션보단 길어야 애니메이션을 감상 가능)
   final Duration completeCloseDuration;
 
+  // [내부 함수]
   @override
   // ignore: no_logic_in_create_state
   DialogCompleteAnimationBusiness createState() => business;
@@ -209,16 +218,15 @@ class DialogCompleteAnimation extends StatefulWidget {
 class DialogCompleteAnimationBusiness extends State<DialogCompleteAnimation> {
   DialogCompleteAnimationBusiness();
 
-  // Stateful Widget 화면 갱신
+  // [위젯 관련 변수] - State 내에서 상태가 유지 됩니다.
+  // (다이얼로그 작업 완료 여부)
+  bool isComplete = false;
+
+  // [외부 공개 함수]
+  // (Stateful Widget 화면 갱신)
   void refresh() {
     setState(() {});
   }
-
-  // !!!위젯 상태 변수 선언하기!!!
-  // 다이얼로그 작업 완료 여부
-  bool isComplete = false;
-
-  // !!!위젯 비즈니스 로직 작성하기!!!
 
   // (다이얼로그 완료)
   Future<void> dialogComplete() async {
@@ -233,7 +241,7 @@ class DialogCompleteAnimationBusiness extends State<DialogCompleteAnimation> {
     context.pop();
   }
 
-  // !!!위젯 작성하기. (business 에서 데이터를 가져와 사용)!!!
+  // [내부 함수]
   @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
