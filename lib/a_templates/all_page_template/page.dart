@@ -94,7 +94,6 @@ class PageBusiness extends State<Page> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     return PopScope(
       canPop: pageCanPop,
-      // 페이지 생명주기를 Business 에 넘겨주기
       child: FocusDetector(
         // (페이지 위젯의 FocusDetector 콜백들)
         onFocusGained: () async {},
@@ -103,6 +102,8 @@ class PageBusiness extends State<Page> with WidgetsBindingObserver {
         onVisibilityLost: () async {},
         onForegroundGained: () async {},
         onForegroundLost: () async {},
+
+        // (페이지 UI 위젯)
         child: gw_page_out_frames.PageOutFrame(
           pageTitle: "페이지 템플릿",
           business: pageOutFrameBusiness,
