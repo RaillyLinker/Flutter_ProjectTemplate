@@ -31,14 +31,19 @@ class PageOutputVo {}
 
 //------------------------------------------------------------------------------
 class PageEntrance extends StatefulWidget {
-  const PageEntrance({super.key, required this.business, required this.goRouterState});
+  PageEntrance(
+      {super.key,
+      required this.business,
+      required GoRouterState goRouterState}) {
+    pageInputVo = business.getInputVo(goRouterState);
+  }
 
   // [위젯 관련 변수] - State 의 setState() 를 하면 초기화 됩니다.
   // (위젯 비즈니스)
   final PageEntranceState business;
 
-  // (입력 데이터 goRouterState)
-  final GoRouterState goRouterState;
+  // (페이지 입력 데이터)
+  late final PageInputVo pageInputVo;
 
   // [내부 함수]
   @override
@@ -46,15 +51,13 @@ class PageEntrance extends StatefulWidget {
   PageEntranceState createState() => business;
 }
 
-class PageEntranceState extends State<PageEntrance> with WidgetsBindingObserver {
+class PageEntranceState extends State<PageEntrance>
+    with WidgetsBindingObserver {
   PageEntranceState();
 
   // [위젯 관련 변수] - State 내에서 상태가 유지 됩니다.
   // (페이지 pop 가능 여부 변수)
   bool pageCanPop = true;
-
-  // (페이지 입력 데이터)
-  late PageInputVo pageInputVo;
 
   // (pageOutFrameBusiness)
   gw_page_out_frames.PageOutFrameBusiness pageOutFrameBusiness =
@@ -63,7 +66,8 @@ class PageEntranceState extends State<PageEntrance> with WidgetsBindingObserver 
   // [외부 공개 함수]
 
   // [내부 함수]
-  Future<void> onCheckPageInputVoAsync(GoRouterState goRouterState) async {
+  // (goRouterState 에서 PageInputVo 를 추출)
+  PageInputVo getInputVo(GoRouterState goRouterState) {
     // !!!pageInputVo 체크!!!
     // ex :
     // if (!goRouterState.uri.queryParameters
@@ -72,7 +76,7 @@ class PageEntranceState extends State<PageEntrance> with WidgetsBindingObserver 
     // }
 
     // !!!PageInputVo 입력!!!
-    pageInputVo = PageInputVo();
+    return PageInputVo();
   }
 
   // (페이지 위젯 initState)
@@ -80,7 +84,6 @@ class PageEntranceState extends State<PageEntrance> with WidgetsBindingObserver 
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-    onCheckPageInputVoAsync(widget.goRouterState);
   }
 
   // (페이지 위젯 dispose)
