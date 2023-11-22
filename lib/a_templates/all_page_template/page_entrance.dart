@@ -32,15 +32,13 @@ class PageOutputVo {}
 //------------------------------------------------------------------------------
 class PageEntrance extends StatefulWidget {
   PageEntrance(
-      {super.key,
-      required this.business,
-      required GoRouterState goRouterState}) {
-    pageInputVo = business.getInputVo(goRouterState);
+      {super.key, required this.state, required GoRouterState goRouterState}) {
+    pageInputVo = state.getInputVo(goRouterState);
   }
 
   // [위젯 관련 변수] - State 의 setState() 를 하면 초기화 됩니다.
   // (위젯 비즈니스)
-  final PageEntranceState business;
+  final PageEntranceState state;
 
   // (페이지 입력 데이터)
   late final PageInputVo pageInputVo;
@@ -48,7 +46,7 @@ class PageEntrance extends StatefulWidget {
   // [내부 함수]
   @override
   // ignore: no_logic_in_create_state
-  PageEntranceState createState() => business;
+  PageEntranceState createState() => state;
 }
 
 class PageEntranceState extends State<PageEntrance>
