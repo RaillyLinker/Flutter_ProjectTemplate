@@ -11,7 +11,7 @@ import 'page_entrance.dart' as page_entrance;
 import '../../../global_widgets/gw_page_out_frames.dart' as gw_page_out_frames;
 import '../../../dialogs/all/all_dialog_info/page_entrance.dart'
     as all_dialog_info;
-import '../../../a_templates/all_dialog_template/page.dart'
+import '../../../a_templates/all_dialog_template/page_entrance.dart'
     as all_dialog_template;
 import '../../../dialogs/all/all_dialog_yes_or_no/page_entrance.dart'
     as all_dialog_yes_or_no;
@@ -128,8 +128,8 @@ class PageBusiness {
           showDialog(
               barrierDismissible: true,
               context: _context,
-              builder: (context) => all_dialog_template.Page(
-                    business: all_dialog_template.PageBusiness(),
+              builder: (context) => all_dialog_template.PageEntrance(
+                    business: all_dialog_template.PageEntranceState(),
                     pageInputVo: all_dialog_template.PageInputVo(),
                   )).then((outputVo) {});
         }
@@ -239,8 +239,8 @@ class PageBusiness {
               barrierDismissible: true,
               context: _context,
               barrierColor: Colors.blue.withOpacity(0.5),
-              builder: (context) => all_dialog_template.Page(
-                    business: all_dialog_template.PageBusiness(),
+              builder: (context) => all_dialog_template.PageEntrance(
+                    business: all_dialog_template.PageEntranceState(),
                     pageInputVo: all_dialog_template.PageInputVo(),
                   )).then((outputVo) {});
         }

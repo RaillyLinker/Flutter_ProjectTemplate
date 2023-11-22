@@ -15,12 +15,12 @@ class PageInputVo {}
 class PageOutputVo {}
 
 //------------------------------------------------------------------------------
-class Page extends StatefulWidget {
-  const Page({super.key, required this.business, required this.pageInputVo});
+class PageEntrance extends StatefulWidget {
+  const PageEntrance({super.key, required this.business, required this.pageInputVo});
 
   // [위젯 관련 상수]
   // (위젯 비즈니스)
-  final PageBusiness business;
+  final PageEntranceState business;
 
   // (페이지 입력 데이터)
   final PageInputVo pageInputVo;
@@ -28,11 +28,11 @@ class Page extends StatefulWidget {
   // [내부 함수]
   @override
   // ignore: no_logic_in_create_state
-  PageBusiness createState() => business;
+  PageEntranceState createState() => business;
 }
 
-class PageBusiness extends State<Page> with WidgetsBindingObserver {
-  PageBusiness();
+class PageEntranceState extends State<PageEntrance> with WidgetsBindingObserver {
+  PageEntranceState();
 
   // [위젯 관련 변수]
   // (페이지 pop 가능 여부 변수)

@@ -15,7 +15,7 @@ import '../../../pages/all/all_page_just_push_test1/page_entrance.dart'
     as all_page_just_push_test1;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
-import '../../../a_templates/all_page_template/page.dart' as all_page_template;
+import '../../../a_templates/all_page_template/page_entrance.dart' as all_page_template;
 import '../../../pages/all/all_page_page_transition_animation_sample_list/page_entrance.dart'
     as all_page_page_transition_animation_sample_list;
 import '../../../pages/all/all_page_grid_sample/page_entrance.dart'

@@ -30,12 +30,12 @@ class PageInputVo {}
 class PageOutputVo {}
 
 //------------------------------------------------------------------------------
-class Page extends StatefulWidget {
-  const Page({super.key, required this.business, required this.goRouterState});
+class PageEntrance extends StatefulWidget {
+  const PageEntrance({super.key, required this.business, required this.goRouterState});
 
   // [위젯 관련 변수] - State 의 setState() 를 하면 초기화 됩니다.
   // (위젯 비즈니스)
-  final PageBusiness business;
+  final PageEntranceState business;
 
   // (입력 데이터 goRouterState)
   final GoRouterState goRouterState;
@@ -43,11 +43,11 @@ class Page extends StatefulWidget {
   // [내부 함수]
   @override
   // ignore: no_logic_in_create_state
-  PageBusiness createState() => business;
+  PageEntranceState createState() => business;
 }
 
-class PageBusiness extends State<Page> with WidgetsBindingObserver {
-  PageBusiness();
+class PageEntranceState extends State<PageEntrance> with WidgetsBindingObserver {
+  PageEntranceState();
 
   // [위젯 관련 변수] - State 내에서 상태가 유지 됩니다.
   // (페이지 pop 가능 여부 변수)
