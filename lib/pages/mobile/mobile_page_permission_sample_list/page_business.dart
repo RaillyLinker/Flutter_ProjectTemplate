@@ -593,25 +593,6 @@ class PageBusiness {
       blocObjects.blocSampleList.refresh();
     }
 
-    // calendarReadOnly 권한 여부 확인
-    int calendarReadOnlyPermissionIndex = pageViewModel.allSampleList
-        .indexWhere((samplePage) =>
-            samplePage.sampleItemEnum == SampleItemEnum.calendarReadOnly);
-
-    if (calendarReadOnlyPermissionIndex != -1) {
-      PermissionStatus permissionStatus =
-          await Permission.calendarReadOnly.status;
-      SampleItem sampleItem =
-          pageViewModel.allSampleList[calendarReadOnlyPermissionIndex];
-
-      if (permissionStatus.isGranted) {
-        sampleItem.isChecked = true;
-      } else {
-        sampleItem.isChecked = false;
-      }
-      blocObjects.blocSampleList.refresh();
-    }
-
     // appTrackingTransparency 권한 여부 확인
     int appTrackingTransparencyPermissionIndex = pageViewModel.allSampleList
         .indexWhere((samplePage) =>
@@ -1954,51 +1935,6 @@ class PageBusiness {
         }
         break;
 
-      case SampleItemEnum.calendarReadOnly:
-        {
-          if (sampleItem.isChecked) {
-            // 스위치 Off 시키기
-            if (!_context.mounted) return;
-            var outputVo = await showDialog(
-                barrierDismissible: true,
-                context: _context,
-                builder: (context) => all_dialog_yes_or_no.PageEntrance(
-                      all_dialog_yes_or_no.PageInputVo(
-                          "권한 해제",
-                          "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
-                          "예",
-                          "아니오"),
-                    ));
-
-            if (outputVo != null && outputVo.checkPositiveBtn) {
-              // positive 버튼을 눌렀을 때
-              // 권한 설정으로 이동
-              openAppSettings();
-            }
-          } else {
-            // 스위치 On 시키기
-            PermissionStatus permissionStatus =
-                await Permission.calendarReadOnly.status;
-
-            if (permissionStatus.isPermanentlyDenied) {
-              // 권한이 영구적으로 거부된 경우
-              // 권한 설정으로 이동
-              openAppSettings();
-            } else {
-              // 권한 요청
-              await Permission.calendarReadOnly.request();
-
-              PermissionStatus status =
-                  await Permission.calendarReadOnly.status;
-              if (status.isGranted) {
-                // 권한 승인
-                _togglePermissionSwitch(index);
-              }
-            }
-          }
-        }
-        break;
-
       case SampleItemEnum.appTrackingTransparency:
         {
           if (sampleItem.isChecked) {
@@ -2422,14 +2358,6 @@ class PageViewModel {
       var major = int.parse(versionParts[0]);
       var minor = int.parse(versionParts[1]);
 
-      if (major > 16) {
-        // 16 보다 클 때
-        allSampleList.add(SampleItem(
-            SampleItemEnum.calendarReadOnly,
-            "calendarReadOnly 권한",
-            "todo iOS : 캘린더 읽기 권한 (iOS 16 이하에서는 calendarFullAccess 와 동일)"));
-      }
-
       if (major >= 14) {
         // 14 이상일 때
         allSampleList.add(SampleItem(SampleItemEnum.photos, "photos 권한",
@@ -2646,8 +2574,6 @@ enum SampleItemEnum {
   notification,
   // Android, todo iOS : 캘린더 입력, 읽기 권한
   calendarFullAccess,
-  // todo iOS : 캘린더 읽기 권한 (iOS 16 이하에서는 calendarFullAccess 와 동일)
-  calendarReadOnly,
   // todo iOS :
   appTrackingTransparency,
   // todo iOS : 중요한 알림을 보내기 위한 권한, 벨소리를 무시하는 알림 전송을 허용합니다.
