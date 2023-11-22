@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:focus_detector_v2/focus_detector_v2.dart';
 import 'package:go_router/go_router.dart';
 
-// (all)
-import '../../../global_widgets/gw_page_out_frames.dart' as gw_page_out_frames;
+// (inner Folder)
+import 'page_view.dart' as page_view;
+import 'page_business.dart' as page_business;
 
 // [페이지 진입 파일]
 
@@ -54,17 +55,14 @@ class PageEntranceState extends State<PageEntrance>
   PageEntranceState();
 
   // [위젯 관련 변수] - State 내에서 상태가 유지 됩니다.
-  // (페이지 pop 가능 여부 변수)
-  bool pageCanPop = true;
-
-  // (pageOutFrameBusiness)
-  gw_page_out_frames.PageOutFrameBusiness pageOutFrameBusiness =
-      gw_page_out_frames.PageOutFrameBusiness();
+  // (페이지 Business)
+  page_business.PageBusiness pageBusiness = page_business.PageBusiness();
 
   // [외부 공개 함수]
 
   // [내부 함수]
   // (goRouterState 에서 PageInputVo 를 추출)
+  // todo business 로 전달
   PageInputVo getInputVo(GoRouterState goRouterState) {
     // !!!pageInputVo 체크!!!
     // ex :
@@ -78,6 +76,7 @@ class PageEntranceState extends State<PageEntrance>
   }
 
   // (페이지 위젯 initState)
+  // todo business 로 전달
   @override
   void initState() {
     super.initState();
@@ -85,6 +84,7 @@ class PageEntranceState extends State<PageEntrance>
   }
 
   // (페이지 위젯 dispose)
+  // todo business 로 전달
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
@@ -94,9 +94,10 @@ class PageEntranceState extends State<PageEntrance>
   @override
   Widget build(BuildContext context) {
     return PopScope(
-      canPop: pageCanPop,
+      canPop: pageBusiness.pageCanPop,
       child: FocusDetector(
         // (페이지 위젯의 FocusDetector 콜백들)
+        // todo business 로 전달
         onFocusGained: () async {},
         onFocusLost: () async {},
         onVisibilityGained: () async {},
@@ -105,16 +106,9 @@ class PageEntranceState extends State<PageEntrance>
         onForegroundLost: () async {},
 
         // (페이지 UI 위젯)
-        child: gw_page_out_frames.PageOutFrame(
-          pageTitle: "페이지 템플릿",
-          business: pageOutFrameBusiness,
-          floatingActionButton: null,
-          child: const Center(
-            child: Text(
-              "페이지 템플릿입니다.",
-              style: TextStyle(fontFamily: "MaruBuri"),
-            ),
-          ),
+        child: page_view.PageView(
+          business: pageBusiness,
+          pageInputVo: widget.pageInputVo,
         ),
       ),
     );

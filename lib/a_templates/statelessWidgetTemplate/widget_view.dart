@@ -21,17 +21,17 @@ class StatefulWidgetTemplate extends StatefulWidget {
   widget_business.StatefulWidgetTemplateBusiness createState() => _business;
 
   // [public 변수]
-  // !!!하위 위젯 등 화면과 직접적 연관이 있는 public 변수를 선언 하세요!!!
+  // !!!public 변수를 선언 하세요!!!
   // (샘플 변수)
   final String sampleText;
 
   // [private 변수]
-  // !!!하위 위젯 등 화면과 직접적 연관이 있는 private 변수를 선언 하세요!!!
+  // !!!private 변수를 선언 하세요!!!
   // (위젯 비즈니스)
   final widget_business.StatefulWidgetTemplateBusiness _business;
 
   // [public 함수]
-  // !!!public 함수를 작성하세요!!!
+  // !!!public 함수를 작성 하세요!!!
   // (뷰 위젯을 반환 하는 함수)
   Widget viewWidgetBuild({required BuildContext context}) {
     // !!!뷰 하위 위젯을 작성 하세요!!!
@@ -42,5 +42,5 @@ class StatefulWidgetTemplate extends StatefulWidget {
   }
 
 // [private 함수]
-// !!!private 함수를 작성하세요!!!
+// !!!private 함수를 작성 하세요!!!
 }

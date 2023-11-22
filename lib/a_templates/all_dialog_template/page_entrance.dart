@@ -4,6 +4,7 @@ import 'package:focus_detector_v2/focus_detector_v2.dart';
 import 'package:go_router/go_router.dart';
 
 // [페이지 구현 파일]
+// todo business, view 분리
 
 //------------------------------------------------------------------------------
 // (페이지 호출시 필요한 입력값 데이터 형태)

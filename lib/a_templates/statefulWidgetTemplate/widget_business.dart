@@ -23,14 +23,14 @@ class StatelessWidgetTemplateBusiness {
   // !!!private 변수를 선언 하세요!!!
 
   // [public 함수]
-  // !!!public 함수를 작성하세요!!!
+  // !!!public 함수를 작성 하세요!!!
   // (샘플 public 함수)
   void sampleFunc({required String text}) {
     _samplePrivateFunc(text: sampleBool ? text : "");
   }
 
   // [private 함수]
-  // !!!private 함수를 작성하세요!!!
+  // !!!private 함수를 작성 하세요!!!
   // (샘플 private 함수)
   void _samplePrivateFunc({required String text}) {
     if (kDebugMode) {
