@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 
 // (inner Folder)
-import 'page_business.dart' as widget_business;
+import 'page_business.dart' as page_business;
 
 // (all)
 import '../../../global_widgets/gw_page_out_frames.dart' as gw_page_out_frames;
@@ -35,20 +35,20 @@ class PageOutputVo {}
 // -----------------------------------------------------------------------------
 class PageView extends StatefulWidget {
   PageView({super.key, required GoRouterState goRouterState}) {
-    _business = widget_business.PageBusiness(goRouterState: goRouterState);
+    _business = page_business.PageBusiness(goRouterState: goRouterState);
     _business.view = this;
   }
 
   // [오버라이드]
   @override
   // ignore: no_logic_in_create_state
-  widget_business.PageBusiness createState() => _business;
+  page_business.PageBusiness createState() => _business;
 
   // [public 변수]
 
   // [private 변수]
   // (위젯 비즈니스)
-  late final widget_business.PageBusiness _business;
+  late final page_business.PageBusiness _business;
 
   // [public 함수]
 

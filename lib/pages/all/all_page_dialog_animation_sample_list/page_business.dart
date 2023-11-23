@@ -9,8 +9,10 @@ import 'page_entrance.dart' as page_entrance;
 
 // (all)
 import '../../../global_widgets/gw_page_out_frames.dart' as gw_page_out_frames;
-import '../../../a_templates/all_dialog_template/page_entrance.dart'
-    as all_dialog_template;
+import '../../../a_templates/all_dialog_template/page_view.dart'
+    as all_dialog_template_view;
+import '../../../a_templates/all_dialog_template/page_business.dart'
+    as all_dialog_template_business;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
 import '../../../dialogs/all/all_dialog_small_circle_transform_sample/page_entrance.dart'
@@ -112,6 +114,9 @@ class PageBusiness {
     switch (sampleItem.sampleItemEnum) {
       case SampleItemEnum.rotateAnimation:
         {
+          var dialogBusiness = all_dialog_template_business.PageBusiness(
+              pageInputVo: all_dialog_template_view.PageInputVo());
+
           // 회전 애니메이션
           showGeneralDialog(
             barrierDismissible: true,
@@ -123,9 +128,8 @@ class PageBusiness {
             transitionBuilder: (ctx, a1, a2, child) {
               return Transform.rotate(
                 angle: math.radians(a1.value * 360),
-                child: all_dialog_template.PageEntrance(
-                  state: all_dialog_template.PageEntranceState(),
-                  pageInputVo: all_dialog_template.PageInputVo(),
+                child: all_dialog_template_view.PageView(
+                  business: dialogBusiness,
                 ),
               );
             },
@@ -135,6 +139,9 @@ class PageBusiness {
         break;
       case SampleItemEnum.scaleAnimation:
         {
+          var dialogBusiness = all_dialog_template_business.PageBusiness(
+              pageInputVo: all_dialog_template_view.PageInputVo());
+
           // 확대 애니메이션
           showGeneralDialog(
             barrierDismissible: true,
@@ -147,9 +154,8 @@ class PageBusiness {
               var curve = Curves.easeInOut.transform(a1.value);
               return Transform.scale(
                 scale: curve,
-                child: all_dialog_template.PageEntrance(
-                  state: all_dialog_template.PageEntranceState(),
-                  pageInputVo: all_dialog_template.PageInputVo(),
+                child: all_dialog_template_view.PageView(
+                  business: dialogBusiness,
                 ),
               );
             },
@@ -159,6 +165,9 @@ class PageBusiness {
         break;
       case SampleItemEnum.slideDownAnimation:
         {
+          var dialogBusiness = all_dialog_template_business.PageBusiness(
+              pageInputVo: all_dialog_template_view.PageInputVo());
+
           // Slide Down 애니메이션
           showGeneralDialog(
             barrierDismissible: true,
@@ -173,9 +182,8 @@ class PageBusiness {
               return Transform(
                 transform:
                     Matrix4.translationValues(0.0, curvedValue * 1600, 0.0),
-                child: all_dialog_template.PageEntrance(
-                  state: all_dialog_template.PageEntranceState(),
-                  pageInputVo: all_dialog_template.PageInputVo(),
+                child: all_dialog_template_view.PageView(
+                  business: dialogBusiness,
                 ),
               );
             },
