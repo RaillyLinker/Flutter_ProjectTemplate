@@ -8,6 +8,7 @@ import 'page_view.dart' as page_view;
 import 'page_business.dart' as page_business;
 
 // [페이지 진입 파일]
+// todo : business 와 합치기
 
 //------------------------------------------------------------------------------
 // !!!페이지 진입 라우트 Name 정의!!!
