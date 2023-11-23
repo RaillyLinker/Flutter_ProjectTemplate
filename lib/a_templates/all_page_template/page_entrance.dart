@@ -31,86 +31,81 @@ class PageInputVo {}
 class PageOutputVo {}
 
 //------------------------------------------------------------------------------
+// 아래는 수정할 필요가 없는 코드입니다.
 class PageEntrance extends StatefulWidget {
-  PageEntrance(
-      {super.key, required this.state, required GoRouterState goRouterState}) {
-    pageInputVo = state.getInputVo(goRouterState);
+  PageEntrance({super.key, required GoRouterState goRouterState}) {
+    _pageInputVo = _state._pageBusiness.getInputVo(goRouterState);
   }
 
-  // [위젯 관련 변수] - State 의 setState() 를 하면 초기화 됩니다.
-  // (위젯 비즈니스)
-  final PageEntranceState state;
-
-  // (페이지 입력 데이터)
-  late final PageInputVo pageInputVo;
-
-  // [내부 함수]
+  // [오버라이드]
   @override
   // ignore: no_logic_in_create_state
-  PageEntranceState createState() => state;
+  PageEntranceState createState() => _state;
+
+  // [private 변수]
+  // (위젯 state)
+  final PageEntranceState _state = PageEntranceState();
+
+  // (페이지 입력 데이터)
+  late final PageInputVo _pageInputVo;
 }
 
 class PageEntranceState extends State<PageEntrance>
     with WidgetsBindingObserver {
   PageEntranceState();
 
-  // [위젯 관련 변수] - State 내에서 상태가 유지 됩니다.
-  // (페이지 Business)
-  page_business.PageBusiness pageBusiness = page_business.PageBusiness();
-
-  // [외부 공개 함수]
-
-  // [내부 함수]
-  // (goRouterState 에서 PageInputVo 를 추출)
-  // todo business 로 전달
-  PageInputVo getInputVo(GoRouterState goRouterState) {
-    // !!!pageInputVo 체크!!!
-    // ex :
-    // if (!goRouterState.uri.queryParameters
-    //     .containsKey("inputValueString")) {
-    //   // 필수 파라미터가 없는 경우에 대한 처리
-    // }
-
-    // !!!PageInputVo 입력!!!
-    return PageInputVo();
-  }
-
+  // [오버라이드]
   // (페이지 위젯 initState)
-  // todo business 로 전달
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
+    _pageBusiness.initPageState();
   }
 
   // (페이지 위젯 dispose)
-  // todo business 로 전달
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
+    _pageBusiness.pageDispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return PopScope(
-      canPop: pageBusiness.pageCanPop,
+      canPop: _pageBusiness.pageCanPop,
       child: FocusDetector(
         // (페이지 위젯의 FocusDetector 콜백들)
-        // todo business 로 전달
-        onFocusGained: () async {},
-        onFocusLost: () async {},
-        onVisibilityGained: () async {},
-        onVisibilityLost: () async {},
-        onForegroundGained: () async {},
-        onForegroundLost: () async {},
+        onFocusGained: () async {
+          await _pageBusiness.onPageFocusGained();
+        },
+        onFocusLost: () async {
+          await _pageBusiness.onPageFocusLost();
+        },
+        onVisibilityGained: () async {
+          await _pageBusiness.onPageVisibilityGained();
+        },
+        onVisibilityLost: () async {
+          await _pageBusiness.onPageVisibilityLost();
+        },
+        onForegroundGained: () async {
+          await _pageBusiness.onPageForegroundGained();
+        },
+        onForegroundLost: () async {
+          await _pageBusiness.onPageForegroundLost();
+        },
 
         // (페이지 UI 위젯)
         child: page_view.PageView(
-          business: pageBusiness,
-          pageInputVo: widget.pageInputVo,
+          business: _pageBusiness,
+          pageInputVo: widget._pageInputVo,
         ),
       ),
     );
   }
+
+  // [private 변수]
+  // (페이지 Business)
+  final page_business.PageBusiness _pageBusiness = page_business.PageBusiness();
 }

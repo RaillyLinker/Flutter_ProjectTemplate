@@ -157,8 +157,7 @@ GoRouter getRouter() {
       pageBuilder: (c, s) {
         return CustomTransitionPage(
             key: s.pageKey,
-            child: all_page_template.PageEntrance(
-                state: all_page_template.PageEntranceState(), goRouterState: s),
+            child: all_page_template.PageEntrance(goRouterState: s),
             transitionsBuilder: all_page_template.pageTransitionsBuilder);
       }));
 

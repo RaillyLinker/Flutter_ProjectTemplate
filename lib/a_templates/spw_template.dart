@@ -21,24 +21,24 @@ class SharedPreferenceWrapper {
   // !!!AES256 에서 사용할 secretKey, secretIv 설정!!!
   // 암복호화에 들어가는 연산량 증가가 존재하지만, 보안적 측면의 우위를 위해 암호화를 사용하기로 결정
   // 암호화 키 (32 byte)
-  static const String secretKey = "aaaaaaaaaabbbbbbbbbbccccccccccdd";
+  static const String _secretKey = "aaaaaaaaaabbbbbbbbbbccccccccccdd";
 
   // 암호 초기화 백터 (16 byte)
-  static const String secretIv = "aaaaaaaaaabbbbbb";
+  static const String _secretIv = "aaaaaaaaaabbbbbb";
 
   // (값 입력 세마포어)
-  static final Semaphore semaphore = Semaphore();
+  static final Semaphore _semaphore = Semaphore();
 
   // (SPW 값 가져오기)
   static SharedPreferenceWrapperVo? get() {
-    semaphore.acquire();
+    _semaphore.acquire();
     // 키를 사용하여 저장된 jsonString 가져오기
     String savedJsonString =
         gd_const.sharedPreferences.getString(globalKeyName) ?? "";
 
     if (savedJsonString.trim() == "") {
       // 아직 아무 값도 저장되지 않은 경우
-      semaphore.release();
+      _semaphore.release();
       return null;
     } else {
       // 저장된 값이 들어있는 경우
@@ -46,15 +46,15 @@ class SharedPreferenceWrapper {
         // 값 복호화
         String decryptedJsonString = gf_crypto.aes256Decrypt(
             cipherText: savedJsonString,
-            secretKey: secretKey,
-            secretIv: secretIv);
+            secretKey: _secretKey,
+            secretIv: _secretIv);
 
         // !!! Map 을 Object 로 변경!!!
         // map 키는 Object 의 변수명과 동일
         Map<String, dynamic> map = jsonDecode(decryptedJsonString);
         var resultObject =
             SharedPreferenceWrapperVo(sampleInt: map["sampleInt"]);
-        semaphore.release();
+        _semaphore.release();
         return resultObject;
       } catch (e) {
         // 암호 키가 변경되는 등의 이유로 저장된 데이터 복호화시 에러가 난 경우를 가정
@@ -64,7 +64,7 @@ class SharedPreferenceWrapper {
 
         // 기존값을 대신하여 null 값을 집어넣기
         gd_const.sharedPreferences.setString(globalKeyName, "").then((value) {
-          semaphore.release();
+          _semaphore.release();
         });
         return null;
       }
@@ -73,11 +73,11 @@ class SharedPreferenceWrapper {
 
   // (SPW 값 저장하기)
   static void set({required SharedPreferenceWrapperVo? value}) {
-    semaphore.acquire();
+    _semaphore.acquire();
     if (value == null) {
       // 키에 암호화된 값을 저장
       gd_const.sharedPreferences.setString(globalKeyName, "").then((value) {
-        semaphore.release();
+        _semaphore.release();
       });
     } else {
       // !!!Object 를 Map 으로 변경!!!
@@ -86,13 +86,13 @@ class SharedPreferenceWrapper {
 
       // 값 암호화
       String encryptedJsonString = gf_crypto.aes256Encrypt(
-          plainText: jsonEncode(map), secretKey: secretKey, secretIv: secretIv);
+          plainText: jsonEncode(map), secretKey: _secretKey, secretIv: _secretIv);
 
       // 키에 암호화된 값을 저장
       gd_const.sharedPreferences
           .setString(globalKeyName, encryptedJsonString)
           .then((value) {
-        semaphore.release();
+        _semaphore.release();
       });
     }
   }

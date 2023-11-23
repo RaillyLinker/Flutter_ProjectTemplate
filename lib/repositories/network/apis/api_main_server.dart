@@ -16,7 +16,7 @@ import '../../../global_functions/gf_template_functions.dart'
 //------------------------------------------------------------------------------
 // (서버 Dio 객체)
 // 본 파일은 하나의 서버에 대응하며, 사용할 서버 객체는 serverDioObject 에 할당하세요.
-final serverDioObject = network_repositories.mainServerDio;
+final _serverDioObject = network_repositories.mainServerDio;
 
 // -----------------------------------------------------------------------------
 // !!!네트워크 요청 함수 작성!!!
@@ -62,7 +62,7 @@ Future<
   try {
     // !!!네트워크 요청 설정!!!
     // requestPathAndParam, headers 설정 외 세부 설정
-    var response = await serverDioObject.get(requestUrlAndParam,
+    var response = await _serverDioObject.get(requestUrlAndParam,
         options: Options(headers: requestHeaders));
 
     int statusCode = response.statusCode!;
@@ -233,7 +233,7 @@ Future<
   try {
     // !!!네트워크 요청 설정!!!
     // requestPathAndParam, headers 설정 외 세부 설정
-    var response = await serverDioObject.post(requestUrlAndParam,
+    var response = await _serverDioObject.post(requestUrlAndParam,
         options: Options(
           headers: requestHeaders,
         ),
@@ -414,7 +414,7 @@ Future<
   try {
     // !!!네트워크 요청 설정!!!
     // requestPathAndParam, headers 설정 외 세부 설정
-    var response = await serverDioObject.post(requestUrlAndParam,
+    var response = await _serverDioObject.post(requestUrlAndParam,
         options: Options(
             headers: requestHeaders,
             contentType: Headers.formUrlEncodedContentType),
@@ -614,7 +614,7 @@ Future<
   try {
     // !!!네트워크 요청 설정!!!
     // requestPathAndParam, headers 설정 외 세부 설정
-    var response = await serverDioObject.post(requestUrlAndParam,
+    var response = await _serverDioObject.post(requestUrlAndParam,
         options: Options(headers: requestHeaders), data: requestBody);
 
     int statusCode = response.statusCode!;
@@ -793,7 +793,7 @@ Future<
   try {
     // !!!네트워크 요청 설정!!!
     // requestPathAndParam, headers 설정 외 세부 설정
-    var response = await serverDioObject.post(requestUrlAndParam,
+    var response = await _serverDioObject.post(requestUrlAndParam,
         options: Options(headers: requestHeaders), data: requestBody);
 
     int statusCode = response.statusCode!;
@@ -953,7 +953,7 @@ Future<
   try {
     // !!!네트워크 요청 설정!!!
     // requestPathAndParam, headers 설정 외 세부 설정
-    var response = await serverDioObject.post(requestUrlAndParam,
+    var response = await _serverDioObject.post(requestUrlAndParam,
         options: Options(headers: requestHeaders), data: requestBody);
 
     int statusCode = response.statusCode!;
@@ -1018,7 +1018,7 @@ Future<
   try {
     // !!!네트워크 요청 설정!!!
     // requestPathAndParam, headers 설정 외 세부 설정
-    var response = await serverDioObject.get(requestUrlAndParam,
+    var response = await _serverDioObject.get(requestUrlAndParam,
         options: Options(headers: requestHeaders));
 
     int statusCode = response.statusCode!;
@@ -1091,7 +1091,7 @@ Future<
   try {
     // !!!네트워크 요청 설정!!!
     // requestPathAndParam, headers 설정 외 세부 설정
-    var response = await serverDioObject.get(requestUrlAndParam,
+    var response = await _serverDioObject.get(requestUrlAndParam,
         options: Options(headers: requestHeaders));
 
     int statusCode = response.statusCode!;
@@ -1176,7 +1176,7 @@ Future<
   try {
     // !!!네트워크 요청 설정!!!
     // requestPathAndParam, headers 설정 외 세부 설정
-    var response = await serverDioObject.get(requestUrlAndParam,
+    var response = await _serverDioObject.get(requestUrlAndParam,
         options: Options(headers: requestHeaders));
 
     int statusCode = response.statusCode!;
@@ -1271,7 +1271,7 @@ Future<
   try {
     // !!!네트워크 요청 설정!!!
     // requestPathAndParam, headers 설정 외 세부 설정
-    var response = await serverDioObject.post(requestUrlAndParam,
+    var response = await _serverDioObject.post(requestUrlAndParam,
         options: Options(headers: requestHeaders), data: requestBody);
 
     int statusCode = response.statusCode!;
@@ -1493,7 +1493,7 @@ Future<
   try {
     // !!!네트워크 요청 설정!!!
     // requestPathAndParam, headers 설정 외 세부 설정
-    var response = await serverDioObject.post(requestUrlAndParam,
+    var response = await _serverDioObject.post(requestUrlAndParam,
         options: Options(headers: requestHeaders), data: requestBody);
 
     int statusCode = response.statusCode!;
@@ -1569,7 +1569,7 @@ Future<
   try {
     // !!!네트워크 요청 설정!!!
     // requestPathAndParam, headers 설정 외 세부 설정
-    var response = await serverDioObject.delete(requestUrlAndParam,
+    var response = await _serverDioObject.delete(requestUrlAndParam,
         options: Options(headers: requestHeaders), data: requestBody);
 
     int statusCode = response.statusCode!;
@@ -1651,7 +1651,7 @@ Future<
   try {
     // !!!네트워크 요청 설정!!!
     // requestPathAndParam, headers 설정 외 세부 설정
-    var response = await serverDioObject.post(requestUrlAndParam,
+    var response = await _serverDioObject.post(requestUrlAndParam,
         options: Options(
           headers: requestHeaders,
         ),
@@ -1870,7 +1870,7 @@ Future<
   try {
     // !!!네트워크 요청 설정!!!
     // requestPathAndParam, headers 설정 외 세부 설정
-    var response = await serverDioObject.get(requestUrlAndParam,
+    var response = await _serverDioObject.get(requestUrlAndParam,
         options: Options(headers: requestHeaders));
 
     int statusCode = response.statusCode!;
@@ -1960,7 +1960,7 @@ Future<
   try {
     // !!!네트워크 요청 설정!!!
     // requestPathAndParam, headers 설정 외 세부 설정
-    var response = await serverDioObject.get(requestUrlAndParam,
+    var response = await _serverDioObject.get(requestUrlAndParam,
         options: Options(headers: requestHeaders));
 
     int statusCode = response.statusCode!;
@@ -2058,7 +2058,7 @@ Future<
   try {
     // !!!네트워크 요청 설정!!!
     // requestPathAndParam, headers 설정 외 세부 설정
-    var response = await serverDioObject.get(requestUrlAndParam,
+    var response = await _serverDioObject.get(requestUrlAndParam,
         options: Options(headers: requestHeaders));
 
     int statusCode = response.statusCode!;
@@ -2156,7 +2156,7 @@ Future<
   try {
     // !!!네트워크 요청 설정!!!
     // requestPathAndParam, headers 설정 외 세부 설정
-    var response = await serverDioObject.get(requestUrlAndParam,
+    var response = await _serverDioObject.get(requestUrlAndParam,
         options: Options(headers: requestHeaders));
 
     int statusCode = response.statusCode!;
@@ -2251,7 +2251,7 @@ Future<
   try {
     // !!!네트워크 요청 설정!!!
     // requestPathAndParam, headers 설정 외 세부 설정
-    var response = await serverDioObject.get(requestUrlAndParam,
+    var response = await _serverDioObject.get(requestUrlAndParam,
         options: Options(headers: requestHeaders));
 
     int statusCode = response.statusCode!;
@@ -2347,7 +2347,7 @@ Future<
   try {
     // !!!네트워크 요청 설정!!!
     // requestPathAndParam, headers 설정 외 세부 설정
-    var response = await serverDioObject.post(requestUrlAndParam,
+    var response = await _serverDioObject.post(requestUrlAndParam,
         options: Options(
             headers: requestHeaders,
             sendTimeout: const Duration(seconds: 10),
@@ -2453,7 +2453,7 @@ Future<
   try {
     // !!!네트워크 요청 설정!!!
     // requestPathAndParam, headers 설정 외 세부 설정
-    var response = await serverDioObject.get(requestUrlAndParam,
+    var response = await _serverDioObject.get(requestUrlAndParam,
         options: Options(headers: requestHeaders));
 
     int statusCode = response.statusCode!;
@@ -2564,7 +2564,7 @@ Future<
   try {
     // !!!네트워크 요청 설정!!!
     // requestPathAndParam, headers 설정 외 세부 설정
-    var response = await serverDioObject.post(requestUrlAndParam,
+    var response = await _serverDioObject.post(requestUrlAndParam,
         options: Options(
           headers: requestHeaders,
         ),
@@ -2666,7 +2666,7 @@ Future<
   try {
     // !!!네트워크 요청 설정!!!
     // requestPathAndParam, headers 설정 외 세부 설정
-    var response = await serverDioObject.post(requestUrlAndParam,
+    var response = await _serverDioObject.post(requestUrlAndParam,
         options: Options(
             headers: requestHeaders,
             sendTimeout: const Duration(seconds: 10),
@@ -2767,7 +2767,7 @@ Future<
   try {
     // !!!네트워크 요청 설정!!!
     // requestPathAndParam, headers 설정 외 세부 설정
-    var response = await serverDioObject.post(requestUrlAndParam,
+    var response = await _serverDioObject.post(requestUrlAndParam,
         options: Options(
             headers: requestHeaders,
             sendTimeout: const Duration(seconds: 10),
@@ -2865,7 +2865,7 @@ Future<
   try {
     // !!!네트워크 요청 설정!!!
     // requestPathAndParam, headers 설정 외 세부 설정
-    var response = await serverDioObject.delete(requestUrlAndParam,
+    var response = await _serverDioObject.delete(requestUrlAndParam,
         options: Options(
             headers: requestHeaders,
             sendTimeout: const Duration(seconds: 10),
@@ -2957,7 +2957,7 @@ Future<
   try {
     // !!!네트워크 요청 설정!!!
     // requestPathAndParam, headers 설정 외 세부 설정
-    var response = await serverDioObject.put(requestUrlAndParam,
+    var response = await _serverDioObject.put(requestUrlAndParam,
         options: Options(
             headers: requestHeaders,
             sendTimeout: const Duration(seconds: 10),

@@ -13,11 +13,13 @@ import '../../../global_widgets/gw_page_out_frames.dart' as gw_page_out_frames;
 
 // -----------------------------------------------------------------------------
 class PageView extends StatefulWidget {
-  const PageView(
+  PageView(
       {super.key,
       required page_business.PageBusiness business,
       required this.pageInputVo})
-      : _business = business;
+      : _business = business {
+    _business.view = this;
+  }
 
   // [오버라이드]
   @override
@@ -25,21 +27,20 @@ class PageView extends StatefulWidget {
   page_business.PageBusiness createState() => _business;
 
   // [public 변수]
-  // !!!public 변수를 선언 하세요!!!
   // (페이지 입력 데이터)
   final page_entrance.PageInputVo pageInputVo;
 
   // [private 변수]
-  // !!!private 변수를 선언 하세요!!!
   // (위젯 비즈니스)
   final page_business.PageBusiness _business;
 
   // [public 함수]
-  // !!!public 함수를 작성 하세요!!!
-  // (뷰 위젯을 반환 하는 함수)
-  Widget viewWidgetBuild({required BuildContext context}) {
-    // !!!뷰 하위 위젯을 작성 하세요!!!
 
+  // [private 함수]
+
+  // [뷰 위젯]
+  // !!!뷰 위젯 반환 콜백 작성 하기!!!
+  Widget viewWidgetBuild({required BuildContext context}) {
     return gw_page_out_frames.PageOutFrame(
       pageTitle: "페이지 템플릿",
       business: _business.pageOutFrameBusiness,
@@ -52,7 +53,4 @@ class PageView extends StatefulWidget {
       ),
     );
   }
-
-// [private 함수]
-// !!!private 함수를 작성 하세요!!!
 }
