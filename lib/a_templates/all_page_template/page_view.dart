@@ -1,38 +1,54 @@
 // (external)
 import 'package:flutter/cupertino.dart';
+import 'package:go_router/go_router.dart';
 
 // (inner Folder)
-import 'page_entrance.dart' as page_entrance;
-import 'page_business.dart' as page_business;
+import 'page_business.dart' as widget_business;
 
 // (all)
 import '../../../global_widgets/gw_page_out_frames.dart' as gw_page_out_frames;
 
-// [위젯 뷰]
+// [페이지 진입 파일]
 // 위젯의 화면 작성은 여기서 합니다.
+
+//------------------------------------------------------------------------------
+// !!!페이지 진입 라우트 Name 정의!!!
+// 폴더명과 동일하게 작성하세요.
+const pageName = "all_page_template";
+
+// !!!페이지 호출/반납 애니메이션!!!
+// 동적으로 변경이 가능합니다.
+Widget Function(BuildContext context, Animation<double> animation,
+        Animation<double> secondaryAnimation, Widget child)
+    pageTransitionsBuilder = (context, animation, secondaryAnimation, child) {
+  return FadeTransition(opacity: animation, child: child);
+};
+
+// (페이지 호출시 필요한 입력값 데이터 형태)
+// !!!페이지 입력 데이터 정의!!!
+class PageInputVo {}
+
+// (이전 페이지로 전달할 결과 데이터 형태)
+// !!!페이지 반환 데이터 정의!!!
+class PageOutputVo {}
 
 // -----------------------------------------------------------------------------
 class PageView extends StatefulWidget {
-  PageView(
-      {super.key,
-      required page_business.PageBusiness business,
-      required this.pageInputVo})
-      : _business = business {
+  PageView({super.key, required GoRouterState goRouterState}) {
+    _business = widget_business.PageBusiness(goRouterState: goRouterState);
     _business.view = this;
   }
 
   // [오버라이드]
   @override
   // ignore: no_logic_in_create_state
-  page_business.PageBusiness createState() => _business;
+  widget_business.PageBusiness createState() => _business;
 
   // [public 변수]
-  // (페이지 입력 데이터)
-  final page_entrance.PageInputVo pageInputVo;
 
   // [private 변수]
   // (위젯 비즈니스)
-  final page_business.PageBusiness _business;
+  late final widget_business.PageBusiness _business;
 
   // [public 함수]
 
