@@ -26,7 +26,6 @@ import '../../../pages/all/all_page_member_info/page_entrance.dart'
     as all_page_member_info;
 import '../../../pages/all/all_page_authorization_test_sample_list/page_entrance.dart'
     as all_page_authorization_test_sample_list;
-import '../../../global_widgets/gw_custom_widgets.dart' as gw_custom_widgets;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
 
@@ -119,24 +118,21 @@ class PageBusiness {
     List<page_view.MainListWidgetViewModelMainItemVo> nowAllSampleList = [];
     nowAllSampleList.add(page_view.MainListWidgetViewModelMainItemVo(
         "인증 / 인가 네트워크 요청 테스트 샘플 리스트", "인증 / 인가 상태에서 네트워크 요청 및 응답 처리 테스트 샘플 리스트",
-        gw_custom_widgets.HoverListTileWrapperBusiness(
-            onRouteListItemClick: () async {
+        page_view.HoverListTileWrapperBusiness(onRouteListItemClick: () async {
       // 인증/인가 테스트 샘플 페이지로 이동
       _context.pushNamed(all_page_authorization_test_sample_list.pageName);
     })));
     if (pageViewModel.loginMemberInfo == null) {
       nowAllSampleList.add(page_view.MainListWidgetViewModelMainItemVo(
-          "로그인 페이지", "로그인 페이지로 이동합니다.",
-          gw_custom_widgets.HoverListTileWrapperBusiness(
+          "로그인 페이지", "로그인 페이지로 이동합니다.", page_view.HoverListTileWrapperBusiness(
               onRouteListItemClick: () async {
         // 계정 로그인 페이지로 이동
         _context.pushNamed(all_page_login.pageName);
       })));
     } else {
-      nowAllSampleList.add(
-          page_view.MainListWidgetViewModelMainItemVo("로그아웃", "로그아웃 처리를 합니다.",
-              gw_custom_widgets.HoverListTileWrapperBusiness(
-                  onRouteListItemClick: () async {
+      nowAllSampleList.add(page_view.MainListWidgetViewModelMainItemVo(
+          "로그아웃", "로그아웃 처리를 합니다.", page_view.HoverListTileWrapperBusiness(
+              onRouteListItemClick: () async {
         // 계정 로그아웃 처리
         var loadingSpinner = all_dialog_loading_spinner.PageEntrance(
           all_dialog_loading_spinner.PageInputVo(),
@@ -170,7 +166,7 @@ class PageBusiness {
       })));
       nowAllSampleList.add(page_view.MainListWidgetViewModelMainItemVo(
           "모든 디바이스에서 로그아웃", "현재 로그인된 모든 디바이스의 리프레시 토큰을 만료 처리 합니다.",
-          gw_custom_widgets.HoverListTileWrapperBusiness(
+          page_view.HoverListTileWrapperBusiness(
               onRouteListItemClick: () async {
         // 모든 디바이스에서 계정 로그아웃 처리
         var loadingSpinner = all_dialog_loading_spinner.PageEntrance(
@@ -206,8 +202,7 @@ class PageBusiness {
         refreshMainListAsync();
       })));
       nowAllSampleList.add(page_view.MainListWidgetViewModelMainItemVo(
-          "인증 토큰 갱신", "인증 토큰을 갱신합니다.",
-          gw_custom_widgets.HoverListTileWrapperBusiness(
+          "인증 토큰 갱신", "인증 토큰을 갱신합니다.", page_view.HoverListTileWrapperBusiness(
               onRouteListItemClick: () async {
         // (토큰 리플레시)
         var loadingSpinner = all_dialog_loading_spinner.PageEntrance(
@@ -400,7 +395,7 @@ class PageBusiness {
       })));
       nowAllSampleList.add(page_view.MainListWidgetViewModelMainItemVo(
           "회원 정보 페이지로 이동", "회원 정보 페이지로 이동합니다.",
-          gw_custom_widgets.HoverListTileWrapperBusiness(
+          page_view.HoverListTileWrapperBusiness(
               onRouteListItemClick: () async {
         // 회원정보 페이지로 이동
         if (!_context.mounted) return;
