@@ -8,7 +8,7 @@ import 'page_business.dart' as page_business;
 import '../../../global_widgets/gw_page_outer_frame/widget_view.dart'
     as gw_page_outer_frame_view;
 import '../../../global_widgets/gw_stateful_test/widget_view.dart'
-as gw_stateful_test_view;
+    as gw_stateful_test_view;
 
 // [페이지 화면 위젯 작성 파일]
 // 페이지 화면 구현을 담당합니다. (Widget 과 Business 간의 결합을 담당)

@@ -10,6 +10,8 @@ import 'inner_widgets/iw_go_home_icon_button/widget_view.dart'
 
 // [위젯 뷰]
 // 위젯의 화면 작성은 여기서 합니다.
+// 할 수 있다면 외부에서 주입하는 데이터는 뷰의 생성자에서 받고,
+// 비즈니스 생성 시점에 꼭 필요한 데이터만 비즈니스 생성자에서 받습니다.
 
 // -----------------------------------------------------------------------------
 class WidgetView extends StatelessWidget {

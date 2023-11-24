@@ -115,8 +115,7 @@ class PageBusiness {
     switch (sampleItem.sampleItemEnum) {
       case SampleItemEnum.rotateAnimation:
         {
-          var dialogBusiness = all_dialog_template_business.WidgetBusiness(
-              inputVo: all_dialog_template_view.InputVo());
+          var dialogBusiness = all_dialog_template_business.WidgetBusiness();
 
           // 회전 애니메이션
           showGeneralDialog(
@@ -130,8 +129,8 @@ class PageBusiness {
               return Transform.rotate(
                 angle: math.radians(a1.value * 360),
                 child: all_dialog_template_view.WidgetView(
-                  business: dialogBusiness,
-                ),
+                    business: dialogBusiness,
+                    inputVo: all_dialog_template_view.InputVo()),
               );
             },
             transitionDuration: const Duration(milliseconds: 300),
@@ -140,8 +139,7 @@ class PageBusiness {
         break;
       case SampleItemEnum.scaleAnimation:
         {
-          var dialogBusiness = all_dialog_template_business.WidgetBusiness(
-              inputVo: all_dialog_template_view.InputVo());
+          var dialogBusiness = all_dialog_template_business.WidgetBusiness();
 
           // 확대 애니메이션
           showGeneralDialog(
@@ -156,8 +154,8 @@ class PageBusiness {
               return Transform.scale(
                 scale: curve,
                 child: all_dialog_template_view.WidgetView(
-                  business: dialogBusiness,
-                ),
+                    business: dialogBusiness,
+                    inputVo: all_dialog_template_view.InputVo()),
               );
             },
             transitionDuration: const Duration(milliseconds: 300),
@@ -166,8 +164,7 @@ class PageBusiness {
         break;
       case SampleItemEnum.slideDownAnimation:
         {
-          var dialogBusiness = all_dialog_template_business.WidgetBusiness(
-              inputVo: all_dialog_template_view.InputVo());
+          var dialogBusiness = all_dialog_template_business.WidgetBusiness();
 
           // Slide Down 애니메이션
           showGeneralDialog(
@@ -184,8 +181,8 @@ class PageBusiness {
                 transform:
                     Matrix4.translationValues(0.0, curvedValue * 1600, 0.0),
                 child: all_dialog_template_view.WidgetView(
-                  business: dialogBusiness,
-                ),
+                    business: dialogBusiness,
+                    inputVo: all_dialog_template_view.InputVo()),
               );
             },
             transitionDuration: const Duration(milliseconds: 300),

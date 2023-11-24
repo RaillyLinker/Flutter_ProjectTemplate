@@ -5,6 +5,10 @@ import 'package:go_router/go_router.dart';
 
 // (inner Folder)
 import 'widget_view.dart' as widget_view;
+import 'inner_widgets/iw_stateful_sample_number/widget_business.dart'
+    as iw_stateful_sample_number_business;
+import '../../../pages/all/all_page_dialog_sample_list/page_entrance.dart'
+    as all_page_dialog_sample_list;
 
 // [위젯 비즈니스]
 // 위젯의 비즈니스 로직 + State 변수 처리는 이 곳에서 합니다.
@@ -69,6 +73,10 @@ class WidgetBusiness extends State<widget_view.WidgetView>
   // (페이지 pop 가능 여부 변수)
   bool canPop = true;
 
+  iw_stateful_sample_number_business.WidgetBusiness
+      statefulSampleNumberBusiness =
+      iw_stateful_sample_number_business.WidgetBusiness();
+
   // [private 변수]
 
   // [public 함수]
@@ -80,6 +88,10 @@ class WidgetBusiness extends State<widget_view.WidgetView>
   // (다이얼로그 종료 함수)
   void closeDialog() {
     context.pop();
+  }
+
+  void pushToAnotherPage() {
+    context.pushNamed(all_page_dialog_sample_list.pageName);
   }
 
 // [private 함수]

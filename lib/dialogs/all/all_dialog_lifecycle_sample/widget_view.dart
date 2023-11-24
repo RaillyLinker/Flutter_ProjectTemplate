@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 
 // (inner Folder)
 import 'widget_business.dart' as widget_business;
+import 'inner_widgets/iw_stateful_sample_number/widget_view.dart'
+    as iw_stateful_sample_number_view;
 
 // [위젯 뷰]
 // 위젯의 화면 작성은 여기서 합니다.
@@ -62,10 +64,29 @@ class WidgetView extends StatefulWidget {
               Radius.circular(16),
             ),
           ),
-          child: const Center(
-            child: Text(
-              "다이얼로그 템플릿",
-              style: TextStyle(fontFamily: "MaruBuri"),
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                iw_stateful_sample_number_view.WidgetView(
+                  business: _business.statefulSampleNumberBusiness,
+                ),
+                ElevatedButton(
+                    onPressed: () {
+                      _business.pushToAnotherPage();
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue,
+                    ),
+                    child: const Text(
+                      "페이지 이동",
+                      style: TextStyle(
+                          color: Colors.white, fontFamily: "MaruBuri"),
+                    )),
+                const SizedBox(
+                  height: 30,
+                )
+              ],
             ),
           ),
         ),

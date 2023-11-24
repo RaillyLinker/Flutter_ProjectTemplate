@@ -28,8 +28,10 @@ import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
 import '../../../dialogs/all/all_dialog_context_menu_sample/page_entrance.dart'
     as all_dialog_context_menu_sample;
-import '../../../dialogs/all/all_dialog_lifecycle_sample/page_entrance.dart'
-    as all_dialog_lifecycle_sample;
+import '../../../dialogs/all/all_dialog_lifecycle_sample/widget_view.dart'
+    as all_dialog_lifecycle_sample_view;
+import '../../../dialogs/all/all_dialog_lifecycle_sample/widget_business.dart'
+    as all_dialog_lifecycle_sample_business;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
 // todo : 템플릿 적용
@@ -128,15 +130,15 @@ class PageBusiness {
       case SampleItemEnum.dialogTemplate:
         {
           // (템플릿 다이얼로그 호출)
-          var dialogBusiness = all_dialog_template_business.WidgetBusiness(
-              inputVo: all_dialog_template_view.InputVo());
+          var dialogBusiness = all_dialog_template_business.WidgetBusiness();
 
           showDialog(
-              barrierDismissible: true,
-              context: _context,
-              builder: (context) => all_dialog_template_view.WidgetView(
-                    business: dialogBusiness,
-                  )).then((outputVo) {});
+                  barrierDismissible: true,
+                  context: _context,
+                  builder: (context) => all_dialog_template_view.WidgetView(
+                      business: dialogBusiness,
+                      inputVo: all_dialog_template_view.InputVo()))
+              .then((outputVo) {});
         }
         break;
       case SampleItemEnum.infoDialog:
@@ -240,16 +242,16 @@ class PageBusiness {
       case SampleItemEnum.dialogOutsideColorSample:
         {
           // 다이얼로그 외부 색 설정
-          var dialogBusiness = all_dialog_template_business.WidgetBusiness(
-              inputVo: all_dialog_template_view.InputVo());
+          var dialogBusiness = all_dialog_template_business.WidgetBusiness();
 
           showDialog(
-              barrierDismissible: true,
-              context: _context,
-              barrierColor: Colors.blue.withOpacity(0.5),
-              builder: (context) => all_dialog_template_view.WidgetView(
-                    business: dialogBusiness,
-                  )).then((outputVo) {});
+                  barrierDismissible: true,
+                  context: _context,
+                  barrierColor: Colors.blue.withOpacity(0.5),
+                  builder: (context) => all_dialog_template_view.WidgetView(
+                      business: dialogBusiness,
+                      inputVo: all_dialog_template_view.InputVo()))
+              .then((outputVo) {});
         }
         break;
       case SampleItemEnum.contextMenuSample:
@@ -266,11 +268,16 @@ class PageBusiness {
       case SampleItemEnum.dialogLifecycleSample:
         {
           // 다이얼로그 생명주기 샘플
+          all_dialog_lifecycle_sample_business.WidgetBusiness
+              lifecycleSampleBusinessBusiness =
+              all_dialog_lifecycle_sample_business.WidgetBusiness();
+
           showDialog(
               barrierDismissible: true,
               context: _context,
-              builder: (context) => all_dialog_lifecycle_sample.PageEntrance(
-                    all_dialog_lifecycle_sample.PageInputVo(),
+              builder: (context) => all_dialog_lifecycle_sample_view.WidgetView(
+                    business: lifecycleSampleBusinessBusiness,
+                    inputVo: all_dialog_lifecycle_sample_view.InputVo(),
                   )).then((outputVo) {});
         }
         break;
