@@ -12,9 +12,9 @@ import '../../../global_widgets/page_outer_frame/widget_business.dart'
     as page_outer_frame_business;
 import '../../../dialogs/all/all_dialog_info/page_entrance.dart'
     as all_dialog_info;
-import '../../../a_templates/all_dialog_template/page_view.dart'
+import '../../../a_templates/all_dialog_template/widget_view.dart'
     as all_dialog_template_view;
-import '../../../a_templates/all_dialog_template/page_business.dart'
+import '../../../a_templates/all_dialog_template/widget_business.dart'
     as all_dialog_template_business;
 import '../../../dialogs/all/all_dialog_yes_or_no/page_entrance.dart'
     as all_dialog_yes_or_no;
@@ -128,13 +128,13 @@ class PageBusiness {
       case SampleItemEnum.dialogTemplate:
         {
           // (템플릿 다이얼로그 호출)
-          var dialogBusiness = all_dialog_template_business.PageBusiness(
+          var dialogBusiness = all_dialog_template_business.WidgetBusiness(
               pageInputVo: all_dialog_template_view.PageInputVo());
 
           showDialog(
               barrierDismissible: true,
               context: _context,
-              builder: (context) => all_dialog_template_view.PageView(
+              builder: (context) => all_dialog_template_view.WidgetView(
                     business: dialogBusiness,
                   )).then((outputVo) {});
         }
@@ -240,14 +240,14 @@ class PageBusiness {
       case SampleItemEnum.dialogOutsideColorSample:
         {
           // 다이얼로그 외부 색 설정
-          var dialogBusiness = all_dialog_template_business.PageBusiness(
+          var dialogBusiness = all_dialog_template_business.WidgetBusiness(
               pageInputVo: all_dialog_template_view.PageInputVo());
 
           showDialog(
               barrierDismissible: true,
               context: _context,
               barrierColor: Colors.blue.withOpacity(0.5),
-              builder: (context) => all_dialog_template_view.PageView(
+              builder: (context) => all_dialog_template_view.WidgetView(
                     business: dialogBusiness,
                   )).then((outputVo) {});
         }

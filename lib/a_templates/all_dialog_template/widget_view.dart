@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 // (inner Folder)
-import 'page_business.dart' as page_business;
+import 'widget_business.dart' as widget_business;
 
 // [위젯 뷰]
 // 위젯의 화면 작성은 여기서 합니다.
@@ -17,8 +17,8 @@ class PageInputVo {}
 class PageOutputVo {}
 
 // -----------------------------------------------------------------------------
-class PageView extends StatefulWidget {
-  PageView({super.key, required page_business.PageBusiness business})
+class WidgetView extends StatefulWidget {
+  WidgetView({super.key, required widget_business.WidgetBusiness business})
       : _business = business {
     _business.view = this;
   }
@@ -26,13 +26,13 @@ class PageView extends StatefulWidget {
   // [오버라이드]
   @override
   // ignore: no_logic_in_create_state
-  page_business.PageBusiness createState() => _business;
+  widget_business.WidgetBusiness createState() => _business;
 
   // [public 변수]
 
   // [private 변수]
   // (위젯 비즈니스)
-  final page_business.PageBusiness _business;
+  final widget_business.WidgetBusiness _business;
 
   // [public 함수]
 

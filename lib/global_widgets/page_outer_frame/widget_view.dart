@@ -5,8 +5,8 @@ import 'package:flutter/services.dart';
 
 // (inner Folder)
 import 'widget_business.dart' as widget_business;
-import 'inner_widgets/go_home_icon_button/widget_view.dart'
-    as go_home_icon_button_view;
+import 'inner_widgets/iw_go_home_icon_button/widget_view.dart'
+    as iw_go_home_icon_button_view;
 
 // [위젯 뷰]
 // 위젯의 화면 작성은 여기서 합니다.
@@ -67,7 +67,7 @@ class WidgetView extends StatelessWidget {
             automaticallyImplyLeading: !kIsWeb,
             title: Row(
               children: [
-                go_home_icon_button_view.WidgetView(
+                iw_go_home_icon_button_view.WidgetView(
                     business: _business.goToHomeIconButtonBusiness),
                 const SizedBox(
                   width: 15,

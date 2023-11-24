@@ -10,9 +10,9 @@ import 'page_entrance.dart' as page_entrance;
 // (all)
 import '../../../global_widgets/page_outer_frame/widget_business.dart'
     as page_outer_frame_business;
-import '../../../a_templates/all_dialog_template/page_view.dart'
+import '../../../a_templates/all_dialog_template/widget_view.dart'
     as all_dialog_template_view;
-import '../../../a_templates/all_dialog_template/page_business.dart'
+import '../../../a_templates/all_dialog_template/widget_business.dart'
     as all_dialog_template_business;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
@@ -115,7 +115,7 @@ class PageBusiness {
     switch (sampleItem.sampleItemEnum) {
       case SampleItemEnum.rotateAnimation:
         {
-          var dialogBusiness = all_dialog_template_business.PageBusiness(
+          var dialogBusiness = all_dialog_template_business.WidgetBusiness(
               pageInputVo: all_dialog_template_view.PageInputVo());
 
           // 회전 애니메이션
@@ -129,7 +129,7 @@ class PageBusiness {
             transitionBuilder: (ctx, a1, a2, child) {
               return Transform.rotate(
                 angle: math.radians(a1.value * 360),
-                child: all_dialog_template_view.PageView(
+                child: all_dialog_template_view.WidgetView(
                   business: dialogBusiness,
                 ),
               );
@@ -140,7 +140,7 @@ class PageBusiness {
         break;
       case SampleItemEnum.scaleAnimation:
         {
-          var dialogBusiness = all_dialog_template_business.PageBusiness(
+          var dialogBusiness = all_dialog_template_business.WidgetBusiness(
               pageInputVo: all_dialog_template_view.PageInputVo());
 
           // 확대 애니메이션
@@ -155,7 +155,7 @@ class PageBusiness {
               var curve = Curves.easeInOut.transform(a1.value);
               return Transform.scale(
                 scale: curve,
-                child: all_dialog_template_view.PageView(
+                child: all_dialog_template_view.WidgetView(
                   business: dialogBusiness,
                 ),
               );
@@ -166,7 +166,7 @@ class PageBusiness {
         break;
       case SampleItemEnum.slideDownAnimation:
         {
-          var dialogBusiness = all_dialog_template_business.PageBusiness(
+          var dialogBusiness = all_dialog_template_business.WidgetBusiness(
               pageInputVo: all_dialog_template_view.PageInputVo());
 
           // Slide Down 애니메이션
@@ -183,7 +183,7 @@ class PageBusiness {
               return Transform(
                 transform:
                     Matrix4.translationValues(0.0, curvedValue * 1600, 0.0),
-                child: all_dialog_template_view.PageView(
+                child: all_dialog_template_view.WidgetView(
                   business: dialogBusiness,
                 ),
               );
