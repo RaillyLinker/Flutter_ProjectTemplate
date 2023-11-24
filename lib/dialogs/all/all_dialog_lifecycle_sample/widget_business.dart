@@ -9,6 +9,8 @@ import 'inner_widgets/iw_stateful_sample_number/widget_business.dart'
     as iw_stateful_sample_number_business;
 import '../../../pages/all/all_page_dialog_sample_list/page_entrance.dart'
     as all_page_dialog_sample_list;
+import '../../../global_widgets/gw_stateful_test/widget_business.dart'
+    as gw_stateful_test_business;
 
 // [위젯 비즈니스]
 // 위젯의 비즈니스 로직 + State 변수 처리는 이 곳에서 합니다.
@@ -76,6 +78,9 @@ class WidgetBusiness extends State<widget_view.WidgetView>
   iw_stateful_sample_number_business.WidgetBusiness
       statefulSampleNumberBusiness =
       iw_stateful_sample_number_business.WidgetBusiness();
+
+  gw_stateful_test_business.WidgetBusiness statefulTestBusiness =
+      gw_stateful_test_business.WidgetBusiness();
 
   // [private 변수]
 

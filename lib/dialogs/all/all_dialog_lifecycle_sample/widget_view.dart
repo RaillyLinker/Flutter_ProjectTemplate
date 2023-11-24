@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'widget_business.dart' as widget_business;
 import 'inner_widgets/iw_stateful_sample_number/widget_view.dart'
     as iw_stateful_sample_number_view;
+import '../../../global_widgets/gw_stateful_test/widget_view.dart'
+    as gw_stateful_test_view;
 
 // [위젯 뷰]
 // 위젯의 화면 작성은 여기서 합니다.
@@ -68,6 +70,25 @@ class WidgetView extends StatefulWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                const Text(
+                  "글로벌 위젯 상태 변수",
+                  style: TextStyle(color: Colors.black, fontFamily: "MaruBuri"),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                gw_stateful_test_view.WidgetView(
+                    business: _business.statefulTestBusiness),
+                const SizedBox(
+                  height: 10,
+                ),
+                const Text(
+                  "로컬 위젯 상태 변수",
+                  style: TextStyle(color: Colors.black, fontFamily: "MaruBuri"),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
                 iw_stateful_sample_number_view.WidgetView(
                   business: _business.statefulSampleNumberBusiness,
                 ),
