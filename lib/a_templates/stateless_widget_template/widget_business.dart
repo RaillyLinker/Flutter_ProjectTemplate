@@ -1,6 +1,8 @@
 // (external)
 
 // (inner Folder)
+import 'package:flutter/cupertino.dart';
+
 import 'widget_view.dart' as widget_view;
 
 // [위젯 비즈니스]
@@ -13,6 +15,9 @@ class WidgetBusiness {
   // [public 변수]
   // (연결된 위젯 변수) - 생성자 실행 이후 not null
   widget_view.WidgetView? view;
+
+  // (위젯 컨텍스트)
+  late BuildContext context;
 
 // [private 변수]
 
