@@ -11,7 +11,7 @@ import 'widget_business.dart' as widget_business;
 class WidgetView extends StatelessWidget {
   WidgetView({super.key, required widget_business.WidgetBusiness business})
       : _business = business {
-    _business.view = this;
+    _business.widget = this;
   }
 
   // [콜백 함수]

@@ -10,14 +10,12 @@ import 'widget_business.dart' as widget_business;
 // -----------------------------------------------------------------------------
 // (우클릭 컨텍스트 메뉴 영역 클래스)
 class WidgetView extends StatefulWidget {
-  WidgetView(
+  const WidgetView(
       {super.key,
       required widget_business.WidgetBusiness business,
       required this.child,
       required this.contextMenuRegionItemVoList})
-      : _business = business {
-    _business.view = this;
-  }
+      : _business = business;
 
   // [콜백 함수]
   @override

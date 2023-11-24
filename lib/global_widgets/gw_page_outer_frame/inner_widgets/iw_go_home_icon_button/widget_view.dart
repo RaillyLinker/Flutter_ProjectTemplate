@@ -14,10 +14,9 @@ import '../../../../pages/all/all_page_home/page_entrance.dart'
 
 // -----------------------------------------------------------------------------
 class WidgetView extends StatefulWidget {
-  WidgetView({super.key, required widget_business.WidgetBusiness business})
-      : _business = business {
-    _business.view = this;
-  }
+  const WidgetView(
+      {super.key, required widget_business.WidgetBusiness business})
+      : _business = business;
 
   // [콜백 함수]
   @override

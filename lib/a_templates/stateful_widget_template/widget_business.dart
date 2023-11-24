@@ -18,8 +18,6 @@ class WidgetBusiness extends State<widget_view.WidgetView> {
   }
 
   // [public 변수]
-  // (연결된 위젯 변수) - 생성자 실행 이후 not null
-  widget_view.WidgetView? view;
 
   // [private 변수]
 

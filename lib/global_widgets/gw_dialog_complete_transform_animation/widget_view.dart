@@ -19,16 +19,13 @@ class WidgetView extends StatefulWidget {
       required Widget completeChild,
       required Size completeChildSize,
       required Duration completeAnimationDuration,
-      required Duration completeCloseDuration})
-      : completeCloseDuration = completeCloseDuration,
-        _completeAnimationDuration = completeAnimationDuration,
+      required this.completeCloseDuration})
+      : _completeAnimationDuration = completeAnimationDuration,
         _completeChildSize = completeChildSize,
         _completeChild = completeChild,
         _dialogChildSize = dialogChildSize,
         _dialogChild = dialogChild,
-        _business = business {
-    _business.view = this;
-  }
+        _business = business;
 
   // [콜백 함수]
   @override

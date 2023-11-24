@@ -1,4 +1,5 @@
 // (external)
+import 'package:flutter/cupertino.dart';
 
 // (inner Folder)
 import 'widget_view.dart' as widget_view;
@@ -14,9 +15,12 @@ class WidgetBusiness {
 
   // [public 변수]
   // (연결된 위젯 변수) - 생성자 실행 이후 not null
-  widget_view.WidgetView? view;
+  late widget_view.WidgetView view;
 
-  // goToHomeIconButtonBusiness
+  // (위젯 컨텍스트)
+  late BuildContext context;
+
+  // (goToHomeIconButtonBusiness)
   final iw_go_home_icon_button_business.WidgetBusiness
       goToHomeIconButtonBusiness =
       iw_go_home_icon_button_business.WidgetBusiness();

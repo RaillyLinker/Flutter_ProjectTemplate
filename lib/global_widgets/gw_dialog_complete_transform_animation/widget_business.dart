@@ -19,9 +19,6 @@ class WidgetBusiness extends State<widget_view.WidgetView> {
   }
 
   // [public 변수]
-  // (연결된 위젯 변수) - 생성자 실행 이후 not null
-  widget_view.WidgetView? view;
-
   // (다이얼로그 작업 완료 여부)
   bool isComplete = false;
 
@@ -39,7 +36,7 @@ class WidgetBusiness extends State<widget_view.WidgetView> {
     refreshUi();
 
     // 애니메이션의 지속 시간만큼 지연
-    await Future.delayed(view!.completeCloseDuration);
+    await Future.delayed(widget.completeCloseDuration);
 
     // 다이얼로그 닫기
     if (!context.mounted) return;

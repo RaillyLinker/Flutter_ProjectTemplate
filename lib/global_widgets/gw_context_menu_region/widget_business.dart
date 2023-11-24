@@ -19,9 +19,6 @@ class WidgetBusiness extends State<widget_view.WidgetView> {
   }
 
   // [public 변수]
-  // (연결된 위젯 변수) - 생성자 실행 이후 not null
-  widget_view.WidgetView? view;
-
   // [위젯 관련 변수] - State 내에서 상태가 유지 됩니다.
   Offset? longPressOffset;
 

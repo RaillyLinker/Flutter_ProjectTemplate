@@ -9,10 +9,8 @@ import 'widget_business.dart' as widget_business;
 
 // -----------------------------------------------------------------------------
 class WidgetView extends StatefulWidget {
-  WidgetView({super.key, required widget_business.WidgetBusiness business})
-      : _business = business {
-    _business.view = this;
-  }
+  const WidgetView({super.key, required widget_business.WidgetBusiness business})
+      : _business = business;
 
   // [콜백 함수]
   @override
