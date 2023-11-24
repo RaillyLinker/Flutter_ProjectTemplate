@@ -7,7 +7,8 @@ import 'package:go_router/go_router.dart';
 import 'page_entrance.dart' as page_entrance;
 
 // (all)
-import '../../../global_widgets/gw_page_out_frames.dart' as gw_page_out_frames;
+import '../../../global_widgets/page_outer_frame/widget_business.dart'
+    as page_outer_frame_business;
 import '../../../../repositories/network/apis/api_main_server.dart'
     as api_main_server;
 import '../../../../repositories/spws/spw_auth_member_info.dart'
@@ -370,8 +371,8 @@ class PageViewModel {
   // int sampleNumber = 0;
 
   // PageOutFrameViewModel
-  gw_page_out_frames.PageOutFrameBusiness pageOutFrameBusiness =
-      gw_page_out_frames.PageOutFrameBusiness();
+  page_outer_frame_business.WidgetBusiness pageOutFrameBusiness =
+      page_outer_frame_business.WidgetBusiness();
 
   // !!!BLoC 위젯 상태 변수 선언 및 초기화!!!
 

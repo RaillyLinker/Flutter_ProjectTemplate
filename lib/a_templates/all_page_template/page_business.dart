@@ -7,7 +7,8 @@ import 'package:go_router/go_router.dart';
 import 'page_view.dart' as page_view;
 
 // (all)
-import '../../../global_widgets/gw_page_out_frames.dart' as gw_page_out_frames;
+import '../../../global_widgets/page_outer_frame/widget_business.dart'
+    as page_outer_frame_business;
 
 // [위젯 비즈니스]
 // 위젯의 비즈니스 로직 + State 변수 처리는 이 곳에서 합니다.
@@ -86,8 +87,8 @@ class PageBusiness extends State<page_view.PageView>
   bool pageCanPop = true;
 
   // (pageOutFrameBusiness)
-  gw_page_out_frames.PageOutFrameBusiness pageOutFrameBusiness =
-      gw_page_out_frames.PageOutFrameBusiness();
+  page_outer_frame_business.WidgetBusiness pageOutFrameBusiness =
+      page_outer_frame_business.WidgetBusiness();
 
   // [private 변수]
 

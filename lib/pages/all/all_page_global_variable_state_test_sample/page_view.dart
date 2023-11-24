@@ -6,7 +6,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'page_business.dart' as page_business;
 
 // (all)
-import '../../../global_widgets/gw_page_out_frames.dart' as gw_page_out_frames;
+import '../../../global_widgets/page_outer_frame/widget_view.dart'
+    as page_outer_frame_view;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
 import '../../../global_data/gd_variable_my_data.dart' as gd_variable_my_data;
@@ -29,7 +30,7 @@ class PageView extends StatelessWidget {
             .state
             .pageBusiness;
 
-    return gw_page_out_frames.PageOutFrame(
+    return page_outer_frame_view.WidgetView(
       pageTitle: "전역 변수 상태 확인 샘플",
       business: pageBusiness.pageViewModel.pageOutFrameBusiness,
       floatingActionButton: null,

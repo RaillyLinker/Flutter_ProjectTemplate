@@ -6,7 +6,8 @@ import 'package:go_router/go_router.dart';
 import 'page_business.dart' as page_business;
 
 // (all)
-import '../../../global_widgets/gw_page_out_frames.dart' as gw_page_out_frames;
+import '../../../global_widgets/page_outer_frame/widget_view.dart'
+    as page_outer_frame_view;
 
 // [페이지 진입 파일]
 // 위젯의 화면 작성은 여기서 합니다.
@@ -57,7 +58,7 @@ class PageView extends StatefulWidget {
   // [뷰 위젯]
   // !!!뷰 위젯 반환 콜백 작성 하기!!!
   Widget viewWidgetBuild({required BuildContext context}) {
-    return gw_page_out_frames.PageOutFrame(
+    return page_outer_frame_view.WidgetView(
       pageTitle: "페이지 템플릿",
       business: _business.pageOutFrameBusiness,
       floatingActionButton: null,

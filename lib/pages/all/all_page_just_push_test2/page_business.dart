@@ -13,7 +13,8 @@ import '../../../pages/all/all_page_just_push_test1/page_entrance.dart'
     as all_page_just_push_test1;
 import '../../../pages/all/all_page_just_push_test2/page_entrance.dart'
     as all_page_just_push_test2;
-import '../../../global_widgets/gw_page_out_frames.dart' as gw_page_out_frames;
+import '../../../global_widgets/page_outer_frame/widget_business.dart'
+    as page_outer_frame_business;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
 
@@ -159,6 +160,6 @@ class PageViewModel {
       page_view.SampleNumberTextViewModel();
 
   // PageOutFrameViewModel
-  gw_page_out_frames.PageOutFrameBusiness pageOutFrameBusiness =
-      gw_page_out_frames.PageOutFrameBusiness();
+  page_outer_frame_business.WidgetBusiness pageOutFrameBusiness =
+      page_outer_frame_business.WidgetBusiness();
 }

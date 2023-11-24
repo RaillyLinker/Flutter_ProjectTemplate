@@ -9,7 +9,8 @@ import 'page_entrance.dart' as page_entrance;
 // (all)
 import '../../../dialogs/all/all_dialog_info/page_entrance.dart'
     as all_dialog_info;
-import '../../../global_widgets/gw_page_out_frames.dart' as gw_page_out_frames;
+import '../../../global_widgets/page_outer_frame/widget_business.dart'
+    as page_outer_frame_business;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
 import '../../../global_widgets/gw_custom_widgets.dart' as gw_custom_widgets;
@@ -142,6 +143,6 @@ class PageViewModel {
       gw_custom_widgets.ContextMenuRegionBusiness();
 
   // PageOutFrameViewModel
-  gw_page_out_frames.PageOutFrameBusiness pageOutFrameBusiness =
-      gw_page_out_frames.PageOutFrameBusiness();
+  page_outer_frame_business.WidgetBusiness pageOutFrameBusiness =
+      page_outer_frame_business.WidgetBusiness();
 }

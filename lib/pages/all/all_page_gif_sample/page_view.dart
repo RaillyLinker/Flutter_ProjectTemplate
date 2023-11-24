@@ -9,7 +9,8 @@ import 'package:gif/gif.dart';
 import 'page_business.dart' as page_business;
 
 // (all)
-import '../../../global_widgets/gw_page_out_frames.dart' as gw_page_out_frames;
+import '../../../global_widgets/page_outer_frame/widget_view.dart'
+    as page_outer_frame_view;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
 import '../../../global_functions/gf_my_functions.dart' as gf_my_functions;
@@ -32,7 +33,7 @@ class PageView extends StatelessWidget {
             .state
             .pageBusiness;
 
-    return gw_page_out_frames.PageOutFrame(
+    return page_outer_frame_view.WidgetView(
       pageTitle: "GIF 샘플",
       business: pageBusiness.pageViewModel.pageOutFrameBusiness,
       floatingActionButton: null,

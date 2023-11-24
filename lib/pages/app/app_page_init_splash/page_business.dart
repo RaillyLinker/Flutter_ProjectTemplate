@@ -13,7 +13,8 @@ import 'package:url_launcher/url_launcher.dart';
 import 'page_entrance.dart' as page_entrance;
 
 // (all)
-import '../../../global_widgets/gw_page_out_frames.dart' as gw_page_out_frames;
+import '../../../global_widgets/page_outer_frame/widget_business.dart'
+    as page_outer_frame_business;
 import '../../../../../repositories/network/apis/api_main_server.dart'
     as api_main_server;
 import '../../../../../repositories/spws/spw_auth_member_info.dart'
