@@ -10,8 +10,7 @@ import 'page_view.dart' as page_view;
 // 위젯의 비즈니스 로직 + State 변수 처리는 이 곳에서 합니다.
 
 // -----------------------------------------------------------------------------
-class PageBusiness
-    extends State<page_view.PageView>
+class PageBusiness extends State<page_view.PageView>
     with WidgetsBindingObserver {
   PageBusiness({required this.pageInputVo});
 

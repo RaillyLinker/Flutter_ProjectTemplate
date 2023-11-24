@@ -86,7 +86,9 @@ class SharedPreferenceWrapper {
 
       // 값 암호화
       String encryptedJsonString = gf_crypto.aes256Encrypt(
-          plainText: jsonEncode(map), secretKey: _secretKey, secretIv: _secretIv);
+          plainText: jsonEncode(map),
+          secretKey: _secretKey,
+          secretIv: _secretIv);
 
       // 키에 암호화된 값을 저장
       gd_const.sharedPreferences

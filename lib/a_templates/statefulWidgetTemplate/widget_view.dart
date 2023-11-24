@@ -8,10 +8,8 @@ import 'widget_business.dart' as widget_business;
 // 위젯의 화면 작성은 여기서 합니다.
 
 // -----------------------------------------------------------------------------
-class StatefulWidgetTemplateView extends StatefulWidget {
-  StatefulWidgetTemplateView(
-      {super.key,
-      required widget_business.StatefulWidgetTemplateBusiness business})
+class WidgetView extends StatefulWidget {
+  WidgetView({super.key, required widget_business.WidgetBusiness business})
       : _business = business {
     _business.view = this;
   }
@@ -19,13 +17,13 @@ class StatefulWidgetTemplateView extends StatefulWidget {
   // [오버라이드]
   @override
   // ignore: no_logic_in_create_state
-  widget_business.StatefulWidgetTemplateBusiness createState() => _business;
+  widget_business.WidgetBusiness createState() => _business;
 
   // [public 변수]
 
   // [private 변수]
   // (위젯 비즈니스)
-  final widget_business.StatefulWidgetTemplateBusiness _business;
+  final widget_business.WidgetBusiness _business;
 
   // [public 함수]
 

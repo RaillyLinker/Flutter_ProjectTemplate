@@ -18,9 +18,7 @@ class PageOutputVo {}
 
 // -----------------------------------------------------------------------------
 class PageView extends StatefulWidget {
-  PageView(
-      {super.key,
-      required page_business.PageBusiness business})
+  PageView({super.key, required page_business.PageBusiness business})
       : _business = business {
     _business.view = this;
   }

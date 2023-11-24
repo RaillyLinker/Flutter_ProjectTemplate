@@ -8,10 +8,8 @@ import 'widget_business.dart' as widget_business;
 // 위젯의 화면 작성은 여기서 합니다.
 
 // -----------------------------------------------------------------------------
-class StatelessWidgetTemplateView extends StatelessWidget {
-  StatelessWidgetTemplateView(
-      {super.key,
-      required widget_business.StatelessWidgetTemplateBusiness business})
+class WidgetView extends StatelessWidget {
+  WidgetView({super.key, required widget_business.WidgetBusiness business})
       : _business = business {
     _business.view = this;
   }
@@ -27,7 +25,7 @@ class StatelessWidgetTemplateView extends StatelessWidget {
 
   // [private 변수]
   // (위젯 비즈니스)
-  final widget_business.StatelessWidgetTemplateBusiness _business;
+  final widget_business.WidgetBusiness _business;
 
   // [public 함수]
 

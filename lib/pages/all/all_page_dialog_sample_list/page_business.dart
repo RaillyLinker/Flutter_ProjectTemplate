@@ -12,9 +12,9 @@ import '../../../global_widgets/gw_page_out_frames.dart' as gw_page_out_frames;
 import '../../../dialogs/all/all_dialog_info/page_entrance.dart'
     as all_dialog_info;
 import '../../../a_templates/all_dialog_template/page_view.dart'
-as all_dialog_template_view;
+    as all_dialog_template_view;
 import '../../../a_templates/all_dialog_template/page_business.dart'
-as all_dialog_template_business;
+    as all_dialog_template_business;
 import '../../../dialogs/all/all_dialog_yes_or_no/page_entrance.dart'
     as all_dialog_yes_or_no;
 import '../../../dialogs/all/all_dialog_loading_spinner/page_entrance.dart'
@@ -134,8 +134,8 @@ class PageBusiness {
               barrierDismissible: true,
               context: _context,
               builder: (context) => all_dialog_template_view.PageView(
-                business: dialogBusiness,
-              )).then((outputVo) {});
+                    business: dialogBusiness,
+                  )).then((outputVo) {});
         }
         break;
       case SampleItemEnum.infoDialog:
@@ -247,8 +247,8 @@ class PageBusiness {
               context: _context,
               barrierColor: Colors.blue.withOpacity(0.5),
               builder: (context) => all_dialog_template_view.PageView(
-                business: dialogBusiness,
-              )).then((outputVo) {});
+                    business: dialogBusiness,
+                  )).then((outputVo) {});
         }
         break;
       case SampleItemEnum.contextMenuSample:
