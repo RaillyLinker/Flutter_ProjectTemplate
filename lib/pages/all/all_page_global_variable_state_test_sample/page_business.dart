@@ -7,8 +7,8 @@ import 'package:go_router/go_router.dart';
 import 'page_entrance.dart' as page_entrance;
 
 // (all)
-import '../../../global_widgets/page_outer_frame/widget_business.dart'
-    as page_outer_frame_business;
+import '../../../global_widgets/gw_page_outer_frame/widget_business.dart'
+    as gw_page_outer_frame_business;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
 import '../../../global_data/gd_variable_my_data.dart' as gd_variable_my_data;
@@ -133,8 +133,8 @@ class PageViewModel {
   // int sampleNumber = 0;
 
   // PageOutFrameViewModel
-  page_outer_frame_business.WidgetBusiness pageOutFrameBusiness =
-      page_outer_frame_business.WidgetBusiness();
+  gw_page_outer_frame_business.WidgetBusiness pageOutFrameBusiness =
+      gw_page_outer_frame_business.WidgetBusiness();
 }
 
 // (BLoC 클래스)

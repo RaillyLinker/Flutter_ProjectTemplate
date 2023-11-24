@@ -6,8 +6,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'page_business.dart' as page_business;
 
 // (all)
-import '../../../global_widgets/page_outer_frame/widget_view.dart'
-    as page_outer_frame_view;
+import '../../../global_widgets/gw_page_outer_frame/widget_view.dart'
+    as gw_page_outer_frame_view;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
 
@@ -29,7 +29,7 @@ class PageView extends StatelessWidget {
             .state
             .pageBusiness;
 
-    return page_outer_frame_view.WidgetView(
+    return gw_page_outer_frame_view.WidgetView(
       pageTitle: "비밀번호 변경",
       business: pageBusiness.pageViewModel.pageOutFrameBusiness,
       floatingActionButton: null,

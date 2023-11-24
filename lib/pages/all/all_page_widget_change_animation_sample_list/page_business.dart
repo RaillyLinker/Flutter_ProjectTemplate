@@ -7,8 +7,8 @@ import 'package:go_router/go_router.dart';
 import 'page_entrance.dart' as page_entrance;
 
 // (all)
-import '../../../global_widgets/page_outer_frame/widget_business.dart'
-    as page_outer_frame_business;
+import '../../../global_widgets/gw_page_outer_frame/widget_business.dart'
+    as gw_page_outer_frame_business;
 import '../../../global_classes/gc_my_classes.dart' as gc_my_classes;
 import '../../../global_functions/gf_my_functions.dart' as gf_my_functions;
 import '../../../global_classes/gc_template_classes.dart'
@@ -369,8 +369,8 @@ class PageViewModel {
   // int sampleNumber = 0;
 
   // PageOutFrameViewModel
-  page_outer_frame_business.WidgetBusiness pageOutFrameBusiness =
-      page_outer_frame_business.WidgetBusiness();
+  gw_page_outer_frame_business.WidgetBusiness pageOutFrameBusiness =
+      gw_page_outer_frame_business.WidgetBusiness();
 
   // (샘플 페이지 원본 리스트)
   List<SampleItem> allSampleList = [];

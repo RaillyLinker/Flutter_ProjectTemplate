@@ -8,8 +8,8 @@ import 'package:go_router/go_router.dart';
 import 'page_entrance.dart' as page_entrance;
 
 // (all)
-import '../../../global_widgets/page_outer_frame/widget_business.dart'
-    as page_outer_frame_business;
+import '../../../global_widgets/gw_page_outer_frame/widget_business.dart'
+    as gw_page_outer_frame_business;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
 import '../../../pages/all/all_page_crypt_sample/page_entrance.dart'
@@ -261,8 +261,8 @@ class PageViewModel {
   // int sampleNumber = 0;
 
   // PageOutFrameViewModel
-  page_outer_frame_business.WidgetBusiness pageOutFrameBusiness =
-      page_outer_frame_business.WidgetBusiness();
+  gw_page_outer_frame_business.WidgetBusiness pageOutFrameBusiness =
+      gw_page_outer_frame_business.WidgetBusiness();
 
   // 샘플 목록 필터링용 검색창 컨트롤러 (검색창의 텍스트 정보를 가지고 있으므로 뷰모델에 저장, 여기 있어야 위젯이 변경되어도 검색어가 유지됨)
   TextEditingController sampleSearchBarTextEditController =

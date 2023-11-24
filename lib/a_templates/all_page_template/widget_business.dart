@@ -7,8 +7,8 @@ import 'package:go_router/go_router.dart';
 import 'widget_view.dart' as widget_view;
 
 // (all)
-import '../../../global_widgets/page_outer_frame/widget_business.dart'
-    as page_outer_frame_business;
+import '../../../global_widgets/gw_page_outer_frame/widget_business.dart'
+    as gw_page_outer_frame_business;
 
 // [위젯 비즈니스]
 // 위젯의 비즈니스 로직 + State 변수 처리는 이 곳에서 합니다.
@@ -28,7 +28,7 @@ class WidgetBusiness extends State<widget_view.WidgetView>
     pageInputVo = widget_view.PageInputVo();
   }
 
-  // [오버라이드]
+  // [콜백 함수]
   @override
   Widget build(BuildContext context) {
     return PopScope(
@@ -87,8 +87,8 @@ class WidgetBusiness extends State<widget_view.WidgetView>
   bool pageCanPop = true;
 
   // (pageOutFrameBusiness)
-  page_outer_frame_business.WidgetBusiness pageOutFrameBusiness =
-      page_outer_frame_business.WidgetBusiness();
+  gw_page_outer_frame_business.WidgetBusiness pageOutFrameBusiness =
+      gw_page_outer_frame_business.WidgetBusiness();
 
   // [private 변수]
 

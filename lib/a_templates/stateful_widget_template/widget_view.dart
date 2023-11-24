@@ -14,7 +14,7 @@ class WidgetView extends StatefulWidget {
     _business.view = this;
   }
 
-  // [오버라이드]
+  // [콜백 함수]
   @override
   // ignore: no_logic_in_create_state
   widget_business.WidgetBusiness createState() => _business;

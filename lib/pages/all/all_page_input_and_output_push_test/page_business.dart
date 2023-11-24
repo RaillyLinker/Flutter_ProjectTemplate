@@ -8,8 +8,8 @@ import 'package:go_router/go_router.dart';
 import 'page_entrance.dart' as page_entrance;
 
 // (all)
-import '../../../global_widgets/page_outer_frame/widget_business.dart'
-    as page_outer_frame_business;
+import '../../../global_widgets/gw_page_outer_frame/widget_business.dart'
+    as gw_page_outer_frame_business;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
 import '../../../pages/all/all_page_home/page_entrance.dart' as all_page_home;
@@ -206,8 +206,8 @@ class PageViewModel {
   // int sampleNumber = 0;
 
   // PageOutFrameViewModel
-  page_outer_frame_business.WidgetBusiness pageOutFrameBusiness =
-      page_outer_frame_business.WidgetBusiness();
+  gw_page_outer_frame_business.WidgetBusiness pageOutFrameBusiness =
+      gw_page_outer_frame_business.WidgetBusiness();
 
   // 페이지 출력값 Form 필드 전체 키
   GlobalKey<FormState> pageOutputFormKey = GlobalKey<FormState>();

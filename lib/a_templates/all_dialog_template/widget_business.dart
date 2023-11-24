@@ -14,7 +14,7 @@ class WidgetBusiness extends State<widget_view.WidgetView>
     with WidgetsBindingObserver {
   WidgetBusiness({required this.pageInputVo});
 
-  // [오버라이드]
+  // [콜백 함수]
   @override
   Widget build(BuildContext context) {
     return PopScope(

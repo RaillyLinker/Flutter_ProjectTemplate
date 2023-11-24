@@ -6,8 +6,8 @@ import 'page_business.dart' as page_business;
 
 // (all)
 import '../../../global_widgets/gw_custom_widgets.dart' as gw_custom_widgets;
-import '../../../global_widgets/page_outer_frame/widget_view.dart'
-    as page_outer_frame_view;
+import '../../../global_widgets/gw_page_outer_frame/widget_view.dart'
+    as gw_page_outer_frame_view;
 
 // [페이지 화면 위젯 작성 파일]
 // 페이지 화면 구현을 담당합니다. (Widget 과 Business 간의 결합을 담당)
@@ -24,7 +24,7 @@ class PageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return page_outer_frame_view.WidgetView(
+    return gw_page_outer_frame_view.WidgetView(
       pageTitle: "계정 샘플",
       business: _pageBusiness.pageViewModel.pageOutFrameBusiness,
       floatingActionButton: null,

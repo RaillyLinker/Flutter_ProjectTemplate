@@ -11,7 +11,7 @@ import 'widget_view.dart' as widget_view;
 class WidgetBusiness extends State<widget_view.WidgetView> {
   WidgetBusiness();
 
-  // [오버라이드]
+  // [콜백 함수]
   @override
   Widget build(BuildContext context) {
     return widget.viewWidgetBuild(context: context);

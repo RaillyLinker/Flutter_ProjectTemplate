@@ -14,7 +14,7 @@ class WidgetView extends StatelessWidget {
     _business.view = this;
   }
 
-  // [오버라이드]
+  // [콜백 함수]
   // (위젯을 화면에 draw 할 때의 콜백)
   @override
   Widget build(BuildContext context) {
