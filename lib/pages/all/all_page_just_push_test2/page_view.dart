@@ -7,6 +7,8 @@ import 'page_business.dart' as page_business;
 // (all)
 import '../../../global_widgets/gw_page_outer_frame/widget_view.dart'
     as gw_page_outer_frame_view;
+import '../../../global_widgets/gw_stateful_test/widget_view.dart'
+as gw_stateful_test_view;
 
 // [페이지 화면 위젯 작성 파일]
 // 페이지 화면 구현을 담당합니다. (Widget 과 Business 간의 결합을 담당)
@@ -32,6 +34,22 @@ class PageView extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              const Text(
+                "글로벌 위젯 상태 변수",
+                style: TextStyle(color: Colors.black, fontFamily: "MaruBuri"),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              gw_stateful_test_view.WidgetView(
+                  business: _pageBusiness.pageViewModel.statefulTestBusiness),
+              const Text(
+                "로컬 위젯 상태 변수",
+                style: TextStyle(color: Colors.black, fontFamily: "MaruBuri"),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
               MouseRegion(
                 cursor: SystemMouseCursors.click,
                 child: GestureDetector(

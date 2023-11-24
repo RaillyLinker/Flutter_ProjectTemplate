@@ -17,6 +17,8 @@ import '../../../global_widgets/gw_page_outer_frame/widget_business.dart'
     as gw_page_outer_frame_business;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
+import '../../../global_widgets/gw_stateful_test/widget_business.dart'
+    as gw_stateful_test_business;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
 
@@ -158,7 +160,11 @@ class PageViewModel {
   page_view.SampleNumberTextState sampleWidgetState =
       page_view.SampleNumberTextState();
 
-  // PageOutFrameViewModel
+  // pageOutFrameBusiness
   gw_page_outer_frame_business.WidgetBusiness pageOutFrameBusiness =
       gw_page_outer_frame_business.WidgetBusiness();
+
+  // statefulTestBusiness
+  gw_stateful_test_business.WidgetBusiness statefulTestBusiness =
+      gw_stateful_test_business.WidgetBusiness();
 }
