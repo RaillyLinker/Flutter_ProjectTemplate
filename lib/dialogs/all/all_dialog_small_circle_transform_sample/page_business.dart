@@ -8,7 +8,8 @@ import 'page_entrance.dart' as page_entrance;
 // (all)
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
-import '../../../global_widgets/gw_custom_widgets.dart' as gw_custom_widgets;
+import '../../../global_widgets/gw_dialog_complete_transform_animation/widget_business.dart'
+    as gw_dialog_complete_transform_animation_business;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
 
@@ -106,6 +107,7 @@ class PageViewModel {
 // GlobalKey<SampleWidgetState> sampleWidgetStateGk = GlobalKey();
 // SampleWidgetViewModel sampleWidgetViewModel = SampleWidgetViewModel();
 
-  gw_custom_widgets.DialogCompleteAnimationBusiness sampleWidgetBusiness =
-      gw_custom_widgets.DialogCompleteAnimationBusiness();
+  gw_dialog_complete_transform_animation_business.WidgetBusiness
+      sampleWidgetBusiness =
+      gw_dialog_complete_transform_animation_business.WidgetBusiness();
 }

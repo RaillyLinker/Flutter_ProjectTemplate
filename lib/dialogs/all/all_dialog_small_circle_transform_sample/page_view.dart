@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 
 // (page)
 import 'page_business.dart' as page_business;
-import '../../../global_widgets/gw_custom_widgets.dart' as gw_custom_widgets;
+import '../../../global_widgets/gw_dialog_complete_transform_animation/widget_view.dart'
+    as gw_dialog_complete_transform_animation_view;
 
 // [페이지 화면 위젯 작성 파일]
 // 페이지 화면 구현을 담당합니다. (Widget 과 Business 간의 결합을 담당)
@@ -23,7 +24,7 @@ class PageView extends StatelessWidget {
     return Dialog(
       elevation: 0,
       backgroundColor: Colors.transparent,
-      child: gw_custom_widgets.DialogCompleteAnimation(
+      child: gw_dialog_complete_transform_animation_view.WidgetView(
         business: _pageBusiness.pageViewModel.sampleWidgetBusiness,
         dialogChild: SingleChildScrollView(
           child: Container(
