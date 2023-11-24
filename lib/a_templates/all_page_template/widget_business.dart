@@ -25,14 +25,14 @@ class WidgetBusiness extends State<widget_view.WidgetView>
     // }
 
     // !!!PageInputVo 입력!!!
-    pageInputVo = widget_view.PageInputVo();
+    inputVo = widget_view.InputVo();
   }
 
   // [콜백 함수]
   @override
   Widget build(BuildContext context) {
     return PopScope(
-      canPop: pageCanPop,
+      canPop: canPop,
       child: FocusDetector(
         // (페이지 위젯의 FocusDetector 콜백들)
         onFocusGained: () async {
@@ -81,10 +81,10 @@ class WidgetBusiness extends State<widget_view.WidgetView>
   widget_view.WidgetView? view;
 
   // (페이지 입력 데이터)
-  late final widget_view.PageInputVo pageInputVo;
+  late final widget_view.InputVo inputVo;
 
   // (페이지 pop 가능 여부 변수)
-  bool pageCanPop = true;
+  bool canPop = true;
 
   // (pageOutFrameBusiness)
   gw_page_outer_frame_business.WidgetBusiness pageOutFrameBusiness =

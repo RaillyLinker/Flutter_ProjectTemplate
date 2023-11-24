@@ -116,7 +116,7 @@ class PageBusiness {
       case SampleItemEnum.rotateAnimation:
         {
           var dialogBusiness = all_dialog_template_business.WidgetBusiness(
-              pageInputVo: all_dialog_template_view.PageInputVo());
+              inputVo: all_dialog_template_view.InputVo());
 
           // 회전 애니메이션
           showGeneralDialog(
@@ -141,7 +141,7 @@ class PageBusiness {
       case SampleItemEnum.scaleAnimation:
         {
           var dialogBusiness = all_dialog_template_business.WidgetBusiness(
-              pageInputVo: all_dialog_template_view.PageInputVo());
+              inputVo: all_dialog_template_view.InputVo());
 
           // 확대 애니메이션
           showGeneralDialog(
@@ -167,7 +167,7 @@ class PageBusiness {
       case SampleItemEnum.slideDownAnimation:
         {
           var dialogBusiness = all_dialog_template_business.WidgetBusiness(
-              pageInputVo: all_dialog_template_view.PageInputVo());
+              inputVo: all_dialog_template_view.InputVo());
 
           // Slide Down 애니메이션
           showGeneralDialog(

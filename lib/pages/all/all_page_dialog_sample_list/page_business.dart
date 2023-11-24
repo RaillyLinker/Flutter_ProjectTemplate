@@ -129,7 +129,7 @@ class PageBusiness {
         {
           // (템플릿 다이얼로그 호출)
           var dialogBusiness = all_dialog_template_business.WidgetBusiness(
-              pageInputVo: all_dialog_template_view.PageInputVo());
+              inputVo: all_dialog_template_view.InputVo());
 
           showDialog(
               barrierDismissible: true,
@@ -241,7 +241,7 @@ class PageBusiness {
         {
           // 다이얼로그 외부 색 설정
           var dialogBusiness = all_dialog_template_business.WidgetBusiness(
-              pageInputVo: all_dialog_template_view.PageInputVo());
+              inputVo: all_dialog_template_view.InputVo());
 
           showDialog(
               barrierDismissible: true,
