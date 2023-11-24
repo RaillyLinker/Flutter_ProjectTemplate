@@ -7,7 +7,8 @@ import 'page_business.dart' as page_business;
 // (all)
 import '../../../global_widgets/gw_page_outer_frame/widget_view.dart'
     as gw_page_outer_frame_view;
-import '../../../global_widgets/gw_custom_widgets.dart' as gw_custom_widgets;
+import '../../../global_widgets/gw_context_menu_region/widget_view.dart'
+    as gw_context_menu_region_view;
 
 // [페이지 화면 위젯 작성 파일]
 // 페이지 화면 구현을 담당합니다. (Widget 과 Business 간의 결합을 담당)
@@ -35,10 +36,10 @@ class PageView extends StatelessWidget {
               const SizedBox(
                 height: 100,
               ),
-              gw_custom_widgets.ContextMenuRegion(
+              gw_context_menu_region_view.WidgetView(
                 business: _pageBusiness.pageViewModel.contextMenuRegionBusiness,
                 contextMenuRegionItemVoList: [
-                  gw_custom_widgets.ContextMenuRegionItemVo(
+                  gw_context_menu_region_view.ContextMenuRegionItemVo(
                       menuItemWidget: const Text(
                         "토스트 테스트",
                         style: TextStyle(
@@ -47,7 +48,7 @@ class PageView extends StatelessWidget {
                       menuItemCallback: () {
                         _pageBusiness.toastTestMenuBtn();
                       }),
-                  gw_custom_widgets.ContextMenuRegionItemVo(
+                  gw_context_menu_region_view.ContextMenuRegionItemVo(
                       menuItemWidget: const Text(
                         "다이얼로그 테스트",
                         style: TextStyle(
@@ -71,11 +72,11 @@ class PageView extends StatelessWidget {
               const SizedBox(
                 height: 100,
               ),
-              gw_custom_widgets.ContextMenuRegion(
+              gw_context_menu_region_view.WidgetView(
                 business:
                     _pageBusiness.pageViewModel.contextMenuRegionBusiness2,
                 contextMenuRegionItemVoList: [
-                  gw_custom_widgets.ContextMenuRegionItemVo(
+                  gw_context_menu_region_view.ContextMenuRegionItemVo(
                       menuItemWidget: const Text(
                         "뒤로가기",
                         style: TextStyle(

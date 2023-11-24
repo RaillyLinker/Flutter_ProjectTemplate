@@ -7,7 +7,8 @@ import 'package:go_router/go_router.dart';
 import 'page_entrance.dart' as page_entrance;
 
 // (all)
-import '../../../global_widgets/gw_custom_widgets.dart' as gw_custom_widgets;
+import '../../../global_widgets/gw_context_menu_region/widget_business.dart'
+    as gw_context_menu_region_business;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
 
@@ -105,6 +106,6 @@ class PageViewModel {
   // ex :
   // GlobalKey<SampleWidgetState> sampleWidgetStateGk = GlobalKey();
   // SampleWidgetViewModel sampleWidgetViewModel = SampleWidgetViewModel();
-  gw_custom_widgets.ContextMenuRegionBusiness contextMenuRegionBusiness =
-      gw_custom_widgets.ContextMenuRegionBusiness();
+  gw_context_menu_region_business.WidgetBusiness contextMenuRegionBusiness =
+      gw_context_menu_region_business.WidgetBusiness();
 }

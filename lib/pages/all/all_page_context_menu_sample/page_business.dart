@@ -13,7 +13,8 @@ import '../../../global_widgets/gw_page_outer_frame/widget_business.dart'
     as gw_page_outer_frame_business;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
-import '../../../global_widgets/gw_custom_widgets.dart' as gw_custom_widgets;
+import '../../../global_widgets/gw_context_menu_region/widget_business.dart'
+    as gw_context_menu_region_business;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
 
@@ -136,11 +137,11 @@ class PageViewModel {
   // GlobalKey<SampleWidgetState> sampleWidgetStateGk = GlobalKey();
   // SampleWidgetViewModel sampleWidgetViewModel = SampleWidgetViewModel();
 
-  gw_custom_widgets.ContextMenuRegionBusiness contextMenuRegionBusiness =
-      gw_custom_widgets.ContextMenuRegionBusiness();
+  gw_context_menu_region_business.WidgetBusiness contextMenuRegionBusiness =
+      gw_context_menu_region_business.WidgetBusiness();
 
-  gw_custom_widgets.ContextMenuRegionBusiness contextMenuRegionBusiness2 =
-      gw_custom_widgets.ContextMenuRegionBusiness();
+  gw_context_menu_region_business.WidgetBusiness contextMenuRegionBusiness2 =
+      gw_context_menu_region_business.WidgetBusiness();
 
   // PageOutFrameViewModel
   gw_page_outer_frame_business.WidgetBusiness pageOutFrameBusiness =
