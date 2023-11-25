@@ -6,14 +6,12 @@ import 'widget_business.dart' as widget_business;
 
 // [위젯 뷰]
 // 위젯의 화면 작성은 여기서 합니다.
-// 할 수 있다면 외부에서 주입하는 데이터는 뷰의 생성자에서 받고,
-// 비즈니스 생성 시점에 꼭 필요한 데이터만 비즈니스 생성자에서 받습니다.
 
 // -----------------------------------------------------------------------------
 // (Dialog 용 종료 애니메이션 샘플)
 // 이 위젯을 적용 후 dialogComplete() 를 사용 하면, dialogChild 가 completeChild 로 변환된 이후 종료 됩니다.
 class WidgetView extends StatefulWidget {
-  WidgetView(
+  const WidgetView(
       {super.key,
       required widget_business.WidgetBusiness business,
       required Widget dialogChild,

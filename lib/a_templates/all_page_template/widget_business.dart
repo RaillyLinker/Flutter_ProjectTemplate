@@ -16,17 +16,7 @@ import '../../../global_widgets/gw_page_outer_frame/widget_business.dart'
 // -----------------------------------------------------------------------------
 class WidgetBusiness extends State<widget_view.WidgetView>
     with WidgetsBindingObserver {
-  WidgetBusiness({required GoRouterState goRouterState}) {
-    // !!!pageInputVo 체크!!!
-    // ex :
-    // if (!goRouterState.uri.queryParameters
-    //     .containsKey("inputValueString")) {
-    //   // 필수 파라미터가 없는 경우에 대한 처리
-    // }
-
-    // !!!PageInputVo 입력!!!
-    inputVo = widget_view.InputVo();
-  }
+  WidgetBusiness();
 
   // [콜백 함수]
   @override
@@ -74,6 +64,19 @@ class WidgetBusiness extends State<widget_view.WidgetView>
     WidgetsBinding.instance.removeObserver(this);
 
     // !!!state dispose 로직 작성!!!
+  }
+
+  // (페이지 위젯 InputVo 입력)
+  void setInputVo({required GoRouterState goRouterState}) {
+    // !!!pageInputVo 체크!!!
+    // ex :
+    // if (!goRouterState.uri.queryParameters
+    //     .containsKey("inputValueString")) {
+    //   // 필수 파라미터가 없는 경우에 대한 처리
+    // }
+
+    // !!!PageInputVo 입력!!!
+    inputVo = widget_view.InputVo();
   }
 
   // [public 변수]

@@ -1,8 +1,7 @@
 // (external)
-
-// (inner Folder)
 import 'package:flutter/cupertino.dart';
 
+// (inner Folder)
 import 'widget_view.dart' as widget_view;
 
 // [위젯 비즈니스]

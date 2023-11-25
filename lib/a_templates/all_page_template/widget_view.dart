@@ -11,8 +11,6 @@ import '../../../global_widgets/gw_page_outer_frame/widget_view.dart'
 
 // [페이지 진입 파일]
 // 위젯의 화면 작성은 여기서 합니다.
-// 할 수 있다면 외부에서 주입하는 데이터는 뷰의 생성자에서 받고,
-// 비즈니스 생성 시점에 꼭 필요한 데이터만 비즈니스 생성자에서 받습니다.
 
 //------------------------------------------------------------------------------
 // !!!페이지 진입 라우트 Name 정의!!!
@@ -38,8 +36,9 @@ class OutputVo {}
 // -----------------------------------------------------------------------------
 class WidgetView extends StatefulWidget {
   WidgetView({super.key, required GoRouterState goRouterState}) {
-    _business = widget_business.WidgetBusiness(goRouterState: goRouterState);
+    _business = widget_business.WidgetBusiness();
     _business.view = this;
+    _business.setInputVo(goRouterState: goRouterState);
   }
 
   // [콜백 함수]
