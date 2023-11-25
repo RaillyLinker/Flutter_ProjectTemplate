@@ -8,29 +8,30 @@ import 'widget_business.dart' as widget_business;
 // 위젯의 화면 작성은 여기서 합니다.
 
 // -----------------------------------------------------------------------------
+class InputVo {
+  const InputVo();
+}
+
 class WidgetView extends StatefulWidget {
-  const WidgetView(
-      {super.key, required widget_business.WidgetBusiness business})
-      : _business = business;
+  const WidgetView({required super.key, required this.inputVo});
 
   // [콜백 함수]
   @override
-  // ignore: no_logic_in_create_state
-  widget_business.WidgetBusiness createState() => _business;
+  widget_business.WidgetBusiness createState() =>
+      widget_business.WidgetBusiness();
 
   // [public 변수]
+  // (위젯 입력값)
+  final InputVo inputVo;
+}
 
-  // [private 변수]
-  // (위젯 비즈니스)
-  final widget_business.WidgetBusiness _business;
-
-  // [public 함수]
-
-  // [private 함수]
-
+class WidgetUi {
   // [뷰 위젯]
-  // !!!뷰 위젯 반환 콜백 작성 하기!!!
-  Widget viewWidgetBuild({required BuildContext context}) {
+  static Widget viewWidgetBuild(
+      {required BuildContext context,
+      required InputVo inputVo,
+      required widget_business.WidgetBusiness business}) {
+    // !!!뷰 위젯 반환 콜백 작성 하기!!!
     return const Text("todo");
   }
 }

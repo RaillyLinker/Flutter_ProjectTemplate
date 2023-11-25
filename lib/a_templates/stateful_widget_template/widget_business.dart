@@ -14,7 +14,8 @@ class WidgetBusiness extends State<widget_view.WidgetView> {
   // [콜백 함수]
   @override
   Widget build(BuildContext context) {
-    return widget.viewWidgetBuild(context: context);
+    return widget_view.WidgetUi.viewWidgetBuild(
+        context: context, inputVo: widget.inputVo, business: this);
   }
 
   // [public 변수]
