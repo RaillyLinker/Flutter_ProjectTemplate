@@ -32,7 +32,6 @@ class PageView extends StatelessWidget {
     return gw_page_outer_frame_view.WidgetView(
       business: pageBusiness.pageViewModel.pageOutFrameBusiness,
       inputVo: gw_page_outer_frame_view.InputVo(
-
         pageTitle: "회원 탈퇴",
         child: SingleChildScrollView(
           child: Center(
@@ -115,15 +114,15 @@ class PageView extends StatelessWidget {
                             ),
                             BlocBuilder<page_business.BlocAgreeCheckBox, bool>(
                                 builder: (c, s) {
-                                  return Checkbox(
-                                      activeColor: Colors.blue,
-                                      checkColor: Colors.white,
-                                      value:
-                                      pageBusiness.pageViewModel.withdrawalAgree,
-                                      onChanged: (value) {
-                                        pageBusiness.toggleAgreeButton();
-                                      });
-                                }),
+                              return Checkbox(
+                                  activeColor: Colors.blue,
+                                  checkColor: Colors.white,
+                                  value: pageBusiness
+                                      .pageViewModel.withdrawalAgree,
+                                  onChanged: (value) {
+                                    pageBusiness.toggleAgreeButton();
+                                  });
+                            }),
                           ],
                         ),
                       ),

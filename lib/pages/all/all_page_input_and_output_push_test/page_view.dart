@@ -32,7 +32,6 @@ class PageView extends StatelessWidget {
     return gw_page_outer_frame_view.WidgetView(
       business: pageBusiness.pageViewModel.pageOutFrameBusiness,
       inputVo: gw_page_outer_frame_view.InputVo(
-
         pageTitle: "페이지 입/출력 테스트",
         child: Center(
           child: SingleChildScrollView(
@@ -60,7 +59,7 @@ class PageView extends StatelessWidget {
                       controller: pageBusiness
                           .pageViewModel.pageOutputTextFieldController,
                       focusNode:
-                      pageBusiness.pageViewModel.pageOutputTextFieldFocus,
+                          pageBusiness.pageViewModel.pageOutputTextFieldFocus,
                       validator: (value) {
                         // 검사 : return 으로 반환하는 에러 메세지가 null 이 아니라면 에러로 처리
                         return null;

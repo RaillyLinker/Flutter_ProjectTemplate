@@ -17,8 +17,8 @@ class WidgetBusiness {
   // (위젯 Context)
   late BuildContext context;
 
-  // (위젯 객체)
-  late widget_view.StatefulView widget;
+  // (위젯 입력값)
+  late widget_view.InputVo inputVo;
 
   Offset? longPressOffset;
 
@@ -39,7 +39,7 @@ class WidgetBusiness {
     Map popupMenuItemCallbackMap = {};
     int idx = 0;
     for (widget_view.ContextMenuRegionItemVo contextMenuRegionItemVo
-        in widget.inputVo.contextMenuRegionItemVoList) {
+        in inputVo.contextMenuRegionItemVoList) {
       popupMenuItemList.add(PopupMenuItem(
           value: idx, child: contextMenuRegionItemVo.menuItemWidget));
 

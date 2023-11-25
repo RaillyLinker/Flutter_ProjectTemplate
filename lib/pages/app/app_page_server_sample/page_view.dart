@@ -33,7 +33,6 @@ class PageView extends StatelessWidget {
     return gw_page_outer_frame_view.WidgetView(
       business: pageBusiness.pageViewModel.pageOutFrameBusiness,
       inputVo: gw_page_outer_frame_view.InputVo(
-
         pageTitle: "서버 샘플",
         child: Center(
           child: Center(
@@ -77,27 +76,27 @@ class PageView extends StatelessWidget {
                         ),
                         BlocBuilder<page_business.BlocServerBtn, bool>(
                             builder: (c, s) {
-                              return Expanded(
-                                  child: ElevatedButton(
-                                    onPressed: () {
-                                      if (pageBusiness.pageViewModel.serverBtn ==
-                                          "서버 열기") {
-                                        pageBusiness.onClickOpenServerBtnAsync();
-                                      } else if (pageBusiness.pageViewModel.serverBtn ==
-                                          "서버 닫기") {
-                                        pageBusiness.onClickCloseServerBtnAsync();
-                                      }
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.blue,
-                                    ),
-                                    child: Text(
-                                      pageBusiness.pageViewModel.serverBtn,
-                                      style: const TextStyle(
-                                          color: Colors.white, fontFamily: "MaruBuri"),
-                                    ),
-                                  ));
-                            }),
+                          return Expanded(
+                              child: ElevatedButton(
+                            onPressed: () {
+                              if (pageBusiness.pageViewModel.serverBtn ==
+                                  "서버 열기") {
+                                pageBusiness.onClickOpenServerBtnAsync();
+                              } else if (pageBusiness.pageViewModel.serverBtn ==
+                                  "서버 닫기") {
+                                pageBusiness.onClickCloseServerBtnAsync();
+                              }
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.blue,
+                            ),
+                            child: Text(
+                              pageBusiness.pageViewModel.serverBtn,
+                              style: const TextStyle(
+                                  color: Colors.white, fontFamily: "MaruBuri"),
+                            ),
+                          ));
+                        }),
                       ],
                     ),
                   ),
@@ -114,7 +113,7 @@ class PageView extends StatelessWidget {
                           itemCount: pageBusiness.pageViewModel.logList.length,
                           itemBuilder: (context, index) {
                             String log =
-                            pageBusiness.pageViewModel.logList[index];
+                                pageBusiness.pageViewModel.logList[index];
                             return ListTile(
                               mouseCursor: SystemMouseCursors.click,
                               title: Text(

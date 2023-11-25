@@ -32,7 +32,6 @@ class PageView extends StatelessWidget {
     return gw_page_outer_frame_view.WidgetView(
       business: pageBusiness.pageViewModel.pageOutFrameBusiness,
       inputVo: gw_page_outer_frame_view.InputVo(
-
         pageTitle: "위젯 변경 애니메이션 샘플 리스트",
         child: SingleChildScrollView(
           // <==== 주인공. Column 하나를 child로 가짐
@@ -56,8 +55,10 @@ class PageView extends StatelessWidget {
                             .widgetChangeAnimatedSwitcherConfig.switchOutCurve,
                         layoutBuilder: pageBusiness.pageViewModel
                             .widgetChangeAnimatedSwitcherConfig.layoutBuilder,
-                        transitionBuilder: pageBusiness.pageViewModel
-                            .widgetChangeAnimatedSwitcherConfig.transitionBuilder,
+                        transitionBuilder: pageBusiness
+                            .pageViewModel
+                            .widgetChangeAnimatedSwitcherConfig
+                            .transitionBuilder,
                         child: pageBusiness.pageViewModel.sampleWidget);
                   },
                 ),
@@ -67,7 +68,8 @@ class PageView extends StatelessWidget {
                   return ListView.builder(
                       shrinkWrap: true, // 리스트뷰 크기 고정
                       primary: false, // 리스트뷰 내부는 스크롤 금지
-                      itemCount: pageBusiness.pageViewModel.allSampleList.length,
+                      itemCount:
+                          pageBusiness.pageViewModel.allSampleList.length,
                       itemBuilder: (context, index) {
                         return Column(
                           children: [
@@ -77,14 +79,18 @@ class PageView extends StatelessWidget {
                               ListTile(
                                 mouseCursor: SystemMouseCursors.click,
                                 title: Text(
-                                  pageBusiness.pageViewModel.allSampleList[index]
-                                      .sampleItemTitle,
-                                  style: const TextStyle(fontFamily: "MaruBuri"),
+                                  pageBusiness.pageViewModel
+                                      .allSampleList[index].sampleItemTitle,
+                                  style:
+                                      const TextStyle(fontFamily: "MaruBuri"),
                                 ),
                                 subtitle: Text(
-                                  pageBusiness.pageViewModel.allSampleList[index]
+                                  pageBusiness
+                                      .pageViewModel
+                                      .allSampleList[index]
                                       .sampleItemDescription,
-                                  style: const TextStyle(fontFamily: "MaruBuri"),
+                                  style:
+                                      const TextStyle(fontFamily: "MaruBuri"),
                                 ),
                                 trailing: const Icon(Icons.chevron_right),
                               ),

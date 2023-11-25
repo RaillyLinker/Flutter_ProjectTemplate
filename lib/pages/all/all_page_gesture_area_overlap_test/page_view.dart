@@ -32,7 +32,6 @@ class PageView extends StatelessWidget {
     return gw_page_outer_frame_view.WidgetView(
       business: pageBusiness.pageViewModel.pageOutFrameBusiness,
       inputVo: gw_page_outer_frame_view.InputVo(
-
         pageTitle: "Gesture 위젯 영역 중첩 테스트",
         child: Stack(
           children: [

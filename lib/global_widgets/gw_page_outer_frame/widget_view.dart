@@ -35,23 +35,21 @@ class InputVo {
 }
 
 class WidgetView extends StatelessWidget {
-  const WidgetView({super.key, required this.business, required this.inputVo});
+  WidgetView({super.key, required this.business, required InputVo inputVo}) {
+    business.inputVo = inputVo;
+  }
 
   // [콜백 함수]
   // (위젯을 화면에 draw 할 때의 콜백)
   @override
   Widget build(BuildContext context) {
     business.context = context;
-    business.widget = this;
     return viewWidgetBuild(context: context);
   }
 
   // [public 변수]
   // (위젯 비즈니스)
   final widget_business.WidgetBusiness business;
-
-  // (위젯 입력값)
-  final InputVo inputVo;
 
   // [뷰 위젯]
   Widget viewWidgetBuild({required BuildContext context}) {
@@ -76,7 +74,7 @@ class WidgetView extends StatelessWidget {
                 ),
                 Expanded(
                     child: Text(
-                  inputVo.pageTitle,
+                  business.inputVo.pageTitle,
                   style: const TextStyle(
                       color: Colors.white, fontFamily: "MaruBuri"),
                 ))
@@ -86,8 +84,8 @@ class WidgetView extends StatelessWidget {
             iconTheme:
                 const IconThemeData(color: Colors.white //change your color here
                     )),
-        backgroundColor: inputVo.backgroundColor,
-        floatingActionButton: inputVo.floatingActionButton,
-        body: inputVo.child);
+        backgroundColor: business.inputVo.backgroundColor,
+        floatingActionButton: business.inputVo.floatingActionButton,
+        body: business.inputVo.child);
   }
 }

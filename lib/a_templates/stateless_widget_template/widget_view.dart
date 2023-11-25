@@ -23,7 +23,6 @@ class WidgetView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     business.context = context;
-    business.widget = this;
     return viewWidgetBuild(context: context);
   }
 

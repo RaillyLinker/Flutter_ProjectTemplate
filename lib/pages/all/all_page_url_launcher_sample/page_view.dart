@@ -32,7 +32,6 @@ class PageView extends StatelessWidget {
     return gw_page_outer_frame_view.WidgetView(
       business: pageBusiness.pageViewModel.pageOutFrameBusiness,
       inputVo: gw_page_outer_frame_view.InputVo(
-
         pageTitle: "Url Launcher 샘플",
         child: Center(
           child: SingleChildScrollView(
@@ -58,21 +57,21 @@ class PageView extends StatelessWidget {
                           width: 300,
                           height: 45,
                           child:
-                          BlocBuilder<page_business.BlocUrlTextField, bool>(
-                              builder: (c, s) {
-                                return TextField(
-                                    onChanged: (value) {
-                                      pageBusiness.urlTextFieldOnChanged(value);
-                                    },
-                                    controller: pageBusiness
-                                        .pageViewModel.urlTextEditController,
-                                    decoration: InputDecoration(
-                                        errorText: pageBusiness
-                                            .pageViewModel.urlTextFieldErrorMsg,
-                                        labelText: "Url",
-                                        hintText: "https://www.test-url.com",
-                                        border: const OutlineInputBorder()));
-                              }))),
+                              BlocBuilder<page_business.BlocUrlTextField, bool>(
+                                  builder: (c, s) {
+                            return TextField(
+                                onChanged: (value) {
+                                  pageBusiness.urlTextFieldOnChanged(value);
+                                },
+                                controller: pageBusiness
+                                    .pageViewModel.urlTextEditController,
+                                decoration: InputDecoration(
+                                    errorText: pageBusiness
+                                        .pageViewModel.urlTextFieldErrorMsg,
+                                    labelText: "Url",
+                                    hintText: "https://www.test-url.com",
+                                    border: const OutlineInputBorder()));
+                          }))),
                   Container(
                       margin: const EdgeInsets.only(top: 20),
                       child: Center(

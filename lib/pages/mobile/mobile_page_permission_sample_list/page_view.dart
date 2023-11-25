@@ -34,7 +34,6 @@ class PageView extends StatelessWidget {
     return gw_page_outer_frame_view.WidgetView(
       business: pageBusiness.pageViewModel.pageOutFrameBusiness,
       inputVo: gw_page_outer_frame_view.InputVo(
-
         pageTitle: "모바일 권한 샘플",
         child: BlocBuilder<page_business.BlocSampleList, bool>(
           builder: (c, s) {
@@ -70,9 +69,10 @@ class PageView extends StatelessWidget {
                 ));
 
                 if (pageBusiness
-                    .pageViewModel.allSampleList[index].sampleItemEnum ==
+                        .pageViewModel.allSampleList[index].sampleItemEnum ==
                     page_business.SampleItemEnum.sensors) {
-                  if (pageBusiness.pageViewModel.allSampleList[index].isChecked &&
+                  if (pageBusiness
+                          .pageViewModel.allSampleList[index].isChecked &&
                       Platform.isAndroid) {
                     listTiles.add(
                       GestureDetector(
@@ -108,9 +108,10 @@ class PageView extends StatelessWidget {
                     );
                   }
                 } else if (pageBusiness
-                    .pageViewModel.allSampleList[index].sampleItemEnum ==
+                        .pageViewModel.allSampleList[index].sampleItemEnum ==
                     page_business.SampleItemEnum.locationWhenInUse) {
-                  if (pageBusiness.pageViewModel.allSampleList[index].isChecked &&
+                  if (pageBusiness
+                          .pageViewModel.allSampleList[index].isChecked &&
                       Platform.isAndroid) {
                     listTiles.add(
                       GestureDetector(

@@ -33,12 +33,11 @@ class PageView extends StatelessWidget {
     return gw_page_outer_frame_view.WidgetView(
       business: pageBusiness.pageViewModel.pageOutFrameBusiness,
       inputVo: gw_page_outer_frame_view.InputVo(
-
         pageTitle: "Post 메소드 요청 샘플 1",
         child: SingleChildScrollView(
           child: Container(
             margin:
-            const EdgeInsets.only(left: 10, right: 10, top: 20, bottom: 20),
+                const EdgeInsets.only(left: 10, right: 10, top: 20, bottom: 20),
             child: Column(
               children: [
                 Container(
@@ -89,9 +88,9 @@ class PageView extends StatelessWidget {
                                 children: [
                                   Expanded(
                                       child: Text(
-                                        "(Body ",
-                                        style: TextStyle(fontFamily: "MaruBuri"),
-                                      )),
+                                    "(Body ",
+                                    style: TextStyle(fontFamily: "MaruBuri"),
+                                  )),
                                   Expanded(
                                       child: Text("String",
                                           style: TextStyle(
@@ -99,8 +98,8 @@ class PageView extends StatelessWidget {
                                               fontFamily: "MaruBuri"))),
                                   Expanded(
                                       child: Text(")",
-                                          style:
-                                          TextStyle(fontFamily: "MaruBuri")))
+                                          style: TextStyle(
+                                              fontFamily: "MaruBuri")))
                                 ],
                               ),
                             )
@@ -150,8 +149,8 @@ class PageView extends StatelessWidget {
                                 children: [
                                   Expanded(
                                       child: Text("(Body ",
-                                          style:
-                                          TextStyle(fontFamily: "MaruBuri"))),
+                                          style: TextStyle(
+                                              fontFamily: "MaruBuri"))),
                                   Expanded(
                                       child: Text("String?",
                                           style: TextStyle(
@@ -159,8 +158,8 @@ class PageView extends StatelessWidget {
                                               fontFamily: "MaruBuri"))),
                                   Expanded(
                                       child: Text(")",
-                                          style:
-                                          TextStyle(fontFamily: "MaruBuri")))
+                                          style: TextStyle(
+                                              fontFamily: "MaruBuri")))
                                 ],
                               ),
                             )
@@ -210,8 +209,8 @@ class PageView extends StatelessWidget {
                                 children: [
                                   Expanded(
                                       child: Text("(Body ",
-                                          style:
-                                          TextStyle(fontFamily: "MaruBuri"))),
+                                          style: TextStyle(
+                                              fontFamily: "MaruBuri"))),
                                   Expanded(
                                       child: Text("Int",
                                           style: TextStyle(
@@ -219,8 +218,8 @@ class PageView extends StatelessWidget {
                                               fontFamily: "MaruBuri"))),
                                   Expanded(
                                       child: Text(")",
-                                          style:
-                                          TextStyle(fontFamily: "MaruBuri")))
+                                          style: TextStyle(
+                                              fontFamily: "MaruBuri")))
                                 ],
                               ),
                             )
@@ -238,15 +237,16 @@ class PageView extends StatelessWidget {
                               margin: const EdgeInsets.only(top: 10),
                               child: TextField(
                                 keyboardType:
-                                const TextInputType.numberWithOptions(
-                                    decimal: false, signed: false),
+                                    const TextInputType.numberWithOptions(
+                                        decimal: false, signed: false),
                                 inputFormatters: <TextInputFormatter>[
                                   FilteringTextInputFormatter.digitsOnly
                                 ],
                                 controller: pageBusiness.pageViewModel
                                     .networkRequestParamTextFieldController3,
                                 decoration: const InputDecoration(
-                                    hintText: "0", border: OutlineInputBorder()),
+                                    hintText: "0",
+                                    border: OutlineInputBorder()),
                               ),
                             )
                           ],
@@ -275,8 +275,8 @@ class PageView extends StatelessWidget {
                                 children: [
                                   Expanded(
                                       child: Text("(Body ",
-                                          style:
-                                          TextStyle(fontFamily: "MaruBuri"))),
+                                          style: TextStyle(
+                                              fontFamily: "MaruBuri"))),
                                   Expanded(
                                       child: Text("Int?",
                                           style: TextStyle(
@@ -284,8 +284,8 @@ class PageView extends StatelessWidget {
                                               fontFamily: "MaruBuri"))),
                                   Expanded(
                                       child: Text(")",
-                                          style:
-                                          TextStyle(fontFamily: "MaruBuri")))
+                                          style: TextStyle(
+                                              fontFamily: "MaruBuri")))
                                 ],
                               ),
                             )
@@ -303,8 +303,8 @@ class PageView extends StatelessWidget {
                               margin: const EdgeInsets.only(top: 10),
                               child: TextField(
                                 keyboardType:
-                                const TextInputType.numberWithOptions(
-                                    decimal: false, signed: false),
+                                    const TextInputType.numberWithOptions(
+                                        decimal: false, signed: false),
                                 inputFormatters: <TextInputFormatter>[
                                   FilteringTextInputFormatter.digitsOnly
                                 ],
@@ -341,8 +341,8 @@ class PageView extends StatelessWidget {
                                 children: [
                                   Expanded(
                                       child: Text("(Body ",
-                                          style:
-                                          TextStyle(fontFamily: "MaruBuri"))),
+                                          style: TextStyle(
+                                              fontFamily: "MaruBuri"))),
                                   Expanded(
                                       child: Text("Double",
                                           style: TextStyle(
@@ -350,8 +350,8 @@ class PageView extends StatelessWidget {
                                               fontFamily: "MaruBuri"))),
                                   Expanded(
                                       child: Text(")",
-                                          style:
-                                          TextStyle(fontFamily: "MaruBuri")))
+                                          style: TextStyle(
+                                              fontFamily: "MaruBuri")))
                                 ],
                               ),
                             )
@@ -369,19 +369,19 @@ class PageView extends StatelessWidget {
                               margin: const EdgeInsets.only(top: 10),
                               child: TextField(
                                 keyboardType:
-                                const TextInputType.numberWithOptions(
-                                    decimal: true, signed: false),
+                                    const TextInputType.numberWithOptions(
+                                        decimal: true, signed: false),
                                 inputFormatters: [
                                   FilteringTextInputFormatter.allow(
                                       RegExp(r"[0-9.]")),
                                   TextInputFormatter.withFunction(
-                                          (oldValue, newValue) {
-                                        String text = newValue.text;
-                                        if (text.isNotEmpty) {
-                                          double.parse(text);
-                                        }
-                                        return newValue;
-                                      }),
+                                      (oldValue, newValue) {
+                                    String text = newValue.text;
+                                    if (text.isNotEmpty) {
+                                      double.parse(text);
+                                    }
+                                    return newValue;
+                                  }),
                                 ],
                                 controller: pageBusiness.pageViewModel
                                     .networkRequestParamTextFieldController5,
@@ -416,8 +416,8 @@ class PageView extends StatelessWidget {
                                 children: [
                                   Expanded(
                                       child: Text("(Body ",
-                                          style:
-                                          TextStyle(fontFamily: "MaruBuri"))),
+                                          style: TextStyle(
+                                              fontFamily: "MaruBuri"))),
                                   Expanded(
                                       child: Text("Double?",
                                           style: TextStyle(
@@ -425,8 +425,8 @@ class PageView extends StatelessWidget {
                                               fontFamily: "MaruBuri"))),
                                   Expanded(
                                       child: Text(")",
-                                          style:
-                                          TextStyle(fontFamily: "MaruBuri")))
+                                          style: TextStyle(
+                                              fontFamily: "MaruBuri")))
                                 ],
                               ),
                             )
@@ -444,19 +444,19 @@ class PageView extends StatelessWidget {
                               margin: const EdgeInsets.only(top: 10),
                               child: TextField(
                                 keyboardType:
-                                const TextInputType.numberWithOptions(
-                                    decimal: true, signed: false),
+                                    const TextInputType.numberWithOptions(
+                                        decimal: true, signed: false),
                                 inputFormatters: [
                                   FilteringTextInputFormatter.allow(
                                       RegExp(r"[0-9.]")),
                                   TextInputFormatter.withFunction(
-                                          (oldValue, newValue) {
-                                        String text = newValue.text;
-                                        if (text.isNotEmpty) {
-                                          double.parse(text);
-                                        }
-                                        return newValue;
-                                      }),
+                                      (oldValue, newValue) {
+                                    String text = newValue.text;
+                                    if (text.isNotEmpty) {
+                                      double.parse(text);
+                                    }
+                                    return newValue;
+                                  }),
                                 ],
                                 controller: pageBusiness.pageViewModel
                                     .networkRequestParamTextFieldController6,
@@ -491,8 +491,8 @@ class PageView extends StatelessWidget {
                                 children: [
                                   Expanded(
                                       child: Text("(Body ",
-                                          style:
-                                          TextStyle(fontFamily: "MaruBuri"))),
+                                          style: TextStyle(
+                                              fontFamily: "MaruBuri"))),
                                   Expanded(
                                       child: Text("Boolean",
                                           style: TextStyle(
@@ -500,8 +500,8 @@ class PageView extends StatelessWidget {
                                               fontFamily: "MaruBuri"))),
                                   Expanded(
                                       child: Text(")",
-                                          style:
-                                          TextStyle(fontFamily: "MaruBuri")))
+                                          style: TextStyle(
+                                              fontFamily: "MaruBuri")))
                                 ],
                               ),
                             )
@@ -531,8 +531,8 @@ class PageView extends StatelessWidget {
                                 }).toList(),
                                 onChanged: (bool? newValue) {
                                   pageBusiness.pageViewModel
-                                      .networkRequestParamTextFieldValue7 =
-                                  newValue!;
+                                          .networkRequestParamTextFieldValue7 =
+                                      newValue!;
                                 },
                               ),
                             )
@@ -562,8 +562,8 @@ class PageView extends StatelessWidget {
                                 children: [
                                   Expanded(
                                       child: Text("(Body ",
-                                          style:
-                                          TextStyle(fontFamily: "MaruBuri"))),
+                                          style: TextStyle(
+                                              fontFamily: "MaruBuri"))),
                                   Expanded(
                                       child: Text("Boolean?",
                                           style: TextStyle(
@@ -571,8 +571,8 @@ class PageView extends StatelessWidget {
                                               fontFamily: "MaruBuri"))),
                                   Expanded(
                                       child: Text(")",
-                                          style:
-                                          TextStyle(fontFamily: "MaruBuri")))
+                                          style: TextStyle(
+                                              fontFamily: "MaruBuri")))
                                 ],
                               ),
                             )
@@ -591,8 +591,11 @@ class PageView extends StatelessWidget {
                               child: DropdownButton<bool?>(
                                 value: pageBusiness.pageViewModel
                                     .networkRequestParamTextFieldValue8,
-                                items: <bool?>[true, false, null]
-                                    .map<DropdownMenuItem<bool?>>((bool? value) {
+                                items: <bool?>[
+                                  true,
+                                  false,
+                                  null
+                                ].map<DropdownMenuItem<bool?>>((bool? value) {
                                   return DropdownMenuItem<bool?>(
                                     value: value,
                                     child: Text("$value",
@@ -602,7 +605,7 @@ class PageView extends StatelessWidget {
                                 }).toList(),
                                 onChanged: (bool? newValue) {
                                   pageBusiness.pageViewModel
-                                      .networkRequestParamTextFieldValue8 =
+                                          .networkRequestParamTextFieldValue8 =
                                       newValue;
                                 },
                               ),
@@ -633,8 +636,8 @@ class PageView extends StatelessWidget {
                                 children: [
                                   Expanded(
                                       child: Text("(Body ",
-                                          style:
-                                          TextStyle(fontFamily: "MaruBuri"))),
+                                          style: TextStyle(
+                                              fontFamily: "MaruBuri"))),
                                   Expanded(
                                       child: Text("array[string]",
                                           style: TextStyle(
@@ -642,8 +645,8 @@ class PageView extends StatelessWidget {
                                               fontFamily: "MaruBuri"))),
                                   Expanded(
                                       child: Text(")",
-                                          style:
-                                          TextStyle(fontFamily: "MaruBuri")))
+                                          style: TextStyle(
+                                              fontFamily: "MaruBuri")))
                                 ],
                               ),
                             )
@@ -665,21 +668,21 @@ class PageView extends StatelessWidget {
                                 children: [
                                   BlocBuilder<
                                       page_business
-                                          .BlocNetworkRequestParamTextFieldValue9,
+                                      .BlocNetworkRequestParamTextFieldValue9,
                                       bool>(
                                     builder: (c, s) {
                                       List<Widget> widgetList = [];
                                       for (int idx = 0;
-                                      idx <
-                                          pageBusiness
-                                              .pageViewModel
-                                              .networkRequestParamTextFieldValue9
-                                              .length;
-                                      idx++) {
+                                          idx <
+                                              pageBusiness
+                                                  .pageViewModel
+                                                  .networkRequestParamTextFieldValue9
+                                                  .length;
+                                          idx++) {
                                         TextEditingController tec = pageBusiness
-                                            .pageViewModel
-                                            .networkRequestParamTextFieldValue9[
-                                        idx];
+                                                .pageViewModel
+                                                .networkRequestParamTextFieldValue9[
+                                            idx];
 
                                         List<Widget> textFieldRow = [
                                           Expanded(
@@ -693,18 +696,18 @@ class PageView extends StatelessWidget {
                                         ];
 
                                         if (pageBusiness
-                                            .pageViewModel
-                                            .networkRequestParamTextFieldValue9
-                                            .length >
+                                                .pageViewModel
+                                                .networkRequestParamTextFieldValue9
+                                                .length >
                                             1) {
                                           textFieldRow.add(Container(
                                             margin:
-                                            const EdgeInsets.only(left: 5),
+                                                const EdgeInsets.only(left: 5),
                                             child: ElevatedButton(
                                                 onPressed: () {
                                                   pageBusiness
                                                       .deleteNetworkRequestParamTextFieldValue9(
-                                                      idx);
+                                                          idx);
                                                 },
                                                 style: ElevatedButton.styleFrom(
                                                   backgroundColor: Colors.blue,
@@ -719,7 +722,8 @@ class PageView extends StatelessWidget {
                                         }
 
                                         widgetList.add(Container(
-                                          margin: const EdgeInsets.only(top: 10),
+                                          margin:
+                                              const EdgeInsets.only(top: 10),
                                           child: Row(
                                             children: textFieldRow,
                                           ),
@@ -779,8 +783,8 @@ class PageView extends StatelessWidget {
                                 children: [
                                   Expanded(
                                       child: Text("(Body ",
-                                          style:
-                                          TextStyle(fontFamily: "MaruBuri"))),
+                                          style: TextStyle(
+                                              fontFamily: "MaruBuri"))),
                                   Expanded(
                                       child: Text("array[string]?",
                                           style: TextStyle(
@@ -788,8 +792,8 @@ class PageView extends StatelessWidget {
                                               fontFamily: "MaruBuri"))),
                                   Expanded(
                                       child: Text(")",
-                                          style:
-                                          TextStyle(fontFamily: "MaruBuri")))
+                                          style: TextStyle(
+                                              fontFamily: "MaruBuri")))
                                 ],
                               ),
                             )
@@ -811,21 +815,21 @@ class PageView extends StatelessWidget {
                                 children: [
                                   BlocBuilder<
                                       page_business
-                                          .BlocNetworkRequestParamTextFieldValue10,
+                                      .BlocNetworkRequestParamTextFieldValue10,
                                       bool>(
                                     builder: (c, s) {
                                       List<Widget> widgetList = [];
                                       for (int idx = 0;
-                                      idx <
-                                          pageBusiness
-                                              .pageViewModel
-                                              .networkRequestParamTextFieldValue10
-                                              .length;
-                                      idx++) {
+                                          idx <
+                                              pageBusiness
+                                                  .pageViewModel
+                                                  .networkRequestParamTextFieldValue10
+                                                  .length;
+                                          idx++) {
                                         TextEditingController tec = pageBusiness
-                                            .pageViewModel
-                                            .networkRequestParamTextFieldValue10[
-                                        idx];
+                                                .pageViewModel
+                                                .networkRequestParamTextFieldValue10[
+                                            idx];
 
                                         List<Widget> textFieldRow = [
                                           Expanded(
@@ -839,12 +843,13 @@ class PageView extends StatelessWidget {
                                         ];
 
                                         textFieldRow.add(Container(
-                                          margin: const EdgeInsets.only(left: 5),
+                                          margin:
+                                              const EdgeInsets.only(left: 5),
                                           child: ElevatedButton(
                                               onPressed: () {
                                                 pageBusiness
                                                     .deleteNetworkRequestParamTextFieldValue10(
-                                                    idx);
+                                                        idx);
                                               },
                                               style: ElevatedButton.styleFrom(
                                                 backgroundColor: Colors.blue,
@@ -858,7 +863,8 @@ class PageView extends StatelessWidget {
                                         ));
 
                                         widgetList.add(Container(
-                                          margin: const EdgeInsets.only(top: 10),
+                                          margin:
+                                              const EdgeInsets.only(top: 10),
                                           child: Row(
                                             children: textFieldRow,
                                           ),

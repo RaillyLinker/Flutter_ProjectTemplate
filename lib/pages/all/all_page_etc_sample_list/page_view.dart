@@ -46,8 +46,8 @@ class PageView extends StatelessWidget {
                       ListTile(
                         mouseCursor: SystemMouseCursors.click,
                         title: Text(
-                          pageBusiness
-                              .pageViewModel.allSampleList[index].sampleItemTitle,
+                          pageBusiness.pageViewModel.allSampleList[index]
+                              .sampleItemTitle,
                           style: const TextStyle(fontFamily: "MaruBuri"),
                         ),
                         subtitle: Text(

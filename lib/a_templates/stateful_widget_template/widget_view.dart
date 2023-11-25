@@ -57,7 +57,6 @@ class StatefulBusiness extends State<StatefulView> {
   @override
   Widget build(BuildContext context) {
     widget.business.context = context;
-    widget.business.widget = widget;
     return WidgetUi.viewWidgetBuild(
         context: context, business: widget.business);
   }

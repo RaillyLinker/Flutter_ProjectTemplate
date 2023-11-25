@@ -34,7 +34,6 @@ class PageView extends StatelessWidget {
     return gw_page_outer_frame_view.WidgetView(
       business: pageBusiness.pageViewModel.pageOutFrameBusiness,
       inputVo: gw_page_outer_frame_view.InputVo(
-
         pageTitle: "폼 입력 샘플",
         child: SingleChildScrollView(
           child: Center(
@@ -76,8 +75,8 @@ class PageView extends StatelessWidget {
                       ),
                       controller: pageBusiness
                           .pageViewModel.inputAnythingTextFieldController,
-                      focusNode:
-                      pageBusiness.pageViewModel.inputAnythingTextFieldFocus,
+                      focusNode: pageBusiness
+                          .pageViewModel.inputAnythingTextFieldFocus,
                       validator: (value) {
                         // 검사 : return 으로 반환하는 에러 메세지가 null 이 아니라면 에러로 처리
                         if (value == null || value.isEmpty) {
@@ -87,8 +86,8 @@ class PageView extends StatelessWidget {
                       },
                       onFieldSubmitted: (value) {
                         // 입력창 포커스 상태에서 엔터
-                        if (pageBusiness
-                            .pageViewModel.inputAnythingTextFieldKey.currentState!
+                        if (pageBusiness.pageViewModel.inputAnythingTextFieldKey
+                            .currentState!
                             .validate()) {
                           FocusScope.of(context).requestFocus(pageBusiness
                               .pageViewModel.inputAlphabetTextFieldFocus);
@@ -112,11 +111,12 @@ class PageView extends StatelessWidget {
                       ),
                       controller: pageBusiness
                           .pageViewModel.inputAlphabetTextFieldController,
-                      focusNode:
-                      pageBusiness.pageViewModel.inputAlphabetTextFieldFocus,
+                      focusNode: pageBusiness
+                          .pageViewModel.inputAlphabetTextFieldFocus,
                       maxLength: 16,
                       inputFormatters: [
-                        FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z0-9]')),
+                        FilteringTextInputFormatter.allow(
+                            RegExp(r'[a-zA-Z0-9]')),
                       ],
                       validator: (value) {
                         // 검사 : return 으로 반환하는 에러 메세지가 null 이 아니라면 에러로 처리
@@ -130,8 +130,8 @@ class PageView extends StatelessWidget {
                       },
                       onFieldSubmitted: (value) {
                         // 입력창 포커스 상태에서 엔터
-                        if (pageBusiness
-                            .pageViewModel.inputAlphabetTextFieldKey.currentState!
+                        if (pageBusiness.pageViewModel.inputAlphabetTextFieldKey
+                            .currentState!
                             .validate()) {
                           FocusScope.of(context).requestFocus(pageBusiness
                               .pageViewModel.inputNumberTextFieldFocus);
@@ -156,7 +156,7 @@ class PageView extends StatelessWidget {
                       controller: pageBusiness
                           .pageViewModel.inputNumberTextFieldController,
                       focusNode:
-                      pageBusiness.pageViewModel.inputNumberTextFieldFocus,
+                          pageBusiness.pageViewModel.inputNumberTextFieldFocus,
                       maxLength: 16,
                       inputFormatters: [
                         FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
@@ -186,64 +186,65 @@ class PageView extends StatelessWidget {
                     const SizedBox(height: 10.0),
                     BlocBuilder<page_business.BlocSecretTestInput, bool>(
                         builder: (c, s) {
-                          return TextFormField(
-                            key: pageBusiness.pageViewModel.inputSecretTextFieldKey,
-                            keyboardType: TextInputType.text,
-                            decoration: InputDecoration(
-                              labelText: "암호값 입력",
-                              hintText: '암호값을 입력하면 숨김 처리가 됩니다.',
-                              contentPadding: const EdgeInsets.symmetric(
-                                  vertical: 10.0, horizontal: 10.0),
-                              filled: true,
-                              fillColor: Colors.grey[100],
-                              prefixIcon: const Icon(
-                                Icons.key,
-                                color: Colors.grey,
-                                size: 24.0, // 아이콘 크기 조정
-                              ),
-                              suffixIcon: IconButton(
-                                icon: Icon(
-                                  pageBusiness.pageViewModel.inputSecretTextFieldHide
-                                      ? Icons.visibility
-                                      : Icons.visibility_off,
-                                ),
-                                onPressed: () {
-                                  pageBusiness
+                      return TextFormField(
+                        key: pageBusiness.pageViewModel.inputSecretTextFieldKey,
+                        keyboardType: TextInputType.text,
+                        decoration: InputDecoration(
+                          labelText: "암호값 입력",
+                          hintText: '암호값을 입력하면 숨김 처리가 됩니다.',
+                          contentPadding: const EdgeInsets.symmetric(
+                              vertical: 10.0, horizontal: 10.0),
+                          filled: true,
+                          fillColor: Colors.grey[100],
+                          prefixIcon: const Icon(
+                            Icons.key,
+                            color: Colors.grey,
+                            size: 24.0, // 아이콘 크기 조정
+                          ),
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              pageBusiness
+                                      .pageViewModel.inputSecretTextFieldHide
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                            ),
+                            onPressed: () {
+                              pageBusiness
                                       .pageViewModel.inputSecretTextFieldHide =
                                   !pageBusiness
                                       .pageViewModel.inputSecretTextFieldHide;
-                                  pageBusiness.blocObjects.blocSecretTestInput
-                                      .refresh();
-                                },
-                              ),
-                            ),
-                            controller: pageBusiness
-                                .pageViewModel.inputSecretTextFieldController,
-                            focusNode:
-                            pageBusiness.pageViewModel.inputSecretTextFieldFocus,
-                            autofillHints: const [AutofillHints.password],
-                            obscureText:
+                              pageBusiness.blocObjects.blocSecretTestInput
+                                  .refresh();
+                            },
+                          ),
+                        ),
+                        controller: pageBusiness
+                            .pageViewModel.inputSecretTextFieldController,
+                        focusNode: pageBusiness
+                            .pageViewModel.inputSecretTextFieldFocus,
+                        autofillHints: const [AutofillHints.password],
+                        obscureText:
                             pageBusiness.pageViewModel.inputSecretTextFieldHide,
-                            validator: (value) {
-                              // 검사 : return 으로 반환하는 에러 메세지가 null 이 아니라면 에러로 처리
-                              if (value == null || value.isEmpty) {
-                                return '이 항목을 입력 하세요.';
-                              }
-                              return null;
-                            },
-                            onFieldSubmitted: (value) {
-                              // 입력창 포커스 상태에서 엔터
-                              if (pageBusiness
-                                  .pageViewModel.inputSecretTextFieldKey.currentState!
-                                  .validate()) {
-                                pageBusiness.completeTestForm();
-                              } else {
-                                FocusScope.of(context).requestFocus(pageBusiness
-                                    .pageViewModel.inputSecretTextFieldFocus);
-                              }
-                            },
-                          );
-                        }),
+                        validator: (value) {
+                          // 검사 : return 으로 반환하는 에러 메세지가 null 이 아니라면 에러로 처리
+                          if (value == null || value.isEmpty) {
+                            return '이 항목을 입력 하세요.';
+                          }
+                          return null;
+                        },
+                        onFieldSubmitted: (value) {
+                          // 입력창 포커스 상태에서 엔터
+                          if (pageBusiness.pageViewModel.inputSecretTextFieldKey
+                              .currentState!
+                              .validate()) {
+                            pageBusiness.completeTestForm();
+                          } else {
+                            FocusScope.of(context).requestFocus(pageBusiness
+                                .pageViewModel.inputSecretTextFieldFocus);
+                          }
+                        },
+                      );
+                    }),
                     const SizedBox(height: 50.0),
                     ElevatedButton(
                       onPressed: () {

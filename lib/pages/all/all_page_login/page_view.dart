@@ -32,7 +32,6 @@ class PageView extends StatelessWidget {
     return gw_page_outer_frame_view.WidgetView(
       business: pageBusiness.pageViewModel.pageOutFrameBusiness,
       inputVo: gw_page_outer_frame_view.InputVo(
-
         pageTitle: "로그인",
         backgroundColor: Colors.blue,
         child: SingleChildScrollView(
@@ -60,7 +59,8 @@ class PageView extends StatelessWidget {
                     autofillHints: const [AutofillHints.username],
                     focusNode: pageBusiness.pageViewModel.emailTextFieldFocus,
                     keyboardType: TextInputType.emailAddress,
-                    controller: pageBusiness.pageViewModel.idTextFieldController,
+                    controller:
+                        pageBusiness.pageViewModel.idTextFieldController,
                     onFieldSubmitted: (value) {
                       pageBusiness.onIdFieldSubmitted();
                     },
@@ -102,7 +102,7 @@ class PageView extends StatelessWidget {
                       return TextFormField(
                         autofillHints: const [AutofillHints.password],
                         focusNode:
-                        pageBusiness.pageViewModel.passwordTextFieldFocus,
+                            pageBusiness.pageViewModel.passwordTextFieldFocus,
                         controller: pageBusiness
                             .pageViewModel.passwordTextFieldController,
                         obscureText: pageBusiness.pageViewModel.hidePassword,
@@ -156,11 +156,11 @@ class PageView extends StatelessWidget {
                         children: [
                           Expanded(
                               child: Text(
-                                '비밀번호를 잊어버렸나요?',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: Colors.white, fontFamily: "MaruBuri"),
-                              )),
+                            '비밀번호를 잊어버렸나요?',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: Colors.white, fontFamily: "MaruBuri"),
+                          )),
                           Text(
                             '✓',
                             style: TextStyle(
@@ -200,11 +200,11 @@ class PageView extends StatelessWidget {
                     children: [
                       Expanded(
                           child: Text(
-                            '아직 회원이 아닌가요?',
-                            style: TextStyle(
-                                color: Colors.white, fontFamily: "MaruBuri"),
-                            textAlign: TextAlign.center,
-                          )),
+                        '아직 회원이 아닌가요?',
+                        style: TextStyle(
+                            color: Colors.white, fontFamily: "MaruBuri"),
+                        textAlign: TextAlign.center,
+                      )),
                     ],
                   ),
                 ),

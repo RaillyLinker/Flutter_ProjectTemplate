@@ -75,15 +75,16 @@ class PageView extends StatelessWidget {
                                                   .aes256SecretKeyTextController,
                                               maxLength: 32,
                                               inputFormatters: [
-                                                FilteringTextInputFormatter.allow(
-                                                    RegExp(r'[a-zA-Z0-9]')),
+                                                FilteringTextInputFormatter
+                                                    .allow(
+                                                        RegExp(r'[a-zA-Z0-9]')),
                                               ],
                                               validator: (value) {
                                                 if (value == null ||
                                                     value.isEmpty) {
                                                   return '암호키를 입력하세요.';
                                                 } else if (!RegExp(
-                                                    r'^[a-zA-Z0-9]{32}$')
+                                                        r'^[a-zA-Z0-9]{32}$')
                                                     .hasMatch(value)) {
                                                   return '암호키 32자를 입력하세요.';
                                                 }
@@ -102,15 +103,16 @@ class PageView extends StatelessWidget {
                                                   .aes256IvTextController,
                                               maxLength: 16,
                                               inputFormatters: [
-                                                FilteringTextInputFormatter.allow(
-                                                    RegExp(r'[a-zA-Z0-9]')),
+                                                FilteringTextInputFormatter
+                                                    .allow(
+                                                        RegExp(r'[a-zA-Z0-9]')),
                                               ],
                                               validator: (value) {
                                                 if (value == null ||
                                                     value.isEmpty) {
                                                   return '초기화 벡터를 입력하세요.';
                                                 } else if (!RegExp(
-                                                    r'^[a-zA-Z0-9]{16}$')
+                                                        r'^[a-zA-Z0-9]{16}$')
                                                     .hasMatch(value)) {
                                                   return '초기화 벡터 16자를 입력하세요.';
                                                 }
@@ -143,8 +145,10 @@ class PageView extends StatelessWidget {
                                                 if (pageBusiness.pageViewModel
                                                     .aes256FormKey.currentState!
                                                     .validate()) {
-                                                  pageBusiness.pageViewModel
-                                                      .aes256FormKey.currentState!
+                                                  pageBusiness
+                                                      .pageViewModel
+                                                      .aes256FormKey
+                                                      .currentState!
                                                       .save();
                                                   pageBusiness.doEncrypt();
                                                 }
@@ -182,7 +186,7 @@ class PageView extends StatelessWidget {
                                             flex: 80,
                                             child: BlocBuilder<
                                                 page_business
-                                                    .BlocEncryptResultText,
+                                                .BlocEncryptResultText,
                                                 bool>(
                                               builder: (c, s) {
                                                 return SelectableText(
@@ -219,8 +223,10 @@ class PageView extends StatelessWidget {
                                                 if (pageBusiness.pageViewModel
                                                     .aes256FormKey.currentState!
                                                     .validate()) {
-                                                  pageBusiness.pageViewModel
-                                                      .aes256FormKey.currentState!
+                                                  pageBusiness
+                                                      .pageViewModel
+                                                      .aes256FormKey
+                                                      .currentState!
                                                       .save();
                                                   pageBusiness.doDecrypt();
                                                 }
@@ -258,7 +264,7 @@ class PageView extends StatelessWidget {
                                             flex: 80,
                                             child: BlocBuilder<
                                                 page_business
-                                                    .BlocDecryptResultText,
+                                                .BlocDecryptResultText,
                                                 bool>(
                                               builder: (c, s) {
                                                 return SelectableText(

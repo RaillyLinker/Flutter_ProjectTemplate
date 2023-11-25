@@ -53,9 +53,6 @@ class WidgetBusiness {
   // (위젯 Context)
   late BuildContext context;
 
-  // (위젯 객체)
-  late widget_view.StatefulView widget;
-
   // (위젯 입력값)
   late widget_view.InputVo inputVo;
 

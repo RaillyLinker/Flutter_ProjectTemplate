@@ -32,12 +32,11 @@ class PageView extends StatelessWidget {
     return gw_page_outer_frame_view.WidgetView(
       business: pageBusiness.pageViewModel.pageOutFrameBusiness,
       inputVo: gw_page_outer_frame_view.InputVo(
-
         pageTitle: "페이지 Grid 샘플",
         child: Center(
           child: Container(
             padding:
-            const EdgeInsets.only(left: 10, top: 10, right: 10, bottom: 10),
+                const EdgeInsets.only(left: 10, top: 10, right: 10, bottom: 10),
             child: GridView.builder(
               itemCount: 100, // 아이템 개수
               gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
@@ -45,7 +44,7 @@ class PageView extends StatelessWidget {
                   mainAxisSpacing: 2.0, // 행 간 여백
                   crossAxisSpacing: 2.0, // 열 간 여백
                   childAspectRatio: 1.5 // width / height
-              ),
+                  ),
               itemBuilder: (BuildContext context, int index) {
                 // 아이템 타일
                 return Container(

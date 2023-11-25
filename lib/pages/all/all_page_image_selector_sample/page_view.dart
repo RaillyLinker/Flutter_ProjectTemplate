@@ -33,7 +33,6 @@ class PageView extends StatelessWidget {
     return gw_page_outer_frame_view.WidgetView(
       business: pageBusiness.pageViewModel.pageOutFrameBusiness,
       inputVo: gw_page_outer_frame_view.InputVo(
-
         pageTitle: "이미지 선택 샘플",
         child: SingleChildScrollView(
           child: Center(
@@ -51,53 +50,53 @@ class PageView extends StatelessWidget {
                         children: [
                           BlocBuilder<page_business.BlocProfileImage, bool>(
                               builder: (c, s) {
-                                if (pageBusiness.pageViewModel.selectedImage ==
-                                    null) {
-                                  return ClipOval(
-                                      child: Container(
-                                        color: Colors.blue,
-                                        width: 150,
-                                        height: 150,
-                                        child: const Icon(
-                                          Icons.photo_outlined,
-                                          color: Colors.white,
-                                          size: 120,
+                            if (pageBusiness.pageViewModel.selectedImage ==
+                                null) {
+                              return ClipOval(
+                                  child: Container(
+                                color: Colors.blue,
+                                width: 150,
+                                height: 150,
+                                child: const Icon(
+                                  Icons.photo_outlined,
+                                  color: Colors.white,
+                                  size: 120,
+                                ),
+                              ));
+                            } else {
+                              return ClipOval(
+                                child: SizedBox(
+                                  width: 150,
+                                  height: 150,
+                                  child: Image(
+                                    image: MemoryImage(pageBusiness
+                                        .pageViewModel.selectedImage!),
+                                    fit: BoxFit.cover,
+                                    loadingBuilder: (BuildContext context,
+                                        Widget child,
+                                        ImageChunkEvent? loadingProgress) {
+                                      // 로딩 중일 때 플레이스 홀더를 보여줍니다.
+                                      if (loadingProgress == null) {
+                                        return child; // 로딩이 끝났을 경우
+                                      }
+                                      return const Center(
+                                        child: CircularProgressIndicator(),
+                                      );
+                                    },
+                                    errorBuilder: (context, error, stackTrace) {
+                                      // 에러 발생 시 설정한 에러 위젯을 반환합니다.
+                                      return const Center(
+                                        child: Icon(
+                                          Icons.error,
+                                          color: Colors.red,
                                         ),
-                                      ));
-                                } else {
-                                  return ClipOval(
-                                    child: SizedBox(
-                                      width: 150,
-                                      height: 150,
-                                      child: Image(
-                                        image: MemoryImage(pageBusiness
-                                            .pageViewModel.selectedImage!),
-                                        fit: BoxFit.cover,
-                                        loadingBuilder: (BuildContext context,
-                                            Widget child,
-                                            ImageChunkEvent? loadingProgress) {
-                                          // 로딩 중일 때 플레이스 홀더를 보여줍니다.
-                                          if (loadingProgress == null) {
-                                            return child; // 로딩이 끝났을 경우
-                                          }
-                                          return const Center(
-                                            child: CircularProgressIndicator(),
-                                          );
-                                        },
-                                        errorBuilder: (context, error, stackTrace) {
-                                          // 에러 발생 시 설정한 에러 위젯을 반환합니다.
-                                          return const Center(
-                                            child: Icon(
-                                              Icons.error,
-                                              color: Colors.red,
-                                            ),
-                                          );
-                                        },
-                                      ),
-                                    ),
-                                  );
-                                }
-                              }),
+                                      );
+                                    },
+                                  ),
+                                ),
+                              );
+                            }
+                          }),
                           Positioned(
                             width: 40,
                             height: 40,
@@ -146,7 +145,7 @@ class PageView extends StatelessWidget {
                         return ListView.builder(
                           scrollDirection: Axis.horizontal,
                           itemCount:
-                          pageBusiness.pageViewModel.imageFiles.length + 1,
+                              pageBusiness.pageViewModel.imageFiles.length + 1,
                           itemBuilder: (context, index) {
                             // 첫번째 인덱스는 무조건 추가 버튼
                             if (0 == index) {
@@ -157,13 +156,13 @@ class PageView extends StatelessWidget {
                                       width: 76,
                                       child: Center(
                                           child: Text(
-                                            "${pageBusiness.pageViewModel.imageFiles.length}/${pageBusiness.pageViewModel.imageFileListMaxCount}",
-                                            textAlign: TextAlign.center,
-                                            style: const TextStyle(
-                                                fontSize: 12,
-                                                color: Color.fromARGB(
-                                                    255, 158, 158, 158)),
-                                          ))),
+                                        "${pageBusiness.pageViewModel.imageFiles.length}/${pageBusiness.pageViewModel.imageFileListMaxCount}",
+                                        textAlign: TextAlign.center,
+                                        style: const TextStyle(
+                                            fontSize: 12,
+                                            color: Color.fromARGB(
+                                                255, 158, 158, 158)),
+                                      ))),
                                   Container(
                                     width: 76,
                                     height: 76,
@@ -180,7 +179,8 @@ class PageView extends StatelessWidget {
                                       ),
                                     ),
                                     child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
                                       children: [
                                         const SizedBox(
                                           height: 5,

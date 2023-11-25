@@ -33,7 +33,6 @@ class PageView extends StatelessWidget {
     return gw_page_outer_frame_view.WidgetView(
       business: pageBusiness.pageViewModel.pageOutFrameBusiness,
       inputVo: gw_page_outer_frame_view.InputVo(
-
         pageTitle: "전역 변수 상태 확인 샘플",
         child: SingleChildScrollView(
           child: Container(
@@ -54,10 +53,12 @@ class PageView extends StatelessWidget {
                       },
                       child: Container(
                         decoration: const BoxDecoration(
-                          border: Border(bottom: BorderSide(color: Colors.black)),
+                          border:
+                              Border(bottom: BorderSide(color: Colors.black)),
                         ),
                         margin: const EdgeInsets.only(bottom: 20),
-                        child: BlocBuilder<page_business.BlocSampleNumber, bool>(
+                        child:
+                            BlocBuilder<page_business.BlocSampleNumber, bool>(
                           builder: (c, s) {
                             return Text("${gd_variable_my_data.sampleNumber}",
                                 style: const TextStyle(

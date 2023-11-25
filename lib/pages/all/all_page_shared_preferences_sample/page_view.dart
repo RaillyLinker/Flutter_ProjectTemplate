@@ -33,7 +33,6 @@ class PageView extends StatelessWidget {
     return gw_page_outer_frame_view.WidgetView(
       business: pageBusiness.pageViewModel.pageOutFrameBusiness,
       inputVo: gw_page_outer_frame_view.InputVo(
-
         pageTitle: "SharedPreferences 샘플",
         child: SingleChildScrollView(
           child: Container(
@@ -73,16 +72,17 @@ class PageView extends StatelessWidget {
                       const Expanded(
                           child: Text("    {\"sampleInt\" : ",
                               style: TextStyle(
-                                  color: Colors.black, fontFamily: "MaruBuri"))),
+                                  color: Colors.black,
+                                  fontFamily: "MaruBuri"))),
                       BlocBuilder<page_business.BlocSampleInt, bool>(
                           builder: (c, s) {
-                            return Expanded(
-                                child: Text(
-                                    "${pageBusiness.pageViewModel.sampleInt},",
-                                    style: const TextStyle(
-                                        color: Colors.black,
-                                        fontFamily: "MaruBuri")));
-                          }),
+                        return Expanded(
+                            child: Text(
+                                "${pageBusiness.pageViewModel.sampleInt},",
+                                style: const TextStyle(
+                                    color: Colors.black,
+                                    fontFamily: "MaruBuri")));
+                      }),
                     ],
                   ),
                 ),
@@ -93,16 +93,17 @@ class PageView extends StatelessWidget {
                       const Expanded(
                           child: Text("    \"sampleString\" : ",
                               style: TextStyle(
-                                  color: Colors.black, fontFamily: "MaruBuri"))),
+                                  color: Colors.black,
+                                  fontFamily: "MaruBuri"))),
                       BlocBuilder<page_business.BlocSampleString, bool>(
                           builder: (c, s) {
-                            return Expanded(
-                                child: Text(
-                                    "${pageBusiness.pageViewModel.sampleString}}",
-                                    style: const TextStyle(
-                                        color: Colors.black,
-                                        fontFamily: "MaruBuri")));
-                          }),
+                        return Expanded(
+                            child: Text(
+                                "${pageBusiness.pageViewModel.sampleString}}",
+                                style: const TextStyle(
+                                    color: Colors.black,
+                                    fontFamily: "MaruBuri")));
+                      }),
                     ],
                   ),
                 ),

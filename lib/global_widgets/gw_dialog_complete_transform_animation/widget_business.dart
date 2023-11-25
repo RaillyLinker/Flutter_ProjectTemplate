@@ -17,8 +17,8 @@ class WidgetBusiness {
   // (위젯 Context)
   late BuildContext context;
 
-  // (위젯 객체)
-  late widget_view.StatefulView widget;
+  // (위젯 입력값)
+  late widget_view.InputVo inputVo;
 
   // (다이얼로그 작업 완료 여부)
   bool isComplete = false;
@@ -37,7 +37,7 @@ class WidgetBusiness {
     refreshUi();
 
     // 애니메이션의 지속 시간만큼 지연
-    await Future.delayed(widget.inputVo.completeCloseDuration);
+    await Future.delayed(inputVo.completeCloseDuration);
 
     // 다이얼로그 닫기
     if (!context.mounted) return;

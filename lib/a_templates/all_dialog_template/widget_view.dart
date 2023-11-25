@@ -90,7 +90,6 @@ class StatefulBusiness extends State<StatefulView> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     widget.business.context = context;
-    widget.business.widget = widget;
     return WidgetUi.viewWidgetBuild(
         context: context, business: widget.business);
   }

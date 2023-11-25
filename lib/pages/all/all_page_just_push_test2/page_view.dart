@@ -28,7 +28,6 @@ class PageView extends StatelessWidget {
     return gw_page_outer_frame_view.WidgetView(
       business: _pageBusiness.pageViewModel.pageOutFrameBusiness,
       inputVo: gw_page_outer_frame_view.InputVo(
-
         pageTitle: "페이지 Push 테스트2",
         child: Center(
           child: SingleChildScrollView(
@@ -78,8 +77,8 @@ class PageView extends StatelessWidget {
                     ),
                     child: const Text(
                       "페이지 Push 테스트1 으로 이동",
-                      style:
-                      TextStyle(color: Colors.white, fontFamily: "MaruBuri"),
+                      style: TextStyle(
+                          color: Colors.white, fontFamily: "MaruBuri"),
                     )),
                 const SizedBox(
                   height: 10,
@@ -93,8 +92,8 @@ class PageView extends StatelessWidget {
                     ),
                     child: const Text(
                       "페이지 Push 테스트2 로 이동",
-                      style:
-                      TextStyle(color: Colors.white, fontFamily: "MaruBuri"),
+                      style: TextStyle(
+                          color: Colors.white, fontFamily: "MaruBuri"),
                     )),
                 const SizedBox(
                   height: 30,

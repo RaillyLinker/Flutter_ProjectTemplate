@@ -15,8 +15,8 @@ class WidgetBusiness {
   // (위젯 Context)
   late BuildContext context;
 
-  // (위젯 객체)
-  late widget_view.WidgetView widget;
+  // (위젯 입력값)
+  late widget_view.InputVo inputVo;
 
   // (goToHomeIconButtonBusiness)
   final iw_go_home_icon_button_business.WidgetBusiness
