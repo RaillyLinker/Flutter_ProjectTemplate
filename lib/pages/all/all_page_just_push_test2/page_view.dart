@@ -42,6 +42,7 @@ class PageView extends StatelessWidget {
                 height: 10,
               ),
               gw_stateful_test_view.WidgetView(
+                  inputVo: const gw_stateful_test_view.InputVo(),
                   business: _pageBusiness.pageViewModel.statefulTestBusiness),
               const Text(
                 "로컬 위젯 상태 변수",

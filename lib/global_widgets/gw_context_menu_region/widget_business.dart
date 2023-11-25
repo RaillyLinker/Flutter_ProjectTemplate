@@ -9,17 +9,17 @@ import 'widget_view.dart' as widget_view;
 // 위젯의 비즈니스 로직 + State 변수 처리는 이 곳에서 합니다.
 
 // -----------------------------------------------------------------------------
-class WidgetBusiness extends State<widget_view.WidgetView> {
-  WidgetBusiness();
-
-  // [콜백 함수]
-  @override
-  Widget build(BuildContext context) {
-    return widget.viewWidgetBuild(context: context);
-  }
-
+class WidgetBusiness {
   // [public 변수]
-  // [위젯 관련 변수] - State 내에서 상태가 유지 됩니다.
+  // (위젯 state GlobalKey)
+  final GlobalKey<widget_view.StatefulBusiness> statefulGk = GlobalKey();
+
+  // (위젯 Context)
+  late BuildContext context;
+
+  // (위젯 객체)
+  late widget_view.StatefulView widget;
+
   Offset? longPressOffset;
 
   // [private 변수]
@@ -27,11 +27,11 @@ class WidgetBusiness extends State<widget_view.WidgetView> {
   // [public 함수]
   // (Stateful Widget 화면 갱신)
   void refreshUi() {
-    setState(() {});
+    statefulGk.currentState?.refreshUi();
   }
 
   // (우클릭 메뉴 보이기)
-  Future<void> show(Offset position) async {
+  Future<void> show({required Offset position}) async {
     final RenderObject overlay =
         Overlay.of(context).context.findRenderObject()!;
 
@@ -39,7 +39,7 @@ class WidgetBusiness extends State<widget_view.WidgetView> {
     Map popupMenuItemCallbackMap = {};
     int idx = 0;
     for (widget_view.ContextMenuRegionItemVo contextMenuRegionItemVo
-        in widget.contextMenuRegionItemVoList) {
+        in widget.inputVo.contextMenuRegionItemVoList) {
       popupMenuItemList.add(PopupMenuItem(
           value: idx, child: contextMenuRegionItemVo.menuItemWidget));
 

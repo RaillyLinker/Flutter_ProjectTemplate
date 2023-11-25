@@ -35,35 +35,37 @@ class PageView extends StatelessWidget {
           child: Center(
             child: gw_context_menu_region_view.WidgetView(
               business: _pageBusiness.pageViewModel.contextMenuRegionBusiness,
-              contextMenuRegionItemVoList: [
-                gw_context_menu_region_view.ContextMenuRegionItemVo(
-                    menuItemWidget: const Text(
-                      "토스트 테스트",
+              inputVo: gw_context_menu_region_view.InputVo(
+                  contextMenuRegionItemVoList: [
+                    gw_context_menu_region_view.ContextMenuRegionItemVo(
+                        menuItemWidget: const Text(
+                          "토스트 테스트",
+                          style: TextStyle(
+                              color: Colors.black, fontFamily: "MaruBuri"),
+                        ),
+                        menuItemCallback: () {
+                          _pageBusiness.toastTestMenuBtn();
+                        }),
+                    gw_context_menu_region_view.ContextMenuRegionItemVo(
+                        menuItemWidget: const Text(
+                          "다이얼로그 닫기",
+                          style: TextStyle(
+                              color: Colors.black, fontFamily: "MaruBuri"),
+                        ),
+                        menuItemCallback: () {
+                          _pageBusiness.closeDialog();
+                        }),
+                  ],
+                  child: Container(
+                    padding: const EdgeInsets.only(
+                        top: 10, bottom: 10, left: 10, right: 10),
+                    color: Colors.blue[100], // 옅은 파란색
+                    child: const Text(
+                      '우클릭 해보세요.',
                       style: TextStyle(
                           color: Colors.black, fontFamily: "MaruBuri"),
                     ),
-                    menuItemCallback: () {
-                      _pageBusiness.toastTestMenuBtn();
-                    }),
-                gw_context_menu_region_view.ContextMenuRegionItemVo(
-                    menuItemWidget: const Text(
-                      "다이얼로그 닫기",
-                      style: TextStyle(
-                          color: Colors.black, fontFamily: "MaruBuri"),
-                    ),
-                    menuItemCallback: () {
-                      _pageBusiness.closeDialog();
-                    }),
-              ],
-              child: Container(
-                padding: const EdgeInsets.only(
-                    top: 10, bottom: 10, left: 10, right: 10),
-                color: Colors.blue[100], // 옅은 파란색
-                child: const Text(
-                  '우클릭 해보세요.',
-                  style: TextStyle(color: Colors.black, fontFamily: "MaruBuri"),
-                ),
-              ),
+                  )),
             ),
           ),
         ),

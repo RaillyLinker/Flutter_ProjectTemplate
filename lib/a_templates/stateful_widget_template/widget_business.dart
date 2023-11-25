@@ -1,8 +1,7 @@
 // (external)
-
-// (inner Folder)
 import 'package:flutter/cupertino.dart';
 
+// (inner Folder)
 import 'widget_view.dart' as widget_view;
 
 // [위젯 비즈니스]
@@ -11,7 +10,14 @@ import 'widget_view.dart' as widget_view;
 // -----------------------------------------------------------------------------
 class WidgetBusiness {
   // [public 변수]
+  // (위젯 state GlobalKey)
   final GlobalKey<widget_view.StatefulBusiness> statefulGk = GlobalKey();
+
+  // (위젯 Context)
+  late BuildContext context;
+
+  // (위젯 객체)
+  late widget_view.StatefulView widget;
 
   // [private 변수]
 

@@ -10,7 +10,7 @@ import 'widget_business.dart' as widget_business;
 // -----------------------------------------------------------------------------
 class InputVo {
   const InputVo();
-  // !!!위젯 입력값 선언!!!
+// !!!위젯 입력값 선언!!!
 }
 
 class WidgetView extends StatelessWidget {
@@ -35,12 +35,14 @@ class WidgetView extends StatelessWidget {
     return StatefulView(
       key: business.statefulGk,
       inputVo: inputVo,
+      business: business,
     );
   }
 }
 
 class StatefulView extends StatefulWidget {
-  const StatefulView({required super.key, required this.inputVo});
+  const StatefulView(
+      {required super.key, required this.inputVo, required this.business});
 
   // [콜백 함수]
   @override
@@ -49,6 +51,9 @@ class StatefulView extends StatefulWidget {
   // [public 변수]
   // (위젯 입력값)
   final InputVo inputVo;
+
+  // (위젯 비즈니스)
+  final widget_business.WidgetBusiness business;
 }
 
 class StatefulBusiness extends State<StatefulView> {
@@ -57,8 +62,10 @@ class StatefulBusiness extends State<StatefulView> {
   // [콜백 함수]
   @override
   Widget build(BuildContext context) {
+    widget.business.context = context;
+    widget.business.widget = widget;
     return WidgetUi.viewWidgetBuild(
-        context: context, inputVo: widget.inputVo, business: this);
+        context: context, inputVo: widget.inputVo, business: widget.business);
   }
 
   // [public 함수]
@@ -73,7 +80,7 @@ class WidgetUi {
   static Widget viewWidgetBuild(
       {required BuildContext context,
       required InputVo inputVo,
-      required StatefulBusiness business}) {
+      required widget_business.WidgetBusiness business}) {
     // !!!뷰 위젯 반환 콜백 작성 하기!!!
     return const Text("todo");
   }

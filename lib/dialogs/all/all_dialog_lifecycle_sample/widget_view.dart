@@ -74,6 +74,7 @@ class WidgetView extends StatefulWidget {
                   height: 10,
                 ),
                 gw_stateful_test_view.WidgetView(
+                    inputVo: const gw_stateful_test_view.InputVo(),
                     business: _business.statefulTestBusiness),
                 const SizedBox(
                   height: 10,
