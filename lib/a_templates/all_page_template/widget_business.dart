@@ -1,6 +1,6 @@
 // (external)
 import 'package:flutter/cupertino.dart';
-import 'package:focus_detector_v2/focus_detector_v2.dart';
+import 'package:go_router/go_router.dart';
 import 'package:go_router/go_router.dart';
 
 // (inner Folder)
@@ -14,56 +14,41 @@ import '../../../global_widgets/gw_page_outer_frame/widget_business.dart'
 // 위젯의 비즈니스 로직 + State 변수 처리는 이 곳에서 합니다.
 
 // -----------------------------------------------------------------------------
-class WidgetBusiness extends State<widget_view.WidgetView>
-    with WidgetsBindingObserver {
-  WidgetBusiness();
-
+class WidgetBusiness {
   // [콜백 함수]
-  @override
-  Widget build(BuildContext context) {
-    return PopScope(
-      canPop: canPop,
-      child: FocusDetector(
-        // (페이지 위젯의 FocusDetector 콜백들)
-        onFocusGained: () async {
-          // !!!onFocusGained 로직 작성!!!
-        },
-        onFocusLost: () async {
-          // !!!onFocusLost 로직 작성!!!
-        },
-        onVisibilityGained: () async {
-          // !!!onFocusLost 로직 작성!!!
-        },
-        onVisibilityLost: () async {
-          // !!!onVisibilityLost 로직 작성!!!
-        },
-        onForegroundGained: () async {
-          // !!!onForegroundGained 로직 작성!!!
-        },
-        onForegroundLost: () async {
-          // !!!onForegroundLost 로직 작성!!!
-        },
-        child: widget.viewWidgetBuild(context: context),
-      ),
-    );
-  }
-
-  // (페이지 위젯 initState)
-  @override
+  // (전체 위젯 initState)
   void initState() {
-    super.initState();
-    WidgetsBinding.instance.addObserver(this);
-
-    // !!!state init 로직 작성!!!
+    // !!!initState 로직 작성!!!
   }
 
-  // (페이지 위젯 dispose)
-  @override
+  // (전체 위젯 dispose)
   void dispose() {
-    super.dispose();
-    WidgetsBinding.instance.removeObserver(this);
+    // !!!initState 로직 작성!!!
+  }
 
-    // !!!state dispose 로직 작성!!!
+  // (전체 위젯의 FocusDetector 콜백들)
+  void onFocusGained() async {
+    // !!!onFocusGained 로직 작성!!!
+  }
+
+  void onFocusLost() async {
+    // !!!onFocusLost 로직 작성!!!
+  }
+
+  void onVisibilityGained() async {
+    // !!!onFocusLost 로직 작성!!!
+  }
+
+  void onVisibilityLost() async {
+    // !!!onVisibilityLost 로직 작성!!!
+  }
+
+  void onForegroundGained() async {
+    // !!!onForegroundGained 로직 작성!!!
+  }
+
+  void onForegroundLost() async {
+    // !!!onForegroundLost 로직 작성!!!
   }
 
   // (페이지 위젯 InputVo 입력)
@@ -76,15 +61,18 @@ class WidgetBusiness extends State<widget_view.WidgetView>
     // }
 
     // !!!PageInputVo 입력!!!
-    inputVo = widget_view.InputVo();
+    inputVo = const widget_view.InputVo();
   }
 
   // [public 변수]
-  // (연결된 위젯 변수) - 생성자 실행 이후 not null
-  widget_view.WidgetView? view;
+  // (위젯 state GlobalKey)
+  final GlobalKey<widget_view.StatefulBusiness> statefulGk = GlobalKey();
 
-  // (페이지 입력 데이터)
-  late final widget_view.InputVo inputVo;
+  // (위젯 Context)
+  late BuildContext context;
+
+  // (위젯 입력값)
+  late widget_view.InputVo inputVo;
 
   // (페이지 pop 가능 여부 변수)
   bool canPop = true;
@@ -98,7 +86,12 @@ class WidgetBusiness extends State<widget_view.WidgetView>
   // [public 함수]
   // (Stateful Widget 화면 갱신)
   void refreshUi() {
-    setState(() {});
+    statefulGk.currentState?.refreshUi();
+  }
+
+  // (다이얼로그 종료 함수)
+  void closeDialog() {
+    context.pop();
   }
 
 // [private 함수]
