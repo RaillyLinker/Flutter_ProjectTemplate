@@ -33,6 +33,7 @@ class WidgetView extends StatelessWidget {
   // [뷰 위젯]
   Widget viewWidgetBuild({required BuildContext context}) {
     // !!!뷰 위젯 반환 콜백 작성 하기!!!
+
     return const Text("todo");
   }
 }

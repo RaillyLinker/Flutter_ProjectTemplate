@@ -31,44 +31,15 @@ class WidgetView extends StatelessWidget {
   // (위젯을 화면에 draw 할 때의 콜백)
   @override
   Widget build(BuildContext context) {
-    return PopScope(
-      canPop: business.canPop,
-      child: FocusDetector(
-        // (페이지 위젯의 FocusDetector 콜백들)
-        onFocusGained: () async {
-          business.onFocusGained();
-        },
-        onFocusLost: () async {
-          business.onFocusLost();
-        },
-        onVisibilityGained: () async {
-          business.onVisibilityGained();
-        },
-        onVisibilityLost: () async {
-          business.onVisibilityLost();
-        },
-        onForegroundGained: () async {
-          business.onForegroundGained();
-        },
-        onForegroundLost: () async {
-          business.onForegroundLost();
-        },
-        child: viewWidgetBuild(context: context),
-      ),
+    return StatefulView(
+      key: business.statefulGk,
+      business: business,
     );
   }
 
   // [public 변수]
   // (위젯 비즈니스)
   final widget_business.WidgetBusiness business;
-
-  // [뷰 위젯]
-  Widget viewWidgetBuild({required BuildContext context}) {
-    return StatefulView(
-      key: business.statefulGk,
-      business: business,
-    );
-  }
 }
 
 class StatefulView extends StatefulWidget {
@@ -84,14 +55,35 @@ class StatefulView extends StatefulWidget {
 }
 
 class StatefulBusiness extends State<StatefulView> with WidgetsBindingObserver {
-  StatefulBusiness();
-
   // [콜백 함수]
   @override
   Widget build(BuildContext context) {
     widget.business.context = context;
-    return WidgetUi.viewWidgetBuild(
-        context: context, business: widget.business);
+    return PopScope(
+      canPop: widget.business.canPop,
+      child: FocusDetector(
+          // (페이지 위젯의 FocusDetector 콜백들)
+          onFocusGained: () async {
+            widget.business.onFocusGained();
+          },
+          onFocusLost: () async {
+            widget.business.onFocusLost();
+          },
+          onVisibilityGained: () async {
+            widget.business.onVisibilityGained();
+          },
+          onVisibilityLost: () async {
+            widget.business.onVisibilityLost();
+          },
+          onForegroundGained: () async {
+            widget.business.onForegroundGained();
+          },
+          onForegroundLost: () async {
+            widget.business.onForegroundLost();
+          },
+          child: WidgetUi.viewWidgetBuild(
+              context: context, business: widget.business)),
+    );
   }
 
   // [콜백 함수]
@@ -106,8 +98,8 @@ class StatefulBusiness extends State<StatefulView> with WidgetsBindingObserver {
   // (페이지 위젯 dispose)
   @override
   void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
+    WidgetsBinding.instance.removeObserver(this);
     widget.business.dispose();
   }
 
@@ -124,6 +116,7 @@ class WidgetUi {
       {required BuildContext context,
       required widget_business.WidgetBusiness business}) {
     // !!!뷰 위젯 반환 콜백 작성 하기!!!
+
     return Dialog(
       elevation: 0,
       backgroundColor: Colors.transparent,

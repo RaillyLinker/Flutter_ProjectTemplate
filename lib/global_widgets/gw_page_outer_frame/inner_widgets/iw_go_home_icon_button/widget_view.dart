@@ -79,6 +79,7 @@ class WidgetUi {
       {required BuildContext context,
       required widget_business.WidgetBusiness business}) {
     // !!!뷰 위젯 반환 콜백 작성 하기!!!
+
     return ClipOval(
       child: MouseRegion(
         // 커서 변경 및 호버링 상태 변경

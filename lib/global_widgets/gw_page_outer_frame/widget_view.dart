@@ -53,13 +53,14 @@ class WidgetView extends StatelessWidget {
 
   // [뷰 위젯]
   Widget viewWidgetBuild({required BuildContext context}) {
+    // !!!뷰 위젯 반환 콜백 작성 하기!!!
+
     // Mobile 앱 status bar 색상 변경
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
         statusBarColor: Colors.blue,
         statusBarIconBrightness: Brightness.dark,
         statusBarBrightness: Brightness.dark));
 
-    // !!!뷰 위젯 반환 콜백 작성 하기!!!
     return Scaffold(
         appBar: AppBar(
             automaticallyImplyLeading: !kIsWeb,

@@ -90,6 +90,7 @@ class WidgetUi {
       {required BuildContext context,
       required widget_business.WidgetBusiness business}) {
     // !!!뷰 위젯 반환 콜백 작성 하기!!!
+
     return GestureDetector(
         behavior: HitTestBehavior.opaque,
         onSecondaryTapUp: (TapUpDetails details) {
