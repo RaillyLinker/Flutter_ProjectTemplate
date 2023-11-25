@@ -1,10 +1,13 @@
 // (external)
 import 'package:flutter/material.dart';
+import 'package:focus_detector_v2/focus_detector_v2.dart';
 
 // (inner Folder)
 import 'widget_business.dart' as widget_business;
 import 'inner_widgets/iw_stateful_sample_number/widget_view.dart'
     as iw_stateful_sample_number_view;
+
+// (all)
 import '../../../global_widgets/gw_stateful_test/widget_view.dart'
     as gw_stateful_test_view;
 
@@ -12,42 +15,129 @@ import '../../../global_widgets/gw_stateful_test/widget_view.dart'
 // 위젯의 화면 작성은 여기서 합니다.
 
 //------------------------------------------------------------------------------
-// (페이지 호출시 필요한 입력값 데이터 형태)
-// !!!페이지 입력 데이터 정의!!!
-class InputVo {}
+// (입력 데이터)
+class InputVo {
+  const InputVo();
+// !!!위젯 입력값 선언!!!
+}
 
-// (이전 페이지로 전달할 결과 데이터 형태)
-// !!!페이지 반환 데이터 정의!!!
-class OutputVo {}
+// (결과 데이터)
+class OutputVo {
+  const OutputVo();
+// !!!위젯 출력값 선언!!!
+}
 
 // -----------------------------------------------------------------------------
-class WidgetView extends StatefulWidget {
-  const WidgetView(
-      {super.key,
-      required widget_business.WidgetBusiness business,
-      required this.inputVo})
-      : _business = business;
+class WidgetView extends StatelessWidget {
+  const WidgetView({super.key, required this.business, required this.inputVo});
+
+  // [콜백 함수]
+  // (위젯을 화면에 draw 할 때의 콜백)
+  @override
+  Widget build(BuildContext context) {
+    return PopScope(
+      canPop: business.canPop,
+      child: FocusDetector(
+        // (페이지 위젯의 FocusDetector 콜백들)
+        onFocusGained: () async {
+          business.onFocusGained();
+        },
+        onFocusLost: () async {
+          business.onFocusLost();
+        },
+        onVisibilityGained: () async {
+          business.onVisibilityGained();
+        },
+        onVisibilityLost: () async {
+          business.onVisibilityLost();
+        },
+        onForegroundGained: () async {
+          business.onForegroundGained();
+        },
+        onForegroundLost: () async {
+          business.onForegroundLost();
+        },
+        child: viewWidgetBuild(context: context),
+      ),
+    );
+  }
+
+  // [public 변수]
+  // (위젯 비즈니스)
+  final widget_business.WidgetBusiness business;
+
+  // (위젯 입력값)
+  final InputVo inputVo;
+
+  // [뷰 위젯]
+  Widget viewWidgetBuild({required BuildContext context}) {
+    return StatefulView(
+      key: business.statefulGk,
+      inputVo: inputVo,
+      business: business,
+    );
+  }
+}
+
+class StatefulView extends StatefulWidget {
+  const StatefulView(
+      {required super.key, required this.inputVo, required this.business});
 
   // [콜백 함수]
   @override
-  // ignore: no_logic_in_create_state
-  widget_business.WidgetBusiness createState() => _business;
+  StatefulBusiness createState() => StatefulBusiness();
 
   // [public 변수]
-  // (페이지 입력 데이터)
+  // (위젯 입력값)
   final InputVo inputVo;
 
-  // [private 변수]
   // (위젯 비즈니스)
-  final widget_business.WidgetBusiness _business;
+  final widget_business.WidgetBusiness business;
+}
+
+class StatefulBusiness extends State<StatefulView> with WidgetsBindingObserver {
+  StatefulBusiness();
+
+  // [콜백 함수]
+  @override
+  Widget build(BuildContext context) {
+    widget.business.context = context;
+    widget.business.widget = widget;
+    return WidgetUi.viewWidgetBuild(
+        context: context, inputVo: widget.inputVo, business: widget.business);
+  }
+
+  // [콜백 함수]
+  // (페이지 위젯 initState)
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    widget.business.initState();
+  }
+
+  // (페이지 위젯 dispose)
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+    widget.business.dispose();
+  }
 
   // [public 함수]
+  // (Stateful Widget 화면 갱신)
+  void refreshUi() {
+    setState(() {});
+  }
+}
 
-  // [private 함수]
-
+class WidgetUi {
   // [뷰 위젯]
-  // !!!뷰 위젯 반환 콜백 작성 하기!!!
-  Widget viewWidgetBuild({required BuildContext context}) {
+  static Widget viewWidgetBuild(
+      {required BuildContext context,
+      required InputVo inputVo,
+      required widget_business.WidgetBusiness business}) {
+    // !!!뷰 위젯 반환 콜백 작성 하기!!!
     return Dialog(
       elevation: 0,
       backgroundColor: Colors.transparent,
@@ -75,7 +165,7 @@ class WidgetView extends StatefulWidget {
                 ),
                 gw_stateful_test_view.WidgetView(
                     inputVo: const gw_stateful_test_view.InputVo(),
-                    business: _business.statefulTestBusiness),
+                    business: business.statefulTestBusiness),
                 const SizedBox(
                   height: 10,
                 ),
@@ -87,11 +177,12 @@ class WidgetView extends StatefulWidget {
                   height: 10,
                 ),
                 iw_stateful_sample_number_view.WidgetView(
-                  business: _business.statefulSampleNumberBusiness,
+                  business: business.statefulSampleNumberBusiness,
+                  inputVo: const iw_stateful_sample_number_view.InputVo(),
                 ),
                 ElevatedButton(
                     onPressed: () {
-                      _business.pushToAnotherPage();
+                      business.pushToAnotherPage();
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue,
