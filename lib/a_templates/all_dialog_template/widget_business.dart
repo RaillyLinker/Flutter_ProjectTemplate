@@ -63,9 +63,6 @@ class WidgetBusiness extends State<widget_view.WidgetView>
   }
 
   // [public 변수]
-  // (연결된 위젯 변수) - 생성자 실행 이후 not null
-  widget_view.WidgetView? view;
-
   // (페이지 pop 가능 여부 변수)
   bool canPop = true;
 

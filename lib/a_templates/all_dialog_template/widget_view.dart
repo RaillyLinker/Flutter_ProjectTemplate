@@ -20,13 +20,11 @@ class OutputVo {}
 
 // -----------------------------------------------------------------------------
 class WidgetView extends StatefulWidget {
-  WidgetView(
+  const WidgetView(
       {super.key,
       required widget_business.WidgetBusiness business,
       required this.inputVo})
-      : _business = business {
-    _business.view = this;
-  }
+      : _business = business;
 
   // [콜백 함수]
   @override
