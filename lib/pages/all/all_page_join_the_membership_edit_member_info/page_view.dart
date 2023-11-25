@@ -30,273 +30,275 @@ class PageView extends StatelessWidget {
             .pageBusiness;
 
     return gw_page_outer_frame_view.WidgetView(
-      pageTitle: "회원 가입 : 회원 정보 입력 (2/2)",
       business: pageBusiness.pageViewModel.pageOutFrameBusiness,
-      floatingActionButton: null,
-      child: SingleChildScrollView(
-        child: Center(
-          child: Padding(
-            padding: const EdgeInsets.only(top: 50),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                MouseRegion(
-                  cursor: SystemMouseCursors.click,
-                  child: GestureDetector(
-                    onTap: () {
-                      pageBusiness.onProfileImageTap();
-                    },
-                    child: Stack(
-                      children: [
-                        BlocBuilder<page_business.BlocProfileImage, bool>(
-                            builder: (c, s) {
-                          if (pageBusiness.pageViewModel.profileImage == null) {
-                            return ClipOval(
-                                child: Container(
-                              color: Colors.blue,
-                              width: 100,
-                              height: 100,
-                              child: const Icon(
-                                Icons.photo_outlined,
-                                color: Colors.white,
-                                size: 70,
-                              ),
-                            ));
-                          } else {
-                            return ClipOval(
-                              child: SizedBox(
-                                width: 100,
-                                height: 100,
-                                child: Image(
-                                  image: MemoryImage(
-                                      pageBusiness.pageViewModel.profileImage!),
-                                  fit: BoxFit.cover,
-                                  loadingBuilder: (BuildContext context,
-                                      Widget child,
-                                      ImageChunkEvent? loadingProgress) {
-                                    // 로딩 중일 때 플레이스 홀더를 보여줍니다.
-                                    if (loadingProgress == null) {
-                                      return child; // 로딩이 끝났을 경우
-                                    }
-                                    return const Center(
-                                      child: CircularProgressIndicator(),
-                                    );
-                                  },
-                                  errorBuilder: (context, error, stackTrace) {
-                                    // 에러 발생 시 설정한 에러 위젯을 반환합니다.
-                                    return const Center(
-                                      child: Icon(
-                                        Icons.error,
-                                        color: Colors.red,
+      inputVo: gw_page_outer_frame_view.InputVo(
+
+        pageTitle: "회원 가입 : 회원 정보 입력 (2/2)",
+        child: SingleChildScrollView(
+          child: Center(
+            child: Padding(
+              padding: const EdgeInsets.only(top: 50),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  MouseRegion(
+                    cursor: SystemMouseCursors.click,
+                    child: GestureDetector(
+                      onTap: () {
+                        pageBusiness.onProfileImageTap();
+                      },
+                      child: Stack(
+                        children: [
+                          BlocBuilder<page_business.BlocProfileImage, bool>(
+                              builder: (c, s) {
+                                if (pageBusiness.pageViewModel.profileImage == null) {
+                                  return ClipOval(
+                                      child: Container(
+                                        color: Colors.blue,
+                                        width: 100,
+                                        height: 100,
+                                        child: const Icon(
+                                          Icons.photo_outlined,
+                                          color: Colors.white,
+                                          size: 70,
+                                        ),
+                                      ));
+                                } else {
+                                  return ClipOval(
+                                    child: SizedBox(
+                                      width: 100,
+                                      height: 100,
+                                      child: Image(
+                                        image: MemoryImage(
+                                            pageBusiness.pageViewModel.profileImage!),
+                                        fit: BoxFit.cover,
+                                        loadingBuilder: (BuildContext context,
+                                            Widget child,
+                                            ImageChunkEvent? loadingProgress) {
+                                          // 로딩 중일 때 플레이스 홀더를 보여줍니다.
+                                          if (loadingProgress == null) {
+                                            return child; // 로딩이 끝났을 경우
+                                          }
+                                          return const Center(
+                                            child: CircularProgressIndicator(),
+                                          );
+                                        },
+                                        errorBuilder: (context, error, stackTrace) {
+                                          // 에러 발생 시 설정한 에러 위젯을 반환합니다.
+                                          return const Center(
+                                            child: Icon(
+                                              Icons.error,
+                                              color: Colors.red,
+                                            ),
+                                          );
+                                        },
                                       ),
-                                    );
-                                  },
-                                ),
-                              ),
-                            );
-                          }
-                        }),
-                        Positioned(
-                          width: 30,
-                          height: 30,
-                          bottom: 0,
-                          right: 0,
-                          child: Container(
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(50),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey.withOpacity(0.5),
-                                    spreadRadius: 3,
-                                    blurRadius: 5,
-                                    offset: const Offset(
-                                        0, 2), // changes position of shadow
-                                  ),
-                                ]),
-                            child: const Icon(
-                              Icons.photo_library,
-                              color: Colors.grey,
-                              size: 20.0,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Center(
-                  child: Container(
-                    margin: const EdgeInsets.only(top: 20),
-                    constraints: const BoxConstraints(maxWidth: 300),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Expanded(
-                            flex: 20,
-                            child: SizedBox(
-                              width: 200,
-                              child: BlocBuilder<
-                                  page_business.BlocNicknameEditText, bool>(
-                                builder: (c, s) {
-                                  return TextFormField(
-                                    onChanged: (text) {
-                                      pageBusiness.nickNameTextEditOnChanged();
-                                    },
-                                    enabled: pageBusiness
-                                        .pageViewModel.nickNameTextEditEnabled,
-                                    focusNode: pageBusiness
-                                        .pageViewModel.nickNameTextEditFocus,
-                                    controller: pageBusiness.pageViewModel
-                                        .nickNameTextEditController,
-                                    decoration: InputDecoration(
-                                      errorText: pageBusiness.pageViewModel
-                                          .nickNameTextEditErrorMsg,
-                                      labelText: '닉네임',
                                     ),
                                   );
-                                },
+                                }
+                              }),
+                          Positioned(
+                            width: 30,
+                            height: 30,
+                            bottom: 0,
+                            right: 0,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(50),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.5),
+                                      spreadRadius: 3,
+                                      blurRadius: 5,
+                                      offset: const Offset(
+                                          0, 2), // changes position of shadow
+                                    ),
+                                  ]),
+                              child: const Icon(
+                                Icons.photo_library,
+                                color: Colors.grey,
+                                size: 20.0,
                               ),
-                            )),
-                        const Expanded(child: SizedBox()),
-                        Expanded(
-                            flex: 10,
-                            child: BlocBuilder<
-                                page_business.BlocNicknameCheckBtn,
-                                bool>(builder: (c, s) {
-                              return ElevatedButton(
-                                onPressed: () {
-                                  // 중복 확인 버튼 동작
-                                  pageBusiness.onNickNameCheckBtnClickAsync();
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.blue,
-                                ),
-                                child: Text(
-                                  pageBusiness.pageViewModel.nickNameCheckBtn,
-                                  textAlign: TextAlign.center,
-                                  style: const TextStyle(
-                                      color: Colors.white,
-                                      fontFamily: "MaruBuri"),
-                                ),
-                              );
-                            })),
-                      ],
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                MouseRegion(
-                  cursor: SystemMouseCursors.click,
-                  child: GestureDetector(
-                    onTap: () {
-                      pageBusiness.onNicknameInputRuleTap();
-                    },
-                    child:
-                        BlocBuilder<page_business.BlocNicknameInputRule, bool>(
-                            builder: (c, s) {
-                      var passwordInputRule =
-                          pageBusiness.pageViewModel.nicknameInputRuleHide
-                              ? const SingleChildScrollView(
-                                  child: Column(
-                                    children: [
-                                      SizedBox(
-                                        height: 5,
+                  Center(
+                    child: Container(
+                      margin: const EdgeInsets.only(top: 20),
+                      constraints: const BoxConstraints(maxWidth: 300),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Expanded(
+                              flex: 20,
+                              child: SizedBox(
+                                width: 200,
+                                child: BlocBuilder<
+                                    page_business.BlocNicknameEditText, bool>(
+                                  builder: (c, s) {
+                                    return TextFormField(
+                                      onChanged: (text) {
+                                        pageBusiness.nickNameTextEditOnChanged();
+                                      },
+                                      enabled: pageBusiness
+                                          .pageViewModel.nickNameTextEditEnabled,
+                                      focusNode: pageBusiness
+                                          .pageViewModel.nickNameTextEditFocus,
+                                      controller: pageBusiness.pageViewModel
+                                          .nickNameTextEditController,
+                                      decoration: InputDecoration(
+                                        errorText: pageBusiness.pageViewModel
+                                            .nickNameTextEditErrorMsg,
+                                        labelText: '닉네임',
                                       ),
-                                      Text(
-                                        "닉네임 입력 규칙",
-                                        style: TextStyle(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.grey,
-                                            fontFamily: "MaruBuri"),
-                                      ),
-                                    ],
+                                    );
+                                  },
+                                ),
+                              )),
+                          const Expanded(child: SizedBox()),
+                          Expanded(
+                              flex: 10,
+                              child: BlocBuilder<
+                                  page_business.BlocNicknameCheckBtn,
+                                  bool>(builder: (c, s) {
+                                return ElevatedButton(
+                                  onPressed: () {
+                                    // 중복 확인 버튼 동작
+                                    pageBusiness.onNickNameCheckBtnClickAsync();
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.blue,
                                   ),
-                                )
-                              : const SingleChildScrollView(
-                                  child: Column(
-                                    children: [
-                                      SizedBox(
-                                        height: 5,
-                                      ),
-                                      Text(
-                                        "닉네임 입력 규칙",
-                                        style: TextStyle(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.grey,
-                                            fontFamily: "MaruBuri"),
-                                      ),
-                                      SizedBox(
-                                        height: 10,
-                                      ),
-                                      Text(
-                                        '1. 닉네임은 2 글자 이상으로 입력하세요.\n'
+                                  child: Text(
+                                    pageBusiness.pageViewModel.nickNameCheckBtn,
+                                    textAlign: TextAlign.center,
+                                    style: const TextStyle(
+                                        color: Colors.white,
+                                        fontFamily: "MaruBuri"),
+                                  ),
+                                );
+                              })),
+                        ],
+                      ),
+                    ),
+                  ),
+                  MouseRegion(
+                    cursor: SystemMouseCursors.click,
+                    child: GestureDetector(
+                      onTap: () {
+                        pageBusiness.onNicknameInputRuleTap();
+                      },
+                      child:
+                      BlocBuilder<page_business.BlocNicknameInputRule, bool>(
+                          builder: (c, s) {
+                            var passwordInputRule =
+                            pageBusiness.pageViewModel.nicknameInputRuleHide
+                                ? const SingleChildScrollView(
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                    height: 5,
+                                  ),
+                                  Text(
+                                    "닉네임 입력 규칙",
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.grey,
+                                        fontFamily: "MaruBuri"),
+                                  ),
+                                ],
+                              ),
+                            )
+                                : const SingleChildScrollView(
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                    height: 5,
+                                  ),
+                                  Text(
+                                    "닉네임 입력 규칙",
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.grey,
+                                        fontFamily: "MaruBuri"),
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Text(
+                                    '1. 닉네임은 2 글자 이상으로 입력하세요.\n'
                                         '2. 닉네임에 공백은 허용되지 않습니다.\n'
                                         '3. 아래 특수문자는 사용할 수 없습니다.\n'
                                         '    <, >, (, ), #, ’, /, |\n'
                                         '4. 욕설 등 부적절한 닉네임의 경우 강제로 닉네임이 변경될 수 있습니다.',
-                                        style: TextStyle(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.normal,
-                                            color: Colors.grey,
-                                            fontFamily: "MaruBuri"),
-                                      )
-                                    ],
-                                  ),
-                                );
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.normal,
+                                        color: Colors.grey,
+                                        fontFamily: "MaruBuri"),
+                                  )
+                                ],
+                              ),
+                            );
 
-                      return Container(
-                        width: 300,
-                        margin: const EdgeInsets.only(top: 15),
-                        padding: const EdgeInsets.only(
-                            left: 5, right: 5, bottom: 10),
-                        decoration: const BoxDecoration(
-                            border: Border(
-                              left: BorderSide(
-                                // POINT
-                                color: Colors.grey,
-                                width: 1.0,
-                              ),
-                              right: BorderSide(
-                                // POINT
-                                color: Colors.grey,
-                                width: 1.0,
-                              ),
-                              bottom: BorderSide(
-                                // POINT
-                                color: Colors.grey,
-                                width: 1.0,
-                              ),
-                              top: BorderSide(
-                                // POINT
-                                color: Colors.grey,
-                                width: 1.0,
-                              ),
-                            ),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
-                        child: passwordInputRule,
-                      );
-                    }),
+                            return Container(
+                              width: 300,
+                              margin: const EdgeInsets.only(top: 15),
+                              padding: const EdgeInsets.only(
+                                  left: 5, right: 5, bottom: 10),
+                              decoration: const BoxDecoration(
+                                  border: Border(
+                                    left: BorderSide(
+                                      // POINT
+                                      color: Colors.grey,
+                                      width: 1.0,
+                                    ),
+                                    right: BorderSide(
+                                      // POINT
+                                      color: Colors.grey,
+                                      width: 1.0,
+                                    ),
+                                    bottom: BorderSide(
+                                      // POINT
+                                      color: Colors.grey,
+                                      width: 1.0,
+                                    ),
+                                    top: BorderSide(
+                                      // POINT
+                                      color: Colors.grey,
+                                      width: 1.0,
+                                    ),
+                                  ),
+                                  borderRadius:
+                                  BorderRadius.all(Radius.circular(10))),
+                              child: passwordInputRule,
+                            );
+                          }),
+                    ),
                   ),
-                ),
-                const SizedBox(height: 30.0),
-                ElevatedButton(
-                  onPressed: () {
-                    // 회원가입 버튼 동작
-                    pageBusiness.onRegisterBtnClick();
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
+                  const SizedBox(height: 30.0),
+                  ElevatedButton(
+                    onPressed: () {
+                      // 회원가입 버튼 동작
+                      pageBusiness.onRegisterBtnClick();
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue,
+                    ),
+                    child: const Text(
+                      '회원 가입',
+                      style:
+                      TextStyle(color: Colors.white, fontFamily: "MaruBuri"),
+                    ),
                   ),
-                  child: const Text(
-                    '회원 가입',
-                    style:
-                        TextStyle(color: Colors.white, fontFamily: "MaruBuri"),
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

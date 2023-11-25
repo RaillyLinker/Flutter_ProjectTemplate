@@ -26,37 +26,39 @@ class PageView extends StatelessWidget {
       backgroundColor: Colors.transparent,
       child: gw_dialog_complete_transform_animation_view.WidgetView(
         business: _pageBusiness.pageViewModel.sampleWidgetBusiness,
-        dialogChild: SingleChildScrollView(
-          child: Container(
-            height: 280,
-            width: 300,
-            decoration: const BoxDecoration(
-                color: Colors.white,
-                shape: BoxShape.rectangle,
-                borderRadius: BorderRadius.all(Radius.circular(16))),
-            child: const Center(
-              child: Text("잠시 후 종료됩니다."),
+        inputVo: gw_dialog_complete_transform_animation_view.InputVo(
+          dialogChild: SingleChildScrollView(
+            child: Container(
+              height: 280,
+              width: 300,
+              decoration: const BoxDecoration(
+                  color: Colors.white,
+                  shape: BoxShape.rectangle,
+                  borderRadius: BorderRadius.all(Radius.circular(16))),
+              child: const Center(
+                child: Text("잠시 후 종료됩니다."),
+              ),
             ),
           ),
+          dialogChildSize: const Size(300, 280),
+          completeChild: Container(
+            height: 64,
+            width: 64,
+            decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                      color: Colors.grey.withOpacity(.5),
+                      spreadRadius: 5,
+                      blurRadius: 7)
+                ]),
+            child: const Center(child: Text('성공')),
+          ),
+          completeChildSize: const Size(64, 64),
+          completeAnimationDuration: const Duration(milliseconds: 500),
+          completeCloseDuration: const Duration(milliseconds: 800),
         ),
-        dialogChildSize: const Size(300, 280),
-        completeChild: Container(
-          height: 64,
-          width: 64,
-          decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                    color: Colors.grey.withOpacity(.5),
-                    spreadRadius: 5,
-                    blurRadius: 7)
-              ]),
-          child: const Center(child: Text('성공')),
-        ),
-        completeChildSize: const Size(64, 64),
-        completeAnimationDuration: const Duration(milliseconds: 500),
-        completeCloseDuration: const Duration(milliseconds: 800),
       ),
     );
   }

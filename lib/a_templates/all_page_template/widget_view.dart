@@ -60,13 +60,14 @@ class WidgetView extends StatefulWidget {
   // !!!뷰 위젯 반환 콜백 작성 하기!!!
   Widget viewWidgetBuild({required BuildContext context}) {
     return gw_page_outer_frame_view.WidgetView(
-      pageTitle: "페이지 템플릿",
       business: _business.pageOutFrameBusiness,
-      floatingActionButton: null,
-      child: const Center(
-        child: Text(
-          "페이지 템플릿입니다.",
-          style: TextStyle(fontFamily: "MaruBuri"),
+      inputVo: const gw_page_outer_frame_view.InputVo(
+        pageTitle: "페이지 템플릿",
+        child: Center(
+          child: Text(
+            "페이지 템플릿입니다.",
+            style: TextStyle(fontFamily: "MaruBuri"),
+          ),
         ),
       ),
     );

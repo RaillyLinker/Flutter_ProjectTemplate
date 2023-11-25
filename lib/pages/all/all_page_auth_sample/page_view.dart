@@ -24,18 +24,21 @@ class PageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return gw_page_outer_frame_view.WidgetView(
-      pageTitle: "계정 샘플",
       business: _pageBusiness.pageViewModel.pageOutFrameBusiness,
-      floatingActionButton: null,
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            MemberInfoWidget(
-                _pageBusiness.pageViewModel.memberInfoWidgetViewModel,
-                key: _pageBusiness.pageViewModel.memberInfoWidgetStateGk),
-            MainListWidget(_pageBusiness.pageViewModel.mainListWidgetViewModel,
-                key: _pageBusiness.pageViewModel.mainListWidgetStateGk)
-          ],
+      inputVo: gw_page_outer_frame_view.InputVo(
+        pageTitle: "계정 샘플",
+        floatingActionButton: null,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              MemberInfoWidget(
+                  _pageBusiness.pageViewModel.memberInfoWidgetViewModel,
+                  key: _pageBusiness.pageViewModel.memberInfoWidgetStateGk),
+              MainListWidget(
+                  _pageBusiness.pageViewModel.mainListWidgetViewModel,
+                  key: _pageBusiness.pageViewModel.mainListWidgetStateGk)
+            ],
+          ),
         ),
       ),
     );

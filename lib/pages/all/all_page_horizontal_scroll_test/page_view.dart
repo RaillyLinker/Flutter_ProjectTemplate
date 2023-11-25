@@ -34,193 +34,195 @@ class PageView extends StatelessWidget {
             .pageBusiness;
 
     return gw_page_outer_frame_view.WidgetView(
-      pageTitle: "가로 스크롤 테스트",
       business: pageBusiness.pageViewModel.pageOutFrameBusiness,
-      floatingActionButton: null,
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              height: 120,
-              padding: const EdgeInsets.only(left: 10, bottom: 40),
-              child: ListView.builder(
-                  shrinkWrap: true, // 리스트뷰 크기 고정
-                  scrollDirection: Axis.horizontal,
-                  itemCount: 100,
-                  itemBuilder: (context, index) {
-                    return Container(
-                      margin: const EdgeInsets.only(right: 10),
-                      color: Colors.blueAccent[100],
-                      width: 120,
-                      child: ListTile(
-                        title: Text('Item $index'),
-                      ),
-                    );
-                  }),
-            ),
-            Container(
-              height: 120,
-              padding: const EdgeInsets.only(left: 10, bottom: 40),
-              child: ListView.builder(
-                  shrinkWrap: true, // 리스트뷰 크기 고정
-                  scrollDirection: Axis.horizontal,
-                  itemCount: 100,
-                  itemBuilder: (context, index) {
-                    return Container(
-                      margin: const EdgeInsets.only(right: 10),
-                      color: Colors.blueAccent[100],
-                      width: 120,
-                      child: ListTile(
-                        title: Text('Item $index'),
-                      ),
-                    );
-                  }),
-            ),
-            Container(
-              height: 120,
-              padding: const EdgeInsets.only(left: 10, bottom: 40),
-              child: ListView.builder(
-                  shrinkWrap: true, // 리스트뷰 크기 고정
-                  scrollDirection: Axis.horizontal,
-                  itemCount: 100,
-                  itemBuilder: (context, index) {
-                    return Container(
-                      margin: const EdgeInsets.only(right: 10),
-                      color: Colors.blueAccent[100],
-                      width: 120,
-                      child: ListTile(
-                        title: Text('Item $index'),
-                      ),
-                    );
-                  }),
-            ),
-            Container(
-              height: 120,
-              padding: const EdgeInsets.only(left: 10, bottom: 40),
-              child: ListView.builder(
-                  shrinkWrap: true, // 리스트뷰 크기 고정
-                  scrollDirection: Axis.horizontal,
-                  itemCount: 100,
-                  itemBuilder: (context, index) {
-                    return Container(
-                      margin: const EdgeInsets.only(right: 10),
-                      color: Colors.blueAccent[100],
-                      width: 120,
-                      child: ListTile(
-                        title: Text('Item $index'),
-                      ),
-                    );
-                  }),
-            ),
-            Container(
-              height: 120,
-              padding: const EdgeInsets.only(left: 10, bottom: 40),
-              child: ListView.builder(
-                  shrinkWrap: true, // 리스트뷰 크기 고정
-                  scrollDirection: Axis.horizontal,
-                  itemCount: 100,
-                  itemBuilder: (context, index) {
-                    return Container(
-                      margin: const EdgeInsets.only(right: 10),
-                      color: Colors.blueAccent[100],
-                      width: 120,
-                      child: ListTile(
-                        title: Text('Item $index'),
-                      ),
-                    );
-                  }),
-            ),
-            Container(
-              height: 120,
-              padding: const EdgeInsets.only(left: 10, bottom: 40),
-              child: ListView.builder(
-                  shrinkWrap: true, // 리스트뷰 크기 고정
-                  scrollDirection: Axis.horizontal,
-                  itemCount: 100,
-                  itemBuilder: (context, index) {
-                    return Container(
-                      margin: const EdgeInsets.only(right: 10),
-                      color: Colors.blueAccent[100],
-                      width: 120,
-                      child: ListTile(
-                        title: Text('Item $index'),
-                      ),
-                    );
-                  }),
-            ),
-            Container(
-              height: 120,
-              padding: const EdgeInsets.only(left: 10, bottom: 40),
-              child: ListView.builder(
-                  shrinkWrap: true, // 리스트뷰 크기 고정
-                  scrollDirection: Axis.horizontal,
-                  itemCount: 100,
-                  itemBuilder: (context, index) {
-                    return Container(
-                      margin: const EdgeInsets.only(right: 10),
-                      color: Colors.blueAccent[100],
-                      width: 120,
-                      child: ListTile(
-                        title: Text('Item $index'),
-                      ),
-                    );
-                  }),
-            ),
-            Container(
-              height: 120,
-              padding: const EdgeInsets.only(left: 10, bottom: 40),
-              child: ListView.builder(
-                  shrinkWrap: true, // 리스트뷰 크기 고정
-                  scrollDirection: Axis.horizontal,
-                  itemCount: 100,
-                  itemBuilder: (context, index) {
-                    return Container(
-                      margin: const EdgeInsets.only(right: 10),
-                      color: Colors.blueAccent[100],
-                      width: 120,
-                      child: ListTile(
-                        title: Text('Item $index'),
-                      ),
-                    );
-                  }),
-            ),
-            Container(
-              height: 120,
-              padding: const EdgeInsets.only(left: 10, bottom: 40),
-              child: ListView.builder(
-                  shrinkWrap: true, // 리스트뷰 크기 고정
-                  scrollDirection: Axis.horizontal,
-                  itemCount: 100,
-                  itemBuilder: (context, index) {
-                    return Container(
-                      margin: const EdgeInsets.only(right: 10),
-                      color: Colors.blueAccent[100],
-                      width: 120,
-                      child: ListTile(
-                        title: Text('Item $index'),
-                      ),
-                    );
-                  }),
-            ),
-            Container(
-              height: 120,
-              padding: const EdgeInsets.only(left: 10, bottom: 40),
-              child: ListView.builder(
-                  shrinkWrap: true, // 리스트뷰 크기 고정
-                  scrollDirection: Axis.horizontal,
-                  itemCount: 100,
-                  itemBuilder: (context, index) {
-                    return Container(
-                      margin: const EdgeInsets.only(right: 10),
-                      color: Colors.blueAccent[100],
-                      width: 120,
-                      child: ListTile(
-                        title: Text('Item $index'),
-                      ),
-                    );
-                  }),
-            )
-          ],
+      inputVo: gw_page_outer_frame_view.InputVo(
+
+        pageTitle: "가로 스크롤 테스트",
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                height: 120,
+                padding: const EdgeInsets.only(left: 10, bottom: 40),
+                child: ListView.builder(
+                    shrinkWrap: true, // 리스트뷰 크기 고정
+                    scrollDirection: Axis.horizontal,
+                    itemCount: 100,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        margin: const EdgeInsets.only(right: 10),
+                        color: Colors.blueAccent[100],
+                        width: 120,
+                        child: ListTile(
+                          title: Text('Item $index'),
+                        ),
+                      );
+                    }),
+              ),
+              Container(
+                height: 120,
+                padding: const EdgeInsets.only(left: 10, bottom: 40),
+                child: ListView.builder(
+                    shrinkWrap: true, // 리스트뷰 크기 고정
+                    scrollDirection: Axis.horizontal,
+                    itemCount: 100,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        margin: const EdgeInsets.only(right: 10),
+                        color: Colors.blueAccent[100],
+                        width: 120,
+                        child: ListTile(
+                          title: Text('Item $index'),
+                        ),
+                      );
+                    }),
+              ),
+              Container(
+                height: 120,
+                padding: const EdgeInsets.only(left: 10, bottom: 40),
+                child: ListView.builder(
+                    shrinkWrap: true, // 리스트뷰 크기 고정
+                    scrollDirection: Axis.horizontal,
+                    itemCount: 100,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        margin: const EdgeInsets.only(right: 10),
+                        color: Colors.blueAccent[100],
+                        width: 120,
+                        child: ListTile(
+                          title: Text('Item $index'),
+                        ),
+                      );
+                    }),
+              ),
+              Container(
+                height: 120,
+                padding: const EdgeInsets.only(left: 10, bottom: 40),
+                child: ListView.builder(
+                    shrinkWrap: true, // 리스트뷰 크기 고정
+                    scrollDirection: Axis.horizontal,
+                    itemCount: 100,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        margin: const EdgeInsets.only(right: 10),
+                        color: Colors.blueAccent[100],
+                        width: 120,
+                        child: ListTile(
+                          title: Text('Item $index'),
+                        ),
+                      );
+                    }),
+              ),
+              Container(
+                height: 120,
+                padding: const EdgeInsets.only(left: 10, bottom: 40),
+                child: ListView.builder(
+                    shrinkWrap: true, // 리스트뷰 크기 고정
+                    scrollDirection: Axis.horizontal,
+                    itemCount: 100,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        margin: const EdgeInsets.only(right: 10),
+                        color: Colors.blueAccent[100],
+                        width: 120,
+                        child: ListTile(
+                          title: Text('Item $index'),
+                        ),
+                      );
+                    }),
+              ),
+              Container(
+                height: 120,
+                padding: const EdgeInsets.only(left: 10, bottom: 40),
+                child: ListView.builder(
+                    shrinkWrap: true, // 리스트뷰 크기 고정
+                    scrollDirection: Axis.horizontal,
+                    itemCount: 100,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        margin: const EdgeInsets.only(right: 10),
+                        color: Colors.blueAccent[100],
+                        width: 120,
+                        child: ListTile(
+                          title: Text('Item $index'),
+                        ),
+                      );
+                    }),
+              ),
+              Container(
+                height: 120,
+                padding: const EdgeInsets.only(left: 10, bottom: 40),
+                child: ListView.builder(
+                    shrinkWrap: true, // 리스트뷰 크기 고정
+                    scrollDirection: Axis.horizontal,
+                    itemCount: 100,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        margin: const EdgeInsets.only(right: 10),
+                        color: Colors.blueAccent[100],
+                        width: 120,
+                        child: ListTile(
+                          title: Text('Item $index'),
+                        ),
+                      );
+                    }),
+              ),
+              Container(
+                height: 120,
+                padding: const EdgeInsets.only(left: 10, bottom: 40),
+                child: ListView.builder(
+                    shrinkWrap: true, // 리스트뷰 크기 고정
+                    scrollDirection: Axis.horizontal,
+                    itemCount: 100,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        margin: const EdgeInsets.only(right: 10),
+                        color: Colors.blueAccent[100],
+                        width: 120,
+                        child: ListTile(
+                          title: Text('Item $index'),
+                        ),
+                      );
+                    }),
+              ),
+              Container(
+                height: 120,
+                padding: const EdgeInsets.only(left: 10, bottom: 40),
+                child: ListView.builder(
+                    shrinkWrap: true, // 리스트뷰 크기 고정
+                    scrollDirection: Axis.horizontal,
+                    itemCount: 100,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        margin: const EdgeInsets.only(right: 10),
+                        color: Colors.blueAccent[100],
+                        width: 120,
+                        child: ListTile(
+                          title: Text('Item $index'),
+                        ),
+                      );
+                    }),
+              ),
+              Container(
+                height: 120,
+                padding: const EdgeInsets.only(left: 10, bottom: 40),
+                child: ListView.builder(
+                    shrinkWrap: true, // 리스트뷰 크기 고정
+                    scrollDirection: Axis.horizontal,
+                    itemCount: 100,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        margin: const EdgeInsets.only(right: 10),
+                        color: Colors.blueAccent[100],
+                        width: 120,
+                        child: ListTile(
+                          title: Text('Item $index'),
+                        ),
+                      );
+                    }),
+              )
+            ],
+          ),
         ),
       ),
     );

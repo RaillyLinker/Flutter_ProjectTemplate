@@ -34,14 +34,16 @@ class PageView extends StatelessWidget {
             .pageBusiness;
 
     return gw_page_outer_frame_view.WidgetView(
-      pageTitle: "GIF 샘플",
       business: pageBusiness.pageViewModel.pageOutFrameBusiness,
-      floatingActionButton: null,
-      child: const Center(
-        child: SizedBox(
-          width: 200,
-          height: 200,
-          child: TestGif(),
+      inputVo: gw_page_outer_frame_view.InputVo(
+
+        pageTitle: "GIF 샘플",
+        child: const Center(
+          child: SizedBox(
+            width: 200,
+            height: 200,
+            child: TestGif(),
+          ),
         ),
       ),
     );

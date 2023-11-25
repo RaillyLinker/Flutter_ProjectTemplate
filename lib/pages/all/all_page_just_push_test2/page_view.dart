@@ -26,79 +26,81 @@ class PageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return gw_page_outer_frame_view.WidgetView(
-      pageTitle: "페이지 Push 테스트2",
       business: _pageBusiness.pageViewModel.pageOutFrameBusiness,
-      floatingActionButton: null,
-      child: Center(
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text(
-                "글로벌 위젯 상태 변수",
-                style: TextStyle(color: Colors.black, fontFamily: "MaruBuri"),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              gw_stateful_test_view.WidgetView(
-                  inputVo: const gw_stateful_test_view.InputVo(),
-                  business: _pageBusiness.pageViewModel.statefulTestBusiness),
-              const Text(
-                "로컬 위젯 상태 변수",
-                style: TextStyle(color: Colors.black, fontFamily: "MaruBuri"),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              MouseRegion(
-                cursor: SystemMouseCursors.click,
-                child: GestureDetector(
-                  onTap: () {
-                    _pageBusiness.countPlus1();
-                  },
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      border: Border(bottom: BorderSide(color: Colors.black)),
+      inputVo: gw_page_outer_frame_view.InputVo(
+
+        pageTitle: "페이지 Push 테스트2",
+        child: Center(
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                  "글로벌 위젯 상태 변수",
+                  style: TextStyle(color: Colors.black, fontFamily: "MaruBuri"),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                gw_stateful_test_view.WidgetView(
+                    inputVo: const gw_stateful_test_view.InputVo(),
+                    business: _pageBusiness.pageViewModel.statefulTestBusiness),
+                const Text(
+                  "로컬 위젯 상태 변수",
+                  style: TextStyle(color: Colors.black, fontFamily: "MaruBuri"),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                MouseRegion(
+                  cursor: SystemMouseCursors.click,
+                  child: GestureDetector(
+                    onTap: () {
+                      _pageBusiness.countPlus1();
+                    },
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        border: Border(bottom: BorderSide(color: Colors.black)),
+                      ),
+                      margin: const EdgeInsets.only(bottom: 20),
+                      child: SampleNumberText(
+                          _pageBusiness.pageViewModel.sampleWidgetViewModel,
+                          key: _pageBusiness.pageViewModel.sampleWidgetStateGk),
                     ),
-                    margin: const EdgeInsets.only(bottom: 20),
-                    child: SampleNumberText(
-                        _pageBusiness.pageViewModel.sampleWidgetViewModel,
-                        key: _pageBusiness.pageViewModel.sampleWidgetStateGk),
                   ),
                 ),
-              ),
-              ElevatedButton(
-                  onPressed: () {
-                    _pageBusiness.goToJustPushTest1Page();
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
-                  ),
-                  child: const Text(
-                    "페이지 Push 테스트1 으로 이동",
-                    style:
-                        TextStyle(color: Colors.white, fontFamily: "MaruBuri"),
-                  )),
-              const SizedBox(
-                height: 10,
-              ),
-              ElevatedButton(
-                  onPressed: () {
-                    _pageBusiness.goToJustPushTest2Page();
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
-                  ),
-                  child: const Text(
-                    "페이지 Push 테스트2 로 이동",
-                    style:
-                        TextStyle(color: Colors.white, fontFamily: "MaruBuri"),
-                  )),
-              const SizedBox(
-                height: 30,
-              )
-            ],
+                ElevatedButton(
+                    onPressed: () {
+                      _pageBusiness.goToJustPushTest1Page();
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue,
+                    ),
+                    child: const Text(
+                      "페이지 Push 테스트1 으로 이동",
+                      style:
+                      TextStyle(color: Colors.white, fontFamily: "MaruBuri"),
+                    )),
+                const SizedBox(
+                  height: 10,
+                ),
+                ElevatedButton(
+                    onPressed: () {
+                      _pageBusiness.goToJustPushTest2Page();
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue,
+                    ),
+                    child: const Text(
+                      "페이지 Push 테스트2 로 이동",
+                      style:
+                      TextStyle(color: Colors.white, fontFamily: "MaruBuri"),
+                    )),
+                const SizedBox(
+                  height: 30,
+                )
+              ],
+            ),
           ),
         ),
       ),

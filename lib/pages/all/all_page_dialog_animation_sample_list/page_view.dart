@@ -30,42 +30,46 @@ class PageView extends StatelessWidget {
             .pageBusiness;
 
     return gw_page_outer_frame_view.WidgetView(
+      business: pageBusiness.pageViewModel.pageOutFrameBusiness,
+      inputVo: gw_page_outer_frame_view.InputVo(
         pageTitle: "다이얼로그 애니메이션 샘플 리스트",
-        business: pageBusiness.pageViewModel.pageOutFrameBusiness,
-        floatingActionButton: null,
-        child: BlocBuilder<page_business.BlocSampleList, bool>(builder: (c, s) {
-          return ListView.builder(
-            itemCount: pageBusiness.pageViewModel.allSampleList.length,
-            itemBuilder: (context, index) {
-              return Column(
-                children: [
-                  _HoverListTileWrapper(
-                    index,
-                    pageBusiness.onRouteListItemClick,
-                    ListTile(
-                      mouseCursor: SystemMouseCursors.click,
-                      title: Text(
-                        pageBusiness
-                            .pageViewModel.allSampleList[index].sampleItemTitle,
-                        style: const TextStyle(fontFamily: "MaruBuri"),
+        child: BlocBuilder<page_business.BlocSampleList, bool>(
+          builder: (c, s) {
+            return ListView.builder(
+              itemCount: pageBusiness.pageViewModel.allSampleList.length,
+              itemBuilder: (context, index) {
+                return Column(
+                  children: [
+                    _HoverListTileWrapper(
+                      index,
+                      pageBusiness.onRouteListItemClick,
+                      ListTile(
+                        mouseCursor: SystemMouseCursors.click,
+                        title: Text(
+                          pageBusiness.pageViewModel.allSampleList[index]
+                              .sampleItemTitle,
+                          style: const TextStyle(fontFamily: "MaruBuri"),
+                        ),
+                        subtitle: Text(
+                          pageBusiness.pageViewModel.allSampleList[index]
+                              .sampleItemDescription,
+                          style: const TextStyle(fontFamily: "MaruBuri"),
+                        ),
+                        trailing: const Icon(Icons.chevron_right),
                       ),
-                      subtitle: Text(
-                        pageBusiness.pageViewModel.allSampleList[index]
-                            .sampleItemDescription,
-                        style: const TextStyle(fontFamily: "MaruBuri"),
-                      ),
-                      trailing: const Icon(Icons.chevron_right),
                     ),
-                  ),
-                  const Divider(
-                    color: Colors.grey,
-                    height: 0.1,
-                  ),
-                ],
-              );
-            },
-          );
-        }));
+                    const Divider(
+                      color: Colors.grey,
+                      height: 0.1,
+                    ),
+                  ],
+                );
+              },
+            );
+          },
+        ),
+      ),
+    );
   }
 }
 

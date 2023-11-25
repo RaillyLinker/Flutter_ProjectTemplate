@@ -30,43 +30,45 @@ class PageView extends StatelessWidget {
             .pageBusiness;
 
     return gw_page_outer_frame_view.WidgetView(
-      pageTitle: "Gesture 위젯 영역 중첩 테스트",
       business: pageBusiness.pageViewModel.pageOutFrameBusiness,
-      floatingActionButton: null,
-      child: Stack(
-        children: [
-          MouseRegion(
-            cursor: SystemMouseCursors.click,
-            child: GestureDetector(
-              onTap: () {
-                pageBusiness.onTapRed();
-              },
-              child: Container(
-                width: 400,
-                height: 200,
-                color: Colors.redAccent,
-              ),
-            ),
-          ),
-          MouseRegion(
-            cursor: SystemMouseCursors.click,
-            child: GestureDetector(
-              onTap: () {
-                pageBusiness.onTapBlueOuter();
-              },
+      inputVo: gw_page_outer_frame_view.InputVo(
+
+        pageTitle: "Gesture 위젯 영역 중첩 테스트",
+        child: Stack(
+          children: [
+            MouseRegion(
+              cursor: SystemMouseCursors.click,
               child: GestureDetector(
                 onTap: () {
-                  pageBusiness.onTapBlueInner();
+                  pageBusiness.onTapRed();
                 },
                 child: Container(
-                  width: 200,
-                  height: 100,
-                  color: Colors.blueAccent,
+                  width: 400,
+                  height: 200,
+                  color: Colors.redAccent,
                 ),
               ),
             ),
-          ),
-        ],
+            MouseRegion(
+              cursor: SystemMouseCursors.click,
+              child: GestureDetector(
+                onTap: () {
+                  pageBusiness.onTapBlueOuter();
+                },
+                child: GestureDetector(
+                  onTap: () {
+                    pageBusiness.onTapBlueInner();
+                  },
+                  child: Container(
+                    width: 200,
+                    height: 100,
+                    color: Colors.blueAccent,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

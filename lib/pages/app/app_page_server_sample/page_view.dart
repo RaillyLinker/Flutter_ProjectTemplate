@@ -31,103 +31,105 @@ class PageView extends StatelessWidget {
             .pageBusiness;
 
     return gw_page_outer_frame_view.WidgetView(
-      pageTitle: "서버 샘플",
       business: pageBusiness.pageViewModel.pageOutFrameBusiness,
-      floatingActionButton: null,
-      child: Center(
+      inputVo: gw_page_outer_frame_view.InputVo(
+
+        pageTitle: "서버 샘플",
         child: Center(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  constraints: const BoxConstraints(maxWidth: 400),
-                  child: Row(
-                    children: [
-                      const Text(
-                        '접속 IP 주소:',
-                        style: TextStyle(fontFamily: "MaruBuri"),
-                      ),
-                      const SizedBox(width: 8.0),
-                      Expanded(
-                        child: BlocBuilder<page_business.BlocServerBtn, bool>(
-                          builder: (c, s) {
-                            return TextFormField(
-                              enabled: pageBusiness.pageViewModel.serverBtn ==
-                                  "서버 열기",
-                              controller: pageBusiness
-                                  .pageViewModel.portTextEditController,
-                              maxLength: 4,
-                              keyboardType: TextInputType.number,
-                              inputFormatters: [
-                                FilteringTextInputFormatter.digitsOnly,
-                              ],
-                              decoration: const InputDecoration(
-                                hintText: '기본 포트 번호 9090',
-                                labelText: '포트 번호 입력',
+          child: Center(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    constraints: const BoxConstraints(maxWidth: 400),
+                    child: Row(
+                      children: [
+                        const Text(
+                          '접속 IP 주소:',
+                          style: TextStyle(fontFamily: "MaruBuri"),
+                        ),
+                        const SizedBox(width: 8.0),
+                        Expanded(
+                          child: BlocBuilder<page_business.BlocServerBtn, bool>(
+                            builder: (c, s) {
+                              return TextFormField(
+                                enabled: pageBusiness.pageViewModel.serverBtn ==
+                                    "서버 열기",
+                                controller: pageBusiness
+                                    .pageViewModel.portTextEditController,
+                                maxLength: 4,
+                                keyboardType: TextInputType.number,
+                                inputFormatters: [
+                                  FilteringTextInputFormatter.digitsOnly,
+                                ],
+                                decoration: const InputDecoration(
+                                  hintText: '기본 포트 번호 9090',
+                                  labelText: '포트 번호 입력',
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        BlocBuilder<page_business.BlocServerBtn, bool>(
+                            builder: (c, s) {
+                              return Expanded(
+                                  child: ElevatedButton(
+                                    onPressed: () {
+                                      if (pageBusiness.pageViewModel.serverBtn ==
+                                          "서버 열기") {
+                                        pageBusiness.onClickOpenServerBtnAsync();
+                                      } else if (pageBusiness.pageViewModel.serverBtn ==
+                                          "서버 닫기") {
+                                        pageBusiness.onClickCloseServerBtnAsync();
+                                      }
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.blue,
+                                    ),
+                                    child: Text(
+                                      pageBusiness.pageViewModel.serverBtn,
+                                      style: const TextStyle(
+                                          color: Colors.white, fontFamily: "MaruBuri"),
+                                    ),
+                                  ));
+                            }),
+                      ],
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey),
+                    ),
+                    margin: const EdgeInsets.all(8.0),
+                    child: BlocBuilder<page_business.BlocLogList, bool>(
+                      builder: (c, s) {
+                        return ListView.builder(
+                          itemCount: pageBusiness.pageViewModel.logList.length,
+                          itemBuilder: (context, index) {
+                            String log =
+                            pageBusiness.pageViewModel.logList[index];
+                            return ListTile(
+                              mouseCursor: SystemMouseCursors.click,
+                              title: Text(
+                                log,
+                                style: const TextStyle(fontFamily: "MaruBuri"),
                               ),
                             );
                           },
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      BlocBuilder<page_business.BlocServerBtn, bool>(
-                          builder: (c, s) {
-                        return Expanded(
-                            child: ElevatedButton(
-                          onPressed: () {
-                            if (pageBusiness.pageViewModel.serverBtn ==
-                                "서버 열기") {
-                              pageBusiness.onClickOpenServerBtnAsync();
-                            } else if (pageBusiness.pageViewModel.serverBtn ==
-                                "서버 닫기") {
-                              pageBusiness.onClickCloseServerBtnAsync();
-                            }
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.blue,
-                          ),
-                          child: Text(
-                            pageBusiness.pageViewModel.serverBtn,
-                            style: const TextStyle(
-                                color: Colors.white, fontFamily: "MaruBuri"),
-                          ),
-                        ));
-                      }),
-                    ],
+                        );
+                      },
+                    ),
                   ),
                 ),
-              ),
-              Expanded(
-                child: Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey),
-                  ),
-                  margin: const EdgeInsets.all(8.0),
-                  child: BlocBuilder<page_business.BlocLogList, bool>(
-                    builder: (c, s) {
-                      return ListView.builder(
-                        itemCount: pageBusiness.pageViewModel.logList.length,
-                        itemBuilder: (context, index) {
-                          String log =
-                              pageBusiness.pageViewModel.logList[index];
-                          return ListTile(
-                            mouseCursor: SystemMouseCursors.click,
-                            title: Text(
-                              log,
-                              style: const TextStyle(fontFamily: "MaruBuri"),
-                            ),
-                          );
-                        },
-                      );
-                    },
-                  ),
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

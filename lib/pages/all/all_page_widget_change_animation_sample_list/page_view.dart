@@ -30,74 +30,76 @@ class PageView extends StatelessWidget {
             .pageBusiness;
 
     return gw_page_outer_frame_view.WidgetView(
-      pageTitle: "위젯 변경 애니메이션 샘플 리스트",
       business: pageBusiness.pageViewModel.pageOutFrameBusiness,
-      floatingActionButton: null,
-      child: SingleChildScrollView(
-        // <==== 주인공. Column 하나를 child로 가짐
-        child: Column(
-          // 물론 Row도 가능
-          children: [
-            Container(
-              color: Colors.white,
-              height: 150,
-              alignment: Alignment.center,
-              child: BlocBuilder<page_business.BlocAnimationSample, bool>(
-                builder: (c, s) {
-                  return AnimatedSwitcher(
-                      duration: pageBusiness.pageViewModel
-                          .widgetChangeAnimatedSwitcherConfig.duration,
-                      reverseDuration: pageBusiness.pageViewModel
-                          .widgetChangeAnimatedSwitcherConfig.reverseDuration,
-                      switchInCurve: pageBusiness.pageViewModel
-                          .widgetChangeAnimatedSwitcherConfig.switchInCurve,
-                      switchOutCurve: pageBusiness.pageViewModel
-                          .widgetChangeAnimatedSwitcherConfig.switchOutCurve,
-                      layoutBuilder: pageBusiness.pageViewModel
-                          .widgetChangeAnimatedSwitcherConfig.layoutBuilder,
-                      transitionBuilder: pageBusiness.pageViewModel
-                          .widgetChangeAnimatedSwitcherConfig.transitionBuilder,
-                      child: pageBusiness.pageViewModel.sampleWidget);
-                },
+      inputVo: gw_page_outer_frame_view.InputVo(
+
+        pageTitle: "위젯 변경 애니메이션 샘플 리스트",
+        child: SingleChildScrollView(
+          // <==== 주인공. Column 하나를 child로 가짐
+          child: Column(
+            // 물론 Row도 가능
+            children: [
+              Container(
+                color: Colors.white,
+                height: 150,
+                alignment: Alignment.center,
+                child: BlocBuilder<page_business.BlocAnimationSample, bool>(
+                  builder: (c, s) {
+                    return AnimatedSwitcher(
+                        duration: pageBusiness.pageViewModel
+                            .widgetChangeAnimatedSwitcherConfig.duration,
+                        reverseDuration: pageBusiness.pageViewModel
+                            .widgetChangeAnimatedSwitcherConfig.reverseDuration,
+                        switchInCurve: pageBusiness.pageViewModel
+                            .widgetChangeAnimatedSwitcherConfig.switchInCurve,
+                        switchOutCurve: pageBusiness.pageViewModel
+                            .widgetChangeAnimatedSwitcherConfig.switchOutCurve,
+                        layoutBuilder: pageBusiness.pageViewModel
+                            .widgetChangeAnimatedSwitcherConfig.layoutBuilder,
+                        transitionBuilder: pageBusiness.pageViewModel
+                            .widgetChangeAnimatedSwitcherConfig.transitionBuilder,
+                        child: pageBusiness.pageViewModel.sampleWidget);
+                  },
+                ),
               ),
-            ),
-            BlocBuilder<page_business.BlocSampleList, bool>(
-              builder: (c, s) {
-                return ListView.builder(
-                    shrinkWrap: true, // 리스트뷰 크기 고정
-                    primary: false, // 리스트뷰 내부는 스크롤 금지
-                    itemCount: pageBusiness.pageViewModel.allSampleList.length,
-                    itemBuilder: (context, index) {
-                      return Column(
-                        children: [
-                          _HoverListTileWrapper(
-                            index,
-                            pageBusiness.onRouteListItemClick,
-                            ListTile(
-                              mouseCursor: SystemMouseCursors.click,
-                              title: Text(
-                                pageBusiness.pageViewModel.allSampleList[index]
-                                    .sampleItemTitle,
-                                style: const TextStyle(fontFamily: "MaruBuri"),
+              BlocBuilder<page_business.BlocSampleList, bool>(
+                builder: (c, s) {
+                  return ListView.builder(
+                      shrinkWrap: true, // 리스트뷰 크기 고정
+                      primary: false, // 리스트뷰 내부는 스크롤 금지
+                      itemCount: pageBusiness.pageViewModel.allSampleList.length,
+                      itemBuilder: (context, index) {
+                        return Column(
+                          children: [
+                            _HoverListTileWrapper(
+                              index,
+                              pageBusiness.onRouteListItemClick,
+                              ListTile(
+                                mouseCursor: SystemMouseCursors.click,
+                                title: Text(
+                                  pageBusiness.pageViewModel.allSampleList[index]
+                                      .sampleItemTitle,
+                                  style: const TextStyle(fontFamily: "MaruBuri"),
+                                ),
+                                subtitle: Text(
+                                  pageBusiness.pageViewModel.allSampleList[index]
+                                      .sampleItemDescription,
+                                  style: const TextStyle(fontFamily: "MaruBuri"),
+                                ),
+                                trailing: const Icon(Icons.chevron_right),
                               ),
-                              subtitle: Text(
-                                pageBusiness.pageViewModel.allSampleList[index]
-                                    .sampleItemDescription,
-                                style: const TextStyle(fontFamily: "MaruBuri"),
-                              ),
-                              trailing: const Icon(Icons.chevron_right),
                             ),
-                          ),
-                          const Divider(
-                            color: Colors.grey,
-                            height: 0.1,
-                          ),
-                        ],
-                      );
-                    });
-              },
-            )
-          ],
+                            const Divider(
+                              color: Colors.grey,
+                              height: 0.1,
+                            ),
+                          ],
+                        );
+                      });
+                },
+              )
+            ],
+          ),
         ),
       ),
     );

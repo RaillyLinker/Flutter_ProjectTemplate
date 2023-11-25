@@ -11,14 +11,12 @@ import 'inner_widgets/iw_go_home_icon_button/widget_business.dart'
 
 // -----------------------------------------------------------------------------
 class WidgetBusiness {
-  WidgetBusiness();
-
   // [public 변수]
-  // (연결된 위젯 변수) - 생성자 실행 이후 not null
-  late widget_view.WidgetView view;
-
-  // (위젯 컨텍스트)
+  // (위젯 Context)
   late BuildContext context;
+
+  // (위젯 객체)
+  late widget_view.WidgetView widget;
 
   // (goToHomeIconButtonBusiness)
   final iw_go_home_icon_button_business.WidgetBusiness

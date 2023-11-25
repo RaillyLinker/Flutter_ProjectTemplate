@@ -31,44 +31,46 @@ class PageView extends StatelessWidget {
             .pageBusiness;
 
     return gw_page_outer_frame_view.WidgetView(
-      pageTitle: "전역 변수 상태 확인 샘플",
       business: pageBusiness.pageViewModel.pageOutFrameBusiness,
-      floatingActionButton: null,
-      child: SingleChildScrollView(
-        child: Container(
-          height: 280,
-          decoration: const BoxDecoration(
-              color: Colors.white,
-              shape: BoxShape.rectangle,
-              borderRadius: BorderRadius.all(Radius.circular(16))),
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                MouseRegion(
-                  cursor: SystemMouseCursors.click,
-                  child: GestureDetector(
-                    onTap: () {
-                      pageBusiness.countPlus1();
-                    },
-                    child: Container(
-                      decoration: const BoxDecoration(
-                        border: Border(bottom: BorderSide(color: Colors.black)),
-                      ),
-                      margin: const EdgeInsets.only(bottom: 20),
-                      child: BlocBuilder<page_business.BlocSampleNumber, bool>(
-                        builder: (c, s) {
-                          return Text("${gd_variable_my_data.sampleNumber}",
-                              style: const TextStyle(
-                                  fontSize: 20,
-                                  color: Colors.black,
-                                  fontFamily: "MaruBuri"));
-                        },
+      inputVo: gw_page_outer_frame_view.InputVo(
+
+        pageTitle: "전역 변수 상태 확인 샘플",
+        child: SingleChildScrollView(
+          child: Container(
+            height: 280,
+            decoration: const BoxDecoration(
+                color: Colors.white,
+                shape: BoxShape.rectangle,
+                borderRadius: BorderRadius.all(Radius.circular(16))),
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  MouseRegion(
+                    cursor: SystemMouseCursors.click,
+                    child: GestureDetector(
+                      onTap: () {
+                        pageBusiness.countPlus1();
+                      },
+                      child: Container(
+                        decoration: const BoxDecoration(
+                          border: Border(bottom: BorderSide(color: Colors.black)),
+                        ),
+                        margin: const EdgeInsets.only(bottom: 20),
+                        child: BlocBuilder<page_business.BlocSampleNumber, bool>(
+                          builder: (c, s) {
+                            return Text("${gd_variable_my_data.sampleNumber}",
+                                style: const TextStyle(
+                                    fontSize: 20,
+                                    color: Colors.black,
+                                    fontFamily: "MaruBuri"));
+                          },
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

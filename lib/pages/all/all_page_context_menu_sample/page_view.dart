@@ -26,80 +26,82 @@ class PageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return gw_page_outer_frame_view.WidgetView(
-      pageTitle: "컨텍스트 메뉴 샘플",
       business: _pageBusiness.pageViewModel.pageOutFrameBusiness,
-      floatingActionButton: null,
-      child: SingleChildScrollView(
-        child: Center(
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 100,
-              ),
-              gw_context_menu_region_view.WidgetView(
-                business: _pageBusiness.pageViewModel.contextMenuRegionBusiness,
-                inputVo: gw_context_menu_region_view.InputVo(
-                    contextMenuRegionItemVoList: [
-                      gw_context_menu_region_view.ContextMenuRegionItemVo(
-                          menuItemWidget: const Text(
-                            "토스트 테스트",
-                            style: TextStyle(
-                                color: Colors.black, fontFamily: "MaruBuri"),
-                          ),
-                          menuItemCallback: () {
-                            _pageBusiness.toastTestMenuBtn();
-                          }),
-                      gw_context_menu_region_view.ContextMenuRegionItemVo(
-                          menuItemWidget: const Text(
-                            "다이얼로그 테스트",
-                            style: TextStyle(
-                                color: Colors.black, fontFamily: "MaruBuri"),
-                          ),
-                          menuItemCallback: () {
-                            _pageBusiness.dialogTestMenuBtn();
-                          }),
-                    ],
-                    child: Container(
-                      padding: const EdgeInsets.only(
-                          top: 10, bottom: 10, left: 10, right: 10),
-                      color: Colors.blue[100], // 옅은 파란색
-                      child: const Text(
-                        '우클릭 해보세요.',
-                        style: TextStyle(
-                            color: Colors.black, fontFamily: "MaruBuri"),
-                      ),
-                    )),
-              ),
-              const SizedBox(
-                height: 100,
-              ),
-              gw_context_menu_region_view.WidgetView(
-                business:
-                    _pageBusiness.pageViewModel.contextMenuRegionBusiness2,
-                inputVo: gw_context_menu_region_view.InputVo(
-                    contextMenuRegionItemVoList: [
-                      gw_context_menu_region_view.ContextMenuRegionItemVo(
-                          menuItemWidget: const Text(
-                            "뒤로가기",
-                            style: TextStyle(
-                                color: Colors.black, fontFamily: "MaruBuri"),
-                          ),
-                          menuItemCallback: () {
-                            _pageBusiness.goBackBtn();
-                          }),
-                    ],
-                    child: Container(
-                      padding: const EdgeInsets.only(
-                          top: 10, bottom: 10, left: 10, right: 10),
-                      color: Colors.blue[100], // 옅은 파란색
-                      child: const Text(
-                        '모바일에선 길게 누르세요.',
-                        style: TextStyle(
-                            color: Colors.black, fontFamily: "MaruBuri"),
-                      ),
-                    )),
-              ),
-            ],
+      inputVo: gw_page_outer_frame_view.InputVo(
+        pageTitle: "컨텍스트 메뉴 샘플",
+        child: SingleChildScrollView(
+          child: Center(
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: 100,
+                ),
+                gw_context_menu_region_view.WidgetView(
+                  business:
+                      _pageBusiness.pageViewModel.contextMenuRegionBusiness,
+                  inputVo: gw_context_menu_region_view.InputVo(
+                      contextMenuRegionItemVoList: [
+                        gw_context_menu_region_view.ContextMenuRegionItemVo(
+                            menuItemWidget: const Text(
+                              "토스트 테스트",
+                              style: TextStyle(
+                                  color: Colors.black, fontFamily: "MaruBuri"),
+                            ),
+                            menuItemCallback: () {
+                              _pageBusiness.toastTestMenuBtn();
+                            }),
+                        gw_context_menu_region_view.ContextMenuRegionItemVo(
+                            menuItemWidget: const Text(
+                              "다이얼로그 테스트",
+                              style: TextStyle(
+                                  color: Colors.black, fontFamily: "MaruBuri"),
+                            ),
+                            menuItemCallback: () {
+                              _pageBusiness.dialogTestMenuBtn();
+                            }),
+                      ],
+                      child: Container(
+                        padding: const EdgeInsets.only(
+                            top: 10, bottom: 10, left: 10, right: 10),
+                        color: Colors.blue[100], // 옅은 파란색
+                        child: const Text(
+                          '우클릭 해보세요.',
+                          style: TextStyle(
+                              color: Colors.black, fontFamily: "MaruBuri"),
+                        ),
+                      )),
+                ),
+                const SizedBox(
+                  height: 100,
+                ),
+                gw_context_menu_region_view.WidgetView(
+                  business:
+                      _pageBusiness.pageViewModel.contextMenuRegionBusiness2,
+                  inputVo: gw_context_menu_region_view.InputVo(
+                      contextMenuRegionItemVoList: [
+                        gw_context_menu_region_view.ContextMenuRegionItemVo(
+                            menuItemWidget: const Text(
+                              "뒤로가기",
+                              style: TextStyle(
+                                  color: Colors.black, fontFamily: "MaruBuri"),
+                            ),
+                            menuItemCallback: () {
+                              _pageBusiness.goBackBtn();
+                            }),
+                      ],
+                      child: Container(
+                        padding: const EdgeInsets.only(
+                            top: 10, bottom: 10, left: 10, right: 10),
+                        color: Colors.blue[100], // 옅은 파란색
+                        child: const Text(
+                          '모바일에선 길게 누르세요.',
+                          style: TextStyle(
+                              color: Colors.black, fontFamily: "MaruBuri"),
+                        ),
+                      )),
+                ),
+              ],
+            ),
           ),
         ),
       ),

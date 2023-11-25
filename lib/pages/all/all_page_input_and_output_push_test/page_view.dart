@@ -30,76 +30,78 @@ class PageView extends StatelessWidget {
             .pageBusiness;
 
     return gw_page_outer_frame_view.WidgetView(
-      pageTitle: "페이지 입/출력 테스트",
       business: pageBusiness.pageViewModel.pageOutFrameBusiness,
-      floatingActionButton: null,
-      child: Center(
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Form(
-                key: pageBusiness.pageViewModel.pageOutputFormKey,
-                child: Container(
-                  width: 200,
-                  margin: const EdgeInsets.only(top: 20),
-                  child: TextFormField(
-                    key: pageBusiness.pageViewModel.pageOutputTextFieldKey,
-                    autofocus: true,
-                    keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                        labelText: '페이지 출력 값',
-                        contentPadding: const EdgeInsets.symmetric(
-                            vertical: 10.0, horizontal: 10.0),
-                        filled: true,
-                        fillColor: Colors.grey[100],
-                        isDense: true,
-                        hintText: "페이지 출력 값 입력",
-                        border: const OutlineInputBorder()),
-                    controller: pageBusiness
-                        .pageViewModel.pageOutputTextFieldController,
-                    focusNode:
-                        pageBusiness.pageViewModel.pageOutputTextFieldFocus,
-                    validator: (value) {
-                      // 검사 : return 으로 반환하는 에러 메세지가 null 이 아니라면 에러로 처리
-                      return null;
-                    },
-                    onFieldSubmitted: (value) {
-                      // 입력창 포커스 상태에서 엔터
-                      if (pageBusiness
-                          .pageViewModel.pageOutputFormKey.currentState!
-                          .validate()) {
-                        pageBusiness.onPressedReturnBtn();
-                      } else {
-                        FocusScope.of(context).requestFocus(pageBusiness
-                            .pageViewModel.pageOutputTextFieldFocus);
-                      }
-                    },
-                  ),
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(top: 20),
-                child: ElevatedButton(
-                  onPressed: () {
-                    pageBusiness.onPressedReturnBtn();
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
-                  ),
+      inputVo: gw_page_outer_frame_view.InputVo(
+
+        pageTitle: "페이지 입/출력 테스트",
+        child: Center(
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Form(
+                  key: pageBusiness.pageViewModel.pageOutputFormKey,
                   child: Container(
-                    margin: const EdgeInsets.only(top: 8, bottom: 8),
-                    child: const Text(
-                      "출력 값 반환",
-                      style: TextStyle(
-                          fontSize: 15,
-                          color: Colors.white,
-                          fontFamily: "MaruBuri"),
+                    width: 200,
+                    margin: const EdgeInsets.only(top: 20),
+                    child: TextFormField(
+                      key: pageBusiness.pageViewModel.pageOutputTextFieldKey,
+                      autofocus: true,
+                      keyboardType: TextInputType.text,
+                      decoration: InputDecoration(
+                          labelText: '페이지 출력 값',
+                          contentPadding: const EdgeInsets.symmetric(
+                              vertical: 10.0, horizontal: 10.0),
+                          filled: true,
+                          fillColor: Colors.grey[100],
+                          isDense: true,
+                          hintText: "페이지 출력 값 입력",
+                          border: const OutlineInputBorder()),
+                      controller: pageBusiness
+                          .pageViewModel.pageOutputTextFieldController,
+                      focusNode:
+                      pageBusiness.pageViewModel.pageOutputTextFieldFocus,
+                      validator: (value) {
+                        // 검사 : return 으로 반환하는 에러 메세지가 null 이 아니라면 에러로 처리
+                        return null;
+                      },
+                      onFieldSubmitted: (value) {
+                        // 입력창 포커스 상태에서 엔터
+                        if (pageBusiness
+                            .pageViewModel.pageOutputFormKey.currentState!
+                            .validate()) {
+                          pageBusiness.onPressedReturnBtn();
+                        } else {
+                          FocusScope.of(context).requestFocus(pageBusiness
+                              .pageViewModel.pageOutputTextFieldFocus);
+                        }
+                      },
                     ),
                   ),
                 ),
-              )
-            ],
+                Container(
+                  margin: const EdgeInsets.only(top: 20),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      pageBusiness.onPressedReturnBtn();
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue,
+                    ),
+                    child: Container(
+                      margin: const EdgeInsets.only(top: 8, bottom: 8),
+                      child: const Text(
+                        "출력 값 반환",
+                        style: TextStyle(
+                            fontSize: 15,
+                            color: Colors.white,
+                            fontFamily: "MaruBuri"),
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),
