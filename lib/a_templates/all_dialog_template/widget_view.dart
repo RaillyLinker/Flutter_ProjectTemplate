@@ -23,7 +23,9 @@ class OutputVo {
 
 // -----------------------------------------------------------------------------
 class WidgetView extends StatelessWidget {
-  const WidgetView({super.key, required this.business, required this.inputVo});
+  WidgetView({super.key, required this.business, required InputVo inputVo}) {
+    business.inputVo = inputVo;
+  }
 
   // [콜백 함수]
   // (위젯을 화면에 draw 할 때의 콜백)
@@ -60,31 +62,23 @@ class WidgetView extends StatelessWidget {
   // (위젯 비즈니스)
   final widget_business.WidgetBusiness business;
 
-  // (위젯 입력값)
-  final InputVo inputVo;
-
   // [뷰 위젯]
   Widget viewWidgetBuild({required BuildContext context}) {
     return StatefulView(
       key: business.statefulGk,
-      inputVo: inputVo,
       business: business,
     );
   }
 }
 
 class StatefulView extends StatefulWidget {
-  const StatefulView(
-      {required super.key, required this.inputVo, required this.business});
+  const StatefulView({required super.key, required this.business});
 
   // [콜백 함수]
   @override
   StatefulBusiness createState() => StatefulBusiness();
 
   // [public 변수]
-  // (위젯 입력값)
-  final InputVo inputVo;
-
   // (위젯 비즈니스)
   final widget_business.WidgetBusiness business;
 }
@@ -98,7 +92,7 @@ class StatefulBusiness extends State<StatefulView> with WidgetsBindingObserver {
     widget.business.context = context;
     widget.business.widget = widget;
     return WidgetUi.viewWidgetBuild(
-        context: context, inputVo: widget.inputVo, business: widget.business);
+        context: context, business: widget.business);
   }
 
   // [콜백 함수]
@@ -129,7 +123,6 @@ class WidgetUi {
   // [뷰 위젯]
   static Widget viewWidgetBuild(
       {required BuildContext context,
-      required InputVo inputVo,
       required widget_business.WidgetBusiness business}) {
     // !!!뷰 위젯 반환 콜백 작성 하기!!!
     return Dialog(

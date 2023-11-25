@@ -16,6 +16,9 @@ class WidgetBusiness {
   // (위젯 객체)
   late widget_view.WidgetView widget;
 
+  // (위젯 입력값)
+  late widget_view.InputVo inputVo;
+
 // [private 변수]
 
 // [public 함수]

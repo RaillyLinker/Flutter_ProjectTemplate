@@ -50,14 +50,17 @@ class WidgetBusiness {
   // (위젯 state GlobalKey)
   final GlobalKey<widget_view.StatefulBusiness> statefulGk = GlobalKey();
 
-  // (페이지 pop 가능 여부 변수)
-  bool canPop = true;
-
   // (위젯 Context)
   late BuildContext context;
 
   // (위젯 객체)
   late widget_view.StatefulView widget;
+
+  // (위젯 입력값)
+  late widget_view.InputVo inputVo;
+
+  // (페이지 pop 가능 여부 변수)
+  bool canPop = true;
 
   // [private 변수]
 

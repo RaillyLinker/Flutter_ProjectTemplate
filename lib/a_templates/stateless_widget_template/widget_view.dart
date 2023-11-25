@@ -14,7 +14,9 @@ class InputVo {
 }
 
 class WidgetView extends StatelessWidget {
-  const WidgetView({super.key, required this.business, required this.inputVo});
+  WidgetView({super.key, required this.business, required InputVo inputVo}) {
+    business.inputVo = inputVo;
+  }
 
   // [콜백 함수]
   // (위젯을 화면에 draw 할 때의 콜백)
@@ -28,9 +30,6 @@ class WidgetView extends StatelessWidget {
   // [public 변수]
   // (위젯 비즈니스)
   final widget_business.WidgetBusiness business;
-
-  // (위젯 입력값)
-  final InputVo inputVo;
 
   // [뷰 위젯]
   Widget viewWidgetBuild({required BuildContext context}) {
