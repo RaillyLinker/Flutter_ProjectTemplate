@@ -10,6 +10,7 @@ import 'widget_business.dart' as widget_business;
 // -----------------------------------------------------------------------------
 class InputVo {
   const InputVo();
+// !!!위젯 입력값 선언!!!
 }
 
 class WidgetView extends StatelessWidget {
