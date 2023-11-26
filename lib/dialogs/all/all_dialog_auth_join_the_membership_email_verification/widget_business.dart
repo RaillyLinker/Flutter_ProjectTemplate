@@ -12,8 +12,10 @@ import '../../../../repositories/network/apis/api_main_server.dart'
 import '../../../../repositories/spws/spw_auth_member_info.dart'
     as spw_auth_member_info;
 import '../../../global_functions/gf_my_functions.dart' as gf_my_functions;
-import '../../../dialogs/all/all_dialog_info/page_entrance.dart'
-    as all_dialog_info;
+import '../../../dialogs/all/all_dialog_info/widget_view.dart'
+    as all_dialog_info_view;
+import '../../../dialogs/all/all_dialog_info/widget_business.dart'
+    as all_dialog_info_business;
 import '../../../dialogs/all/all_dialog_loading_spinner/page_entrance.dart'
     as all_dialog_loading_spinner;
 
@@ -172,13 +174,19 @@ class WidgetBusiness {
           // 비정상 응답
           if (responseHeaders.apiResultCode == null) {
             // 비정상 응답이면서 서버에서 에러 원인 코드가 전달되지 않았을 때
+            var allDialogInfoBusiness =
+                all_dialog_info_business.WidgetBusiness();
             if (!context.mounted) return;
             showDialog(
                 barrierDismissible: true,
                 context: context,
-                builder: (context) => all_dialog_info.PageEntrance(
-                      all_dialog_info.PageInputVo(
-                          "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
+                builder: (context) => all_dialog_info_view.WidgetView(
+                      business: allDialogInfoBusiness,
+                      inputVo: const all_dialog_info_view.InputVo(
+                          dialogTitle: "네트워크 에러",
+                          dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
+                          checkBtnTitle: "확인"),
+                      onDialogCreated: () {},
                     ));
           } else {
             // 서버 지정 에러 코드를 전달 받았을 때
@@ -188,30 +196,40 @@ class WidgetBusiness {
               case "1":
                 {
                   // 이메일 검증 요청을 보낸 적 없음
+                  var allDialogInfoBusiness =
+                      all_dialog_info_business.WidgetBusiness();
                   if (!context.mounted) return;
                   await showDialog(
                       barrierDismissible: true,
                       context: context,
-                      builder: (context) => all_dialog_info.PageEntrance(
-                            all_dialog_info.PageInputVo(
-                                "본인 인증 코드 검증 실패",
-                                "본인 인증 요청 정보가 없습니다.\n본인 인증 코드 재전송 버튼을 눌러주세요.",
-                                "확인"),
+                      builder: (context) => all_dialog_info_view.WidgetView(
+                            business: allDialogInfoBusiness,
+                            inputVo: const all_dialog_info_view.InputVo(
+                                dialogTitle: "본인 인증 코드 검증 실패",
+                                dialogContent:
+                                    "본인 인증 요청 정보가 없습니다.\n본인 인증 코드 재전송 버튼을 눌러주세요.",
+                                checkBtnTitle: "확인"),
+                            onDialogCreated: () {},
                           ));
                 }
                 break;
               case "2":
                 {
                   // 이메일 검증 요청이 만료됨
+                  var allDialogInfoBusiness =
+                      all_dialog_info_business.WidgetBusiness();
                   if (!context.mounted) return;
                   await showDialog(
                       barrierDismissible: true,
                       context: context,
-                      builder: (context) => all_dialog_info.PageEntrance(
-                            all_dialog_info.PageInputVo(
-                                "본인 인증 코드 검증 실패",
-                                "본인 인증 요청 정보가 만료되었습니다.\n본인 인증 코드 재전송 버튼을 눌러주세요.",
-                                "확인"),
+                      builder: (context) => all_dialog_info_view.WidgetView(
+                            business: allDialogInfoBusiness,
+                            inputVo: const all_dialog_info_view.InputVo(
+                                dialogTitle: "본인 인증 코드 검증 실패",
+                                dialogContent:
+                                    "본인 인증 요청 정보가 만료되었습니다.\n본인 인증 코드 재전송 버튼을 눌러주세요.",
+                                checkBtnTitle: "확인"),
+                            onDialogCreated: () {},
                           ));
                 }
                 break;
@@ -240,13 +258,18 @@ class WidgetBusiness {
         }
       } else {
         loadingSpinner.pageBusiness.closeDialog();
+        var allDialogInfoBusiness = all_dialog_info_business.WidgetBusiness();
         if (!context.mounted) return;
         showDialog(
             barrierDismissible: true,
             context: context,
-            builder: (context) => all_dialog_info.PageEntrance(
-                  all_dialog_info.PageInputVo(
-                      "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
+            builder: (context) => all_dialog_info_view.WidgetView(
+                  business: allDialogInfoBusiness,
+                  inputVo: const all_dialog_info_view.InputVo(
+                      dialogTitle: "네트워크 에러",
+                      dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
+                      checkBtnTitle: "확인"),
+                  onDialogCreated: () {},
                 ));
       }
 
@@ -289,13 +312,19 @@ class WidgetBusiness {
         verificationUid = responseBody.verificationUid;
 
         // 정상 응답
+        var allDialogInfoBusiness = all_dialog_info_business.WidgetBusiness();
         if (!context.mounted) return;
         await showDialog(
             barrierDismissible: true,
             context: context,
-            builder: (context) => all_dialog_info.PageEntrance(
-                  all_dialog_info.PageInputVo("이메일 재발송 성공",
-                      "본인 인증 이메일이 재발송 되었습니다.\n(${inputVo.emailAddress})", "확인"),
+            builder: (context) => all_dialog_info_view.WidgetView(
+                  business: allDialogInfoBusiness,
+                  inputVo: all_dialog_info_view.InputVo(
+                      dialogTitle: "이메일 재발송 성공",
+                      dialogContent:
+                          "본인 인증 이메일이 재발송 되었습니다.\n(${inputVo.emailAddress})",
+                      checkBtnTitle: "확인"),
+                  onDialogCreated: () {},
                 ));
         if (!context.mounted) return;
         FocusScope.of(context).requestFocus(verificationCodeTextFieldFocus);
@@ -307,13 +336,18 @@ class WidgetBusiness {
         // 비정상 응답
         if (responseHeaders.apiResultCode == null) {
           // 비정상 응답이면서 서버에서 에러 원인 코드가 전달되지 않았을 때
+          var allDialogInfoBusiness = all_dialog_info_business.WidgetBusiness();
           if (!context.mounted) return;
           showDialog(
               barrierDismissible: true,
               context: context,
-              builder: (context) => all_dialog_info.PageEntrance(
-                    all_dialog_info.PageInputVo(
-                        "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
+              builder: (context) => all_dialog_info_view.WidgetView(
+                    business: allDialogInfoBusiness,
+                    inputVo: const all_dialog_info_view.InputVo(
+                        dialogTitle: "네트워크 에러",
+                        dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
+                        checkBtnTitle: "확인"),
+                    onDialogCreated: () {},
                   ));
         } else {
           // 서버 지정 에러 코드를 전달 받았을 때
@@ -323,13 +357,19 @@ class WidgetBusiness {
             case "1":
               {
                 // 기존 회원 존재
+                var allDialogInfoBusiness =
+                    all_dialog_info_business.WidgetBusiness();
                 if (!context.mounted) return;
                 await showDialog(
                     barrierDismissible: true,
                     context: context,
-                    builder: (context) => all_dialog_info.PageEntrance(
-                          all_dialog_info.PageInputVo(
-                              "인증 이메일 발송 실패", "이미 가입된 이메일입니다.", "확인"),
+                    builder: (context) => all_dialog_info_view.WidgetView(
+                          business: allDialogInfoBusiness,
+                          inputVo: const all_dialog_info_view.InputVo(
+                              dialogTitle: "인증 이메일 발송 실패",
+                              dialogContent: "이미 가입된 이메일입니다.",
+                              checkBtnTitle: "확인"),
+                          onDialogCreated: () {},
                         ));
                 if (!context.mounted) return;
                 context.pop();
@@ -345,13 +385,18 @@ class WidgetBusiness {
       }
     } else {
       loadingSpinner.pageBusiness.closeDialog();
+      var allDialogInfoBusiness = all_dialog_info_business.WidgetBusiness();
       if (!context.mounted) return;
       showDialog(
           barrierDismissible: true,
           context: context,
-          builder: (context) => all_dialog_info.PageEntrance(
-                all_dialog_info.PageInputVo(
-                    "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
+          builder: (context) => all_dialog_info_view.WidgetView(
+                business: allDialogInfoBusiness,
+                inputVo: const all_dialog_info_view.InputVo(
+                    dialogTitle: "네트워크 에러",
+                    dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
+                    checkBtnTitle: "확인"),
+                onDialogCreated: () {},
               ));
     }
   }

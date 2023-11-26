@@ -14,8 +14,10 @@ import '../../../../repositories/network/apis/api_main_server.dart'
     as api_main_server;
 import '../../../../repositories/spws/spw_auth_member_info.dart'
     as spw_auth_member_info;
-import '../../../dialogs/all/all_dialog_info/page_entrance.dart'
-    as all_dialog_info;
+import '../../../dialogs/all/all_dialog_info/widget_view.dart'
+    as all_dialog_info_view;
+import '../../../dialogs/all/all_dialog_info/widget_business.dart'
+    as all_dialog_info_business;
 import '../../../dialogs/all/all_dialog_loading_spinner/page_entrance.dart'
     as all_dialog_loading_spinner;
 import '../../../dialogs/all/all_dialog_yes_or_no/page_entrance.dart'
@@ -211,13 +213,19 @@ class PageBusiness {
             // 정상 응답
             // 로그아웃 처리
             spw_auth_member_info.SharedPreferenceWrapper.set(value: null);
+            var allDialogInfoBusiness =
+                all_dialog_info_business.WidgetBusiness();
             if (!_context.mounted) return;
             await showDialog(
                 barrierDismissible: true,
                 context: _context,
-                builder: (context) => all_dialog_info.PageEntrance(
-                      all_dialog_info.PageInputVo(
-                          "회원 탈퇴 완료", "회원 탈퇴가 완료되었습니다.\n안녕히 가세요.", "확인"),
+                builder: (context) => all_dialog_info_view.WidgetView(
+                      business: allDialogInfoBusiness,
+                      inputVo: const all_dialog_info_view.InputVo(
+                          dialogTitle: "회원 탈퇴 완료",
+                          dialogContent: "회원 탈퇴가 완료되었습니다.\n안녕히 가세요.",
+                          checkBtnTitle: "확인"),
+                      onDialogCreated: () {},
                     ));
             if (!_context.mounted) return;
             _context.pop(page_entrance.PageOutputVo(true));
@@ -233,23 +241,34 @@ class PageBusiness {
             return;
           } else {
             // 비정상 응답
+            var allDialogInfoBusiness =
+                all_dialog_info_business.WidgetBusiness();
             if (!_context.mounted) return;
             showDialog(
                 barrierDismissible: true,
                 context: _context,
-                builder: (context) => all_dialog_info.PageEntrance(
-                      all_dialog_info.PageInputVo(
-                          "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
+                builder: (context) => all_dialog_info_view.WidgetView(
+                      business: allDialogInfoBusiness,
+                      inputVo: const all_dialog_info_view.InputVo(
+                          dialogTitle: "네트워크 에러",
+                          dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
+                          checkBtnTitle: "확인"),
+                      onDialogCreated: () {},
                     ));
           }
         } else {
+          var allDialogInfoBusiness = all_dialog_info_business.WidgetBusiness();
           if (!_context.mounted) return;
           showDialog(
               barrierDismissible: true,
               context: _context,
-              builder: (context) => all_dialog_info.PageEntrance(
-                    all_dialog_info.PageInputVo(
-                        "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
+              builder: (context) => all_dialog_info_view.WidgetView(
+                    business: allDialogInfoBusiness,
+                    inputVo: const all_dialog_info_view.InputVo(
+                        dialogTitle: "네트워크 에러",
+                        dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
+                        checkBtnTitle: "확인"),
+                    onDialogCreated: () {},
                   ));
         }
       }

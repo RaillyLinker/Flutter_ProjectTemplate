@@ -10,8 +10,10 @@ import 'page_entrance.dart' as page_entrance;
 // (all)
 import '../../../global_widgets/gw_page_outer_frame/widget_business.dart'
     as gw_page_outer_frame_business;
-import '../../../dialogs/all/all_dialog_info/page_entrance.dart'
-    as all_dialog_info;
+import '../../../dialogs/all/all_dialog_info/widget_view.dart'
+    as all_dialog_info_view;
+import '../../../dialogs/all/all_dialog_info/widget_business.dart'
+    as all_dialog_info_business;
 import '../../../a_templates/all_dialog_template/widget_view.dart'
     as all_dialog_template_view;
 import '../../../a_templates/all_dialog_template/widget_business.dart'
@@ -22,8 +24,10 @@ import '../../../dialogs/all/all_dialog_loading_spinner/page_entrance.dart'
     as all_dialog_loading_spinner;
 import '../../../dialogs/all/all_dialog_modal_bottom_sheet_sample/page_entrance.dart'
     as all_dialog_modal_bottom_sheet_sample;
-import '../../../dialogs/all/all_dialog_dialog_in_dialog/page_entrance.dart'
-    as all_dialog_dialog_in_dialog;
+import '../../../dialogs/all/all_dialog_dialog_in_dialog/widget_view.dart'
+    as all_dialog_dialog_in_dialog_view;
+import '../../../dialogs/all/all_dialog_dialog_in_dialog/widget_business.dart'
+    as all_dialog_dialog_in_dialog_business;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
 import '../../../dialogs/all/all_dialog_context_menu_sample/widget_view.dart'
@@ -147,12 +151,17 @@ class PageBusiness {
       case SampleItemEnum.infoDialog:
         {
           // (확인 다이얼로그 호출)
+          var allDialogInfoBusiness = all_dialog_info_business.WidgetBusiness();
           showDialog(
               barrierDismissible: true,
               context: _context,
-              builder: (context) => all_dialog_info.PageEntrance(
-                    all_dialog_info.PageInputVo(
-                        "확인 다이얼로그", "확인 다이얼로그를 호출했습니다.", "확인"),
+              builder: (context) => all_dialog_info_view.WidgetView(
+                    business: allDialogInfoBusiness,
+                    inputVo: const all_dialog_info_view.InputVo(
+                        dialogTitle: "확인 다이얼로그",
+                        dialogContent: "확인 다이얼로그를 호출했습니다.",
+                        checkBtnTitle: "확인"),
+                    onDialogCreated: () {},
                   )).then((outputVo) {});
         }
         break;
@@ -234,11 +243,15 @@ class PageBusiness {
       case SampleItemEnum.dialogInDialog:
         {
           // 다이얼로그에서 다른 다이얼로그를 호출하는 샘플
+          var allDialogDialogInDialogViewBusiness =
+              all_dialog_dialog_in_dialog_business.WidgetBusiness();
           showDialog(
               barrierDismissible: true,
               context: _context,
-              builder: (context) => all_dialog_dialog_in_dialog.PageEntrance(
-                    all_dialog_dialog_in_dialog.PageInputVo(),
+              builder: (context) => all_dialog_dialog_in_dialog_view.WidgetView(
+                    business: allDialogDialogInDialogViewBusiness,
+                    inputVo: const all_dialog_dialog_in_dialog_view.InputVo(),
+                    onDialogCreated: () {},
                   )).then((outputVo) {});
         }
         break;
@@ -288,6 +301,7 @@ class PageBusiness {
               builder: (context) => all_dialog_lifecycle_sample_view.WidgetView(
                     business: lifecycleSampleBusinessBusiness,
                     inputVo: const all_dialog_lifecycle_sample_view.InputVo(),
+                    onDialogCreated: () {},
                   )).then((outputVo) {});
         }
         break;

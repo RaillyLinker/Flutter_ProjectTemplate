@@ -15,8 +15,10 @@ import '../../../global_widgets/gw_page_outer_frame/widget_business.dart'
     as gw_page_outer_frame_business;
 import '../../../../repositories/network/apis/api_main_server.dart'
     as api_main_server;
-import '../../../dialogs/all/all_dialog_info/page_entrance.dart'
-    as all_dialog_info;
+import '../../../dialogs/all/all_dialog_info/widget_view.dart'
+    as all_dialog_info_view;
+import '../../../dialogs/all/all_dialog_info/widget_business.dart'
+    as all_dialog_info_business;
 import '../../../dialogs/all/all_dialog_loading_spinner/page_entrance.dart'
     as all_dialog_loading_spinner;
 import '../../../global_classes/gc_template_classes.dart'
@@ -238,36 +240,50 @@ class PageBusiness {
               .PostService1TkV1RequestTestPostRequestMultipartFormDataAsyncResponseBodyVo;
 
           // 확인 다이얼로그 호출
+          var allDialogInfoBusiness = all_dialog_info_business.WidgetBusiness();
           if (!_context.mounted) return;
           showDialog(
               barrierDismissible: true,
               context: _context,
-              builder: (context) => all_dialog_info.PageEntrance(
-                    all_dialog_info.PageInputVo(
-                        "응답 결과",
-                        "Http Status Code : ${networkResponseObjectOk.responseStatusCode}\n\nResponse Body:\n${responseBody.toString()}",
-                        "확인"),
+              builder: (context) => all_dialog_info_view.WidgetView(
+                    business: allDialogInfoBusiness,
+                    inputVo: all_dialog_info_view.InputVo(
+                        dialogTitle: "응답 결과",
+                        dialogContent:
+                            "Http Status Code : ${networkResponseObjectOk.responseStatusCode}\n\nResponse Body:\n${responseBody.toString()}",
+                        checkBtnTitle: "확인"),
+                    onDialogCreated: () {},
                   )).then((outputVo) {});
         } else {
           // 비정상 응답
+          var allDialogInfoBusiness = all_dialog_info_business.WidgetBusiness();
           if (!_context.mounted) return;
           showDialog(
               barrierDismissible: false,
               context: _context,
-              builder: (context) => all_dialog_info.PageEntrance(
-                    all_dialog_info.PageInputVo(
-                        "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
+              builder: (context) => all_dialog_info_view.WidgetView(
+                    business: allDialogInfoBusiness,
+                    inputVo: const all_dialog_info_view.InputVo(
+                        dialogTitle: "네트워크 에러",
+                        dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
+                        checkBtnTitle: "확인"),
+                    onDialogCreated: () {},
                   ));
         }
       } else {
         // Dio 네트워크 에러
+        var allDialogInfoBusiness = all_dialog_info_business.WidgetBusiness();
         if (!_context.mounted) return;
         showDialog(
             barrierDismissible: false,
             context: _context,
-            builder: (context) => all_dialog_info.PageEntrance(
-                  all_dialog_info.PageInputVo(
-                      "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
+            builder: (context) => all_dialog_info_view.WidgetView(
+                  business: allDialogInfoBusiness,
+                  inputVo: const all_dialog_info_view.InputVo(
+                      dialogTitle: "네트워크 에러",
+                      dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
+                      checkBtnTitle: "확인"),
+                  onDialogCreated: () {},
                 ));
       }
     }

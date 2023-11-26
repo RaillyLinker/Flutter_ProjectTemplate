@@ -1,19 +1,9 @@
 // (external)
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 // (inner Folder)
 import 'widget_view.dart' as widget_view;
-import 'inner_widgets/iw_stateful_sample_number/widget_business.dart'
-    as iw_stateful_sample_number_business;
-
-// (all)
-import '../../../global_functions/gf_my_functions.dart' as gf_my_functions;
-import '../../../pages/all/all_page_dialog_sample_list/page_entrance.dart'
-    as all_page_dialog_sample_list;
-import '../../../global_widgets/gw_stateful_test/widget_business.dart'
-    as gw_stateful_test_business;
 
 // [위젯 비즈니스]
 // 위젯의 비즈니스 로직 + State 변수 처리는 이 곳에서 합니다.
@@ -26,60 +16,36 @@ class WidgetBusiness {
   // (전체 위젯 처음 실행 콜백)
   void onCreated() {
     // !!!onCreated 로직 작성!!!
-    if (kDebugMode) {
-      print("$randString : onCreated");
-    }
   }
 
   // (전체 위젯 dispose)
   void dispose() {
     // !!!initState 로직 작성!!!
-    if (kDebugMode) {
-      print("$randString : dispose");
-    }
   }
 
   // (전체 위젯의 FocusDetector 콜백들)
   void onFocusGained() async {
     // !!!onFocusGained 로직 작성!!!
-    if (kDebugMode) {
-      print("$randString : onFocusGained");
-    }
   }
 
   void onFocusLost() async {
     // !!!onFocusLost 로직 작성!!!
-    if (kDebugMode) {
-      print("$randString : onFocusLost");
-    }
   }
 
   void onVisibilityGained() async {
     // !!!onFocusLost 로직 작성!!!
-    if (kDebugMode) {
-      print("$randString : onVisibilityGained");
-    }
   }
 
   void onVisibilityLost() async {
     // !!!onVisibilityLost 로직 작성!!!
-    if (kDebugMode) {
-      print("$randString : onVisibilityLost");
-    }
   }
 
   void onForegroundGained() async {
     // !!!onForegroundGained 로직 작성!!!
-    if (kDebugMode) {
-      print("$randString : onForegroundGained");
-    }
   }
 
   void onForegroundLost() async {
     // !!!onForegroundLost 로직 작성!!!
-    if (kDebugMode) {
-      print("$randString : onForegroundLost");
-    }
   }
 
   // [public 변수]
@@ -95,18 +61,6 @@ class WidgetBusiness {
   // (페이지 pop 가능 여부 변수)
   bool canPop = true;
 
-  // (로그 남기기 용 랜덤 문자열)
-  String randString = gf_my_functions.generateRandomString(10);
-
-  // (statefulSampleNumberBusiness)
-  iw_stateful_sample_number_business.WidgetBusiness
-      statefulSampleNumberBusiness =
-      iw_stateful_sample_number_business.WidgetBusiness();
-
-  // (statefulTestBusiness)
-  gw_stateful_test_business.WidgetBusiness statefulTestBusiness =
-      gw_stateful_test_business.WidgetBusiness();
-
   // [private 변수]
 
   // [public 함수]
@@ -116,10 +70,6 @@ class WidgetBusiness {
   // (다이얼로그 종료 함수)
   void closeDialog() {
     context.pop();
-  }
-
-  void pushToAnotherPage() {
-    context.pushNamed(all_page_dialog_sample_list.pageName);
   }
 
 // [private 함수]

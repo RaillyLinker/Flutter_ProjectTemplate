@@ -14,8 +14,10 @@ import '../../../../repositories/network/apis/api_main_server.dart'
     as api_main_server;
 import '../../../../repositories/spws/spw_auth_member_info.dart'
     as spw_auth_member_info;
-import '../../../dialogs/all/all_dialog_info/page_entrance.dart'
-    as all_dialog_info;
+import '../../../dialogs/all/all_dialog_info/widget_view.dart'
+    as all_dialog_info_view;
+import '../../../dialogs/all/all_dialog_info/widget_business.dart'
+    as all_dialog_info_business;
 import '../../../dialogs/all/all_dialog_loading_spinner/page_entrance.dart'
     as all_dialog_loading_spinner;
 import '../../../global_classes/gc_template_classes.dart'
@@ -289,13 +291,19 @@ class PageBusiness {
                 case "1":
                   {
                     // 가입 되지 않은 회원
+                    var allDialogInfoBusiness =
+                        all_dialog_info_business.WidgetBusiness();
                     if (!_context.mounted) return;
                     showDialog(
                         barrierDismissible: true,
                         context: _context,
-                        builder: (context) => all_dialog_info.PageEntrance(
-                              all_dialog_info.PageInputVo(
-                                  "로그인 실패", "가입되지 않은 회원입니다.", "확인"),
+                        builder: (context) => all_dialog_info_view.WidgetView(
+                              business: allDialogInfoBusiness,
+                              inputVo: const all_dialog_info_view.InputVo(
+                                  dialogTitle: "로그인 실패",
+                                  dialogContent: "가입되지 않은 회원입니다.",
+                                  checkBtnTitle: "확인"),
+                              onDialogCreated: () {},
                             ));
                     accountLoginAsyncClicked = false;
                   }
@@ -303,13 +311,19 @@ class PageBusiness {
                 case "2":
                   {
                     // 로그인 정보 검증 불일치
+                    var allDialogInfoBusiness =
+                        all_dialog_info_business.WidgetBusiness();
                     if (!_context.mounted) return;
                     showDialog(
                         barrierDismissible: true,
                         context: _context,
-                        builder: (context) => all_dialog_info.PageEntrance(
-                              all_dialog_info.PageInputVo(
-                                  "로그인 실패", "비밀번호가 일치하지 않습니다.", "확인"),
+                        builder: (context) => all_dialog_info_view.WidgetView(
+                              business: allDialogInfoBusiness,
+                              inputVo: const all_dialog_info_view.InputVo(
+                                  dialogTitle: "로그인 실패",
+                                  dialogContent: "비밀번호가 일치하지 않습니다.",
+                                  checkBtnTitle: "확인"),
+                              onDialogCreated: () {},
                             ));
                     accountLoginAsyncClicked = false;
                   }
@@ -317,26 +331,38 @@ class PageBusiness {
                 default:
                   {
                     // 비정상 응답이면서 서버에서 에러 원인 코드가 전달되지 않았을 때
+                    var allDialogInfoBusiness =
+                        all_dialog_info_business.WidgetBusiness();
                     if (!_context.mounted) return;
                     showDialog(
                         barrierDismissible: true,
                         context: _context,
-                        builder: (context) => all_dialog_info.PageEntrance(
-                              all_dialog_info.PageInputVo("네트워크 에러",
-                                  "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
+                        builder: (context) => all_dialog_info_view.WidgetView(
+                              business: allDialogInfoBusiness,
+                              inputVo: const all_dialog_info_view.InputVo(
+                                  dialogTitle: "네트워크 에러",
+                                  dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
+                                  checkBtnTitle: "확인"),
+                              onDialogCreated: () {},
                             ));
                     accountLoginAsyncClicked = false;
                   }
               }
             }
           } else {
+            var allDialogInfoBusiness =
+                all_dialog_info_business.WidgetBusiness();
             if (!_context.mounted) return;
             showDialog(
                 barrierDismissible: true,
                 context: _context,
-                builder: (context) => all_dialog_info.PageEntrance(
-                      all_dialog_info.PageInputVo(
-                          "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
+                builder: (context) => all_dialog_info_view.WidgetView(
+                      business: allDialogInfoBusiness,
+                      inputVo: const all_dialog_info_view.InputVo(
+                          dialogTitle: "네트워크 에러",
+                          dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
+                          checkBtnTitle: "확인"),
+                      onDialogCreated: () {},
                     ));
             accountLoginAsyncClicked = false;
           }

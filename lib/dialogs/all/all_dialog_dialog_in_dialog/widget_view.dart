@@ -4,12 +4,6 @@ import 'package:focus_detector_v2/focus_detector_v2.dart';
 
 // (inner Folder)
 import 'widget_business.dart' as widget_business;
-import 'inner_widgets/iw_stateful_sample_number/widget_view.dart'
-    as iw_stateful_sample_number_view;
-
-// (all)
-import '../../../global_widgets/gw_stateful_test/widget_view.dart'
-    as gw_stateful_test_view;
 
 // [위젯 뷰]
 // 위젯의 화면 작성은 여기서 합니다.
@@ -123,56 +117,58 @@ class WidgetUi {
           height: 280,
           width: 300,
           decoration: const BoxDecoration(
-            color: Colors.white,
-            shape: BoxShape.rectangle,
-            borderRadius: BorderRadius.all(
-              Radius.circular(16),
-            ),
-          ),
+              color: Colors.white,
+              shape: BoxShape.rectangle,
+              borderRadius: BorderRadius.all(Radius.circular(16))),
           child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text(
-                  "글로벌 위젯 상태 변수",
-                  style: TextStyle(color: Colors.black, fontFamily: "MaruBuri"),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                gw_stateful_test_view.WidgetView(
-                    inputVo: const gw_stateful_test_view.InputVo(),
-                    business: business.statefulTestBusiness),
-                const SizedBox(
-                  height: 10,
-                ),
-                const Text(
-                  "로컬 위젯 상태 변수",
-                  style: TextStyle(color: Colors.black, fontFamily: "MaruBuri"),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                iw_stateful_sample_number_view.WidgetView(
-                  business: business.statefulSampleNumberBusiness,
-                  inputVo: const iw_stateful_sample_number_view.InputVo(),
-                ),
-                ElevatedButton(
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  ElevatedButton(
                     onPressed: () {
-                      business.pushToAnotherPage();
+                      business.showInfoDialog();
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue,
                     ),
                     child: const Text(
-                      "페이지 이동",
+                      "확인 다이얼로그 호출",
                       style: TextStyle(
                           color: Colors.white, fontFamily: "MaruBuri"),
-                    )),
-                const SizedBox(
-                  height: 30,
-                )
-              ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      business.showLoadingDialog();
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue,
+                    ),
+                    child: const Text(
+                      "로딩 스피너 다이얼로그 호출",
+                      style: TextStyle(
+                          color: Colors.white, fontFamily: "MaruBuri"),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  ElevatedButton(
+                      onPressed: () {
+                        business.showDialogInDialog();
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blue,
+                      ),
+                      child: const Text("다중 다이얼로그 샘플 호출",
+                          style: TextStyle(
+                              color: Colors.white, fontFamily: "MaruBuri")))
+                ],
+              ),
             ),
           ),
         ),

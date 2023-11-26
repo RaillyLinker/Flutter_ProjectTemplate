@@ -1,4 +1,5 @@
 // (external)
+import 'dart:math';
 import 'dart:typed_data';
 import 'package:image/image.dart' as img;
 import 'package:flutter/widgets.dart' as widgets;
@@ -85,4 +86,18 @@ class GetGifDetailsOutputVo {
 
   int frameCount;
   int duration;
+}
+
+// (영문, 숫자 랜덤 String 을 length 만큼의 길이로 반환)
+String generateRandomString(int length) {
+  const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+  final random = Random();
+  return String.fromCharCodes(
+    Iterable.generate(
+      length,
+      (_) => chars.codeUnitAt(
+        random.nextInt(chars.length),
+      ),
+    ),
+  );
 }

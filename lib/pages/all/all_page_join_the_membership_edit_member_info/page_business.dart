@@ -22,8 +22,10 @@ import '../../../dialogs/all/all_dialog_auth_join_the_membership_select_member_p
     as all_dialog_auth_join_the_membership_select_member_profile_image_src_view;
 import '../../../dialogs/all/all_dialog_auth_join_the_membership_select_member_profile_image_src/widget_business.dart'
     as all_dialog_auth_join_the_membership_select_member_profile_image_src_business;
-import '../../../dialogs/all/all_dialog_info/page_entrance.dart'
-    as all_dialog_info;
+import '../../../dialogs/all/all_dialog_info/widget_view.dart'
+    as all_dialog_info_view;
+import '../../../dialogs/all/all_dialog_info/widget_business.dart'
+    as all_dialog_info_business;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
 import '../../../../repositories/spws/spw_auth_member_info.dart'
@@ -282,26 +284,37 @@ class PageBusiness {
 
             onNickNameCheckBtnAsyncClicked = false;
           } else {
+            var allDialogInfoBusiness =
+                all_dialog_info_business.WidgetBusiness();
             if (!_context.mounted) return;
             showDialog(
                 barrierDismissible: true,
                 context: _context,
-                builder: (context) => all_dialog_info.PageEntrance(
-                      all_dialog_info.PageInputVo(
-                          "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
+                builder: (context) => all_dialog_info_view.WidgetView(
+                      business: allDialogInfoBusiness,
+                      inputVo: const all_dialog_info_view.InputVo(
+                          dialogTitle: "네트워크 에러",
+                          dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
+                          checkBtnTitle: "확인"),
+                      onDialogCreated: () {},
                     ));
 
             onNickNameCheckBtnAsyncClicked = false;
           }
         } else {
           // Dio 네트워크 에러
+          var allDialogInfoBusiness = all_dialog_info_business.WidgetBusiness();
           if (!_context.mounted) return;
           showDialog(
               barrierDismissible: true,
               context: _context,
-              builder: (context) => all_dialog_info.PageEntrance(
-                    all_dialog_info.PageInputVo(
-                        "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
+              builder: (context) => all_dialog_info_view.WidgetView(
+                    business: allDialogInfoBusiness,
+                    inputVo: const all_dialog_info_view.InputVo(
+                        dialogTitle: "네트워크 에러",
+                        dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
+                        checkBtnTitle: "확인"),
+                    onDialogCreated: () {},
                   ));
 
           onNickNameCheckBtnAsyncClicked = false;
@@ -362,13 +375,18 @@ class PageBusiness {
         if (networkResponseObjectOk.responseStatusCode == 200) {
           // 정상 응답
           // 로그인 네트워크 요청
+          var allDialogInfoBusiness = all_dialog_info_business.WidgetBusiness();
           if (!_context.mounted) return;
           await showDialog(
               barrierDismissible: true,
               context: _context,
-              builder: (context) => all_dialog_info.PageEntrance(
-                    all_dialog_info.PageInputVo(
-                        "회원가입 완료", "회원가입이 완료되었습니다.\n환영합니다.", "확인"),
+              builder: (context) => all_dialog_info_view.WidgetView(
+                    business: allDialogInfoBusiness,
+                    inputVo: const all_dialog_info_view.InputVo(
+                        dialogTitle: "회원가입 완료",
+                        dialogContent: "회원가입이 완료되었습니다.\n환영합니다.",
+                        checkBtnTitle: "확인"),
+                    onDialogCreated: () {},
                   ));
 
           onRegisterBtnClickClicked = false;
@@ -382,13 +400,19 @@ class PageBusiness {
 
           if (responseHeaders.apiResultCode == null) {
             // 비정상 응답이면서 서버에서 에러 원인 코드가 전달되지 않았을 때
+            var allDialogInfoBusiness =
+                all_dialog_info_business.WidgetBusiness();
             if (!_context.mounted) return;
             showDialog(
                 barrierDismissible: true,
                 context: _context,
-                builder: (context) => all_dialog_info.PageEntrance(
-                      all_dialog_info.PageInputVo(
-                          "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
+                builder: (context) => all_dialog_info_view.WidgetView(
+                      business: allDialogInfoBusiness,
+                      inputVo: const all_dialog_info_view.InputVo(
+                          dialogTitle: "네트워크 에러",
+                          dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
+                          checkBtnTitle: "확인"),
+                      onDialogCreated: () {},
                     ));
             onRegisterBtnClickClicked = false;
           } else {
@@ -399,13 +423,19 @@ class PageBusiness {
               case "1":
                 {
                   // 이메일 검증 요청을 보낸 적 없음
+                  var allDialogInfoBusiness =
+                      all_dialog_info_business.WidgetBusiness();
                   if (!_context.mounted) return;
                   await showDialog(
                       barrierDismissible: true,
                       context: _context,
-                      builder: (context) => all_dialog_info.PageEntrance(
-                            all_dialog_info.PageInputVo("회원가입 실패",
-                                "본인 인증 요청 정보가 없습니다.\n다시 인증해주세요.", "확인"),
+                      builder: (context) => all_dialog_info_view.WidgetView(
+                            business: allDialogInfoBusiness,
+                            inputVo: const all_dialog_info_view.InputVo(
+                                dialogTitle: "회원가입 실패",
+                                dialogContent: "본인 인증 요청 정보가 없습니다.\n다시 인증해주세요.",
+                                checkBtnTitle: "확인"),
+                            onDialogCreated: () {},
                           ));
 
                   onRegisterBtnClickClicked = false;
@@ -416,13 +446,20 @@ class PageBusiness {
               case "2":
                 {
                   // 이메일 검증 요청이 만료됨
+                  var allDialogInfoBusiness =
+                      all_dialog_info_business.WidgetBusiness();
                   if (!_context.mounted) return;
                   await showDialog(
                       barrierDismissible: true,
                       context: _context,
-                      builder: (context) => all_dialog_info.PageEntrance(
-                            all_dialog_info.PageInputVo("회원가입 실패",
-                                "본인 인증 요청 정보가 만료되었습니다.\n다시 인증해주세요.", "확인"),
+                      builder: (context) => all_dialog_info_view.WidgetView(
+                            business: allDialogInfoBusiness,
+                            inputVo: const all_dialog_info_view.InputVo(
+                                dialogTitle: "회원가입 실패",
+                                dialogContent:
+                                    "본인 인증 요청 정보가 만료되었습니다.\n다시 인증해주세요.",
+                                checkBtnTitle: "확인"),
+                            onDialogCreated: () {},
                           ));
 
                   onRegisterBtnClickClicked = false;
@@ -433,13 +470,20 @@ class PageBusiness {
               case "3":
                 {
                   // verificationCode 가 일치하지 않음
+                  var allDialogInfoBusiness =
+                      all_dialog_info_business.WidgetBusiness();
                   if (!_context.mounted) return;
                   await showDialog(
                       barrierDismissible: true,
                       context: _context,
-                      builder: (context) => all_dialog_info.PageEntrance(
-                            all_dialog_info.PageInputVo("회원가입 실패",
-                                "본인 인증 요청 정보가 만료되었습니다.\n다시 인증해주세요.", "확인"),
+                      builder: (context) => all_dialog_info_view.WidgetView(
+                            business: allDialogInfoBusiness,
+                            inputVo: const all_dialog_info_view.InputVo(
+                                dialogTitle: "회원가입 실패",
+                                dialogContent:
+                                    "본인 인증 요청 정보가 만료되었습니다.\n다시 인증해주세요.",
+                                checkBtnTitle: "확인"),
+                            onDialogCreated: () {},
                           ));
 
                   onRegisterBtnClickClicked = false;
@@ -450,13 +494,19 @@ class PageBusiness {
               case "4":
                 {
                   // 이미 가입된 회원이 있습니다.
+                  var allDialogInfoBusiness =
+                      all_dialog_info_business.WidgetBusiness();
                   if (!_context.mounted) return;
                   await showDialog(
                       barrierDismissible: true,
                       context: _context,
-                      builder: (context) => all_dialog_info.PageEntrance(
-                            all_dialog_info.PageInputVo(
-                                "회원가입 실패", "이미 가입된 회원 정보입니다.", "확인"),
+                      builder: (context) => all_dialog_info_view.WidgetView(
+                            business: allDialogInfoBusiness,
+                            inputVo: const all_dialog_info_view.InputVo(
+                                dialogTitle: "회원가입 실패",
+                                dialogContent: "이미 가입된 회원 정보입니다.",
+                                checkBtnTitle: "확인"),
+                            onDialogCreated: () {},
                           ));
 
                   onRegisterBtnClickClicked = false;
@@ -484,13 +534,18 @@ class PageBusiness {
         }
       } else {
         // Dio 네트워크 에러
+        var allDialogInfoBusiness = all_dialog_info_business.WidgetBusiness();
         if (!_context.mounted) return;
         showDialog(
             barrierDismissible: true,
             context: _context,
-            builder: (context) => all_dialog_info.PageEntrance(
-                  all_dialog_info.PageInputVo(
-                      "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
+            builder: (context) => all_dialog_info_view.WidgetView(
+                  business: allDialogInfoBusiness,
+                  inputVo: const all_dialog_info_view.InputVo(
+                      dialogTitle: "네트워크 에러",
+                      dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
+                      checkBtnTitle: "확인"),
+                  onDialogCreated: () {},
                 ));
         onRegisterBtnClickClicked = false;
       }

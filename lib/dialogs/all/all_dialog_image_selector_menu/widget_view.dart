@@ -1,25 +1,127 @@
 // (external)
 import 'package:flutter/material.dart';
+import 'package:focus_detector_v2/focus_detector_v2.dart';
 
-// (page)
-import 'page_entrance.dart' as page_entrance;
-import 'page_business.dart' as page_business;
+// (inner Folder)
+import 'widget_business.dart' as widget_business;
 
-// [페이지 화면 위젯 작성 파일]
-// 페이지 화면 구현을 담당합니다. (Widget 과 Business 간의 결합을 담당)
-// 로직 처리는 pageBusiness 객체에 위임하세요.
+// [위젯 뷰]
+// 위젯의 화면 작성은 여기서 합니다.
 
 //------------------------------------------------------------------------------
-// (페이지 UI 위젯)
-// !!!세부 화면 정의!!!
-class PageView extends StatelessWidget {
-  const PageView(this._pageBusiness, {super.key});
+// (입력 데이터)
+class InputVo {
+  const InputVo({required this.cameraAvailable});
 
-  // 페이지 비즈니스 객체
-  final page_business.PageBusiness _pageBusiness;
+// !!!위젯 입력값 선언!!!
+
+  final bool cameraAvailable;
+}
+
+// (결과 데이터)
+class OutputVo {
+  const OutputVo({required this.imageSourceType});
+
+// !!!위젯 출력값 선언!!!
+
+  // 선택한 이미지 소스 타입
+  final ImageSourceType imageSourceType;
+}
+
+enum ImageSourceType {
+  gallery, // 갤러리
+  camera, // 카메라
+  defaultImage, // 기본 이미지
+}
+
+//------------------------------------------------------------------------------
+class WidgetView extends StatefulWidget {
+  const WidgetView(
+      {super.key,
+      required this.business,
+      required this.inputVo,
+      required this.onDialogCreated});
+
+  // 다이얼로그가 Created 된 시점에 한번 실행됨
+  final VoidCallback onDialogCreated;
+
+  @override
+  WidgetViewState createState() => WidgetViewState();
+  final widget_business.WidgetBusiness business;
+  final InputVo inputVo;
+}
+
+class WidgetViewState extends State<WidgetView> with WidgetsBindingObserver {
+  // [콜백 함수]
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    business = widget.business;
+    business.context = context;
+    business.inputVo = widget.inputVo;
+    business.refreshUi = refreshUi;
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    WidgetsBinding.instance.removeObserver(this);
+    business.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
+    return PopScope(
+      canPop: business.canPop,
+      child: FocusDetector(
+        // (페이지 위젯의 FocusDetector 콜백들)
+        onFocusGained: () async {
+          if (!business.onPageCreated) {
+            business.onCreated();
+            widget.onDialogCreated();
+            business.onPageCreated = true;
+          }
+
+          business.onFocusGained();
+        },
+        onFocusLost: () async {
+          business.onFocusLost();
+        },
+        onVisibilityGained: () async {
+          business.onVisibilityGained();
+        },
+        onVisibilityLost: () async {
+          business.onVisibilityLost();
+        },
+        onForegroundGained: () async {
+          business.onForegroundGained();
+        },
+        onForegroundLost: () async {
+          business.onForegroundLost();
+        },
+        child: WidgetUi.viewWidgetBuild(context: context, business: business),
+      ),
+    );
+  }
+
+  // [public 변수]
+  late widget_business.WidgetBusiness business;
+
+  // [public 함수]
+  // (Stateful Widget 화면 갱신)
+  void refreshUi() {
+    setState(() {});
+  }
+}
+
+class WidgetUi {
+  // [뷰 위젯]
+  static Widget viewWidgetBuild(
+      {required BuildContext context,
+      required widget_business.WidgetBusiness business}) {
+    // !!!뷰 위젯 반환 콜백 작성 하기!!!
+
     return Dialog(
       elevation: 0,
       backgroundColor: Colors.transparent,
@@ -69,8 +171,8 @@ class PageView extends StatelessWidget {
                         children: <Widget>[
                           GestureDetector(
                             onTap: () {
-                              _pageBusiness.onResultSelected(
-                                  page_entrance.ImageSourceType.gallery);
+                              business
+                                  .onResultSelected(ImageSourceType.gallery);
                             },
                             child: const ListTile(
                               mouseCursor: SystemMouseCursors.click,
@@ -78,11 +180,11 @@ class PageView extends StatelessWidget {
                               title: Text('앨범에서 선택'),
                             ),
                           ),
-                          _pageBusiness.pageInputVo.cameraAvailable
+                          business.inputVo.cameraAvailable
                               ? GestureDetector(
                                   onTap: () {
-                                    _pageBusiness.onResultSelected(
-                                        page_entrance.ImageSourceType.camera);
+                                    business.onResultSelected(
+                                        ImageSourceType.camera);
                                   },
                                   child: const ListTile(
                                     mouseCursor: SystemMouseCursors.click,
@@ -93,8 +195,8 @@ class PageView extends StatelessWidget {
                               : const SizedBox(),
                           GestureDetector(
                             onTap: () {
-                              _pageBusiness.onResultSelected(
-                                  page_entrance.ImageSourceType.defaultImage);
+                              business.onResultSelected(
+                                  ImageSourceType.defaultImage);
                             },
                             child: const ListTile(
                               mouseCursor: SystemMouseCursors.click,
@@ -115,60 +217,3 @@ class PageView extends StatelessWidget {
     );
   }
 }
-
-// ex :
-// (Stateless 위젯 템플릿)
-// class StatelessWidgetTemplate extends StatelessWidget {
-//   const StatelessWidgetTemplate(this.viewModel, {required super.key});
-//
-//   // 위젯 뷰모델
-//   final StatelessWidgetTemplateViewModel viewModel;
-//
-//   //!!!주입 받을 하위 위젯 선언 하기!!!
-//
-//   // !!!하위 위젯 작성하기. (viewModel 에서 데이터를 가져와 사용)!!!
-//   @override
-//   Widget build(BuildContext context) {
-//     return Text(viewModel.sampleText);
-//   }
-// }
-//
-// class StatelessWidgetTemplateViewModel {
-//   StatelessWidgetTemplateViewModel(this.sampleText);
-//
-//   // !!!위젯 상태 변수 선언하기!!!
-//   final String sampleText;
-// }
-
-// (Stateful 위젯 템플릿)
-// class StatefulWidgetTemplate extends StatefulWidget {
-//   const StatefulWidgetTemplate(this.viewModel, {required super.key});
-//
-//   // 위젯 뷰모델
-//   final StatefulWidgetTemplateViewModel viewModel;
-//
-//   //!!!주입 받을 하위 위젯 선언 하기!!!
-//
-//   @override
-//   StatefulWidgetTemplateState createState() => StatefulWidgetTemplateState();
-// }
-//
-// class StatefulWidgetTemplateViewModel {
-//   StatefulWidgetTemplateViewModel(this.sampleInt);
-//
-//   // !!!위젯 상태 변수 선언하기!!!
-//   int sampleInt;
-// }
-//
-// class StatefulWidgetTemplateState extends State<StatefulWidgetTemplate> {
-//   // Stateful Widget 화면 갱신
-//   void refresh() {
-//     setState(() {});
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     // !!!하위 위젯 작성하기. (widget.viewModel 에서 데이터를 가져와 사용)!!!
-//     return Text(widget.viewModel.sampleInt.toString());
-//   }
-// }

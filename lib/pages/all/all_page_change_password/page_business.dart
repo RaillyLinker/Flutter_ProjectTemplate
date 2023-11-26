@@ -12,8 +12,10 @@ import '../../../global_widgets/gw_page_outer_frame/widget_business.dart'
     as gw_page_outer_frame_business;
 import '../../../../repositories/network/apis/api_main_server.dart'
     as api_main_server;
-import '../../../dialogs/all/all_dialog_info/page_entrance.dart'
-    as all_dialog_info;
+import '../../../dialogs/all/all_dialog_info/widget_view.dart'
+    as all_dialog_info_view;
+import '../../../dialogs/all/all_dialog_info/widget_business.dart'
+    as all_dialog_info_business;
 import '../../../dialogs/all/all_dialog_loading_spinner/page_entrance.dart'
     as all_dialog_loading_spinner;
 import '../../../dialogs/all/all_dialog_yes_or_no/page_entrance.dart'
@@ -450,13 +452,18 @@ class PageBusiness {
         // 비정상 응답
         if (responseHeaders.apiResultCode == null) {
           // 비정상 응답이면서 서버에서 에러 원인 코드가 전달되지 않았을 때
+          var allDialogInfoBusiness = all_dialog_info_business.WidgetBusiness();
           if (!_context.mounted) return;
           showDialog(
               barrierDismissible: true,
               context: _context,
-              builder: (context) => all_dialog_info.PageEntrance(
-                    all_dialog_info.PageInputVo(
-                        "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
+              builder: (context) => all_dialog_info_view.WidgetView(
+                    business: allDialogInfoBusiness,
+                    inputVo: const all_dialog_info_view.InputVo(
+                        dialogTitle: "네트워크 에러",
+                        dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
+                        checkBtnTitle: "확인"),
+                    onDialogCreated: () {},
                   ));
         } else {
           // 서버 지정 에러 코드를 전달 받았을 때
@@ -466,39 +473,57 @@ class PageBusiness {
             case "1":
               {
                 // 탈퇴된 회원
+                var allDialogInfoBusiness =
+                    all_dialog_info_business.WidgetBusiness();
                 if (!_context.mounted) return;
                 await showDialog(
                     barrierDismissible: true,
                     context: _context,
-                    builder: (context) => all_dialog_info.PageEntrance(
-                          all_dialog_info.PageInputVo(
-                              "비밀번호 변경 실패", "탈퇴된 회원입니다.", "확인"),
+                    builder: (context) => all_dialog_info_view.WidgetView(
+                          business: allDialogInfoBusiness,
+                          inputVo: const all_dialog_info_view.InputVo(
+                              dialogTitle: "비밀번호 변경 실패",
+                              dialogContent: "탈퇴된 회원입니다.",
+                              checkBtnTitle: "확인"),
+                          onDialogCreated: () {},
                         ));
               }
               break;
             case "2":
               {
                 // 기존 비밀번호가 일치하지 않음
+                var allDialogInfoBusiness =
+                    all_dialog_info_business.WidgetBusiness();
                 if (!_context.mounted) return;
                 await showDialog(
                     barrierDismissible: true,
                     context: _context,
-                    builder: (context) => all_dialog_info.PageEntrance(
-                          all_dialog_info.PageInputVo(
-                              "비밀번호 변경 실패", "입력한 현재 비밀번호가\n일치하지 않습니다.", "확인"),
+                    builder: (context) => all_dialog_info_view.WidgetView(
+                          business: allDialogInfoBusiness,
+                          inputVo: const all_dialog_info_view.InputVo(
+                              dialogTitle: "비밀번호 변경 실패",
+                              dialogContent: "입력한 현재 비밀번호가\n일치하지 않습니다.",
+                              checkBtnTitle: "확인"),
+                          onDialogCreated: () {},
                         ));
               }
               break;
             case "3":
               {
                 // 비번을 null 로 만들려고 할 때 account 외의 OAuth2 인증이 없기에 비번 제거 불가
+                var allDialogInfoBusiness =
+                    all_dialog_info_business.WidgetBusiness();
                 if (!_context.mounted) return;
                 await showDialog(
                     barrierDismissible: true,
                     context: _context,
-                    builder: (context) => all_dialog_info.PageEntrance(
-                          all_dialog_info.PageInputVo(
-                              "비밀번호 변경 실패", "비밀번호를 제거할 수 없습니다.", "확인"),
+                    builder: (context) => all_dialog_info_view.WidgetView(
+                          business: allDialogInfoBusiness,
+                          inputVo: const all_dialog_info_view.InputVo(
+                              dialogTitle: "비밀번호 변경 실패",
+                              dialogContent: "비밀번호를 제거할 수 없습니다.",
+                              checkBtnTitle: "확인"),
+                          onDialogCreated: () {},
                         ));
               }
               break;
@@ -512,13 +537,18 @@ class PageBusiness {
       }
     } else {
       // Dio 네트워크 에러
+      var allDialogInfoBusiness = all_dialog_info_business.WidgetBusiness();
       if (!_context.mounted) return;
       showDialog(
           barrierDismissible: true,
           context: _context,
-          builder: (context) => all_dialog_info.PageEntrance(
-                all_dialog_info.PageInputVo(
-                    "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
+          builder: (context) => all_dialog_info_view.WidgetView(
+                business: allDialogInfoBusiness,
+                inputVo: const all_dialog_info_view.InputVo(
+                    dialogTitle: "네트워크 에러",
+                    dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
+                    checkBtnTitle: "확인"),
+                onDialogCreated: () {},
               ));
     }
   }

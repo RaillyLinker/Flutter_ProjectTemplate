@@ -19,8 +19,10 @@ import '../../../../../repositories/network/apis/api_main_server.dart'
     as api_main_server;
 import '../../../../../repositories/spws/spw_auth_member_info.dart'
     as spw_auth_member_info;
-import '../../../dialogs/all/all_dialog_info/page_entrance.dart'
-    as all_dialog_info;
+import '../../../dialogs/all/all_dialog_info/widget_view.dart'
+    as all_dialog_info_view;
+import '../../../dialogs/all/all_dialog_info/widget_business.dart'
+    as all_dialog_info_business;
 import '../../../dialogs/all/all_dialog_yes_or_no/page_entrance.dart'
     as all_dialog_yes_or_no;
 import '../../../global_classes/gc_my_classes.dart' as gc_my_classes;
@@ -234,13 +236,19 @@ class PageBusiness {
           if (defaultTargetPlatform == TargetPlatform.iOS ||
               defaultTargetPlatform == TargetPlatform.android) {
             // 모바일 환경 : 업데이트 스토어로 이동
+            var allDialogInfoBusiness =
+                all_dialog_info_business.WidgetBusiness();
             if (!_context.mounted) return;
             showDialog(
                 barrierDismissible: true,
                 context: _context,
-                builder: (context) => all_dialog_info.PageEntrance(
-                      all_dialog_info.PageInputVo(
-                          "업데이트 필요", "새 버전 업데이트가 필요합니다.", "확인"),
+                builder: (context) => all_dialog_info_view.WidgetView(
+                      business: allDialogInfoBusiness,
+                      inputVo: const all_dialog_info_view.InputVo(
+                          dialogTitle: "업데이트 필요",
+                          dialogContent: "새 버전 업데이트가 필요합니다.",
+                          checkBtnTitle: "확인"),
+                      onDialogCreated: () {},
                     )).then((value) {
               // 앱 업데이트 스토어로 이동
               try {
@@ -255,13 +263,19 @@ class PageBusiness {
             });
           } else {
             // PC 환경 : 업데이트 정보를 알려주고 종료
+            var allDialogInfoBusiness =
+                all_dialog_info_business.WidgetBusiness();
             if (!_context.mounted) return;
             showDialog(
                 barrierDismissible: true,
                 context: _context,
-                builder: (context) => all_dialog_info.PageEntrance(
-                      all_dialog_info.PageInputVo(
-                          "업데이트 필요", "새 버전 업데이트가 필요합니다.", "확인"),
+                builder: (context) => all_dialog_info_view.WidgetView(
+                      business: allDialogInfoBusiness,
+                      inputVo: const all_dialog_info_view.InputVo(
+                          dialogTitle: "업데이트 필요",
+                          dialogContent: "새 버전 업데이트가 필요합니다.",
+                          checkBtnTitle: "확인"),
+                      onDialogCreated: () {},
                     )).then((value) {
               // !!!앱 업데이트 사이트로 이동!!!
               launchUrl(Uri.parse('https://todo.com')).then((value) {
@@ -447,13 +461,20 @@ class PageBusiness {
               if (pageViewModel.signInRetryCount ==
                   pageViewModel.signInRetryCountLimit) {
                 pageViewModel.signInRetryCount = 0;
+                var allDialogInfoBusiness =
+                    all_dialog_info_business.WidgetBusiness();
                 if (!_context.mounted) return;
                 await showDialog(
                     barrierDismissible: true,
                     context: _context,
-                    builder: (context) => all_dialog_info.PageEntrance(
-                          all_dialog_info.PageInputVo("로그인 실패",
-                              "저장된 로그인 정보를 사용할 수 없습니다.\n비회원 상태로 전환합니다.", "확인"),
+                    builder: (context) => all_dialog_info_view.WidgetView(
+                          business: allDialogInfoBusiness,
+                          inputVo: const all_dialog_info_view.InputVo(
+                              dialogTitle: "로그인 실패",
+                              dialogContent:
+                                  "저장된 로그인 정보를 사용할 수 없습니다.\n비회원 상태로 전환합니다.",
+                              checkBtnTitle: "확인"),
+                          onDialogCreated: () {},
                         ));
 
                 // login_user_info SSW 비우기 (= 로그아웃 처리)
@@ -512,13 +533,20 @@ class PageBusiness {
           if (pageViewModel.signInRetryCount ==
               pageViewModel.signInRetryCountLimit) {
             pageViewModel.signInRetryCount = 0;
+            var allDialogInfoBusiness =
+                all_dialog_info_business.WidgetBusiness();
             if (!_context.mounted) return;
             await showDialog(
                 barrierDismissible: true,
                 context: _context,
-                builder: (context) => all_dialog_info.PageEntrance(
-                      all_dialog_info.PageInputVo("로그인 실패",
-                          "저장된 로그인 정보를 사용할 수 없습니다.\n비회원 상태로 전환합니다.", "확인"),
+                builder: (context) => all_dialog_info_view.WidgetView(
+                      business: allDialogInfoBusiness,
+                      inputVo: const all_dialog_info_view.InputVo(
+                          dialogTitle: "로그인 실패",
+                          dialogContent:
+                              "저장된 로그인 정보를 사용할 수 없습니다.\n비회원 상태로 전환합니다.",
+                          checkBtnTitle: "확인"),
+                      onDialogCreated: () {},
                     ));
 
             // login_user_info SSW 비우기 (= 로그아웃 처리)

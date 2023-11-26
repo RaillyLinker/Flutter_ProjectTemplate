@@ -12,8 +12,10 @@ import '../../../global_widgets/gw_page_outer_frame/widget_business.dart'
     as gw_page_outer_frame_business;
 import '../../../../repositories/network/apis/api_main_server.dart'
     as api_main_server;
-import '../../../dialogs/all/all_dialog_info/page_entrance.dart'
-    as all_dialog_info;
+import '../../../dialogs/all/all_dialog_info/widget_view.dart'
+    as all_dialog_info_view;
+import '../../../dialogs/all/all_dialog_info/widget_business.dart'
+    as all_dialog_info_business;
 import '../../../dialogs/all/all_dialog_loading_spinner/page_entrance.dart'
     as all_dialog_loading_spinner;
 import '../../../global_classes/gc_template_classes.dart'
@@ -205,13 +207,19 @@ class PageBusiness {
 
           if (responseHeaders.apiResultCode == null) {
             // 비정상 응답이면서 서버에서 에러 원인 코드가 전달되지 않았을 때
+            var allDialogInfoBusiness =
+                all_dialog_info_business.WidgetBusiness();
             if (!_context.mounted) return;
             showDialog(
                 barrierDismissible: true,
                 context: _context,
-                builder: (context) => all_dialog_info.PageEntrance(
-                      all_dialog_info.PageInputVo(
-                          "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
+                builder: (context) => all_dialog_info_view.WidgetView(
+                      business: allDialogInfoBusiness,
+                      inputVo: const all_dialog_info_view.InputVo(
+                          dialogTitle: "네트워크 에러",
+                          dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
+                          checkBtnTitle: "확인"),
+                      onDialogCreated: () {},
                     ));
           } else {
             // 서버 지정 에러 코드를 전달 받았을 때
@@ -221,13 +229,19 @@ class PageBusiness {
               case "1":
                 {
                   // 가입되지 않은 회원
+                  var allDialogInfoBusiness =
+                      all_dialog_info_business.WidgetBusiness();
                   if (!_context.mounted) return;
                   showDialog(
                       barrierDismissible: true,
                       context: _context,
-                      builder: (context) => all_dialog_info.PageEntrance(
-                            all_dialog_info.PageInputVo(
-                                "인증 이메일 발송 실패", "가입되지 않은 이메일입니다.", "확인"),
+                      builder: (context) => all_dialog_info_view.WidgetView(
+                            business: allDialogInfoBusiness,
+                            inputVo: const all_dialog_info_view.InputVo(
+                                dialogTitle: "인증 이메일 발송 실패",
+                                dialogContent: "가입되지 않은 이메일입니다.",
+                                checkBtnTitle: "확인"),
+                            onDialogCreated: () {},
                           ));
                 }
                 break;
@@ -241,13 +255,18 @@ class PageBusiness {
         }
       } else {
         loadingSpinner.pageBusiness.closeDialog();
+        var allDialogInfoBusiness = all_dialog_info_business.WidgetBusiness();
         if (!_context.mounted) return;
         showDialog(
             barrierDismissible: true,
             context: _context,
-            builder: (context) => all_dialog_info.PageEntrance(
-                  all_dialog_info.PageInputVo(
-                      "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
+            builder: (context) => all_dialog_info_view.WidgetView(
+                  business: allDialogInfoBusiness,
+                  inputVo: const all_dialog_info_view.InputVo(
+                      dialogTitle: "네트워크 에러",
+                      dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
+                      checkBtnTitle: "확인"),
+                  onDialogCreated: () {},
                 ));
       }
 
@@ -338,17 +357,20 @@ class PageBusiness {
           pageViewModel.emailTextEditErrorMsg = null;
           blocObjects.blocEmailEditText.refresh();
 
+          var allDialogInfoBusiness = all_dialog_info_business.WidgetBusiness();
           if (!_context.mounted) return;
           await showDialog(
               barrierDismissible: true,
               context: _context,
-              builder: (context) => all_dialog_info.PageEntrance(
-                    all_dialog_info.PageInputVo(
-                        "비밀번호 찾기 완료",
-                        "새로운 비밀번호가\n"
+              builder: (context) => all_dialog_info_view.WidgetView(
+                    business: allDialogInfoBusiness,
+                    inputVo: all_dialog_info_view.InputVo(
+                        dialogTitle: "비밀번호 찾기 완료",
+                        dialogContent: "새로운 비밀번호가\n"
                             "이메일로 전송되었습니다.\n"
                             "($email)",
-                        "확인"),
+                        checkBtnTitle: "확인"),
+                    onDialogCreated: () {},
                   ));
 
           if (!_context.mounted) return;
@@ -361,13 +383,19 @@ class PageBusiness {
 
           if (responseHeaders.apiResultCode == null) {
             // 비정상 응답이면서 서버에서 에러 원인 코드가 전달되지 않았을 때
+            var allDialogInfoBusiness =
+                all_dialog_info_business.WidgetBusiness();
             if (!_context.mounted) return;
             showDialog(
                 barrierDismissible: true,
                 context: _context,
-                builder: (context) => all_dialog_info.PageEntrance(
-                      all_dialog_info.PageInputVo(
-                          "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
+                builder: (context) => all_dialog_info_view.WidgetView(
+                      business: allDialogInfoBusiness,
+                      inputVo: const all_dialog_info_view.InputVo(
+                          dialogTitle: "네트워크 에러",
+                          dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
+                          checkBtnTitle: "확인"),
+                      onDialogCreated: () {},
                     ));
           } else {
             // 서버 지정 에러 코드를 전달 받았을 때
@@ -377,55 +405,77 @@ class PageBusiness {
               case "1":
                 {
                   // 이메일 검증 요청을 보낸 적 없음
+                  var allDialogInfoBusiness =
+                      all_dialog_info_business.WidgetBusiness();
                   if (!_context.mounted) return;
                   showDialog(
                       barrierDismissible: true,
                       context: _context,
-                      builder: (context) => all_dialog_info.PageEntrance(
-                            all_dialog_info.PageInputVo(
-                                "비밀번호 찾기 실패",
-                                "이메일 검증 요청을 보내지 않았습니다.\n"
+                      builder: (context) => all_dialog_info_view.WidgetView(
+                            business: allDialogInfoBusiness,
+                            inputVo: const all_dialog_info_view.InputVo(
+                                dialogTitle: "비밀번호 찾기 실패",
+                                dialogContent: "이메일 검증 요청을 보내지 않았습니다.\n"
                                     "이메일 발송 버튼을 누르세요.",
-                                "확인"),
+                                checkBtnTitle: "확인"),
+                            onDialogCreated: () {},
                           ));
                 }
                 break;
               case "2":
                 {
                   // 이메일 검증 요청이 만료됨
+                  var allDialogInfoBusiness =
+                      all_dialog_info_business.WidgetBusiness();
                   if (!_context.mounted) return;
                   showDialog(
                       barrierDismissible: true,
                       context: _context,
-                      builder: (context) => all_dialog_info.PageEntrance(
-                            all_dialog_info.PageInputVo(
-                                "비밀번호 찾기 실패", "이메일 검증 요청이 만료되었습니다.", "확인"),
+                      builder: (context) => all_dialog_info_view.WidgetView(
+                            business: allDialogInfoBusiness,
+                            inputVo: const all_dialog_info_view.InputVo(
+                                dialogTitle: "비밀번호 찾기 실패",
+                                dialogContent: "이메일 검증 요청이 만료되었습니다.",
+                                checkBtnTitle: "확인"),
+                            onDialogCreated: () {},
                           ));
                 }
                 break;
               case "3":
                 {
                   // verificationCode 가 일치하지 않음
+                  var allDialogInfoBusiness =
+                      all_dialog_info_business.WidgetBusiness();
                   if (!_context.mounted) return;
                   showDialog(
                       barrierDismissible: true,
                       context: _context,
-                      builder: (context) => all_dialog_info.PageEntrance(
-                            all_dialog_info.PageInputVo(
-                                "비밀번호 찾기 실패", "본인 인증 코드가 일치하지 않습니다.", "확인"),
+                      builder: (context) => all_dialog_info_view.WidgetView(
+                            business: allDialogInfoBusiness,
+                            inputVo: const all_dialog_info_view.InputVo(
+                                dialogTitle: "비밀번호 찾기 실패",
+                                dialogContent: "본인 인증 코드가 일치하지 않습니다.",
+                                checkBtnTitle: "확인"),
+                            onDialogCreated: () {},
                           ));
                 }
                 break;
               case "4":
                 {
                   // 탈퇴한 회원입니다.
+                  var allDialogInfoBusiness =
+                      all_dialog_info_business.WidgetBusiness();
                   if (!_context.mounted) return;
                   showDialog(
                       barrierDismissible: true,
                       context: _context,
-                      builder: (context) => all_dialog_info.PageEntrance(
-                            all_dialog_info.PageInputVo(
-                                "비밀번호 찾기 실패", "탈퇴된 이메일입니다.", "확인"),
+                      builder: (context) => all_dialog_info_view.WidgetView(
+                            business: allDialogInfoBusiness,
+                            inputVo: const all_dialog_info_view.InputVo(
+                                dialogTitle: "비밀번호 찾기 실패",
+                                dialogContent: "탈퇴된 이메일입니다.",
+                                checkBtnTitle: "확인"),
+                            onDialogCreated: () {},
                           ));
                 }
                 break;
@@ -439,13 +489,18 @@ class PageBusiness {
         }
       } else {
         loadingSpinner.pageBusiness.closeDialog();
+        var allDialogInfoBusiness = all_dialog_info_business.WidgetBusiness();
         if (!_context.mounted) return;
         showDialog(
             barrierDismissible: true,
             context: _context,
-            builder: (context) => all_dialog_info.PageEntrance(
-                  all_dialog_info.PageInputVo(
-                      "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
+            builder: (context) => all_dialog_info_view.WidgetView(
+                  business: allDialogInfoBusiness,
+                  inputVo: const all_dialog_info_view.InputVo(
+                      dialogTitle: "네트워크 에러",
+                      dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
+                      checkBtnTitle: "확인"),
+                  onDialogCreated: () {},
                 ));
       }
     }

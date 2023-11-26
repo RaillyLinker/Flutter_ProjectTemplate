@@ -11,8 +11,10 @@ import '../../../global_widgets/gw_page_outer_frame/widget_business.dart'
     as gw_page_outer_frame_business;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
-import '../../../dialogs/all/all_dialog_info/page_entrance.dart'
-    as all_dialog_info;
+import '../../../dialogs/all/all_dialog_info/widget_view.dart'
+    as all_dialog_info_view;
+import '../../../dialogs/all/all_dialog_info/widget_business.dart'
+    as all_dialog_info_business;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
 // Flutter 에서 값 입력 처리 방식은 여러가지인데,
@@ -125,18 +127,21 @@ class PageBusiness {
     String input3 = pageViewModel.inputNumberTextFieldController.text;
     String input4 = pageViewModel.inputSecretTextFieldController.text;
 
+    var allDialogInfoBusiness = all_dialog_info_business.WidgetBusiness();
     showDialog(
         barrierDismissible: true,
         context: _context,
-        builder: (context) => all_dialog_info.PageEntrance(
-              all_dialog_info.PageInputVo(
-                "폼 입력 결과",
-                "입력1 : $input1\n"
+        builder: (context) => all_dialog_info_view.WidgetView(
+              business: allDialogInfoBusiness,
+              inputVo: all_dialog_info_view.InputVo(
+                dialogTitle: "폼 입력 결과",
+                dialogContent: "입력1 : $input1\n"
                     "입력2 : $input2\n"
                     "입력3 : $input3\n"
                     "입력4 : $input4",
-                "확인",
+                checkBtnTitle: "확인",
               ),
+              onDialogCreated: () {},
             ));
   }
 
