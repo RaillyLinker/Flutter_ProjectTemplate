@@ -32,14 +32,13 @@ class WidgetView extends StatelessWidget {
   // [뷰 위젯]
   Widget viewWidgetBuild({required BuildContext context}) {
     return StatefulView(
-      key: business.statefulGk,
       business: business,
     );
   }
 }
 
 class StatefulView extends StatefulWidget {
-  const StatefulView({required super.key, required this.business});
+  const StatefulView({super.key, required this.business});
 
   // [콜백 함수]
   @override
@@ -57,6 +56,7 @@ class StatefulBusiness extends State<StatefulView> {
   @override
   Widget build(BuildContext context) {
     widget.business.context = context;
+    widget.business.refreshUi = refreshUi;
     return WidgetUi.viewWidgetBuild(
         context: context, business: widget.business);
   }

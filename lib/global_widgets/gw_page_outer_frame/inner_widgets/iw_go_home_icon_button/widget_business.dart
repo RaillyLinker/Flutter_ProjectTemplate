@@ -10,9 +10,6 @@ import 'widget_view.dart' as widget_view;
 // -----------------------------------------------------------------------------
 class WidgetBusiness {
   // [public 변수]
-  // (위젯 state GlobalKey)
-  final GlobalKey<widget_view.StatefulBusiness> statefulGk = GlobalKey();
-
   // (위젯 Context)
   late BuildContext context;
 
@@ -26,9 +23,7 @@ class WidgetBusiness {
 
   // [public 함수]
   // (Stateful Widget 화면 갱신)
-  void refreshUi() {
-    statefulGk.currentState?.refreshUi();
-  }
+  late VoidCallback refreshUi;
 
 // [private 함수]
 }
