@@ -1,14 +1,12 @@
 // (external)
 import 'package:flutter/material.dart';
-import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 
-// (page)
-import 'page_entrance.dart' as page_entrance;
+// (inner Folder)
+import 'widget_view.dart' as widget_view;
 
 // (all)
-import '../../../global_classes/gc_template_classes.dart'
-    as gc_template_classes;
 import '../../../../repositories/network/apis/api_main_server.dart'
     as api_main_server;
 import '../../../../repositories/spws/spw_auth_member_info.dart'
@@ -19,46 +17,31 @@ import '../../../dialogs/all/all_dialog_info/page_entrance.dart'
 import '../../../dialogs/all/all_dialog_loading_spinner/page_entrance.dart'
     as all_dialog_loading_spinner;
 
-// [페이지 비즈니스 로직 및 뷰모델 작성 파일]
+// [위젯 비즈니스]
+// 위젯의 비즈니스 로직 + State 변수 처리는 이 곳에서 합니다.
 
 //------------------------------------------------------------------------------
 // 페이지의 비즈니스 로직 담당
 // PageBusiness 인스턴스는 해당 페이지가 소멸하기 전까지 활용됩니다.
-class PageBusiness {
-  PageBusiness(this._context, this.pageInputVo) {
-    pageViewModel = PageViewModel(_context);
+class WidgetBusiness {
+  // [콜백 함수]
+  // (전체 위젯 처음 실행 콜백)
+  void onCreated() {
+    // !!!onCreated 로직 작성!!!
+
+    verificationUid = inputVo.verificationUid;
   }
 
-  // 페이지 컨텍스트 객체
-  final BuildContext _context;
-
-  // 페이지 생명주기 관련 states
-  final gc_template_classes.PageLifeCycleStates pageLifeCycleStates =
-      gc_template_classes.PageLifeCycleStates();
-
-  // 페이지 파라미터
-  final page_entrance.PageInputVo pageInputVo;
-
-  // 페이지 뷰모델 객체
-  late PageViewModel pageViewModel;
-
-  ////
-  // [페이지 생명주기]
-  // - 페이지 최초 실행 : onPageCreateAsync -> onPageResumeAsync
-  // - 다른 페이지 호출 / 복귀, 화면 끄기 / 켜기, 모바일에서 다른 앱으로 이동 및 복귀시 :
-  // onPagePauseAsync -> onPageResumeAsync -> onPagePauseAsync -> onPageResumeAsync 반복
-  // - 페이지 종료 : onPageWillPopAsync -(return true 일 때)-> onPagePauseAsync -> onPageDestroyAsync 실행
-
-  // (페이지 최초 실행)
-  Future<void> onPageCreateAsync() async {
-    // !!!페이지 최초 실행 로직 작성!!!
-
-    pageViewModel.verificationUid = pageInputVo.verificationUid;
+  // (전체 위젯 dispose)
+  void dispose() {
+    // !!!initState 로직 작성!!!
+    verificationCodeTextFieldController.dispose();
+    verificationCodeTextFieldFocus.dispose();
   }
 
-  // (페이지 최초 실행 or 다른 페이지에서 복귀)
-  Future<void> onPageResumeAsync() async {
-    // !!!위젯 최초 실행 및, 다른 페이지에서 복귀 로직 작성!!!
+  // (전체 위젯의 FocusDetector 콜백들)
+  void onFocusGained() async {
+    // !!!onFocusGained 로직 작성!!!
 
     // 검증된 현재 회원 정보 가져오기 (비회원이라면 null)
     spw_auth_member_info.SharedPreferenceWrapperVo? nowLoginMemberInfo =
@@ -66,53 +49,76 @@ class PageBusiness {
 
     if (nowLoginMemberInfo != null) {
       // 로그인 상태라면 다이얼로그 닫기
-      _context.pop();
+      context.pop();
       return;
     }
   }
 
-  // (페이지 종료 or 다른 페이지로 이동 (강제 종료는 탐지 못함))
-  Future<void> onPagePauseAsync() async {
-    // !!!위젯 종료 및, 다른 페이지로 이동 로직 작성!!!
+  void onFocusLost() async {
+    // !!!onFocusLost 로직 작성!!!
   }
 
-  // (페이지 종료 (강제 종료, web 에서 브라우저 뒤로가기 버튼을 눌렀을 때는 탐지 못함))
-  Future<void> onPageDestroyAsync() async {
-    // !!!페이지 종료 로직 작성!!!
-    pageViewModel.verificationCodeTextFieldController.dispose();
-    pageViewModel.verificationCodeTextFieldFocus.dispose();
+  void onVisibilityGained() async {
+    // !!!onFocusLost 로직 작성!!!
   }
 
-  // (Page Pop 요청)
-  // context.pop() 호출 직후 호출
-  // return 이 true 라면 onWidgetPause 부터 onPageDestroyAsync 까지 실행 되며 페이지 종료
-  // return 이 false 라면 pop 되지 않고 그대로 대기
-  Future<bool> onPageWillPopAsync() async {
-    // !!!onWillPop 로직 작성!!!
-
-    return true;
+  void onVisibilityLost() async {
+    // !!!onVisibilityLost 로직 작성!!!
   }
 
-  ////
-  // [비즈니스 함수]
-  // !!!외부에서 사용할 비즈니스 로직은 아래에 공개 함수로 구현!!!
+  void onForegroundGained() async {
+    // !!!onForegroundGained 로직 작성!!!
+  }
+
+  void onForegroundLost() async {
+    // !!!onForegroundLost 로직 작성!!!
+  }
+
+  // [public 변수]
+  // (초기화 여부)
+  bool onPageCreated = false;
+
+  // (위젯 Context)
+  late BuildContext context;
+
+  // (위젯 입력값)
+  late widget_view.InputVo inputVo;
+
+  // (페이지 pop 가능 여부 변수)
+  bool canPop = true;
+
+  late int verificationUid;
+
+  // VerificationCode Form 필드 관련 전체 키
+  final verificationCodeTextFieldKey = GlobalKey<FormFieldState>();
+  final TextEditingController verificationCodeTextFieldController =
+      TextEditingController();
+  final FocusNode verificationCodeTextFieldFocus = FocusNode();
+  String? verificationCodeTextFieldErrorMsg;
+
+  // [private 변수]
+
+  // [public 함수]
+  // (Widget 화면 갱신) - WidgetUi.viewWidgetBuild 의 return 값을 다시 불러 옵니다.
+  late VoidCallback refreshUi;
+
   // (다이얼로그 종료 함수)
   void closeDialog() {
-    _context.pop();
+    context.pop();
   }
 
   void onVerificationCodeInputChanged(String? value) {
-    if (pageViewModel.verificationCodeTextFieldErrorMsg != null) {
-      pageViewModel.verificationCodeTextFieldErrorMsg = null;
-      pageViewModel.verificationCodeTextFieldKey.currentState?.reset();
+    if (verificationCodeTextFieldErrorMsg != null) {
+      verificationCodeTextFieldErrorMsg = null;
+      verificationCodeTextFieldKey.currentState?.reset();
     }
   }
 
   String? onVerificationCodeInputValidateAndReturnErrorMsg(String? value) {
     // 검사 : return 으로 반환하는 에러 메세지가 null 이 아니라면 에러로 처리
     if (value == null || value.isEmpty) {
-      pageViewModel.verificationCodeTextFieldErrorMsg = "이 항목을 입력 하세요.";
-      return pageViewModel.verificationCodeTextFieldErrorMsg;
+      verificationCodeTextFieldErrorMsg = "이 항목을 입력 하세요.";
+      return verificationCodeTextFieldErrorMsg;
     }
     return null;
   }
@@ -125,7 +131,7 @@ class PageBusiness {
       return;
     }
     isVerifyCodeAndGoNextDoing = true;
-    if (pageViewModel.verificationCodeTextFieldKey.currentState!.validate()) {
+    if (verificationCodeTextFieldKey.currentState!.validate()) {
       // 코드 검증
       // (로딩 스피너 다이얼로그 호출)
       var loadingSpinner = all_dialog_loading_spinner.PageEntrance(
@@ -133,17 +139,17 @@ class PageBusiness {
 
       showDialog(
           barrierDismissible: false,
-          context: _context,
+          context: context,
           builder: (context) => loadingSpinner).then((outputVo) {});
 
       var responseVo = await api_main_server
           .getService1TkV1AuthJoinTheMembershipEmailVerificationCheckAsync(
               requestQueryVo: api_main_server
                   .GetService1TkV1AuthJoinTheMembershipEmailVerificationCheckAsyncRequestQueryVo(
-                      verificationUid: pageViewModel.verificationUid,
-                      email: pageInputVo.emailAddress,
-                      verificationCode: pageViewModel
-                          .verificationCodeTextFieldController.text));
+                      verificationUid: verificationUid,
+                      email: inputVo.emailAddress,
+                      verificationCode:
+                          verificationCodeTextFieldController.text));
 
       if (responseVo.dioException == null) {
         // Dio 네트워크 응답
@@ -154,9 +160,10 @@ class PageBusiness {
           // 정상 응답
 
           // 검증 완료
-          if (!_context.mounted) return;
-          _context.pop(page_entrance.PageOutputVo(
-              pageViewModel.verificationCodeTextFieldController.text));
+          if (!context.mounted) return;
+          context.pop(widget_view.OutputVo(
+              checkedVerificationCode:
+                  verificationCodeTextFieldController.text));
         } else {
           var responseHeaders = networkResponseObjectOk.responseHeaders
               as api_main_server
@@ -165,10 +172,10 @@ class PageBusiness {
           // 비정상 응답
           if (responseHeaders.apiResultCode == null) {
             // 비정상 응답이면서 서버에서 에러 원인 코드가 전달되지 않았을 때
-            if (!_context.mounted) return;
+            if (!context.mounted) return;
             showDialog(
                 barrierDismissible: true,
-                context: _context,
+                context: context,
                 builder: (context) => all_dialog_info.PageEntrance(
                       all_dialog_info.PageInputVo(
                           "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
@@ -181,10 +188,10 @@ class PageBusiness {
               case "1":
                 {
                   // 이메일 검증 요청을 보낸 적 없음
-                  if (!_context.mounted) return;
+                  if (!context.mounted) return;
                   await showDialog(
                       barrierDismissible: true,
-                      context: _context,
+                      context: context,
                       builder: (context) => all_dialog_info.PageEntrance(
                             all_dialog_info.PageInputVo(
                                 "본인 인증 코드 검증 실패",
@@ -196,10 +203,10 @@ class PageBusiness {
               case "2":
                 {
                   // 이메일 검증 요청이 만료됨
-                  if (!_context.mounted) return;
+                  if (!context.mounted) return;
                   await showDialog(
                       barrierDismissible: true,
-                      context: _context,
+                      context: context,
                       builder: (context) => all_dialog_info.PageEntrance(
                             all_dialog_info.PageInputVo(
                                 "본인 인증 코드 검증 실패",
@@ -213,14 +220,14 @@ class PageBusiness {
                   // verificationCode 가 일치하지 않음
 
                   // 검증 실패
-                  if (!_context.mounted) return;
+                  if (!context.mounted) return;
                   showToast(
                     "본인 인증 코드가 일치하지 않습니다.",
-                    context: _context,
+                    context: context,
                     animation: StyledToastAnimation.scale,
                   );
-                  FocusScope.of(_context).requestFocus(
-                      pageViewModel.verificationCodeTextFieldFocus);
+                  FocusScope.of(context)
+                      .requestFocus(verificationCodeTextFieldFocus);
                 }
                 break;
               default:
@@ -233,10 +240,10 @@ class PageBusiness {
         }
       } else {
         loadingSpinner.pageBusiness.closeDialog();
-        if (!_context.mounted) return;
+        if (!context.mounted) return;
         showDialog(
             barrierDismissible: true,
-            context: _context,
+            context: context,
             builder: (context) => all_dialog_info.PageEntrance(
                   all_dialog_info.PageInputVo(
                       "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
@@ -246,8 +253,7 @@ class PageBusiness {
       isVerifyCodeAndGoNextDoing = false;
     } else {
       isVerifyCodeAndGoNextDoing = false;
-      FocusScope.of(_context)
-          .requestFocus(pageViewModel.verificationCodeTextFieldFocus);
+      FocusScope.of(context).requestFocus(verificationCodeTextFieldFocus);
     }
   }
 
@@ -261,14 +267,14 @@ class PageBusiness {
 
     showDialog(
         barrierDismissible: false,
-        context: _context,
+        context: context,
         builder: (context) => loadingSpinner).then((outputVo) {});
 
     var responseVo = await api_main_server
         .postService1TkV1AuthJoinTheMembershipEmailVerificationAsync(
             requestBodyVo: api_main_server
                 .PostService1TkV1AuthJoinTheMembershipEmailVerificationAsyncRequestBodyVo(
-                    email: pageInputVo.emailAddress));
+                    email: inputVo.emailAddress));
 
     if (responseVo.dioException == null) {
       // Dio 네트워크 응답
@@ -280,22 +286,19 @@ class PageBusiness {
             as api_main_server
             .PostService1TkV1AuthJoinTheMembershipEmailVerificationAsyncResponseBodyVo;
 
-        pageViewModel.verificationUid = responseBody.verificationUid;
+        verificationUid = responseBody.verificationUid;
 
         // 정상 응답
-        if (!_context.mounted) return;
+        if (!context.mounted) return;
         await showDialog(
             barrierDismissible: true,
-            context: _context,
+            context: context,
             builder: (context) => all_dialog_info.PageEntrance(
-                  all_dialog_info.PageInputVo(
-                      "이메일 재발송 성공",
-                      "본인 인증 이메일이 재발송 되었습니다.\n(${pageInputVo.emailAddress})",
-                      "확인"),
+                  all_dialog_info.PageInputVo("이메일 재발송 성공",
+                      "본인 인증 이메일이 재발송 되었습니다.\n(${inputVo.emailAddress})", "확인"),
                 ));
-        if (!_context.mounted) return;
-        FocusScope.of(_context)
-            .requestFocus(pageViewModel.verificationCodeTextFieldFocus);
+        if (!context.mounted) return;
+        FocusScope.of(context).requestFocus(verificationCodeTextFieldFocus);
       } else {
         var responseHeaders = networkResponseObjectOk.responseHeaders
             as api_main_server
@@ -304,10 +307,10 @@ class PageBusiness {
         // 비정상 응답
         if (responseHeaders.apiResultCode == null) {
           // 비정상 응답이면서 서버에서 에러 원인 코드가 전달되지 않았을 때
-          if (!_context.mounted) return;
+          if (!context.mounted) return;
           showDialog(
               barrierDismissible: true,
-              context: _context,
+              context: context,
               builder: (context) => all_dialog_info.PageEntrance(
                     all_dialog_info.PageInputVo(
                         "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
@@ -320,16 +323,16 @@ class PageBusiness {
             case "1":
               {
                 // 기존 회원 존재
-                if (!_context.mounted) return;
+                if (!context.mounted) return;
                 await showDialog(
                     barrierDismissible: true,
-                    context: _context,
+                    context: context,
                     builder: (context) => all_dialog_info.PageEntrance(
                           all_dialog_info.PageInputVo(
                               "인증 이메일 발송 실패", "이미 가입된 이메일입니다.", "확인"),
                         ));
-                if (!_context.mounted) return;
-                _context.pop();
+                if (!context.mounted) return;
+                context.pop();
               }
               break;
             default:
@@ -342,10 +345,10 @@ class PageBusiness {
       }
     } else {
       loadingSpinner.pageBusiness.closeDialog();
-      if (!_context.mounted) return;
+      if (!context.mounted) return;
       showDialog(
           barrierDismissible: true,
-          context: _context,
+          context: context,
           builder: (context) => all_dialog_info.PageEntrance(
                 all_dialog_info.PageInputVo(
                     "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "확인"),
@@ -353,30 +356,5 @@ class PageBusiness {
     }
   }
 
-////
-// [내부 함수]
-// !!!내부에서만 사용할 함수를 아래에 구현!!!
-}
-
-// (페이지 뷰 모델 클래스)
-// 페이지 전역의 데이터는 여기에 정의되며, Business 인스턴스 안의 pageViewModel 변수로 저장 됩니다.
-class PageViewModel {
-  PageViewModel(this._context);
-
-  // 페이지 컨텍스트 객체
-  final BuildContext _context;
-
-// !!!페이지 데이터 정의!!!
-// ex :
-// GlobalKey<SampleWidgetState> sampleWidgetStateGk = GlobalKey();
-// SampleWidgetViewModel sampleWidgetViewModel = SampleWidgetViewModel();
-
-  late int verificationUid;
-
-  // VerificationCode Form 필드 관련 전체 키
-  final verificationCodeTextFieldKey = GlobalKey<FormFieldState>();
-  final TextEditingController verificationCodeTextFieldController =
-      TextEditingController();
-  final FocusNode verificationCodeTextFieldFocus = FocusNode();
-  String? verificationCodeTextFieldErrorMsg;
+// [private 함수]
 }

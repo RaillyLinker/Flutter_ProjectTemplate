@@ -12,8 +12,10 @@ import '../../../global_widgets/gw_page_outer_frame/widget_business.dart'
     as gw_page_outer_frame_business;
 import '../../../../repositories/network/apis/api_main_server.dart'
     as api_main_server;
-import '../../../dialogs/all/all_dialog_auth_join_the_membership_email_verification/page_entrance.dart'
-    as all_dialog_auth_join_the_membership_email_verification;
+import '../../../dialogs/all/all_dialog_auth_join_the_membership_email_verification/widget_view.dart'
+    as all_dialog_auth_join_the_membership_email_verification_view;
+import '../../../dialogs/all/all_dialog_auth_join_the_membership_email_verification/widget_business.dart'
+    as all_dialog_auth_join_the_membership_email_verification_business;
 import '../../../dialogs/all/all_dialog_info/page_entrance.dart'
     as all_dialog_info;
 import '../../../dialogs/all/all_dialog_loading_spinner/page_entrance.dart'
@@ -205,17 +207,24 @@ class PageBusiness {
 
           // 정상 응답
           // 검증번호 입력 다이얼로그 띄우기
+          var allDialogAuthJoinTheMembershipEmailVerificationBusiness =
+              all_dialog_auth_join_the_membership_email_verification_business
+                  .WidgetBusiness();
           if (!_context.mounted) return;
-          all_dialog_auth_join_the_membership_email_verification.PageOutputVo?
-              dialogResult = await showDialog(
-                  barrierDismissible: false,
-                  context: _context,
-                  builder: (context) =>
-                      all_dialog_auth_join_the_membership_email_verification
-                          .PageEntrance(
-                        all_dialog_auth_join_the_membership_email_verification
-                            .PageInputVo(email, responseBody.verificationUid),
-                      ));
+          var dialogResult = await showDialog(
+              barrierDismissible: false,
+              context: _context,
+              builder: (context) =>
+                  all_dialog_auth_join_the_membership_email_verification_view
+                      .WidgetView(
+                    business:
+                        allDialogAuthJoinTheMembershipEmailVerificationBusiness,
+                    inputVo:
+                        all_dialog_auth_join_the_membership_email_verification_view
+                            .InputVo(
+                                emailAddress: email,
+                                verificationUid: responseBody.verificationUid),
+                  ));
 
           if (dialogResult != null) {
             pageViewModel.verificationUid = responseBody.verificationUid;
