@@ -13,9 +13,9 @@ import 'widget_view.dart' as widget_view;
 // PageBusiness 인스턴스는 해당 페이지가 소멸하기 전까지 활용됩니다.
 class WidgetBusiness {
   // [콜백 함수]
-  // (전체 위젯 initState)
-  void initState() {
-    // !!!initState 로직 작성!!!
+  // (전체 위젯 처음 실행 콜백)
+  void onCreated() {
+    // !!!onCreated 로직 작성!!!
   }
 
   // (전체 위젯 dispose)
@@ -49,6 +49,9 @@ class WidgetBusiness {
   }
 
   // [public 변수]
+  // (초기화 여부)
+  bool onPageCreated = false;
+
   // (위젯 Context)
   late BuildContext context;
 

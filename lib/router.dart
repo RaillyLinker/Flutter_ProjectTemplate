@@ -24,8 +24,8 @@ import 'pages/all/all_page_get_request_sample/page_entrance.dart'
 import 'pages/all/all_page_global_variable_state_test_sample/page_entrance.dart'
     as all_page_global_variable_state_test_sample;
 import 'pages/all/all_page_home/page_entrance.dart' as all_page_home;
-import 'pages/all/all_page_input_and_output_push_test/page_entrance.dart'
-    as all_page_input_and_output_push_test;
+import 'pages/all/all_page_input_and_output_push_test/widget_view.dart'
+    as all_page_input_and_output_push_test_view;
 import 'pages/all/all_page_join_the_membership_edit_member_info/page_entrance.dart'
     as all_page_join_the_membership_edit_member_info;
 import 'pages/all/all_page_join_the_membership_email_verification/page_entrance.dart'
@@ -187,13 +187,14 @@ GoRouter getRouter() {
 
   subRouteListPageAndRouterSampleList.add(GoRoute(
       path: "input-and-output-push-test",
-      name: all_page_input_and_output_push_test.pageName,
+      name: all_page_input_and_output_push_test_view.pageName,
       pageBuilder: (c, s) {
         return CustomTransitionPage(
             key: s.pageKey,
-            child: all_page_input_and_output_push_test.PageEntrance(s),
-            transitionsBuilder:
-                all_page_input_and_output_push_test.pageTransitionsBuilder);
+            child: all_page_input_and_output_push_test_view.WidgetView(
+                goRouterState: s),
+            transitionsBuilder: all_page_input_and_output_push_test_view
+                .pageTransitionsBuilder);
       }));
 
   subRouteListPageAndRouterSampleList.add(GoRoute(

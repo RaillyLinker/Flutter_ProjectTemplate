@@ -1,0 +1,183 @@
+// (external)
+import 'package:flutter/material.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
+import 'package:go_router/go_router.dart';
+
+// (inner Folder)
+import 'widget_view.dart' as widget_view;
+
+// (all)
+import '../../../global_widgets/gw_page_outer_frame/widget_business.dart'
+    as gw_page_outer_frame_business;
+import '../../../pages/all/all_page_home/page_entrance.dart' as all_page_home;
+
+// [위젯 비즈니스]
+// 위젯의 비즈니스 로직 + State 변수 처리는 이 곳에서 합니다.
+
+//------------------------------------------------------------------------------
+// 페이지의 비즈니스 로직 담당
+// PageBusiness 인스턴스는 해당 페이지가 소멸하기 전까지 활용됩니다.
+class WidgetBusiness {
+  // [콜백 함수]
+  // (전체 위젯 처음 실행 콜백)
+  void onCreated() {
+    // !!!onCreated 로직 작성!!!
+    showToast(
+      "inputValue : ${inputVo.inputValueString}\n"
+      "inputValueOpt : ${inputVo.inputValueStringOpt}\n"
+      "inputValueList : ${inputVo.inputValueStringList}\n"
+      "inputValueInt : ${inputVo.inputValueInt}",
+      context: context,
+      position: StyledToastPosition.bottom,
+      animation: StyledToastAnimation.scale,
+    );
+  }
+
+  // (전체 위젯 dispose)
+  void dispose() {
+    // !!!initState 로직 작성!!!
+
+    pageOutputTextFieldController.dispose();
+    pageOutputTextFieldFocus.dispose();
+  }
+
+  // (전체 위젯의 FocusDetector 콜백들)
+  void onFocusGained() async {
+    // !!!onFocusGained 로직 작성!!!
+  }
+
+  void onFocusLost() async {
+    // !!!onFocusLost 로직 작성!!!
+  }
+
+  void onVisibilityGained() async {
+    // !!!onFocusLost 로직 작성!!!
+  }
+
+  void onVisibilityLost() async {
+    // !!!onVisibilityLost 로직 작성!!!
+  }
+
+  void onForegroundGained() async {
+    // !!!onForegroundGained 로직 작성!!!
+  }
+
+  void onForegroundLost() async {
+    // !!!onForegroundLost 로직 작성!!!
+  }
+
+  Future<void> onCheckPageInputVoAsync(
+      {required GoRouterState goRouterState}) async {
+    // !!!pageInputVo 체크!!!
+    // ex :
+    // if (!goRouterState.uri.queryParameters
+    //     .containsKey("inputValueString")) {
+    //   // 필수 파라미터가 없는 경우에 대한 처리
+    // }
+    if (!goRouterState.uri.queryParameters.containsKey("inputValueString")) {
+      showToast(
+        "inputValueString 은 필수입니다.",
+        context: context,
+        position: StyledToastPosition.center,
+        animation: StyledToastAnimation.scale,
+      );
+      if (context.canPop()) {
+        // History가 있는 경우, 이전 페이지로 이동(pop)
+        context.pop();
+      } else {
+        // History가 없는 경우,
+        // 홈 페이지로 이동
+        context.goNamed(all_page_home.pageName);
+      }
+    }
+
+    if (!goRouterState.uri.queryParameters
+        .containsKey("inputValueStringList")) {
+      showToast(
+        "inputValueStringList 는 필수입니다.",
+        context: context,
+        position: StyledToastPosition.center,
+        animation: StyledToastAnimation.scale,
+      );
+      if (context.canPop()) {
+        // History가 있는 경우, 이전 페이지로 이동(pop)
+        context.pop();
+      } else {
+        // History가 없는 경우,
+        // 홈 페이지로 이동
+        context.goNamed(all_page_home.pageName);
+      }
+    }
+
+    if (!goRouterState.uri.queryParameters.containsKey("inputValueInt")) {
+      showToast(
+        "inputValueInt 는 필수입니다.",
+        context: context,
+        position: StyledToastPosition.center,
+        animation: StyledToastAnimation.scale,
+      );
+      if (context.canPop()) {
+        // History가 있는 경우, 이전 페이지로 이동(pop)
+        context.pop();
+      } else {
+        // History가 없는 경우,
+        // 홈 페이지로 이동
+        context.goNamed(all_page_home.pageName);
+      }
+    }
+
+    // !!!PageInputVo 입력!!!
+    inputVo = widget_view.InputVo(
+        inputValueString:
+            goRouterState.uri.queryParameters["inputValueString"]!,
+        inputValueStringOpt:
+            goRouterState.uri.queryParameters["inputValueStringOpt"],
+        inputValueStringList:
+            goRouterState.uri.queryParametersAll["inputValueStringList"]!,
+        inputValueInt:
+            int.parse(goRouterState.uri.queryParameters["inputValueInt"]!));
+  }
+
+  // [public 변수]
+  // (초기화 여부)
+  bool onPageCreated = false;
+
+  // (위젯 Context)
+  late BuildContext context;
+
+  // (위젯 입력값)
+  late widget_view.InputVo inputVo;
+
+  // (페이지 pop 가능 여부 변수)
+  bool canPop = true;
+
+  // (pageOutFrameBusiness)
+  gw_page_outer_frame_business.WidgetBusiness pageOutFrameBusiness =
+      gw_page_outer_frame_business.WidgetBusiness();
+
+  // 페이지 출력값 Form 필드 전체 키
+  GlobalKey<FormState> pageOutputFormKey = GlobalKey<FormState>();
+
+  final pageOutputTextFieldKey = GlobalKey<FormFieldState>();
+  TextEditingController pageOutputTextFieldController = TextEditingController();
+  FocusNode pageOutputTextFieldFocus = FocusNode();
+
+  // [private 변수]
+
+  // [public 함수]
+  // (Widget 화면 갱신) - WidgetUi.viewWidgetBuild 의 return 값을 다시 불러 옵니다.
+  late VoidCallback refreshUi;
+
+  // (값 반환 버튼 클릭시)
+  void onPressedReturnBtn() {
+    String returnValue = pageOutputTextFieldController.text;
+
+    if (returnValue.isEmpty) {
+      context.pop();
+    } else {
+      context.pop(widget_view.OutputVo(resultValue: returnValue));
+    }
+  }
+
+// [private 함수]
+}

@@ -10,8 +10,8 @@ import 'page_entrance.dart' as page_entrance;
 // (all)
 import '../../../global_widgets/gw_page_outer_frame/widget_business.dart'
     as gw_page_outer_frame_business;
-import '../all_page_input_and_output_push_test/page_entrance.dart'
-    as all_page_input_and_output_push_test;
+import '../all_page_input_and_output_push_test/widget_view.dart'
+    as all_page_input_and_output_push_test_view;
 import '../../../pages/all/all_page_just_push_test1/widget_view.dart'
     as all_page_just_push_test1;
 import '../../../global_classes/gc_template_classes.dart'
@@ -148,7 +148,7 @@ class PageBusiness {
             dynamic value;
             if (inputParamOptText == "") {
               value = await _context.pushNamed(
-                  all_page_input_and_output_push_test.pageName,
+                  all_page_input_and_output_push_test_view.pageName,
                   queryParameters: {
                     "inputValueString": inputParamText,
                     "inputValueStringList": ["a", "b", "c"],
@@ -156,7 +156,7 @@ class PageBusiness {
                   });
             } else {
               value = await _context.pushNamed(
-                  all_page_input_and_output_push_test.pageName,
+                  all_page_input_and_output_push_test_view.pageName,
                   queryParameters: {
                     "inputValueString": inputParamText,
                     "inputValueStringOpt": inputParamOptText,
@@ -165,8 +165,8 @@ class PageBusiness {
                   });
             }
 
-            all_page_input_and_output_push_test.PageOutputVo? pageResult =
-                value as all_page_input_and_output_push_test.PageOutputVo?;
+            all_page_input_and_output_push_test_view.OutputVo? pageResult =
+                value as all_page_input_and_output_push_test_view.OutputVo?;
             // 반환 파라미터 받아서 토스트 처리
             if (pageResult == null) {
               if (!_context.mounted) return;

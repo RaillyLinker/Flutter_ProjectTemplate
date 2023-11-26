@@ -58,7 +58,6 @@ class WidgetViewState extends State<WidgetView> with WidgetsBindingObserver {
     business.context = context;
     business.refreshUi = refreshUi;
     business.onCheckPageInputVoAsync(goRouterState: widget.goRouterState);
-    business.initState();
   }
 
   @override
@@ -75,6 +74,11 @@ class WidgetViewState extends State<WidgetView> with WidgetsBindingObserver {
       child: FocusDetector(
         // (페이지 위젯의 FocusDetector 콜백들)
         onFocusGained: () async {
+          if (!business.onPageCreated) {
+            business.onCreated();
+            business.onPageCreated = true;
+          }
+
           business.onFocusGained();
         },
         onFocusLost: () async {

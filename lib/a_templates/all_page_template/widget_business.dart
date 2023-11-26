@@ -1,5 +1,4 @@
 // (external)
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -18,9 +17,9 @@ import '../../../global_widgets/gw_page_outer_frame/widget_business.dart'
 // PageBusiness 인스턴스는 해당 페이지가 소멸하기 전까지 활용됩니다.
 class WidgetBusiness {
   // [콜백 함수]
-  // (전체 위젯 initState)
-  void initState() {
-    // !!!initState 로직 작성!!!
+  // (전체 위젯 처음 실행 콜백)
+  void onCreated() {
+    // !!!onCreated 로직 작성!!!
   }
 
   // (전체 위젯 dispose)
@@ -61,15 +60,15 @@ class WidgetBusiness {
     //     .containsKey("inputValueString")) {
     //   // 필수 파라미터가 없는 경우에 대한 처리
     // }
-    if (kDebugMode) {
-      print("+++ onCheckPageInputVoAsync 호출됨");
-    }
 
     // !!!PageInputVo 입력!!!
     inputVo = const widget_view.InputVo();
   }
 
   // [public 변수]
+  // (초기화 여부)
+  bool onPageCreated = false;
+
   // (위젯 Context)
   late BuildContext context;
 
