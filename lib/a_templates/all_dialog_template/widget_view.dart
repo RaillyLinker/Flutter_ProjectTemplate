@@ -15,6 +15,12 @@ class InputVo {
 // !!!위젯 입력값 선언!!!
 }
 
+// (결과 데이터)
+class OutputVo {
+  const OutputVo();
+// !!!위젯 출력값 선언!!!
+}
+
 //------------------------------------------------------------------------------
 class WidgetView extends StatefulWidget {
   const WidgetView({super.key, required this.business, required this.inputVo});
