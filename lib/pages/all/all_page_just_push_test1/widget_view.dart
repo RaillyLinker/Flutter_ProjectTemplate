@@ -3,12 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:focus_detector_v2/focus_detector_v2.dart';
 import 'package:go_router/go_router.dart';
 
-// (inner Folder)
+// (page)
 import 'widget_business.dart' as widget_business;
+import 'inner_widgets/iw_sample_number_text/widget_view.dart'
+    as iw_sample_number_text_view;
 
 // (all)
 import '../../../global_widgets/gw_page_outer_frame/widget_view.dart'
     as gw_page_outer_frame_view;
+import '../../../global_widgets/gw_stateful_test/widget_view.dart'
+    as gw_stateful_test_view;
 
 // [위젯 뷰]
 // 위젯의 화면 작성은 여기서 합니다.
@@ -16,7 +20,7 @@ import '../../../global_widgets/gw_page_outer_frame/widget_view.dart'
 //------------------------------------------------------------------------------
 // !!!페이지 진입 라우트 Name 정의!!!
 // 폴더명과 동일하게 작성하세요.
-const pageName = "all_page_template";
+const pageName = "all_page_just_page_test1";
 
 // !!!페이지 호출/반납 애니메이션!!!
 // 동적으로 변경이 가능합니다.
@@ -116,12 +120,83 @@ class WidgetUi {
 
     return gw_page_outer_frame_view.WidgetView(
       business: business.pageOutFrameBusiness,
-      inputVo: const gw_page_outer_frame_view.InputVo(
-        pageTitle: "페이지 템플릿",
+      inputVo: gw_page_outer_frame_view.InputVo(
+        pageTitle: "페이지 Push 테스트1",
         child: Center(
-          child: Text(
-            "페이지 템플릿입니다.",
-            style: TextStyle(fontFamily: "MaruBuri"),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                  "글로벌 위젯 상태 변수",
+                  style: TextStyle(color: Colors.black, fontFamily: "MaruBuri"),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                gw_stateful_test_view.WidgetView(
+                    inputVo: const gw_stateful_test_view.InputVo(),
+                    business: business.statefulTestBusiness),
+                const SizedBox(
+                  height: 10,
+                ),
+                const Text(
+                  "로컬 위젯 상태 변수",
+                  style: TextStyle(color: Colors.black, fontFamily: "MaruBuri"),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                MouseRegion(
+                  cursor: SystemMouseCursors.click,
+                  child: GestureDetector(
+                    onTap: () {
+                      business.countPlus1();
+                    },
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        border: Border(bottom: BorderSide(color: Colors.black)),
+                      ),
+                      margin: const EdgeInsets.only(bottom: 20),
+                      child: iw_sample_number_text_view.WidgetView(
+                        business: business.sampleNumberTextBusiness,
+                        inputVo: const iw_sample_number_text_view.InputVo(),
+                      ),
+                    ),
+                  ),
+                ),
+                ElevatedButton(
+                    onPressed: () {
+                      business.goToJustPushTest1Page();
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue,
+                    ),
+                    child: const Text(
+                      "페이지 Push 테스트1 으로 이동",
+                      style: TextStyle(
+                          color: Colors.white, fontFamily: "MaruBuri"),
+                    )),
+                const SizedBox(
+                  height: 10,
+                ),
+                ElevatedButton(
+                    onPressed: () {
+                      business.goToJustPushTest2Page();
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue,
+                    ),
+                    child: const Text(
+                      "페이지 Push 테스트2 로 이동",
+                      style: TextStyle(
+                          color: Colors.white, fontFamily: "MaruBuri"),
+                    )),
+                const SizedBox(
+                  height: 30,
+                )
+              ],
+            ),
           ),
         ),
       ),

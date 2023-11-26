@@ -1,6 +1,6 @@
 // (external)
-import 'package:flutter/cupertino.dart';
-import 'package:go_router/go_router.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 // (inner Folder)
@@ -13,7 +13,9 @@ import '../../../global_widgets/gw_page_outer_frame/widget_business.dart'
 // [위젯 비즈니스]
 // 위젯의 비즈니스 로직 + State 변수 처리는 이 곳에서 합니다.
 
-// -----------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+// 페이지의 비즈니스 로직 담당
+// PageBusiness 인스턴스는 해당 페이지가 소멸하기 전까지 활용됩니다.
 class WidgetBusiness {
   // [콜백 함수]
   // (전체 위젯 initState)
@@ -51,23 +53,23 @@ class WidgetBusiness {
     // !!!onForegroundLost 로직 작성!!!
   }
 
-  // (페이지 위젯 InputVo 입력)
-  void setInputVo({required GoRouterState goRouterState}) {
+  Future<void> onCheckPageInputVoAsync(
+      {required GoRouterState goRouterState}) async {
     // !!!pageInputVo 체크!!!
     // ex :
     // if (!goRouterState.uri.queryParameters
     //     .containsKey("inputValueString")) {
     //   // 필수 파라미터가 없는 경우에 대한 처리
     // }
+    if (kDebugMode) {
+      print("+++ onCheckPageInputVoAsync 호출됨");
+    }
 
     // !!!PageInputVo 입력!!!
     inputVo = const widget_view.InputVo();
   }
 
   // [public 변수]
-  // (위젯 state GlobalKey)
-  final GlobalKey<widget_view.StatefulBusiness> statefulGk = GlobalKey();
-
   // (위젯 Context)
   late BuildContext context;
 
@@ -84,15 +86,8 @@ class WidgetBusiness {
   // [private 변수]
 
   // [public 함수]
-  // (Stateful Widget 화면 갱신)
-  void refreshUi() {
-    statefulGk.currentState?.refreshUi();
-  }
-
-  // (다이얼로그 종료 함수)
-  void closeDialog() {
-    context.pop();
-  }
+  // (Widget 화면 갱신) - WidgetUi.viewWidgetBuild 의 return 값을 다시 불러 옵니다.
+  late VoidCallback refreshUi;
 
 // [private 함수]
 }

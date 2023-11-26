@@ -12,7 +12,7 @@ import '../../../global_widgets/gw_page_outer_frame/widget_business.dart'
     as gw_page_outer_frame_business;
 import '../all_page_input_and_output_push_test/page_entrance.dart'
     as all_page_input_and_output_push_test;
-import '../../../pages/all/all_page_just_push_test1/page_entrance.dart'
+import '../../../pages/all/all_page_just_push_test1/widget_view.dart'
     as all_page_just_push_test1;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;

@@ -9,7 +9,7 @@ import 'page_view.dart' as page_view;
 import 'page_entrance.dart' as page_entrance;
 
 // (all)
-import '../../../pages/all/all_page_just_push_test1/page_entrance.dart'
+import '../../../pages/all/all_page_just_push_test1/widget_view.dart'
     as all_page_just_push_test1;
 import '../../../pages/all/all_page_just_push_test2/page_entrance.dart'
     as all_page_just_push_test2;

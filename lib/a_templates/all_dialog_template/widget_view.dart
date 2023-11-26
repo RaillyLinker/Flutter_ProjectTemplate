@@ -15,93 +15,67 @@ class InputVo {
 // !!!위젯 입력값 선언!!!
 }
 
-// (결과 데이터)
-class OutputVo {
-  const OutputVo();
-// !!!위젯 출력값 선언!!!
-}
+//------------------------------------------------------------------------------
+class WidgetView extends StatefulWidget {
+  const WidgetView({super.key, required this.business, required this.inputVo});
 
-// -----------------------------------------------------------------------------
-class WidgetView extends StatelessWidget {
-  WidgetView({super.key, required this.business, required InputVo inputVo}) {
-    business.inputVo = inputVo;
-  }
-
-  // [콜백 함수]
-  // (위젯을 화면에 draw 할 때의 콜백)
   @override
-  Widget build(BuildContext context) {
-    return StatefulView(
-      key: business.statefulGk,
-      business: business,
-    );
-  }
-
-  // [public 변수]
-  // (위젯 비즈니스)
+  WidgetViewState createState() => WidgetViewState();
   final widget_business.WidgetBusiness business;
+  final InputVo inputVo;
 }
 
-class StatefulView extends StatefulWidget {
-  const StatefulView({required super.key, required this.business});
-
+class WidgetViewState extends State<WidgetView> with WidgetsBindingObserver {
   // [콜백 함수]
-  @override
-  StatefulBusiness createState() => StatefulBusiness();
-
-  // [public 변수]
-  // (위젯 비즈니스)
-  final widget_business.WidgetBusiness business;
-}
-
-class StatefulBusiness extends State<StatefulView> with WidgetsBindingObserver {
-  // [콜백 함수]
-  @override
-  Widget build(BuildContext context) {
-    widget.business.context = context;
-    return PopScope(
-      canPop: widget.business.canPop,
-      child: FocusDetector(
-          // (페이지 위젯의 FocusDetector 콜백들)
-          onFocusGained: () async {
-            widget.business.onFocusGained();
-          },
-          onFocusLost: () async {
-            widget.business.onFocusLost();
-          },
-          onVisibilityGained: () async {
-            widget.business.onVisibilityGained();
-          },
-          onVisibilityLost: () async {
-            widget.business.onVisibilityLost();
-          },
-          onForegroundGained: () async {
-            widget.business.onForegroundGained();
-          },
-          onForegroundLost: () async {
-            widget.business.onForegroundLost();
-          },
-          child: WidgetUi.viewWidgetBuild(
-              context: context, business: widget.business)),
-    );
-  }
-
-  // [콜백 함수]
-  // (페이지 위젯 initState)
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-    widget.business.initState();
+    business = widget.business;
+    business.context = context;
+    business.inputVo = widget.inputVo;
+    business.refreshUi = refreshUi;
+    business.initState();
   }
 
-  // (페이지 위젯 dispose)
   @override
   void dispose() {
     super.dispose();
     WidgetsBinding.instance.removeObserver(this);
-    widget.business.dispose();
+    business.dispose();
   }
+
+  @override
+  Widget build(BuildContext context) {
+    return PopScope(
+      canPop: business.canPop,
+      child: FocusDetector(
+        // (페이지 위젯의 FocusDetector 콜백들)
+        onFocusGained: () async {
+          business.onFocusGained();
+        },
+        onFocusLost: () async {
+          business.onFocusLost();
+        },
+        onVisibilityGained: () async {
+          business.onVisibilityGained();
+        },
+        onVisibilityLost: () async {
+          business.onVisibilityLost();
+        },
+        onForegroundGained: () async {
+          business.onForegroundGained();
+        },
+        onForegroundLost: () async {
+          business.onForegroundLost();
+        },
+        child: WidgetUi.viewWidgetBuild(context: context, business: business),
+      ),
+    );
+  }
+
+  // [public 변수]
+  late widget_business.WidgetBusiness business;
 
   // [public 함수]
   // (Stateful Widget 화면 갱신)

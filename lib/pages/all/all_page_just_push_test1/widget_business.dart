@@ -3,14 +3,18 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-// (inner Folder)
+// (page)
 import 'widget_view.dart' as widget_view;
-import 'inner_widgets/iw_stateful_sample_number/widget_business.dart'
-    as iw_stateful_sample_number_business;
+import 'inner_widgets/iw_sample_number_text/widget_business.dart'
+    as iw_sample_number_text_business;
 
 // (all)
-import '../../../pages/all/all_page_dialog_sample_list/page_entrance.dart'
-    as all_page_dialog_sample_list;
+import '../../../global_widgets/gw_page_outer_frame/widget_business.dart'
+    as gw_page_outer_frame_business;
+import '../../../pages/all/all_page_just_push_test1/widget_view.dart'
+    as all_page_just_push_test1;
+import '../../../pages/all/all_page_just_push_test2/page_entrance.dart'
+    as all_page_just_push_test2;
 import '../../../global_widgets/gw_stateful_test/widget_business.dart'
     as gw_stateful_test_business;
 
@@ -25,60 +29,52 @@ class WidgetBusiness {
   // (전체 위젯 initState)
   void initState() {
     // !!!initState 로직 작성!!!
-    if (kDebugMode) {
-      print("initState");
-    }
   }
 
   // (전체 위젯 dispose)
   void dispose() {
     // !!!initState 로직 작성!!!
-    if (kDebugMode) {
-      print("dispose");
-    }
   }
 
   // (전체 위젯의 FocusDetector 콜백들)
   void onFocusGained() async {
     // !!!onFocusGained 로직 작성!!!
-    if (kDebugMode) {
-      print("onFocusGained");
-    }
   }
 
   void onFocusLost() async {
     // !!!onFocusLost 로직 작성!!!
-    if (kDebugMode) {
-      print("onFocusLost");
-    }
   }
 
   void onVisibilityGained() async {
     // !!!onFocusLost 로직 작성!!!
-    if (kDebugMode) {
-      print("onVisibilityGained");
-    }
   }
 
   void onVisibilityLost() async {
     // !!!onVisibilityLost 로직 작성!!!
-    if (kDebugMode) {
-      print("onVisibilityLost");
-    }
   }
 
   void onForegroundGained() async {
     // !!!onForegroundGained 로직 작성!!!
-    if (kDebugMode) {
-      print("onForegroundGained");
-    }
   }
 
   void onForegroundLost() async {
     // !!!onForegroundLost 로직 작성!!!
+  }
+
+  Future<void> onCheckPageInputVoAsync(
+      {required GoRouterState goRouterState}) async {
+    // !!!pageInputVo 체크!!!
+    // ex :
+    // if (!goRouterState.uri.queryParameters
+    //     .containsKey("inputValueString")) {
+    //   // 필수 파라미터가 없는 경우에 대한 처리
+    // }
     if (kDebugMode) {
-      print("onForegroundLost");
+      print("+++ onCheckPageInputVoAsync 호출됨");
     }
+
+    // !!!PageInputVo 입력!!!
+    inputVo = const widget_view.InputVo();
   }
 
   // [public 변수]
@@ -91,12 +87,15 @@ class WidgetBusiness {
   // (페이지 pop 가능 여부 변수)
   bool canPop = true;
 
-  // (statefulSampleNumberBusiness)
-  iw_stateful_sample_number_business.WidgetBusiness
-      statefulSampleNumberBusiness =
-      iw_stateful_sample_number_business.WidgetBusiness();
+  // pageOutFrameBusiness
+  gw_page_outer_frame_business.WidgetBusiness pageOutFrameBusiness =
+      gw_page_outer_frame_business.WidgetBusiness();
 
-  // (statefulTestBusiness)
+  // sampleNumberTextBusiness
+  iw_sample_number_text_business.WidgetBusiness sampleNumberTextBusiness =
+      iw_sample_number_text_business.WidgetBusiness();
+
+  // statefulTestBusiness
   gw_stateful_test_business.WidgetBusiness statefulTestBusiness =
       gw_stateful_test_business.WidgetBusiness();
 
@@ -106,13 +105,20 @@ class WidgetBusiness {
   // (Widget 화면 갱신) - WidgetUi.viewWidgetBuild 의 return 값을 다시 불러 옵니다.
   late VoidCallback refreshUi;
 
-  // (다이얼로그 종료 함수)
-  void closeDialog() {
-    context.pop();
+  // (just_push_test 로 이동)
+  void goToJustPushTest1Page() {
+    context.pushNamed(all_page_just_push_test1.pageName);
   }
 
-  void pushToAnotherPage() {
-    context.pushNamed(all_page_dialog_sample_list.pageName);
+  // (just_push_test 로 이동)
+  void goToJustPushTest2Page() {
+    context.pushNamed(all_page_just_push_test2.pageName);
+  }
+
+  // (화면 카운트 +1)
+  void countPlus1() {
+    sampleNumberTextBusiness.sampleInt += 1;
+    sampleNumberTextBusiness.refreshUi();
   }
 
 // [private 함수]
