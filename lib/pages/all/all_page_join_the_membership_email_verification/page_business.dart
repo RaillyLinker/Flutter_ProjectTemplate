@@ -224,6 +224,7 @@ class PageBusiness {
                             .InputVo(
                                 emailAddress: email,
                                 verificationUid: responseBody.verificationUid),
+                    onDialogCreated: () {},
                   ));
 
           if (dialogResult != null) {

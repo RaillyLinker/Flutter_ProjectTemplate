@@ -26,8 +26,10 @@ import '../../../dialogs/all/all_dialog_dialog_in_dialog/page_entrance.dart'
     as all_dialog_dialog_in_dialog;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
-import '../../../dialogs/all/all_dialog_context_menu_sample/page_entrance.dart'
-    as all_dialog_context_menu_sample;
+import '../../../dialogs/all/all_dialog_context_menu_sample/widget_view.dart'
+    as all_dialog_context_menu_sample_view;
+import '../../../dialogs/all/all_dialog_context_menu_sample/widget_business.dart'
+    as all_dialog_context_menu_sample_business;
 import '../../../dialogs/all/all_dialog_lifecycle_sample/widget_view.dart'
     as all_dialog_lifecycle_sample_view;
 import '../../../dialogs/all/all_dialog_lifecycle_sample/widget_business.dart'
@@ -133,12 +135,13 @@ class PageBusiness {
           var dialogBusiness = all_dialog_template_business.WidgetBusiness();
 
           showDialog(
-                  barrierDismissible: true,
-                  context: _context,
-                  builder: (context) => all_dialog_template_view.WidgetView(
-                      business: dialogBusiness,
-                      inputVo: all_dialog_template_view.InputVo()))
-              .then((outputVo) {});
+              barrierDismissible: true,
+              context: _context,
+              builder: (context) => all_dialog_template_view.WidgetView(
+                    business: dialogBusiness,
+                    inputVo: const all_dialog_template_view.InputVo(),
+                    onDialogCreated: () {},
+                  )).then((outputVo) {});
         }
         break;
       case SampleItemEnum.infoDialog:
@@ -245,23 +248,30 @@ class PageBusiness {
           var dialogBusiness = all_dialog_template_business.WidgetBusiness();
 
           showDialog(
-                  barrierDismissible: true,
-                  context: _context,
-                  barrierColor: Colors.blue.withOpacity(0.5),
-                  builder: (context) => all_dialog_template_view.WidgetView(
-                      business: dialogBusiness,
-                      inputVo: all_dialog_template_view.InputVo()))
-              .then((outputVo) {});
+              barrierDismissible: true,
+              context: _context,
+              barrierColor: Colors.blue.withOpacity(0.5),
+              builder: (context) => all_dialog_template_view.WidgetView(
+                    business: dialogBusiness,
+                    inputVo: const all_dialog_template_view.InputVo(),
+                    onDialogCreated: () {},
+                  )).then((outputVo) {});
         }
         break;
       case SampleItemEnum.contextMenuSample:
         {
           // 다이얼로그 외부 색 설정
+          var allDialogContextMenuSampleBusiness =
+              all_dialog_context_menu_sample_business.WidgetBusiness();
           showDialog(
               barrierDismissible: true,
               context: _context,
-              builder: (context) => all_dialog_context_menu_sample.PageEntrance(
-                    all_dialog_context_menu_sample.PageInputVo(),
+              builder: (context) =>
+                  all_dialog_context_menu_sample_view.WidgetView(
+                    business: allDialogContextMenuSampleBusiness,
+                    inputVo:
+                        const all_dialog_context_menu_sample_view.InputVo(),
+                    onDialogCreated: () {},
                   )).then((outputVo) {});
         }
         break;
@@ -277,7 +287,7 @@ class PageBusiness {
               context: _context,
               builder: (context) => all_dialog_lifecycle_sample_view.WidgetView(
                     business: lifecycleSampleBusinessBusiness,
-                    inputVo: all_dialog_lifecycle_sample_view.InputVo(),
+                    inputVo: const all_dialog_lifecycle_sample_view.InputVo(),
                   )).then((outputVo) {});
         }
         break;

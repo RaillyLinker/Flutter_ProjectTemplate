@@ -527,6 +527,7 @@ class PageBusiness {
               inputVo:
                   const all_dialog_auth_join_the_membership_select_member_profile_image_src_view
                       .InputVo(),
+              onDialogCreated: () {},
             ));
 
     if (pageOutputVo != null) {

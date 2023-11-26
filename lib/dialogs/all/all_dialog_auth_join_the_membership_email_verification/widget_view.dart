@@ -34,7 +34,14 @@ class OutputVo {
 
 //------------------------------------------------------------------------------
 class WidgetView extends StatefulWidget {
-  const WidgetView({super.key, required this.business, required this.inputVo});
+  const WidgetView(
+      {super.key,
+      required this.business,
+      required this.inputVo,
+      required this.onDialogCreated});
+
+  // 다이얼로그가 Created 된 시점에 한번 실행됨
+  final VoidCallback onDialogCreated;
 
   @override
   WidgetViewState createState() => WidgetViewState();
@@ -70,6 +77,7 @@ class WidgetViewState extends State<WidgetView> with WidgetsBindingObserver {
         onFocusGained: () async {
           if (!business.onPageCreated) {
             business.onCreated();
+            widget.onDialogCreated();
             business.onPageCreated = true;
           }
 

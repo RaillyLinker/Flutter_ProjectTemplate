@@ -5,6 +5,10 @@ import 'package:focus_detector_v2/focus_detector_v2.dart';
 // (inner Folder)
 import 'widget_business.dart' as widget_business;
 
+// (all)
+import '../../../global_widgets/gw_context_menu_region/widget_view.dart'
+    as gw_context_menu_region_view;
+
 // [위젯 뷰]
 // 위젯의 화면 작성은 여기서 합니다.
 
@@ -117,16 +121,43 @@ class WidgetUi {
           height: 280,
           width: 300,
           decoration: const BoxDecoration(
-            color: Colors.white,
-            shape: BoxShape.rectangle,
-            borderRadius: BorderRadius.all(
-              Radius.circular(16),
-            ),
-          ),
-          child: const Center(
-            child: Text(
-              "다이얼로그 템플릿",
-              style: TextStyle(fontFamily: "MaruBuri"),
+              color: Colors.white,
+              shape: BoxShape.rectangle,
+              borderRadius: BorderRadius.all(Radius.circular(16))),
+          child: Center(
+            child: gw_context_menu_region_view.WidgetView(
+              business: business.contextMenuRegionBusiness,
+              inputVo: gw_context_menu_region_view.InputVo(
+                  contextMenuRegionItemVoList: [
+                    gw_context_menu_region_view.ContextMenuRegionItemVo(
+                        menuItemWidget: const Text(
+                          "토스트 테스트",
+                          style: TextStyle(
+                              color: Colors.black, fontFamily: "MaruBuri"),
+                        ),
+                        menuItemCallback: () {
+                          business.toastTestMenuBtn();
+                        }),
+                    gw_context_menu_region_view.ContextMenuRegionItemVo(
+                        menuItemWidget: const Text(
+                          "다이얼로그 닫기",
+                          style: TextStyle(
+                              color: Colors.black, fontFamily: "MaruBuri"),
+                        ),
+                        menuItemCallback: () {
+                          business.closeDialog();
+                        }),
+                  ],
+                  child: Container(
+                    padding: const EdgeInsets.only(
+                        top: 10, bottom: 10, left: 10, right: 10),
+                    color: Colors.blue[100], // 옅은 파란색
+                    child: const Text(
+                      '우클릭 해보세요.',
+                      style: TextStyle(
+                          color: Colors.black, fontFamily: "MaruBuri"),
+                    ),
+                  )),
             ),
           ),
         ),

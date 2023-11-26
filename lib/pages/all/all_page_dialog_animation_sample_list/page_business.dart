@@ -129,8 +129,10 @@ class PageBusiness {
               return Transform.rotate(
                 angle: math.radians(a1.value * 360),
                 child: all_dialog_template_view.WidgetView(
-                    business: dialogBusiness,
-                    inputVo: all_dialog_template_view.InputVo()),
+                  business: dialogBusiness,
+                  inputVo: const all_dialog_template_view.InputVo(),
+                  onDialogCreated: () {},
+                ),
               );
             },
             transitionDuration: const Duration(milliseconds: 300),
@@ -154,8 +156,10 @@ class PageBusiness {
               return Transform.scale(
                 scale: curve,
                 child: all_dialog_template_view.WidgetView(
-                    business: dialogBusiness,
-                    inputVo: all_dialog_template_view.InputVo()),
+                  business: dialogBusiness,
+                  inputVo: const all_dialog_template_view.InputVo(),
+                  onDialogCreated: () {},
+                ),
               );
             },
             transitionDuration: const Duration(milliseconds: 300),
@@ -181,8 +185,10 @@ class PageBusiness {
                 transform:
                     Matrix4.translationValues(0.0, curvedValue * 1600, 0.0),
                 child: all_dialog_template_view.WidgetView(
-                    business: dialogBusiness,
-                    inputVo: all_dialog_template_view.InputVo()),
+                  business: dialogBusiness,
+                  inputVo: const all_dialog_template_view.InputVo(),
+                  onDialogCreated: () {},
+                ),
               );
             },
             transitionDuration: const Duration(milliseconds: 300),
