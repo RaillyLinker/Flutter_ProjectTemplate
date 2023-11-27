@@ -11,7 +11,7 @@ import 'widget_view.dart' as widget_view;
 class WidgetBusiness {
   // [public 변수]
   // (위젯 state GlobalKey)
-  final GlobalKey<widget_view.StatefulBusiness> statefulGk = GlobalKey();
+  final GlobalKey<widget_view.StatefulState> statefulGk = GlobalKey();
 
   // (위젯 Context)
   late BuildContext context;

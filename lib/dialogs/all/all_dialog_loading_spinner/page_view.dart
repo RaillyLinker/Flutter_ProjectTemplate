@@ -1,9 +1,12 @@
 // (external)
 import 'package:flutter/material.dart';
-import 'package:gif/gif.dart';
 
 // (page)
 import 'page_business.dart' as page_business;
+
+// (all)
+import '../../../global_widgets/gw_gif_wrapper/widget_view.dart'
+    as gw_gif_wrapper_view;
 
 // [페이지 화면 위젯 작성 파일]
 // 페이지 화면 구현을 담당합니다. (Widget 과 Business 간의 결합을 담당)
@@ -26,9 +29,10 @@ class PageView extends StatelessWidget {
       child: SizedBox(
         width: 70,
         height: 70,
-        child: LoadingSpinnerGif(
-          _pageBusiness.pageViewModel.loadingSpinnerGifViewModel,
-          key: _pageBusiness.pageViewModel.loadingSpinnerGifStateGk,
+        child: gw_gif_wrapper_view.WidgetView(
+          business: _pageBusiness.pageViewModel.gwGifWrapperBusiness,
+          inputVo: const gw_gif_wrapper_view.InputVo(
+              gifImage: AssetImage("lib/assets/images/loading_spinner.gif")),
         ),
       ),
     );
@@ -91,59 +95,3 @@ class PageView extends StatelessWidget {
 //     return Text(widget.viewModel.sampleInt.toString());
 //   }
 // }
-
-// (Gif 재생 위젯)
-class LoadingSpinnerGif extends StatefulWidget {
-  const LoadingSpinnerGif(this.viewModel, {required super.key});
-
-  // 위젯 뷰모델
-  final LoadingSpinnerGifViewModel viewModel;
-
-  //!!!주입 받을 하위 위젯 선언 하기!!!
-
-  @override
-  LoadingSpinnerGifState createState() => LoadingSpinnerGifState();
-}
-
-class LoadingSpinnerGifViewModel {
-  LoadingSpinnerGifViewModel();
-
-  // !!!위젯 상태 변수 선언하기!!!
-  GifController? dialogSpinnerGifController;
-}
-
-class LoadingSpinnerGifState extends State<LoadingSpinnerGif>
-    with SingleTickerProviderStateMixin {
-  // Stateful Widget 화면 갱신
-  void refresh() {
-    setState(() {});
-  }
-
-  @override
-  void dispose() {
-    widget.viewModel.dialogSpinnerGifController?.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    String gifSrc = 'lib/assets/images/loading_spinner.gif';
-
-    if (widget.viewModel.dialogSpinnerGifController == null) {
-      // 컨트롤러 처음 생성시점
-      //  pageBusiness.pageViewModel 에 저장
-      widget.viewModel.dialogSpinnerGifController = GifController(vsync: this);
-
-      // 최초 컨트롤러 설정
-      widget.viewModel.dialogSpinnerGifController!
-          .repeat(period: const Duration(milliseconds: 500));
-    }
-
-    return Gif(
-      image: AssetImage(gifSrc),
-      controller: widget.viewModel.dialogSpinnerGifController!,
-      placeholder: (context) => const Text(''),
-      onFetchCompleted: () {},
-    );
-  }
-}

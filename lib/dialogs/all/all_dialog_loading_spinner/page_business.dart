@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 // (page)
-import 'page_view.dart' as page_view;
 import 'page_entrance.dart' as page_entrance;
 
 // (all)
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
+import '../../../global_widgets/gw_gif_wrapper/widget_business.dart'
+    as gw_gif_wrapper_business;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
 
@@ -95,8 +96,6 @@ class PageViewModel {
 // ex :
 // GlobalKey<SampleWidgetState> sampleWidgetStateGk = GlobalKey();
 // SampleWidgetViewModel sampleWidgetViewModel = SampleWidgetViewModel();
-  GlobalKey<page_view.LoadingSpinnerGifState> loadingSpinnerGifStateGk =
-      GlobalKey();
-  page_view.LoadingSpinnerGifViewModel loadingSpinnerGifViewModel =
-      page_view.LoadingSpinnerGifViewModel();
+  gw_gif_wrapper_business.WidgetBusiness gwGifWrapperBusiness =
+      gw_gif_wrapper_business.WidgetBusiness();
 }

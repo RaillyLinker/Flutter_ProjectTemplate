@@ -44,15 +44,15 @@ class StatefulView extends StatefulWidget {
 
   // [콜백 함수]
   @override
-  StatefulBusiness createState() => StatefulBusiness();
+  StatefulState createState() => StatefulState();
 
   // [public 변수]
   // (위젯 비즈니스)
   final widget_business.WidgetBusiness business;
 }
 
-class StatefulBusiness extends State<StatefulView> {
-  StatefulBusiness();
+class StatefulState extends State<StatefulView> {
+  StatefulState();
 
   // [콜백 함수]
   @override

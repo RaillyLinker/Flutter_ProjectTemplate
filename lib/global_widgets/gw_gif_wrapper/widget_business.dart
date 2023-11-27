@@ -1,5 +1,6 @@
 // (external)
 import 'package:flutter/cupertino.dart';
+import 'package:gif/gif.dart';
 
 // (inner Folder)
 import 'widget_view.dart' as widget_view;
@@ -11,10 +12,16 @@ import 'widget_view.dart' as widget_view;
 class WidgetBusiness {
   // [콜백 함수]
   // (Stateful Widget initState)
-  void initState(widget_view.StatefulState StatefulState) {}
+  void initState(widget_view.StatefulState StatefulState) {
+    dialogSpinnerGifController = GifController(vsync: StatefulState);
+    dialogSpinnerGifController.repeat(
+        period: const Duration(milliseconds: 500));
+  }
 
   // (Stateful Widget dispose)
-  void dispose(widget_view.StatefulState StatefulState) {}
+  void dispose(widget_view.StatefulState StatefulState) {
+    dialogSpinnerGifController.dispose();
+  }
 
   // [public 변수]
   // (위젯 Context)
@@ -22,6 +29,9 @@ class WidgetBusiness {
 
   // (위젯 입력값)
   late widget_view.InputVo inputVo;
+
+  // (Gif 컨트롤러)
+  late GifController dialogSpinnerGifController;
 
   // [private 변수]
 

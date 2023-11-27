@@ -1,5 +1,6 @@
 // (external)
 import 'package:flutter/cupertino.dart';
+import 'package:gif/gif.dart';
 
 // (inner Folder)
 import 'widget_business.dart' as widget_business;
@@ -9,8 +10,10 @@ import 'widget_business.dart' as widget_business;
 
 // -----------------------------------------------------------------------------
 class InputVo {
-  const InputVo();
-// !!!위젯 입력값 선언!!!
+  const InputVo({required this.gifImage});
+
+  // !!!위젯 입력값 선언!!!
+  final ImageProvider gifImage;
 }
 
 class WidgetView extends StatelessWidget {
@@ -49,7 +52,8 @@ class StatefulView extends StatefulWidget {
   final widget_business.WidgetBusiness business;
 }
 
-class StatefulState extends State<StatefulView> {
+class StatefulState extends State<StatefulView>
+    with SingleTickerProviderStateMixin {
   StatefulState();
 
   // [콜백 함수]
@@ -87,6 +91,11 @@ class WidgetUi {
       required widget_business.WidgetBusiness business}) {
     // !!!뷰 위젯 반환 콜백 작성 하기!!!
 
-    return const Text("todo");
+    return Gif(
+      image: business.inputVo.gifImage,
+      controller: business.dialogSpinnerGifController,
+      placeholder: (context) => const Text(''),
+      onFetchCompleted: () {},
+    );
   }
 }
