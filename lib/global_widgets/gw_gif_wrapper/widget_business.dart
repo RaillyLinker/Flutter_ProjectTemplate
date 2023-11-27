@@ -12,14 +12,14 @@ import 'widget_view.dart' as widget_view;
 class WidgetBusiness {
   // [콜백 함수]
   // (Stateful Widget initState)
-  void initState(widget_view.StatefulState StatefulState) {
-    dialogSpinnerGifController = GifController(vsync: StatefulState);
+  void initState(widget_view.StatefulState statefulState) {
+    dialogSpinnerGifController = GifController(vsync: statefulState);
     dialogSpinnerGifController.repeat(
         period: const Duration(milliseconds: 500));
   }
 
   // (Stateful Widget dispose)
-  void dispose(widget_view.StatefulState StatefulState) {
+  void dispose(widget_view.StatefulState statefulState) {
     dialogSpinnerGifController.dispose();
   }
 

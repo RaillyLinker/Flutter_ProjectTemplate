@@ -66,9 +66,9 @@ class WidgetViewState extends State<WidgetView> with WidgetsBindingObserver {
 
   @override
   void dispose() {
-    super.dispose();
     WidgetsBinding.instance.removeObserver(this);
     business.dispose();
+    super.dispose();
   }
 
   @override

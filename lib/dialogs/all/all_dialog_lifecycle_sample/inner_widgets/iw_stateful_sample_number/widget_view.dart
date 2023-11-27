@@ -56,6 +56,18 @@ class StatefulState extends State<StatefulView> {
 
   // [콜백 함수]
   @override
+  void initState() {
+    super.initState();
+    widget.business.initState(this);
+  }
+
+  @override
+  void dispose() {
+    widget.business.dispose(this);
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     widget.business.context = context;
     return WidgetUi.viewWidgetBuild(

@@ -55,8 +55,6 @@ class StatefulView extends StatefulWidget {
 }
 
 class StatefulState extends State<StatefulView> {
-  StatefulState();
-
   // [콜백 함수]
   @override
   void initState() {
@@ -66,8 +64,8 @@ class StatefulState extends State<StatefulView> {
 
   @override
   void dispose() {
-    super.dispose();
     widget.business.dispose(this);
+    super.dispose();
   }
 
   @override

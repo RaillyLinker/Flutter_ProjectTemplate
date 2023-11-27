@@ -12,10 +12,10 @@ import 'widget_view.dart' as widget_view;
 class WidgetBusiness {
   // [콜백 함수]
   // (Stateful Widget initState)
-  void initState(widget_view.StatefulState StatefulState) {}
+  void initState(widget_view.StatefulState statefulState) {}
 
   // (Stateful Widget dispose)
-  void dispose(widget_view.StatefulState StatefulState) {}
+  void dispose(widget_view.StatefulState statefulState) {}
 
   // [public 변수]
   // (위젯 Context)
