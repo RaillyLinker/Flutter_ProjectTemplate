@@ -86,26 +86,26 @@ class WidgetViewState extends State<WidgetView> with WidgetsBindingObserver {
         // (페이지 위젯의 FocusDetector 콜백들)
         onFocusGained: () async {
           if (!business.onPageCreated) {
-            business.onCreated();
             business.onPageCreated = true;
+            await business.onCreated();
           }
 
-          business.onFocusGained();
+          await business.onFocusGained();
         },
         onFocusLost: () async {
-          business.onFocusLost();
+          await business.onFocusLost();
         },
         onVisibilityGained: () async {
-          business.onVisibilityGained();
+          await business.onVisibilityGained();
         },
         onVisibilityLost: () async {
-          business.onVisibilityLost();
+          await business.onVisibilityLost();
         },
         onForegroundGained: () async {
-          business.onForegroundGained();
+          await business.onForegroundGained();
         },
         onForegroundLost: () async {
-          business.onForegroundLost();
+          await business.onForegroundLost();
         },
         child: WidgetUi.viewWidgetBuild(context: context, business: business),
       ),

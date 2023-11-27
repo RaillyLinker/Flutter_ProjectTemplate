@@ -1,14 +1,9 @@
 // (external)
 import 'package:flutter/material.dart';
-import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:go_router/go_router.dart';
 
 // (inner Folder)
 import 'widget_view.dart' as widget_view;
-
-// (all)
-import '../../../global_widgets/gw_context_menu_region/widget_business.dart'
-    as gw_context_menu_region_business;
 
 // [위젯 비즈니스]
 // 위젯의 비즈니스 로직 + State 변수 처리는 이 곳에서 합니다.
@@ -21,6 +16,12 @@ class WidgetBusiness {
   // (전체 위젯 처음 실행 콜백)
   Future<void> onCreated() async {
     // !!!onCreated 로직 작성!!!
+
+    // 2초 대기
+    await Future.delayed(const Duration(seconds: 2));
+
+    // 다이얼로그 완료 처리
+    dialogComplete();
   }
 
   // (전체 위젯 dispose)
@@ -66,9 +67,8 @@ class WidgetBusiness {
   // (페이지 pop 가능 여부 변수)
   bool canPop = true;
 
-  // (contextMenuRegionBusiness)
-  gw_context_menu_region_business.WidgetBusiness contextMenuRegionBusiness =
-      gw_context_menu_region_business.WidgetBusiness();
+  // (다이얼로그 작업 완료 여부)
+  bool isComplete = false;
 
   // [private 변수]
 
@@ -81,13 +81,16 @@ class WidgetBusiness {
     context.pop();
   }
 
-  // (context 메뉴의 토스트 테스트 항목을 클릭)
-  void toastTestMenuBtn() {
-    showToast(
-      "토스트 테스트 메뉴가 선택되었습니다.",
-      context: context,
-      animation: StyledToastAnimation.scale,
-    );
+  Future<void> dialogComplete() async {
+    isComplete = true;
+    refreshUi();
+
+    // 애니메이션의 지속 시간만큼 지연
+    await Future.delayed(const Duration(milliseconds: 800));
+
+    // 다이얼로그 닫기
+    if (!context.mounted) return;
+    context.pop();
   }
 
 // [private 함수]

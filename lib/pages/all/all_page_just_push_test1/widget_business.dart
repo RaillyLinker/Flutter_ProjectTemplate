@@ -37,27 +37,27 @@ class WidgetBusiness {
   }
 
   // (전체 위젯의 FocusDetector 콜백들)
-  void onFocusGained() async {
+  Future<void> onFocusGained() async {
     // !!!onFocusGained 로직 작성!!!
   }
 
-  void onFocusLost() async {
+  Future<void> onFocusLost() async {
     // !!!onFocusLost 로직 작성!!!
   }
 
-  void onVisibilityGained() async {
+  Future<void> onVisibilityGained() async {
     // !!!onFocusLost 로직 작성!!!
   }
 
-  void onVisibilityLost() async {
+  Future<void> onVisibilityLost() async {
     // !!!onVisibilityLost 로직 작성!!!
   }
 
-  void onForegroundGained() async {
+  Future<void> onForegroundGained() async {
     // !!!onForegroundGained 로직 작성!!!
   }
 
-  void onForegroundLost() async {
+  Future<void> onForegroundLost() async {
     // !!!onForegroundLost 로직 작성!!!
   }
 

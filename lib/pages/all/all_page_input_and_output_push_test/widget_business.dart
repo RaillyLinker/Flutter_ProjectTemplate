@@ -20,7 +20,7 @@ import '../../../pages/all/all_page_home/page_entrance.dart' as all_page_home;
 class WidgetBusiness {
   // [콜백 함수]
   // (전체 위젯 처음 실행 콜백)
-  void onCreated() {
+  Future<void> onCreated() async {
     // !!!onCreated 로직 작성!!!
     showToast(
       "inputValue : ${inputVo.inputValueString}\n"
@@ -42,27 +42,27 @@ class WidgetBusiness {
   }
 
   // (전체 위젯의 FocusDetector 콜백들)
-  void onFocusGained() async {
+  Future<void> onFocusGained() async {
     // !!!onFocusGained 로직 작성!!!
   }
 
-  void onFocusLost() async {
+  Future<void> onFocusLost() async {
     // !!!onFocusLost 로직 작성!!!
   }
 
-  void onVisibilityGained() async {
+  Future<void> onVisibilityGained() async {
     // !!!onFocusLost 로직 작성!!!
   }
 
-  void onVisibilityLost() async {
+  Future<void> onVisibilityLost() async {
     // !!!onVisibilityLost 로직 작성!!!
   }
 
-  void onForegroundGained() async {
+  Future<void> onForegroundGained() async {
     // !!!onForegroundGained 로직 작성!!!
   }
 
-  void onForegroundLost() async {
+  Future<void> onForegroundLost() async {
     // !!!onForegroundLost 로직 작성!!!
   }
 

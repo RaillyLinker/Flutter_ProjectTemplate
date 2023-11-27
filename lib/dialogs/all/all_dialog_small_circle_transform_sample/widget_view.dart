@@ -4,12 +4,6 @@ import 'package:focus_detector_v2/focus_detector_v2.dart';
 
 // (inner Folder)
 import 'widget_business.dart' as widget_business;
-import 'inner_widgets/iw_stateful_sample_number/widget_view.dart'
-    as iw_stateful_sample_number_view;
-
-// (all)
-import '../../../global_widgets/gw_stateful_test/widget_view.dart'
-    as gw_stateful_test_view;
 
 // [위젯 뷰]
 // 위젯의 화면 작성은 여기서 합니다.
@@ -118,64 +112,39 @@ class WidgetUi {
     return Dialog(
       elevation: 0,
       backgroundColor: Colors.transparent,
-      child: SingleChildScrollView(
-        child: Container(
-          height: 280,
-          width: 300,
-          decoration: const BoxDecoration(
-            color: Colors.white,
-            shape: BoxShape.rectangle,
-            borderRadius: BorderRadius.all(
-              Radius.circular(16),
-            ),
-          ),
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text(
-                  "글로벌 위젯 상태 변수",
-                  style: TextStyle(color: Colors.black, fontFamily: "MaruBuri"),
+      child: AnimatedContainer(
+        width: business.isComplete ? 64 : 300,
+        height: business.isComplete ? 64 : 280,
+        curve: Curves.fastOutSlowIn,
+        duration: const Duration(milliseconds: 500),
+        child: business.isComplete
+            ? Container(
+                height: 64,
+                width: 64,
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.grey.withOpacity(.5),
+                          spreadRadius: 5,
+                          blurRadius: 7)
+                    ]),
+                child: const Center(child: Text('성공')),
+              )
+            : SingleChildScrollView(
+                child: Container(
+                  height: 280,
+                  width: 300,
+                  decoration: const BoxDecoration(
+                      color: Colors.white,
+                      shape: BoxShape.rectangle,
+                      borderRadius: BorderRadius.all(Radius.circular(16))),
+                  child: const Center(
+                    child: Text("잠시 후 종료됩니다."),
+                  ),
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
-                gw_stateful_test_view.WidgetView(
-                    inputVo: const gw_stateful_test_view.InputVo(),
-                    business: business.statefulTestBusiness),
-                const SizedBox(
-                  height: 10,
-                ),
-                const Text(
-                  "로컬 위젯 상태 변수",
-                  style: TextStyle(color: Colors.black, fontFamily: "MaruBuri"),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                iw_stateful_sample_number_view.WidgetView(
-                  business: business.statefulSampleNumberBusiness,
-                  inputVo: const iw_stateful_sample_number_view.InputVo(),
-                ),
-                ElevatedButton(
-                    onPressed: () {
-                      business.pushToAnotherPage();
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue,
-                    ),
-                    child: const Text(
-                      "페이지 이동",
-                      style: TextStyle(
-                          color: Colors.white, fontFamily: "MaruBuri"),
-                    )),
-                const SizedBox(
-                  height: 30,
-                )
-              ],
-            ),
-          ),
-        ),
+              ),
       ),
     );
   }

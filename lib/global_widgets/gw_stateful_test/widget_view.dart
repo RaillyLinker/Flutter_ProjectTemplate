@@ -54,12 +54,12 @@ class StatefulState extends State<StatefulView> {
   @override
   void initState() {
     super.initState();
-    widget.business.initState(this);
+    widget.business.initState();
   }
 
   @override
   void dispose() {
-    widget.business.dispose(this);
+    widget.business.dispose();
     super.dispose();
   }
 

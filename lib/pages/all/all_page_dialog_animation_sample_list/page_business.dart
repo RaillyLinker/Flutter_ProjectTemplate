@@ -16,8 +16,10 @@ import '../../../a_templates/all_dialog_template/widget_business.dart'
     as all_dialog_template_business;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
-import '../../../dialogs/all/all_dialog_small_circle_transform_sample/page_entrance.dart'
-    as all_dialog_small_circle_transform_sample;
+import '../../../dialogs/all/all_dialog_small_circle_transform_sample/widget_view.dart'
+    as all_dialog_small_circle_transform_sample_view;
+import '../../../dialogs/all/all_dialog_small_circle_transform_sample/widget_business.dart'
+    as all_dialog_small_circle_transform_sample_business;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
 // todo : 템플릿 적용
@@ -198,12 +200,18 @@ class PageBusiness {
       case SampleItemEnum.smallCircleTransformAnimation:
         {
           // 다이얼로그에서 다른 다이얼로그를 호출하는 샘플
+          var allDialogSmallCircleTransformSampleBusiness =
+              all_dialog_small_circle_transform_sample_business
+                  .WidgetBusiness();
           showDialog(
               barrierDismissible: false,
               context: _context,
               builder: (context) =>
-                  all_dialog_small_circle_transform_sample.PageEntrance(
-                    all_dialog_small_circle_transform_sample.PageInputVo(),
+                  all_dialog_small_circle_transform_sample_view.WidgetView(
+                    business: allDialogSmallCircleTransformSampleBusiness,
+                    inputVo: const all_dialog_small_circle_transform_sample_view
+                        .InputVo(),
+                    onDialogCreated: () {},
                   )).then((outputVo) {});
         }
         break;

@@ -19,7 +19,7 @@ import '../../../../repositories/spws/spw_auth_member_info.dart'
 class WidgetBusiness {
   // [콜백 함수]
   // (전체 위젯 처음 실행 콜백)
-  void onCreated() {
+  Future<void> onCreated() async {
     // !!!onCreated 로직 작성!!!
   }
 
@@ -29,7 +29,7 @@ class WidgetBusiness {
   }
 
   // (전체 위젯의 FocusDetector 콜백들)
-  void onFocusGained() async {
+  Future<void> onFocusGained() async {
     // !!!onFocusGained 로직 작성!!!
 
     // 검증된 현재 회원 정보 가져오기 (비회원이라면 null)
@@ -43,23 +43,23 @@ class WidgetBusiness {
     }
   }
 
-  void onFocusLost() async {
+  Future<void> onFocusLost() async {
     // !!!onFocusLost 로직 작성!!!
   }
 
-  void onVisibilityGained() async {
+  Future<void> onVisibilityGained() async {
     // !!!onFocusLost 로직 작성!!!
   }
 
-  void onVisibilityLost() async {
+  Future<void> onVisibilityLost() async {
     // !!!onVisibilityLost 로직 작성!!!
   }
 
-  void onForegroundGained() async {
+  Future<void> onForegroundGained() async {
     // !!!onForegroundGained 로직 작성!!!
   }
 
-  void onForegroundLost() async {
+  Future<void> onForegroundLost() async {
     // !!!onForegroundLost 로직 작성!!!
   }
 
