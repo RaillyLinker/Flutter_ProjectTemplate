@@ -16,8 +16,10 @@ import '../../../dialogs/all/all_dialog_info/widget_view.dart'
     as all_dialog_info_view;
 import '../../../dialogs/all/all_dialog_info/widget_business.dart'
     as all_dialog_info_business;
-import '../../../dialogs/all/all_dialog_loading_spinner/page_entrance.dart'
-    as all_dialog_loading_spinner;
+import '../../../dialogs/all/all_dialog_loading_spinner/widget_view.dart'
+    as all_dialog_loading_spinner_view;
+import '../../../dialogs/all/all_dialog_loading_spinner/widget_business.dart'
+    as all_dialog_loading_spinner_business;
 
 // [위젯 비즈니스]
 // 위젯의 비즈니스 로직 + State 변수 처리는 이 곳에서 합니다.
@@ -136,13 +138,16 @@ class WidgetBusiness {
     if (verificationCodeTextFieldKey.currentState!.validate()) {
       // 코드 검증
       // (로딩 스피너 다이얼로그 호출)
-      var loadingSpinner = all_dialog_loading_spinner.PageEntrance(
-          all_dialog_loading_spinner.PageInputVo());
+      var allDialogLoadingSpinnerBusiness =
+          all_dialog_loading_spinner_business.WidgetBusiness();
 
       showDialog(
           barrierDismissible: false,
           context: context,
-          builder: (context) => loadingSpinner).then((outputVo) {});
+          builder: (context) => all_dialog_loading_spinner_view.WidgetView(
+              business: allDialogLoadingSpinnerBusiness,
+              inputVo: const all_dialog_loading_spinner_view.InputVo(),
+              onDialogCreated: () {})).then((outputVo) {});
 
       var responseVo = await api_main_server
           .getService1TkV1AuthJoinTheMembershipEmailVerificationCheckAsync(
@@ -155,7 +160,7 @@ class WidgetBusiness {
 
       if (responseVo.dioException == null) {
         // Dio 네트워크 응답
-        loadingSpinner.pageBusiness.closeDialog();
+        allDialogLoadingSpinnerBusiness.closeDialog();
         var networkResponseObjectOk = responseVo.networkResponseObjectOk!;
 
         if (networkResponseObjectOk.responseStatusCode == 200) {
@@ -257,7 +262,7 @@ class WidgetBusiness {
           }
         }
       } else {
-        loadingSpinner.pageBusiness.closeDialog();
+        allDialogLoadingSpinnerBusiness.closeDialog();
         var allDialogInfoBusiness = all_dialog_info_business.WidgetBusiness();
         if (!context.mounted) return;
         showDialog(
@@ -284,14 +289,16 @@ class WidgetBusiness {
   Future<void> resendVerificationEmail() async {
     // 입력값 검증 완료
     // (로딩 스피너 다이얼로그 호출)
-    var loadingSpinner = all_dialog_loading_spinner.PageEntrance(
-      all_dialog_loading_spinner.PageInputVo(),
-    );
+    var allDialogLoadingSpinnerBusiness =
+        all_dialog_loading_spinner_business.WidgetBusiness();
 
     showDialog(
         barrierDismissible: false,
         context: context,
-        builder: (context) => loadingSpinner).then((outputVo) {});
+        builder: (context) => all_dialog_loading_spinner_view.WidgetView(
+            business: allDialogLoadingSpinnerBusiness,
+            inputVo: const all_dialog_loading_spinner_view.InputVo(),
+            onDialogCreated: () {})).then((outputVo) {});
 
     var responseVo = await api_main_server
         .postService1TkV1AuthJoinTheMembershipEmailVerificationAsync(
@@ -301,7 +308,7 @@ class WidgetBusiness {
 
     if (responseVo.dioException == null) {
       // Dio 네트워크 응답
-      loadingSpinner.pageBusiness.closeDialog();
+      allDialogLoadingSpinnerBusiness.closeDialog();
       var networkResponseObjectOk = responseVo.networkResponseObjectOk!;
 
       if (networkResponseObjectOk.responseStatusCode == 200) {
@@ -384,7 +391,7 @@ class WidgetBusiness {
         }
       }
     } else {
-      loadingSpinner.pageBusiness.closeDialog();
+      allDialogLoadingSpinnerBusiness.closeDialog();
       var allDialogInfoBusiness = all_dialog_info_business.WidgetBusiness();
       if (!context.mounted) return;
       showDialog(

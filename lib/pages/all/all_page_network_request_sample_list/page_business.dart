@@ -13,8 +13,10 @@ import '../../../dialogs/all/all_dialog_info/widget_view.dart'
     as all_dialog_info_view;
 import '../../../dialogs/all/all_dialog_info/widget_business.dart'
     as all_dialog_info_business;
-import '../../../dialogs/all/all_dialog_loading_spinner/page_entrance.dart'
-    as all_dialog_loading_spinner;
+import '../../../dialogs/all/all_dialog_loading_spinner/widget_view.dart'
+    as all_dialog_loading_spinner_view;
+import '../../../dialogs/all/all_dialog_loading_spinner/widget_business.dart'
+    as all_dialog_loading_spinner_business;
 import '../../../../repositories/network/apis/api_main_server.dart'
     as api_main_server;
 import '../../../pages/all/all_page_get_request_sample/page_entrance.dart'
@@ -152,20 +154,22 @@ class PageBusiness {
       case SampleItemEnum.postReceiveErrorSample:
         {
           // 로딩 다이얼로그 표시
-          var loadingSpinnerDialog = all_dialog_loading_spinner.PageEntrance(
-            all_dialog_loading_spinner.PageInputVo(),
-          );
+          var allDialogLoadingSpinnerBusiness =
+              all_dialog_loading_spinner_business.WidgetBusiness();
 
           showDialog(
               barrierDismissible: false,
               context: _context,
-              builder: (context) => loadingSpinnerDialog).then((outputVo) {});
+              builder: (context) => all_dialog_loading_spinner_view.WidgetView(
+                  business: allDialogLoadingSpinnerBusiness,
+                  inputVo: const all_dialog_loading_spinner_view.InputVo(),
+                  onDialogCreated: () {})).then((outputVo) {});
 
           var response = await api_main_server
               .postService1TkV1RequestTestGenerateErrorAsync();
 
           // 로딩 다이얼로그 제거
-          loadingSpinnerDialog.pageBusiness.closeDialog();
+          allDialogLoadingSpinnerBusiness.closeDialog();
 
           if (response.dioException == null) {
             // Dio 네트워크 응답
@@ -208,20 +212,22 @@ class PageBusiness {
       case SampleItemEnum.getStringResponseSample:
         {
           // 로딩 다이얼로그 표시
-          var loadingSpinnerDialog = all_dialog_loading_spinner.PageEntrance(
-            all_dialog_loading_spinner.PageInputVo(),
-          );
+          var allDialogLoadingSpinnerBusiness =
+              all_dialog_loading_spinner_business.WidgetBusiness();
 
           showDialog(
               barrierDismissible: false,
               context: _context,
-              builder: (context) => loadingSpinnerDialog).then((outputVo) {});
+              builder: (context) => all_dialog_loading_spinner_view.WidgetView(
+                  business: allDialogLoadingSpinnerBusiness,
+                  inputVo: const all_dialog_loading_spinner_view.InputVo(),
+                  onDialogCreated: () {})).then((outputVo) {});
 
           var response = await api_main_server
               .getService1TkV1RequestTestReturnTextStringAsync();
 
           // 로딩 다이얼로그 제거
-          loadingSpinnerDialog.pageBusiness.closeDialog();
+          allDialogLoadingSpinnerBusiness.closeDialog();
 
           if (response.dioException == null) {
             // Dio 네트워크 응답
@@ -290,20 +296,22 @@ class PageBusiness {
       case SampleItemEnum.getHtmlResponseSample:
         {
           // 로딩 다이얼로그 표시
-          var loadingSpinnerDialog = all_dialog_loading_spinner.PageEntrance(
-            all_dialog_loading_spinner.PageInputVo(),
-          );
+          var allDialogLoadingSpinnerBusiness =
+              all_dialog_loading_spinner_business.WidgetBusiness();
 
           showDialog(
               barrierDismissible: false,
               context: _context,
-              builder: (context) => loadingSpinnerDialog).then((outputVo) {});
+              builder: (context) => all_dialog_loading_spinner_view.WidgetView(
+                  business: allDialogLoadingSpinnerBusiness,
+                  inputVo: const all_dialog_loading_spinner_view.InputVo(),
+                  onDialogCreated: () {})).then((outputVo) {});
 
           var response = await api_main_server
               .getService1TkV1RequestTestReturnTextHtmlAsync();
 
           // 로딩 다이얼로그 제거
-          loadingSpinnerDialog.pageBusiness.closeDialog();
+          allDialogLoadingSpinnerBusiness.closeDialog();
 
           if (response.dioException == null) {
             // Dio 네트워크 응답

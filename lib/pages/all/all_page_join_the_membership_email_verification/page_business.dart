@@ -20,8 +20,10 @@ import '../../../dialogs/all/all_dialog_info/widget_view.dart'
     as all_dialog_info_view;
 import '../../../dialogs/all/all_dialog_info/widget_business.dart'
     as all_dialog_info_business;
-import '../../../dialogs/all/all_dialog_loading_spinner/page_entrance.dart'
-    as all_dialog_loading_spinner;
+import '../../../dialogs/all/all_dialog_loading_spinner/widget_view.dart'
+    as all_dialog_loading_spinner_view;
+import '../../../dialogs/all/all_dialog_loading_spinner/widget_business.dart'
+    as all_dialog_loading_spinner_business;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
 import '../../../pages/all/all_page_join_the_membership_edit_member_info/page_entrance.dart'
@@ -182,14 +184,16 @@ class PageBusiness {
     } else {
       // 입력값 검증 완료
       // (로딩 스피너 다이얼로그 호출)
-      var loadingSpinner = all_dialog_loading_spinner.PageEntrance(
-        all_dialog_loading_spinner.PageInputVo(),
-      );
+      var allDialogLoadingSpinnerBusiness =
+          all_dialog_loading_spinner_business.WidgetBusiness();
 
       showDialog(
           barrierDismissible: false,
           context: _context,
-          builder: (context) => loadingSpinner).then((outputVo) {});
+          builder: (context) => all_dialog_loading_spinner_view.WidgetView(
+              business: allDialogLoadingSpinnerBusiness,
+              inputVo: const all_dialog_loading_spinner_view.InputVo(),
+              onDialogCreated: () {})).then((outputVo) {});
 
       var responseVo = await api_main_server
           .postService1TkV1AuthJoinTheMembershipEmailVerificationAsync(
@@ -199,7 +203,7 @@ class PageBusiness {
 
       if (responseVo.dioException == null) {
         // Dio 네트워크 응답
-        loadingSpinner.pageBusiness.closeDialog();
+        allDialogLoadingSpinnerBusiness.closeDialog();
         var networkResponseObjectOk = responseVo.networkResponseObjectOk!;
 
         if (networkResponseObjectOk.responseStatusCode == 200) {
@@ -295,7 +299,7 @@ class PageBusiness {
           }
         }
       } else {
-        loadingSpinner.pageBusiness.closeDialog();
+        allDialogLoadingSpinnerBusiness.closeDialog();
         var allDialogInfoBusiness = all_dialog_info_business.WidgetBusiness();
         if (!_context.mounted) return;
         showDialog(

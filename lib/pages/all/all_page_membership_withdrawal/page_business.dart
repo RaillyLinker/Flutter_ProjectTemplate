@@ -18,8 +18,10 @@ import '../../../dialogs/all/all_dialog_info/widget_view.dart'
     as all_dialog_info_view;
 import '../../../dialogs/all/all_dialog_info/widget_business.dart'
     as all_dialog_info_business;
-import '../../../dialogs/all/all_dialog_loading_spinner/page_entrance.dart'
-    as all_dialog_loading_spinner;
+import '../../../dialogs/all/all_dialog_loading_spinner/widget_view.dart'
+    as all_dialog_loading_spinner_view;
+import '../../../dialogs/all/all_dialog_loading_spinner/widget_business.dart'
+    as all_dialog_loading_spinner_business;
 import '../../../dialogs/all/all_dialog_yes_or_no/page_entrance.dart'
     as all_dialog_yes_or_no;
 import '../../../global_classes/gc_template_classes.dart'
@@ -185,14 +187,16 @@ class PageBusiness {
                   "회원 탈퇴", "회원 탈퇴를 진행하시겠습니까?", "예", "아니오"),
             )).then((outputVo) async {
       if (outputVo.checkPositiveBtn) {
-        var loadingSpinner = all_dialog_loading_spinner.PageEntrance(
-          all_dialog_loading_spinner.PageInputVo(),
-        );
+        var allDialogLoadingSpinnerBusiness =
+            all_dialog_loading_spinner_business.WidgetBusiness();
 
         showDialog(
             barrierDismissible: false,
             context: _context,
-            builder: (context) => loadingSpinner);
+            builder: (context) => all_dialog_loading_spinner_view.WidgetView(
+                business: allDialogLoadingSpinnerBusiness,
+                inputVo: const all_dialog_loading_spinner_view.InputVo(),
+                onDialogCreated: () {}));
 
         // 네트워크 요청
         var responseVo =
@@ -203,7 +207,7 @@ class PageBusiness {
                       "${signInInfo.tokenType} ${signInInfo.accessToken}"),
         );
 
-        loadingSpinner.pageBusiness.closeDialog();
+        allDialogLoadingSpinnerBusiness.closeDialog();
 
         if (responseVo.dioException == null) {
           // Dio 네트워크 응답

@@ -16,8 +16,10 @@ import '../../../dialogs/all/all_dialog_info/widget_view.dart'
     as all_dialog_info_view;
 import '../../../dialogs/all/all_dialog_info/widget_business.dart'
     as all_dialog_info_business;
-import '../../../dialogs/all/all_dialog_loading_spinner/page_entrance.dart'
-    as all_dialog_loading_spinner;
+import '../../../dialogs/all/all_dialog_loading_spinner/widget_view.dart'
+    as all_dialog_loading_spinner_view;
+import '../../../dialogs/all/all_dialog_loading_spinner/widget_business.dart'
+    as all_dialog_loading_spinner_business;
 import '../../../dialogs/all/all_dialog_yes_or_no/page_entrance.dart'
     as all_dialog_yes_or_no;
 import '../../../global_classes/gc_template_classes.dart'
@@ -306,14 +308,16 @@ class PageBusiness {
 // [내부 함수]
 // !!!내부에서만 사용할 함수를 아래에 구현!!!
   Future<void> _requestChangePassword() async {
-    var loadingSpinner = all_dialog_loading_spinner.PageEntrance(
-      all_dialog_loading_spinner.PageInputVo(),
-    );
+    var allDialogLoadingSpinnerBusiness =
+        all_dialog_loading_spinner_business.WidgetBusiness();
 
     showDialog(
         barrierDismissible: false,
         context: _context,
-        builder: (context) => loadingSpinner).then((outputVo) {});
+        builder: (context) => all_dialog_loading_spinner_view.WidgetView(
+            business: allDialogLoadingSpinnerBusiness,
+            inputVo: const all_dialog_loading_spinner_view.InputVo(),
+            onDialogCreated: () {})).then((outputVo) {});
 
     spw_auth_member_info.SharedPreferenceWrapperVo? loginMemberInfo =
         spw_auth_member_info.SharedPreferenceWrapper.get();
@@ -353,7 +357,7 @@ class PageBusiness {
                     oldPassword: oldPw, newPassword: newPw));
 
     // 로딩 다이얼로그 제거
-    loadingSpinner.pageBusiness.closeDialog();
+    allDialogLoadingSpinnerBusiness.closeDialog();
 
     if (response.dioException == null) {
       // Dio 네트워크 응답
@@ -379,14 +383,18 @@ class PageBusiness {
                 )).then((outputVo) async {
           if (outputVo.checkPositiveBtn) {
             // 계정 로그아웃 처리
-            var loadingSpinner = all_dialog_loading_spinner.PageEntrance(
-              all_dialog_loading_spinner.PageInputVo(),
-            );
+            var allDialogLoadingSpinnerBusiness =
+                all_dialog_loading_spinner_business.WidgetBusiness();
 
             showDialog(
                 barrierDismissible: false,
                 context: _context,
-                builder: (context) => loadingSpinner).then((outputVo) {});
+                builder: (context) =>
+                    all_dialog_loading_spinner_view.WidgetView(
+                        business: allDialogLoadingSpinnerBusiness,
+                        inputVo:
+                            const all_dialog_loading_spinner_view.InputVo(),
+                        onDialogCreated: () {})).then((outputVo) {});
 
             spw_auth_member_info.SharedPreferenceWrapperVo? loginMemberInfo =
                 spw_auth_member_info.SharedPreferenceWrapper.get();
@@ -408,19 +416,23 @@ class PageBusiness {
               spw_auth_member_info.SharedPreferenceWrapper.set(value: null);
             }
 
-            loadingSpinner.pageBusiness.closeDialog();
+            allDialogLoadingSpinnerBusiness.closeDialog();
             if (!_context.mounted) return;
             _context.pop();
           } else {
             // 계정 로그아웃 처리
-            var loadingSpinner = all_dialog_loading_spinner.PageEntrance(
-              all_dialog_loading_spinner.PageInputVo(),
-            );
+            var allDialogLoadingSpinnerBusiness =
+                all_dialog_loading_spinner_business.WidgetBusiness();
 
             showDialog(
                 barrierDismissible: false,
                 context: _context,
-                builder: (context) => loadingSpinner).then((outputVo) {});
+                builder: (context) =>
+                    all_dialog_loading_spinner_view.WidgetView(
+                        business: allDialogLoadingSpinnerBusiness,
+                        inputVo:
+                            const all_dialog_loading_spinner_view.InputVo(),
+                        onDialogCreated: () {})).then((outputVo) {});
 
             spw_auth_member_info.SharedPreferenceWrapperVo? loginMemberInfo =
                 spw_auth_member_info.SharedPreferenceWrapper.get();
@@ -439,7 +451,7 @@ class PageBusiness {
               spw_auth_member_info.SharedPreferenceWrapper.set(value: null);
             }
 
-            loadingSpinner.pageBusiness.closeDialog();
+            allDialogLoadingSpinnerBusiness.closeDialog();
             if (!_context.mounted) return;
             _context.pop();
           }

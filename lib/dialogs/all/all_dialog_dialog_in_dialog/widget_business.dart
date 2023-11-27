@@ -6,8 +6,10 @@ import 'package:go_router/go_router.dart';
 import 'widget_view.dart' as widget_view;
 
 // (all)
-import '../../../dialogs/all/all_dialog_loading_spinner/page_entrance.dart'
-    as all_dialog_loading_spinner;
+import '../../../dialogs/all/all_dialog_loading_spinner/widget_view.dart'
+    as all_dialog_loading_spinner_view;
+import '../../../dialogs/all/all_dialog_loading_spinner/widget_business.dart'
+    as all_dialog_loading_spinner_business;
 import '../../../dialogs/all/all_dialog_info/widget_view.dart'
     as all_dialog_info_view;
 import '../../../dialogs/all/all_dialog_info/widget_business.dart'
@@ -102,14 +104,16 @@ class WidgetBusiness {
 
   // (Loading 다이얼로그 호출)
   void showLoadingDialog() {
-    var loadingSpinner = all_dialog_loading_spinner.PageEntrance(
-      all_dialog_loading_spinner.PageInputVo(),
-    );
+    var allDialogLoadingSpinnerBusiness =
+        all_dialog_loading_spinner_business.WidgetBusiness();
 
     showDialog(
         barrierDismissible: true,
         context: context,
-        builder: (context) => loadingSpinner).then((outputVo) {});
+        builder: (context) => all_dialog_loading_spinner_view.WidgetView(
+            business: allDialogLoadingSpinnerBusiness,
+            inputVo: const all_dialog_loading_spinner_view.InputVo(),
+            onDialogCreated: () {})).then((outputVo) {});
   }
 
   // (현재 다이얼로그 다시 호출)

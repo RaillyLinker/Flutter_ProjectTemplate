@@ -18,8 +18,10 @@ import '../../../dialogs/all/all_dialog_info/widget_view.dart'
     as all_dialog_info_view;
 import '../../../dialogs/all/all_dialog_info/widget_business.dart'
     as all_dialog_info_business;
-import '../../../dialogs/all/all_dialog_loading_spinner/page_entrance.dart'
-    as all_dialog_loading_spinner;
+import '../../../dialogs/all/all_dialog_loading_spinner/widget_view.dart'
+    as all_dialog_loading_spinner_view;
+import '../../../dialogs/all/all_dialog_loading_spinner/widget_business.dart'
+    as all_dialog_loading_spinner_business;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
 import '../../../pages/all/all_page_find_password_with_email/page_entrance.dart'
@@ -183,14 +185,16 @@ class PageBusiness {
             return;
           }
 
-          var loadingSpinner = all_dialog_loading_spinner.PageEntrance(
-            all_dialog_loading_spinner.PageInputVo(),
-          );
+          var allDialogLoadingSpinnerBusiness =
+              all_dialog_loading_spinner_business.WidgetBusiness();
 
           showDialog(
               barrierDismissible: false,
               context: _context,
-              builder: (context) => loadingSpinner);
+              builder: (context) => all_dialog_loading_spinner_view.WidgetView(
+                  business: allDialogLoadingSpinnerBusiness,
+                  inputVo: const all_dialog_loading_spinner_view.InputVo(),
+                  onDialogCreated: () {}));
 
           // 네트워크 요청
           var responseVo =
@@ -199,7 +203,7 @@ class PageBusiness {
                       .PostService1TkV1AuthLoginWithPasswordAsyncRequestBodyVo(
                           loginTypeCode: 1, id: id, password: password));
 
-          loadingSpinner.pageBusiness.closeDialog();
+          allDialogLoadingSpinnerBusiness.closeDialog();
 
           if (responseVo.dioException == null) {
             // Dio 네트워크 응답

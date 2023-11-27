@@ -20,8 +20,10 @@ import '../../../dialogs/all/all_dialog_info/widget_view.dart'
     as all_dialog_info_view;
 import '../../../dialogs/all/all_dialog_info/widget_business.dart'
     as all_dialog_info_business;
-import '../../../dialogs/all/all_dialog_loading_spinner/page_entrance.dart'
-    as all_dialog_loading_spinner;
+import '../../../dialogs/all/all_dialog_loading_spinner/widget_view.dart'
+    as all_dialog_loading_spinner_view;
+import '../../../dialogs/all/all_dialog_loading_spinner/widget_business.dart'
+    as all_dialog_loading_spinner_business;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
 
@@ -210,14 +212,16 @@ class PageBusiness {
       );
     } else {
       // 로딩 다이얼로그 표시
-      var loadingSpinnerDialog = all_dialog_loading_spinner.PageEntrance(
-        all_dialog_loading_spinner.PageInputVo(),
-      );
+      var allDialogLoadingSpinnerBusiness =
+          all_dialog_loading_spinner_business.WidgetBusiness();
 
       showDialog(
           barrierDismissible: false,
           context: _context,
-          builder: (context) => loadingSpinnerDialog).then((outputVo) {});
+          builder: (context) => all_dialog_loading_spinner_view.WidgetView(
+              business: allDialogLoadingSpinnerBusiness,
+              inputVo: const all_dialog_loading_spinner_view.InputVo(),
+              onDialogCreated: () {})).then((outputVo) {});
 
       MultipartFile? pickFile2 = (pageViewModel.pickFile2 == null)
           ? null
@@ -241,7 +245,7 @@ class PageBusiness {
                           (pickFile2 == null) ? null : pickFile2));
 
       // 로딩 다이얼로그 제거
-      loadingSpinnerDialog.pageBusiness.closeDialog();
+      allDialogLoadingSpinnerBusiness.closeDialog();
 
       if (response.dioException == null) {
         // Dio 네트워크 응답

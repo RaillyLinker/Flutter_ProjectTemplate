@@ -20,8 +20,10 @@ import '../../../a_templates/all_dialog_template/widget_business.dart'
     as all_dialog_template_business;
 import '../../../dialogs/all/all_dialog_yes_or_no/page_entrance.dart'
     as all_dialog_yes_or_no;
-import '../../../dialogs/all/all_dialog_loading_spinner/page_entrance.dart'
-    as all_dialog_loading_spinner;
+import '../../../dialogs/all/all_dialog_loading_spinner/widget_view.dart'
+    as all_dialog_loading_spinner_view;
+import '../../../dialogs/all/all_dialog_loading_spinner/widget_business.dart'
+    as all_dialog_loading_spinner_business;
 import '../../../dialogs/all/all_dialog_modal_bottom_sheet_sample/page_entrance.dart'
     as all_dialog_modal_bottom_sheet_sample;
 import '../../../dialogs/all/all_dialog_dialog_in_dialog/widget_view.dart'
@@ -206,18 +208,20 @@ class PageBusiness {
       case SampleItemEnum.loadingSpinnerDialog:
         {
           // (로딩 스피너 다이얼로그 호출)
-          var loadingSpinner = all_dialog_loading_spinner.PageEntrance(
-            all_dialog_loading_spinner.PageInputVo(),
-          );
+          var allDialogLoadingSpinnerBusiness =
+              all_dialog_loading_spinner_business.WidgetBusiness();
 
           showDialog(
               barrierDismissible: false,
               context: _context,
-              builder: (context) => loadingSpinner).then((outputVo) {});
+              builder: (context) => all_dialog_loading_spinner_view.WidgetView(
+                  business: allDialogLoadingSpinnerBusiness,
+                  inputVo: const all_dialog_loading_spinner_view.InputVo(),
+                  onDialogCreated: () {})).then((outputVo) {});
 
           // 3초 후 닫힘
           Future.delayed(const Duration(seconds: 2)).then((value) {
-            loadingSpinner.pageBusiness.closeDialog();
+            allDialogLoadingSpinnerBusiness.closeDialog();
           });
         }
         break;

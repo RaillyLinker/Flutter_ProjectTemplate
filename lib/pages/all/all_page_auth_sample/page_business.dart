@@ -21,8 +21,10 @@ import '../../../dialogs/all/all_dialog_info/widget_view.dart'
     as all_dialog_info_view;
 import '../../../dialogs/all/all_dialog_info/widget_business.dart'
     as all_dialog_info_business;
-import '../../../dialogs/all/all_dialog_loading_spinner/page_entrance.dart'
-    as all_dialog_loading_spinner;
+import '../../../dialogs/all/all_dialog_loading_spinner/widget_view.dart'
+    as all_dialog_loading_spinner_view;
+import '../../../dialogs/all/all_dialog_loading_spinner/widget_business.dart'
+    as all_dialog_loading_spinner_business;
 import '../../../pages/all/all_page_login/page_entrance.dart' as all_page_login;
 import '../../../pages/all/all_page_member_info/page_entrance.dart'
     as all_page_member_info;
@@ -136,14 +138,16 @@ class PageBusiness {
           "로그아웃", "로그아웃 처리를 합니다.", page_view.HoverListTileWrapperBusiness(
               onRouteListItemClick: () async {
         // 계정 로그아웃 처리
-        var loadingSpinner = all_dialog_loading_spinner.PageEntrance(
-          all_dialog_loading_spinner.PageInputVo(),
-        );
+        var allDialogLoadingSpinnerBusiness =
+            all_dialog_loading_spinner_business.WidgetBusiness();
 
         showDialog(
             barrierDismissible: false,
             context: _context,
-            builder: (context) => loadingSpinner).then((outputVo) {});
+            builder: (context) => all_dialog_loading_spinner_view.WidgetView(
+                business: allDialogLoadingSpinnerBusiness,
+                inputVo: const all_dialog_loading_spinner_view.InputVo(),
+                onDialogCreated: () {})).then((outputVo) {});
 
         spw_auth_member_info.SharedPreferenceWrapperVo? loginMemberInfo =
             spw_auth_member_info.SharedPreferenceWrapper.get();
@@ -162,7 +166,7 @@ class PageBusiness {
           spw_auth_member_info.SharedPreferenceWrapper.set(value: null);
         }
 
-        loadingSpinner.pageBusiness.closeDialog();
+        allDialogLoadingSpinnerBusiness.closeDialog();
 
         refreshMainListAsync();
       })));
@@ -171,15 +175,17 @@ class PageBusiness {
           page_view.HoverListTileWrapperBusiness(
               onRouteListItemClick: () async {
         // 모든 디바이스에서 계정 로그아웃 처리
-        var loadingSpinner = all_dialog_loading_spinner.PageEntrance(
-          all_dialog_loading_spinner.PageInputVo(),
-        );
+        var allDialogLoadingSpinnerBusiness =
+            all_dialog_loading_spinner_business.WidgetBusiness();
 
         if (!_context.mounted) return;
         showDialog(
             barrierDismissible: false,
             context: _context,
-            builder: (context) => loadingSpinner).then((outputVo) {});
+            builder: (context) => all_dialog_loading_spinner_view.WidgetView(
+                business: allDialogLoadingSpinnerBusiness,
+                inputVo: const all_dialog_loading_spinner_view.InputVo(),
+                onDialogCreated: () {})).then((outputVo) {});
 
         spw_auth_member_info.SharedPreferenceWrapperVo? loginMemberInfo =
             spw_auth_member_info.SharedPreferenceWrapper.get();
@@ -199,7 +205,7 @@ class PageBusiness {
           spw_auth_member_info.SharedPreferenceWrapper.set(value: null);
         }
 
-        loadingSpinner.pageBusiness.closeDialog();
+        allDialogLoadingSpinnerBusiness.closeDialog();
 
         refreshMainListAsync();
       })));
@@ -207,15 +213,17 @@ class PageBusiness {
           "인증 토큰 갱신", "인증 토큰을 갱신합니다.", page_view.HoverListTileWrapperBusiness(
               onRouteListItemClick: () async {
         // (토큰 리플레시)
-        var loadingSpinner = all_dialog_loading_spinner.PageEntrance(
-          all_dialog_loading_spinner.PageInputVo(),
-        );
+        var allDialogLoadingSpinnerBusiness =
+            all_dialog_loading_spinner_business.WidgetBusiness();
 
         if (!_context.mounted) return;
         showDialog(
             barrierDismissible: false,
             context: _context,
-            builder: (context) => loadingSpinner).then((outputVo) {});
+            builder: (context) => all_dialog_loading_spinner_view.WidgetView(
+                business: allDialogLoadingSpinnerBusiness,
+                inputVo: const all_dialog_loading_spinner_view.InputVo(),
+                onDialogCreated: () {})).then((outputVo) {});
 
         spw_auth_member_info.SharedPreferenceWrapperVo? loginMemberInfo =
             spw_auth_member_info.SharedPreferenceWrapper.get();
@@ -233,7 +241,7 @@ class PageBusiness {
             // login_user_info SPW 비우기
             spw_auth_member_info.SharedPreferenceWrapper.set(value: null);
 
-            loadingSpinner.pageBusiness.closeDialog();
+            allDialogLoadingSpinnerBusiness.closeDialog();
 
             refreshMainListAsync();
           } else {
@@ -248,7 +256,7 @@ class PageBusiness {
                             refreshToken:
                                 "${loginMemberInfo.tokenType} ${loginMemberInfo.refreshToken}"));
 
-            loadingSpinner.pageBusiness.closeDialog();
+            allDialogLoadingSpinnerBusiness.closeDialog();
 
             // 네트워크 요청 결과 처리
             if (postAutoLoginOutputVo.dioException == null) {
