@@ -22,8 +22,10 @@ import '../../../dialogs/all/all_dialog_loading_spinner/widget_view.dart'
     as all_dialog_loading_spinner_view;
 import '../../../dialogs/all/all_dialog_loading_spinner/widget_business.dart'
     as all_dialog_loading_spinner_business;
-import '../../../dialogs/all/all_dialog_yes_or_no/page_entrance.dart'
-    as all_dialog_yes_or_no;
+import '../../../dialogs/all/all_dialog_yes_or_no/widget_view.dart'
+    as all_dialog_yes_or_no_view;
+import '../../../dialogs/all/all_dialog_yes_or_no/widget_business.dart'
+    as all_dialog_yes_or_no_business;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
 import '../../../global_functions/gf_my_functions.dart' as gf_my_functions;
@@ -179,12 +181,19 @@ class PageBusiness {
     accountWithdrawalAsyncClicked = false;
 
     // (선택 다이얼로그 호출)
+    var allDialogYesOrNoBusiness =
+        all_dialog_yes_or_no_business.WidgetBusiness();
     showDialog(
         barrierDismissible: true,
         context: _context,
-        builder: (context) => all_dialog_yes_or_no.PageEntrance(
-              all_dialog_yes_or_no.PageInputVo(
-                  "회원 탈퇴", "회원 탈퇴를 진행하시겠습니까?", "예", "아니오"),
+        builder: (context) => all_dialog_yes_or_no_view.WidgetView(
+              business: allDialogYesOrNoBusiness,
+              inputVo: const all_dialog_yes_or_no_view.InputVo(
+                  dialogTitle: "회원 탈퇴",
+                  dialogContent: "회원 탈퇴를 진행하시겠습니까?",
+                  positiveBtnTitle: "예",
+                  negativeBtnTitle: "아니오"),
+              onDialogCreated: () {},
             )).then((outputVo) async {
       if (outputVo.checkPositiveBtn) {
         var allDialogLoadingSpinnerBusiness =

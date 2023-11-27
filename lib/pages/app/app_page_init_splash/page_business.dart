@@ -23,8 +23,10 @@ import '../../../dialogs/all/all_dialog_info/widget_view.dart'
     as all_dialog_info_view;
 import '../../../dialogs/all/all_dialog_info/widget_business.dart'
     as all_dialog_info_business;
-import '../../../dialogs/all/all_dialog_yes_or_no/page_entrance.dart'
-    as all_dialog_yes_or_no;
+import '../../../dialogs/all/all_dialog_yes_or_no/widget_view.dart'
+    as all_dialog_yes_or_no_view;
+import '../../../dialogs/all/all_dialog_yes_or_no/widget_business.dart'
+    as all_dialog_yes_or_no_business;
 import '../../../global_classes/gc_my_classes.dart' as gc_my_classes;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
@@ -291,13 +293,20 @@ class PageBusiness {
         }
       } else {
         // 정상 코드가 아님
+        var allDialogYesOrNoBusiness =
+            all_dialog_yes_or_no_business.WidgetBusiness();
         if (!_context.mounted) return;
         showDialog(
             barrierDismissible: false,
             context: _context,
-            builder: (context) => all_dialog_yes_or_no.PageEntrance(
-                  all_dialog_yes_or_no.PageInputVo(
-                      "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "다시 시도", "종료"),
+            builder: (context) => all_dialog_yes_or_no_view.WidgetView(
+                  business: allDialogYesOrNoBusiness,
+                  inputVo: const all_dialog_yes_or_no_view.InputVo(
+                      dialogTitle: "네트워크 에러",
+                      dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
+                      positiveBtnTitle: "다시 시도",
+                      negativeBtnTitle: "종료"),
+                  onDialogCreated: () {},
                 )).then((outputVo) async {
           if (outputVo == null || !outputVo.checkPositiveBtn) {
             // 아무것도 누르지 않거나 negative 버튼을 눌렀을 때
@@ -313,13 +322,20 @@ class PageBusiness {
       }
     } else {
       // Dio 네트워크 에러
+      var allDialogYesOrNoBusiness =
+          all_dialog_yes_or_no_business.WidgetBusiness();
       if (!_context.mounted) return;
       showDialog(
           barrierDismissible: false,
           context: _context,
-          builder: (context) => all_dialog_yes_or_no.PageEntrance(
-                all_dialog_yes_or_no.PageInputVo(
-                    "네트워크 에러", "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "다시 시도", "종료"),
+          builder: (context) => all_dialog_yes_or_no_view.WidgetView(
+                business: allDialogYesOrNoBusiness,
+                inputVo: const all_dialog_yes_or_no_view.InputVo(
+                    dialogTitle: "네트워크 에러",
+                    dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
+                    positiveBtnTitle: "다시 시도",
+                    negativeBtnTitle: "종료"),
+                onDialogCreated: () {},
               )).then((outputVo) async {
         if (outputVo == null || !outputVo.checkPositiveBtn) {
           // 아무것도 누르지 않거나 negative 버튼을 눌렀을 때
@@ -483,13 +499,20 @@ class PageBusiness {
                 return;
               }
 
+              var allDialogYesOrNoBusiness =
+                  all_dialog_yes_or_no_business.WidgetBusiness();
               if (!_context.mounted) return;
               showDialog(
                   barrierDismissible: false,
                   context: _context,
-                  builder: (context) => all_dialog_yes_or_no.PageEntrance(
-                        all_dialog_yes_or_no.PageInputVo("네트워크 에러",
-                            "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "다시 시도", "종료"),
+                  builder: (context) => all_dialog_yes_or_no_view.WidgetView(
+                        business: allDialogYesOrNoBusiness,
+                        inputVo: const all_dialog_yes_or_no_view.InputVo(
+                            dialogTitle: "네트워크 에러",
+                            dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
+                            positiveBtnTitle: "다시 시도",
+                            negativeBtnTitle: "종료"),
+                        onDialogCreated: () {},
                       )).then((outputVo) async {
                 if (outputVo == null || !outputVo.checkPositiveBtn) {
                   // 아무것도 누르지 않거나 negative 버튼을 눌렀을 때
@@ -556,13 +579,20 @@ class PageBusiness {
           }
 
           // Dio 네트워크 에러
+          var allDialogYesOrNoBusiness =
+              all_dialog_yes_or_no_business.WidgetBusiness();
           if (!_context.mounted) return;
           showDialog(
               barrierDismissible: false,
               context: _context,
-              builder: (context) => all_dialog_yes_or_no.PageEntrance(
-                    all_dialog_yes_or_no.PageInputVo("네트워크 에러",
-                        "네트워크 상태가 불안정합니다.\n다시 시도해주세요.", "다시 시도", "종료"),
+              builder: (context) => all_dialog_yes_or_no_view.WidgetView(
+                    business: allDialogYesOrNoBusiness,
+                    inputVo: const all_dialog_yes_or_no_view.InputVo(
+                        dialogTitle: "네트워크 에러",
+                        dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
+                        positiveBtnTitle: "다시 시도",
+                        negativeBtnTitle: "종료"),
+                    onDialogCreated: () {},
                   )).then((outputVo) async {
             if (outputVo == null || !outputVo.checkPositiveBtn) {
               // 아무것도 누르지 않거나 negative 버튼을 눌렀을 때

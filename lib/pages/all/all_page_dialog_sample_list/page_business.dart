@@ -18,8 +18,10 @@ import '../../../a_templates/all_dialog_template/widget_view.dart'
     as all_dialog_template_view;
 import '../../../a_templates/all_dialog_template/widget_business.dart'
     as all_dialog_template_business;
-import '../../../dialogs/all/all_dialog_yes_or_no/page_entrance.dart'
-    as all_dialog_yes_or_no;
+import '../../../dialogs/all/all_dialog_yes_or_no/widget_view.dart'
+    as all_dialog_yes_or_no_view;
+import '../../../dialogs/all/all_dialog_yes_or_no/widget_business.dart'
+    as all_dialog_yes_or_no_business;
 import '../../../dialogs/all/all_dialog_loading_spinner/widget_view.dart'
     as all_dialog_loading_spinner_view;
 import '../../../dialogs/all/all_dialog_loading_spinner/widget_business.dart'
@@ -172,15 +174,20 @@ class PageBusiness {
       case SampleItemEnum.yesOrNoDialog:
         {
           // (선택 다이얼로그 호출)
+          var allDialogYesOrNoBusiness =
+              all_dialog_yes_or_no_business.WidgetBusiness();
           showDialog(
               barrierDismissible: true,
               context: _context,
-              builder: (context) => all_dialog_yes_or_no.PageEntrance(
-                    all_dialog_yes_or_no.PageInputVo(
-                        "예/아니오 다이얼로그",
-                        "예/아니오 다이얼로그를 호출했습니다.\n예, 혹은 아니오 버튼을 누르세요.",
-                        "예",
-                        "아니오"),
+              builder: (context) => all_dialog_yes_or_no_view.WidgetView(
+                    business: allDialogYesOrNoBusiness,
+                    inputVo: const all_dialog_yes_or_no_view.InputVo(
+                        dialogTitle: "예/아니오 다이얼로그",
+                        dialogContent:
+                            "예/아니오 다이얼로그를 호출했습니다.\n예, 혹은 아니오 버튼을 누르세요.",
+                        positiveBtnTitle: "예",
+                        negativeBtnTitle: "아니오"),
+                    onDialogCreated: () {},
                   )).then((outputVo) {
             if (outputVo == null) {
               // 아무것도 누르지 않았을 때

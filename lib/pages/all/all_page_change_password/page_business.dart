@@ -20,8 +20,10 @@ import '../../../dialogs/all/all_dialog_loading_spinner/widget_view.dart'
     as all_dialog_loading_spinner_view;
 import '../../../dialogs/all/all_dialog_loading_spinner/widget_business.dart'
     as all_dialog_loading_spinner_business;
-import '../../../dialogs/all/all_dialog_yes_or_no/page_entrance.dart'
-    as all_dialog_yes_or_no;
+import '../../../dialogs/all/all_dialog_yes_or_no/widget_view.dart'
+    as all_dialog_yes_or_no_view;
+import '../../../dialogs/all/all_dialog_yes_or_no/widget_business.dart'
+    as all_dialog_yes_or_no_business;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
 import '../../../../repositories/spws/spw_auth_member_info.dart'
@@ -367,19 +369,23 @@ class PageBusiness {
         // 정상 응답
 
         // 확인 다이얼로그 호출
+        var allDialogYesOrNoBusiness =
+            all_dialog_yes_or_no_business.WidgetBusiness();
         if (!_context.mounted) return;
         showDialog(
             barrierDismissible: true,
             context: _context,
-            builder: (context) => all_dialog_yes_or_no.PageEntrance(
-                  all_dialog_yes_or_no.PageInputVo(
-                      "비밀번호 변경",
-                      "비밀번호 변경이 완료되었습니다.\n"
+            builder: (context) => all_dialog_yes_or_no_view.WidgetView(
+                  business: allDialogYesOrNoBusiness,
+                  inputVo: const all_dialog_yes_or_no_view.InputVo(
+                      dialogTitle: "비밀번호 변경",
+                      dialogContent: "비밀번호 변경이 완료되었습니다.\n"
                           "로그아웃 됩니다.\n\n"
                           "로그인된 다른 디바이스에서도\n"
                           "로그아웃 처리를 하겠습니까?",
-                      "예",
-                      "아니오"),
+                      positiveBtnTitle: "예",
+                      negativeBtnTitle: "아니오"),
+                  onDialogCreated: () {},
                 )).then((outputVo) async {
           if (outputVo.checkPositiveBtn) {
             // 계정 로그아웃 처리
