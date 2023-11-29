@@ -1,5 +1,6 @@
 // (external)
 import 'dart:io';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:go_router/go_router.dart';
 
@@ -30,7 +31,7 @@ import 'pages/all/all_page_join_the_membership_edit_member_info/page_entrance.da
     as all_page_join_the_membership_edit_member_info;
 import 'pages/all/all_page_join_the_membership_email_verification/page_entrance.dart'
     as all_page_join_the_membership_email_verification;
-import 'pages/all/all_page_just_push_test1/widget_view.dart'
+import 'pages/all/all_page_just_push_test1/sf_widget.dart'
     as all_page_just_push_test1;
 import 'pages/all/all_page_just_push_test2/page_entrance.dart'
     as all_page_just_push_test2;
@@ -167,7 +168,8 @@ GoRouter getRouter() {
       pageBuilder: (c, s) {
         return CustomTransitionPage(
             key: s.pageKey,
-            child: all_page_just_push_test1.WidgetView(
+            child: all_page_just_push_test1.SfWidget(
+              globalKey: GlobalKey(),
               goRouterState: s,
             ),
             transitionsBuilder:

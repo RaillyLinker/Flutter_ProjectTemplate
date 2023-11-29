@@ -12,6 +12,7 @@ import 'inner_widgets/iw_go_home_icon_button/sf_widget.dart'
 // 위젯의 화면 작성은 여기서 합니다.
 
 // -----------------------------------------------------------------------------
+// (입력 데이터)
 class InputVo {
   // !!!위젯 입력값 선언!!!
   const InputVo(

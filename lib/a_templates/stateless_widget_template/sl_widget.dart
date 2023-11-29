@@ -8,6 +8,7 @@ import 'sl_widget_business.dart' as sl_widget_business;
 // 위젯의 화면 작성은 여기서 합니다.
 
 // -----------------------------------------------------------------------------
+// (입력 데이터)
 class InputVo {
   // !!!위젯 입력값 선언!!!
   const InputVo();

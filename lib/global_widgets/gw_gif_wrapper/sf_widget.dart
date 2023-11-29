@@ -9,8 +9,9 @@ import 'sf_widget_state.dart' as sf_widget_state;
 // 위젯의 화면 작성은 여기서 합니다.
 
 // -----------------------------------------------------------------------------
+// (입력 데이터)
 class InputVo {
-// !!!위젯 입력값 선언!!!
+  // !!!위젯 입력값 선언!!!
   const InputVo({required this.gifImage});
 
   final ImageProvider gifImage;
