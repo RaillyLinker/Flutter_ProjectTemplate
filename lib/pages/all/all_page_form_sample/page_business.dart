@@ -11,10 +11,10 @@ import '../../../global_widgets/gw_page_outer_frame/sl_widget_business.dart'
     as gw_page_outer_frame_business;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
-import '../../../dialogs/all/all_dialog_info/widget_view.dart'
-    as all_dialog_info_view;
-import '../../../dialogs/all/all_dialog_info/widget_business.dart'
-    as all_dialog_info_business;
+import '../../../dialogs/all/all_dialog_info/dialog_widget.dart'
+    as all_dialog_info;
+import '../../../dialogs/all/all_dialog_info/dialog_widget_state.dart'
+    as all_dialog_info_state;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
 // Flutter 에서 값 입력 처리 방식은 여러가지인데,
@@ -127,13 +127,14 @@ class PageBusiness {
     String input3 = pageViewModel.inputNumberTextFieldController.text;
     String input4 = pageViewModel.inputSecretTextFieldController.text;
 
-    var allDialogInfoBusiness = all_dialog_info_business.WidgetBusiness();
+    final GlobalKey<all_dialog_info_state.DialogWidgetState> allDialogInfoGk =
+        GlobalKey();
     showDialog(
         barrierDismissible: true,
         context: _context,
-        builder: (context) => all_dialog_info_view.WidgetView(
-              business: allDialogInfoBusiness,
-              inputVo: all_dialog_info_view.InputVo(
+        builder: (context) => all_dialog_info.DialogWidget(
+              globalKey: allDialogInfoGk,
+              inputVo: all_dialog_info.InputVo(
                 dialogTitle: "폼 입력 결과",
                 dialogContent: "입력1 : $input1\n"
                     "입력2 : $input2\n"
@@ -170,7 +171,7 @@ class PageViewModel {
   // int sampleNumber = 0;
 
   // PageOutFrameViewModel
-  gw_page_outer_frame_business.SlWidgetBusiness pageOutFrameBusiness =
+  final gw_page_outer_frame_business.SlWidgetBusiness pageOutFrameBusiness =
       gw_page_outer_frame_business.SlWidgetBusiness();
 
   // Form 필드 전체 키

@@ -188,7 +188,7 @@ class PageViewModel {
   // int sampleNumber = 0;
 
   // PageOutFrameViewModel
-  gw_page_outer_frame_business.SlWidgetBusiness pageOutFrameBusiness =
+  final gw_page_outer_frame_business.SlWidgetBusiness pageOutFrameBusiness =
       gw_page_outer_frame_business.SlWidgetBusiness();
 
   // (샘플 페이지 원본 리스트)

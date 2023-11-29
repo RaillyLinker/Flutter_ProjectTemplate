@@ -1,5 +1,6 @@
 // (external)
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:go_router/go_router.dart';
 
 // (inner Folder)
@@ -10,7 +11,7 @@ import 'inner_widgets/iw_sample_number_text/sf_widget_state.dart'
 // (all)
 import '../../../global_widgets/gw_page_outer_frame/sl_widget_business.dart'
     as gw_page_outer_frame_business;
-import '../../../pages/all/all_page_just_push_test2/page_entrance.dart'
+import '../../../pages/all/all_page_just_push_test2/page_widget.dart'
     as all_page_just_push_test2;
 import '../../../global_widgets/gw_stateful_test/sf_widget_state.dart'
     as gw_stateful_test_state;
@@ -26,36 +27,60 @@ class PageWidgetBusiness {
   // (전체 위젯 initState)
   void initState() {
     // !!!initState 로직 작성!!!
+    if (kDebugMode) {
+      print("+++ initState 호출됨");
+    }
   }
 
   // (전체 위젯 dispose)
   void dispose() {
     // !!!initState 로직 작성!!!
+    if (kDebugMode) {
+      print("+++ dispose 호출됨");
+    }
   }
 
   // (전체 위젯의 FocusDetector 콜백들)
   Future<void> onFocusGained() async {
     // !!!onFocusGained 로직 작성!!!
+    if (kDebugMode) {
+      print("+++ onFocusGained 호출됨");
+    }
   }
 
   Future<void> onFocusLost() async {
     // !!!onFocusLost 로직 작성!!!
+    if (kDebugMode) {
+      print("+++ onFocusLost 호출됨");
+    }
   }
 
   Future<void> onVisibilityGained() async {
     // !!!onFocusLost 로직 작성!!!
+    if (kDebugMode) {
+      print("+++ onVisibilityGained 호출됨");
+    }
   }
 
   Future<void> onVisibilityLost() async {
     // !!!onVisibilityLost 로직 작성!!!
+    if (kDebugMode) {
+      print("+++ onVisibilityLost 호출됨");
+    }
   }
 
   Future<void> onForegroundGained() async {
     // !!!onForegroundGained 로직 작성!!!
+    if (kDebugMode) {
+      print("+++ onForegroundGained 호출됨");
+    }
   }
 
   Future<void> onForegroundLost() async {
     // !!!onForegroundLost 로직 작성!!!
+    if (kDebugMode) {
+      print("+++ onForegroundLost 호출됨");
+    }
   }
 
   void onCheckPageInputVo({required GoRouterState goRouterState}) {
@@ -65,6 +90,9 @@ class PageWidgetBusiness {
     //     .containsKey("inputValueString")) {
     //   // 필수 파라미터가 없는 경우에 대한 처리
     // }
+    if (kDebugMode) {
+      print("+++ onCheckPageInputVo 호출됨");
+    }
 
     // !!!PageInputVo 입력!!!
     inputVo = const page_widget.InputVo();
@@ -78,7 +106,7 @@ class PageWidgetBusiness {
   bool canPop = true;
 
   // (pageOutFrameBusiness)
-  gw_page_outer_frame_business.SlWidgetBusiness pageOutFrameBusiness =
+  final gw_page_outer_frame_business.SlWidgetBusiness pageOutFrameBusiness =
       gw_page_outer_frame_business.SlWidgetBusiness();
 
   // sampleNumberTextBusiness

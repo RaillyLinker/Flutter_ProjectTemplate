@@ -14,14 +14,14 @@ import '../../../../repositories/network/apis/api_main_server.dart'
     as api_main_server;
 import '../../../../repositories/spws/spw_auth_member_info.dart'
     as spw_auth_member_info;
-import '../../../dialogs/all/all_dialog_info/widget_view.dart'
-    as all_dialog_info_view;
-import '../../../dialogs/all/all_dialog_info/widget_business.dart'
-    as all_dialog_info_business;
-import '../../../dialogs/all/all_dialog_loading_spinner/widget_view.dart'
-    as all_dialog_loading_spinner_view;
-import '../../../dialogs/all/all_dialog_loading_spinner/widget_business.dart'
-    as all_dialog_loading_spinner_business;
+import '../../../dialogs/all/all_dialog_info/dialog_widget.dart'
+    as all_dialog_info;
+import '../../../dialogs/all/all_dialog_info/dialog_widget_state.dart'
+    as all_dialog_info_state;
+import '../../../dialogs/all/all_dialog_loading_spinner/dialog_widget.dart'
+    as all_dialog_loading_spinner;
+import '../../../dialogs/all/all_dialog_loading_spinner/dialog_widget_state.dart'
+    as all_dialog_loading_spinner_state;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
 import '../../../pages/all/all_page_find_password_with_email/page_entrance.dart'
@@ -185,15 +185,15 @@ class PageBusiness {
             return;
           }
 
-          var allDialogLoadingSpinnerBusiness =
-              all_dialog_loading_spinner_business.WidgetBusiness();
+          GlobalKey<all_dialog_loading_spinner_state.DialogWidgetState>
+              allDialogLoadingSpinnerStateGk = GlobalKey();
 
           showDialog(
               barrierDismissible: false,
               context: _context,
-              builder: (context) => all_dialog_loading_spinner_view.WidgetView(
-                  business: allDialogLoadingSpinnerBusiness,
-                  inputVo: const all_dialog_loading_spinner_view.InputVo(),
+              builder: (context) => all_dialog_loading_spinner.DialogWidget(
+                  globalKey: allDialogLoadingSpinnerStateGk,
+                  inputVo: const all_dialog_loading_spinner.InputVo(),
                   onDialogCreated: () {}));
 
           // 네트워크 요청
@@ -203,7 +203,7 @@ class PageBusiness {
                       .PostService1TkV1AuthLoginWithPasswordAsyncRequestBodyVo(
                           loginTypeCode: 1, id: id, password: password));
 
-          allDialogLoadingSpinnerBusiness.closeDialog();
+          allDialogLoadingSpinnerStateGk.currentState?.closeDialog();
 
           if (responseVo.dioException == null) {
             // Dio 네트워크 응답
@@ -295,15 +295,15 @@ class PageBusiness {
                 case "1":
                   {
                     // 가입 되지 않은 회원
-                    var allDialogInfoBusiness =
-                        all_dialog_info_business.WidgetBusiness();
+                    final GlobalKey<all_dialog_info_state.DialogWidgetState>
+                        allDialogInfoGk = GlobalKey();
                     if (!_context.mounted) return;
                     showDialog(
                         barrierDismissible: true,
                         context: _context,
-                        builder: (context) => all_dialog_info_view.WidgetView(
-                              business: allDialogInfoBusiness,
-                              inputVo: const all_dialog_info_view.InputVo(
+                        builder: (context) => all_dialog_info.DialogWidget(
+                              globalKey: allDialogInfoGk,
+                              inputVo: const all_dialog_info.InputVo(
                                   dialogTitle: "로그인 실패",
                                   dialogContent: "가입되지 않은 회원입니다.",
                                   checkBtnTitle: "확인"),
@@ -315,15 +315,15 @@ class PageBusiness {
                 case "2":
                   {
                     // 로그인 정보 검증 불일치
-                    var allDialogInfoBusiness =
-                        all_dialog_info_business.WidgetBusiness();
+                    final GlobalKey<all_dialog_info_state.DialogWidgetState>
+                        allDialogInfoGk = GlobalKey();
                     if (!_context.mounted) return;
                     showDialog(
                         barrierDismissible: true,
                         context: _context,
-                        builder: (context) => all_dialog_info_view.WidgetView(
-                              business: allDialogInfoBusiness,
-                              inputVo: const all_dialog_info_view.InputVo(
+                        builder: (context) => all_dialog_info.DialogWidget(
+                              globalKey: allDialogInfoGk,
+                              inputVo: const all_dialog_info.InputVo(
                                   dialogTitle: "로그인 실패",
                                   dialogContent: "비밀번호가 일치하지 않습니다.",
                                   checkBtnTitle: "확인"),
@@ -335,15 +335,15 @@ class PageBusiness {
                 default:
                   {
                     // 비정상 응답이면서 서버에서 에러 원인 코드가 전달되지 않았을 때
-                    var allDialogInfoBusiness =
-                        all_dialog_info_business.WidgetBusiness();
+                    final GlobalKey<all_dialog_info_state.DialogWidgetState>
+                        allDialogInfoGk = GlobalKey();
                     if (!_context.mounted) return;
                     showDialog(
                         barrierDismissible: true,
                         context: _context,
-                        builder: (context) => all_dialog_info_view.WidgetView(
-                              business: allDialogInfoBusiness,
-                              inputVo: const all_dialog_info_view.InputVo(
+                        builder: (context) => all_dialog_info.DialogWidget(
+                              globalKey: allDialogInfoGk,
+                              inputVo: const all_dialog_info.InputVo(
                                   dialogTitle: "네트워크 에러",
                                   dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
                                   checkBtnTitle: "확인"),
@@ -354,15 +354,15 @@ class PageBusiness {
               }
             }
           } else {
-            var allDialogInfoBusiness =
-                all_dialog_info_business.WidgetBusiness();
+            final GlobalKey<all_dialog_info_state.DialogWidgetState>
+                allDialogInfoGk = GlobalKey();
             if (!_context.mounted) return;
             showDialog(
                 barrierDismissible: true,
                 context: _context,
-                builder: (context) => all_dialog_info_view.WidgetView(
-                      business: allDialogInfoBusiness,
-                      inputVo: const all_dialog_info_view.InputVo(
+                builder: (context) => all_dialog_info.DialogWidget(
+                      globalKey: allDialogInfoGk,
+                      inputVo: const all_dialog_info.InputVo(
                           dialogTitle: "네트워크 에러",
                           dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
                           checkBtnTitle: "확인"),
@@ -528,7 +528,7 @@ class PageViewModel {
   // int sampleNumber = 0;
 
   // PageOutFrameViewModel
-  gw_page_outer_frame_business.SlWidgetBusiness pageOutFrameBusiness =
+  final gw_page_outer_frame_business.SlWidgetBusiness pageOutFrameBusiness =
       gw_page_outer_frame_business.SlWidgetBusiness();
 
   bool hidePassword = true;

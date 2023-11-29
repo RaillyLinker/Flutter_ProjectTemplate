@@ -5,7 +5,7 @@ import 'package:focus_detector_v2/focus_detector_v2.dart';
 import 'package:go_router/go_router.dart';
 
 // (inner Folder)
-import 'sf_widget.dart' as sf_widget;
+import 'dialog_widget.dart' as dialog_widget;
 import 'inner_widgets/iw_stateful_sample_number/sf_widget_state.dart'
     as iw_stateful_sample_number_state;
 
@@ -20,9 +20,9 @@ import '../../../global_widgets/gw_stateful_test/sf_widget_state.dart'
 // 위젯의 비즈니스 로직 + State 변수 처리는 이 곳에서 합니다.
 
 // -----------------------------------------------------------------------------
-class SfWidgetState extends State<sf_widget.SfWidget>
+class DialogWidgetState extends State<dialog_widget.DialogWidget>
     with WidgetsBindingObserver {
-  SfWidgetState();
+  DialogWidgetState();
 
   // [콜백 함수]
   @override
@@ -106,14 +106,15 @@ class SfWidgetState extends State<sf_widget.SfWidget>
   bool canPop = true;
 
   // (로그 남기기 용 랜덤 문자열)
-  String randString = gf_my_functions.generateRandomString(10);
+  final String randString = gf_my_functions.generateRandomString(10);
 
   // (statefulSampleNumberBusiness)
   final GlobalKey<iw_stateful_sample_number_state.SfWidgetState>
       statefulSampleNumberGk = GlobalKey();
 
   // (statefulTestBusiness)
-  var statefulTestGk = GlobalKey<gw_stateful_test_state.SfWidgetState>();
+  final GlobalKey<gw_stateful_test_state.SfWidgetState> statefulTestGk =
+      GlobalKey();
 
   // [private 변수]
 
@@ -128,6 +129,7 @@ class SfWidgetState extends State<sf_widget.SfWidget>
     context.pop();
   }
 
+  // (다른 페이지로 이동)
   void pushToAnotherPage() {
     context.pushNamed(all_page_dialog_sample_list.pageName);
   }

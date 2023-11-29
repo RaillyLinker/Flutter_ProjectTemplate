@@ -7,10 +7,10 @@ import 'package:go_router/go_router.dart';
 import 'page_entrance.dart' as page_entrance;
 
 // (all)
-import '../../../dialogs/all/all_dialog_info/widget_view.dart'
-    as all_dialog_info_view;
-import '../../../dialogs/all/all_dialog_info/widget_business.dart'
-    as all_dialog_info_business;
+import '../../../dialogs/all/all_dialog_info/dialog_widget.dart'
+    as all_dialog_info;
+import '../../../dialogs/all/all_dialog_info/dialog_widget_state.dart'
+    as all_dialog_info_state;
 import '../../../global_widgets/gw_page_outer_frame/sl_widget_business.dart'
     as gw_page_outer_frame_business;
 import '../../../global_classes/gc_template_classes.dart'
@@ -107,13 +107,14 @@ class PageBusiness {
 
   // (context 메뉴의 다이얼로그 테스트 항목을 클릭)
   void dialogTestMenuBtn() {
-    var allDialogInfoBusiness = all_dialog_info_business.WidgetBusiness();
+    final GlobalKey<all_dialog_info_state.DialogWidgetState> allDialogInfoGk =
+        GlobalKey();
     showDialog(
         barrierDismissible: true,
         context: _context,
-        builder: (context) => all_dialog_info_view.WidgetView(
-              business: allDialogInfoBusiness,
-              inputVo: const all_dialog_info_view.InputVo(
+        builder: (context) => all_dialog_info.DialogWidget(
+              globalKey: allDialogInfoGk,
+              inputVo: const all_dialog_info.InputVo(
                   dialogTitle: "컨텍스트 메뉴 테스트",
                   dialogContent: "다이얼로그 테스트 메뉴가\n선택되었습니다.",
                   checkBtnTitle: "확인"),
@@ -151,6 +152,6 @@ class PageViewModel {
       GlobalKey<gw_context_menu_region_state.SfWidgetState>();
 
   // PageOutFrameViewModel
-  gw_page_outer_frame_business.SlWidgetBusiness pageOutFrameBusiness =
+  final gw_page_outer_frame_business.SlWidgetBusiness pageOutFrameBusiness =
       gw_page_outer_frame_business.SlWidgetBusiness();
 }

@@ -30,7 +30,6 @@ class SfWidgetState extends State<sf_widget.SfWidget> {
   }
 
   // [public 변수]
-
   // (샘플 정수)
   int sampleInt = 0;
 

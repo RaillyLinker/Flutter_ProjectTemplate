@@ -152,7 +152,7 @@ class WidgetBusiness {
   bool canPop = true;
 
   // (pageOutFrameBusiness)
-  gw_page_outer_frame_business.SlWidgetBusiness pageOutFrameBusiness =
+  final gw_page_outer_frame_business.SlWidgetBusiness pageOutFrameBusiness =
       gw_page_outer_frame_business.SlWidgetBusiness();
 
   // 페이지 출력값 Form 필드 전체 키

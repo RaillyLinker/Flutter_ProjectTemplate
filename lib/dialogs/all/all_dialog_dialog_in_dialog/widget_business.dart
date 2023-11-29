@@ -6,14 +6,14 @@ import 'package:go_router/go_router.dart';
 import 'widget_view.dart' as widget_view;
 
 // (all)
-import '../../../dialogs/all/all_dialog_loading_spinner/widget_view.dart'
-    as all_dialog_loading_spinner_view;
-import '../../../dialogs/all/all_dialog_loading_spinner/widget_business.dart'
-    as all_dialog_loading_spinner_business;
-import '../../../dialogs/all/all_dialog_info/widget_view.dart'
-    as all_dialog_info_view;
-import '../../../dialogs/all/all_dialog_info/widget_business.dart'
-    as all_dialog_info_business;
+import '../../../dialogs/all/all_dialog_loading_spinner/dialog_widget.dart'
+    as all_dialog_loading_spinner;
+import '../../../dialogs/all/all_dialog_loading_spinner/dialog_widget_state.dart'
+    as all_dialog_loading_spinner_state;
+import '../../../dialogs/all/all_dialog_info/dialog_widget.dart'
+    as all_dialog_info;
+import '../../../dialogs/all/all_dialog_info/dialog_widget_state.dart'
+    as all_dialog_info_state;
 import '../../../dialogs/all/all_dialog_dialog_in_dialog/widget_view.dart'
     as all_dialog_dialog_in_dialog_view;
 import '../../../dialogs/all/all_dialog_dialog_in_dialog/widget_business.dart'
@@ -88,13 +88,14 @@ class WidgetBusiness {
 
   // (Info 다이얼로그 호출)
   void showInfoDialog() {
-    var allDialogInfoBusiness = all_dialog_info_business.WidgetBusiness();
+    GlobalKey<all_dialog_info_state.DialogWidgetState> allDialogInfoGk =
+        GlobalKey();
     showDialog(
         barrierDismissible: true,
         context: context,
-        builder: (context) => all_dialog_info_view.WidgetView(
-              business: allDialogInfoBusiness,
-              inputVo: const all_dialog_info_view.InputVo(
+        builder: (context) => all_dialog_info.DialogWidget(
+              globalKey: allDialogInfoGk,
+              inputVo: const all_dialog_info.InputVo(
                   dialogTitle: "확인 다이얼로그",
                   dialogContent: "확인 다이얼로그를 호출했습니다.",
                   checkBtnTitle: "확인"),
@@ -104,15 +105,15 @@ class WidgetBusiness {
 
   // (Loading 다이얼로그 호출)
   void showLoadingDialog() {
-    var allDialogLoadingSpinnerBusiness =
-        all_dialog_loading_spinner_business.WidgetBusiness();
+    GlobalKey<all_dialog_loading_spinner_state.DialogWidgetState>
+        allDialogLoadingSpinnerStateGk = GlobalKey();
 
     showDialog(
         barrierDismissible: true,
         context: context,
-        builder: (context) => all_dialog_loading_spinner_view.WidgetView(
-            business: allDialogLoadingSpinnerBusiness,
-            inputVo: const all_dialog_loading_spinner_view.InputVo(),
+        builder: (context) => all_dialog_loading_spinner.DialogWidget(
+            globalKey: allDialogLoadingSpinnerStateGk,
+            inputVo: const all_dialog_loading_spinner.InputVo(),
             onDialogCreated: () {})).then((outputVo) {});
   }
 

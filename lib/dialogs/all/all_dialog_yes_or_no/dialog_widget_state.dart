@@ -83,4 +83,14 @@ class DialogWidgetState extends State<dialog_widget.DialogWidget>
   void closeDialog() {
     context.pop();
   }
+
+  // (긍정 버튼 클릭시)
+  void onPositiveBtnClicked() {
+    context.pop(const dialog_widget.OutputVo(checkPositiveBtn: true));
+  }
+
+  // (부정 버튼 클릭시)
+  void onNegativeBtnClicked() {
+    context.pop(const dialog_widget.OutputVo(checkPositiveBtn: false));
+  }
 }

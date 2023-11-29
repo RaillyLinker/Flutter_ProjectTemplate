@@ -16,14 +16,14 @@ import '../../../dialogs/all/all_dialog_auth_join_the_membership_email_verificat
     as all_dialog_auth_join_the_membership_email_verification_view;
 import '../../../dialogs/all/all_dialog_auth_join_the_membership_email_verification/widget_business.dart'
     as all_dialog_auth_join_the_membership_email_verification_business;
-import '../../../dialogs/all/all_dialog_info/widget_view.dart'
-    as all_dialog_info_view;
-import '../../../dialogs/all/all_dialog_info/widget_business.dart'
-    as all_dialog_info_business;
-import '../../../dialogs/all/all_dialog_loading_spinner/widget_view.dart'
-    as all_dialog_loading_spinner_view;
-import '../../../dialogs/all/all_dialog_loading_spinner/widget_business.dart'
-    as all_dialog_loading_spinner_business;
+import '../../../dialogs/all/all_dialog_info/dialog_widget.dart'
+    as all_dialog_info;
+import '../../../dialogs/all/all_dialog_info/dialog_widget_state.dart'
+    as all_dialog_info_state;
+import '../../../dialogs/all/all_dialog_loading_spinner/dialog_widget.dart'
+    as all_dialog_loading_spinner;
+import '../../../dialogs/all/all_dialog_loading_spinner/dialog_widget_state.dart'
+    as all_dialog_loading_spinner_state;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
 import '../../../pages/all/all_page_join_the_membership_edit_member_info/page_entrance.dart'
@@ -184,15 +184,15 @@ class PageBusiness {
     } else {
       // 입력값 검증 완료
       // (로딩 스피너 다이얼로그 호출)
-      var allDialogLoadingSpinnerBusiness =
-          all_dialog_loading_spinner_business.WidgetBusiness();
+      GlobalKey<all_dialog_loading_spinner_state.DialogWidgetState>
+          allDialogLoadingSpinnerStateGk = GlobalKey();
 
       showDialog(
           barrierDismissible: false,
           context: _context,
-          builder: (context) => all_dialog_loading_spinner_view.WidgetView(
-              business: allDialogLoadingSpinnerBusiness,
-              inputVo: const all_dialog_loading_spinner_view.InputVo(),
+          builder: (context) => all_dialog_loading_spinner.DialogWidget(
+              globalKey: allDialogLoadingSpinnerStateGk,
+              inputVo: const all_dialog_loading_spinner.InputVo(),
               onDialogCreated: () {})).then((outputVo) {});
 
       var responseVo = await api_main_server
@@ -203,7 +203,7 @@ class PageBusiness {
 
       if (responseVo.dioException == null) {
         // Dio 네트워크 응답
-        allDialogLoadingSpinnerBusiness.closeDialog();
+        allDialogLoadingSpinnerStateGk.currentState?.closeDialog();
         var networkResponseObjectOk = responseVo.networkResponseObjectOk!;
 
         if (networkResponseObjectOk.responseStatusCode == 200) {
@@ -252,15 +252,15 @@ class PageBusiness {
 
           if (responseHeaders.apiResultCode == null) {
             // 비정상 응답이면서 서버에서 에러 원인 코드가 전달되지 않았을 때
-            var allDialogInfoBusiness =
-                all_dialog_info_business.WidgetBusiness();
+            final GlobalKey<all_dialog_info_state.DialogWidgetState>
+                allDialogInfoGk = GlobalKey();
             if (!_context.mounted) return;
             showDialog(
                 barrierDismissible: true,
                 context: _context,
-                builder: (context) => all_dialog_info_view.WidgetView(
-                      business: allDialogInfoBusiness,
-                      inputVo: const all_dialog_info_view.InputVo(
+                builder: (context) => all_dialog_info.DialogWidget(
+                      globalKey: allDialogInfoGk,
+                      inputVo: const all_dialog_info.InputVo(
                           dialogTitle: "네트워크 에러",
                           dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
                           checkBtnTitle: "확인"),
@@ -274,15 +274,15 @@ class PageBusiness {
               case "1":
                 {
                   // 기존 회원 존재
-                  var allDialogInfoBusiness =
-                      all_dialog_info_business.WidgetBusiness();
+                  final GlobalKey<all_dialog_info_state.DialogWidgetState>
+                      allDialogInfoGk = GlobalKey();
                   if (!_context.mounted) return;
                   showDialog(
                       barrierDismissible: true,
                       context: _context,
-                      builder: (context) => all_dialog_info_view.WidgetView(
-                            business: allDialogInfoBusiness,
-                            inputVo: const all_dialog_info_view.InputVo(
+                      builder: (context) => all_dialog_info.DialogWidget(
+                            globalKey: allDialogInfoGk,
+                            inputVo: const all_dialog_info.InputVo(
                                 dialogTitle: "인증 이메일 발송 실패",
                                 dialogContent: "이미 가입된 이메일입니다.",
                                 checkBtnTitle: "확인"),
@@ -299,15 +299,16 @@ class PageBusiness {
           }
         }
       } else {
-        allDialogLoadingSpinnerBusiness.closeDialog();
-        var allDialogInfoBusiness = all_dialog_info_business.WidgetBusiness();
+        allDialogLoadingSpinnerStateGk.currentState?.closeDialog();
+        final GlobalKey<all_dialog_info_state.DialogWidgetState>
+            allDialogInfoGk = GlobalKey();
         if (!_context.mounted) return;
         showDialog(
             barrierDismissible: true,
             context: _context,
-            builder: (context) => all_dialog_info_view.WidgetView(
-                  business: allDialogInfoBusiness,
-                  inputVo: const all_dialog_info_view.InputVo(
+            builder: (context) => all_dialog_info.DialogWidget(
+                  globalKey: allDialogInfoGk,
+                  inputVo: const all_dialog_info.InputVo(
                       dialogTitle: "네트워크 에러",
                       dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
                       checkBtnTitle: "확인"),
@@ -505,7 +506,7 @@ class PageViewModel {
   // int sampleNumber = 0;
 
   // PageOutFrameViewModel
-  gw_page_outer_frame_business.SlWidgetBusiness pageOutFrameBusiness =
+  final gw_page_outer_frame_business.SlWidgetBusiness pageOutFrameBusiness =
       gw_page_outer_frame_business.SlWidgetBusiness();
 
   // 이메일 입력창 에러 메세지

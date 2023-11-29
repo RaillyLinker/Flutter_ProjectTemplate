@@ -17,14 +17,14 @@ import '../../../../repositories/network/apis/api_main_server.dart'
     as api_main_server;
 import '../../../../repositories/spws/spw_auth_member_info.dart'
     as spw_auth_member_info;
-import '../../../dialogs/all/all_dialog_info/widget_view.dart'
-    as all_dialog_info_view;
-import '../../../dialogs/all/all_dialog_info/widget_business.dart'
-    as all_dialog_info_business;
-import '../../../dialogs/all/all_dialog_loading_spinner/widget_view.dart'
-    as all_dialog_loading_spinner_view;
-import '../../../dialogs/all/all_dialog_loading_spinner/widget_business.dart'
-    as all_dialog_loading_spinner_business;
+import '../../../dialogs/all/all_dialog_info/dialog_widget.dart'
+    as all_dialog_info;
+import '../../../dialogs/all/all_dialog_info/dialog_widget_state.dart'
+    as all_dialog_info_state;
+import '../../../dialogs/all/all_dialog_loading_spinner/dialog_widget.dart'
+    as all_dialog_loading_spinner;
+import '../../../dialogs/all/all_dialog_loading_spinner/dialog_widget_state.dart'
+    as all_dialog_loading_spinner_state;
 import '../../../pages/all/all_page_login/page_entrance.dart' as all_page_login;
 import '../../../pages/all/all_page_member_info/page_entrance.dart'
     as all_page_member_info;
@@ -138,15 +138,15 @@ class PageBusiness {
           "로그아웃", "로그아웃 처리를 합니다.", page_view.HoverListTileWrapperBusiness(
               onRouteListItemClick: () async {
         // 계정 로그아웃 처리
-        var allDialogLoadingSpinnerBusiness =
-            all_dialog_loading_spinner_business.WidgetBusiness();
+        GlobalKey<all_dialog_loading_spinner_state.DialogWidgetState>
+            allDialogLoadingSpinnerStateGk = GlobalKey();
 
         showDialog(
             barrierDismissible: false,
             context: _context,
-            builder: (context) => all_dialog_loading_spinner_view.WidgetView(
-                business: allDialogLoadingSpinnerBusiness,
-                inputVo: const all_dialog_loading_spinner_view.InputVo(),
+            builder: (context) => all_dialog_loading_spinner.DialogWidget(
+                globalKey: allDialogLoadingSpinnerStateGk,
+                inputVo: const all_dialog_loading_spinner.InputVo(),
                 onDialogCreated: () {})).then((outputVo) {});
 
         spw_auth_member_info.SharedPreferenceWrapperVo? loginMemberInfo =
@@ -166,7 +166,7 @@ class PageBusiness {
           spw_auth_member_info.SharedPreferenceWrapper.set(value: null);
         }
 
-        allDialogLoadingSpinnerBusiness.closeDialog();
+        allDialogLoadingSpinnerStateGk.currentState?.closeDialog();
 
         refreshMainListAsync();
       })));
@@ -175,16 +175,16 @@ class PageBusiness {
           page_view.HoverListTileWrapperBusiness(
               onRouteListItemClick: () async {
         // 모든 디바이스에서 계정 로그아웃 처리
-        var allDialogLoadingSpinnerBusiness =
-            all_dialog_loading_spinner_business.WidgetBusiness();
+        GlobalKey<all_dialog_loading_spinner_state.DialogWidgetState>
+            allDialogLoadingSpinnerStateGk = GlobalKey();
 
         if (!_context.mounted) return;
         showDialog(
             barrierDismissible: false,
             context: _context,
-            builder: (context) => all_dialog_loading_spinner_view.WidgetView(
-                business: allDialogLoadingSpinnerBusiness,
-                inputVo: const all_dialog_loading_spinner_view.InputVo(),
+            builder: (context) => all_dialog_loading_spinner.DialogWidget(
+                globalKey: allDialogLoadingSpinnerStateGk,
+                inputVo: const all_dialog_loading_spinner.InputVo(),
                 onDialogCreated: () {})).then((outputVo) {});
 
         spw_auth_member_info.SharedPreferenceWrapperVo? loginMemberInfo =
@@ -205,7 +205,7 @@ class PageBusiness {
           spw_auth_member_info.SharedPreferenceWrapper.set(value: null);
         }
 
-        allDialogLoadingSpinnerBusiness.closeDialog();
+        allDialogLoadingSpinnerStateGk.currentState?.closeDialog();
 
         refreshMainListAsync();
       })));
@@ -213,16 +213,16 @@ class PageBusiness {
           "인증 토큰 갱신", "인증 토큰을 갱신합니다.", page_view.HoverListTileWrapperBusiness(
               onRouteListItemClick: () async {
         // (토큰 리플레시)
-        var allDialogLoadingSpinnerBusiness =
-            all_dialog_loading_spinner_business.WidgetBusiness();
+        GlobalKey<all_dialog_loading_spinner_state.DialogWidgetState>
+            allDialogLoadingSpinnerStateGk = GlobalKey();
 
         if (!_context.mounted) return;
         showDialog(
             barrierDismissible: false,
             context: _context,
-            builder: (context) => all_dialog_loading_spinner_view.WidgetView(
-                business: allDialogLoadingSpinnerBusiness,
-                inputVo: const all_dialog_loading_spinner_view.InputVo(),
+            builder: (context) => all_dialog_loading_spinner.DialogWidget(
+                globalKey: allDialogLoadingSpinnerStateGk,
+                inputVo: const all_dialog_loading_spinner.InputVo(),
                 onDialogCreated: () {})).then((outputVo) {});
 
         spw_auth_member_info.SharedPreferenceWrapperVo? loginMemberInfo =
@@ -241,7 +241,7 @@ class PageBusiness {
             // login_user_info SPW 비우기
             spw_auth_member_info.SharedPreferenceWrapper.set(value: null);
 
-            allDialogLoadingSpinnerBusiness.closeDialog();
+            allDialogLoadingSpinnerStateGk.currentState?.closeDialog();
 
             refreshMainListAsync();
           } else {
@@ -256,7 +256,7 @@ class PageBusiness {
                             refreshToken:
                                 "${loginMemberInfo.tokenType} ${loginMemberInfo.refreshToken}"));
 
-            allDialogLoadingSpinnerBusiness.closeDialog();
+            allDialogLoadingSpinnerStateGk.currentState?.closeDialog();
 
             // 네트워크 요청 결과 처리
             if (postAutoLoginOutputVo.dioException == null) {
@@ -354,15 +354,15 @@ class PageBusiness {
                 // 비정상 응답
                 if (postReissueResponseHeader.apiResultCode == null) {
                   // 비정상 응답이면서 서버에서 에러 원인 코드가 전달되지 않았을 때
-                  var allDialogInfoBusiness =
-                      all_dialog_info_business.WidgetBusiness();
+                  GlobalKey<all_dialog_info_state.DialogWidgetState>
+                      allDialogInfoGk = GlobalKey();
                   if (!_context.mounted) return;
                   showDialog(
                       barrierDismissible: false,
                       context: _context,
-                      builder: (context) => all_dialog_info_view.WidgetView(
-                            business: allDialogInfoBusiness,
-                            inputVo: const all_dialog_info_view.InputVo(
+                      builder: (context) => all_dialog_info.DialogWidget(
+                            globalKey: allDialogInfoGk,
+                            inputVo: const all_dialog_info.InputVo(
                                 dialogTitle: "네트워크 에러",
                                 dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
                                 checkBtnTitle: "확인"),
@@ -397,15 +397,15 @@ class PageBusiness {
               }
             } else {
               // Dio 네트워크 에러
-              var allDialogInfoBusiness =
-                  all_dialog_info_business.WidgetBusiness();
+              final GlobalKey<all_dialog_info_state.DialogWidgetState>
+                  allDialogInfoGk = GlobalKey();
               if (!_context.mounted) return;
               showDialog(
                   barrierDismissible: false,
                   context: _context,
-                  builder: (context) => all_dialog_info_view.WidgetView(
-                        business: allDialogInfoBusiness,
-                        inputVo: const all_dialog_info_view.InputVo(
+                  builder: (context) => all_dialog_info.DialogWidget(
+                        globalKey: allDialogInfoGk,
+                        inputVo: const all_dialog_info.InputVo(
                             dialogTitle: "네트워크 에러",
                             dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
                             checkBtnTitle: "확인"),
@@ -473,7 +473,7 @@ class PageViewModel {
       page_view.MainListWidgetViewModel();
 
   // PageOutFrameViewModel
-  gw_page_outer_frame_business.SlWidgetBusiness pageOutFrameBusiness =
+  final gw_page_outer_frame_business.SlWidgetBusiness pageOutFrameBusiness =
       gw_page_outer_frame_business.SlWidgetBusiness();
 
   // 현재 페이지의 유저 정보

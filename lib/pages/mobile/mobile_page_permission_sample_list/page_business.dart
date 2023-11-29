@@ -13,10 +13,10 @@ import '../../../global_widgets/gw_page_outer_frame/sl_widget_business.dart'
     as gw_page_outer_frame_business;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
-import '../../../dialogs/all/all_dialog_yes_or_no/widget_view.dart'
-    as all_dialog_yes_or_no_view;
-import '../../../dialogs/all/all_dialog_yes_or_no/widget_business.dart'
-    as all_dialog_yes_or_no_business;
+import '../../../dialogs/all/all_dialog_yes_or_no/dialog_widget.dart'
+    as all_dialog_yes_or_no;
+import '../../../dialogs/all/all_dialog_yes_or_no/dialog_widget_state.dart'
+    as all_dialog_yes_or_no_state;
 import '../../../global_data/gd_const.dart' as gd_const;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
@@ -751,15 +751,15 @@ class PageBusiness {
         {
           if (sampleItem.isChecked) {
             // 스위치 Off 시키기
-            var allDialogYesOrNoBusiness =
-                all_dialog_yes_or_no_business.WidgetBusiness();
+            GlobalKey<all_dialog_yes_or_no_state.DialogWidgetState>
+                allDialogYesOrNoBusiness = GlobalKey();
             if (!_context.mounted) return;
             var outputVo = await showDialog(
                 barrierDismissible: true,
                 context: _context,
-                builder: (context) => all_dialog_yes_or_no_view.WidgetView(
-                      business: allDialogYesOrNoBusiness,
-                      inputVo: const all_dialog_yes_or_no_view.InputVo(
+                builder: (context) => all_dialog_yes_or_no.DialogWidget(
+                      globalKey: allDialogYesOrNoBusiness,
+                      inputVo: const all_dialog_yes_or_no.InputVo(
                           dialogTitle: "권한 해제",
                           dialogContent:
                               "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
@@ -799,15 +799,15 @@ class PageBusiness {
         {
           if (sampleItem.isChecked) {
             // 스위치 Off 시키기
-            var allDialogYesOrNoBusiness =
-                all_dialog_yes_or_no_business.WidgetBusiness();
+            GlobalKey<all_dialog_yes_or_no_state.DialogWidgetState>
+                allDialogYesOrNoBusiness = GlobalKey();
             if (!_context.mounted) return;
             var outputVo = await showDialog(
                 barrierDismissible: true,
                 context: _context,
-                builder: (context) => all_dialog_yes_or_no_view.WidgetView(
-                      business: allDialogYesOrNoBusiness,
-                      inputVo: const all_dialog_yes_or_no_view.InputVo(
+                builder: (context) => all_dialog_yes_or_no.DialogWidget(
+                      globalKey: allDialogYesOrNoBusiness,
+                      inputVo: const all_dialog_yes_or_no.InputVo(
                           dialogTitle: "권한 해제",
                           dialogContent:
                               "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
@@ -848,15 +848,15 @@ class PageBusiness {
         {
           if (sampleItem.isChecked) {
             // 스위치 Off 시키기
-            var allDialogYesOrNoBusiness =
-                all_dialog_yes_or_no_business.WidgetBusiness();
+            GlobalKey<all_dialog_yes_or_no_state.DialogWidgetState>
+                allDialogYesOrNoBusiness = GlobalKey();
             if (!_context.mounted) return;
             var outputVo = await showDialog(
                 barrierDismissible: true,
                 context: _context,
-                builder: (context) => all_dialog_yes_or_no_view.WidgetView(
-                      business: allDialogYesOrNoBusiness,
-                      inputVo: const all_dialog_yes_or_no_view.InputVo(
+                builder: (context) => all_dialog_yes_or_no.DialogWidget(
+                      globalKey: allDialogYesOrNoBusiness,
+                      inputVo: const all_dialog_yes_or_no.InputVo(
                           dialogTitle: "권한 해제",
                           dialogContent:
                               "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
@@ -897,15 +897,15 @@ class PageBusiness {
         {
           if (sampleItem.isChecked) {
             // 스위치 Off 시키기
-            var allDialogYesOrNoBusiness =
-                all_dialog_yes_or_no_business.WidgetBusiness();
+            GlobalKey<all_dialog_yes_or_no_state.DialogWidgetState>
+                allDialogYesOrNoBusiness = GlobalKey();
             if (!_context.mounted) return;
             var outputVo = await showDialog(
                 barrierDismissible: true,
                 context: _context,
-                builder: (context) => all_dialog_yes_or_no_view.WidgetView(
-                      business: allDialogYesOrNoBusiness,
-                      inputVo: const all_dialog_yes_or_no_view.InputVo(
+                builder: (context) => all_dialog_yes_or_no.DialogWidget(
+                      globalKey: allDialogYesOrNoBusiness,
+                      inputVo: const all_dialog_yes_or_no.InputVo(
                           dialogTitle: "권한 해제",
                           dialogContent:
                               "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
@@ -946,15 +946,15 @@ class PageBusiness {
         {
           if (sampleItem.isChecked) {
             // 스위치 Off 시키기
-            var allDialogYesOrNoBusiness =
-                all_dialog_yes_or_no_business.WidgetBusiness();
+            GlobalKey<all_dialog_yes_or_no_state.DialogWidgetState>
+                allDialogYesOrNoBusiness = GlobalKey();
             if (!_context.mounted) return;
             var outputVo = await showDialog(
                 barrierDismissible: true,
                 context: _context,
-                builder: (context) => all_dialog_yes_or_no_view.WidgetView(
-                      business: allDialogYesOrNoBusiness,
-                      inputVo: const all_dialog_yes_or_no_view.InputVo(
+                builder: (context) => all_dialog_yes_or_no.DialogWidget(
+                      globalKey: allDialogYesOrNoBusiness,
+                      inputVo: const all_dialog_yes_or_no.InputVo(
                           dialogTitle: "권한 해제",
                           dialogContent:
                               "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
@@ -995,15 +995,15 @@ class PageBusiness {
         {
           if (sampleItem.isChecked) {
             // 스위치 Off 시키기
-            var allDialogYesOrNoBusiness =
-                all_dialog_yes_or_no_business.WidgetBusiness();
+            GlobalKey<all_dialog_yes_or_no_state.DialogWidgetState>
+                allDialogYesOrNoBusiness = GlobalKey();
             if (!_context.mounted) return;
             var outputVo = await showDialog(
                 barrierDismissible: true,
                 context: _context,
-                builder: (context) => all_dialog_yes_or_no_view.WidgetView(
-                      business: allDialogYesOrNoBusiness,
-                      inputVo: const all_dialog_yes_or_no_view.InputVo(
+                builder: (context) => all_dialog_yes_or_no.DialogWidget(
+                      globalKey: allDialogYesOrNoBusiness,
+                      inputVo: const all_dialog_yes_or_no.InputVo(
                           dialogTitle: "권한 해제",
                           dialogContent:
                               "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
@@ -1044,15 +1044,15 @@ class PageBusiness {
         {
           if (sampleItem.isChecked) {
             // 스위치 Off 시키기
-            var allDialogYesOrNoBusiness =
-                all_dialog_yes_or_no_business.WidgetBusiness();
+            GlobalKey<all_dialog_yes_or_no_state.DialogWidgetState>
+                allDialogYesOrNoBusiness = GlobalKey();
             if (!_context.mounted) return;
             var outputVo = await showDialog(
                 barrierDismissible: true,
                 context: _context,
-                builder: (context) => all_dialog_yes_or_no_view.WidgetView(
-                      business: allDialogYesOrNoBusiness,
-                      inputVo: const all_dialog_yes_or_no_view.InputVo(
+                builder: (context) => all_dialog_yes_or_no.DialogWidget(
+                      globalKey: allDialogYesOrNoBusiness,
+                      inputVo: const all_dialog_yes_or_no.InputVo(
                           dialogTitle: "권한 해제",
                           dialogContent:
                               "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
@@ -1092,15 +1092,15 @@ class PageBusiness {
         {
           if (sampleItem.isChecked) {
             // 스위치 Off 시키기
-            var allDialogYesOrNoBusiness =
-                all_dialog_yes_or_no_business.WidgetBusiness();
+            GlobalKey<all_dialog_yes_or_no_state.DialogWidgetState>
+                allDialogYesOrNoBusiness = GlobalKey();
             if (!_context.mounted) return;
             var outputVo = await showDialog(
                 barrierDismissible: true,
                 context: _context,
-                builder: (context) => all_dialog_yes_or_no_view.WidgetView(
-                      business: allDialogYesOrNoBusiness,
-                      inputVo: const all_dialog_yes_or_no_view.InputVo(
+                builder: (context) => all_dialog_yes_or_no.DialogWidget(
+                      globalKey: allDialogYesOrNoBusiness,
+                      inputVo: const all_dialog_yes_or_no.InputVo(
                           dialogTitle: "권한 해제",
                           dialogContent:
                               "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
@@ -1140,15 +1140,15 @@ class PageBusiness {
         {
           if (sampleItem.isChecked) {
             // 스위치 Off 시키기
-            var allDialogYesOrNoBusiness =
-                all_dialog_yes_or_no_business.WidgetBusiness();
+            GlobalKey<all_dialog_yes_or_no_state.DialogWidgetState>
+                allDialogYesOrNoBusiness = GlobalKey();
             if (!_context.mounted) return;
             var outputVo = await showDialog(
                 barrierDismissible: true,
                 context: _context,
-                builder: (context) => all_dialog_yes_or_no_view.WidgetView(
-                      business: allDialogYesOrNoBusiness,
-                      inputVo: const all_dialog_yes_or_no_view.InputVo(
+                builder: (context) => all_dialog_yes_or_no.DialogWidget(
+                      globalKey: allDialogYesOrNoBusiness,
+                      inputVo: const all_dialog_yes_or_no.InputVo(
                           dialogTitle: "권한 해제",
                           dialogContent:
                               "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
@@ -1188,15 +1188,15 @@ class PageBusiness {
         {
           if (sampleItem.isChecked) {
             // 스위치 Off 시키기
-            var allDialogYesOrNoBusiness =
-                all_dialog_yes_or_no_business.WidgetBusiness();
+            GlobalKey<all_dialog_yes_or_no_state.DialogWidgetState>
+                allDialogYesOrNoBusiness = GlobalKey();
             if (!_context.mounted) return;
             var outputVo = await showDialog(
                 barrierDismissible: true,
                 context: _context,
-                builder: (context) => all_dialog_yes_or_no_view.WidgetView(
-                      business: allDialogYesOrNoBusiness,
-                      inputVo: const all_dialog_yes_or_no_view.InputVo(
+                builder: (context) => all_dialog_yes_or_no.DialogWidget(
+                      globalKey: allDialogYesOrNoBusiness,
+                      inputVo: const all_dialog_yes_or_no.InputVo(
                           dialogTitle: "권한 해제",
                           dialogContent:
                               "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
@@ -1238,15 +1238,15 @@ class PageBusiness {
         {
           if (sampleItem.isChecked) {
             // 스위치 Off 시키기
-            var allDialogYesOrNoBusiness =
-                all_dialog_yes_or_no_business.WidgetBusiness();
+            GlobalKey<all_dialog_yes_or_no_state.DialogWidgetState>
+                allDialogYesOrNoBusiness = GlobalKey();
             if (!_context.mounted) return;
             var outputVo = await showDialog(
                 barrierDismissible: true,
                 context: _context,
-                builder: (context) => all_dialog_yes_or_no_view.WidgetView(
-                      business: allDialogYesOrNoBusiness,
-                      inputVo: const all_dialog_yes_or_no_view.InputVo(
+                builder: (context) => all_dialog_yes_or_no.DialogWidget(
+                      globalKey: allDialogYesOrNoBusiness,
+                      inputVo: const all_dialog_yes_or_no.InputVo(
                           dialogTitle: "권한 해제",
                           dialogContent:
                               "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
@@ -1287,15 +1287,15 @@ class PageBusiness {
         {
           if (sampleItem.isChecked) {
             // 스위치 Off 시키기
-            var allDialogYesOrNoBusiness =
-                all_dialog_yes_or_no_business.WidgetBusiness();
+            GlobalKey<all_dialog_yes_or_no_state.DialogWidgetState>
+                allDialogYesOrNoBusiness = GlobalKey();
             if (!_context.mounted) return;
             var outputVo = await showDialog(
                 barrierDismissible: true,
                 context: _context,
-                builder: (context) => all_dialog_yes_or_no_view.WidgetView(
-                      business: allDialogYesOrNoBusiness,
-                      inputVo: const all_dialog_yes_or_no_view.InputVo(
+                builder: (context) => all_dialog_yes_or_no.DialogWidget(
+                      globalKey: allDialogYesOrNoBusiness,
+                      inputVo: const all_dialog_yes_or_no.InputVo(
                           dialogTitle: "권한 해제",
                           dialogContent:
                               "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
@@ -1335,15 +1335,15 @@ class PageBusiness {
         {
           if (sampleItem.isChecked) {
             // 스위치 Off 시키기
-            var allDialogYesOrNoBusiness =
-                all_dialog_yes_or_no_business.WidgetBusiness();
+            GlobalKey<all_dialog_yes_or_no_state.DialogWidgetState>
+                allDialogYesOrNoBusiness = GlobalKey();
             if (!_context.mounted) return;
             var outputVo = await showDialog(
                 barrierDismissible: true,
                 context: _context,
-                builder: (context) => all_dialog_yes_or_no_view.WidgetView(
-                      business: allDialogYesOrNoBusiness,
-                      inputVo: const all_dialog_yes_or_no_view.InputVo(
+                builder: (context) => all_dialog_yes_or_no.DialogWidget(
+                      globalKey: allDialogYesOrNoBusiness,
+                      inputVo: const all_dialog_yes_or_no.InputVo(
                           dialogTitle: "권한 해제",
                           dialogContent:
                               "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
@@ -1383,15 +1383,15 @@ class PageBusiness {
         {
           if (sampleItem.isChecked) {
             // 스위치 Off 시키기
-            var allDialogYesOrNoBusiness =
-                all_dialog_yes_or_no_business.WidgetBusiness();
+            GlobalKey<all_dialog_yes_or_no_state.DialogWidgetState>
+                allDialogYesOrNoBusiness = GlobalKey();
             if (!_context.mounted) return;
             var outputVo = await showDialog(
                 barrierDismissible: true,
                 context: _context,
-                builder: (context) => all_dialog_yes_or_no_view.WidgetView(
-                      business: allDialogYesOrNoBusiness,
-                      inputVo: const all_dialog_yes_or_no_view.InputVo(
+                builder: (context) => all_dialog_yes_or_no.DialogWidget(
+                      globalKey: allDialogYesOrNoBusiness,
+                      inputVo: const all_dialog_yes_or_no.InputVo(
                           dialogTitle: "권한 해제",
                           dialogContent:
                               "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
@@ -1431,15 +1431,15 @@ class PageBusiness {
         {
           if (sampleItem.isChecked) {
             // 스위치 Off 시키기
-            var allDialogYesOrNoBusiness =
-                all_dialog_yes_or_no_business.WidgetBusiness();
+            GlobalKey<all_dialog_yes_or_no_state.DialogWidgetState>
+                allDialogYesOrNoBusiness = GlobalKey();
             if (!_context.mounted) return;
             var outputVo = await showDialog(
                 barrierDismissible: true,
                 context: _context,
-                builder: (context) => all_dialog_yes_or_no_view.WidgetView(
-                      business: allDialogYesOrNoBusiness,
-                      inputVo: const all_dialog_yes_or_no_view.InputVo(
+                builder: (context) => all_dialog_yes_or_no.DialogWidget(
+                      globalKey: allDialogYesOrNoBusiness,
+                      inputVo: const all_dialog_yes_or_no.InputVo(
                           dialogTitle: "권한 해제",
                           dialogContent:
                               "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
@@ -1479,15 +1479,15 @@ class PageBusiness {
         {
           if (sampleItem.isChecked) {
             // 스위치 Off 시키기
-            var allDialogYesOrNoBusiness =
-                all_dialog_yes_or_no_business.WidgetBusiness();
+            GlobalKey<all_dialog_yes_or_no_state.DialogWidgetState>
+                allDialogYesOrNoBusiness = GlobalKey();
             if (!_context.mounted) return;
             var outputVo = await showDialog(
                 barrierDismissible: true,
                 context: _context,
-                builder: (context) => all_dialog_yes_or_no_view.WidgetView(
-                      business: allDialogYesOrNoBusiness,
-                      inputVo: const all_dialog_yes_or_no_view.InputVo(
+                builder: (context) => all_dialog_yes_or_no.DialogWidget(
+                      globalKey: allDialogYesOrNoBusiness,
+                      inputVo: const all_dialog_yes_or_no.InputVo(
                           dialogTitle: "권한 해제",
                           dialogContent:
                               "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
@@ -1529,15 +1529,15 @@ class PageBusiness {
         {
           if (sampleItem.isChecked) {
             // 스위치 Off 시키기
-            var allDialogYesOrNoBusiness =
-                all_dialog_yes_or_no_business.WidgetBusiness();
+            GlobalKey<all_dialog_yes_or_no_state.DialogWidgetState>
+                allDialogYesOrNoBusiness = GlobalKey();
             if (!_context.mounted) return;
             var outputVo = await showDialog(
                 barrierDismissible: true,
                 context: _context,
-                builder: (context) => all_dialog_yes_or_no_view.WidgetView(
-                      business: allDialogYesOrNoBusiness,
-                      inputVo: const all_dialog_yes_or_no_view.InputVo(
+                builder: (context) => all_dialog_yes_or_no.DialogWidget(
+                      globalKey: allDialogYesOrNoBusiness,
+                      inputVo: const all_dialog_yes_or_no.InputVo(
                           dialogTitle: "권한 해제",
                           dialogContent:
                               "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
@@ -1578,15 +1578,15 @@ class PageBusiness {
         {
           if (sampleItem.isChecked) {
             // 스위치 Off 시키기
-            var allDialogYesOrNoBusiness =
-                all_dialog_yes_or_no_business.WidgetBusiness();
+            GlobalKey<all_dialog_yes_or_no_state.DialogWidgetState>
+                allDialogYesOrNoBusiness = GlobalKey();
             if (!_context.mounted) return;
             var outputVo = await showDialog(
                 barrierDismissible: true,
                 context: _context,
-                builder: (context) => all_dialog_yes_or_no_view.WidgetView(
-                      business: allDialogYesOrNoBusiness,
-                      inputVo: const all_dialog_yes_or_no_view.InputVo(
+                builder: (context) => all_dialog_yes_or_no.DialogWidget(
+                      globalKey: allDialogYesOrNoBusiness,
+                      inputVo: const all_dialog_yes_or_no.InputVo(
                           dialogTitle: "권한 해제",
                           dialogContent:
                               "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
@@ -1628,15 +1628,15 @@ class PageBusiness {
         {
           if (sampleItem.isChecked) {
             // 스위치 Off 시키기
-            var allDialogYesOrNoBusiness =
-                all_dialog_yes_or_no_business.WidgetBusiness();
+            GlobalKey<all_dialog_yes_or_no_state.DialogWidgetState>
+                allDialogYesOrNoBusiness = GlobalKey();
             if (!_context.mounted) return;
             var outputVo = await showDialog(
                 barrierDismissible: true,
                 context: _context,
-                builder: (context) => all_dialog_yes_or_no_view.WidgetView(
-                      business: allDialogYesOrNoBusiness,
-                      inputVo: const all_dialog_yes_or_no_view.InputVo(
+                builder: (context) => all_dialog_yes_or_no.DialogWidget(
+                      globalKey: allDialogYesOrNoBusiness,
+                      inputVo: const all_dialog_yes_or_no.InputVo(
                           dialogTitle: "권한 해제",
                           dialogContent:
                               "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
@@ -1678,15 +1678,15 @@ class PageBusiness {
         {
           if (sampleItem.isChecked) {
             // 스위치 Off 시키기
-            var allDialogYesOrNoBusiness =
-                all_dialog_yes_or_no_business.WidgetBusiness();
+            GlobalKey<all_dialog_yes_or_no_state.DialogWidgetState>
+                allDialogYesOrNoBusiness = GlobalKey();
             if (!_context.mounted) return;
             var outputVo = await showDialog(
                 barrierDismissible: true,
                 context: _context,
-                builder: (context) => all_dialog_yes_or_no_view.WidgetView(
-                      business: allDialogYesOrNoBusiness,
-                      inputVo: const all_dialog_yes_or_no_view.InputVo(
+                builder: (context) => all_dialog_yes_or_no.DialogWidget(
+                      globalKey: allDialogYesOrNoBusiness,
+                      inputVo: const all_dialog_yes_or_no.InputVo(
                           dialogTitle: "권한 해제",
                           dialogContent:
                               "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
@@ -1728,15 +1728,15 @@ class PageBusiness {
         {
           if (sampleItem.isChecked) {
             // 스위치 Off 시키기
-            var allDialogYesOrNoBusiness =
-                all_dialog_yes_or_no_business.WidgetBusiness();
+            GlobalKey<all_dialog_yes_or_no_state.DialogWidgetState>
+                allDialogYesOrNoBusiness = GlobalKey();
             if (!_context.mounted) return;
             var outputVo = await showDialog(
                 barrierDismissible: true,
                 context: _context,
-                builder: (context) => all_dialog_yes_or_no_view.WidgetView(
-                      business: allDialogYesOrNoBusiness,
-                      inputVo: const all_dialog_yes_or_no_view.InputVo(
+                builder: (context) => all_dialog_yes_or_no.DialogWidget(
+                      globalKey: allDialogYesOrNoBusiness,
+                      inputVo: const all_dialog_yes_or_no.InputVo(
                           dialogTitle: "권한 해제",
                           dialogContent:
                               "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
@@ -1778,15 +1778,15 @@ class PageBusiness {
         {
           if (sampleItem.isChecked) {
             // 스위치 Off 시키기
-            var allDialogYesOrNoBusiness =
-                all_dialog_yes_or_no_business.WidgetBusiness();
+            GlobalKey<all_dialog_yes_or_no_state.DialogWidgetState>
+                allDialogYesOrNoBusiness = GlobalKey();
             if (!_context.mounted) return;
             var outputVo = await showDialog(
                 barrierDismissible: true,
                 context: _context,
-                builder: (context) => all_dialog_yes_or_no_view.WidgetView(
-                      business: allDialogYesOrNoBusiness,
-                      inputVo: const all_dialog_yes_or_no_view.InputVo(
+                builder: (context) => all_dialog_yes_or_no.DialogWidget(
+                      globalKey: allDialogYesOrNoBusiness,
+                      inputVo: const all_dialog_yes_or_no.InputVo(
                           dialogTitle: "권한 해제",
                           dialogContent:
                               "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
@@ -1828,15 +1828,15 @@ class PageBusiness {
         {
           if (sampleItem.isChecked) {
             // 스위치 Off 시키기
-            var allDialogYesOrNoBusiness =
-                all_dialog_yes_or_no_business.WidgetBusiness();
+            GlobalKey<all_dialog_yes_or_no_state.DialogWidgetState>
+                allDialogYesOrNoBusiness = GlobalKey();
             if (!_context.mounted) return;
             var outputVo = await showDialog(
                 barrierDismissible: true,
                 context: _context,
-                builder: (context) => all_dialog_yes_or_no_view.WidgetView(
-                      business: allDialogYesOrNoBusiness,
-                      inputVo: const all_dialog_yes_or_no_view.InputVo(
+                builder: (context) => all_dialog_yes_or_no.DialogWidget(
+                      globalKey: allDialogYesOrNoBusiness,
+                      inputVo: const all_dialog_yes_or_no.InputVo(
                           dialogTitle: "권한 해제",
                           dialogContent:
                               "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
@@ -1878,15 +1878,15 @@ class PageBusiness {
         {
           if (sampleItem.isChecked) {
             // 스위치 Off 시키기
-            var allDialogYesOrNoBusiness =
-                all_dialog_yes_or_no_business.WidgetBusiness();
+            GlobalKey<all_dialog_yes_or_no_state.DialogWidgetState>
+                allDialogYesOrNoBusiness = GlobalKey();
             if (!_context.mounted) return;
             var outputVo = await showDialog(
                 barrierDismissible: true,
                 context: _context,
-                builder: (context) => all_dialog_yes_or_no_view.WidgetView(
-                      business: allDialogYesOrNoBusiness,
-                      inputVo: const all_dialog_yes_or_no_view.InputVo(
+                builder: (context) => all_dialog_yes_or_no.DialogWidget(
+                      globalKey: allDialogYesOrNoBusiness,
+                      inputVo: const all_dialog_yes_or_no.InputVo(
                           dialogTitle: "권한 해제",
                           dialogContent:
                               "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
@@ -1928,15 +1928,15 @@ class PageBusiness {
         {
           if (sampleItem.isChecked) {
             // 스위치 Off 시키기
-            var allDialogYesOrNoBusiness =
-                all_dialog_yes_or_no_business.WidgetBusiness();
+            GlobalKey<all_dialog_yes_or_no_state.DialogWidgetState>
+                allDialogYesOrNoBusiness = GlobalKey();
             if (!_context.mounted) return;
             var outputVo = await showDialog(
                 barrierDismissible: true,
                 context: _context,
-                builder: (context) => all_dialog_yes_or_no_view.WidgetView(
-                      business: allDialogYesOrNoBusiness,
-                      inputVo: const all_dialog_yes_or_no_view.InputVo(
+                builder: (context) => all_dialog_yes_or_no.DialogWidget(
+                      globalKey: allDialogYesOrNoBusiness,
+                      inputVo: const all_dialog_yes_or_no.InputVo(
                           dialogTitle: "권한 해제",
                           dialogContent:
                               "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
@@ -1978,15 +1978,15 @@ class PageBusiness {
         {
           if (sampleItem.isChecked) {
             // 스위치 Off 시키기
-            var allDialogYesOrNoBusiness =
-                all_dialog_yes_or_no_business.WidgetBusiness();
+            GlobalKey<all_dialog_yes_or_no_state.DialogWidgetState>
+                allDialogYesOrNoBusiness = GlobalKey();
             if (!_context.mounted) return;
             var outputVo = await showDialog(
                 barrierDismissible: true,
                 context: _context,
-                builder: (context) => all_dialog_yes_or_no_view.WidgetView(
-                      business: allDialogYesOrNoBusiness,
-                      inputVo: const all_dialog_yes_or_no_view.InputVo(
+                builder: (context) => all_dialog_yes_or_no.DialogWidget(
+                      globalKey: allDialogYesOrNoBusiness,
+                      inputVo: const all_dialog_yes_or_no.InputVo(
                           dialogTitle: "권한 해제",
                           dialogContent:
                               "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
@@ -2027,15 +2027,15 @@ class PageBusiness {
         {
           if (sampleItem.isChecked) {
             // 스위치 Off 시키기
-            var allDialogYesOrNoBusiness =
-                all_dialog_yes_or_no_business.WidgetBusiness();
+            GlobalKey<all_dialog_yes_or_no_state.DialogWidgetState>
+                allDialogYesOrNoBusiness = GlobalKey();
             if (!_context.mounted) return;
             var outputVo = await showDialog(
                 barrierDismissible: true,
                 context: _context,
-                builder: (context) => all_dialog_yes_or_no_view.WidgetView(
-                      business: allDialogYesOrNoBusiness,
-                      inputVo: const all_dialog_yes_or_no_view.InputVo(
+                builder: (context) => all_dialog_yes_or_no.DialogWidget(
+                      globalKey: allDialogYesOrNoBusiness,
+                      inputVo: const all_dialog_yes_or_no.InputVo(
                           dialogTitle: "권한 해제",
                           dialogContent:
                               "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
@@ -2077,15 +2077,15 @@ class PageBusiness {
         {
           if (sampleItem.isChecked) {
             // 스위치 Off 시키기
-            var allDialogYesOrNoBusiness =
-                all_dialog_yes_or_no_business.WidgetBusiness();
+            GlobalKey<all_dialog_yes_or_no_state.DialogWidgetState>
+                allDialogYesOrNoBusiness = GlobalKey();
             if (!_context.mounted) return;
             var outputVo = await showDialog(
                 barrierDismissible: true,
                 context: _context,
-                builder: (context) => all_dialog_yes_or_no_view.WidgetView(
-                      business: allDialogYesOrNoBusiness,
-                      inputVo: const all_dialog_yes_or_no_view.InputVo(
+                builder: (context) => all_dialog_yes_or_no.DialogWidget(
+                      globalKey: allDialogYesOrNoBusiness,
+                      inputVo: const all_dialog_yes_or_no.InputVo(
                           dialogTitle: "권한 해제",
                           dialogContent:
                               "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
@@ -2127,15 +2127,15 @@ class PageBusiness {
         {
           if (sampleItem.isChecked) {
             // 스위치 Off 시키기
-            var allDialogYesOrNoBusiness =
-                all_dialog_yes_or_no_business.WidgetBusiness();
+            GlobalKey<all_dialog_yes_or_no_state.DialogWidgetState>
+                allDialogYesOrNoBusiness = GlobalKey();
             if (!_context.mounted) return;
             var outputVo = await showDialog(
                 barrierDismissible: true,
                 context: _context,
-                builder: (context) => all_dialog_yes_or_no_view.WidgetView(
-                      business: allDialogYesOrNoBusiness,
-                      inputVo: const all_dialog_yes_or_no_view.InputVo(
+                builder: (context) => all_dialog_yes_or_no.DialogWidget(
+                      globalKey: allDialogYesOrNoBusiness,
+                      inputVo: const all_dialog_yes_or_no.InputVo(
                           dialogTitle: "권한 해제",
                           dialogContent:
                               "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
@@ -2176,15 +2176,15 @@ class PageBusiness {
         {
           if (sampleItem.isChecked) {
             // 스위치 Off 시키기
-            var allDialogYesOrNoBusiness =
-                all_dialog_yes_or_no_business.WidgetBusiness();
+            GlobalKey<all_dialog_yes_or_no_state.DialogWidgetState>
+                allDialogYesOrNoBusiness = GlobalKey();
             if (!_context.mounted) return;
             var outputVo = await showDialog(
                 barrierDismissible: true,
                 context: _context,
-                builder: (context) => all_dialog_yes_or_no_view.WidgetView(
-                      business: allDialogYesOrNoBusiness,
-                      inputVo: const all_dialog_yes_or_no_view.InputVo(
+                builder: (context) => all_dialog_yes_or_no.DialogWidget(
+                      globalKey: allDialogYesOrNoBusiness,
+                      inputVo: const all_dialog_yes_or_no.InputVo(
                           dialogTitle: "권한 해제",
                           dialogContent:
                               "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
@@ -2225,15 +2225,15 @@ class PageBusiness {
         {
           if (sampleItem.isChecked) {
             // 스위치 Off 시키기
-            var allDialogYesOrNoBusiness =
-                all_dialog_yes_or_no_business.WidgetBusiness();
+            GlobalKey<all_dialog_yes_or_no_state.DialogWidgetState>
+                allDialogYesOrNoBusiness = GlobalKey();
             if (!_context.mounted) return;
             var outputVo = await showDialog(
                 barrierDismissible: true,
                 context: _context,
-                builder: (context) => all_dialog_yes_or_no_view.WidgetView(
-                      business: allDialogYesOrNoBusiness,
-                      inputVo: const all_dialog_yes_or_no_view.InputVo(
+                builder: (context) => all_dialog_yes_or_no.DialogWidget(
+                      globalKey: allDialogYesOrNoBusiness,
+                      inputVo: const all_dialog_yes_or_no.InputVo(
                           dialogTitle: "권한 해제",
                           dialogContent:
                               "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
@@ -2274,15 +2274,15 @@ class PageBusiness {
         {
           if (sampleItem.isChecked) {
             // 스위치 Off 시키기
-            var allDialogYesOrNoBusiness =
-                all_dialog_yes_or_no_business.WidgetBusiness();
+            GlobalKey<all_dialog_yes_or_no_state.DialogWidgetState>
+                allDialogYesOrNoBusiness = GlobalKey();
             if (!_context.mounted) return;
             var outputVo = await showDialog(
                 barrierDismissible: true,
                 context: _context,
-                builder: (context) => all_dialog_yes_or_no_view.WidgetView(
-                      business: allDialogYesOrNoBusiness,
-                      inputVo: const all_dialog_yes_or_no_view.InputVo(
+                builder: (context) => all_dialog_yes_or_no.DialogWidget(
+                      globalKey: allDialogYesOrNoBusiness,
+                      inputVo: const all_dialog_yes_or_no.InputVo(
                           dialogTitle: "권한 해제",
                           dialogContent:
                               "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
@@ -2324,15 +2324,15 @@ class PageBusiness {
         {
           if (sampleItem.isChecked) {
             // 스위치 Off 시키기
-            var allDialogYesOrNoBusiness =
-                all_dialog_yes_or_no_business.WidgetBusiness();
+            GlobalKey<all_dialog_yes_or_no_state.DialogWidgetState>
+                allDialogYesOrNoBusiness = GlobalKey();
             if (!_context.mounted) return;
             var outputVo = await showDialog(
                 barrierDismissible: true,
                 context: _context,
-                builder: (context) => all_dialog_yes_or_no_view.WidgetView(
-                      business: allDialogYesOrNoBusiness,
-                      inputVo: const all_dialog_yes_or_no_view.InputVo(
+                builder: (context) => all_dialog_yes_or_no.DialogWidget(
+                      globalKey: allDialogYesOrNoBusiness,
+                      inputVo: const all_dialog_yes_or_no.InputVo(
                           dialogTitle: "권한 해제",
                           dialogContent:
                               "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
@@ -2375,15 +2375,15 @@ class PageBusiness {
   Future<void> onSensorsAlwaysItemClickAsync() async {
     if (pageViewModel.sensorsAlways) {
       // 스위치 Off 시키기
-      var allDialogYesOrNoBusiness =
-          all_dialog_yes_or_no_business.WidgetBusiness();
+      GlobalKey<all_dialog_yes_or_no_state.DialogWidgetState>
+          allDialogYesOrNoBusiness = GlobalKey();
       if (!_context.mounted) return;
       var outputVo = await showDialog(
           barrierDismissible: true,
           context: _context,
-          builder: (context) => all_dialog_yes_or_no_view.WidgetView(
-                business: allDialogYesOrNoBusiness,
-                inputVo: const all_dialog_yes_or_no_view.InputVo(
+          builder: (context) => all_dialog_yes_or_no.DialogWidget(
+                globalKey: allDialogYesOrNoBusiness,
+                inputVo: const all_dialog_yes_or_no.InputVo(
                     dialogTitle: "권한 해제",
                     dialogContent:
                         "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
@@ -2422,15 +2422,15 @@ class PageBusiness {
   Future<void> onLocationAlwaysItemClickAsync() async {
     if (pageViewModel.androidLocationAlways) {
       // 스위치 Off 시키기
-      var allDialogYesOrNoBusiness =
-          all_dialog_yes_or_no_business.WidgetBusiness();
+      GlobalKey<all_dialog_yes_or_no_state.DialogWidgetState>
+          allDialogYesOrNoBusiness = GlobalKey();
       if (!_context.mounted) return;
       var outputVo = await showDialog(
           barrierDismissible: true,
           context: _context,
-          builder: (context) => all_dialog_yes_or_no_view.WidgetView(
-                business: allDialogYesOrNoBusiness,
-                inputVo: const all_dialog_yes_or_no_view.InputVo(
+          builder: (context) => all_dialog_yes_or_no.DialogWidget(
+                globalKey: allDialogYesOrNoBusiness,
+                inputVo: const all_dialog_yes_or_no.InputVo(
                     dialogTitle: "권한 해제",
                     dialogContent:
                         "권한 해제를 위해선\n디바이스 설정으로 이동해야합니다.\n디바이스 설정으로 이동하시겠습니까?",
@@ -2664,7 +2664,7 @@ class PageViewModel {
   // int sampleNumber = 0;
 
   // PageOutFrameViewModel
-  gw_page_outer_frame_business.SlWidgetBusiness pageOutFrameBusiness =
+  final gw_page_outer_frame_business.SlWidgetBusiness pageOutFrameBusiness =
       gw_page_outer_frame_business.SlWidgetBusiness();
 
   // (샘플 페이지 원본 리스트)

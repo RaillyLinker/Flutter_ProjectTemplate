@@ -1,6 +1,5 @@
 // (external)
 import 'dart:io';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:go_router/go_router.dart';
 
@@ -33,7 +32,7 @@ import 'pages/all/all_page_join_the_membership_email_verification/page_entrance.
     as all_page_join_the_membership_email_verification;
 import 'pages/all/all_page_just_push_test1/page_widget.dart'
     as all_page_just_push_test1;
-import 'pages/all/all_page_just_push_test2/page_entrance.dart'
+import 'pages/all/all_page_just_push_test2/page_widget.dart'
     as all_page_just_push_test2;
 import 'pages/all/all_page_login/page_entrance.dart' as all_page_login;
 import 'pages/all/all_page_member_info/page_entrance.dart'
@@ -181,7 +180,9 @@ GoRouter getRouter() {
       pageBuilder: (c, s) {
         return CustomTransitionPage(
             key: s.pageKey,
-            child: all_page_just_push_test2.PageEntrance(s),
+            child: all_page_just_push_test2.PageWidget(
+              goRouterState: s,
+            ),
             transitionsBuilder:
                 all_page_just_push_test2.pageTransitionsBuilder);
       }));
