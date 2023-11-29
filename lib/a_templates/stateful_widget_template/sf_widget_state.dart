@@ -14,7 +14,7 @@ class SfWidgetState extends State<sf_widget.SfWidget> {
   // [콜백 함수]
   @override
   Widget build(BuildContext context) {
-    return widget.widgetUiBuild(context: context);
+    return widget.widgetUiBuild(context: context, currentState: this);
   }
 
   @override

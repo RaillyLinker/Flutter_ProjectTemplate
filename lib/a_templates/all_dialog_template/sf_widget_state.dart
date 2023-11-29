@@ -44,7 +44,7 @@ class SfWidgetState extends State<sf_widget.SfWidget>
         onForegroundLost: () async {
           // !!!생명주기 처리!!!
         },
-        child: widget.widgetUiBuild(context: context),
+        child: widget.widgetUiBuild(context: context, currentState: this),
       ),
     );
   }

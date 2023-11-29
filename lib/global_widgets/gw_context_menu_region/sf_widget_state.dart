@@ -3,34 +3,43 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 // (inner Folder)
-import 'widget_view.dart' as widget_view;
+import 'sf_widget.dart' as sf_widget;
 
 // [위젯 비즈니스]
 // 위젯의 비즈니스 로직 + State 변수 처리는 이 곳에서 합니다.
 
 // -----------------------------------------------------------------------------
-class WidgetBusiness {
-  // [콜백 함수]
-  // (Stateful Widget initState)
-  void initState() {}
+class SfWidgetState extends State<sf_widget.SfWidget> {
+  SfWidgetState();
 
-  // (Stateful Widget dispose)
-  void dispose() {}
+  // [콜백 함수]
+  @override
+  Widget build(BuildContext context) {
+    return widget.widgetUiBuild(context: context, currentState: this);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    // !!!initState 작성!!!
+  }
+
+  @override
+  void dispose() {
+    // !!!dispose 작성!!!
+    super.dispose();
+  }
 
   // [public 변수]
-  // (위젯 Context)
-  late BuildContext context;
-
-  // (위젯 입력값)
-  late widget_view.InputVo inputVo;
-
   Offset? longPressOffset;
 
   // [private 변수]
 
   // [public 함수]
   // (Stateful Widget 화면 갱신)
-  late VoidCallback refreshUi;
+  void refreshUi() {
+    setState(() {});
+  }
 
   // (우클릭 메뉴 보이기)
   Future<void> show({required Offset position}) async {
@@ -40,8 +49,8 @@ class WidgetBusiness {
     List<PopupMenuItem> popupMenuItemList = [];
     Map popupMenuItemCallbackMap = {};
     int idx = 0;
-    for (widget_view.ContextMenuRegionItemVo contextMenuRegionItemVo
-        in inputVo.contextMenuRegionItemVoList) {
+    for (sf_widget.ContextMenuRegionItemVo contextMenuRegionItemVo
+        in widget.inputVo.contextMenuRegionItemVoList) {
       popupMenuItemList.add(PopupMenuItem(
           value: idx, child: contextMenuRegionItemVo.menuItemWidget));
 
@@ -76,6 +85,4 @@ class WidgetBusiness {
         return false;
     }
   }
-
-// [private 함수]
 }

@@ -6,7 +6,7 @@ import 'package:focus_detector_v2/focus_detector_v2.dart';
 import 'widget_business.dart' as widget_business;
 
 // (all)
-import '../../../global_widgets/gw_context_menu_region/widget_view.dart'
+import '../../../global_widgets/gw_context_menu_region/sf_widget.dart'
     as gw_context_menu_region_view;
 
 // [위젯 뷰]
@@ -125,8 +125,8 @@ class WidgetUi {
               shape: BoxShape.rectangle,
               borderRadius: BorderRadius.all(Radius.circular(16))),
           child: Center(
-            child: gw_context_menu_region_view.WidgetView(
-              business: business.contextMenuRegionBusiness,
+            child: gw_context_menu_region_view.SfWidget(
+              globalKey: business.contextMenuRegionGk,
               inputVo: gw_context_menu_region_view.InputVo(
                   contextMenuRegionItemVoList: [
                     gw_context_menu_region_view.ContextMenuRegionItemVo(

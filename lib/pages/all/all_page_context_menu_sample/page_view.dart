@@ -7,7 +7,7 @@ import 'page_business.dart' as page_business;
 // (all)
 import '../../../global_widgets/gw_page_outer_frame/widget_view.dart'
     as gw_page_outer_frame_view;
-import '../../../global_widgets/gw_context_menu_region/widget_view.dart'
+import '../../../global_widgets/gw_context_menu_region/sf_widget.dart'
     as gw_context_menu_region_view;
 
 // [페이지 화면 위젯 작성 파일]
@@ -36,9 +36,9 @@ class PageView extends StatelessWidget {
                 const SizedBox(
                   height: 100,
                 ),
-                gw_context_menu_region_view.WidgetView(
-                  business:
-                      _pageBusiness.pageViewModel.contextMenuRegionBusiness,
+                gw_context_menu_region_view.SfWidget(
+                  globalKey:
+                      _pageBusiness.pageViewModel.contextMenuRegionGk,
                   inputVo: gw_context_menu_region_view.InputVo(
                       contextMenuRegionItemVoList: [
                         gw_context_menu_region_view.ContextMenuRegionItemVo(
@@ -74,9 +74,9 @@ class PageView extends StatelessWidget {
                 const SizedBox(
                   height: 100,
                 ),
-                gw_context_menu_region_view.WidgetView(
-                  business:
-                      _pageBusiness.pageViewModel.contextMenuRegionBusiness2,
+                gw_context_menu_region_view.SfWidget(
+                  globalKey:
+                  _pageBusiness.pageViewModel.contextMenuRegionGk2,
                   inputVo: gw_context_menu_region_view.InputVo(
                       contextMenuRegionItemVoList: [
                         gw_context_menu_region_view.ContextMenuRegionItemVo(

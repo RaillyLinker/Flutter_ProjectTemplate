@@ -7,8 +7,8 @@ import 'package:go_router/go_router.dart';
 import 'widget_view.dart' as widget_view;
 
 // (all)
-import '../../../global_widgets/gw_context_menu_region/widget_business.dart'
-    as gw_context_menu_region_business;
+import '../../../global_widgets/gw_context_menu_region/sf_widget_state.dart'
+    as gw_context_menu_region_state;
 
 // [위젯 비즈니스]
 // 위젯의 비즈니스 로직 + State 변수 처리는 이 곳에서 합니다.
@@ -67,8 +67,8 @@ class WidgetBusiness {
   bool canPop = true;
 
   // (contextMenuRegionBusiness)
-  gw_context_menu_region_business.WidgetBusiness contextMenuRegionBusiness =
-      gw_context_menu_region_business.WidgetBusiness();
+  var contextMenuRegionGk =
+      GlobalKey<gw_context_menu_region_state.SfWidgetState>();
 
   // [private 변수]
 
