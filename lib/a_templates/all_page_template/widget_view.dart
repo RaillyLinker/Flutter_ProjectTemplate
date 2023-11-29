@@ -28,14 +28,14 @@ Widget Function(BuildContext context, Animation<double> animation,
 
 // (입력 데이터)
 class InputVo {
+  // !!!위젯 입력값 선언!!!
   const InputVo();
-// !!!위젯 입력값 선언!!!
 }
 
 // (결과 데이터)
 class OutputVo {
+  // !!!위젯 출력값 선언!!!
   const OutputVo();
-// !!!위젯 출력값 선언!!!
 }
 
 //------------------------------------------------------------------------------

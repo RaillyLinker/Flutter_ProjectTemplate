@@ -14,10 +14,10 @@ import '../../../dialogs/all/all_dialog_info/widget_view.dart'
     as all_dialog_info_view;
 import '../../../dialogs/all/all_dialog_info/widget_business.dart'
     as all_dialog_info_business;
-import '../../../a_templates/all_dialog_template/widget_view.dart'
+import '../../../a_templates/all_dialog_template/sf_widget.dart'
     as all_dialog_template_view;
-import '../../../a_templates/all_dialog_template/widget_business.dart'
-    as all_dialog_template_business;
+import '../../../a_templates/all_dialog_template/sf_widget_state.dart'
+    as all_dialog_template_state;
 import '../../../dialogs/all/all_dialog_yes_or_no/widget_view.dart'
     as all_dialog_yes_or_no_view;
 import '../../../dialogs/all/all_dialog_yes_or_no/widget_business.dart'
@@ -142,13 +142,13 @@ class PageBusiness {
       case SampleItemEnum.dialogTemplate:
         {
           // (템플릿 다이얼로그 호출)
-          var dialogBusiness = all_dialog_template_business.WidgetBusiness();
+          var dialogGk = GlobalKey<all_dialog_template_state.SfWidgetState>();
 
           showDialog(
               barrierDismissible: true,
               context: _context,
-              builder: (context) => all_dialog_template_view.WidgetView(
-                    business: dialogBusiness,
+              builder: (context) => all_dialog_template_view.SfWidget(
+                    globalKey: dialogGk,
                     inputVo: const all_dialog_template_view.InputVo(),
                     onDialogCreated: () {},
                   )).then((outputVo) {});
@@ -277,14 +277,14 @@ class PageBusiness {
       case SampleItemEnum.dialogOutsideColorSample:
         {
           // 다이얼로그 외부 색 설정
-          var dialogBusiness = all_dialog_template_business.WidgetBusiness();
+          var dialogGk = GlobalKey<all_dialog_template_state.SfWidgetState>();
 
           showDialog(
               barrierDismissible: true,
               context: _context,
               barrierColor: Colors.blue.withOpacity(0.5),
-              builder: (context) => all_dialog_template_view.WidgetView(
-                    business: dialogBusiness,
+              builder: (context) => all_dialog_template_view.SfWidget(
+                    globalKey: dialogGk,
                     inputVo: const all_dialog_template_view.InputVo(),
                     onDialogCreated: () {},
                   )).then((outputVo) {});

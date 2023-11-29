@@ -2,27 +2,34 @@
 import 'package:flutter/cupertino.dart';
 
 // (inner Folder)
-import 'widget_view.dart' as widget_view;
+import 'sf_widget.dart' as sf_widget;
 
 // [위젯 비즈니스]
 // 위젯의 비즈니스 로직 + State 변수 처리는 이 곳에서 합니다.
 
 // -----------------------------------------------------------------------------
-class WidgetBusiness {
-  // [콜백 함수]
-  // (Stateful Widget initState)
-  void initState() {}
+class SfWidgetState extends State<sf_widget.SfWidget> {
+  SfWidgetState();
 
-  // (Stateful Widget dispose)
-  void dispose() {}
+  // [콜백 함수]
+  @override
+  Widget build(BuildContext context) {
+    return widget.widgetUiBuild(context: context);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    // !!!initState 작성!!!
+  }
+
+  @override
+  void dispose() {
+    // !!!dispose 작성!!!
+    super.dispose();
+  }
 
   // [public 변수]
-  // (위젯 Context)
-  late BuildContext context;
-
-  // (위젯 입력값)
-  late widget_view.InputVo inputVo;
-
   // (샘플 정수)
   int sampleInt = 0;
 
@@ -30,13 +37,13 @@ class WidgetBusiness {
 
   // [public 함수]
   // (Stateful Widget 화면 갱신)
-  late VoidCallback refreshUi;
+  void refreshUi() {
+    setState(() {});
+  }
 
   // (화면 카운트 +1)
   void countPlus1() {
     sampleInt += 1;
     refreshUi();
   }
-
-// [private 함수]
 }

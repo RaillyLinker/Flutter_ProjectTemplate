@@ -12,8 +12,8 @@ import 'inner_widgets/iw_stateful_sample_number/widget_business.dart'
 import '../../../global_functions/gf_my_functions.dart' as gf_my_functions;
 import '../../../pages/all/all_page_dialog_sample_list/page_entrance.dart'
     as all_page_dialog_sample_list;
-import '../../../global_widgets/gw_stateful_test/widget_business.dart'
-    as gw_stateful_test_business;
+import '../../../global_widgets/gw_stateful_test/sf_widget_state.dart'
+    as gw_stateful_test_state;
 
 // [위젯 비즈니스]
 // 위젯의 비즈니스 로직 + State 변수 처리는 이 곳에서 합니다.
@@ -104,8 +104,7 @@ class WidgetBusiness {
       iw_stateful_sample_number_business.WidgetBusiness();
 
   // (statefulTestBusiness)
-  gw_stateful_test_business.WidgetBusiness statefulTestBusiness =
-      gw_stateful_test_business.WidgetBusiness();
+  var statefulTestGk = GlobalKey<gw_stateful_test_state.SfWidgetState>();
 
   // [private 변수]
 

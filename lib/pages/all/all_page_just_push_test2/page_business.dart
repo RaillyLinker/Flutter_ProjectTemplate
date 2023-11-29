@@ -17,8 +17,8 @@ import '../../../global_widgets/gw_page_outer_frame/widget_business.dart'
     as gw_page_outer_frame_business;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
-import '../../../global_widgets/gw_stateful_test/widget_business.dart'
-    as gw_stateful_test_business;
+import '../../../global_widgets/gw_stateful_test/sf_widget_state.dart'
+    as gw_stateful_test_state;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
 
@@ -166,6 +166,5 @@ class PageViewModel {
       gw_page_outer_frame_business.WidgetBusiness();
 
   // statefulTestBusiness
-  gw_stateful_test_business.WidgetBusiness statefulTestBusiness =
-      gw_stateful_test_business.WidgetBusiness();
+  var statefulTestGk = GlobalKey<gw_stateful_test_state.SfWidgetState>();
 }

@@ -8,7 +8,7 @@ import 'inner_widgets/iw_stateful_sample_number/widget_view.dart'
     as iw_stateful_sample_number_view;
 
 // (all)
-import '../../../global_widgets/gw_stateful_test/widget_view.dart'
+import '../../../global_widgets/gw_stateful_test/sf_widget.dart'
     as gw_stateful_test_view;
 
 // [위젯 뷰]
@@ -140,9 +140,9 @@ class WidgetUi {
                 const SizedBox(
                   height: 10,
                 ),
-                gw_stateful_test_view.WidgetView(
-                    inputVo: const gw_stateful_test_view.InputVo(),
-                    business: business.statefulTestBusiness),
+                gw_stateful_test_view.SfWidget(
+                  globalKey: business.statefulTestGk,
+                    inputVo: const gw_stateful_test_view.InputVo()),
                 const SizedBox(
                   height: 10,
                 ),

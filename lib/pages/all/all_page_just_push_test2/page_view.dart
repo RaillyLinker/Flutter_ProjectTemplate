@@ -7,7 +7,7 @@ import 'page_business.dart' as page_business;
 // (all)
 import '../../../global_widgets/gw_page_outer_frame/widget_view.dart'
     as gw_page_outer_frame_view;
-import '../../../global_widgets/gw_stateful_test/widget_view.dart'
+import '../../../global_widgets/gw_stateful_test/sf_widget.dart'
     as gw_stateful_test_view;
 
 // [페이지 화면 위젯 작성 파일]
@@ -41,9 +41,9 @@ class PageView extends StatelessWidget {
                 const SizedBox(
                   height: 10,
                 ),
-                gw_stateful_test_view.WidgetView(
-                    inputVo: const gw_stateful_test_view.InputVo(),
-                    business: _pageBusiness.pageViewModel.statefulTestBusiness),
+                gw_stateful_test_view.SfWidget(
+                    globalKey: _pageBusiness.pageViewModel.statefulTestGk,
+                    inputVo: const gw_stateful_test_view.InputVo()),
                 const Text(
                   "로컬 위젯 상태 변수",
                   style: TextStyle(color: Colors.black, fontFamily: "MaruBuri"),
