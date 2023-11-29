@@ -9,7 +9,7 @@ import 'inner_widgets/iw_sample_number_text/widget_view.dart'
     as iw_sample_number_text_view;
 
 // (all)
-import '../../../global_widgets/gw_page_outer_frame/widget_view.dart'
+import '../../../global_widgets/gw_page_outer_frame/sl_widget.dart'
     as gw_page_outer_frame_view;
 import '../../../global_widgets/gw_stateful_test/sf_widget.dart'
     as gw_stateful_test_view;
@@ -118,7 +118,7 @@ class WidgetUi {
       required widget_business.WidgetBusiness business}) {
     // !!!뷰 위젯 반환 콜백 작성 하기!!!
 
-    return gw_page_outer_frame_view.WidgetView(
+    return gw_page_outer_frame_view.SlWidget(
       business: business.pageOutFrameBusiness,
       inputVo: gw_page_outer_frame_view.InputVo(
         pageTitle: "페이지 Push 테스트1",

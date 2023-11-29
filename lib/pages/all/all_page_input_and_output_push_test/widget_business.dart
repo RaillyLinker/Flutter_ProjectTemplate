@@ -7,7 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'widget_view.dart' as widget_view;
 
 // (all)
-import '../../../global_widgets/gw_page_outer_frame/widget_business.dart'
+import '../../../global_widgets/gw_page_outer_frame/sl_widget_business.dart'
     as gw_page_outer_frame_business;
 import '../../../pages/all/all_page_home/page_entrance.dart' as all_page_home;
 
@@ -152,8 +152,8 @@ class WidgetBusiness {
   bool canPop = true;
 
   // (pageOutFrameBusiness)
-  gw_page_outer_frame_business.WidgetBusiness pageOutFrameBusiness =
-      gw_page_outer_frame_business.WidgetBusiness();
+  gw_page_outer_frame_business.SlWidgetBusiness pageOutFrameBusiness =
+      gw_page_outer_frame_business.SlWidgetBusiness();
 
   // 페이지 출력값 Form 필드 전체 키
   GlobalKey<FormState> pageOutputFormKey = GlobalKey<FormState>();

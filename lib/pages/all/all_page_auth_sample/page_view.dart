@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'page_business.dart' as page_business;
 
 // (all)
-import '../../../global_widgets/gw_page_outer_frame/widget_view.dart'
+import '../../../global_widgets/gw_page_outer_frame/sl_widget.dart'
     as gw_page_outer_frame_view;
 
 // [페이지 화면 위젯 작성 파일]
@@ -23,7 +23,7 @@ class PageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return gw_page_outer_frame_view.WidgetView(
+    return gw_page_outer_frame_view.SlWidget(
       business: _pageBusiness.pageViewModel.pageOutFrameBusiness,
       inputVo: gw_page_outer_frame_view.InputVo(
         pageTitle: "계정 샘플",

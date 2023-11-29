@@ -14,7 +14,7 @@ import 'package:image_picker/image_picker.dart';
 import 'page_entrance.dart' as page_entrance;
 
 // (all)
-import '../../../global_widgets/gw_page_outer_frame/widget_business.dart'
+import '../../../global_widgets/gw_page_outer_frame/sl_widget_business.dart'
     as gw_page_outer_frame_business;
 import '../../../../repositories/network/apis/api_main_server.dart'
     as api_main_server;
@@ -671,8 +671,8 @@ class PageViewModel {
   // int sampleNumber = 0;
 
   // PageOutFrameViewModel
-  gw_page_outer_frame_business.WidgetBusiness pageOutFrameBusiness =
-      gw_page_outer_frame_business.WidgetBusiness();
+  gw_page_outer_frame_business.SlWidgetBusiness pageOutFrameBusiness =
+      gw_page_outer_frame_business.SlWidgetBusiness();
 
   // 이미지 선택자
   ImagePicker imagePicker = ImagePicker();

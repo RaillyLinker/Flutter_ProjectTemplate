@@ -9,7 +9,7 @@ import 'inner_widgets/iw_sample_number_text/widget_business.dart'
     as iw_sample_number_text_business;
 
 // (all)
-import '../../../global_widgets/gw_page_outer_frame/widget_business.dart'
+import '../../../global_widgets/gw_page_outer_frame/sl_widget_business.dart'
     as gw_page_outer_frame_business;
 import '../../../pages/all/all_page_just_push_test1/widget_view.dart'
     as all_page_just_push_test1;
@@ -88,8 +88,8 @@ class WidgetBusiness {
   bool canPop = true;
 
   // pageOutFrameBusiness
-  gw_page_outer_frame_business.WidgetBusiness pageOutFrameBusiness =
-      gw_page_outer_frame_business.WidgetBusiness();
+  gw_page_outer_frame_business.SlWidgetBusiness pageOutFrameBusiness =
+      gw_page_outer_frame_business.SlWidgetBusiness();
 
   // sampleNumberTextBusiness
   iw_sample_number_text_business.WidgetBusiness sampleNumberTextBusiness =

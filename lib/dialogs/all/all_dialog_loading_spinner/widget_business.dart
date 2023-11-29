@@ -6,8 +6,8 @@ import 'package:go_router/go_router.dart';
 import 'widget_view.dart' as widget_view;
 
 // (all)
-import '../../../global_widgets/gw_gif_wrapper/widget_business.dart'
-    as gw_gif_wrapper_business;
+import '../../../global_widgets/gw_gif_wrapper/sf_widget_state.dart'
+    as gw_gif_wrapper_state;
 
 // [위젯 비즈니스]
 // 위젯의 비즈니스 로직 + State 변수 처리는 이 곳에서 합니다.
@@ -65,8 +65,7 @@ class WidgetBusiness {
   // (페이지 pop 가능 여부 변수)
   bool canPop = true;
 
-  gw_gif_wrapper_business.WidgetBusiness gwGifWrapperBusiness =
-      gw_gif_wrapper_business.WidgetBusiness();
+  var gwGifWrapperGk = GlobalKey<gw_gif_wrapper_state.SfWidgetState>();
 
   // [private 변수]
 

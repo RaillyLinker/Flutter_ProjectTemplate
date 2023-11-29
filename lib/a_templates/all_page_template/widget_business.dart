@@ -6,7 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'widget_view.dart' as widget_view;
 
 // (all)
-import '../../../global_widgets/gw_page_outer_frame/widget_business.dart'
+import '../../../global_widgets/gw_page_outer_frame/sl_widget_business.dart'
     as gw_page_outer_frame_business;
 
 // [위젯 비즈니스]
@@ -79,8 +79,8 @@ class WidgetBusiness {
   bool canPop = true;
 
   // (pageOutFrameBusiness)
-  gw_page_outer_frame_business.WidgetBusiness pageOutFrameBusiness =
-      gw_page_outer_frame_business.WidgetBusiness();
+  gw_page_outer_frame_business.SlWidgetBusiness pageOutFrameBusiness =
+      gw_page_outer_frame_business.SlWidgetBusiness();
 
   // [private 변수]
 

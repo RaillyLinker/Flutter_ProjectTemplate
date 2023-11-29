@@ -4,22 +4,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 // (inner Folder)
-import 'widget_business.dart' as widget_business;
-import 'inner_widgets/iw_go_home_icon_button/widget_view.dart'
-    as iw_go_home_icon_button_view;
+import 'sl_widget_business.dart' as sl_widget_business;
+import 'inner_widgets/iw_go_home_icon_button/sf_widget.dart'
+    as iw_go_home_icon_button;
 
 // [위젯 뷰]
 // 위젯의 화면 작성은 여기서 합니다.
 
 // -----------------------------------------------------------------------------
 class InputVo {
+  // !!!위젯 입력값 선언!!!
   const InputVo(
       {required this.child,
       this.floatingActionButton,
       required this.pageTitle,
       this.backgroundColor = Colors.white});
-
-// !!!위젯 입력값 선언!!!
 
   // (하위 위젯)
   final Widget child;
@@ -34,25 +33,28 @@ class InputVo {
   final Color backgroundColor;
 }
 
-class WidgetView extends StatelessWidget {
-  WidgetView({super.key, required this.business, required InputVo inputVo}) {
-    business.inputVo = inputVo;
-  }
+class SlWidget extends StatelessWidget {
+  const SlWidget({super.key, required this.inputVo, required this.business});
+
+  // [public 변수]
+  final InputVo inputVo;
+  final sl_widget_business.SlWidgetBusiness business;
+
+  // [private 변수]
 
   // [콜백 함수]
   // (위젯을 화면에 draw 할 때의 콜백)
   @override
   Widget build(BuildContext context) {
-    business.context = context;
-    return viewWidgetBuild(context: context);
+    return widgetUiBuild(context: context);
   }
 
-  // [public 변수]
-  // (위젯 비즈니스)
-  final widget_business.WidgetBusiness business;
+  // [public 함수]
 
-  // [뷰 위젯]
-  Widget viewWidgetBuild({required BuildContext context}) {
+  // [private 함수]
+
+  // [화면 작성]
+  Widget widgetUiBuild({required BuildContext context}) {
     // !!!뷰 위젯 반환 콜백 작성 하기!!!
 
     // Mobile 앱 status bar 색상 변경
@@ -66,16 +68,16 @@ class WidgetView extends StatelessWidget {
             automaticallyImplyLeading: !kIsWeb,
             title: Row(
               children: [
-                iw_go_home_icon_button_view.WidgetView(
-                  business: business.goToHomeIconButtonBusiness,
-                  inputVo: const iw_go_home_icon_button_view.InputVo(),
+                iw_go_home_icon_button.SfWidget(
+                  globalKey: business.goToHomeIconButtonGk,
+                  inputVo: const iw_go_home_icon_button.InputVo(),
                 ),
                 const SizedBox(
                   width: 15,
                 ),
                 Expanded(
                     child: Text(
-                  business.inputVo.pageTitle,
+                  inputVo.pageTitle,
                   style: const TextStyle(
                       color: Colors.white, fontFamily: "MaruBuri"),
                 ))
@@ -85,8 +87,8 @@ class WidgetView extends StatelessWidget {
             iconTheme:
                 const IconThemeData(color: Colors.white //change your color here
                     )),
-        backgroundColor: business.inputVo.backgroundColor,
-        floatingActionButton: business.inputVo.floatingActionButton,
-        body: business.inputVo.child);
+        backgroundColor: inputVo.backgroundColor,
+        floatingActionButton: inputVo.floatingActionButton,
+        body: inputVo.child);
   }
 }

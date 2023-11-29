@@ -3,33 +3,39 @@ import 'package:flutter/cupertino.dart';
 import 'package:gif/gif.dart';
 
 // (inner Folder)
-import 'widget_view.dart' as widget_view;
+import 'sf_widget.dart' as sf_widget;
 
 // [위젯 비즈니스]
 // 위젯의 비즈니스 로직 + State 변수 처리는 이 곳에서 합니다.
 
 // -----------------------------------------------------------------------------
-class WidgetBusiness {
+class SfWidgetState extends State<sf_widget.SfWidget>
+    with SingleTickerProviderStateMixin {
+  SfWidgetState();
+
   // [콜백 함수]
-  // (Stateful Widget initState)
-  void initState({required widget_view.StatefulState statefulState}) {
-    dialogSpinnerGifController = GifController(vsync: statefulState);
+  @override
+  Widget build(BuildContext context) {
+    return widget.widgetUiBuild(context: context, currentState: this);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    // !!!initState 작성!!!
+    dialogSpinnerGifController = GifController(vsync: this);
     dialogSpinnerGifController.repeat(
         period: const Duration(milliseconds: 500));
   }
 
-  // (Stateful Widget dispose)
+  @override
   void dispose() {
+    // !!!dispose 작성!!!
     dialogSpinnerGifController.dispose();
+    super.dispose();
   }
 
   // [public 변수]
-  // (위젯 Context)
-  late BuildContext context;
-
-  // (위젯 입력값)
-  late widget_view.InputVo inputVo;
-
   // (Gif 컨트롤러)
   late GifController dialogSpinnerGifController;
 
@@ -37,7 +43,7 @@ class WidgetBusiness {
 
   // [public 함수]
   // (Stateful Widget 화면 갱신)
-  late VoidCallback refreshUi;
-
-// [private 함수]
+  void refreshUi() {
+    setState(() {});
+  }
 }

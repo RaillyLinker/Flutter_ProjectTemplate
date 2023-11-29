@@ -7,7 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'widget_business.dart' as widget_business;
 
 // (all)
-import '../../../global_widgets/gw_page_outer_frame/widget_view.dart'
+import '../../../global_widgets/gw_page_outer_frame/sl_widget.dart'
     as gw_page_outer_frame_view;
 
 // [위젯 뷰]
@@ -118,7 +118,7 @@ class WidgetUi {
       required widget_business.WidgetBusiness business}) {
     // !!!뷰 위젯 반환 콜백 작성 하기!!!
 
-    return gw_page_outer_frame_view.WidgetView(
+    return gw_page_outer_frame_view.SlWidget(
       business: business.pageOutFrameBusiness,
       inputVo: const gw_page_outer_frame_view.InputVo(
         pageTitle: "페이지 템플릿",

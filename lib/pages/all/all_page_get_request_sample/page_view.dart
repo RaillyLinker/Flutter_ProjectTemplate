@@ -7,7 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'page_business.dart' as page_business;
 
 // (all)
-import '../../../global_widgets/gw_page_outer_frame/widget_view.dart'
+import '../../../global_widgets/gw_page_outer_frame/sl_widget.dart'
     as gw_page_outer_frame_view;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
@@ -30,7 +30,7 @@ class PageView extends StatelessWidget {
             .state
             .pageBusiness;
 
-    return gw_page_outer_frame_view.WidgetView(
+    return gw_page_outer_frame_view.SlWidget(
       business: pageBusiness.pageViewModel.pageOutFrameBusiness,
       inputVo: gw_page_outer_frame_view.InputVo(
         pageTitle: "Get 메소드 요청 샘플",

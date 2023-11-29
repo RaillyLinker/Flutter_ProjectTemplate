@@ -8,7 +8,7 @@ import 'page_view.dart' as page_view;
 import 'page_entrance.dart' as page_entrance;
 
 // (all)
-import '../../../global_widgets/gw_page_outer_frame/widget_business.dart'
+import '../../../global_widgets/gw_page_outer_frame/sl_widget_business.dart'
     as gw_page_outer_frame_business;
 import '../../../global_functions/gf_my_functions.dart' as gf_my_functions;
 import '../../../global_classes/gc_template_classes.dart'
@@ -473,8 +473,8 @@ class PageViewModel {
       page_view.MainListWidgetViewModel();
 
   // PageOutFrameViewModel
-  gw_page_outer_frame_business.WidgetBusiness pageOutFrameBusiness =
-      gw_page_outer_frame_business.WidgetBusiness();
+  gw_page_outer_frame_business.SlWidgetBusiness pageOutFrameBusiness =
+      gw_page_outer_frame_business.SlWidgetBusiness();
 
   // 현재 페이지의 유저 정보
   spw_auth_member_info.SharedPreferenceWrapperVo? loginMemberInfo;
