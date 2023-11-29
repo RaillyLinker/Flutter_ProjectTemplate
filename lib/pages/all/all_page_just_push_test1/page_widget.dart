@@ -1,9 +1,10 @@
 // (external)
 import 'package:flutter/material.dart';
+import 'package:focus_detector_v2/focus_detector_v2.dart';
 import 'package:go_router/go_router.dart';
 
 // (inner Folder)
-import 'sf_widget_state.dart' as sf_widget_state;
+import 'page_widget_business.dart' as page_widget_business;
 import 'inner_widgets/iw_sample_number_text/sf_widget.dart'
     as iw_sample_number_text;
 
@@ -15,9 +16,8 @@ import '../../../global_widgets/gw_stateful_test/sf_widget.dart'
 
 // [위젯 뷰]
 // 위젯의 화면 작성은 여기서 합니다.
-// todo : state 가 유지되지 않는 문제가 있음. 아마 key 를 외부에서 제공해서 그런 것 같기도... 방법을 찾아보고 수정되면 템플릿에 적용하기
 
-// -----------------------------------------------------------------------------
+//------------------------------------------------------------------------------
 // !!!페이지 진입 라우트 Name 정의!!!
 // 폴더명과 동일하게 작성하세요.
 const pageName = "all_page_just_page_test1";
@@ -42,29 +42,83 @@ class OutputVo {
   const OutputVo();
 }
 
-// ignore: must_be_immutable
-class SfWidget extends StatefulWidget {
-  SfWidget({required this.globalKey, required this.goRouterState})
-      : super(key: globalKey);
+//------------------------------------------------------------------------------
+class PageWidget extends StatefulWidget {
+  const PageWidget({super.key, required this.goRouterState});
 
+  final GoRouterState goRouterState;
+
+  @override
+  PageWidgetState createState() => PageWidgetState();
+}
+
+class PageWidgetState extends State<PageWidget> with WidgetsBindingObserver {
   // [콜백 함수]
   @override
-  sf_widget_state.SfWidgetState createState() =>
-      sf_widget_state.SfWidgetState();
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    business = page_widget_business.PageWidgetBusiness();
+    business.refreshUi = refreshUi;
+    business.onCheckPageInputVo(goRouterState: widget.goRouterState);
+    business.initState();
+  }
+
+  @override
+  void dispose() {
+    business.dispose();
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return PopScope(
+      canPop: business.canPop,
+      child: FocusDetector(
+        // (페이지 위젯의 FocusDetector 콜백들)
+        onFocusGained: () async {
+          await business.onFocusGained();
+        },
+        onFocusLost: () async {
+          await business.onFocusLost();
+        },
+        onVisibilityGained: () async {
+          await business.onVisibilityGained();
+        },
+        onVisibilityLost: () async {
+          await business.onVisibilityLost();
+        },
+        onForegroundGained: () async {
+          await business.onForegroundGained();
+        },
+        onForegroundLost: () async {
+          await business.onForegroundLost();
+        },
+        child: WidgetUi.viewWidgetBuild(context: context, business: business),
+      ),
+    );
+  }
 
   // [public 변수]
-  final GoRouterState goRouterState;
-  final GlobalKey<sf_widget_state.SfWidgetState> globalKey;
-  late InputVo inputVo;
+  late page_widget_business.PageWidgetBusiness business;
 
-  // [화면 작성]
-  Widget widgetUiBuild(
+  // [public 함수]
+  // (Stateful Widget 화면 갱신)
+  void refreshUi() {
+    setState(() {});
+  }
+}
+
+class WidgetUi {
+  // [뷰 위젯]
+  static Widget viewWidgetBuild(
       {required BuildContext context,
-      required sf_widget_state.SfWidgetState currentState}) {
+      required page_widget_business.PageWidgetBusiness business}) {
     // !!!뷰 위젯 반환 콜백 작성 하기!!!
 
     return gw_page_outer_frame_view.SlWidget(
-      business: currentState.pageOutFrameGk,
+      business: business.pageOutFrameBusiness,
       inputVo: gw_page_outer_frame_view.InputVo(
         pageTitle: "페이지 Push 테스트1",
         child: Center(
@@ -80,7 +134,7 @@ class SfWidget extends StatefulWidget {
                   height: 10,
                 ),
                 gw_stateful_test_view.SfWidget(
-                    globalKey: currentState.statefulTestGk,
+                    globalKey: business.statefulTestGk,
                     inputVo: const gw_stateful_test_view.InputVo()),
                 const SizedBox(
                   height: 10,
@@ -96,7 +150,7 @@ class SfWidget extends StatefulWidget {
                   cursor: SystemMouseCursors.click,
                   child: GestureDetector(
                     onTap: () {
-                      currentState.countPlus1();
+                      business.countPlus1();
                     },
                     child: Container(
                       decoration: const BoxDecoration(
@@ -104,7 +158,7 @@ class SfWidget extends StatefulWidget {
                       ),
                       margin: const EdgeInsets.only(bottom: 20),
                       child: iw_sample_number_text.SfWidget(
-                        globalKey: currentState.sampleNumberTextGk,
+                        globalKey: business.sampleNumberTextGk,
                         inputVo: const iw_sample_number_text.InputVo(),
                       ),
                     ),
@@ -112,7 +166,7 @@ class SfWidget extends StatefulWidget {
                 ),
                 ElevatedButton(
                     onPressed: () {
-                      currentState.goToJustPushTest1Page();
+                      business.goToJustPushTest1Page(context);
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue,
@@ -127,7 +181,7 @@ class SfWidget extends StatefulWidget {
                 ),
                 ElevatedButton(
                     onPressed: () {
-                      currentState.goToJustPushTest2Page();
+                      business.goToJustPushTest2Page(context);
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue,

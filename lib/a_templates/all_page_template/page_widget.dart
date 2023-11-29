@@ -4,7 +4,7 @@ import 'package:focus_detector_v2/focus_detector_v2.dart';
 import 'package:go_router/go_router.dart';
 
 // (inner Folder)
-import 'widget_business.dart' as widget_business;
+import 'page_widget_business.dart' as page_widget_business;
 
 // (all)
 import '../../../global_widgets/gw_page_outer_frame/sl_widget.dart'
@@ -39,31 +39,31 @@ class OutputVo {
 }
 
 //------------------------------------------------------------------------------
-class WidgetView extends StatefulWidget {
-  const WidgetView({super.key, required this.goRouterState});
+class PageWidget extends StatefulWidget {
+  const PageWidget({super.key, required this.goRouterState});
 
   final GoRouterState goRouterState;
 
   @override
-  WidgetViewState createState() => WidgetViewState();
+  PageWidgetState createState() => PageWidgetState();
 }
 
-class WidgetViewState extends State<WidgetView> with WidgetsBindingObserver {
+class PageWidgetState extends State<PageWidget> with WidgetsBindingObserver {
   // [콜백 함수]
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-    business = widget_business.WidgetBusiness();
-    business.context = context;
+    business = page_widget_business.PageWidgetBusiness();
     business.refreshUi = refreshUi;
-    business.onCheckPageInputVoAsync(goRouterState: widget.goRouterState);
+    business.onCheckPageInputVo(goRouterState: widget.goRouterState);
+    business.initState();
   }
 
   @override
   void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
     business.dispose();
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 
@@ -74,11 +74,6 @@ class WidgetViewState extends State<WidgetView> with WidgetsBindingObserver {
       child: FocusDetector(
         // (페이지 위젯의 FocusDetector 콜백들)
         onFocusGained: () async {
-          if (!business.onPageCreated) {
-            business.onPageCreated = true;
-            await business.onCreated();
-          }
-
           await business.onFocusGained();
         },
         onFocusLost: () async {
@@ -102,7 +97,7 @@ class WidgetViewState extends State<WidgetView> with WidgetsBindingObserver {
   }
 
   // [public 변수]
-  late widget_business.WidgetBusiness business;
+  late page_widget_business.PageWidgetBusiness business;
 
   // [public 함수]
   // (Stateful Widget 화면 갱신)
@@ -115,7 +110,7 @@ class WidgetUi {
   // [뷰 위젯]
   static Widget viewWidgetBuild(
       {required BuildContext context,
-      required widget_business.WidgetBusiness business}) {
+      required page_widget_business.PageWidgetBusiness business}) {
     // !!!뷰 위젯 반환 콜백 작성 하기!!!
 
     return gw_page_outer_frame_view.SlWidget(

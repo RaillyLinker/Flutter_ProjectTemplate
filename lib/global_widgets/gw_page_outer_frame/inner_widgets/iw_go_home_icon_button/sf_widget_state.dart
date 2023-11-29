@@ -30,7 +30,6 @@ class SfWidgetState extends State<sf_widget.SfWidget> {
   }
 
   // [public 변수]
-
   // (위젯 호버링 여부)
   bool isHovering = false;
 

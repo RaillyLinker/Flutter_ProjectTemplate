@@ -4,15 +4,15 @@ import 'package:focus_detector_v2/focus_detector_v2.dart';
 import 'package:go_router/go_router.dart';
 
 // (inner Folder)
-import 'sf_widget.dart' as sf_widget;
+import 'dialog_widget.dart' as sf_widget;
 
 // [위젯 비즈니스]
 // 위젯의 비즈니스 로직 + State 변수 처리는 이 곳에서 합니다.
 
 // -----------------------------------------------------------------------------
-class SfWidgetState extends State<sf_widget.SfWidget>
+class DialogWidgetState extends State<sf_widget.DialogWidget>
     with WidgetsBindingObserver {
-  SfWidgetState();
+  DialogWidgetState();
 
   // [콜백 함수]
   @override

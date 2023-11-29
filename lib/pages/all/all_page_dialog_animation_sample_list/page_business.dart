@@ -10,10 +10,10 @@ import 'page_entrance.dart' as page_entrance;
 // (all)
 import '../../../global_widgets/gw_page_outer_frame/sl_widget_business.dart'
     as gw_page_outer_frame_business;
-import '../../../a_templates/all_dialog_template/sf_widget.dart'
+import '../../../a_templates/all_dialog_template/dialog_widget.dart'
     as all_dialog_template_view;
-import '../../../a_templates/all_dialog_template/sf_widget_state.dart'
-as all_dialog_template_state;
+import '../../../a_templates/all_dialog_template/dialog_widget_state.dart'
+    as all_dialog_template_state;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
 import '../../../dialogs/all/all_dialog_small_circle_transform_sample/widget_view.dart'
@@ -117,7 +117,8 @@ class PageBusiness {
     switch (sampleItem.sampleItemEnum) {
       case SampleItemEnum.rotateAnimation:
         {
-          var dialogGk = GlobalKey<all_dialog_template_state.SfWidgetState>();
+          var dialogGk =
+              GlobalKey<all_dialog_template_state.DialogWidgetState>();
 
           // 회전 애니메이션
           showGeneralDialog(
@@ -130,7 +131,7 @@ class PageBusiness {
             transitionBuilder: (ctx, a1, a2, child) {
               return Transform.rotate(
                 angle: math.radians(a1.value * 360),
-                child: all_dialog_template_view.SfWidget(
+                child: all_dialog_template_view.DialogWidget(
                   globalKey: dialogGk,
                   inputVo: const all_dialog_template_view.InputVo(),
                   onDialogCreated: () {},
@@ -143,7 +144,8 @@ class PageBusiness {
         break;
       case SampleItemEnum.scaleAnimation:
         {
-          var dialogGk = GlobalKey<all_dialog_template_state.SfWidgetState>();
+          var dialogGk =
+              GlobalKey<all_dialog_template_state.DialogWidgetState>();
 
           // 확대 애니메이션
           showGeneralDialog(
@@ -157,7 +159,7 @@ class PageBusiness {
               var curve = Curves.easeInOut.transform(a1.value);
               return Transform.scale(
                 scale: curve,
-                child: all_dialog_template_view.SfWidget(
+                child: all_dialog_template_view.DialogWidget(
                   globalKey: dialogGk,
                   inputVo: const all_dialog_template_view.InputVo(),
                   onDialogCreated: () {},
@@ -170,7 +172,8 @@ class PageBusiness {
         break;
       case SampleItemEnum.slideDownAnimation:
         {
-          var dialogGk = GlobalKey<all_dialog_template_state.SfWidgetState>();
+          var dialogGk =
+              GlobalKey<all_dialog_template_state.DialogWidgetState>();
 
           // Slide Down 애니메이션
           showGeneralDialog(
@@ -186,7 +189,7 @@ class PageBusiness {
               return Transform(
                 transform:
                     Matrix4.translationValues(0.0, curvedValue * 1600, 0.0),
-                child: all_dialog_template_view.SfWidget(
+                child: all_dialog_template_view.DialogWidget(
                   globalKey: dialogGk,
                   inputVo: const all_dialog_template_view.InputVo(),
                   onDialogCreated: () {},

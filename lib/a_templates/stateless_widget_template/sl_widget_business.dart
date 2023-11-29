@@ -1,5 +1,4 @@
-// (inner Folder)
-import 'sl_widget.dart' as sl_widget;
+// (external)
 
 // [위젯 비즈니스]
 // 위젯의 비즈니스 로직 처리는 이 곳에서 합니다.

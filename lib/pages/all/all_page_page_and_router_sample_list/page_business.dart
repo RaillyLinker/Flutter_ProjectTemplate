@@ -12,11 +12,11 @@ import '../../../global_widgets/gw_page_outer_frame/sl_widget_business.dart'
     as gw_page_outer_frame_business;
 import '../all_page_input_and_output_push_test/widget_view.dart'
     as all_page_input_and_output_push_test_view;
-import '../../../pages/all/all_page_just_push_test1/sf_widget.dart'
+import '../../../pages/all/all_page_just_push_test1/page_widget.dart'
     as all_page_just_push_test1;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
-import '../../../a_templates/all_page_template/widget_view.dart'
+import '../../../a_templates/all_page_template/page_widget.dart'
     as all_page_template;
 import '../../../pages/all/all_page_page_transition_animation_sample_list/page_entrance.dart'
     as all_page_page_transition_animation_sample_list;

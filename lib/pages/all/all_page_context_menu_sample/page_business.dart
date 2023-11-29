@@ -16,7 +16,7 @@ import '../../../global_widgets/gw_page_outer_frame/sl_widget_business.dart'
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
 import '../../../global_widgets/gw_context_menu_region/sf_widget_state.dart'
-as gw_context_menu_region_state;
+    as gw_context_menu_region_state;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
 
@@ -145,10 +145,10 @@ class PageViewModel {
   // SampleWidgetViewModel sampleWidgetViewModel = SampleWidgetViewModel();
 
   var contextMenuRegionGk =
-  GlobalKey<gw_context_menu_region_state.SfWidgetState>();
+      GlobalKey<gw_context_menu_region_state.SfWidgetState>();
 
   var contextMenuRegionGk2 =
-  GlobalKey<gw_context_menu_region_state.SfWidgetState>();
+      GlobalKey<gw_context_menu_region_state.SfWidgetState>();
 
   // PageOutFrameViewModel
   gw_page_outer_frame_business.SlWidgetBusiness pageOutFrameBusiness =

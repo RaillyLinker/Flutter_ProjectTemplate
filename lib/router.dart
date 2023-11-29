@@ -5,7 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:go_router/go_router.dart';
 
 // (all)
-import 'a_templates/all_page_template/widget_view.dart' as all_page_template;
+import 'a_templates/all_page_template/page_widget.dart' as all_page_template;
 import 'pages/all/all_page_auth_sample/page_entrance.dart'
     as all_page_auth_sample;
 import 'pages/all/all_page_authorization_test_sample_list/page_entrance.dart'
@@ -31,7 +31,7 @@ import 'pages/all/all_page_join_the_membership_edit_member_info/page_entrance.da
     as all_page_join_the_membership_edit_member_info;
 import 'pages/all/all_page_join_the_membership_email_verification/page_entrance.dart'
     as all_page_join_the_membership_email_verification;
-import 'pages/all/all_page_just_push_test1/sf_widget.dart'
+import 'pages/all/all_page_just_push_test1/page_widget.dart'
     as all_page_just_push_test1;
 import 'pages/all/all_page_just_push_test2/page_entrance.dart'
     as all_page_just_push_test2;
@@ -158,7 +158,7 @@ GoRouter getRouter() {
       pageBuilder: (c, s) {
         return CustomTransitionPage(
             key: s.pageKey,
-            child: all_page_template.WidgetView(goRouterState: s),
+            child: all_page_template.PageWidget(goRouterState: s),
             transitionsBuilder: all_page_template.pageTransitionsBuilder);
       }));
 
@@ -168,8 +168,7 @@ GoRouter getRouter() {
       pageBuilder: (c, s) {
         return CustomTransitionPage(
             key: s.pageKey,
-            child: all_page_just_push_test1.SfWidget(
-              globalKey: GlobalKey(),
+            child: all_page_just_push_test1.PageWidget(
               goRouterState: s,
             ),
             transitionsBuilder:

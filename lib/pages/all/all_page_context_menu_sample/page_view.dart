@@ -37,8 +37,7 @@ class PageView extends StatelessWidget {
                   height: 100,
                 ),
                 gw_context_menu_region_view.SfWidget(
-                  globalKey:
-                      _pageBusiness.pageViewModel.contextMenuRegionGk,
+                  globalKey: _pageBusiness.pageViewModel.contextMenuRegionGk,
                   inputVo: gw_context_menu_region_view.InputVo(
                       contextMenuRegionItemVoList: [
                         gw_context_menu_region_view.ContextMenuRegionItemVo(
@@ -75,8 +74,7 @@ class PageView extends StatelessWidget {
                   height: 100,
                 ),
                 gw_context_menu_region_view.SfWidget(
-                  globalKey:
-                  _pageBusiness.pageViewModel.contextMenuRegionGk2,
+                  globalKey: _pageBusiness.pageViewModel.contextMenuRegionGk2,
                   inputVo: gw_context_menu_region_view.InputVo(
                       contextMenuRegionItemVoList: [
                         gw_context_menu_region_view.ContextMenuRegionItemVo(
