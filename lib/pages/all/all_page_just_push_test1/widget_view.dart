@@ -5,8 +5,8 @@ import 'package:go_router/go_router.dart';
 
 // (page)
 import 'widget_business.dart' as widget_business;
-import 'inner_widgets/iw_sample_number_text/widget_view.dart'
-    as iw_sample_number_text_view;
+import 'inner_widgets/iw_sample_number_text/sf_widget.dart'
+    as iw_sample_number_text;
 
 // (all)
 import '../../../global_widgets/gw_page_outer_frame/sl_widget.dart'
@@ -119,7 +119,7 @@ class WidgetUi {
     // !!!뷰 위젯 반환 콜백 작성 하기!!!
 
     return gw_page_outer_frame_view.SlWidget(
-      business: business.pageOutFrameBusiness,
+      business: business.pageOutFrameGk,
       inputVo: gw_page_outer_frame_view.InputVo(
         pageTitle: "페이지 Push 테스트1",
         child: Center(
@@ -135,7 +135,7 @@ class WidgetUi {
                   height: 10,
                 ),
                 gw_stateful_test_view.SfWidget(
-                  globalKey: business.statefulTestGk,
+                    globalKey: business.statefulTestGk,
                     inputVo: const gw_stateful_test_view.InputVo()),
                 const SizedBox(
                   height: 10,
@@ -158,9 +158,9 @@ class WidgetUi {
                         border: Border(bottom: BorderSide(color: Colors.black)),
                       ),
                       margin: const EdgeInsets.only(bottom: 20),
-                      child: iw_sample_number_text_view.WidgetView(
-                        business: business.sampleNumberTextBusiness,
-                        inputVo: const iw_sample_number_text_view.InputVo(),
+                      child: iw_sample_number_text.SfWidget(
+                        globalKey: business.sampleNumberTextGk,
+                        inputVo: const iw_sample_number_text.InputVo(),
                       ),
                     ),
                   ),

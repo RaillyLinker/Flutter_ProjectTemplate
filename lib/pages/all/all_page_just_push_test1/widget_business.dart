@@ -5,8 +5,8 @@ import 'package:go_router/go_router.dart';
 
 // (page)
 import 'widget_view.dart' as widget_view;
-import 'inner_widgets/iw_sample_number_text/widget_business.dart'
-    as iw_sample_number_text_business;
+import 'inner_widgets/iw_sample_number_text/sf_widget_state.dart'
+    as iw_sample_number_text_state;
 
 // (all)
 import '../../../global_widgets/gw_page_outer_frame/sl_widget_business.dart'
@@ -16,7 +16,7 @@ import '../../../pages/all/all_page_just_push_test1/widget_view.dart'
 import '../../../pages/all/all_page_just_push_test2/page_entrance.dart'
     as all_page_just_push_test2;
 import '../../../global_widgets/gw_stateful_test/sf_widget_state.dart'
-as gw_stateful_test_state;
+    as gw_stateful_test_state;
 
 // [위젯 비즈니스]
 // 위젯의 비즈니스 로직 + State 변수 처리는 이 곳에서 합니다.
@@ -88,12 +88,12 @@ class WidgetBusiness {
   bool canPop = true;
 
   // pageOutFrameBusiness
-  gw_page_outer_frame_business.SlWidgetBusiness pageOutFrameBusiness =
+  gw_page_outer_frame_business.SlWidgetBusiness pageOutFrameGk =
       gw_page_outer_frame_business.SlWidgetBusiness();
 
   // sampleNumberTextBusiness
-  iw_sample_number_text_business.WidgetBusiness sampleNumberTextBusiness =
-      iw_sample_number_text_business.WidgetBusiness();
+  final GlobalKey<iw_sample_number_text_state.SfWidgetState>
+      sampleNumberTextGk = GlobalKey();
 
   // statefulTestBusiness
   var statefulTestGk = GlobalKey<gw_stateful_test_state.SfWidgetState>();
@@ -116,8 +116,8 @@ class WidgetBusiness {
 
   // (화면 카운트 +1)
   void countPlus1() {
-    sampleNumberTextBusiness.sampleInt += 1;
-    sampleNumberTextBusiness.refreshUi();
+    sampleNumberTextGk.currentState?.sampleInt += 1;
+    sampleNumberTextGk.currentState?.refreshUi();
   }
 
 // [private 함수]
