@@ -40,10 +40,10 @@ import '../../../dialogs/all/all_dialog_context_menu_sample/widget_view.dart'
     as all_dialog_context_menu_sample_view;
 import '../../../dialogs/all/all_dialog_context_menu_sample/widget_business.dart'
     as all_dialog_context_menu_sample_business;
-import '../../../dialogs/all/all_dialog_lifecycle_sample/widget_view.dart'
-    as all_dialog_lifecycle_sample_view;
-import '../../../dialogs/all/all_dialog_lifecycle_sample/widget_business.dart'
-    as all_dialog_lifecycle_sample_business;
+import '../../../dialogs/all/all_dialog_lifecycle_sample/sf_widget.dart'
+    as all_dialog_lifecycle_sample;
+import '../../../dialogs/all/all_dialog_lifecycle_sample/sf_widget_state.dart'
+    as all_dialog_lifecycle_sample_state;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
 // todo : 템플릿 적용
@@ -310,16 +310,15 @@ class PageBusiness {
       case SampleItemEnum.dialogLifecycleSample:
         {
           // 다이얼로그 생명주기 샘플
-          all_dialog_lifecycle_sample_business.WidgetBusiness
-              lifecycleSampleBusinessBusiness =
-              all_dialog_lifecycle_sample_business.WidgetBusiness();
+          final GlobalKey<all_dialog_lifecycle_sample_state.SfWidgetState>
+              lifecycleSampleBusinessGk = GlobalKey();
 
           showDialog(
               barrierDismissible: true,
               context: _context,
-              builder: (context) => all_dialog_lifecycle_sample_view.WidgetView(
-                    business: lifecycleSampleBusinessBusiness,
-                    inputVo: const all_dialog_lifecycle_sample_view.InputVo(),
+              builder: (context) => all_dialog_lifecycle_sample.SfWidget(
+                    globalKey: lifecycleSampleBusinessGk,
+                    inputVo: const all_dialog_lifecycle_sample.InputVo(),
                     onDialogCreated: () {},
                   )).then((outputVo) {});
         }
