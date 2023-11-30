@@ -26,10 +26,10 @@ import '../../../dialogs/all/all_dialog_loading_spinner/dialog_widget.dart'
     as all_dialog_loading_spinner;
 import '../../../dialogs/all/all_dialog_loading_spinner/dialog_widget_state.dart'
     as all_dialog_loading_spinner_state;
-import '../../../dialogs/all/all_dialog_modal_bottom_sheet_sample/widget_view.dart'
-    as all_dialog_modal_bottom_sheet_sample_view;
-import '../../../dialogs/all/all_dialog_modal_bottom_sheet_sample/widget_business.dart'
-    as all_dialog_modal_bottom_sheet_sample_business;
+import '../../../dialogs/all/all_dialog_modal_bottom_sheet_sample/dialog_widget.dart'
+    as all_dialog_modal_bottom_sheet_sample;
+import '../../../dialogs/all/all_dialog_modal_bottom_sheet_sample/dialog_widget_state.dart'
+    as all_dialog_modal_bottom_sheet_sample_state;
 import '../../../dialogs/all/all_dialog_dialog_in_dialog/widget_view.dart'
     as all_dialog_dialog_in_dialog_view;
 import '../../../dialogs/all/all_dialog_dialog_in_dialog/widget_business.dart'
@@ -242,8 +242,9 @@ class PageBusiness {
           // 일반 다이얼로그 위젯에 호출만 showModalBottomSheet 로 하면 됩니다.
           // BS 다이얼로그는 무조건 width 가 Max 입니다.
 
-          var allDialogModalBottomSheetSampleBusiness =
-              all_dialog_modal_bottom_sheet_sample_business.WidgetBusiness();
+          final GlobalKey<
+                  all_dialog_modal_bottom_sheet_sample_state.DialogWidgetState>
+              allDialogModalBottomSheetSampleGk = GlobalKey();
 
           showModalBottomSheet<void>(
             constraints: const BoxConstraints(minWidth: double.infinity),
@@ -252,10 +253,9 @@ class PageBusiness {
             isScrollControlled: true,
             // 슬라이드 가능여부
             builder: (context) =>
-                all_dialog_modal_bottom_sheet_sample_view.WidgetView(
-              business: allDialogModalBottomSheetSampleBusiness,
-              inputVo:
-                  const all_dialog_modal_bottom_sheet_sample_view.InputVo(),
+                all_dialog_modal_bottom_sheet_sample.DialogWidget(
+              globalKey: allDialogModalBottomSheetSampleGk,
+              inputVo: const all_dialog_modal_bottom_sheet_sample.InputVo(),
               onDialogCreated: () {},
             ),
           ).then((outputVo) {});

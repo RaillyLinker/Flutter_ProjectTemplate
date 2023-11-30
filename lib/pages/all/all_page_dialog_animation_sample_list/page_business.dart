@@ -16,10 +16,10 @@ import '../../../a_templates/all_dialog_template/dialog_widget_state.dart'
     as all_dialog_template_state;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
-import '../../../dialogs/all/all_dialog_small_circle_transform_sample/widget_view.dart'
-    as all_dialog_small_circle_transform_sample_view;
-import '../../../dialogs/all/all_dialog_small_circle_transform_sample/widget_business.dart'
-    as all_dialog_small_circle_transform_sample_business;
+import '../../../dialogs/all/all_dialog_small_circle_transform_sample/dialog_widget.dart'
+    as all_dialog_small_circle_transform_sample;
+import '../../../dialogs/all/all_dialog_small_circle_transform_sample/dialog_widget_state.dart'
+    as all_dialog_small_circle_transform_sample_state;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
 // todo : 템플릿 적용
@@ -203,16 +203,17 @@ class PageBusiness {
       case SampleItemEnum.smallCircleTransformAnimation:
         {
           // 다이얼로그에서 다른 다이얼로그를 호출하는 샘플
-          var allDialogSmallCircleTransformSampleBusiness =
-              all_dialog_small_circle_transform_sample_business
-                  .WidgetBusiness();
+          final GlobalKey<
+                  all_dialog_small_circle_transform_sample_state
+                  .DialogWidgetState> allDialogSmallCircleTransformSampleGk =
+              GlobalKey();
           showDialog(
               barrierDismissible: false,
               context: _context,
               builder: (context) =>
-                  all_dialog_small_circle_transform_sample_view.WidgetView(
-                    business: allDialogSmallCircleTransformSampleBusiness,
-                    inputVo: const all_dialog_small_circle_transform_sample_view
+                  all_dialog_small_circle_transform_sample.DialogWidget(
+                    globalKey: allDialogSmallCircleTransformSampleGk,
+                    inputVo: const all_dialog_small_circle_transform_sample
                         .InputVo(),
                     onDialogCreated: () {},
                   )).then((outputVo) {});
