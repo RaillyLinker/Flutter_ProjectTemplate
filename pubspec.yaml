@@ -49,7 +49,7 @@ dependencies:
   http: ^1.1.2
 
   # 네트워크 리퀘스트 개선
-  dio: ^5.3.4
+  dio: ^5.4.0
 
   # 웹 브라우저 열기
   url_launcher: ^6.2.1
