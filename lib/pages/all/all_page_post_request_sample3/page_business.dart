@@ -12,19 +12,19 @@ import 'page_entrance.dart' as page_entrance;
 
 // (all)
 import '../../../global_widgets/gw_page_outer_frame/sl_widget_business.dart'
-as gw_page_outer_frame_business;
+    as gw_page_outer_frame_business;
 import '../../../../repositories/network/apis/api_main_server.dart'
-as api_main_server;
+    as api_main_server;
 import '../../../dialogs/all/all_dialog_info/dialog_widget.dart'
-as all_dialog_info;
+    as all_dialog_info;
 import '../../../dialogs/all/all_dialog_info/dialog_widget_state.dart'
-as all_dialog_info_state;
+    as all_dialog_info_state;
 import '../../../dialogs/all/all_dialog_loading_spinner/dialog_widget.dart'
-as all_dialog_loading_spinner;
+    as all_dialog_loading_spinner;
 import '../../../dialogs/all/all_dialog_loading_spinner/dialog_widget_state.dart'
-as all_dialog_loading_spinner_state;
+    as all_dialog_loading_spinner_state;
 import '../../../global_classes/gc_template_classes.dart'
-as gc_template_classes;
+    as gc_template_classes;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
 // todo : 템플릿 적용
@@ -46,7 +46,7 @@ class PageBusiness {
 
   // 페이지 생명주기 관련 states
   final gc_template_classes.PageLifeCycleStates pageLifeCycleStates =
-  gc_template_classes.PageLifeCycleStates();
+      gc_template_classes.PageLifeCycleStates();
 
   // 페이지 파라미터 (아래 goRouterState 에서 가져와 대입하기)
   late page_entrance.PageInputVo pageInputVo;
@@ -101,11 +101,11 @@ class PageBusiness {
     pageViewModel.networkRequestParamTextFieldController5.dispose();
     pageViewModel.networkRequestParamTextFieldController6.dispose();
     for (TextEditingController textFieldController
-    in pageViewModel.networkRequestParamTextFieldValue9) {
+        in pageViewModel.networkRequestParamTextFieldValue9) {
       textFieldController.dispose();
     }
     for (TextEditingController textFieldController
-    in pageViewModel.networkRequestParamTextFieldValue10) {
+        in pageViewModel.networkRequestParamTextFieldValue10) {
       textFieldController.dispose();
     }
   }
@@ -134,8 +134,7 @@ class PageBusiness {
   // (리스트 파라미터 추가)
   void addNetworkRequestParamTextFieldValue9() {
     pageViewModel.networkRequestParamTextFieldValue9
-        .add(TextEditingController()
-      ..text = "testString");
+        .add(TextEditingController()..text = "testString");
     blocObjects.blocNetworkRequestParamTextFieldValue9.refresh();
   }
 
@@ -148,8 +147,7 @@ class PageBusiness {
   // (리스트 파라미터 추가)
   void addNetworkRequestParamTextFieldValue10() {
     pageViewModel.networkRequestParamTextFieldValue10
-        .add(TextEditingController()
-      ..text = "testString");
+        .add(TextEditingController()..text = "testString");
     blocObjects.blocNetworkRequestParamTextFieldValue10.refresh();
   }
 
@@ -163,7 +161,7 @@ class PageBusiness {
   Future<void> doNetworkRequest() async {
     List<String> queryParamStringList = [];
     for (TextEditingController tec
-    in pageViewModel.networkRequestParamTextFieldValue9) {
+        in pageViewModel.networkRequestParamTextFieldValue9) {
       queryParamStringList.add(tec.text);
     }
 
@@ -171,7 +169,7 @@ class PageBusiness {
     if (pageViewModel.networkRequestParamTextFieldValue10.isNotEmpty) {
       queryParamStringListNullable = [];
       for (TextEditingController tec
-      in pageViewModel.networkRequestParamTextFieldValue10) {
+          in pageViewModel.networkRequestParamTextFieldValue10) {
         queryParamStringListNullable.add(tec.text);
       }
     }
@@ -186,60 +184,47 @@ class PageBusiness {
     } else {
       // 로딩 다이얼로그 표시
       GlobalKey<all_dialog_loading_spinner_state.DialogWidgetState>
-      allDialogLoadingSpinnerStateGk = GlobalKey();
+          allDialogLoadingSpinnerStateGk = GlobalKey();
 
       showDialog(
           barrierDismissible: false,
           context: _context,
-          builder: (context) =>
-              all_dialog_loading_spinner.DialogWidget(
-                  globalKey: allDialogLoadingSpinnerStateGk,
-                  inputVo: const all_dialog_loading_spinner.InputVo(),
-                  onDialogCreated: () {})).then((outputVo) {});
+          builder: (context) => all_dialog_loading_spinner.DialogWidget(
+              globalKey: allDialogLoadingSpinnerStateGk,
+              inputVo: const all_dialog_loading_spinner.InputVo(),
+              onDialogCreated: () {})).then((outputVo) {});
 
       MultipartFile? pickFile2 = (pageViewModel.pickFile2 == null)
           ? null
           : ((kIsWeb)
-          ? MultipartFile.fromBytes(pageViewModel.pickFile2!.bytes!,
-          filename: pageViewModel.pickFile2!.name)
-          : MultipartFile.fromFileSync(pageViewModel.pickFile2!.path!));
+              ? MultipartFile.fromBytes(pageViewModel.pickFile2!.bytes!,
+                  filename: pageViewModel.pickFile2!.name)
+              : MultipartFile.fromFileSync(pageViewModel.pickFile2!.path!));
 
-      var response = await api_main_server
-          .postService1TkV1RequestTestPostRequestMultipartFormDataAsync(
-          requestBodyVo: api_main_server
-              .PostService1TkV1RequestTestPostRequestMultipartFormDataAsyncRequestBodyVo(
+      var response = await api_main_server.postService1TkV1RequestTestPostRequestMultipartFormDataAsync(
+          requestBodyVo: api_main_server.PostService1TkV1RequestTestPostRequestMultipartFormDataAsyncRequestBodyVo(
               requestFormString:
-              pageViewModel.networkRequestParamTextFieldController1.text,
+                  pageViewModel.networkRequestParamTextFieldController1.text,
               requestFormStringNullable: (pageViewModel
-                  .networkRequestParamTextFieldController2.text ==
-                  "")
+                          .networkRequestParamTextFieldController2.text ==
+                      "")
                   ? null
                   : pageViewModel.networkRequestParamTextFieldController2.text,
               requestFormInt: int.parse(
                   pageViewModel.networkRequestParamTextFieldController3.text),
               requestFormIntNullable: (pageViewModel
-                  .networkRequestParamTextFieldController4.text ==
-                  "")
+                          .networkRequestParamTextFieldController4.text ==
+                      "")
                   ? null
                   : int.parse(
-                  pageViewModel.networkRequestParamTextFieldController4.text),
-              requestFormDouble: double.parse(
-                  pageViewModel.networkRequestParamTextFieldController5.text),
-              requestFormDoubleNullable: (pageViewModel
-                  .networkRequestParamTextFieldController6.text == "")
-                  ? null
-                  : double.parse(
-                  pageViewModel.networkRequestParamTextFieldController6.text),
-              requestFormBoolean: pageViewModel
-                  .networkRequestParamTextFieldValue7,
-              requestFormBooleanNullable: pageViewModel
-                  .networkRequestParamTextFieldValue8,
+                      pageViewModel.networkRequestParamTextFieldController4.text),
+              requestFormDouble: double.parse(pageViewModel.networkRequestParamTextFieldController5.text),
+              requestFormDoubleNullable: (pageViewModel.networkRequestParamTextFieldController6.text == "") ? null : double.parse(pageViewModel.networkRequestParamTextFieldController6.text),
+              requestFormBoolean: pageViewModel.networkRequestParamTextFieldValue7,
+              requestFormBooleanNullable: pageViewModel.networkRequestParamTextFieldValue8,
               requestFormStringList: queryParamStringList,
               requestFormStringListNullable: queryParamStringListNullable,
-              multipartFile: ((kIsWeb) ? MultipartFile.fromBytes(
-                  pageViewModel.pickFile1!.bytes!,
-                  filename: pageViewModel.pickFile1!.name) : MultipartFile
-                  .fromFileSync(pageViewModel.pickFile1!.path!)),
+              multipartFile: ((kIsWeb) ? MultipartFile.fromBytes(pageViewModel.pickFile1!.bytes!, filename: pageViewModel.pickFile1!.name) : MultipartFile.fromFileSync(pageViewModel.pickFile1!.path!)),
               multipartFileNullable: (pickFile2 == null) ? null : pickFile2));
 
       // 로딩 다이얼로그 제거
@@ -255,38 +240,34 @@ class PageBusiness {
 
           // 응답 body
           var responseBody = networkResponseObjectOk.responseBody
-          as api_main_server
+              as api_main_server
               .PostService1TkV1RequestTestPostRequestMultipartFormDataAsyncResponseBodyVo;
 
           // 확인 다이얼로그 호출
           final GlobalKey<all_dialog_info_state.DialogWidgetState>
-          allDialogInfoGk = GlobalKey();
+              allDialogInfoGk = GlobalKey();
           if (!_context.mounted) return;
           showDialog(
               barrierDismissible: true,
               context: _context,
-              builder: (context) =>
-                  all_dialog_info.DialogWidget(
+              builder: (context) => all_dialog_info.DialogWidget(
                     globalKey: allDialogInfoGk,
                     inputVo: all_dialog_info.InputVo(
                         dialogTitle: "응답 결과",
                         dialogContent:
-                        "Http Status Code : ${networkResponseObjectOk
-                            .responseStatusCode}\n\nResponse Body:\n${responseBody
-                            .toString()}",
+                            "Http Status Code : ${networkResponseObjectOk.responseStatusCode}\n\nResponse Body:\n${responseBody.toString()}",
                         checkBtnTitle: "확인"),
                     onDialogCreated: () {},
                   )).then((outputVo) {});
         } else {
           // 비정상 응답
           final GlobalKey<all_dialog_info_state.DialogWidgetState>
-          allDialogInfoGk = GlobalKey();
+              allDialogInfoGk = GlobalKey();
           if (!_context.mounted) return;
           showDialog(
               barrierDismissible: false,
               context: _context,
-              builder: (context) =>
-                  all_dialog_info.DialogWidget(
+              builder: (context) => all_dialog_info.DialogWidget(
                     globalKey: allDialogInfoGk,
                     inputVo: const all_dialog_info.InputVo(
                         dialogTitle: "네트워크 에러",
@@ -298,13 +279,12 @@ class PageBusiness {
       } else {
         // Dio 네트워크 에러
         final GlobalKey<all_dialog_info_state.DialogWidgetState>
-        allDialogInfoGk = GlobalKey();
+            allDialogInfoGk = GlobalKey();
         if (!_context.mounted) return;
         showDialog(
             barrierDismissible: false,
             context: _context,
-            builder: (context) =>
-                all_dialog_info.DialogWidget(
+            builder: (context) => all_dialog_info.DialogWidget(
                   globalKey: allDialogInfoGk,
                   inputVo: const all_dialog_info.InputVo(
                       dialogTitle: "네트워크 에러",
@@ -359,7 +339,7 @@ class PageViewModel {
 
   // 페이지 생명주기 관련 states
   final gc_template_classes.PageLifeCycleStates pageLifeCycleStates =
-  gc_template_classes.PageLifeCycleStates();
+      gc_template_classes.PageLifeCycleStates();
 
   // 페이지 파라미터 (아래 goRouterState 에서 가져와 대입하기)
   late page_entrance.PageInputVo pageInputVo;
@@ -370,36 +350,32 @@ class PageViewModel {
 
   // PageOutFrameViewModel
   final gw_page_outer_frame_business.SlWidgetBusiness pageOutFrameBusiness =
-  gw_page_outer_frame_business.SlWidgetBusiness();
+      gw_page_outer_frame_business.SlWidgetBusiness();
 
   TextEditingController networkRequestParamTextFieldController1 =
-  TextEditingController()
-    ..text = "testString";
+      TextEditingController()..text = "testString";
 
   TextEditingController networkRequestParamTextFieldController2 =
-  TextEditingController();
+      TextEditingController();
 
   TextEditingController networkRequestParamTextFieldController3 =
-  TextEditingController()
-    ..text = "1";
+      TextEditingController()..text = "1";
 
   TextEditingController networkRequestParamTextFieldController4 =
-  TextEditingController();
+      TextEditingController();
 
   TextEditingController networkRequestParamTextFieldController5 =
-  TextEditingController()
-    ..text = "1.0";
+      TextEditingController()..text = "1.0";
 
   TextEditingController networkRequestParamTextFieldController6 =
-  TextEditingController();
+      TextEditingController();
 
   bool networkRequestParamTextFieldValue7 = true;
 
   bool? networkRequestParamTextFieldValue8;
 
   List<TextEditingController> networkRequestParamTextFieldValue9 = [
-    TextEditingController()
-      ..text = "testString"
+    TextEditingController()..text = "testString"
   ];
 
   List<TextEditingController> networkRequestParamTextFieldValue10 = [];
@@ -516,11 +492,11 @@ class BLocObjects {
   // ex :
   // late BlocSample blocSample;
   late BlocNetworkRequestParamTextFieldValue9
-  blocNetworkRequestParamTextFieldValue9;
+      blocNetworkRequestParamTextFieldValue9;
   late BlocNetworkRequestParamTextFieldValue10
-  blocNetworkRequestParamTextFieldValue10;
+      blocNetworkRequestParamTextFieldValue10;
   late BlocNetworkRequestParamMultipartPath11
-  blocNetworkRequestParamMultipartPath11;
+      blocNetworkRequestParamMultipartPath11;
   late BlocNetworkRequestParamMultipartPath12
-  blocNetworkRequestParamMultipartPath12;
+      blocNetworkRequestParamMultipartPath12;
 }
