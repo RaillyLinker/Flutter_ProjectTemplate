@@ -1,7 +1,7 @@
 // (external)
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter/foundation.dart';
 
 // (inner Folder)
 import 'page_widget.dart' as page_widget;
@@ -99,6 +99,8 @@ class PageWidgetBusiness {
   }
 
   // [public 변수]
+  late BuildContext context;
+
   // (위젯 입력값)
   late page_widget.InputVo inputVo;
 

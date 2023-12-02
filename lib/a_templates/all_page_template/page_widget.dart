@@ -8,7 +8,7 @@ import 'page_widget_business.dart' as page_widget_business;
 
 // (all)
 import '../../../global_widgets/gw_page_outer_frame/sl_widget.dart'
-    as gw_page_outer_frame_view;
+    as gw_page_outer_frame;
 
 // [위젯 뷰]
 // 위젯의 화면 작성은 여기서 합니다.
@@ -116,9 +116,9 @@ class WidgetUi {
       required page_widget_business.PageWidgetBusiness business}) {
     // !!!뷰 위젯 반환 콜백 작성 하기!!!
 
-    return gw_page_outer_frame_view.SlWidget(
+    return gw_page_outer_frame.SlWidget(
       business: business.pageOutFrameBusiness,
-      inputVo: const gw_page_outer_frame_view.InputVo(
+      inputVo: const gw_page_outer_frame.InputVo(
         pageTitle: "페이지 템플릿",
         child: Center(
           child: Text(

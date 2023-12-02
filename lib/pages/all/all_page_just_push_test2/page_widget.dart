@@ -59,8 +59,9 @@ class PageWidgetState extends State<PageWidget> with WidgetsBindingObserver {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     business = page_widget_business.PageWidgetBusiness();
-    business.refreshUi = refreshUi;
     business.onCheckPageInputVo(goRouterState: widget.goRouterState);
+    business.refreshUi = refreshUi;
+    business.context = context;
     business.initState();
   }
 
@@ -73,6 +74,8 @@ class PageWidgetState extends State<PageWidget> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
+    business.refreshUi = refreshUi;
+    business.context = context;
     return PopScope(
       canPop: business.canPop,
       child: FocusDetector(
