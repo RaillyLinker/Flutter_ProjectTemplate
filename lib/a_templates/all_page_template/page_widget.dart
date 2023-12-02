@@ -56,13 +56,14 @@ class PageWidgetState extends State<PageWidget> with WidgetsBindingObserver {
     WidgetsBinding.instance.addObserver(this);
     business = page_widget_business.PageWidgetBusiness();
     business.refreshUi = refreshUi;
-    business.onCheckPageInputVo(goRouterState: widget.goRouterState);
-    business.initState();
+    business.onCheckPageInputVo(
+        goRouterState: widget.goRouterState, context: context);
+    business.initState(context: context);
   }
 
   @override
   void dispose() {
-    business.dispose();
+    business.dispose(context: context);
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
@@ -74,22 +75,22 @@ class PageWidgetState extends State<PageWidget> with WidgetsBindingObserver {
       child: FocusDetector(
         // (페이지 위젯의 FocusDetector 콜백들)
         onFocusGained: () async {
-          await business.onFocusGained();
+          await business.onFocusGained(context: context);
         },
         onFocusLost: () async {
-          await business.onFocusLost();
+          await business.onFocusLost(context: context);
         },
         onVisibilityGained: () async {
-          await business.onVisibilityGained();
+          await business.onVisibilityGained(context: context);
         },
         onVisibilityLost: () async {
-          await business.onVisibilityLost();
+          await business.onVisibilityLost(context: context);
         },
         onForegroundGained: () async {
-          await business.onForegroundGained();
+          await business.onForegroundGained(context: context);
         },
         onForegroundLost: () async {
-          await business.onForegroundLost();
+          await business.onForegroundLost(context: context);
         },
         child: WidgetUi.viewWidgetBuild(context: context, business: business),
       ),

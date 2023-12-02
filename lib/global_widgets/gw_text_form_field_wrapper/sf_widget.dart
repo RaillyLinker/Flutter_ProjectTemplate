@@ -20,10 +20,16 @@ class InputVo {
       this.hintText,
       this.hintStyle,
       this.suffixIcon,
+      this.keyboardType,
       this.focusedBorder,
       this.onChanged,
       this.inputValidator,
-      this.onEditingComplete});
+      this.onEditingComplete,
+       this.contentPadding,
+      this.filled,
+      this.fillColor,
+      this.isDense,
+      this.border});
 
   // 페이지 진입시 입력창 포커스 여부
   final bool autofocus;
@@ -51,6 +57,8 @@ class InputVo {
 
   final InputBorder? focusedBorder;
 
+  final TextInputType? keyboardType;
+
   // 입력값 수정시 콜백
   final void Function(String inputValue)? onChanged;
 
@@ -59,6 +67,16 @@ class InputVo {
 
   // 입력 완료 후 엔터를 눌렀을 시 콜백
   final void Function()? onEditingComplete;
+
+  final EdgeInsetsGeometry? contentPadding;
+
+  final bool? filled;
+
+  final Color? fillColor;
+
+  final bool? isDense;
+
+  final InputBorder? border;
 }
 
 class SfWidget extends StatefulWidget {
@@ -81,11 +99,17 @@ class SfWidget extends StatefulWidget {
     // !!!뷰 위젯 반환 콜백 작성 하기!!!
 
     return TextFormField(
+        keyboardType: currentState.keyboardType,
         controller: currentState.textFieldController,
         focusNode: currentState.textFieldFocus,
         autofocus: inputVo.autofocus,
         obscureText: currentState.obscureText,
         decoration: InputDecoration(
+          filled: currentState.filled,
+          fillColor: currentState.fillColor,
+          isDense: currentState.isDense,
+          border: currentState.border,
+          contentPadding: currentState.contentPadding,
             errorText: currentState.textFieldErrorMsg,
             labelText: currentState.labelText,
             labelStyle: currentState.labelStyle,

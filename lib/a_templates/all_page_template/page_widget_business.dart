@@ -18,41 +18,42 @@ import '../../../global_widgets/gw_page_outer_frame/sl_widget_business.dart'
 class PageWidgetBusiness {
   // [콜백 함수]
   // (전체 위젯 initState)
-  void initState() {
+  void initState({required BuildContext context}) {
     // !!!initState 로직 작성!!!
   }
 
   // (전체 위젯 dispose)
-  void dispose() {
+  void dispose({required BuildContext context}) {
     // !!!initState 로직 작성!!!
   }
 
   // (전체 위젯의 FocusDetector 콜백들)
-  Future<void> onFocusGained() async {
+  Future<void> onFocusGained({required BuildContext context}) async {
     // !!!onFocusGained 로직 작성!!!
   }
 
-  Future<void> onFocusLost() async {
+  Future<void> onFocusLost({required BuildContext context}) async {
     // !!!onFocusLost 로직 작성!!!
   }
 
-  Future<void> onVisibilityGained() async {
+  Future<void> onVisibilityGained({required BuildContext context}) async {
     // !!!onFocusLost 로직 작성!!!
   }
 
-  Future<void> onVisibilityLost() async {
+  Future<void> onVisibilityLost({required BuildContext context}) async {
     // !!!onVisibilityLost 로직 작성!!!
   }
 
-  Future<void> onForegroundGained() async {
+  Future<void> onForegroundGained({required BuildContext context}) async {
     // !!!onForegroundGained 로직 작성!!!
   }
 
-  Future<void> onForegroundLost() async {
+  Future<void> onForegroundLost({required BuildContext context}) async {
     // !!!onForegroundLost 로직 작성!!!
   }
 
-  void onCheckPageInputVo({required GoRouterState goRouterState}) {
+  void onCheckPageInputVo(
+      {required GoRouterState goRouterState, required BuildContext context}) {
     // !!!pageInputVo 체크!!!
     // ex :
     // if (!goRouterState.uri.queryParameters

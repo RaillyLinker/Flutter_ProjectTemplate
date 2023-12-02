@@ -153,7 +153,7 @@ class DialogWidget extends StatefulWidget {
                                     .gwTextFormFieldWrapperStateGk.currentState
                                     ?.setInputValue("");
                               },
-                              icon: Icon(Icons.clear),
+                              icon: const Icon(Icons.clear),
                             )),
                       ),
                     ),

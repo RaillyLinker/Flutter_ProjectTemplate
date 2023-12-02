@@ -32,6 +32,12 @@ class SfWidgetState extends State<sf_widget.SfWidget> {
     inputValidator = widget.inputVo.inputValidator;
     focusedBorder = widget.inputVo.focusedBorder;
     onEditingComplete = widget.inputVo.onEditingComplete;
+    keyboardType = widget.inputVo.keyboardType;
+    contentPadding = widget.inputVo.contentPadding;
+    filled = widget.inputVo.filled;
+    fillColor = widget.inputVo.fillColor;
+    isDense = widget.inputVo.isDense;
+    border = widget.inputVo.border;
   }
 
   @override
@@ -81,6 +87,18 @@ class SfWidgetState extends State<sf_widget.SfWidget> {
   void Function()? onEditingComplete;
 
   late InputBorder? focusedBorder;
+
+  late TextInputType? keyboardType;
+
+  late EdgeInsetsGeometry? contentPadding;
+
+  late bool? filled;
+
+  late Color? fillColor;
+
+  late bool? isDense;
+
+  late InputBorder? border;
 
   // [private 변수]
 
