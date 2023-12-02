@@ -11,7 +11,7 @@ import 'inner_widgets/iw_stateful_sample_number/sf_widget_state.dart'
 
 // (all)
 import '../../../global_functions/gf_my_functions.dart' as gf_my_functions;
-import '../../../pages/all/all_page_dialog_sample_list/page_entrance.dart'
+import '../../../pages/all/all_page_dialog_sample_list/page_widget.dart'
     as all_page_dialog_sample_list;
 import '../../../global_widgets/gw_stateful_test/sf_widget_state.dart'
     as gw_stateful_test_state;
