@@ -61,7 +61,7 @@ import 'pages/all/all_page_widget_change_animation_sample_list/page_entrance.dar
     as all_page_widget_change_animation_sample_list;
 import 'pages/all/all_page_gif_sample/page_entrance.dart'
     as all_page_gif_sample;
-import 'pages/all/all_page_dialog_animation_sample_list/page_entrance.dart'
+import 'pages/all/all_page_dialog_animation_sample_list/page_widget.dart'
     as all_page_dialog_animation_sample_list;
 import 'pages/all/all_page_grid_sample/page_entrance.dart'
     as all_page_grid_sample;
@@ -239,7 +239,8 @@ GoRouter getRouter() {
       pageBuilder: (c, s) {
         return CustomTransitionPage(
             key: s.pageKey,
-            child: all_page_dialog_animation_sample_list.PageEntrance(s),
+            child: all_page_dialog_animation_sample_list.PageWidget(
+                goRouterState: s),
             transitionsBuilder:
                 all_page_dialog_animation_sample_list.pageTransitionsBuilder);
       }));

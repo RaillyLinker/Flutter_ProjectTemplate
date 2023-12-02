@@ -14,7 +14,7 @@ import '../../../pages/all/all_page_page_and_router_sample_list/page_widget.dart
     as all_page_page_and_router_sample_list;
 import '../../../pages/all/all_page_dialog_sample_list/page_widget.dart'
     as all_page_dialog_sample_list;
-import '../../../pages/all/all_page_dialog_animation_sample_list/page_entrance.dart'
+import '../../../pages/all/all_page_dialog_animation_sample_list/page_widget.dart'
     as all_page_dialog_animation_sample_list;
 import '../../../pages/all/all_page_network_request_sample_list/page_entrance.dart'
     as all_page_network_request_sample_list;
