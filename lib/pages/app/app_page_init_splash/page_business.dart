@@ -31,7 +31,7 @@ import '../../../global_classes/gc_my_classes.dart' as gc_my_classes;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
 import '../../../global_data/gd_const_config.dart' as gd_const_config;
-import '../../../pages/all/all_page_home/page_entrance.dart' as all_page_home;
+import '../../../pages/all/all_page_home/page_widget.dart' as all_page_home;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
 // todo : 템플릿 적용

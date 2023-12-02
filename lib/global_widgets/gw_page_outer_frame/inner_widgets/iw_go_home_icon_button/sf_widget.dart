@@ -6,8 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'sf_widget_state.dart' as sf_widget_state;
 
 // (all)
-import '../../../../pages/all/all_page_home/page_entrance.dart'
-    as all_page_home;
+import '../../../../pages/all/all_page_home/page_widget.dart' as all_page_home;
 
 // [위젯 뷰]
 // 위젯의 화면 작성은 여기서 합니다.

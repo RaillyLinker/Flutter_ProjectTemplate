@@ -31,7 +31,7 @@ import '../../../global_classes/gc_template_classes.dart'
 import '../../../../repositories/spws/spw_auth_member_info.dart'
     as spw_auth_member_info;
 import '../../../global_functions/gf_my_functions.dart' as gf_my_functions;
-import '../../../pages/all/all_page_home/page_entrance.dart' as all_page_home;
+import '../../../pages/all/all_page_home/page_widget.dart' as all_page_home;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
 // todo : 템플릿 적용

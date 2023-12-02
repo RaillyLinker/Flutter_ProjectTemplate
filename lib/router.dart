@@ -23,7 +23,7 @@ import 'pages/all/all_page_get_request_sample/page_entrance.dart'
     as all_page_get_request_sample;
 import 'pages/all/all_page_global_variable_state_test_sample/page_entrance.dart'
     as all_page_global_variable_state_test_sample;
-import 'pages/all/all_page_home/page_entrance.dart' as all_page_home;
+import 'pages/all/all_page_home/page_widget.dart' as all_page_home;
 import 'pages/all/all_page_input_and_output_push_test/page_widget.dart'
     as all_page_input_and_output_push_test;
 import 'pages/all/all_page_join_the_membership_edit_member_info/page_entrance.dart'
@@ -134,7 +134,7 @@ GoRouter getRouter() {
       pageBuilder: (c, s) {
         return CustomTransitionPage(
             key: s.pageKey,
-            child: all_page_home.PageEntrance(s),
+            child: all_page_home.PageWidget(goRouterState: s),
             transitionsBuilder: all_page_home.pageTransitionsBuilder);
       },
       routes: subRouteList));
@@ -195,8 +195,8 @@ GoRouter getRouter() {
             key: s.pageKey,
             child: all_page_input_and_output_push_test.PageWidget(
                 goRouterState: s),
-            transitionsBuilder: all_page_input_and_output_push_test
-                .pageTransitionsBuilder);
+            transitionsBuilder:
+                all_page_input_and_output_push_test.pageTransitionsBuilder);
       }));
 
   subRouteListPageAndRouterSampleList.add(GoRoute(

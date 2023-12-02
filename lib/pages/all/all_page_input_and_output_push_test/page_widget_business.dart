@@ -9,7 +9,7 @@ import 'page_widget.dart' as page_widget;
 // (all)
 import '../../../global_widgets/gw_page_outer_frame/sl_widget_business.dart'
     as gw_page_outer_frame_business;
-import '../../../pages/all/all_page_home/page_entrance.dart' as all_page_home;
+import '../../../pages/all/all_page_home/page_widget.dart' as all_page_home;
 import '../../../global_widgets/gw_text_form_field_wrapper/sf_widget_state.dart'
     as gw_text_form_field_wrapper_state;
 
