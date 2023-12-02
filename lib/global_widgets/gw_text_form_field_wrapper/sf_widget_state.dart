@@ -1,5 +1,5 @@
 // (external)
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 // (inner Folder)
 import 'sf_widget.dart' as sf_widget;
@@ -24,11 +24,14 @@ class SfWidgetState extends State<sf_widget.SfWidget> {
     obscureText = widget.inputVo.obscureText;
     labelText = widget.inputVo.labelText;
     labelStyle = widget.inputVo.labelStyle;
+    floatingLabelStyle = widget.inputVo.floatingLabelStyle;
     hintText = widget.inputVo.hintText;
     hintStyle = widget.inputVo.hintStyle;
     suffixIcon = widget.inputVo.suffixIcon;
     onChanged = widget.inputVo.onChanged;
-    onFieldSubmitted = widget.inputVo.onFieldSubmitted;
+    inputValidator = widget.inputVo.inputValidator;
+    focusedBorder = widget.inputVo.focusedBorder;
+    onEditingComplete = widget.inputVo.onEditingComplete;
   }
 
   @override
@@ -56,6 +59,9 @@ class SfWidgetState extends State<sf_widget.SfWidget> {
   // 입력창 라벨 스타일
   late TextStyle? labelStyle;
 
+  // 입력창 라벨 스타일
+  late TextStyle? floatingLabelStyle;
+
   // 입력창 힌트
   late String? hintText;
 
@@ -65,9 +71,16 @@ class SfWidgetState extends State<sf_widget.SfWidget> {
   // 입력창 suffix 아이콘
   late Widget? suffixIcon;
 
-  void Function(String value)? onChanged;
+  // 입력값 수정시 콜백
+  void Function(String inputValue)? onChanged;
 
-  void Function(String value)? onFieldSubmitted;
+  // 입력값 검증 콜백(inputValue 를 받아서 검증 후 에러가 있다면 에러 메세지를 반환하고, 없다면 null 반환)
+  String? Function(String inputValue)? inputValidator;
+
+  // 입력 완료 후 엔터를 눌렀을 시 콜백
+  void Function()? onEditingComplete;
+
+  late InputBorder? focusedBorder;
 
   // [private 변수]
 
@@ -75,5 +88,41 @@ class SfWidgetState extends State<sf_widget.SfWidget> {
   // (Stateful Widget 화면 갱신)
   void refreshUi() {
     setState(() {});
+  }
+
+  // (inputValidator 에 따른 입력창 검증 - 반환값이 null 이 아니라면 에러가 존재하는 상태로, 에러가 표시되고 포커싱)
+  String? validate() {
+    if (inputValidator == null) {
+      return null;
+    } else {
+      String inputValue = textFieldController.text;
+      String? errorTxt = inputValidator!(inputValue);
+      textFieldErrorMsg = errorTxt;
+      refreshUi();
+      requestFocus();
+      return errorTxt;
+    }
+  }
+
+  // (입력값 반환)
+  String getInputValue() {
+    return textFieldController.text;
+  }
+
+  // (입력창 포커싱)
+  void requestFocus() {
+    FocusScope.of(context).requestFocus(textFieldFocus);
+  }
+
+  // (현재 포커스가 있는지 여부)
+  bool hasFocus() {
+    return textFieldFocus.hasFocus;
+  }
+
+  // (값 입력)
+  void setInputValue(String inputValue) {
+    textFieldController.text = inputValue;
+    textFieldErrorMsg = null;
+    refreshUi();
   }
 }

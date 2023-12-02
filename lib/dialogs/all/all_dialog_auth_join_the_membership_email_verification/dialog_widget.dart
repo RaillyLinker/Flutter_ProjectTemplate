@@ -1,19 +1,21 @@
 // (external)
 import 'package:flutter/material.dart';
-import 'package:focus_detector_v2/focus_detector_v2.dart';
 
 // (inner Folder)
-import 'widget_business.dart' as widget_business;
+import 'dialog_widget_state.dart' as dialog_widget_state;
+
+// (all)
+import '../../../global_widgets/gw_text_form_field_wrapper/sf_widget.dart'
+    as gw_text_form_field_wrapper;
 
 // [위젯 뷰]
 // 위젯의 화면 작성은 여기서 합니다.
 
-//------------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // (입력 데이터)
 class InputVo {
-  const InputVo({required this.emailAddress, required this.verificationUid});
-
   // !!!위젯 입력값 선언!!!
+  const InputVo({required this.emailAddress, required this.verificationUid});
 
   // 본인 인증할 이메일 주소
   final String emailAddress;
@@ -24,100 +26,36 @@ class InputVo {
 
 // (결과 데이터)
 class OutputVo {
-  const OutputVo({required this.checkedVerificationCode});
-
   // !!!위젯 출력값 선언!!!
+  const OutputVo({required this.checkedVerificationCode});
 
   // 발급받은 본인 인증 코드
   final String checkedVerificationCode;
 }
 
-//------------------------------------------------------------------------------
-class WidgetView extends StatefulWidget {
-  const WidgetView(
-      {super.key,
-      required this.business,
+class DialogWidget extends StatefulWidget {
+  const DialogWidget(
+      {required this.globalKey,
       required this.inputVo,
-      required this.onDialogCreated});
+      required this.onDialogCreated})
+      : super(key: globalKey);
+
+  // [콜백 함수]
+  @override
+  dialog_widget_state.DialogWidgetState createState() =>
+      dialog_widget_state.DialogWidgetState();
+
+  // [public 변수]
+  final InputVo inputVo;
+  final GlobalKey<dialog_widget_state.DialogWidgetState> globalKey;
 
   // 다이얼로그가 Created 된 시점에 한번 실행됨
   final VoidCallback onDialogCreated;
 
-  @override
-  WidgetViewState createState() => WidgetViewState();
-  final widget_business.WidgetBusiness business;
-  final InputVo inputVo;
-}
-
-class WidgetViewState extends State<WidgetView> with WidgetsBindingObserver {
-  // [콜백 함수]
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addObserver(this);
-    business = widget.business;
-    business.context = context;
-    business.inputVo = widget.inputVo;
-    business.refreshUi = refreshUi;
-  }
-
-  @override
-  void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
-    business.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return PopScope(
-      canPop: business.canPop,
-      child: FocusDetector(
-        // (페이지 위젯의 FocusDetector 콜백들)
-        onFocusGained: () async {
-          if (!business.onPageCreated) {
-            await business.onCreated();
-            widget.onDialogCreated();
-            business.onPageCreated = true;
-          }
-
-          await business.onFocusGained();
-        },
-        onFocusLost: () async {
-          await business.onFocusLost();
-        },
-        onVisibilityGained: () async {
-          await business.onVisibilityGained();
-        },
-        onVisibilityLost: () async {
-          await business.onVisibilityLost();
-        },
-        onForegroundGained: () async {
-          await business.onForegroundGained();
-        },
-        onForegroundLost: () async {
-          await business.onForegroundLost();
-        },
-        child: WidgetUi.viewWidgetBuild(context: context, business: business),
-      ),
-    );
-  }
-
-  // [public 변수]
-  late widget_business.WidgetBusiness business;
-
-  // [public 함수]
-  // (Stateful Widget 화면 갱신)
-  void refreshUi() {
-    setState(() {});
-  }
-}
-
-class WidgetUi {
-  // [뷰 위젯]
-  static Widget viewWidgetBuild(
+  // [화면 작성]
+  Widget widgetUiBuild(
       {required BuildContext context,
-      required widget_business.WidgetBusiness business}) {
+      required dialog_widget_state.DialogWidgetState currentState}) {
     // !!!뷰 위젯 반환 콜백 작성 하기!!!
 
     return Dialog(
@@ -144,7 +82,7 @@ class WidgetUi {
                           color: Colors.grey,
                         ),
                         onPressed: () {
-                          business.closeDialog();
+                          currentState.closeDialog();
                         },
                       )),
                   Container(
@@ -179,7 +117,7 @@ class WidgetUi {
                   SizedBox(
                     width: 400,
                     child: Text(
-                      '이메일 회원 가입을 위하여,\n본인 인증 이메일을\n(${business.inputVo.emailAddress})\n에 발송하였습니다.',
+                      '이메일 회원 가입을 위하여,\n본인 인증 이메일을\n(${inputVo.emailAddress})\n에 발송하였습니다.',
                       style: const TextStyle(
                           fontSize: 16.0,
                           fontWeight: FontWeight.normal,
@@ -190,34 +128,33 @@ class WidgetUi {
                   SizedBox(
                     width: 400,
                     child: Form(
-                      child: TextFormField(
-                        // todo 개선하기
-                        autofocus: true,
-                        onFieldSubmitted: (value) {
-                          business.verifyCodeAndGoNext();
-                        },
-                        focusNode: business.verificationCodeTextFieldFocus,
-                        controller:
-                            business.verificationCodeTextFieldController,
-                        decoration: const InputDecoration(
-                          labelText: '본인 이메일 인증 코드',
-                          labelStyle: TextStyle(
-                            color: Colors.black, // todo
-                          ),
-                          hintText: "발송된 본인 이메일 인증 코드를 입력하세요.",
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.blue),
-                          ),
-                        ),
-                        validator: (value) {
-                          return business
-                              .onVerificationCodeInputValidateAndReturnErrorMsg(
-                                  value);
-                        },
-                        onChanged: (value) {
-                          business.onVerificationCodeInputChanged(value);
-                        },
-                        key: business.verificationCodeTextFieldKey,
+                      child: gw_text_form_field_wrapper.SfWidget(
+                        globalKey: currentState.gwTextFormFieldWrapperStateGk,
+                        inputVo: gw_text_form_field_wrapper.InputVo(
+                            autofocus: true,
+                            labelText: '본인 이메일 인증 코드',
+                            floatingLabelStyle:
+                                const TextStyle(color: Colors.blue),
+                            hintText: "발송된 본인 이메일 인증 코드를 입력하세요.",
+                            focusedBorder: const UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.blue),
+                            ),
+                            inputValidator: (value) {
+                              return currentState
+                                  .onVerificationCodeInputValidateAndReturnErrorMsg(
+                                      value);
+                            },
+                            onEditingComplete: () {
+                              currentState.verifyCodeAndGoNext();
+                            },
+                            suffixIcon: IconButton(
+                              onPressed: () {
+                                currentState
+                                    .gwTextFormFieldWrapperStateGk.currentState
+                                    ?.setInputValue("");
+                              },
+                              icon: Icon(Icons.clear),
+                            )),
                       ),
                     ),
                   ),
@@ -226,7 +163,7 @@ class WidgetUi {
                     cursor: SystemMouseCursors.click,
                     child: GestureDetector(
                       onTap: () {
-                        business.resendVerificationEmail();
+                        currentState.resendVerificationEmail();
                       },
                       child: Container(
                         constraints: const BoxConstraints(maxWidth: 160),
@@ -262,7 +199,7 @@ class WidgetUi {
                   const SizedBox(height: 40.0),
                   ElevatedButton(
                     onPressed: () {
-                      business.verifyCodeAndGoNext();
+                      currentState.verifyCodeAndGoNext();
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue,

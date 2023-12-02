@@ -12,10 +12,10 @@ import '../../../global_widgets/gw_page_outer_frame/sl_widget_business.dart'
     as gw_page_outer_frame_business;
 import '../../../../repositories/network/apis/api_main_server.dart'
     as api_main_server;
-import '../../../dialogs/all/all_dialog_auth_join_the_membership_email_verification/widget_view.dart'
-    as all_dialog_auth_join_the_membership_email_verification_view;
-import '../../../dialogs/all/all_dialog_auth_join_the_membership_email_verification/widget_business.dart'
-    as all_dialog_auth_join_the_membership_email_verification_business;
+import '../../../dialogs/all/all_dialog_auth_join_the_membership_email_verification/dialog_widget.dart'
+    as all_dialog_auth_join_the_membership_email_verification;
+import '../../../dialogs/all/all_dialog_auth_join_the_membership_email_verification/dialog_widget_state.dart'
+    as all_dialog_auth_join_the_membership_email_verification_state;
 import '../../../dialogs/all/all_dialog_info/dialog_widget.dart'
     as all_dialog_info;
 import '../../../dialogs/all/all_dialog_info/dialog_widget_state.dart'
@@ -213,20 +213,21 @@ class PageBusiness {
 
           // 정상 응답
           // 검증번호 입력 다이얼로그 띄우기
-          var allDialogAuthJoinTheMembershipEmailVerificationBusiness =
-              all_dialog_auth_join_the_membership_email_verification_business
-                  .WidgetBusiness();
+          GlobalKey<
+                  all_dialog_auth_join_the_membership_email_verification_state
+                  .DialogWidgetState>
+              allDialogAuthJoinTheMembershipEmailVerificationGk = GlobalKey();
           if (!_context.mounted) return;
           var dialogResult = await showDialog(
               barrierDismissible: false,
               context: _context,
               builder: (context) =>
-                  all_dialog_auth_join_the_membership_email_verification_view
-                      .WidgetView(
-                    business:
-                        allDialogAuthJoinTheMembershipEmailVerificationBusiness,
+                  all_dialog_auth_join_the_membership_email_verification
+                      .DialogWidget(
+                    globalKey:
+                        allDialogAuthJoinTheMembershipEmailVerificationGk,
                     inputVo:
-                        all_dialog_auth_join_the_membership_email_verification_view
+                        all_dialog_auth_join_the_membership_email_verification
                             .InputVo(
                                 emailAddress: email,
                                 verificationUid: responseBody.verificationUid),
