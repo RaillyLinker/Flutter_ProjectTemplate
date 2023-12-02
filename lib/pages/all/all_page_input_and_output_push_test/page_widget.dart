@@ -4,11 +4,13 @@ import 'package:focus_detector_v2/focus_detector_v2.dart';
 import 'package:go_router/go_router.dart';
 
 // (inner Folder)
-import 'widget_business.dart' as widget_business;
+import 'page_widget_business.dart' as page_widget_business;
 
 // (all)
 import '../../../global_widgets/gw_page_outer_frame/sl_widget.dart'
-    as gw_page_outer_frame_view;
+    as gw_page_outer_frame;
+import '../../../global_widgets/gw_text_form_field_wrapper/sf_widget.dart'
+    as gw_text_form_field_wrapper;
 
 // [위젯 뷰]
 // 위젯의 화면 작성은 여기서 합니다.
@@ -28,13 +30,13 @@ Widget Function(BuildContext context, Animation<double> animation,
 
 // (입력 데이터)
 class InputVo {
+  // !!!위젯 입력값 선언!!!
   const InputVo(
       {required this.inputValueString,
       this.inputValueStringOpt,
       required this.inputValueStringList,
       required this.inputValueInt});
 
-  // !!!위젯 입력값 선언!!!
   final String inputValueString;
   final String? inputValueStringOpt;
   final List<String> inputValueStringList;
@@ -43,53 +45,51 @@ class InputVo {
 
 // (결과 데이터)
 class OutputVo {
+  // !!!위젯 출력값 선언!!!
   const OutputVo({required this.resultValue});
 
-  // !!!위젯 출력값 선언!!!
   final String resultValue;
 }
 
 //------------------------------------------------------------------------------
-class WidgetView extends StatefulWidget {
-  const WidgetView({super.key, required this.goRouterState});
+class PageWidget extends StatefulWidget {
+  const PageWidget({super.key, required this.goRouterState});
 
   final GoRouterState goRouterState;
 
   @override
-  WidgetViewState createState() => WidgetViewState();
+  PageWidgetState createState() => PageWidgetState();
 }
 
-class WidgetViewState extends State<WidgetView> with WidgetsBindingObserver {
+class PageWidgetState extends State<PageWidget> with WidgetsBindingObserver {
   // [콜백 함수]
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-    business = widget_business.WidgetBusiness();
-    business.context = context;
+    business = page_widget_business.PageWidgetBusiness();
+    business.onCheckPageInputVo(goRouterState: widget.goRouterState);
     business.refreshUi = refreshUi;
-    business.onCheckPageInputVoAsync(goRouterState: widget.goRouterState);
+    business.context = context;
+    business.initState();
   }
 
   @override
   void dispose() {
-    super.dispose();
-    WidgetsBinding.instance.removeObserver(this);
     business.dispose();
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    business.refreshUi = refreshUi;
+    business.context = context;
     return PopScope(
       canPop: business.canPop,
       child: FocusDetector(
         // (페이지 위젯의 FocusDetector 콜백들)
         onFocusGained: () async {
-          if (!business.onPageCreated) {
-            business.onPageCreated = true;
-            await business.onCreated();
-          }
-
           await business.onFocusGained();
         },
         onFocusLost: () async {
@@ -113,7 +113,7 @@ class WidgetViewState extends State<WidgetView> with WidgetsBindingObserver {
   }
 
   // [public 변수]
-  late widget_business.WidgetBusiness business;
+  late page_widget_business.PageWidgetBusiness business;
 
   // [public 함수]
   // (Stateful Widget 화면 갱신)
@@ -126,12 +126,12 @@ class WidgetUi {
   // [뷰 위젯]
   static Widget viewWidgetBuild(
       {required BuildContext context,
-      required widget_business.WidgetBusiness business}) {
+      required page_widget_business.PageWidgetBusiness business}) {
     // !!!뷰 위젯 반환 콜백 작성 하기!!!
 
-    return gw_page_outer_frame_view.SlWidget(
+    return gw_page_outer_frame.SlWidget(
       business: business.pageOutFrameBusiness,
-      inputVo: gw_page_outer_frame_view.InputVo(
+      inputVo: gw_page_outer_frame.InputVo(
         pageTitle: "페이지 입/출력 테스트",
         child: Center(
           child: SingleChildScrollView(
@@ -139,15 +139,14 @@ class WidgetUi {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Form(
-                  key: business.pageOutputFormKey,
                   child: Container(
                     width: 200,
                     margin: const EdgeInsets.only(top: 20),
-                    child: TextFormField(
-                      key: business.pageOutputTextFieldKey,
-                      autofocus: true,
-                      keyboardType: TextInputType.text,
-                      decoration: InputDecoration(
+                    child: gw_text_form_field_wrapper.SfWidget(
+                      globalKey: business.gwTextFormFieldWrapperStateGk,
+                      inputVo: gw_text_form_field_wrapper.InputVo(
+                          autofocus: true,
+                          keyboardType: TextInputType.text,
                           labelText: '페이지 출력 값',
                           contentPadding: const EdgeInsets.symmetric(
                               vertical: 10.0, horizontal: 10.0),
@@ -155,23 +154,23 @@ class WidgetUi {
                           fillColor: Colors.grey[100],
                           isDense: true,
                           hintText: "페이지 출력 값 입력",
-                          border: const OutlineInputBorder()),
-                      controller: business.pageOutputTextFieldController,
-                      focusNode: business.pageOutputTextFieldFocus,
-                      validator: (value) {
-                        // 검사 : return 으로 반환하는 에러 메세지가 null 이 아니라면 에러로 처리
-                        return null;
-                      },
-                      onFieldSubmitted: (value) {
-                        // 입력창 포커스 상태에서 엔터
-                        if (business.pageOutputFormKey.currentState!
-                            .validate()) {
-                          business.onPressedReturnBtn();
-                        } else {
-                          FocusScope.of(context)
-                              .requestFocus(business.pageOutputTextFieldFocus);
-                        }
-                      },
+                          border: const OutlineInputBorder(),
+                          floatingLabelStyle:
+                              const TextStyle(color: Colors.blue),
+                          focusedBorder: const OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.blue),
+                          ),
+                          onEditingComplete: () {
+                            business.onPressedReturnBtn();
+                          },
+                          suffixIcon: IconButton(
+                            onPressed: () {
+                              business
+                                  .gwTextFormFieldWrapperStateGk.currentState
+                                  ?.setInputValue("");
+                            },
+                            icon: const Icon(Icons.clear),
+                          )),
                     ),
                   ),
                 ),

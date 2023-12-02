@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:focus_detector_v2/focus_detector_v2.dart';
 import 'package:go_router/go_router.dart';
-import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 
 // (inner Folder)
 import 'dialog_widget.dart' as dialog_widget;

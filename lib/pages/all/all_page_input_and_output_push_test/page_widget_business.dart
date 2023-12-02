@@ -1,15 +1,17 @@
 // (external)
 import 'package:flutter/material.dart';
-import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 
 // (inner Folder)
-import 'widget_view.dart' as widget_view;
+import 'page_widget.dart' as page_widget;
 
 // (all)
 import '../../../global_widgets/gw_page_outer_frame/sl_widget_business.dart'
     as gw_page_outer_frame_business;
 import '../../../pages/all/all_page_home/page_entrance.dart' as all_page_home;
+import '../../../global_widgets/gw_text_form_field_wrapper/sf_widget_state.dart'
+    as gw_text_form_field_wrapper_state;
 
 // [위젯 비즈니스]
 // 위젯의 비즈니스 로직 + State 변수 처리는 이 곳에서 합니다.
@@ -17,11 +19,22 @@ import '../../../pages/all/all_page_home/page_entrance.dart' as all_page_home;
 //------------------------------------------------------------------------------
 // 페이지의 비즈니스 로직 담당
 // PageBusiness 인스턴스는 해당 페이지가 소멸하기 전까지 활용됩니다.
-class WidgetBusiness {
+class PageWidgetBusiness {
   // [콜백 함수]
-  // (전체 위젯 처음 실행 콜백)
-  Future<void> onCreated() async {
-    // !!!onCreated 로직 작성!!!
+  // (전체 위젯 initState)
+  void initState() {
+    // !!!initState 로직 작성!!!
+  }
+
+  // (전체 위젯 dispose)
+  void dispose() {
+    // !!!initState 로직 작성!!!
+  }
+
+  // (전체 위젯의 FocusDetector 콜백들)
+  Future<void> onFocusGained() async {
+    // !!!onFocusGained 로직 작성!!!
+
     showToast(
       "inputValue : ${inputVo.inputValueString}\n"
       "inputValueOpt : ${inputVo.inputValueStringOpt}\n"
@@ -31,19 +44,6 @@ class WidgetBusiness {
       position: StyledToastPosition.bottom,
       animation: StyledToastAnimation.scale,
     );
-  }
-
-  // (전체 위젯 dispose)
-  void dispose() {
-    // !!!initState 로직 작성!!!
-
-    pageOutputTextFieldController.dispose();
-    pageOutputTextFieldFocus.dispose();
-  }
-
-  // (전체 위젯의 FocusDetector 콜백들)
-  Future<void> onFocusGained() async {
-    // !!!onFocusGained 로직 작성!!!
   }
 
   Future<void> onFocusLost() async {
@@ -66,8 +66,7 @@ class WidgetBusiness {
     // !!!onForegroundLost 로직 작성!!!
   }
 
-  Future<void> onCheckPageInputVoAsync(
-      {required GoRouterState goRouterState}) async {
+  void onCheckPageInputVo({required GoRouterState goRouterState}) {
     // !!!pageInputVo 체크!!!
     // ex :
     // if (!goRouterState.uri.queryParameters
@@ -127,7 +126,7 @@ class WidgetBusiness {
     }
 
     // !!!PageInputVo 입력!!!
-    inputVo = widget_view.InputVo(
+    inputVo = page_widget.InputVo(
         inputValueString:
             goRouterState.uri.queryParameters["inputValueString"]!,
         inputValueStringOpt:
@@ -139,14 +138,10 @@ class WidgetBusiness {
   }
 
   // [public 변수]
-  // (초기화 여부)
-  bool onPageCreated = false;
-
-  // (위젯 Context)
   late BuildContext context;
 
   // (위젯 입력값)
-  late widget_view.InputVo inputVo;
+  late page_widget.InputVo inputVo;
 
   // (페이지 pop 가능 여부 변수)
   bool canPop = true;
@@ -156,11 +151,8 @@ class WidgetBusiness {
       gw_page_outer_frame_business.SlWidgetBusiness();
 
   // 페이지 출력값 Form 필드 전체 키
-  GlobalKey<FormState> pageOutputFormKey = GlobalKey<FormState>();
-
-  final pageOutputTextFieldKey = GlobalKey<FormFieldState>();
-  TextEditingController pageOutputTextFieldController = TextEditingController();
-  FocusNode pageOutputTextFieldFocus = FocusNode();
+  final GlobalKey<gw_text_form_field_wrapper_state.SfWidgetState>
+      gwTextFormFieldWrapperStateGk = GlobalKey();
 
   // [private 변수]
 
@@ -170,12 +162,13 @@ class WidgetBusiness {
 
   // (값 반환 버튼 클릭시)
   void onPressedReturnBtn() {
-    String returnValue = pageOutputTextFieldController.text;
-
-    if (returnValue.isEmpty) {
+    if (gwTextFormFieldWrapperStateGk.currentState == null ||
+        gwTextFormFieldWrapperStateGk.currentState!.getInputValue() == "") {
       context.pop();
     } else {
-      context.pop(widget_view.OutputVo(resultValue: returnValue));
+      context.pop(page_widget.OutputVo(
+          resultValue:
+              gwTextFormFieldWrapperStateGk.currentState!.getInputValue()));
     }
   }
 
