@@ -1,112 +1,48 @@
 // (external)
 import 'package:flutter/material.dart';
-import 'package:focus_detector_v2/focus_detector_v2.dart';
 
 // (inner Folder)
-import 'widget_business.dart' as widget_business;
+import 'dialog_widget_state.dart' as dialog_widget_state;
 
 // [위젯 뷰]
 // 위젯의 화면 작성은 여기서 합니다.
 
-//------------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // (입력 데이터)
 class InputVo {
+  // !!!위젯 입력값 선언!!!
   const InputVo();
-// !!!위젯 입력값 선언!!!
 }
 
 // (결과 데이터)
 class OutputVo {
+  // !!!위젯 출력값 선언!!!
   const OutputVo();
-// !!!위젯 출력값 선언!!!
 }
 
-//------------------------------------------------------------------------------
-class WidgetView extends StatefulWidget {
-  const WidgetView(
-      {super.key,
-      required this.business,
+class DialogWidget extends StatefulWidget {
+  const DialogWidget(
+      {required this.globalKey,
       required this.inputVo,
-      required this.onDialogCreated});
+      required this.onDialogCreated})
+      : super(key: globalKey);
+
+  // [콜백 함수]
+  @override
+  dialog_widget_state.DialogWidgetState createState() =>
+      dialog_widget_state.DialogWidgetState();
+
+  // [public 변수]
+  final InputVo inputVo;
+  final GlobalKey<dialog_widget_state.DialogWidgetState> globalKey;
 
   // 다이얼로그가 Created 된 시점에 한번 실행됨
   final VoidCallback onDialogCreated;
 
-  @override
-  WidgetViewState createState() => WidgetViewState();
-  final widget_business.WidgetBusiness business;
-  final InputVo inputVo;
-}
-
-class WidgetViewState extends State<WidgetView> with WidgetsBindingObserver {
-  // [콜백 함수]
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addObserver(this);
-    business = widget.business;
-    business.context = context;
-    business.inputVo = widget.inputVo;
-    business.refreshUi = refreshUi;
-  }
-
-  @override
-  void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
-    business.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return PopScope(
-      canPop: business.canPop,
-      child: FocusDetector(
-        // (페이지 위젯의 FocusDetector 콜백들)
-        onFocusGained: () async {
-          if (!business.onPageCreated) {
-            await business.onCreated();
-            widget.onDialogCreated();
-            business.onPageCreated = true;
-          }
-
-          await business.onFocusGained();
-        },
-        onFocusLost: () async {
-          await business.onFocusLost();
-        },
-        onVisibilityGained: () async {
-          await business.onVisibilityGained();
-        },
-        onVisibilityLost: () async {
-          await business.onVisibilityLost();
-        },
-        onForegroundGained: () async {
-          await business.onForegroundGained();
-        },
-        onForegroundLost: () async {
-          await business.onForegroundLost();
-        },
-        child: WidgetUi.viewWidgetBuild(context: context, business: business),
-      ),
-    );
-  }
-
-  // [public 변수]
-  late widget_business.WidgetBusiness business;
-
-  // [public 함수]
-  // (Stateful Widget 화면 갱신)
-  void refreshUi() {
-    setState(() {});
-  }
-}
-
-class WidgetUi {
-  // [뷰 위젯]
-  static Widget viewWidgetBuild(
+  // [화면 작성]
+  Widget widgetUiBuild(
       {required BuildContext context,
-      required widget_business.WidgetBusiness business}) {
+      required dialog_widget_state.DialogWidgetState currentState}) {
     // !!!뷰 위젯 반환 콜백 작성 하기!!!
 
     return Dialog(
@@ -127,7 +63,7 @@ class WidgetUi {
                 children: <Widget>[
                   ElevatedButton(
                     onPressed: () {
-                      business.showInfoDialog();
+                      currentState.showInfoDialog();
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue,
@@ -143,7 +79,7 @@ class WidgetUi {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      business.showLoadingDialog();
+                      currentState.showLoadingDialog();
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue,
@@ -159,7 +95,7 @@ class WidgetUi {
                   ),
                   ElevatedButton(
                       onPressed: () {
-                        business.showDialogInDialog();
+                        currentState.showDialogInDialog();
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.blue,

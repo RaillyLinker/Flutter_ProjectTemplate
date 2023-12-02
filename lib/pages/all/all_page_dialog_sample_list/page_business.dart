@@ -30,16 +30,16 @@ import '../../../dialogs/all/all_dialog_modal_bottom_sheet_sample/dialog_widget.
     as all_dialog_modal_bottom_sheet_sample;
 import '../../../dialogs/all/all_dialog_modal_bottom_sheet_sample/dialog_widget_state.dart'
     as all_dialog_modal_bottom_sheet_sample_state;
-import '../../../dialogs/all/all_dialog_dialog_in_dialog/widget_view.dart'
-    as all_dialog_dialog_in_dialog_view;
-import '../../../dialogs/all/all_dialog_dialog_in_dialog/widget_business.dart'
-    as all_dialog_dialog_in_dialog_business;
+import '../../../dialogs/all/all_dialog_dialog_in_dialog/dialog_widget.dart'
+    as all_dialog_dialog_in_dialog;
+import '../../../dialogs/all/all_dialog_dialog_in_dialog/dialog_widget_state.dart'
+    as all_dialog_dialog_in_dialog_state;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
-import '../../../dialogs/all/all_dialog_context_menu_sample/widget_view.dart'
-    as all_dialog_context_menu_sample_view;
-import '../../../dialogs/all/all_dialog_context_menu_sample/widget_business.dart'
-    as all_dialog_context_menu_sample_business;
+import '../../../dialogs/all/all_dialog_context_menu_sample/dialog_widget.dart'
+    as all_dialog_context_menu_sample;
+import '../../../dialogs/all/all_dialog_context_menu_sample/dialog_widget_state.dart'
+    as all_dialog_context_menu_sample_state;
 import '../../../dialogs/all/all_dialog_lifecycle_sample/dialog_widget.dart'
     as all_dialog_lifecycle_sample;
 import '../../../dialogs/all/all_dialog_lifecycle_sample/dialog_widget_state.dart'
@@ -264,14 +264,14 @@ class PageBusiness {
       case SampleItemEnum.dialogInDialog:
         {
           // 다이얼로그에서 다른 다이얼로그를 호출하는 샘플
-          var allDialogDialogInDialogViewBusiness =
-              all_dialog_dialog_in_dialog_business.WidgetBusiness();
+          GlobalKey<all_dialog_dialog_in_dialog_state.DialogWidgetState>
+              allDialogDialogInDialogViewState = GlobalKey();
           showDialog(
               barrierDismissible: true,
               context: _context,
-              builder: (context) => all_dialog_dialog_in_dialog_view.WidgetView(
-                    business: allDialogDialogInDialogViewBusiness,
-                    inputVo: const all_dialog_dialog_in_dialog_view.InputVo(),
+              builder: (context) => all_dialog_dialog_in_dialog.DialogWidget(
+                    globalKey: allDialogDialogInDialogViewState,
+                    inputVo: const all_dialog_dialog_in_dialog.InputVo(),
                     onDialogCreated: () {},
                   )).then((outputVo) {});
         }
@@ -296,16 +296,14 @@ class PageBusiness {
       case SampleItemEnum.contextMenuSample:
         {
           // 다이얼로그 외부 색 설정
-          var allDialogContextMenuSampleBusiness =
-              all_dialog_context_menu_sample_business.WidgetBusiness();
+          GlobalKey<all_dialog_context_menu_sample_state.DialogWidgetState>
+              allDialogContextMenuSampleState = GlobalKey();
           showDialog(
               barrierDismissible: true,
               context: _context,
-              builder: (context) =>
-                  all_dialog_context_menu_sample_view.WidgetView(
-                    business: allDialogContextMenuSampleBusiness,
-                    inputVo:
-                        const all_dialog_context_menu_sample_view.InputVo(),
+              builder: (context) => all_dialog_context_menu_sample.DialogWidget(
+                    globalKey: allDialogContextMenuSampleState,
+                    inputVo: const all_dialog_context_menu_sample.InputVo(),
                     onDialogCreated: () {},
                   )).then((outputVo) {});
         }

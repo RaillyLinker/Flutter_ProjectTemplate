@@ -15,10 +15,10 @@ import '../../../global_widgets/gw_page_outer_frame/sl_widget_business.dart'
     as gw_page_outer_frame_business;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
-import '../../../dialogs/all/all_dialog_image_selector_menu/widget_view.dart'
-    as all_dialog_image_selector_menu_view;
-import '../../../dialogs/all/all_dialog_image_selector_menu/widget_business.dart'
-    as all_dialog_image_selector_menu_business;
+import '../../../dialogs/all/all_dialog_image_selector_menu/dialog_widget.dart'
+    as all_dialog_image_selector_menu;
+import '../../../dialogs/all/all_dialog_image_selector_menu/dialog_widget_state.dart'
+    as all_dialog_image_selector_menu_state;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
 // todo : 템플릿 적용
@@ -111,16 +111,16 @@ class PageBusiness {
 
   // (프로필 이미지 클릭)
   Future<void> onProfileImageTap() async {
-    var allDialogImageSelectorMenuBusiness =
-        all_dialog_image_selector_menu_business.WidgetBusiness();
+    GlobalKey<all_dialog_image_selector_menu_state.DialogWidgetState>
+        allDialogImageSelectorMenuState = GlobalKey();
 
     if (!_context.mounted) return;
     var pageOutputVo = await showDialog(
         barrierDismissible: true,
         context: _context,
-        builder: (context) => all_dialog_image_selector_menu_view.WidgetView(
-              business: allDialogImageSelectorMenuBusiness,
-              inputVo: all_dialog_image_selector_menu_view.InputVo(
+        builder: (context) => all_dialog_image_selector_menu.DialogWidget(
+              globalKey: allDialogImageSelectorMenuState,
+              inputVo: all_dialog_image_selector_menu.InputVo(
                   cameraAvailable:
                       // 카메라는 모바일 환경에서만
                       !kIsWeb && (Platform.isAndroid || Platform.isIOS)),
@@ -129,7 +129,7 @@ class PageBusiness {
 
     if (pageOutputVo != null) {
       switch (pageOutputVo.imageSourceType) {
-        case all_dialog_image_selector_menu_view.ImageSourceType.gallery:
+        case all_dialog_image_selector_menu.ImageSourceType.gallery:
           {
             // 갤러리에서 선택하기
             try {
@@ -149,7 +149,7 @@ class PageBusiness {
             } catch (_) {}
           }
           break;
-        case all_dialog_image_selector_menu_view.ImageSourceType.camera:
+        case all_dialog_image_selector_menu.ImageSourceType.camera:
           {
             // 사진 찍기
             try {
@@ -169,7 +169,7 @@ class PageBusiness {
             } catch (_) {}
           }
           break;
-        case all_dialog_image_selector_menu_view.ImageSourceType.defaultImage:
+        case all_dialog_image_selector_menu.ImageSourceType.defaultImage:
           {
             // 기본 프로필 이미지 적용
             pageViewModel.selectedImage = null;
@@ -195,16 +195,16 @@ class PageBusiness {
       return;
     }
 
-    var allDialogImageSelectorMenuBusiness =
-        all_dialog_image_selector_menu_business.WidgetBusiness();
+    GlobalKey<all_dialog_image_selector_menu_state.DialogWidgetState>
+        allDialogImageSelectorMenuState = GlobalKey();
 
     if (!_context.mounted) return;
     var pageOutputVo = await showDialog(
         barrierDismissible: true,
         context: _context,
-        builder: (context) => all_dialog_image_selector_menu_view.WidgetView(
-              business: allDialogImageSelectorMenuBusiness,
-              inputVo: all_dialog_image_selector_menu_view.InputVo(
+        builder: (context) => all_dialog_image_selector_menu.DialogWidget(
+              globalKey: allDialogImageSelectorMenuState,
+              inputVo: all_dialog_image_selector_menu.InputVo(
                   cameraAvailable:
                       // 카메라는 모바일 환경에서만
                       !kIsWeb && (Platform.isAndroid || Platform.isIOS)),
@@ -214,7 +214,7 @@ class PageBusiness {
     // todo : 추가시 로딩 다이얼로그
     if (pageOutputVo != null) {
       switch (pageOutputVo.imageSourceType) {
-        case all_dialog_image_selector_menu_view.ImageSourceType.gallery:
+        case all_dialog_image_selector_menu.ImageSourceType.gallery:
           {
             // 갤러리에서 선택하기
             try {
@@ -239,7 +239,7 @@ class PageBusiness {
             } catch (_) {}
           }
           break;
-        case all_dialog_image_selector_menu_view.ImageSourceType.camera:
+        case all_dialog_image_selector_menu.ImageSourceType.camera:
           {
             // 사진 찍기
             try {
@@ -260,7 +260,7 @@ class PageBusiness {
             } catch (_) {}
           }
           break;
-        case all_dialog_image_selector_menu_view.ImageSourceType.defaultImage:
+        case all_dialog_image_selector_menu.ImageSourceType.defaultImage:
           {
             // 기본 프로필 이미지 적용
             pageViewModel.selectedImage = null;
