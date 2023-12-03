@@ -1,26 +1,13 @@
 // (external)
 import 'package:flutter/material.dart';
-import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:go_router/go_router.dart';
 
 // (inner Folder)
 import 'page_widget.dart' as page_widget;
-import 'inner_widgets/iw_sample_list/sf_widget_state.dart'
-    as iw_sample_list_state;
 
 // (all)
 import '../../../global_widgets/gw_page_outer_frame/sl_widget_business.dart'
     as gw_page_outer_frame_business;
-import '../all_page_input_and_output_push_test/page_widget.dart'
-    as all_page_input_and_output_push_test;
-import '../../../pages/all/all_page_just_push_test1/page_widget.dart'
-    as all_page_just_push_test1;
-import '../../../a_templates/all_page_template/page_widget.dart'
-    as all_page_template;
-import '../../../pages/all/all_page_page_transition_animation_sample_list/page_widget.dart'
-    as all_page_page_transition_animation_sample_list;
-import '../../../pages/all/all_page_grid_sample/page_widget.dart'
-    as all_page_grid_sample;
 
 // [위젯 비즈니스]
 // 위젯의 비즈니스 로직 + State 변수 처리는 이 곳에서 합니다.
@@ -90,56 +77,11 @@ class PageWidgetBusiness {
   final gw_page_outer_frame_business.SlWidgetBusiness pageOutFrameBusiness =
       gw_page_outer_frame_business.SlWidgetBusiness();
 
-  final GlobalKey<iw_sample_list_state.SfWidgetState> iwSampleListStateGk =
-      GlobalKey();
-
   // [private 변수]
 
   // [public 함수]
   // (Widget 화면 갱신) - WidgetUi.viewWidgetBuild 의 return 값을 다시 불러 옵니다.
   late VoidCallback refreshUi;
-
-  void onPageTemplateItemClicked() {
-    context.pushNamed(all_page_template.pageName);
-  }
-
-  void onJustPushPageItemClicked() {
-    context.pushNamed(all_page_just_push_test1.pageName);
-  }
-
-  Future<void> onPageInputAndOutputItemClicked() async {
-    all_page_input_and_output_push_test.OutputVo? pageResult = await context
-        .pushNamed(all_page_input_and_output_push_test.pageName,
-            queryParameters: {
-          "inputValueString": "테스트 입력값",
-          "inputValueStringList": ["a", "b", "c"],
-          "inputValueInt": "1234" // int 를 원하더라도, 여기선 String 으로 줘야함
-        });
-
-    if (pageResult == null) {
-      if (!context.mounted) return;
-      showToast(
-        "반환값이 없습니다.",
-        context: context,
-        animation: StyledToastAnimation.scale,
-      );
-    } else {
-      if (!context.mounted) return;
-      showToast(
-        pageResult.resultValue,
-        context: context,
-        animation: StyledToastAnimation.scale,
-      );
-    }
-  }
-
-  void onPageAnimationItemClicked() {
-    context.pushNamed(all_page_page_transition_animation_sample_list.pageName);
-  }
-
-  void onPageGridSampleItemClicked() {
-    context.pushNamed(all_page_grid_sample.pageName);
-  }
 
 // [private 함수]
 }
