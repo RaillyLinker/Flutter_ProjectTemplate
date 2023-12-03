@@ -1,37 +1,125 @@
 // (external)
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:focus_detector_v2/focus_detector_v2.dart';
+import 'package:go_router/go_router.dart';
 
-// (page)
-import 'page_business.dart' as page_business;
+// (inner Folder)
+import 'page_widget_business.dart' as page_widget_business;
 
 // (all)
 import '../../../global_widgets/gw_page_outer_frame/sl_widget.dart'
-    as gw_page_outer_frame_view;
-import '../../../global_classes/gc_template_classes.dart'
-    as gc_template_classes;
+    as gw_page_outer_frame;
 
-// [페이지 화면 위젯 작성 파일]
-// 페이지 화면 구현을 담당합니다.
-// 로직 처리는 pageBusiness 객체에 위임하세요.
+// [위젯 뷰]
+// 위젯의 화면 작성은 여기서 합니다.
+// todo : 로딩 처리 개선
 
 //------------------------------------------------------------------------------
-// (페이지 UI 위젯)
-// !!!세부 화면 정의!!!
-class PageView extends StatelessWidget {
-  const PageView({super.key});
+// !!!페이지 진입 라우트 Name 정의!!!
+// 폴더명과 동일하게 작성하세요.
+const pageName = "all_page_image_loading_sample";
+
+// !!!페이지 호출/반납 애니메이션!!!
+// 동적으로 변경이 가능합니다.
+Widget Function(BuildContext context, Animation<double> animation,
+        Animation<double> secondaryAnimation, Widget child)
+    pageTransitionsBuilder = (context, animation, secondaryAnimation, child) {
+  return FadeTransition(opacity: animation, child: child);
+};
+
+// (입력 데이터)
+class InputVo {
+  // !!!위젯 입력값 선언!!!
+  const InputVo();
+}
+
+// (결과 데이터)
+class OutputVo {
+  // !!!위젯 출력값 선언!!!
+  const OutputVo();
+}
+
+//------------------------------------------------------------------------------
+class PageWidget extends StatefulWidget {
+  const PageWidget({super.key, required this.goRouterState});
+
+  final GoRouterState goRouterState;
+
+  @override
+  PageWidgetState createState() => PageWidgetState();
+}
+
+class PageWidgetState extends State<PageWidget> with WidgetsBindingObserver {
+  // [콜백 함수]
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    business = page_widget_business.PageWidgetBusiness();
+    business.onCheckPageInputVo(goRouterState: widget.goRouterState);
+    business.refreshUi = refreshUi;
+    business.context = context;
+    business.initState();
+  }
+
+  @override
+  void dispose() {
+    business.dispose();
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    // pageBusiness 객체
-    page_business.PageBusiness pageBusiness =
-        BlocProvider.of<gc_template_classes.BlocPageInfo>(context)
-            .state
-            .pageBusiness;
+    business.refreshUi = refreshUi;
+    business.context = context;
+    return PopScope(
+      canPop: business.canPop,
+      child: FocusDetector(
+        // (페이지 위젯의 FocusDetector 콜백들)
+        onFocusGained: () async {
+          await business.onFocusGained();
+        },
+        onFocusLost: () async {
+          await business.onFocusLost();
+        },
+        onVisibilityGained: () async {
+          await business.onVisibilityGained();
+        },
+        onVisibilityLost: () async {
+          await business.onVisibilityLost();
+        },
+        onForegroundGained: () async {
+          await business.onForegroundGained();
+        },
+        onForegroundLost: () async {
+          await business.onForegroundLost();
+        },
+        child: WidgetUi.viewWidgetBuild(context: context, business: business),
+      ),
+    );
+  }
 
-    return gw_page_outer_frame_view.SlWidget(
-      business: pageBusiness.pageViewModel.pageOutFrameBusiness,
-      inputVo: gw_page_outer_frame_view.InputVo(
+  // [public 변수]
+  late page_widget_business.PageWidgetBusiness business;
+
+  // [public 함수]
+  // (Stateful Widget 화면 갱신)
+  void refreshUi() {
+    setState(() {});
+  }
+}
+
+class WidgetUi {
+  // [뷰 위젯]
+  static Widget viewWidgetBuild(
+      {required BuildContext context,
+      required page_widget_business.PageWidgetBusiness business}) {
+    // !!!뷰 위젯 반환 콜백 작성 하기!!!
+
+    return gw_page_outer_frame.SlWidget(
+      business: business.pageOutFrameBusiness,
+      inputVo: gw_page_outer_frame.InputVo(
         pageTitle: "이미지 로딩 샘플",
         child: SingleChildScrollView(
           scrollDirection: Axis.horizontal,

@@ -24,7 +24,7 @@ import '../../../pages/all/all_page_gif_sample/page_widget.dart'
     as all_page_gif_sample;
 import '../../../pages/all/all_page_image_selector_sample/page_entrance.dart'
     as all_page_image_selector_sample;
-import '../../../pages/all/all_page_image_loading_sample/page_entrance.dart'
+import '../../../pages/all/all_page_image_loading_sample/page_widget.dart'
     as all_page_image_loading_sample;
 import '../../../pages/all/all_page_context_menu_sample/page_widget.dart'
     as all_pagecontext_menu_sample;

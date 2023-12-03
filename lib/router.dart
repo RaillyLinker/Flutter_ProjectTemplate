@@ -66,7 +66,7 @@ import 'pages/all/all_page_grid_sample/page_widget.dart'
     as all_page_grid_sample;
 import 'pages/all/all_page_image_selector_sample/page_entrance.dart'
     as all_page_image_selector_sample;
-import 'pages/all/all_page_image_loading_sample/page_entrance.dart'
+import 'pages/all/all_page_image_loading_sample/page_widget.dart'
     as all_page_image_loading_sample;
 import 'pages/all/all_page_context_menu_sample/page_widget.dart'
     as all_page_context_menu_sample;
@@ -507,7 +507,7 @@ GoRouter getRouter() {
       pageBuilder: (c, s) {
         return CustomTransitionPage(
             key: s.pageKey,
-            child: all_page_image_loading_sample.PageEntrance(s),
+            child: all_page_image_loading_sample.PageWidget(goRouterState: s),
             transitionsBuilder:
                 all_page_image_loading_sample.pageTransitionsBuilder);
       }));
