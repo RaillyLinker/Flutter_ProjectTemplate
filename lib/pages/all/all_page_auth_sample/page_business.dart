@@ -28,7 +28,7 @@ import '../../../dialogs/all/all_dialog_loading_spinner/dialog_widget_state.dart
 import '../../../pages/all/all_page_login/page_entrance.dart' as all_page_login;
 import '../../../pages/all/all_page_member_info/page_entrance.dart'
     as all_page_member_info;
-import '../../../pages/all/all_page_authorization_test_sample_list/page_entrance.dart'
+import '../../../pages/all/all_page_authorization_test_sample_list/page_widget.dart'
     as all_page_authorization_test_sample_list;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
