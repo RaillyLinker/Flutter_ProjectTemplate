@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 
 // (all)
 import 'a_templates/all_page_template/page_widget.dart' as all_page_template;
-import 'pages/all/all_page_auth_sample/page_entrance.dart'
+import 'pages/all/all_page_auth_sample/page_widget.dart'
     as all_page_auth_sample;
 import 'pages/all/all_page_authorization_test_sample_list/page_widget.dart'
     as all_page_authorization_test_sample_list;
@@ -318,7 +318,7 @@ GoRouter getRouter() {
       pageBuilder: (c, s) {
         return CustomTransitionPage(
             key: s.pageKey,
-            child: all_page_auth_sample.PageEntrance(s),
+            child: all_page_auth_sample.PageWidget(goRouterState: s),
             transitionsBuilder: all_page_auth_sample.pageTransitionsBuilder);
       },
       routes: subRouteListAuthSample));
