@@ -15,6 +15,8 @@ import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
 import '../../../global_classes/gc_animated_builder.dart'
     as gc_animated_builder;
+import 'inner_widgets/iw_sample_list/sf_widget_state.dart'
+    as iw_sample_list_state;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
 // todo : 템플릿 적용
@@ -105,233 +107,210 @@ class PageBusiness {
 //     blocObjects.blocSample.refresh();
 //   }
 
-  // (리스트 아이템 클릭 리스너)
-  void onRouteListItemClick(int index) {
-    SampleItem sampleItem = pageViewModel.allSampleList[index];
+  void onNoAnimationItemClicked() {
+    // 애니메이션 없음
 
-    switch (sampleItem.sampleItemEnum) {
-      case SampleItemEnum.noAnimation:
-        {
-          // 애니메이션 없음
-
-          int sampleWidgetKeyValue = int.parse(gf_my_functions
-              .getWidgetKeyValue(widget: pageViewModel.sampleWidget)!);
-          if (pageViewModel.sampleWidgetEnum ==
-              SampleWidgetEnum.blueCircleWidget) {
-            pageViewModel.sampleWidgetEnum =
-                SampleWidgetEnum.greenRoundSquareWidget;
-            pageViewModel.sampleWidget = Container(
-              // 애니메이션을 적용하려면 적용되는 위젯의 key 가 이전과 달라야 함
-              key: ValueKey<int>(sampleWidgetKeyValue + 1),
-              decoration: BoxDecoration(
-                color: Colors.green,
-                borderRadius: BorderRadius.circular(30.0),
-              ),
-              width: 100.0,
-              height: 100.0,
-            );
-          } else if (pageViewModel.sampleWidgetEnum ==
-              SampleWidgetEnum.greenRoundSquareWidget) {
-            pageViewModel.sampleWidgetEnum = SampleWidgetEnum.redSquareWidget;
-            pageViewModel.sampleWidget = Container(
-              // 애니메이션을 적용하려면 적용되는 위젯의 key 가 이전과 달라야 함
-              key: ValueKey<int>(sampleWidgetKeyValue + 1),
-              decoration: BoxDecoration(
-                color: Colors.redAccent,
-                borderRadius: BorderRadius.circular(0.0),
-              ),
-              width: 100.0,
-              height: 100.0,
-            );
-          } else {
-            pageViewModel.sampleWidgetEnum = SampleWidgetEnum.blueCircleWidget;
-            pageViewModel.sampleWidget = Container(
-              // 애니메이션을 적용하려면 적용되는 위젯의 key 가 이전과 달라야 함
-              key: ValueKey<int>(sampleWidgetKeyValue + 1),
-              decoration: BoxDecoration(
-                color: Colors.blue,
-                borderRadius: BorderRadius.circular(50.0),
-              ),
-              width: 100.0,
-              height: 100.0,
-            );
-          }
-
-          pageViewModel.widgetChangeAnimatedSwitcherConfig =
-              gc_my_classes.AnimatedSwitcherConfig(
-                  duration: const Duration(milliseconds: 0),
-                  reverseDuration: null);
-          blocObjects.blocAnimationSample.refresh();
-        }
-        break;
-      case SampleItemEnum.fadeAnimation:
-        {
-          // Fade 애니메이션 적용
-
-          int sampleWidgetKeyValue = int.parse(gf_my_functions
-              .getWidgetKeyValue(widget: pageViewModel.sampleWidget)!);
-          if (pageViewModel.sampleWidgetEnum ==
-              SampleWidgetEnum.blueCircleWidget) {
-            pageViewModel.sampleWidgetEnum =
-                SampleWidgetEnum.greenRoundSquareWidget;
-            pageViewModel.sampleWidget = Container(
-              // 애니메이션을 적용하려면 적용되는 위젯의 key 가 이전과 달라야 함
-              key: ValueKey<int>(sampleWidgetKeyValue + 1),
-              decoration: BoxDecoration(
-                color: Colors.green,
-                borderRadius: BorderRadius.circular(30.0),
-              ),
-              width: 100.0,
-              height: 100.0,
-            );
-          } else if (pageViewModel.sampleWidgetEnum ==
-              SampleWidgetEnum.greenRoundSquareWidget) {
-            pageViewModel.sampleWidgetEnum = SampleWidgetEnum.redSquareWidget;
-            pageViewModel.sampleWidget = Container(
-              // 애니메이션을 적용하려면 적용되는 위젯의 key 가 이전과 달라야 함
-              key: ValueKey<int>(sampleWidgetKeyValue + 1),
-              decoration: BoxDecoration(
-                color: Colors.redAccent,
-                borderRadius: BorderRadius.circular(0.0),
-              ),
-              width: 100.0,
-              height: 100.0,
-            );
-          } else {
-            pageViewModel.sampleWidgetEnum = SampleWidgetEnum.blueCircleWidget;
-            pageViewModel.sampleWidget = Container(
-              // 애니메이션을 적용하려면 적용되는 위젯의 key 가 이전과 달라야 함
-              key: ValueKey<int>(sampleWidgetKeyValue + 1),
-              decoration: BoxDecoration(
-                color: Colors.blue,
-                borderRadius: BorderRadius.circular(50.0),
-              ),
-              width: 100.0,
-              height: 100.0,
-            );
-          }
-
-          pageViewModel.widgetChangeAnimatedSwitcherConfig =
-              gc_my_classes.AnimatedSwitcherConfig(
-                  duration: const Duration(
-                    milliseconds: 500,
-                  ),
-                  reverseDuration: null,
-                  transitionBuilder:
-                      (Widget child, Animation<double> animation) {
-                    return FadeTransition(opacity: animation, child: child);
-                  });
-          blocObjects.blocAnimationSample.refresh();
-        }
-        break;
-      case SampleItemEnum.scaleTransition:
-        {
-          // Scale 애니메이션 적용
-
-          int sampleWidgetKeyValue = int.parse(gf_my_functions
-              .getWidgetKeyValue(widget: pageViewModel.sampleWidget)!);
-          if (pageViewModel.sampleWidgetEnum ==
-              SampleWidgetEnum.blueCircleWidget) {
-            pageViewModel.sampleWidgetEnum =
-                SampleWidgetEnum.greenRoundSquareWidget;
-            pageViewModel.sampleWidget = Container(
-              // 애니메이션을 적용하려면 적용되는 위젯의 key 가 이전과 달라야 함
-              key: ValueKey<int>(sampleWidgetKeyValue + 1),
-              decoration: BoxDecoration(
-                color: Colors.green,
-                borderRadius: BorderRadius.circular(30.0),
-              ),
-              width: 100.0,
-              height: 100.0,
-            );
-          } else if (pageViewModel.sampleWidgetEnum ==
-              SampleWidgetEnum.greenRoundSquareWidget) {
-            pageViewModel.sampleWidgetEnum = SampleWidgetEnum.redSquareWidget;
-            pageViewModel.sampleWidget = Container(
-              // 애니메이션을 적용하려면 적용되는 위젯의 key 가 이전과 달라야 함
-              key: ValueKey<int>(sampleWidgetKeyValue + 1),
-              decoration: BoxDecoration(
-                color: Colors.redAccent,
-                borderRadius: BorderRadius.circular(0.0),
-              ),
-              width: 100.0,
-              height: 100.0,
-            );
-          } else {
-            pageViewModel.sampleWidgetEnum = SampleWidgetEnum.blueCircleWidget;
-            pageViewModel.sampleWidget = Container(
-              // 애니메이션을 적용하려면 적용되는 위젯의 key 가 이전과 달라야 함
-              key: ValueKey<int>(sampleWidgetKeyValue + 1),
-              decoration: BoxDecoration(
-                color: Colors.blue,
-                borderRadius: BorderRadius.circular(50.0),
-              ),
-              width: 100.0,
-              height: 100.0,
-            );
-          }
-
-          pageViewModel.widgetChangeAnimatedSwitcherConfig =
-              gc_my_classes.AnimatedSwitcherConfig(
-                  duration: const Duration(
-                    milliseconds: 500,
-                  ),
-                  reverseDuration: null,
-                  transitionBuilder:
-                      (Widget child, Animation<double> animation) {
-                    return ScaleTransition(scale: animation, child: child);
-                  });
-          blocObjects.blocAnimationSample.refresh();
-        }
-        break;
-      case SampleItemEnum.flipAnimation:
-        {
-          // Flip 애니메이션 적용
-
-          int sampleWidgetKeyValue = int.parse(gf_my_functions
-              .getWidgetKeyValue(widget: pageViewModel.sampleWidget)!);
-          if (pageViewModel.sampleWidgetEnum ==
-              SampleWidgetEnum.redSquareWidget) {
-            pageViewModel.sampleWidgetEnum = SampleWidgetEnum.blueSquareWidget;
-            pageViewModel.sampleWidget = Container(
-              // 애니메이션을 적용하려면 적용되는 위젯의 key 가 이전과 달라야 함
-              key: ValueKey<int>(sampleWidgetKeyValue + 1),
-              decoration: BoxDecoration(
-                color: Colors.blue,
-                borderRadius: BorderRadius.circular(0.0),
-              ),
-              width: 100.0,
-              height: 100.0,
-            );
-          } else {
-            pageViewModel.sampleWidgetEnum = SampleWidgetEnum.redSquareWidget;
-            pageViewModel.sampleWidget = Container(
-              // 애니메이션을 적용하려면 적용되는 위젯의 key 가 이전과 달라야 함
-              key: ValueKey<int>(sampleWidgetKeyValue + 1),
-              decoration: BoxDecoration(
-                color: Colors.redAccent,
-                borderRadius: BorderRadius.circular(0.0),
-              ),
-              width: 100.0,
-              height: 100.0,
-            );
-          }
-
-          pageViewModel.widgetChangeAnimatedSwitcherConfig =
-              gc_my_classes.AnimatedSwitcherConfig(
-                  duration: const Duration(
-                    milliseconds: 500,
-                  ),
-                  reverseDuration: null,
-                  transitionBuilder:
-                      (Widget child, Animation<double> animation) {
-                    return gc_animated_builder.wrapAnimatedBuilder(
-                        child: child, animation: animation);
-                  });
-          blocObjects.blocAnimationSample.refresh();
-        }
-        break;
+    int sampleWidgetKeyValue = int.parse(
+        gf_my_functions.getWidgetKeyValue(widget: pageViewModel.sampleWidget)!);
+    if (pageViewModel.sampleWidgetEnum == SampleWidgetEnum.blueCircleWidget) {
+      pageViewModel.sampleWidgetEnum = SampleWidgetEnum.greenRoundSquareWidget;
+      pageViewModel.sampleWidget = Container(
+        // 애니메이션을 적용하려면 적용되는 위젯의 key 가 이전과 달라야 함
+        key: ValueKey<int>(sampleWidgetKeyValue + 1),
+        decoration: BoxDecoration(
+          color: Colors.green,
+          borderRadius: BorderRadius.circular(30.0),
+        ),
+        width: 100.0,
+        height: 100.0,
+      );
+    } else if (pageViewModel.sampleWidgetEnum ==
+        SampleWidgetEnum.greenRoundSquareWidget) {
+      pageViewModel.sampleWidgetEnum = SampleWidgetEnum.redSquareWidget;
+      pageViewModel.sampleWidget = Container(
+        // 애니메이션을 적용하려면 적용되는 위젯의 key 가 이전과 달라야 함
+        key: ValueKey<int>(sampleWidgetKeyValue + 1),
+        decoration: BoxDecoration(
+          color: Colors.redAccent,
+          borderRadius: BorderRadius.circular(0.0),
+        ),
+        width: 100.0,
+        height: 100.0,
+      );
+    } else {
+      pageViewModel.sampleWidgetEnum = SampleWidgetEnum.blueCircleWidget;
+      pageViewModel.sampleWidget = Container(
+        // 애니메이션을 적용하려면 적용되는 위젯의 key 가 이전과 달라야 함
+        key: ValueKey<int>(sampleWidgetKeyValue + 1),
+        decoration: BoxDecoration(
+          color: Colors.blue,
+          borderRadius: BorderRadius.circular(50.0),
+        ),
+        width: 100.0,
+        height: 100.0,
+      );
     }
+
+    pageViewModel.widgetChangeAnimatedSwitcherConfig =
+        gc_my_classes.AnimatedSwitcherConfig(
+            duration: const Duration(milliseconds: 0), reverseDuration: null);
+    blocObjects.blocAnimationSample.refresh();
+  }
+
+  void onFadeAnimationItemClicked() {
+    // Fade 애니메이션 적용
+
+    int sampleWidgetKeyValue = int.parse(
+        gf_my_functions.getWidgetKeyValue(widget: pageViewModel.sampleWidget)!);
+    if (pageViewModel.sampleWidgetEnum == SampleWidgetEnum.blueCircleWidget) {
+      pageViewModel.sampleWidgetEnum = SampleWidgetEnum.greenRoundSquareWidget;
+      pageViewModel.sampleWidget = Container(
+        // 애니메이션을 적용하려면 적용되는 위젯의 key 가 이전과 달라야 함
+        key: ValueKey<int>(sampleWidgetKeyValue + 1),
+        decoration: BoxDecoration(
+          color: Colors.green,
+          borderRadius: BorderRadius.circular(30.0),
+        ),
+        width: 100.0,
+        height: 100.0,
+      );
+    } else if (pageViewModel.sampleWidgetEnum ==
+        SampleWidgetEnum.greenRoundSquareWidget) {
+      pageViewModel.sampleWidgetEnum = SampleWidgetEnum.redSquareWidget;
+      pageViewModel.sampleWidget = Container(
+        // 애니메이션을 적용하려면 적용되는 위젯의 key 가 이전과 달라야 함
+        key: ValueKey<int>(sampleWidgetKeyValue + 1),
+        decoration: BoxDecoration(
+          color: Colors.redAccent,
+          borderRadius: BorderRadius.circular(0.0),
+        ),
+        width: 100.0,
+        height: 100.0,
+      );
+    } else {
+      pageViewModel.sampleWidgetEnum = SampleWidgetEnum.blueCircleWidget;
+      pageViewModel.sampleWidget = Container(
+        // 애니메이션을 적용하려면 적용되는 위젯의 key 가 이전과 달라야 함
+        key: ValueKey<int>(sampleWidgetKeyValue + 1),
+        decoration: BoxDecoration(
+          color: Colors.blue,
+          borderRadius: BorderRadius.circular(50.0),
+        ),
+        width: 100.0,
+        height: 100.0,
+      );
+    }
+
+    pageViewModel.widgetChangeAnimatedSwitcherConfig =
+        gc_my_classes.AnimatedSwitcherConfig(
+            duration: const Duration(
+              milliseconds: 500,
+            ),
+            reverseDuration: null,
+            transitionBuilder: (Widget child, Animation<double> animation) {
+              return FadeTransition(opacity: animation, child: child);
+            });
+    blocObjects.blocAnimationSample.refresh();
+  }
+
+  void onScaleTransitionItemClicked() {
+    // Scale 애니메이션 적용
+
+    int sampleWidgetKeyValue = int.parse(
+        gf_my_functions.getWidgetKeyValue(widget: pageViewModel.sampleWidget)!);
+    if (pageViewModel.sampleWidgetEnum == SampleWidgetEnum.blueCircleWidget) {
+      pageViewModel.sampleWidgetEnum = SampleWidgetEnum.greenRoundSquareWidget;
+      pageViewModel.sampleWidget = Container(
+        // 애니메이션을 적용하려면 적용되는 위젯의 key 가 이전과 달라야 함
+        key: ValueKey<int>(sampleWidgetKeyValue + 1),
+        decoration: BoxDecoration(
+          color: Colors.green,
+          borderRadius: BorderRadius.circular(30.0),
+        ),
+        width: 100.0,
+        height: 100.0,
+      );
+    } else if (pageViewModel.sampleWidgetEnum ==
+        SampleWidgetEnum.greenRoundSquareWidget) {
+      pageViewModel.sampleWidgetEnum = SampleWidgetEnum.redSquareWidget;
+      pageViewModel.sampleWidget = Container(
+        // 애니메이션을 적용하려면 적용되는 위젯의 key 가 이전과 달라야 함
+        key: ValueKey<int>(sampleWidgetKeyValue + 1),
+        decoration: BoxDecoration(
+          color: Colors.redAccent,
+          borderRadius: BorderRadius.circular(0.0),
+        ),
+        width: 100.0,
+        height: 100.0,
+      );
+    } else {
+      pageViewModel.sampleWidgetEnum = SampleWidgetEnum.blueCircleWidget;
+      pageViewModel.sampleWidget = Container(
+        // 애니메이션을 적용하려면 적용되는 위젯의 key 가 이전과 달라야 함
+        key: ValueKey<int>(sampleWidgetKeyValue + 1),
+        decoration: BoxDecoration(
+          color: Colors.blue,
+          borderRadius: BorderRadius.circular(50.0),
+        ),
+        width: 100.0,
+        height: 100.0,
+      );
+    }
+
+    pageViewModel.widgetChangeAnimatedSwitcherConfig =
+        gc_my_classes.AnimatedSwitcherConfig(
+            duration: const Duration(
+              milliseconds: 500,
+            ),
+            reverseDuration: null,
+            transitionBuilder: (Widget child, Animation<double> animation) {
+              return ScaleTransition(scale: animation, child: child);
+            });
+    blocObjects.blocAnimationSample.refresh();
+  }
+
+  void onFlipAnimationItemClicked() {
+    // Flip 애니메이션 적용
+
+    int sampleWidgetKeyValue = int.parse(
+        gf_my_functions.getWidgetKeyValue(widget: pageViewModel.sampleWidget)!);
+    if (pageViewModel.sampleWidgetEnum == SampleWidgetEnum.redSquareWidget) {
+      pageViewModel.sampleWidgetEnum = SampleWidgetEnum.blueSquareWidget;
+      pageViewModel.sampleWidget = Container(
+        // 애니메이션을 적용하려면 적용되는 위젯의 key 가 이전과 달라야 함
+        key: ValueKey<int>(sampleWidgetKeyValue + 1),
+        decoration: BoxDecoration(
+          color: Colors.blue,
+          borderRadius: BorderRadius.circular(0.0),
+        ),
+        width: 100.0,
+        height: 100.0,
+      );
+    } else {
+      pageViewModel.sampleWidgetEnum = SampleWidgetEnum.redSquareWidget;
+      pageViewModel.sampleWidget = Container(
+        // 애니메이션을 적용하려면 적용되는 위젯의 key 가 이전과 달라야 함
+        key: ValueKey<int>(sampleWidgetKeyValue + 1),
+        decoration: BoxDecoration(
+          color: Colors.redAccent,
+          borderRadius: BorderRadius.circular(0.0),
+        ),
+        width: 100.0,
+        height: 100.0,
+      );
+    }
+
+    pageViewModel.widgetChangeAnimatedSwitcherConfig =
+        gc_my_classes.AnimatedSwitcherConfig(
+            duration: const Duration(
+              milliseconds: 500,
+            ),
+            reverseDuration: null,
+            transitionBuilder: (Widget child, Animation<double> animation) {
+              return gc_animated_builder.wrapAnimatedBuilder(
+                  child: child, animation: animation);
+            });
+    blocObjects.blocAnimationSample.refresh();
   }
 
 ////
@@ -342,17 +321,7 @@ class PageBusiness {
 // (페이지 뷰 모델 클래스)
 // 페이지 전역의 데이터는 여기에 정의되며, Business 인스턴스 안의 pageViewModel 변수로 저장 됩니다.
 class PageViewModel {
-  PageViewModel(this._context) {
-    // 초기 리스트 추가
-    allSampleList.add(SampleItem(
-        SampleItemEnum.noAnimation, "애니메이션 없음", "애니메이션을 적용하지 않고 위젯 변경"));
-    allSampleList.add(SampleItem(
-        SampleItemEnum.fadeAnimation, "Fade 애니메이션", "Fade 애니메이션을 적용하고 위젯 변경"));
-    allSampleList.add(SampleItem(SampleItemEnum.scaleTransition,
-        "Scale Transition 애니메이션", "Scale Transition 애니메이션을 적용하고 위젯 변경"));
-    allSampleList.add(SampleItem(
-        SampleItemEnum.flipAnimation, "Flip 애니메이션", "Flip 애니메이션을 적용하고 위젯 변경"));
-  }
+  PageViewModel(this._context);
 
   // 페이지 컨텍스트 객체
   final BuildContext _context;
@@ -372,8 +341,8 @@ class PageViewModel {
   final gw_page_outer_frame_business.SlWidgetBusiness pageOutFrameBusiness =
       gw_page_outer_frame_business.SlWidgetBusiness();
 
-  // (샘플 페이지 원본 리스트)
-  List<SampleItem> allSampleList = [];
+  final GlobalKey<iw_sample_list_state.SfWidgetState> iwSampleListStateGk =
+      GlobalKey();
 
   // 샘플 위젯 타입 (0, 1, 2)
   SampleWidgetEnum sampleWidgetEnum = SampleWidgetEnum.blueCircleWidget;
@@ -401,30 +370,6 @@ class PageViewModel {
           });
 }
 
-class SampleItem {
-  SampleItem(
-      this.sampleItemEnum, this.sampleItemTitle, this.sampleItemDescription);
-
-  // 샘플 고유값
-  SampleItemEnum sampleItemEnum;
-
-  // 샘플 타이틀
-  String sampleItemTitle;
-
-  // 샘플 설명
-  String sampleItemDescription;
-
-  // 권한 체크 여부
-  bool isChecked = false;
-}
-
-enum SampleItemEnum {
-  noAnimation,
-  fadeAnimation,
-  scaleTransition,
-  flipAnimation
-}
-
 enum SampleWidgetEnum {
   blueCircleWidget,
   greenRoundSquareWidget,
@@ -447,19 +392,6 @@ enum SampleWidgetEnum {
 //   }
 // }
 
-class BlocSampleList extends Bloc<bool, bool> {
-  BlocSampleList() : super(true) {
-    on<bool>((event, emit) {
-      emit(event);
-    });
-  }
-
-  // BLoC 위젯 갱신 함수
-  void refresh() {
-    add(!state);
-  }
-}
-
 // (애니메이션 적용 샘플 위젯)
 class BlocAnimationSample extends Bloc<bool, bool> {
   BlocAnimationSample() : super(true) {
@@ -481,7 +413,6 @@ class BLocProviders {
   List<BlocProvider<dynamic>> blocProviders = [
     // ex :
     // BlocProvider<BlocSample>(create: (context) => BlocSample())
-    BlocProvider<BlocSampleList>(create: (context) => BlocSampleList()),
     BlocProvider<BlocAnimationSample>(
         create: (context) => BlocAnimationSample()),
   ];
@@ -492,7 +423,6 @@ class BLocObjects {
     // !!!BLoC 조작 객체 생성!!!
     // ex :
     // blocSample = BlocProvider.of<BlocSample>(_context);
-    blocSampleList = BlocProvider.of<BlocSampleList>(_context);
     blocAnimationSample = BlocProvider.of<BlocAnimationSample>(_context);
   }
 
@@ -502,6 +432,5 @@ class BLocObjects {
   // !!!BLoC 조작 객체 변수 선언!!!
   // ex :
   // late BlocSample blocSample;
-  late BlocSampleList blocSampleList;
   late BlocAnimationSample blocAnimationSample;
 }
