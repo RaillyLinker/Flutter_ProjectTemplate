@@ -1,33 +1,126 @@
 // (external)
 import 'package:flutter/material.dart';
+import 'package:focus_detector_v2/focus_detector_v2.dart';
+import 'package:go_router/go_router.dart';
 
-// (page)
-import 'page_business.dart' as page_business;
+// (inner Folder)
+import 'page_widget_business.dart' as page_widget_business;
 
 // (all)
 import '../../../global_widgets/gw_page_outer_frame/sl_widget.dart'
-    as gw_page_outer_frame_view;
+    as gw_page_outer_frame;
 import '../../../global_widgets/gw_context_menu_region/sf_widget.dart'
     as gw_context_menu_region_view;
 
-// [페이지 화면 위젯 작성 파일]
-// 페이지 화면 구현을 담당합니다. (Widget 과 Business 간의 결합을 담당)
-// 로직 처리는 pageBusiness 객체에 위임하세요.
+// [위젯 뷰]
+// 위젯의 화면 작성은 여기서 합니다.
 
 //------------------------------------------------------------------------------
-// (페이지 UI 위젯)
-// !!!세부 화면 정의!!!
-class PageView extends StatelessWidget {
-  const PageView(this._pageBusiness, {super.key});
+// !!!페이지 진입 라우트 Name 정의!!!
+// 폴더명과 동일하게 작성하세요.
+const pageName = "all_page_context_menu_sample";
 
-  // 페이지 비즈니스 객체
-  final page_business.PageBusiness _pageBusiness;
+// !!!페이지 호출/반납 애니메이션!!!
+// 동적으로 변경이 가능합니다.
+Widget Function(BuildContext context, Animation<double> animation,
+        Animation<double> secondaryAnimation, Widget child)
+    pageTransitionsBuilder = (context, animation, secondaryAnimation, child) {
+  return FadeTransition(opacity: animation, child: child);
+};
+
+// (입력 데이터)
+class InputVo {
+  // !!!위젯 입력값 선언!!!
+  const InputVo();
+}
+
+// (결과 데이터)
+class OutputVo {
+  // !!!위젯 출력값 선언!!!
+  const OutputVo();
+}
+
+//------------------------------------------------------------------------------
+class PageWidget extends StatefulWidget {
+  const PageWidget({super.key, required this.goRouterState});
+
+  final GoRouterState goRouterState;
+
+  @override
+  PageWidgetState createState() => PageWidgetState();
+}
+
+class PageWidgetState extends State<PageWidget> with WidgetsBindingObserver {
+  // [콜백 함수]
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    business = page_widget_business.PageWidgetBusiness();
+    business.onCheckPageInputVo(goRouterState: widget.goRouterState);
+    business.refreshUi = refreshUi;
+    business.context = context;
+    business.initState();
+  }
+
+  @override
+  void dispose() {
+    business.dispose();
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return gw_page_outer_frame_view.SlWidget(
-      business: _pageBusiness.pageViewModel.pageOutFrameBusiness,
-      inputVo: gw_page_outer_frame_view.InputVo(
+    business.refreshUi = refreshUi;
+    business.context = context;
+    return PopScope(
+      canPop: business.canPop,
+      child: FocusDetector(
+        // (페이지 위젯의 FocusDetector 콜백들)
+        onFocusGained: () async {
+          await business.onFocusGained();
+        },
+        onFocusLost: () async {
+          await business.onFocusLost();
+        },
+        onVisibilityGained: () async {
+          await business.onVisibilityGained();
+        },
+        onVisibilityLost: () async {
+          await business.onVisibilityLost();
+        },
+        onForegroundGained: () async {
+          await business.onForegroundGained();
+        },
+        onForegroundLost: () async {
+          await business.onForegroundLost();
+        },
+        child: WidgetUi.viewWidgetBuild(context: context, business: business),
+      ),
+    );
+  }
+
+  // [public 변수]
+  late page_widget_business.PageWidgetBusiness business;
+
+  // [public 함수]
+  // (Stateful Widget 화면 갱신)
+  void refreshUi() {
+    setState(() {});
+  }
+}
+
+class WidgetUi {
+  // [뷰 위젯]
+  static Widget viewWidgetBuild(
+      {required BuildContext context,
+      required page_widget_business.PageWidgetBusiness business}) {
+    // !!!뷰 위젯 반환 콜백 작성 하기!!!
+
+    return gw_page_outer_frame.SlWidget(
+      business: business.pageOutFrameBusiness,
+      inputVo: gw_page_outer_frame.InputVo(
         pageTitle: "컨텍스트 메뉴 샘플",
         child: SingleChildScrollView(
           child: Center(
@@ -37,7 +130,7 @@ class PageView extends StatelessWidget {
                   height: 100,
                 ),
                 gw_context_menu_region_view.SfWidget(
-                  globalKey: _pageBusiness.pageViewModel.contextMenuRegionGk,
+                  globalKey: business.contextMenuRegionGk,
                   inputVo: gw_context_menu_region_view.InputVo(
                       contextMenuRegionItemVoList: [
                         gw_context_menu_region_view.ContextMenuRegionItemVo(
@@ -47,7 +140,7 @@ class PageView extends StatelessWidget {
                                   color: Colors.black, fontFamily: "MaruBuri"),
                             ),
                             menuItemCallback: () {
-                              _pageBusiness.toastTestMenuBtn();
+                              business.toastTestMenuBtn();
                             }),
                         gw_context_menu_region_view.ContextMenuRegionItemVo(
                             menuItemWidget: const Text(
@@ -56,7 +149,7 @@ class PageView extends StatelessWidget {
                                   color: Colors.black, fontFamily: "MaruBuri"),
                             ),
                             menuItemCallback: () {
-                              _pageBusiness.dialogTestMenuBtn();
+                              business.dialogTestMenuBtn();
                             }),
                       ],
                       child: Container(
@@ -74,7 +167,7 @@ class PageView extends StatelessWidget {
                   height: 100,
                 ),
                 gw_context_menu_region_view.SfWidget(
-                  globalKey: _pageBusiness.pageViewModel.contextMenuRegionGk2,
+                  globalKey: business.contextMenuRegionGk2,
                   inputVo: gw_context_menu_region_view.InputVo(
                       contextMenuRegionItemVoList: [
                         gw_context_menu_region_view.ContextMenuRegionItemVo(
@@ -84,7 +177,7 @@ class PageView extends StatelessWidget {
                                   color: Colors.black, fontFamily: "MaruBuri"),
                             ),
                             menuItemCallback: () {
-                              _pageBusiness.goBackBtn();
+                              business.goBackBtn();
                             }),
                       ],
                       child: Container(
@@ -106,60 +199,3 @@ class PageView extends StatelessWidget {
     );
   }
 }
-
-// ex :
-// (Stateless 위젯 템플릿)
-// class StatelessWidgetTemplate extends StatelessWidget {
-//   const StatelessWidgetTemplate(this.viewModel, {required super.key});
-//
-//   // 위젯 뷰모델
-//   final StatelessWidgetTemplateViewModel viewModel;
-//
-//   //!!!주입 받을 하위 위젯 선언 하기!!!
-//
-//   // !!!하위 위젯 작성하기. (viewModel 에서 데이터를 가져와 사용)!!!
-//   @override
-//   Widget build(BuildContext context) {
-//     return Text(viewModel.sampleText);
-//   }
-// }
-//
-// class StatelessWidgetTemplateViewModel {
-//   StatelessWidgetTemplateViewModel(this.sampleText);
-//
-//   // !!!위젯 상태 변수 선언하기!!!
-//   final String sampleText;
-// }
-
-// (Stateful 위젯 템플릿)
-// class StatefulWidgetTemplate extends StatefulWidget {
-//   const StatefulWidgetTemplate(this.viewModel, {required super.key});
-//
-//   // 위젯 뷰모델
-//   final StatefulWidgetTemplateViewModel viewModel;
-//
-//   //!!!주입 받을 하위 위젯 선언 하기!!!
-//
-//   @override
-//   StatefulWidgetTemplateState createState() => StatefulWidgetTemplateState();
-// }
-//
-// class StatefulWidgetTemplateViewModel {
-//   StatefulWidgetTemplateViewModel(this.sampleInt);
-//
-//   // !!!위젯 상태 변수 선언하기!!!
-//   int sampleInt;
-// }
-//
-// class StatefulWidgetTemplateState extends State<StatefulWidgetTemplate> {
-//   // Stateful Widget 화면 갱신
-//   void refresh() {
-//     setState(() {});
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     // !!!하위 위젯 작성하기. (widget.viewModel 에서 데이터를 가져와 사용)!!!
-//     return Text(widget.viewModel.sampleInt.toString());
-//   }
-// }
