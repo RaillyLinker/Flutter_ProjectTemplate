@@ -32,7 +32,7 @@ import '../../../pages/all/all_page_gesture_area_overlap_test/page_entrance.dart
     as all_page_gesture_area_overlap_test;
 import '../../../pages/all/all_page_form_sample/page_entrance.dart'
     as all_page_form_sample;
-import '../../../pages/all/all_page_horizontal_scroll_test/page_entrance.dart'
+import '../../../pages/all/all_page_horizontal_scroll_test/page_widget.dart'
     as all_page_horizontal_scroll_test;
 
 // (app)
