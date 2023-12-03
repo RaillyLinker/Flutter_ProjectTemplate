@@ -21,7 +21,7 @@ import 'pages/all/all_page_find_password_with_email/page_entrance.dart'
     as all_page_find_password_with_email;
 import 'pages/all/all_page_get_request_sample/page_entrance.dart'
     as all_page_get_request_sample;
-import 'pages/all/all_page_global_variable_state_test_sample/page_entrance.dart'
+import 'pages/all/all_page_global_variable_state_test_sample/page_widget.dart'
     as all_page_global_variable_state_test_sample;
 import 'pages/all/all_page_home/page_widget.dart' as all_page_home;
 import 'pages/all/all_page_input_and_output_push_test/page_widget.dart'
@@ -453,7 +453,8 @@ GoRouter getRouter() {
       pageBuilder: (c, s) {
         return CustomTransitionPage(
             key: s.pageKey,
-            child: all_page_global_variable_state_test_sample.PageEntrance(s),
+            child: all_page_global_variable_state_test_sample.PageWidget(
+                goRouterState: s),
             transitionsBuilder: all_page_global_variable_state_test_sample
                 .pageTransitionsBuilder);
       }));
