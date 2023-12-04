@@ -120,7 +120,7 @@ class SfWidget extends StatefulWidget {
         maxLength: currentState.maxLength,
         inputFormatters: currentState.inputFormatters,
         decoration: InputDecoration(
-          prefixIcon: currentState.prefixIcon,
+            prefixIcon: currentState.prefixIcon,
             filled: currentState.filled,
             fillColor: currentState.fillColor,
             isDense: currentState.isDense,

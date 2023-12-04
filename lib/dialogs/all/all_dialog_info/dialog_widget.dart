@@ -123,7 +123,7 @@ class DialogWidget extends StatefulWidget {
                 child: Center(
                   child: Container(
                     constraints:
-                    const BoxConstraints(minWidth: 100, maxWidth: 200),
+                        const BoxConstraints(minWidth: 100, maxWidth: 200),
                     child: ElevatedButton(
                       onPressed: () {
                         currentState.closeDialog();
