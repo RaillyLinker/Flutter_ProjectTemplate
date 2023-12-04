@@ -1,5 +1,6 @@
 // (external)
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 // (inner Folder)
 import 'sf_widget_state.dart' as sf_widget_state;
@@ -29,7 +30,11 @@ class InputVo {
       this.filled,
       this.fillColor,
       this.isDense,
-      this.border});
+      this.border,
+      this.maxLength,
+      this.inputFormatters,
+      this.prefixIcon,
+      this.autofillHints});
 
   // 페이지 진입시 입력창 포커스 여부
   final bool autofocus;
@@ -77,6 +82,14 @@ class InputVo {
   final bool? isDense;
 
   final InputBorder? border;
+
+  final int? maxLength;
+
+  final List<TextInputFormatter>? inputFormatters;
+
+  final Widget? prefixIcon;
+
+  final Iterable<String>? autofillHints;
 }
 
 class SfWidget extends StatefulWidget {
@@ -104,7 +117,10 @@ class SfWidget extends StatefulWidget {
         focusNode: currentState.textFieldFocus,
         autofocus: inputVo.autofocus,
         obscureText: currentState.obscureText,
+        maxLength: currentState.maxLength,
+        inputFormatters: currentState.inputFormatters,
         decoration: InputDecoration(
+          prefixIcon: currentState.prefixIcon,
             filled: currentState.filled,
             fillColor: currentState.fillColor,
             isDense: currentState.isDense,
@@ -118,6 +134,7 @@ class SfWidget extends StatefulWidget {
             hintStyle: currentState.hintStyle,
             suffixIcon: currentState.suffixIcon,
             focusedBorder: currentState.focusedBorder),
+        autofillHints: currentState.autofillHints,
         onChanged: (value) {
           // 입력값 변경시 에러 메세지 삭제
           if (currentState.textFieldErrorMsg != null) {

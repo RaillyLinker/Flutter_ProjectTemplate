@@ -1,5 +1,6 @@
 // (external)
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 // (inner Folder)
 import 'sf_widget.dart' as sf_widget;
@@ -38,6 +39,10 @@ class SfWidgetState extends State<sf_widget.SfWidget> {
     fillColor = widget.inputVo.fillColor;
     isDense = widget.inputVo.isDense;
     border = widget.inputVo.border;
+    maxLength = widget.inputVo.maxLength;
+    inputFormatters = widget.inputVo.inputFormatters;
+    prefixIcon = widget.inputVo.prefixIcon;
+    autofillHints = widget.inputVo.autofillHints;
   }
 
   @override
@@ -99,6 +104,14 @@ class SfWidgetState extends State<sf_widget.SfWidget> {
   late bool? isDense;
 
   late InputBorder? border;
+
+  late int? maxLength;
+
+  late List<TextInputFormatter>? inputFormatters;
+
+  late Widget? prefixIcon;
+
+  late Iterable<String>? autofillHints;
 
   // [private 변수]
 

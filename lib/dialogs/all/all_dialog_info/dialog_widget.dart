@@ -1,6 +1,5 @@
 // (external)
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 // (inner Folder)
 import 'dialog_widget_state.dart' as dialog_widget_state;
@@ -58,99 +57,90 @@ class DialogWidget extends StatefulWidget {
       required dialog_widget_state.DialogWidgetState currentState}) {
     // !!!뷰 위젯 반환 콜백 작성 하기!!!
 
-    return RawKeyboardListener(
-      focusNode: FocusNode(),
-      onKey: (v) {
-        if (v.logicalKey == LogicalKeyboardKey.enter) {
-          currentState.closeDialog();
-        }
-      },
-      autofocus: true,
-      child: Dialog(
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        child: SingleChildScrollView(
-          child: SizedBox(
-            width: 280,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  height: 55,
-                  decoration: const BoxDecoration(
-                      color: Colors.blue,
-                      shape: BoxShape.rectangle,
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(16),
-                          topRight: Radius.circular(16))),
+    return Dialog(
+      elevation: 0,
+      backgroundColor: Colors.transparent,
+      child: SingleChildScrollView(
+        child: SizedBox(
+          width: 280,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                height: 55,
+                decoration: const BoxDecoration(
+                    color: Colors.blue,
+                    shape: BoxShape.rectangle,
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(16),
+                        topRight: Radius.circular(16))),
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 17, right: 17),
+                  child: Center(
+                    child: Text(
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      inputVo.dialogTitle,
+                      style: const TextStyle(
+                          fontSize: 17,
+                          fontFamily: "MaruBuri",
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
+              ),
+              Container(
+                height: 120,
+                color: Colors.white,
+                child: Center(
                   child: Padding(
                     padding: const EdgeInsets.only(left: 17, right: 17),
-                    child: Center(
+                    child: SingleChildScrollView(
                       child: Text(
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        inputVo.dialogTitle,
+                        inputVo.dialogContent,
                         style: const TextStyle(
-                            fontSize: 17,
-                            fontFamily: "MaruBuri",
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold),
+                            fontFamily: "MaruBuri", color: Colors.black),
+                        textAlign: TextAlign.center,
                       ),
                     ),
                   ),
                 ),
-                Container(
-                  height: 120,
-                  color: Colors.white,
-                  child: Center(
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 17, right: 17),
-                      child: SingleChildScrollView(
-                        child: Text(
-                          inputVo.dialogContent,
-                          style: const TextStyle(
-                              fontFamily: "MaruBuri", color: Colors.black),
-                          textAlign: TextAlign.center,
-                        ),
+              ),
+              const Divider(
+                color: Colors.grey,
+                height: 0.1,
+              ),
+              Container(
+                height: 55,
+                width: double.infinity,
+                decoration: const BoxDecoration(
+                    color: Colors.white,
+                    shape: BoxShape.rectangle,
+                    borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(16),
+                        bottomRight: Radius.circular(16))),
+                child: Center(
+                  child: Container(
+                    constraints:
+                    const BoxConstraints(minWidth: 100, maxWidth: 200),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        currentState.closeDialog();
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blue,
+                      ),
+                      child: Text(
+                        inputVo.checkBtnTitle,
+                        style: const TextStyle(
+                            color: Colors.white, fontFamily: "MaruBuri"),
                       ),
                     ),
                   ),
                 ),
-                const Divider(
-                  color: Colors.grey,
-                  height: 0.1,
-                ),
-                Container(
-                  height: 55,
-                  width: double.infinity,
-                  decoration: const BoxDecoration(
-                      color: Colors.white,
-                      shape: BoxShape.rectangle,
-                      borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(16),
-                          bottomRight: Radius.circular(16))),
-                  child: Center(
-                    child: Container(
-                      constraints:
-                          const BoxConstraints(minWidth: 100, maxWidth: 200),
-                      child: ElevatedButton(
-                        onPressed: () {
-                          currentState.closeDialog();
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.blue,
-                        ),
-                        child: Text(
-                          inputVo.checkBtnTitle,
-                          style: const TextStyle(
-                              color: Colors.white, fontFamily: "MaruBuri"),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
