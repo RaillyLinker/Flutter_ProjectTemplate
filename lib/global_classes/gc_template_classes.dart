@@ -5,6 +5,19 @@ import 'package:dio/dio.dart';
 // [템플릿 코드를 줄이기 위해 사용하는 클래스 모음 파일]
 
 // -----------------------------------------------------------------------------
+// (오로지 리플래시만을 위한 BLoC 클래스)
+class RefreshableBloc extends Bloc<bool, bool> {
+  RefreshableBloc() : super(true) {
+    on<bool>((event, emit) {
+      emit(event);
+    });
+  }
+
+  void refreshUi() {
+    add(!state);
+  }
+}
+
 // (페이지 정보 저장용 BLoC State)
 class BlocPageInfoState<pageBusinessType> {
   BlocPageInfoState({required this.pageBusiness});
