@@ -121,28 +121,10 @@ class WidgetUi {
 
     return gw_page_outer_frame.SlWidget(
       business: business.pageOutFrameBusiness,
-      inputVo: gw_page_outer_frame.InputVo(
+      inputVo: const gw_page_outer_frame.InputVo(
         pageTitle: "페이지 템플릿",
         child: Center(
-          child: MouseRegion(
-            cursor: SystemMouseCursors.click,
-            child: GestureDetector(
-              onTap: () {
-                business.refreshableBlocTest();
-              },
-              child: BlocProvider(
-                create: (context) => business.refreshableBloc,
-                child: BlocBuilder<gc_template_classes.RefreshableBloc, bool>(
-                  builder: (c, s) {
-                    return Text(
-                      business.sampleInt.toString(),
-                      style: const TextStyle(fontFamily: "MaruBuri"),
-                    );
-                  },
-                ),
-              ),
-            ),
-          ),
+          child: Text("템플릿 페이지"),
         ),
       ),
     );
@@ -154,7 +136,7 @@ class WidgetUi {
 // 이 경우 Stateful 위젯을 생성 해서 사용 하면 되지만,
 // 간단히 갱신 영역을 지정 하여 해당 구역만 갱신 하도록 하기 위해선 BLoC 갱신 구역을 설정 하여 사용 하면 됩니다.
 // Business 클래스 안에 BLoC 갱신 구역 조작 객체로
-// global_template_classes.RefreshableBloc refreshableBloc = global_template_classes.RefreshableBloc();
+// gc_template_classes.RefreshableBloc refreshableBloc = gc_template_classes.RefreshableBloc();
 // 위와 같이 선언 및 생성 하고,
 // Widget 에서는, 갱신 하려는 구역을
 // BlocProvider(

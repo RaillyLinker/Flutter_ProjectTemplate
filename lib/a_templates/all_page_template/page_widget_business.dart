@@ -79,22 +79,11 @@ class PageWidgetBusiness {
   final gw_page_outer_frame_business.SlWidgetBusiness pageOutFrameBusiness =
       gw_page_outer_frame_business.SlWidgetBusiness();
 
-  // (RefreshableBLoC 샘플 데이터)
-  gc_template_classes.RefreshableBloc refreshableBloc =
-      gc_template_classes.RefreshableBloc();
-  int sampleInt = 0;
-
   // [private 변수]
 
   // [public 함수]
   // (Widget 화면 갱신) - WidgetUi.viewWidgetBuild 의 return 값을 다시 불러 옵니다.
   late VoidCallback refreshUi;
-
-  // (BLoC 갱신 테스트)
-  void refreshableBlocTest() {
-    sampleInt++;
-    refreshableBloc.refreshUi();
-  }
 
 // [private 함수]
 }

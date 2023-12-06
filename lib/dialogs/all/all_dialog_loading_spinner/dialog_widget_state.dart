@@ -7,6 +7,8 @@ import 'package:go_router/go_router.dart';
 import 'dialog_widget.dart' as dialog_widget;
 
 // (all)
+import '../../../global_classes/gc_template_classes.dart'
+    as gc_template_classes;
 import '../../../global_widgets/gw_gif_wrapper/sf_widget_state.dart'
     as gw_gif_wrapper_state;
 

@@ -75,11 +75,6 @@ class DialogWidgetState extends State<dialog_widget.DialogWidget>
   // (페이지 pop 가능 여부 변수)
   bool canPop = true;
 
-  // (RefreshableBLoC 샘플 데이터)
-  gc_template_classes.RefreshableBloc refreshableBloc =
-      gc_template_classes.RefreshableBloc();
-  int sampleInt = 0;
-
   // [private 변수]
 
   // [public 함수]
@@ -91,11 +86,5 @@ class DialogWidgetState extends State<dialog_widget.DialogWidget>
   // (다이얼로그 종료 함수)
   void closeDialog() {
     context.pop();
-  }
-
-  // (BLoC 갱신 테스트)
-  void refreshableBlocTest() {
-    sampleInt++;
-    refreshableBloc.refreshUi();
   }
 }

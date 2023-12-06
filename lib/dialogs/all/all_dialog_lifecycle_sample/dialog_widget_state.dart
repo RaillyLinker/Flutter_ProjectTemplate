@@ -10,6 +10,8 @@ import 'inner_widgets/iw_stateful_sample_number/sf_widget_state.dart'
     as iw_stateful_sample_number_state;
 
 // (all)
+import '../../../global_classes/gc_template_classes.dart'
+    as gc_template_classes;
 import '../../../global_functions/gf_my_functions.dart' as gf_my_functions;
 import '../../../pages/all/all_page_dialog_sample_list/page_widget.dart'
     as all_page_dialog_sample_list;
@@ -116,6 +118,10 @@ class DialogWidgetState extends State<dialog_widget.DialogWidget>
   final GlobalKey<gw_stateful_test_state.SfWidgetState> statefulTestGk =
       GlobalKey();
 
+  gc_template_classes.RefreshableBloc blocSampleBloc =
+      gc_template_classes.RefreshableBloc();
+  int blocSampleIntValue = 0;
+
   // [private 변수]
 
   // [public 함수]
@@ -132,5 +138,11 @@ class DialogWidgetState extends State<dialog_widget.DialogWidget>
   // (다른 페이지로 이동)
   void pushToAnotherPage() {
     context.pushNamed(all_page_dialog_sample_list.pageName);
+  }
+
+  // (BLoC 샘플 텍스트 클릭시)
+  void onBlocSampleClicked() {
+    blocSampleIntValue += 1;
+    blocSampleBloc.refreshUi();
   }
 }
