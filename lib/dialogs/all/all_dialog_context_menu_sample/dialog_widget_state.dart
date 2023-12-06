@@ -8,6 +8,8 @@ import 'package:go_router/go_router.dart';
 import 'dialog_widget.dart' as dialog_widget;
 
 // (all)
+import '../../../global_classes/gc_template_classes.dart'
+    as gc_template_classes;
 import '../../../global_widgets/gw_context_menu_region/sf_widget_state.dart'
     as gw_context_menu_region_state;
 
