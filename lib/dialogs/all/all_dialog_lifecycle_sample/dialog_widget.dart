@@ -11,7 +11,7 @@ import 'inner_widgets/iw_stateful_sample_number/sf_widget.dart'
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
 import '../../../global_widgets/gw_stateful_test/sf_widget.dart'
-    as gw_stateful_test_view;
+    as gw_stateful_test;
 
 // [위젯 뷰]
 // 위젯의 화면 작성은 여기서 합니다.
@@ -82,9 +82,9 @@ class DialogWidget extends StatefulWidget {
                 const SizedBox(
                   height: 5,
                 ),
-                gw_stateful_test_view.SfWidget(
+                gw_stateful_test.SfWidget(
                     globalKey: currentState.statefulTestGk,
-                    inputVo: const gw_stateful_test_view.InputVo()),
+                    inputVo: const gw_stateful_test.InputVo()),
                 const SizedBox(
                   height: 5,
                 ),

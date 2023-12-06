@@ -7,6 +7,8 @@ import 'package:go_router/go_router.dart';
 import 'dialog_widget.dart' as dialog_widget;
 
 // (all)
+import '../../../global_classes/gc_template_classes.dart'
+    as gc_template_classes;
 import '../../../../repositories/network/apis/api_main_server.dart'
     as api_main_server;
 import '../../../../repositories/spws/spw_auth_member_info.dart'
@@ -20,8 +22,6 @@ import '../../../dialogs/all/all_dialog_loading_spinner/dialog_widget.dart'
     as all_dialog_loading_spinner;
 import '../../../dialogs/all/all_dialog_loading_spinner/dialog_widget_state.dart'
     as all_dialog_loading_spinner_state;
-import '../../../global_widgets/gw_text_form_field_wrapper/sf_widget_state.dart'
-    as gw_text_form_field_wrapper_state;
 
 // [위젯 비즈니스]
 // 위젯의 비즈니스 로직 + State 변수 처리는 이 곳에서 합니다.
@@ -88,6 +88,8 @@ class DialogWidgetState extends State<dialog_widget.DialogWidget>
   @override
   void dispose() {
     // !!!dispose 작성!!!
+    verificationCodeTextFieldController.dispose();
+    verificationCodeTextFieldFocus.dispose();
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
@@ -99,11 +101,16 @@ class DialogWidgetState extends State<dialog_widget.DialogWidget>
   // (페이지 pop 가능 여부 변수)
   bool canPop = true;
 
+  // (검증 요청 고유번호)
   late int verificationUid;
 
-  // VerificationCode Form 필드 관련 전체 키
-  final GlobalKey<gw_text_form_field_wrapper_state.SfWidgetState>
-      gwTextFormFieldWrapperStateGk = GlobalKey();
+  // (검증 코드 텍스트 필드 관련 객체)
+  final TextEditingController verificationCodeTextFieldController =
+      TextEditingController();
+  final FocusNode verificationCodeTextFieldFocus = FocusNode();
+  String? verificationCodeTextFieldErrorMsg;
+  gc_template_classes.RefreshableBloc verificationCodeTextFieldBloc =
+      gc_template_classes.RefreshableBloc();
 
   // [private 변수]
 
@@ -118,15 +125,6 @@ class DialogWidgetState extends State<dialog_widget.DialogWidget>
     context.pop();
   }
 
-  String? onVerificationCodeInputValidateAndReturnErrorMsg(String? value) {
-    // 검사 : return 으로 반환하는 에러 메세지가 null 이 아니라면 에러로 처리
-    if (value == null || value.isEmpty) {
-      return "이 항목을 입력 하세요.";
-    } else {
-      return null;
-    }
-  }
-
   // (코드 검증 후 다음 단계로 이동)
   bool isVerifyCodeAndGoNextDoing = false;
 
@@ -135,152 +133,156 @@ class DialogWidgetState extends State<dialog_widget.DialogWidget>
       return;
     }
     isVerifyCodeAndGoNextDoing = true;
-    if (gwTextFormFieldWrapperStateGk.currentState != null &&
-        gwTextFormFieldWrapperStateGk.currentState?.validate() == null) {
-      // 코드 검증
-      // (로딩 스피너 다이얼로그 호출)
-      GlobalKey<all_dialog_loading_spinner_state.DialogWidgetState>
-          allDialogLoadingSpinnerStateGk = GlobalKey();
 
-      showDialog(
-          barrierDismissible: false,
-          context: context,
-          builder: (context) => all_dialog_loading_spinner.DialogWidget(
-              globalKey: allDialogLoadingSpinnerStateGk,
-              inputVo: const all_dialog_loading_spinner.InputVo(),
-              onDialogCreated: () {})).then((outputVo) {});
+    String verificationCode = verificationCodeTextFieldController.text;
 
-      var responseVo = await api_main_server
-          .getService1TkV1AuthJoinTheMembershipEmailVerificationCheckAsync(
-              requestQueryVo: api_main_server
-                  .GetService1TkV1AuthJoinTheMembershipEmailVerificationCheckAsyncRequestQueryVo(
-                      verificationUid: verificationUid,
-                      email: widget.inputVo.emailAddress,
-                      verificationCode: gwTextFormFieldWrapperStateGk
-                          .currentState!
-                          .getInputValue()));
+    if (verificationCode.isEmpty) {
+      verificationCodeTextFieldErrorMsg = "이 항목을 입력 하세요.";
+      verificationCodeTextFieldBloc.refreshUi();
+      FocusScope.of(context).requestFocus(verificationCodeTextFieldFocus);
+      isVerifyCodeAndGoNextDoing = false;
+      return;
+    }
 
-      if (responseVo.dioException == null) {
-        // Dio 네트워크 응답
-        allDialogLoadingSpinnerStateGk.currentState?.closeDialog();
-        var networkResponseObjectOk = responseVo.networkResponseObjectOk!;
+    // 코드 검증
+    // (로딩 스피너 다이얼로그 호출)
+    GlobalKey<all_dialog_loading_spinner_state.DialogWidgetState>
+        allDialogLoadingSpinnerStateGk = GlobalKey();
 
-        if (networkResponseObjectOk.responseStatusCode == 200) {
-          // 정상 응답
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) => all_dialog_loading_spinner.DialogWidget(
+            globalKey: allDialogLoadingSpinnerStateGk,
+            inputVo: const all_dialog_loading_spinner.InputVo(),
+            onDialogCreated: () {})).then((outputVo) {});
 
-          // 검증 완료
+    var responseVo = await api_main_server
+        .getService1TkV1AuthJoinTheMembershipEmailVerificationCheckAsync(
+            requestQueryVo: api_main_server
+                .GetService1TkV1AuthJoinTheMembershipEmailVerificationCheckAsyncRequestQueryVo(
+                    verificationUid: verificationUid,
+                    email: widget.inputVo.emailAddress,
+                    verificationCode: verificationCode));
+
+    if (responseVo.dioException == null) {
+      // Dio 네트워크 응답
+      allDialogLoadingSpinnerStateGk.currentState?.closeDialog();
+      var networkResponseObjectOk = responseVo.networkResponseObjectOk!;
+
+      if (networkResponseObjectOk.responseStatusCode == 200) {
+        // 정상 응답
+
+        // 검증 완료
+        if (!context.mounted) return;
+        context.pop(
+            dialog_widget.OutputVo(checkedVerificationCode: verificationCode));
+      } else {
+        var responseHeaders = networkResponseObjectOk.responseHeaders
+            as api_main_server
+            .GetService1TkV1AuthJoinTheMembershipEmailVerificationCheckAsyncResponseHeaderVo;
+
+        // 비정상 응답
+        if (responseHeaders.apiResultCode == null) {
+          // 비정상 응답이면서 서버에서 에러 원인 코드가 전달되지 않았을 때
+          final GlobalKey<all_dialog_info_state.DialogWidgetState>
+              allDialogInfoGk = GlobalKey();
           if (!context.mounted) return;
-          context.pop(dialog_widget.OutputVo(
-              checkedVerificationCode:
-                  gwTextFormFieldWrapperStateGk.currentState!.getInputValue()));
+          showDialog(
+              barrierDismissible: true,
+              context: context,
+              builder: (context) => all_dialog_info.DialogWidget(
+                    globalKey: allDialogInfoGk,
+                    inputVo: const all_dialog_info.InputVo(
+                        dialogTitle: "네트워크 에러",
+                        dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
+                        checkBtnTitle: "확인"),
+                    onDialogCreated: () {},
+                  ));
         } else {
-          var responseHeaders = networkResponseObjectOk.responseHeaders
-              as api_main_server
-              .GetService1TkV1AuthJoinTheMembershipEmailVerificationCheckAsyncResponseHeaderVo;
+          // 서버 지정 에러 코드를 전달 받았을 때
+          String apiResultCode = responseHeaders.apiResultCode!;
 
-          // 비정상 응답
-          if (responseHeaders.apiResultCode == null) {
-            // 비정상 응답이면서 서버에서 에러 원인 코드가 전달되지 않았을 때
-            final GlobalKey<all_dialog_info_state.DialogWidgetState>
-                allDialogInfoGk = GlobalKey();
-            if (!context.mounted) return;
-            showDialog(
-                barrierDismissible: true,
-                context: context,
-                builder: (context) => all_dialog_info.DialogWidget(
-                      globalKey: allDialogInfoGk,
-                      inputVo: const all_dialog_info.InputVo(
-                          dialogTitle: "네트워크 에러",
-                          dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
-                          checkBtnTitle: "확인"),
-                      onDialogCreated: () {},
-                    ));
-          } else {
-            // 서버 지정 에러 코드를 전달 받았을 때
-            String apiResultCode = responseHeaders.apiResultCode!;
+          switch (apiResultCode) {
+            case "1":
+              {
+                // 이메일 검증 요청을 보낸 적 없음
+                final GlobalKey<all_dialog_info_state.DialogWidgetState>
+                    allDialogInfoGk = GlobalKey();
+                if (!context.mounted) return;
+                await showDialog(
+                    barrierDismissible: true,
+                    context: context,
+                    builder: (context) => all_dialog_info.DialogWidget(
+                          globalKey: allDialogInfoGk,
+                          inputVo: const all_dialog_info.InputVo(
+                              dialogTitle: "본인 인증 코드 검증 실패",
+                              dialogContent:
+                                  "본인 인증 요청 정보가 없습니다.\n본인 인증 코드 재전송 버튼을 눌러주세요.",
+                              checkBtnTitle: "확인"),
+                          onDialogCreated: () {},
+                        ));
+              }
+              break;
+            case "2":
+              {
+                // 이메일 검증 요청이 만료됨
+                final GlobalKey<all_dialog_info_state.DialogWidgetState>
+                    allDialogInfoGk = GlobalKey();
+                if (!context.mounted) return;
+                await showDialog(
+                    barrierDismissible: true,
+                    context: context,
+                    builder: (context) => all_dialog_info.DialogWidget(
+                          globalKey: allDialogInfoGk,
+                          inputVo: const all_dialog_info.InputVo(
+                              dialogTitle: "본인 인증 코드 검증 실패",
+                              dialogContent:
+                                  "본인 인증 요청 정보가 만료되었습니다.\n본인 인증 코드 재전송 버튼을 눌러주세요.",
+                              checkBtnTitle: "확인"),
+                          onDialogCreated: () {},
+                        ));
+              }
+              break;
+            case "3":
+              {
+                // verificationCode 가 일치하지 않음
 
-            switch (apiResultCode) {
-              case "1":
-                {
-                  // 이메일 검증 요청을 보낸 적 없음
-                  final GlobalKey<all_dialog_info_state.DialogWidgetState>
-                      allDialogInfoGk = GlobalKey();
-                  if (!context.mounted) return;
-                  await showDialog(
-                      barrierDismissible: true,
-                      context: context,
-                      builder: (context) => all_dialog_info.DialogWidget(
-                            globalKey: allDialogInfoGk,
-                            inputVo: const all_dialog_info.InputVo(
-                                dialogTitle: "본인 인증 코드 검증 실패",
-                                dialogContent:
-                                    "본인 인증 요청 정보가 없습니다.\n본인 인증 코드 재전송 버튼을 눌러주세요.",
-                                checkBtnTitle: "확인"),
-                            onDialogCreated: () {},
-                          ));
-                }
-                break;
-              case "2":
-                {
-                  // 이메일 검증 요청이 만료됨
-                  final GlobalKey<all_dialog_info_state.DialogWidgetState>
-                      allDialogInfoGk = GlobalKey();
-                  if (!context.mounted) return;
-                  await showDialog(
-                      barrierDismissible: true,
-                      context: context,
-                      builder: (context) => all_dialog_info.DialogWidget(
-                            globalKey: allDialogInfoGk,
-                            inputVo: const all_dialog_info.InputVo(
-                                dialogTitle: "본인 인증 코드 검증 실패",
-                                dialogContent:
-                                    "본인 인증 요청 정보가 만료되었습니다.\n본인 인증 코드 재전송 버튼을 눌러주세요.",
-                                checkBtnTitle: "확인"),
-                            onDialogCreated: () {},
-                          ));
-                }
-                break;
-              case "3":
-                {
-                  // verificationCode 가 일치하지 않음
-
-                  // 검증 실패
-                  gwTextFormFieldWrapperStateGk
-                      .currentState!.textFieldErrorMsg = "본인 인증 코드가 일치하지 않습니다.";
-                  gwTextFormFieldWrapperStateGk.currentState!.refreshUi();
-                  gwTextFormFieldWrapperStateGk.currentState!.requestFocus();
-                }
-                break;
-              default:
-                {
-                  // 알 수 없는 코드일 때
-                  throw Exception("unKnown Error Code");
-                }
-            }
+                // 검증 실패
+                verificationCodeTextFieldErrorMsg = "본인 인증 코드가 일치하지 않습니다.";
+                verificationCodeTextFieldBloc.refreshUi();
+                if (!context.mounted) return;
+                FocusScope.of(context)
+                    .requestFocus(verificationCodeTextFieldFocus);
+              }
+              break;
+            default:
+              {
+                // 알 수 없는 코드일 때
+                throw Exception("unKnown Error Code");
+              }
           }
         }
-      } else {
-        allDialogLoadingSpinnerStateGk.currentState?.closeDialog();
-        final GlobalKey<all_dialog_info_state.DialogWidgetState>
-            allDialogInfoGk = GlobalKey();
-        if (!context.mounted) return;
-        showDialog(
-            barrierDismissible: true,
-            context: context,
-            builder: (context) => all_dialog_info.DialogWidget(
-                  globalKey: allDialogInfoGk,
-                  inputVo: const all_dialog_info.InputVo(
-                      dialogTitle: "네트워크 에러",
-                      dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
-                      checkBtnTitle: "확인"),
-                  onDialogCreated: () {},
-                ));
       }
-
-      isVerifyCodeAndGoNextDoing = false;
     } else {
-      isVerifyCodeAndGoNextDoing = false;
+      allDialogLoadingSpinnerStateGk.currentState?.closeDialog();
+      final GlobalKey<all_dialog_info_state.DialogWidgetState> allDialogInfoGk =
+          GlobalKey();
+      if (!context.mounted) return;
+      showDialog(
+          barrierDismissible: true,
+          context: context,
+          builder: (context) => all_dialog_info.DialogWidget(
+                globalKey: allDialogInfoGk,
+                inputVo: const all_dialog_info.InputVo(
+                    dialogTitle: "네트워크 에러",
+                    dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
+                    checkBtnTitle: "확인"),
+                onDialogCreated: () {},
+              ));
     }
+
+    isVerifyCodeAndGoNextDoing = false;
   }
 
   // (검증 이메일 다시 전송)
@@ -333,7 +335,8 @@ class DialogWidgetState extends State<dialog_widget.DialogWidget>
                   onDialogCreated: () {},
                 ));
 
-        gwTextFormFieldWrapperStateGk.currentState?.requestFocus();
+        if (!context.mounted) return;
+        FocusScope.of(context).requestFocus(verificationCodeTextFieldFocus);
       } else {
         var responseHeaders = networkResponseObjectOk.responseHeaders
             as api_main_server

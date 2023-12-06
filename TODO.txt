@@ -1,8 +1,6 @@
 [TODO]
-- gw_text_form_field_wrapper 를 제거하고 BLoC 로 변경하기
-- Gif 위젯에서 컨트롤러 객체를 만드는 부분에 넣어주는 객체를 따로 떼어내기
 - inner 위젯과 BLoC 영역 방식 각각의 샘플로 분리
-- 로딩 스피너부터 위쪽에 다이얼로그 템플릿 적용 (BLoC 영역)
+- gw_text_form_field_wrapper 를 제거하고 BLoC 로 변경하기
 - 페이지 템플릿 적용 (BLoC 영역, 함수, 생성자 파라미터를 모두 이름 있는 것으로 바꾸기)
 - 리스트가 적용된 페이지를 auth 페이지 방식의 데이터 가져오는 방식으로 변경하기
 - form 샘플의 form 사용법 적용
