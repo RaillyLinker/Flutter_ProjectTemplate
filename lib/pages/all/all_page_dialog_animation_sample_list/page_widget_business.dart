@@ -5,12 +5,12 @@ import 'package:vector_math/vector_math.dart' as math;
 
 // (inner Folder)
 import 'page_widget.dart' as page_widget;
-import 'inner_widgets/iw_sample_list/sf_widget_state.dart'
-    as iw_sample_list_state;
 
 // (all)
 import '../../../global_widgets/gw_page_outer_frame/sl_widget_business.dart'
     as gw_page_outer_frame_business;
+import '../../../global_classes/gc_template_classes.dart'
+    as gc_template_classes;
 import '../../../a_templates/all_dialog_template/dialog_widget.dart'
     as all_dialog_template_view;
 import '../../../a_templates/all_dialog_template/dialog_widget_state.dart'
@@ -31,6 +31,8 @@ class PageWidgetBusiness {
   // (전체 위젯 initState)
   void initState() {
     // !!!initState 로직 작성!!!
+
+    setListItem();
   }
 
   // (전체 위젯 dispose)
@@ -88,8 +90,9 @@ class PageWidgetBusiness {
   final gw_page_outer_frame_business.SlWidgetBusiness pageOutFrameBusiness =
       gw_page_outer_frame_business.SlWidgetBusiness();
 
-  final GlobalKey<iw_sample_list_state.SfWidgetState> iwSampleListStateGk =
-      GlobalKey();
+  List<SampleItemViewModel> itemList = [];
+  gc_template_classes.RefreshableBloc itemListBloc =
+      gc_template_classes.RefreshableBloc();
 
   // [private 변수]
 
@@ -97,98 +100,141 @@ class PageWidgetBusiness {
   // (Widget 화면 갱신) - WidgetUi.viewWidgetBuild 의 return 값을 다시 불러 옵니다.
   late VoidCallback refreshUi;
 
-  void onRotateAnimationItemClicked() {
-    var dialogGk = GlobalKey<all_dialog_template_state.DialogWidgetState>();
+  void setListItem() {
+    itemList = [];
+    itemList.add(SampleItemViewModel(
+        itemTitle: "회전 애니메이션",
+        itemDescription: "다이얼로그가 회전하며 나타납니다.",
+        onItemClicked: () {
+          var dialogGk =
+              GlobalKey<all_dialog_template_state.DialogWidgetState>();
 
-    // 회전 애니메이션
-    showGeneralDialog(
-      barrierDismissible: true,
-      barrierLabel: "",
-      context: context,
-      pageBuilder: (ctx, a1, a2) {
-        return Container();
-      },
-      transitionBuilder: (ctx, a1, a2, child) {
-        return Transform.rotate(
-          angle: math.radians(a1.value * 360),
-          child: all_dialog_template_view.DialogWidget(
-            globalKey: dialogGk,
-            inputVo: const all_dialog_template_view.InputVo(),
-            onDialogCreated: () {},
-          ),
-        );
-      },
-      transitionDuration: const Duration(milliseconds: 300),
-    ).then((outputVo) {});
-  }
+          // 회전 애니메이션
+          showGeneralDialog(
+            barrierDismissible: true,
+            barrierLabel: "",
+            context: context,
+            pageBuilder: (ctx, a1, a2) {
+              return Container();
+            },
+            transitionBuilder: (ctx, a1, a2, child) {
+              return Transform.rotate(
+                angle: math.radians(a1.value * 360),
+                child: all_dialog_template_view.DialogWidget(
+                  globalKey: dialogGk,
+                  inputVo: const all_dialog_template_view.InputVo(),
+                  onDialogCreated: () {},
+                ),
+              );
+            },
+            transitionDuration: const Duration(milliseconds: 300),
+          ).then((outputVo) {});
+        }));
 
-  void onScaleAnimationItemClicked() {
-    var dialogGk = GlobalKey<all_dialog_template_state.DialogWidgetState>();
+    itemList.add(SampleItemViewModel(
+        itemTitle: "확대 애니메이션",
+        itemDescription: "다이얼로그가 확대되며 나타납니다.",
+        onItemClicked: () {
+          var dialogGk =
+              GlobalKey<all_dialog_template_state.DialogWidgetState>();
 
-    // 확대 애니메이션
-    showGeneralDialog(
-      barrierDismissible: true,
-      barrierLabel: "",
-      context: context,
-      pageBuilder: (ctx, a1, a2) {
-        return Container();
-      },
-      transitionBuilder: (ctx, a1, a2, child) {
-        var curve = Curves.easeInOut.transform(a1.value);
-        return Transform.scale(
-          scale: curve,
-          child: all_dialog_template_view.DialogWidget(
-            globalKey: dialogGk,
-            inputVo: const all_dialog_template_view.InputVo(),
-            onDialogCreated: () {},
-          ),
-        );
-      },
-      transitionDuration: const Duration(milliseconds: 300),
-    ).then((outputVo) {});
-  }
+          // 확대 애니메이션
+          showGeneralDialog(
+            barrierDismissible: true,
+            barrierLabel: "",
+            context: context,
+            pageBuilder: (ctx, a1, a2) {
+              return Container();
+            },
+            transitionBuilder: (ctx, a1, a2, child) {
+              var curve = Curves.easeInOut.transform(a1.value);
+              return Transform.scale(
+                scale: curve,
+                child: all_dialog_template_view.DialogWidget(
+                  globalKey: dialogGk,
+                  inputVo: const all_dialog_template_view.InputVo(),
+                  onDialogCreated: () {},
+                ),
+              );
+            },
+            transitionDuration: const Duration(milliseconds: 300),
+          ).then((outputVo) {});
+        }));
 
-  void onSlideDownAnimationItemClicked() {
-    var dialogGk = GlobalKey<all_dialog_template_state.DialogWidgetState>();
+    itemList.add(SampleItemViewModel(
+        itemTitle: "슬라이드 다운 애니메이션",
+        itemDescription: "다이얼로그가 위에서 아래로 나타납니다.",
+        onItemClicked: () {
+          var dialogGk =
+              GlobalKey<all_dialog_template_state.DialogWidgetState>();
 
-    // Slide Down 애니메이션
-    showGeneralDialog(
-      barrierDismissible: true,
-      barrierLabel: "",
-      context: context,
-      pageBuilder: (ctx, a1, a2) {
-        return Container();
-      },
-      transitionBuilder: (context, a1, a2, widget) {
-        final curvedValue = Curves.easeInOutBack.transform(a1.value) - 1.0;
-        return Transform(
-          transform: Matrix4.translationValues(0.0, curvedValue * 1600, 0.0),
-          child: all_dialog_template_view.DialogWidget(
-            globalKey: dialogGk,
-            inputVo: const all_dialog_template_view.InputVo(),
-            onDialogCreated: () {},
-          ),
-        );
-      },
-      transitionDuration: const Duration(milliseconds: 300),
-    ).then((outputVo) {});
-  }
+          // Slide Down 애니메이션
+          showGeneralDialog(
+            barrierDismissible: true,
+            barrierLabel: "",
+            context: context,
+            pageBuilder: (ctx, a1, a2) {
+              return Container();
+            },
+            transitionBuilder: (context, a1, a2, widget) {
+              final curvedValue =
+                  Curves.easeInOutBack.transform(a1.value) - 1.0;
+              return Transform(
+                transform:
+                    Matrix4.translationValues(0.0, curvedValue * 1600, 0.0),
+                child: all_dialog_template_view.DialogWidget(
+                  globalKey: dialogGk,
+                  inputVo: const all_dialog_template_view.InputVo(),
+                  onDialogCreated: () {},
+                ),
+              );
+            },
+            transitionDuration: const Duration(milliseconds: 300),
+          ).then((outputVo) {});
+        }));
 
-  void onSmallCircleTransformItemClicked() {
-    // 다이얼로그에서 다른 다이얼로그를 호출하는 샘플
-    final GlobalKey<
-            all_dialog_small_circle_transform_sample_state.DialogWidgetState>
-        allDialogSmallCircleTransformSampleGk = GlobalKey();
-    showDialog(
-        barrierDismissible: false,
-        context: context,
-        builder: (context) =>
-            all_dialog_small_circle_transform_sample.DialogWidget(
-              globalKey: allDialogSmallCircleTransformSampleGk,
-              inputVo: const all_dialog_small_circle_transform_sample.InputVo(),
-              onDialogCreated: () {},
-            )).then((outputVo) {});
+    itemList.add(SampleItemViewModel(
+        itemTitle: "작은 원으로 소멸하는 애니메이션",
+        itemDescription: "작업이 완료되면 작은 원으로 변하였다가 사라집니다.",
+        onItemClicked: () {
+          // 다이얼로그에서 다른 다이얼로그를 호출하는 샘플
+          final GlobalKey<
+                  all_dialog_small_circle_transform_sample_state
+                  .DialogWidgetState> allDialogSmallCircleTransformSampleGk =
+              GlobalKey();
+          showDialog(
+              barrierDismissible: false,
+              context: context,
+              builder: (context) =>
+                  all_dialog_small_circle_transform_sample.DialogWidget(
+                    globalKey: allDialogSmallCircleTransformSampleGk,
+                    inputVo: const all_dialog_small_circle_transform_sample
+                        .InputVo(),
+                    onDialogCreated: () {},
+                  )).then((outputVo) {});
+        }));
+
+    itemListBloc.refreshUi();
   }
 
 // [private 함수]
+}
+
+class SampleItemViewModel {
+  SampleItemViewModel(
+      {required this.itemTitle,
+      required this.itemDescription,
+      required this.onItemClicked});
+
+  // 샘플 타이틀
+  final String itemTitle;
+
+  // 샘플 설명
+  final String itemDescription;
+
+  final void Function() onItemClicked;
+
+  bool isHovering = false;
+  gc_template_classes.RefreshableBloc isHoveringBloc =
+      gc_template_classes.RefreshableBloc();
 }
