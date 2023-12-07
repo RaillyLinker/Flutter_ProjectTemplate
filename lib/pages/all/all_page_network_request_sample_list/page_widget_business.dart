@@ -4,12 +4,12 @@ import 'package:go_router/go_router.dart';
 
 // (inner Folder)
 import 'page_widget.dart' as page_widget;
-import 'inner_widgets/iw_sample_list/sf_widget_state.dart'
-    as iw_sample_list_state;
 
 // (all)
 import '../../../global_widgets/gw_page_outer_frame/sl_widget_business.dart'
     as gw_page_outer_frame_business;
+import '../../../global_classes/gc_template_classes.dart'
+    as gc_template_classes;
 import '../../../dialogs/all/all_dialog_info/dialog_widget.dart'
     as all_dialog_info;
 import '../../../dialogs/all/all_dialog_info/dialog_widget_state.dart'
@@ -42,6 +42,8 @@ class PageWidgetBusiness {
   // (전체 위젯 initState)
   void initState() {
     // !!!initState 로직 작성!!!
+
+    setListItem();
   }
 
   // (전체 위젯 dispose)
@@ -99,8 +101,9 @@ class PageWidgetBusiness {
   final gw_page_outer_frame_business.SlWidgetBusiness pageOutFrameBusiness =
       gw_page_outer_frame_business.SlWidgetBusiness();
 
-  final GlobalKey<iw_sample_list_state.SfWidgetState> iwSampleListStateGk =
-      GlobalKey();
+  List<SampleItemViewModel> itemList = [];
+  gc_template_classes.RefreshableBloc itemListBloc =
+      gc_template_classes.RefreshableBloc();
 
   // [private 변수]
 
@@ -108,246 +111,297 @@ class PageWidgetBusiness {
   // (Widget 화면 갱신) - WidgetUi.viewWidgetBuild 의 return 값을 다시 불러 옵니다.
   late VoidCallback refreshUi;
 
-  void onGetMethodRequestSampleItemClicked() {
-    context.pushNamed(all_page_get_request_sample.pageName);
-  }
+  void setListItem() {
+    itemList = [];
+    itemList.add(SampleItemViewModel(
+        itemTitle: "Get 메소드 요청 샘플",
+        itemDescription: "Get 요청 테스트 (Query Parameter)",
+        onItemClicked: () {
+          context.pushNamed(all_page_get_request_sample.pageName);
+        }));
 
-  void onPostMethodRequestSample1ItemClicked() {
-    context.pushNamed(all_page_post_request_sample1.pageName);
-  }
+    itemList.add(SampleItemViewModel(
+        itemTitle: "Post 메소드 요청 샘플 1 (application/json)",
+        itemDescription: "Post 요청 테스트 (Request Body)",
+        onItemClicked: () {
+          context.pushNamed(all_page_post_request_sample1.pageName);
+        }));
 
-  void onPostMethodRequestSample2ItemClicked() {
-    context.pushNamed(all_page_post_request_sample2.pageName);
-  }
+    itemList.add(SampleItemViewModel(
+        itemTitle: "Post 메소드 요청 샘플 2 (x-www-form-urlencoded)",
+        itemDescription: "Post 메소드 요청 테스트 (x-www-form-urlencoded)",
+        onItemClicked: () {
+          context.pushNamed(all_page_post_request_sample2.pageName);
+        }));
 
-  void onPostMethodRequestSample3ItemClicked() {
-    context.pushNamed(all_page_post_request_sample3.pageName);
-  }
+    itemList.add(SampleItemViewModel(
+        itemTitle: "Post 메소드 요청 샘플 3 (multipart/form-data)",
+        itemDescription: "Post 메소드 요청 테스트 (multipart/form-data)",
+        onItemClicked: () {
+          context.pushNamed(all_page_post_request_sample3.pageName);
+        }));
 
-  void onPostMethodRequestSample4ItemClicked() {
-    context.pushNamed(all_page_post_request_sample4.pageName);
-  }
+    itemList.add(SampleItemViewModel(
+        itemTitle: "Post 메소드 요청 샘플 4 (multipart/form-data - JsonString)",
+        itemDescription:
+            "Post 메소드 요청 JsonString Parameter (multipart/form-data)",
+        onItemClicked: () {
+          context.pushNamed(all_page_post_request_sample4.pageName);
+        }));
 
-  Future<void> onPostMethodRequestErrorSampleItemClickedAsync() async {
-    // 로딩 다이얼로그 표시
-    GlobalKey<all_dialog_loading_spinner_state.DialogWidgetState>
-        allDialogLoadingSpinnerStateGk = GlobalKey();
+    itemList.add(SampleItemViewModel(
+        itemTitle: "Post 메소드 에러 발생 샘플",
+        itemDescription: "에러 발생시의 신호를 응답하는 Post 메소드 샘플",
+        onItemClicked: () async {
+          // 로딩 다이얼로그 표시
+          GlobalKey<all_dialog_loading_spinner_state.DialogWidgetState>
+              allDialogLoadingSpinnerStateGk = GlobalKey();
 
-    showDialog(
-        barrierDismissible: false,
-        context: context,
-        builder: (context) => all_dialog_loading_spinner.DialogWidget(
-            globalKey: allDialogLoadingSpinnerStateGk,
-            inputVo: const all_dialog_loading_spinner.InputVo(),
-            onDialogCreated: () {})).then((outputVo) {});
+          showDialog(
+              barrierDismissible: false,
+              context: context,
+              builder: (context) => all_dialog_loading_spinner.DialogWidget(
+                  globalKey: allDialogLoadingSpinnerStateGk,
+                  inputVo: const all_dialog_loading_spinner.InputVo(),
+                  onDialogCreated: () {})).then((outputVo) {});
 
-    var response =
-        await api_main_server.postService1TkV1RequestTestGenerateErrorAsync();
+          var response = await api_main_server
+              .postService1TkV1RequestTestGenerateErrorAsync();
 
-    // 로딩 다이얼로그 제거
-    allDialogLoadingSpinnerStateGk.currentState?.closeDialog();
+          // 로딩 다이얼로그 제거
+          allDialogLoadingSpinnerStateGk.currentState?.closeDialog();
 
-    if (response.dioException == null) {
-      // Dio 네트워크 응답
+          if (response.dioException == null) {
+            // Dio 네트워크 응답
 
-      // (확인 다이얼로그 호출)
-      final GlobalKey<all_dialog_info_state.DialogWidgetState> allDialogInfoGk =
-          GlobalKey();
-      if (!context.mounted) return;
-      showDialog(
-          barrierDismissible: true,
-          context: context,
-          builder: (context) => all_dialog_info.DialogWidget(
-                globalKey: allDialogInfoGk,
-                inputVo: all_dialog_info.InputVo(
-                    dialogTitle: "응답 결과",
-                    dialogContent:
-                        "Http Status Code : ${response.networkResponseObjectOk!.responseStatusCode}\n\nResponse Body:\n${response.networkResponseObjectOk!.responseBody}",
-                    checkBtnTitle: "확인"),
-                onDialogCreated: () {},
-              )).then((outputVo) {});
-    } else {
-      // Dio 네트워크 에러
-      final GlobalKey<all_dialog_info_state.DialogWidgetState> allDialogInfoGk =
-          GlobalKey();
-      if (!context.mounted) return;
-      showDialog(
-          barrierDismissible: true,
-          context: context,
-          builder: (context) => all_dialog_info.DialogWidget(
-                globalKey: allDialogInfoGk,
-                inputVo: const all_dialog_info.InputVo(
-                    dialogTitle: "네트워크 에러",
-                    dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
-                    checkBtnTitle: "확인"),
-                onDialogCreated: () {},
-              ));
-    }
-  }
+            // (확인 다이얼로그 호출)
+            final GlobalKey<all_dialog_info_state.DialogWidgetState>
+                allDialogInfoGk = GlobalKey();
+            if (!context.mounted) return;
+            showDialog(
+                barrierDismissible: true,
+                context: context,
+                builder: (context) => all_dialog_info.DialogWidget(
+                      globalKey: allDialogInfoGk,
+                      inputVo: all_dialog_info.InputVo(
+                          dialogTitle: "응답 결과",
+                          dialogContent:
+                              "Http Status Code : ${response.networkResponseObjectOk!.responseStatusCode}\n\nResponse Body:\n${response.networkResponseObjectOk!.responseBody}",
+                          checkBtnTitle: "확인"),
+                      onDialogCreated: () {},
+                    )).then((outputVo) {});
+          } else {
+            // Dio 네트워크 에러
+            final GlobalKey<all_dialog_info_state.DialogWidgetState>
+                allDialogInfoGk = GlobalKey();
+            if (!context.mounted) return;
+            showDialog(
+                barrierDismissible: true,
+                context: context,
+                builder: (context) => all_dialog_info.DialogWidget(
+                      globalKey: allDialogInfoGk,
+                      inputVo: const all_dialog_info.InputVo(
+                          dialogTitle: "네트워크 에러",
+                          dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
+                          checkBtnTitle: "확인"),
+                      onDialogCreated: () {},
+                    ));
+          }
+        }));
 
-  Future<void> onStringReturnGetMethodRequestSampleItemClickedAsync() async {
-    // 로딩 다이얼로그 표시
-    GlobalKey<all_dialog_loading_spinner_state.DialogWidgetState>
-        allDialogLoadingSpinnerStateGk = GlobalKey();
+    itemList.add(SampleItemViewModel(
+        itemTitle: "Get 메소드 String 응답 샘플",
+        itemDescription: "String 을 반환하는 Get 메소드 샘플",
+        onItemClicked: () async {
+          // 로딩 다이얼로그 표시
+          GlobalKey<all_dialog_loading_spinner_state.DialogWidgetState>
+              allDialogLoadingSpinnerStateGk = GlobalKey();
 
-    showDialog(
-        barrierDismissible: false,
-        context: context,
-        builder: (context) => all_dialog_loading_spinner.DialogWidget(
-            globalKey: allDialogLoadingSpinnerStateGk,
-            inputVo: const all_dialog_loading_spinner.InputVo(),
-            onDialogCreated: () {})).then((outputVo) {});
+          showDialog(
+              barrierDismissible: false,
+              context: context,
+              builder: (context) => all_dialog_loading_spinner.DialogWidget(
+                  globalKey: allDialogLoadingSpinnerStateGk,
+                  inputVo: const all_dialog_loading_spinner.InputVo(),
+                  onDialogCreated: () {})).then((outputVo) {});
 
-    var response =
-        await api_main_server.getService1TkV1RequestTestReturnTextStringAsync();
+          var response = await api_main_server
+              .getService1TkV1RequestTestReturnTextStringAsync();
 
-    // 로딩 다이얼로그 제거
-    allDialogLoadingSpinnerStateGk.currentState?.closeDialog();
+          // 로딩 다이얼로그 제거
+          allDialogLoadingSpinnerStateGk.currentState?.closeDialog();
 
-    if (response.dioException == null) {
-      // Dio 네트워크 응답
+          if (response.dioException == null) {
+            // Dio 네트워크 응답
 
-      var networkResponseObjectOk = response.networkResponseObjectOk!;
+            var networkResponseObjectOk = response.networkResponseObjectOk!;
 
-      if (networkResponseObjectOk.responseStatusCode == 200) {
-        // 정상 응답
+            if (networkResponseObjectOk.responseStatusCode == 200) {
+              // 정상 응답
 
-        // 응답 body
-        var responseBodyString = networkResponseObjectOk.responseBody as String;
+              // 응답 body
+              var responseBodyString =
+                  networkResponseObjectOk.responseBody as String;
 
-        // 확인 다이얼로그 호출
-        final GlobalKey<all_dialog_info_state.DialogWidgetState>
-            allDialogInfoGk = GlobalKey();
-        if (!context.mounted) return;
-        showDialog(
-            barrierDismissible: true,
-            context: context,
-            builder: (context) => all_dialog_info.DialogWidget(
-                  globalKey: allDialogInfoGk,
-                  inputVo: all_dialog_info.InputVo(
-                      dialogTitle: "응답 결과",
-                      dialogContent:
-                          "Http Status Code : ${networkResponseObjectOk.responseStatusCode}\n\nResponse Body:\n$responseBodyString",
-                      checkBtnTitle: "확인"),
-                  onDialogCreated: () {},
-                )).then((outputVo) {});
-      } else {
-        // 비정상 응답
-        final GlobalKey<all_dialog_info_state.DialogWidgetState>
-            allDialogInfoGk = GlobalKey();
-        if (!context.mounted) return;
-        showDialog(
-            barrierDismissible: false,
-            context: context,
-            builder: (context) => all_dialog_info.DialogWidget(
-                  globalKey: allDialogInfoGk,
-                  inputVo: const all_dialog_info.InputVo(
-                      dialogTitle: "네트워크 에러",
-                      dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
-                      checkBtnTitle: "확인"),
-                  onDialogCreated: () {},
-                ));
-      }
-    } else {
-      // Dio 네트워크 에러
-      final GlobalKey<all_dialog_info_state.DialogWidgetState> allDialogInfoGk =
-          GlobalKey();
-      if (!context.mounted) return;
-      showDialog(
-          barrierDismissible: true,
-          context: context,
-          builder: (context) => all_dialog_info.DialogWidget(
-                globalKey: allDialogInfoGk,
-                inputVo: const all_dialog_info.InputVo(
-                    dialogTitle: "네트워크 에러",
-                    dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
-                    checkBtnTitle: "확인"),
-                onDialogCreated: () {},
-              ));
-    }
-  }
+              // 확인 다이얼로그 호출
+              final GlobalKey<all_dialog_info_state.DialogWidgetState>
+                  allDialogInfoGk = GlobalKey();
+              if (!context.mounted) return;
+              showDialog(
+                  barrierDismissible: true,
+                  context: context,
+                  builder: (context) => all_dialog_info.DialogWidget(
+                        globalKey: allDialogInfoGk,
+                        inputVo: all_dialog_info.InputVo(
+                            dialogTitle: "응답 결과",
+                            dialogContent:
+                                "Http Status Code : ${networkResponseObjectOk.responseStatusCode}\n\nResponse Body:\n$responseBodyString",
+                            checkBtnTitle: "확인"),
+                        onDialogCreated: () {},
+                      )).then((outputVo) {});
+            } else {
+              // 비정상 응답
+              final GlobalKey<all_dialog_info_state.DialogWidgetState>
+                  allDialogInfoGk = GlobalKey();
+              if (!context.mounted) return;
+              showDialog(
+                  barrierDismissible: false,
+                  context: context,
+                  builder: (context) => all_dialog_info.DialogWidget(
+                        globalKey: allDialogInfoGk,
+                        inputVo: const all_dialog_info.InputVo(
+                            dialogTitle: "네트워크 에러",
+                            dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
+                            checkBtnTitle: "확인"),
+                        onDialogCreated: () {},
+                      ));
+            }
+          } else {
+            // Dio 네트워크 에러
+            final GlobalKey<all_dialog_info_state.DialogWidgetState>
+                allDialogInfoGk = GlobalKey();
+            if (!context.mounted) return;
+            showDialog(
+                barrierDismissible: true,
+                context: context,
+                builder: (context) => all_dialog_info.DialogWidget(
+                      globalKey: allDialogInfoGk,
+                      inputVo: const all_dialog_info.InputVo(
+                          dialogTitle: "네트워크 에러",
+                          dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
+                          checkBtnTitle: "확인"),
+                      onDialogCreated: () {},
+                    ));
+          }
+        }));
 
-  Future<void> onHtmlReturnGetMethodRequestSampleItemClickedAsync() async {
-    // 로딩 다이얼로그 표시
-    GlobalKey<all_dialog_loading_spinner_state.DialogWidgetState>
-        allDialogLoadingSpinnerStateGk = GlobalKey();
+    itemList.add(SampleItemViewModel(
+        itemTitle: "Get 메소드 Html 응답 샘플",
+        itemDescription: "HTML String 을 반환하는 Get 메소드 샘플",
+        onItemClicked: () async {
+          // 로딩 다이얼로그 표시
+          GlobalKey<all_dialog_loading_spinner_state.DialogWidgetState>
+              allDialogLoadingSpinnerStateGk = GlobalKey();
 
-    showDialog(
-        barrierDismissible: false,
-        context: context,
-        builder: (context) => all_dialog_loading_spinner.DialogWidget(
-            globalKey: allDialogLoadingSpinnerStateGk,
-            inputVo: const all_dialog_loading_spinner.InputVo(),
-            onDialogCreated: () {})).then((outputVo) {});
+          showDialog(
+              barrierDismissible: false,
+              context: context,
+              builder: (context) => all_dialog_loading_spinner.DialogWidget(
+                  globalKey: allDialogLoadingSpinnerStateGk,
+                  inputVo: const all_dialog_loading_spinner.InputVo(),
+                  onDialogCreated: () {})).then((outputVo) {});
 
-    var response =
-        await api_main_server.getService1TkV1RequestTestReturnTextHtmlAsync();
+          var response = await api_main_server
+              .getService1TkV1RequestTestReturnTextHtmlAsync();
 
-    // 로딩 다이얼로그 제거
-    allDialogLoadingSpinnerStateGk.currentState?.closeDialog();
+          // 로딩 다이얼로그 제거
+          allDialogLoadingSpinnerStateGk.currentState?.closeDialog();
 
-    if (response.dioException == null) {
-      // Dio 네트워크 응답
+          if (response.dioException == null) {
+            // Dio 네트워크 응답
 
-      var networkResponseObjectOk = response.networkResponseObjectOk!;
+            var networkResponseObjectOk = response.networkResponseObjectOk!;
 
-      if (networkResponseObjectOk.responseStatusCode == 200) {
-        // 정상 응답
+            if (networkResponseObjectOk.responseStatusCode == 200) {
+              // 정상 응답
 
-        // 응답 body
-        var responseBodyHtml = networkResponseObjectOk.responseBody as String;
+              // 응답 body
+              var responseBodyHtml =
+                  networkResponseObjectOk.responseBody as String;
 
-        // 확인 다이얼로그 호출
-        final GlobalKey<all_dialog_info_state.DialogWidgetState>
-            allDialogInfoGk = GlobalKey();
-        if (!context.mounted) return;
-        showDialog(
-            barrierDismissible: true,
-            context: context,
-            builder: (context) => all_dialog_info.DialogWidget(
-                  globalKey: allDialogInfoGk,
-                  inputVo: all_dialog_info.InputVo(
-                      dialogTitle: "응답 결과",
-                      dialogContent:
-                          "Http Status Code : ${networkResponseObjectOk.responseStatusCode}\n\nResponse Body:\n$responseBodyHtml",
-                      checkBtnTitle: "확인"),
-                  onDialogCreated: () {},
-                )).then((outputVo) {});
-      } else {
-        // 비정상 응답
-        final GlobalKey<all_dialog_info_state.DialogWidgetState>
-            allDialogInfoGk = GlobalKey();
-        if (!context.mounted) return;
-        showDialog(
-            barrierDismissible: false,
-            context: context,
-            builder: (context) => all_dialog_info.DialogWidget(
-                  globalKey: allDialogInfoGk,
-                  inputVo: const all_dialog_info.InputVo(
-                      dialogTitle: "네트워크 에러",
-                      dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
-                      checkBtnTitle: "확인"),
-                  onDialogCreated: () {},
-                ));
-      }
-    } else {
-      // Dio 네트워크 에러
-      final GlobalKey<all_dialog_info_state.DialogWidgetState> allDialogInfoGk =
-          GlobalKey();
-      if (!context.mounted) return;
-      showDialog(
-          barrierDismissible: true,
-          context: context,
-          builder: (context) => all_dialog_info.DialogWidget(
-                globalKey: allDialogInfoGk,
-                inputVo: const all_dialog_info.InputVo(
-                    dialogTitle: "네트워크 에러",
-                    dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
-                    checkBtnTitle: "확인"),
-                onDialogCreated: () {},
-              ));
-    }
+              // 확인 다이얼로그 호출
+              final GlobalKey<all_dialog_info_state.DialogWidgetState>
+                  allDialogInfoGk = GlobalKey();
+              if (!context.mounted) return;
+              showDialog(
+                  barrierDismissible: true,
+                  context: context,
+                  builder: (context) => all_dialog_info.DialogWidget(
+                        globalKey: allDialogInfoGk,
+                        inputVo: all_dialog_info.InputVo(
+                            dialogTitle: "응답 결과",
+                            dialogContent:
+                                "Http Status Code : ${networkResponseObjectOk.responseStatusCode}\n\nResponse Body:\n$responseBodyHtml",
+                            checkBtnTitle: "확인"),
+                        onDialogCreated: () {},
+                      )).then((outputVo) {});
+            } else {
+              // 비정상 응답
+              final GlobalKey<all_dialog_info_state.DialogWidgetState>
+                  allDialogInfoGk = GlobalKey();
+              if (!context.mounted) return;
+              showDialog(
+                  barrierDismissible: false,
+                  context: context,
+                  builder: (context) => all_dialog_info.DialogWidget(
+                        globalKey: allDialogInfoGk,
+                        inputVo: const all_dialog_info.InputVo(
+                            dialogTitle: "네트워크 에러",
+                            dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
+                            checkBtnTitle: "확인"),
+                        onDialogCreated: () {},
+                      ));
+            }
+          } else {
+            // Dio 네트워크 에러
+            final GlobalKey<all_dialog_info_state.DialogWidgetState>
+                allDialogInfoGk = GlobalKey();
+            if (!context.mounted) return;
+            showDialog(
+                barrierDismissible: true,
+                context: context,
+                builder: (context) => all_dialog_info.DialogWidget(
+                      globalKey: allDialogInfoGk,
+                      inputVo: const all_dialog_info.InputVo(
+                          dialogTitle: "네트워크 에러",
+                          dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
+                          checkBtnTitle: "확인"),
+                      onDialogCreated: () {},
+                    ));
+          }
+        }));
+
+    itemListBloc.refreshUi();
   }
 
 // [private 함수]
+}
+
+class SampleItemViewModel {
+  SampleItemViewModel(
+      {required this.itemTitle,
+      required this.itemDescription,
+      required this.onItemClicked});
+
+  // 샘플 타이틀
+  final String itemTitle;
+
+  // 샘플 설명
+  final String itemDescription;
+
+  final void Function() onItemClicked;
+
+  bool isHovering = false;
+  gc_template_classes.RefreshableBloc isHoveringBloc =
+      gc_template_classes.RefreshableBloc();
 }
