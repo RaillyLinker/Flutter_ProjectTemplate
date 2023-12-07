@@ -1,6 +1,4 @@
 // (external)
-import 'dart:io';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:focus_detector_v2/focus_detector_v2.dart';
 import 'package:go_router/go_router.dart';
@@ -118,57 +116,6 @@ class WidgetUi {
       {required BuildContext context,
       required page_widget_business.PageWidgetBusiness business}) {
     // !!!뷰 위젯 반환 콜백 작성 하기!!!
-    final List<iw_sample_list.SampleItem> itemList = [];
-    itemList.add(iw_sample_list.SampleItem(
-        itemTitle: "페이지 / 라우터 샘플 리스트",
-        itemDescription: "페이지 이동, 파라미터 전달 등의 샘플 리스트",
-        onItemClicked: () {
-          business.onPageRouterSampleListItemClicked();
-        }));
-
-    itemList.add(iw_sample_list.SampleItem(
-        itemTitle: "다이얼로그 샘플 리스트",
-        itemDescription: "다이얼로그 호출 샘플 리스트",
-        onItemClicked: () {
-          business.onDialogSampleListItemClicked();
-        }));
-
-    itemList.add(iw_sample_list.SampleItem(
-        itemTitle: "다이얼로그 애니메이션 샘플 리스트",
-        itemDescription: "다이얼로그 호출 애니메이션 샘플 리스트",
-        onItemClicked: () {
-          business.onDialogAnimationSampleListItemClicked();
-        }));
-
-    itemList.add(iw_sample_list.SampleItem(
-        itemTitle: "네트워크 요청 샘플 리스트",
-        itemDescription: "네트워크 요청 및 응답 처리 샘플 리스트",
-        onItemClicked: () {
-          business.onNetworkRequestSampleListItemClicked();
-        }));
-
-    if (!kIsWeb && (Platform.isAndroid || Platform.isIOS)) {
-      itemList.add(iw_sample_list.SampleItem(
-          itemTitle: "모바일 권한 샘플 리스트",
-          itemDescription: "모바일 디바이스 권한 처리 샘플 리스트",
-          onItemClicked: () {
-            business.onMobilePermissionSampleListItemClicked();
-          }));
-    }
-
-    itemList.add(iw_sample_list.SampleItem(
-        itemTitle: "계정 샘플",
-        itemDescription: "계정 관련 기능 샘플",
-        onItemClicked: () {
-          business.onAuthSampleItemClicked();
-        }));
-
-    itemList.add(iw_sample_list.SampleItem(
-        itemTitle: "기타 샘플 리스트",
-        itemDescription: "기타 테스트 샘플을 모아둔 리스트",
-        onItemClicked: () {
-          business.onEtcSampleListItemClicked();
-        }));
 
     return gw_page_outer_frame.SlWidget(
       business: business.pageOutFrameBusiness,
@@ -176,7 +123,7 @@ class WidgetUi {
         pageTitle: "홈",
         child: iw_sample_list.SfWidget(
           globalKey: business.iwSampleListStateGk,
-          inputVo: iw_sample_list.InputVo(itemList: itemList),
+          inputVo: iw_sample_list.InputVo(itemList: business.itemList),
         ),
       ),
     );
