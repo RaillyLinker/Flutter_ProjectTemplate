@@ -10,8 +10,8 @@ import 'page_widget.dart' as page_widget;
 import '../../../global_widgets/gw_page_outer_frame/sl_widget_business.dart'
     as gw_page_outer_frame_business;
 import '../../../pages/all/all_page_home/page_widget.dart' as all_page_home;
-import '../../../global_widgets/gw_text_form_field_wrapper/sf_widget_state.dart'
-    as gw_text_form_field_wrapper_state;
+import '../../../global_classes/gc_template_classes.dart'
+    as gc_template_classes;
 
 // [위젯 비즈니스]
 // 위젯의 비즈니스 로직 + State 변수 처리는 이 곳에서 합니다.
@@ -150,9 +150,13 @@ class PageWidgetBusiness {
   final gw_page_outer_frame_business.SlWidgetBusiness pageOutFrameBusiness =
       gw_page_outer_frame_business.SlWidgetBusiness();
 
-  // 페이지 출력값 Form 필드 전체 키
-  final GlobalKey<gw_text_form_field_wrapper_state.SfWidgetState>
-      gwTextFormFieldWrapperStateGk = GlobalKey();
+  // (input1TextField)
+  final TextEditingController input1TextFieldController =
+      TextEditingController();
+  final FocusNode input1TextFieldFocus = FocusNode();
+  String? input1TextFieldErrorMsg;
+  gc_template_classes.RefreshableBloc input1TextFieldBloc =
+      gc_template_classes.RefreshableBloc();
 
   // [private 변수]
 
@@ -162,13 +166,11 @@ class PageWidgetBusiness {
 
   // (값 반환 버튼 클릭시)
   void onPressedReturnBtn() {
-    if (gwTextFormFieldWrapperStateGk.currentState == null ||
-        gwTextFormFieldWrapperStateGk.currentState!.getInputValue() == "") {
+    String input1Text = input1TextFieldController.text;
+    if (input1Text.isEmpty) {
       context.pop();
     } else {
-      context.pop(page_widget.OutputVo(
-          resultValue:
-              gwTextFormFieldWrapperStateGk.currentState!.getInputValue()));
+      context.pop(page_widget.OutputVo(resultValue: input1Text));
     }
   }
 

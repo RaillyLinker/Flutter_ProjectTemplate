@@ -11,8 +11,8 @@ import 'inner_widgets/iw_crypt_result_text/sf_widget_state.dart'
 import '../../../global_widgets/gw_page_outer_frame/sl_widget_business.dart'
     as gw_page_outer_frame_business;
 import '../../../global_functions/gf_crypto.dart' as gf_crypto;
-import '../../../global_widgets/gw_text_form_field_wrapper/sf_widget_state.dart'
-    as gw_text_form_field_wrapper_state;
+import '../../../global_classes/gc_template_classes.dart'
+    as gc_template_classes;
 
 // [위젯 비즈니스]
 // 위젯의 비즈니스 로직 + State 변수 처리는 이 곳에서 합니다.
@@ -85,17 +85,37 @@ class PageWidgetBusiness {
   final gw_page_outer_frame_business.SlWidgetBusiness pageOutFrameBusiness =
       gw_page_outer_frame_business.SlWidgetBusiness();
 
-  final GlobalKey<gw_text_form_field_wrapper_state.SfWidgetState>
-      input1StateGk = GlobalKey();
+  // (input1TextField)
+  final TextEditingController input1TextFieldController =
+      TextEditingController();
+  final FocusNode input1TextFieldFocus = FocusNode();
+  String? input1TextFieldErrorMsg;
+  gc_template_classes.RefreshableBloc input1TextFieldBloc =
+      gc_template_classes.RefreshableBloc();
 
-  final GlobalKey<gw_text_form_field_wrapper_state.SfWidgetState>
-      input2StateGk = GlobalKey();
+  // (input2TextField)
+  final TextEditingController input2TextFieldController =
+      TextEditingController();
+  final FocusNode input2TextFieldFocus = FocusNode();
+  String? input2TextFieldErrorMsg;
+  gc_template_classes.RefreshableBloc input2TextFieldBloc =
+      gc_template_classes.RefreshableBloc();
 
-  final GlobalKey<gw_text_form_field_wrapper_state.SfWidgetState>
-      input3StateGk = GlobalKey();
+  // (input3TextField)
+  final TextEditingController input3TextFieldController =
+      TextEditingController();
+  final FocusNode input3TextFieldFocus = FocusNode();
+  String? input3TextFieldErrorMsg;
+  gc_template_classes.RefreshableBloc input3TextFieldBloc =
+      gc_template_classes.RefreshableBloc();
 
-  final GlobalKey<gw_text_form_field_wrapper_state.SfWidgetState>
-      input4StateGk = GlobalKey();
+  // (input4TextField)
+  final TextEditingController input4TextFieldController =
+      TextEditingController();
+  final FocusNode input4TextFieldFocus = FocusNode();
+  String? input4TextFieldErrorMsg;
+  gc_template_classes.RefreshableBloc input4TextFieldBloc =
+      gc_template_classes.RefreshableBloc();
 
   final GlobalKey<iw_crypt_result_text_state.SfWidgetState>
       encryptResultTextGk = GlobalKey();
@@ -109,53 +129,39 @@ class PageWidgetBusiness {
   // (Widget 화면 갱신) - WidgetUi.viewWidgetBuild 의 return 값을 다시 불러 옵니다.
   late VoidCallback refreshUi;
 
-  String? input1StateValidator(String value) {
-    if (value.isEmpty) {
-      return '암호키를 입력하세요.';
-    } else if (!RegExp(r'^[a-zA-Z0-9]{32}$').hasMatch(value)) {
-      return '암호키 32자를 입력하세요.';
-    } else {
-      return null;
-    }
-  }
-
   void input1StateEntered() {
-    if (input1StateGk.currentState == null ||
-        input1StateGk.currentState!.validate() != null) {
+    String input1Text = input1TextFieldController.text;
+    if (input1Text.isEmpty) {
+      input1TextFieldErrorMsg = '암호키를 입력하세요.';
+      input1TextFieldBloc.refreshUi();
+      return;
+    } else if (!RegExp(r'^[a-zA-Z0-9]{32}$').hasMatch(input1Text)) {
+      input1TextFieldErrorMsg = '암호키 32자를 입력하세요.';
+      input1TextFieldBloc.refreshUi();
       return;
     }
-    input2StateGk.currentState?.requestFocus();
-  }
-
-  String? input2StateValidator(String value) {
-    if (value.isEmpty) {
-      return '초기화 벡터를 입력하세요.';
-    } else if (!RegExp(r'^[a-zA-Z0-9]{16}$').hasMatch(value)) {
-      return '초기화 벡터 16자를 입력하세요.';
-    } else {
-      return null;
-    }
+    FocusScope.of(context).requestFocus(input2TextFieldFocus);
   }
 
   void input2StateEntered() {
-    if (input2StateGk.currentState == null ||
-        input2StateGk.currentState!.validate() != null) {
+    String input2Text = input2TextFieldController.text;
+    if (input2Text.isEmpty) {
+      input2TextFieldErrorMsg = '초기화 벡터를 입력하세요.';
+      input2TextFieldBloc.refreshUi();
+      return;
+    } else if (!RegExp(r'^[a-zA-Z0-9]{16}$').hasMatch(input2Text)) {
+      input2TextFieldErrorMsg = '초기화 벡터 16자를 입력하세요.';
+      input2TextFieldBloc.refreshUi();
       return;
     }
-    input3StateGk.currentState?.requestFocus();
-  }
-
-  String? input3StateValidator(String value) {
-    if (value.isEmpty) {
-      return '암호화할 평문을 입력하세요.';
-    } else {
-      return null;
-    }
+    FocusScope.of(context).requestFocus(input3TextFieldFocus);
   }
 
   void input3StateEntered() {
-    if (input3StateGk.currentState == null ||
-        input3StateGk.currentState!.validate() != null) {
+    String input3Text = input3TextFieldController.text;
+    if (input3Text.isEmpty) {
+      input3TextFieldErrorMsg = '암호화할 평문을 입력하세요.';
+      input3TextFieldBloc.refreshUi();
       return;
     }
     doEncrypt();
@@ -163,24 +169,41 @@ class PageWidgetBusiness {
 
   // (암호화 함수)
   void doEncrypt() {
-    if (input1StateGk.currentState == null ||
-        input1StateGk.currentState!.validate() != null) {
+    String input1Text = input1TextFieldController.text;
+    if (input1Text.isEmpty) {
+      input1TextFieldErrorMsg = '암호키를 입력하세요.';
+      input1TextFieldBloc.refreshUi();
+      FocusScope.of(context).requestFocus(input1TextFieldFocus);
+      return;
+    } else if (!RegExp(r'^[a-zA-Z0-9]{32}$').hasMatch(input1Text)) {
+      input1TextFieldErrorMsg = '암호키 32자를 입력하세요.';
+      input1TextFieldBloc.refreshUi();
+      FocusScope.of(context).requestFocus(input1TextFieldFocus);
+      return;
+    }
+    String input2Text = input2TextFieldController.text;
+    if (input2Text.isEmpty) {
+      input2TextFieldErrorMsg = '초기화 벡터를 입력하세요.';
+      input2TextFieldBloc.refreshUi();
+      FocusScope.of(context).requestFocus(input2TextFieldFocus);
+      return;
+    } else if (!RegExp(r'^[a-zA-Z0-9]{16}$').hasMatch(input2Text)) {
+      input2TextFieldErrorMsg = '초기화 벡터 16자를 입력하세요.';
+      input2TextFieldBloc.refreshUi();
+      FocusScope.of(context).requestFocus(input2TextFieldFocus);
+      return;
+    }
+    String input3Text = input3TextFieldController.text;
+    if (input3Text.isEmpty) {
+      input3TextFieldErrorMsg = '암호화할 평문을 입력하세요.';
+      input3TextFieldBloc.refreshUi();
+      FocusScope.of(context).requestFocus(input3TextFieldFocus);
       return;
     }
 
-    if (input2StateGk.currentState == null ||
-        input2StateGk.currentState!.validate() != null) {
-      return;
-    }
-
-    if (input3StateGk.currentState == null ||
-        input3StateGk.currentState!.validate() != null) {
-      return;
-    }
-
-    String secretKey = input1StateGk.currentState!.getInputValue();
-    String secretIv = input2StateGk.currentState!.getInputValue();
-    String encryptString = input3StateGk.currentState!.getInputValue();
+    String secretKey = input1Text;
+    String secretIv = input2Text;
+    String encryptString = input3Text;
 
     String aes256EncryptResultText = gf_crypto.aes256Encrypt(
       plainText: encryptString,
@@ -192,17 +215,11 @@ class PageWidgetBusiness {
     encryptResultTextGk.currentState?.refreshUi();
   }
 
-  String? input4StateValidator(String value) {
-    if (value.isEmpty) {
-      return '복호화할 암호문을 입력하세요.';
-    } else {
-      return null;
-    }
-  }
-
   void input4StateEntered() {
-    if (input4StateGk.currentState == null ||
-        input4StateGk.currentState!.validate() != null) {
+    String input4Text = input4TextFieldController.text;
+    if (input4Text.isEmpty) {
+      input4TextFieldErrorMsg = '복호화할 암호문을 입력하세요.';
+      input4TextFieldBloc.refreshUi();
       return;
     }
     doDecrypt();
@@ -210,24 +227,41 @@ class PageWidgetBusiness {
 
   // (복호화 함수)
   void doDecrypt() {
-    if (input1StateGk.currentState == null ||
-        input1StateGk.currentState!.validate() != null) {
+    String input1Text = input1TextFieldController.text;
+    if (input1Text.isEmpty) {
+      input1TextFieldErrorMsg = '암호키를 입력하세요.';
+      input1TextFieldBloc.refreshUi();
+      FocusScope.of(context).requestFocus(input1TextFieldFocus);
+      return;
+    } else if (!RegExp(r'^[a-zA-Z0-9]{32}$').hasMatch(input1Text)) {
+      input1TextFieldErrorMsg = '암호키 32자를 입력하세요.';
+      input1TextFieldBloc.refreshUi();
+      FocusScope.of(context).requestFocus(input1TextFieldFocus);
+      return;
+    }
+    String input2Text = input2TextFieldController.text;
+    if (input2Text.isEmpty) {
+      input2TextFieldErrorMsg = '초기화 벡터를 입력하세요.';
+      input2TextFieldBloc.refreshUi();
+      FocusScope.of(context).requestFocus(input1TextFieldFocus);
+      return;
+    } else if (!RegExp(r'^[a-zA-Z0-9]{16}$').hasMatch(input2Text)) {
+      input2TextFieldErrorMsg = '초기화 벡터 16자를 입력하세요.';
+      input2TextFieldBloc.refreshUi();
+      FocusScope.of(context).requestFocus(input1TextFieldFocus);
+      return;
+    }
+    String input4Text = input4TextFieldController.text;
+    if (input4Text.isEmpty) {
+      input4TextFieldErrorMsg = '복호화할 암호문을 입력하세요.';
+      input4TextFieldBloc.refreshUi();
+      FocusScope.of(context).requestFocus(input4TextFieldFocus);
       return;
     }
 
-    if (input2StateGk.currentState == null ||
-        input2StateGk.currentState!.validate() != null) {
-      return;
-    }
-
-    if (input4StateGk.currentState == null ||
-        input4StateGk.currentState!.validate() != null) {
-      return;
-    }
-
-    String secretKey = input1StateGk.currentState!.getInputValue();
-    String secretIv = input2StateGk.currentState!.getInputValue();
-    String decryptString = input4StateGk.currentState!.getInputValue();
+    String secretKey = input1Text;
+    String secretIv = input2Text;
+    String decryptString = input4Text;
 
     try {
       String aes256DecryptResultText = gf_crypto.aes256Decrypt(

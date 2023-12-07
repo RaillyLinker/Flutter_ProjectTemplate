@@ -1,6 +1,7 @@
 // (external)
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:focus_detector_v2/focus_detector_v2.dart';
 import 'package:go_router/go_router.dart';
 
@@ -12,8 +13,8 @@ import 'inner_widgets/iw_crypt_result_text/sf_widget.dart'
 // (all)
 import '../../../global_widgets/gw_page_outer_frame/sl_widget.dart'
     as gw_page_outer_frame;
-import '../../../global_widgets/gw_text_form_field_wrapper/sf_widget.dart'
-    as gw_text_form_field_wrapper;
+import '../../../global_classes/gc_template_classes.dart'
+    as gc_template_classes;
 
 // [위젯 뷰]
 // 위젯의 화면 작성은 여기서 합니다.
@@ -159,83 +160,130 @@ class WidgetUi {
                                       children: [
                                         Expanded(
                                             flex: 20,
-                                            child: gw_text_form_field_wrapper
-                                                .SfWidget(
-                                              globalKey: business.input1StateGk,
-                                              inputVo:
-                                                  gw_text_form_field_wrapper
-                                                      .InputVo(
-                                                autofocus: true,
-                                                maxLength: 32,
-                                                inputFormatters: [
-                                                  FilteringTextInputFormatter
-                                                      .allow(RegExp(
-                                                          r'[a-zA-Z0-9]')),
-                                                ],
-                                                labelText: '암호키',
-                                                hintText: "암호화 키 32자 입력",
-                                                keyboardType:
-                                                    TextInputType.text,
-                                                floatingLabelStyle:
-                                                    const TextStyle(
-                                                        color: Colors.blue),
-                                                contentPadding:
-                                                    const EdgeInsets.symmetric(
-                                                        vertical: 10.0,
-                                                        horizontal: 10.0),
-                                                focusedBorder:
-                                                    const UnderlineInputBorder(
-                                                  borderSide: BorderSide(
-                                                      color: Colors.blue),
-                                                ),
-                                                inputValidator: (value) {
-                                                  return business
-                                                      .input1StateValidator(
-                                                          value);
-                                                },
-                                                onEditingComplete: () {
-                                                  business.input1StateEntered();
+                                            child: BlocProvider(
+                                              create: (context) =>
+                                                  business.input1TextFieldBloc,
+                                              child: BlocBuilder<
+                                                  gc_template_classes
+                                                  .RefreshableBloc,
+                                                  bool>(
+                                                builder: (c, s) {
+                                                  return TextFormField(
+                                                    autofocus: true,
+                                                    maxLength: 32,
+                                                    inputFormatters: [
+                                                      FilteringTextInputFormatter
+                                                          .allow(RegExp(
+                                                              r'[a-zA-Z0-9]')),
+                                                    ],
+                                                    keyboardType:
+                                                        TextInputType.text,
+                                                    controller: business
+                                                        .input1TextFieldController,
+                                                    focusNode: business
+                                                        .input1TextFieldFocus,
+                                                    decoration: InputDecoration(
+                                                      errorText: business
+                                                          .input1TextFieldErrorMsg,
+                                                      labelText: '암호키',
+                                                      hintText: "암호화 키 32자 입력",
+                                                      floatingLabelStyle:
+                                                          const TextStyle(
+                                                              color:
+                                                                  Colors.blue),
+                                                      contentPadding:
+                                                          const EdgeInsets
+                                                              .symmetric(
+                                                              vertical: 10.0,
+                                                              horizontal: 10.0),
+                                                      focusedBorder:
+                                                          const UnderlineInputBorder(
+                                                        borderSide: BorderSide(
+                                                            color: Colors.blue),
+                                                      ),
+                                                    ),
+                                                    onChanged: (value) {
+                                                      // 입력값 변경시 에러 메세지 삭제
+                                                      if (business
+                                                              .input1TextFieldErrorMsg !=
+                                                          null) {
+                                                        business.input1TextFieldErrorMsg =
+                                                            null;
+                                                        business
+                                                            .input1TextFieldBloc
+                                                            .refreshUi();
+                                                      }
+                                                    },
+                                                    onEditingComplete: () {
+                                                      business
+                                                          .input1StateEntered();
+                                                    },
+                                                  );
                                                 },
                                               ),
                                             )),
                                         const Expanded(child: SizedBox()),
                                         Expanded(
                                             flex: 20,
-                                            child: gw_text_form_field_wrapper
-                                                .SfWidget(
-                                              globalKey: business.input2StateGk,
-                                              inputVo:
-                                                  gw_text_form_field_wrapper
-                                                      .InputVo(
-                                                maxLength: 16,
-                                                inputFormatters: [
-                                                  FilteringTextInputFormatter
-                                                      .allow(RegExp(
-                                                          r'[a-zA-Z0-9]')),
-                                                ],
-                                                labelText: '초기화 벡터',
-                                                hintText: "암호 초기화 벡터 16자 입력",
-                                                keyboardType:
-                                                    TextInputType.text,
-                                                floatingLabelStyle:
-                                                    const TextStyle(
-                                                        color: Colors.blue),
-                                                contentPadding:
-                                                    const EdgeInsets.symmetric(
-                                                        vertical: 10.0,
-                                                        horizontal: 10.0),
-                                                focusedBorder:
-                                                    const UnderlineInputBorder(
-                                                  borderSide: BorderSide(
-                                                      color: Colors.blue),
-                                                ),
-                                                inputValidator: (value) {
-                                                  return business
-                                                      .input2StateValidator(
-                                                          value);
-                                                },
-                                                onEditingComplete: () {
-                                                  business.input2StateEntered();
+                                            child: BlocProvider(
+                                              create: (context) =>
+                                                  business.input2TextFieldBloc,
+                                              child: BlocBuilder<
+                                                  gc_template_classes
+                                                  .RefreshableBloc,
+                                                  bool>(
+                                                builder: (c, s) {
+                                                  return TextFormField(
+                                                    maxLength: 16,
+                                                    inputFormatters: [
+                                                      FilteringTextInputFormatter
+                                                          .allow(RegExp(
+                                                              r'[a-zA-Z0-9]')),
+                                                    ],
+                                                    keyboardType:
+                                                        TextInputType.text,
+                                                    controller: business
+                                                        .input2TextFieldController,
+                                                    focusNode: business
+                                                        .input2TextFieldFocus,
+                                                    decoration: InputDecoration(
+                                                      errorText: business
+                                                          .input2TextFieldErrorMsg,
+                                                      labelText: '초기화 벡터',
+                                                      hintText:
+                                                          "암호 초기화 벡터 16자 입력",
+                                                      floatingLabelStyle:
+                                                          const TextStyle(
+                                                              color:
+                                                                  Colors.blue),
+                                                      contentPadding:
+                                                          const EdgeInsets
+                                                              .symmetric(
+                                                              vertical: 10.0,
+                                                              horizontal: 10.0),
+                                                      focusedBorder:
+                                                          const UnderlineInputBorder(
+                                                        borderSide: BorderSide(
+                                                            color: Colors.blue),
+                                                      ),
+                                                    ),
+                                                    onChanged: (value) {
+                                                      // 입력값 변경시 에러 메세지 삭제
+                                                      if (business
+                                                              .input2TextFieldErrorMsg !=
+                                                          null) {
+                                                        business.input2TextFieldErrorMsg =
+                                                            null;
+                                                        business
+                                                            .input2TextFieldBloc
+                                                            .refreshUi();
+                                                      }
+                                                    },
+                                                    onEditingComplete: () {
+                                                      business
+                                                          .input2StateEntered();
+                                                    },
+                                                  );
                                                 },
                                               ),
                                             )),
@@ -246,35 +294,65 @@ class WidgetUi {
                                       children: [
                                         Expanded(
                                             flex: 20,
-                                            child: gw_text_form_field_wrapper
-                                                .SfWidget(
-                                              globalKey: business.input3StateGk,
-                                              inputVo:
-                                                  gw_text_form_field_wrapper
-                                                      .InputVo(
-                                                labelText: '암호화할 평문',
-                                                hintText: "암호화할 평문을 입력하세요.",
-                                                keyboardType:
-                                                    TextInputType.text,
-                                                floatingLabelStyle:
-                                                    const TextStyle(
-                                                        color: Colors.blue),
-                                                contentPadding:
-                                                    const EdgeInsets.symmetric(
-                                                        vertical: 10.0,
-                                                        horizontal: 10.0),
-                                                focusedBorder:
-                                                    const UnderlineInputBorder(
-                                                  borderSide: BorderSide(
-                                                      color: Colors.blue),
-                                                ),
-                                                inputValidator: (value) {
-                                                  return business
-                                                      .input3StateValidator(
-                                                          value);
-                                                },
-                                                onEditingComplete: () {
-                                                  business.input3StateEntered();
+                                            child: BlocProvider(
+                                              create: (context) =>
+                                                  business.input3TextFieldBloc,
+                                              child: BlocBuilder<
+                                                  gc_template_classes
+                                                  .RefreshableBloc,
+                                                  bool>(
+                                                builder: (c, s) {
+                                                  return TextFormField(
+                                                    maxLength: 16,
+                                                    inputFormatters: [
+                                                      FilteringTextInputFormatter
+                                                          .allow(RegExp(
+                                                              r'[a-zA-Z0-9]')),
+                                                    ],
+                                                    keyboardType:
+                                                        TextInputType.text,
+                                                    controller: business
+                                                        .input3TextFieldController,
+                                                    focusNode: business
+                                                        .input3TextFieldFocus,
+                                                    decoration: InputDecoration(
+                                                      errorText: business
+                                                          .input3TextFieldErrorMsg,
+                                                      labelText: '암호화할 평문',
+                                                      hintText:
+                                                          "암호화할 평문을 입력하세요.",
+                                                      floatingLabelStyle:
+                                                          const TextStyle(
+                                                              color:
+                                                                  Colors.blue),
+                                                      contentPadding:
+                                                          const EdgeInsets
+                                                              .symmetric(
+                                                              vertical: 10.0,
+                                                              horizontal: 10.0),
+                                                      focusedBorder:
+                                                          const UnderlineInputBorder(
+                                                        borderSide: BorderSide(
+                                                            color: Colors.blue),
+                                                      ),
+                                                    ),
+                                                    onChanged: (value) {
+                                                      // 입력값 변경시 에러 메세지 삭제
+                                                      if (business
+                                                              .input3TextFieldErrorMsg !=
+                                                          null) {
+                                                        business.input3TextFieldErrorMsg =
+                                                            null;
+                                                        business
+                                                            .input3TextFieldBloc
+                                                            .refreshUi();
+                                                      }
+                                                    },
+                                                    onEditingComplete: () {
+                                                      business
+                                                          .input3StateEntered();
+                                                    },
+                                                  );
                                                 },
                                               ),
                                             )),
@@ -333,35 +411,59 @@ class WidgetUi {
                                       children: [
                                         Expanded(
                                             flex: 20,
-                                            child: gw_text_form_field_wrapper
-                                                .SfWidget(
-                                              globalKey: business.input4StateGk,
-                                              inputVo:
-                                                  gw_text_form_field_wrapper
-                                                      .InputVo(
-                                                labelText: '복호화할 암호문',
-                                                hintText: "복호화할 암호문을 입력하세요.",
-                                                keyboardType:
-                                                    TextInputType.text,
-                                                floatingLabelStyle:
-                                                    const TextStyle(
-                                                        color: Colors.blue),
-                                                contentPadding:
-                                                    const EdgeInsets.symmetric(
-                                                        vertical: 10.0,
-                                                        horizontal: 10.0),
-                                                focusedBorder:
-                                                    const UnderlineInputBorder(
-                                                  borderSide: BorderSide(
-                                                      color: Colors.blue),
-                                                ),
-                                                inputValidator: (value) {
-                                                  return business
-                                                      .input4StateValidator(
-                                                          value);
-                                                },
-                                                onEditingComplete: () {
-                                                  business.input4StateEntered();
+                                            child: BlocProvider(
+                                              create: (context) =>
+                                                  business.input4TextFieldBloc,
+                                              child: BlocBuilder<
+                                                  gc_template_classes
+                                                  .RefreshableBloc,
+                                                  bool>(
+                                                builder: (c, s) {
+                                                  return TextFormField(
+                                                    keyboardType:
+                                                        TextInputType.text,
+                                                    controller: business
+                                                        .input4TextFieldController,
+                                                    focusNode: business
+                                                        .input4TextFieldFocus,
+                                                    decoration: InputDecoration(
+                                                      errorText: business
+                                                          .input4TextFieldErrorMsg,
+                                                      labelText: '복호화할 암호문',
+                                                      hintText:
+                                                          "복호화할 암호문을 입력하세요.",
+                                                      floatingLabelStyle:
+                                                          const TextStyle(
+                                                              color:
+                                                                  Colors.blue),
+                                                      contentPadding:
+                                                          const EdgeInsets
+                                                              .symmetric(
+                                                              vertical: 10.0,
+                                                              horizontal: 10.0),
+                                                      focusedBorder:
+                                                          const UnderlineInputBorder(
+                                                        borderSide: BorderSide(
+                                                            color: Colors.blue),
+                                                      ),
+                                                    ),
+                                                    onChanged: (value) {
+                                                      // 입력값 변경시 에러 메세지 삭제
+                                                      if (business
+                                                              .input4TextFieldErrorMsg !=
+                                                          null) {
+                                                        business.input4TextFieldErrorMsg =
+                                                            null;
+                                                        business
+                                                            .input4TextFieldBloc
+                                                            .refreshUi();
+                                                      }
+                                                    },
+                                                    onEditingComplete: () {
+                                                      business
+                                                          .input4StateEntered();
+                                                    },
+                                                  );
                                                 },
                                               ),
                                             )),

@@ -1,5 +1,6 @@
 // (external)
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:focus_detector_v2/focus_detector_v2.dart';
 import 'package:go_router/go_router.dart';
 
@@ -9,8 +10,8 @@ import 'page_widget_business.dart' as page_widget_business;
 // (all)
 import '../../../global_widgets/gw_page_outer_frame/sl_widget.dart'
     as gw_page_outer_frame;
-import '../../../global_widgets/gw_text_form_field_wrapper/sf_widget.dart'
-    as gw_text_form_field_wrapper;
+import '../../../global_classes/gc_template_classes.dart'
+    as gc_template_classes;
 
 // [위젯 뷰]
 // 위젯의 화면 작성은 여기서 합니다.
@@ -142,35 +143,52 @@ class WidgetUi {
                   child: Container(
                     width: 200,
                     margin: const EdgeInsets.only(top: 20),
-                    child: gw_text_form_field_wrapper.SfWidget(
-                      globalKey: business.gwTextFormFieldWrapperStateGk,
-                      inputVo: gw_text_form_field_wrapper.InputVo(
-                          autofocus: true,
-                          keyboardType: TextInputType.text,
-                          labelText: '페이지 출력 값',
-                          contentPadding: const EdgeInsets.symmetric(
-                              vertical: 10.0, horizontal: 10.0),
-                          filled: true,
-                          fillColor: Colors.grey[100],
-                          isDense: true,
-                          hintText: "페이지 출력 값 입력",
-                          border: const OutlineInputBorder(),
-                          floatingLabelStyle:
-                              const TextStyle(color: Colors.blue),
-                          focusedBorder: const OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.blue),
-                          ),
-                          onEditingComplete: () {
-                            business.onPressedReturnBtn();
-                          },
-                          suffixIcon: IconButton(
-                            onPressed: () {
-                              business
-                                  .gwTextFormFieldWrapperStateGk.currentState
-                                  ?.setInputValue("");
+                    child: BlocProvider(
+                      create: (context) => business.input1TextFieldBloc,
+                      child: BlocBuilder<gc_template_classes.RefreshableBloc,
+                          bool>(
+                        builder: (c, s) {
+                          return TextFormField(
+                            autofocus: true,
+                            keyboardType: TextInputType.text,
+                            controller: business.input1TextFieldController,
+                            focusNode: business.input1TextFieldFocus,
+                            decoration: InputDecoration(
+                              labelText: '페이지 출력 값',
+                              errorText: business.input1TextFieldErrorMsg,
+                              contentPadding: const EdgeInsets.symmetric(
+                                  vertical: 10.0, horizontal: 10.0),
+                              filled: true,
+                              fillColor: Colors.grey[100],
+                              isDense: true,
+                              hintText: "페이지 출력 값 입력",
+                              border: const OutlineInputBorder(),
+                              floatingLabelStyle:
+                                  const TextStyle(color: Colors.blue),
+                              focusedBorder: const OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.blue),
+                              ),
+                              suffixIcon: IconButton(
+                                onPressed: () {
+                                  business.input1TextFieldController.text = "";
+                                  // todo
+                                },
+                                icon: const Icon(Icons.clear),
+                              ),
+                            ),
+                            onChanged: (value) {
+                              // 입력값 변경시 에러 메세지 삭제
+                              if (business.input1TextFieldErrorMsg != null) {
+                                business.input1TextFieldErrorMsg = null;
+                                business.input1TextFieldBloc.refreshUi();
+                              }
                             },
-                            icon: const Icon(Icons.clear),
-                          )),
+                            onEditingComplete: () {
+                              business.onPressedReturnBtn();
+                            },
+                          );
+                        },
+                      ),
                     ),
                   ),
                 ),
