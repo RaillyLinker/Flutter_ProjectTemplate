@@ -33,8 +33,22 @@ class SfWidget extends StatefulWidget {
       required sf_widget_state.SfWidgetState currentState}) {
     // !!!뷰 위젯 반환 콜백 작성 하기!!!
 
-    return Text("${currentState.sampleInt}",
-        style: const TextStyle(
-            fontSize: 20, color: Colors.black, fontFamily: "MaruBuri"));
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      child: GestureDetector(
+        onTap: () {
+          currentState.countPlus1();
+        },
+        child: Container(
+          decoration: const BoxDecoration(
+            border: Border(bottom: BorderSide(color: Colors.black)),
+          ),
+          margin: const EdgeInsets.only(bottom: 20),
+          child: Text("${currentState.sampleInt}",
+              style: const TextStyle(
+                  fontSize: 20, color: Colors.black, fontFamily: "MaruBuri")),
+        ),
+      ),
+    );
   }
 }

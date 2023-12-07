@@ -1,9 +1,7 @@
 [TODO]
-- inner 위젯과 BLoC 영역 방식 각각의 샘플로 분리
-- gw_text_form_field_wrapper 를 제거하고 BLoC 로 변경하기
-- 페이지 템플릿 적용 (BLoC 영역, 함수, 생성자 파라미터를 모두 이름 있는 것으로 바꾸기)
 - 리스트가 적용된 페이지를 auth 페이지 방식의 데이터 가져오는 방식으로 변경하기
 - form 샘플의 form 사용법 적용
+- 페이지 템플릿 적용 (BLoC 영역, 함수, 생성자 파라미터를 모두 이름 있는 것으로 바꾸기)
 - 템플릿 다 적용하고 BLoC 라이브러리 제거 및 사용하지 않는 global_classes, global_data, global_functions 제거
 
 - 리스트 아이템 순서 바꾸기

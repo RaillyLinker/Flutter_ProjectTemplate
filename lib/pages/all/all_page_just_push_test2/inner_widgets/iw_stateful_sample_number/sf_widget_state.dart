@@ -30,6 +30,7 @@ class SfWidgetState extends State<sf_widget.SfWidget> {
   }
 
   // [public 변수]
+  // (샘플 정수)
   int sampleInt = 0;
 
   // [private 변수]
@@ -38,5 +39,11 @@ class SfWidgetState extends State<sf_widget.SfWidget> {
   // (Stateful Widget 화면 갱신)
   void refreshUi() {
     setState(() {});
+  }
+
+  // (화면 카운트 +1)
+  void countPlus1() {
+    sampleInt += 1;
+    refreshUi();
   }
 }

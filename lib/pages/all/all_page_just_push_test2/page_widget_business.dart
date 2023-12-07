@@ -1,16 +1,18 @@
 // (external)
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter/foundation.dart';
 
 // (inner Folder)
 import 'page_widget.dart' as page_widget;
-import 'inner_widgets/iw_sample_number_text/sf_widget_state.dart'
-    as iw_sample_number_text_state;
+import 'inner_widgets/iw_stateful_sample_number/sf_widget_state.dart'
+    as iw_stateful_sample_number_state;
 
 // (all)
 import '../../../global_widgets/gw_page_outer_frame/sl_widget_business.dart'
     as gw_page_outer_frame_business;
+import '../../../global_classes/gc_template_classes.dart'
+    as gc_template_classes;
 import '../../../pages/all/all_page_just_push_test1/page_widget.dart'
     as all_page_just_push_test1;
 import '../../../global_widgets/gw_stateful_test/sf_widget_state.dart'
@@ -111,12 +113,17 @@ class PageWidgetBusiness {
   final gw_page_outer_frame_business.SlWidgetBusiness pageOutFrameBusiness =
       gw_page_outer_frame_business.SlWidgetBusiness();
 
-  // sampleNumberTextBusiness
-  final GlobalKey<iw_sample_number_text_state.SfWidgetState>
-      sampleNumberTextGk = GlobalKey();
+  // (sampleNumberTextBusiness)
+  final GlobalKey<iw_stateful_sample_number_state.SfWidgetState>
+      statefulSampleNumberGk = GlobalKey();
 
-  // statefulTestBusiness
+  // (statefulTestBusiness)
   var statefulTestGk = GlobalKey<gw_stateful_test_state.SfWidgetState>();
+
+  // (sampleBLoC)
+  gc_template_classes.RefreshableBloc blocSampleBloc =
+      gc_template_classes.RefreshableBloc();
+  int blocSampleIntValue = 0;
 
   // [private 변수]
 
@@ -136,8 +143,14 @@ class PageWidgetBusiness {
 
   // (화면 카운트 +1)
   void countPlus1() {
-    sampleNumberTextGk.currentState?.sampleInt += 1;
-    sampleNumberTextGk.currentState?.refreshUi();
+    statefulSampleNumberGk.currentState?.sampleInt += 1;
+    statefulSampleNumberGk.currentState?.refreshUi();
+  }
+
+  // (BLoC 샘플 텍스트 클릭시)
+  void onBlocSampleClicked() {
+    blocSampleIntValue += 1;
+    blocSampleBloc.refreshUi();
   }
 
 // [private 함수]
