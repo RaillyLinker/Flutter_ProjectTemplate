@@ -20,7 +20,7 @@ import '../../../dialogs/all/all_dialog_loading_spinner/dialog_widget_state.dart
     as all_dialog_loading_spinner_state;
 import '../../../../repositories/network/apis/api_main_server.dart'
     as api_main_server;
-import '../../../pages/all/all_page_get_request_sample/page_entrance.dart'
+import '../../../pages/all/all_page_get_request_sample/page_widget.dart'
     as all_page_get_request_sample;
 import '../../../pages/all/all_page_post_request_sample1/page_entrance.dart'
     as all_page_post_request_sample1;
