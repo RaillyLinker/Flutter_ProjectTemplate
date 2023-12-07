@@ -6,9 +6,6 @@ import 'package:go_router/go_router.dart';
 
 // (inner Folder)
 import 'page_widget.dart' as page_widget;
-import 'inner_widgets/iw_sample_list/sf_widget_state.dart'
-    as iw_sample_list_state;
-import 'inner_widgets/iw_sample_list/sf_widget.dart' as iw_sample_list;
 
 // (all)
 import '../../../global_widgets/gw_page_outer_frame/sl_widget_business.dart'
@@ -25,6 +22,8 @@ import '../../../pages/all/all_page_auth_sample/page_widget.dart'
     as all_page_auth_sample;
 import '../../../pages/all/all_page_etc_sample_list/page_widget.dart'
     as all_page_etc_sample_list;
+import '../../../global_classes/gc_template_classes.dart'
+    as gc_template_classes;
 
 // (mobile)
 import '../../../pages/mobile/mobile_page_permission_sample_list/page_entrance.dart'
@@ -100,10 +99,9 @@ class PageWidgetBusiness {
   final gw_page_outer_frame_business.SlWidgetBusiness pageOutFrameBusiness =
       gw_page_outer_frame_business.SlWidgetBusiness();
 
-  final GlobalKey<iw_sample_list_state.SfWidgetState> iwSampleListStateGk =
-      GlobalKey();
-
-  List<iw_sample_list.SampleItem> itemList = [];
+  List<SampleItemViewModel> itemList = [];
+  gc_template_classes.RefreshableBloc itemListBloc =
+      gc_template_classes.RefreshableBloc();
 
   // [private 변수]
 
@@ -113,28 +111,28 @@ class PageWidgetBusiness {
 
   void setListItem() {
     itemList = [];
-    itemList.add(iw_sample_list.SampleItem(
+    itemList.add(SampleItemViewModel(
         itemTitle: "페이지 / 라우터 샘플 리스트",
         itemDescription: "페이지 이동, 파라미터 전달 등의 샘플 리스트",
         onItemClicked: () {
           context.pushNamed(all_page_page_and_router_sample_list.pageName);
         }));
 
-    itemList.add(iw_sample_list.SampleItem(
+    itemList.add(SampleItemViewModel(
         itemTitle: "다이얼로그 샘플 리스트",
         itemDescription: "다이얼로그 호출 샘플 리스트",
         onItemClicked: () {
           context.pushNamed(all_page_dialog_sample_list.pageName);
         }));
 
-    itemList.add(iw_sample_list.SampleItem(
+    itemList.add(SampleItemViewModel(
         itemTitle: "다이얼로그 애니메이션 샘플 리스트",
         itemDescription: "다이얼로그 호출 애니메이션 샘플 리스트",
         onItemClicked: () {
           context.pushNamed(all_page_dialog_animation_sample_list.pageName);
         }));
 
-    itemList.add(iw_sample_list.SampleItem(
+    itemList.add(SampleItemViewModel(
         itemTitle: "네트워크 요청 샘플 리스트",
         itemDescription: "네트워크 요청 및 응답 처리 샘플 리스트",
         onItemClicked: () {
@@ -142,7 +140,7 @@ class PageWidgetBusiness {
         }));
 
     if (!kIsWeb && (Platform.isAndroid || Platform.isIOS)) {
-      itemList.add(iw_sample_list.SampleItem(
+      itemList.add(SampleItemViewModel(
           itemTitle: "모바일 권한 샘플 리스트",
           itemDescription: "모바일 디바이스 권한 처리 샘플 리스트",
           onItemClicked: () {
@@ -150,22 +148,41 @@ class PageWidgetBusiness {
           }));
     }
 
-    itemList.add(iw_sample_list.SampleItem(
+    itemList.add(SampleItemViewModel(
         itemTitle: "계정 샘플",
         itemDescription: "계정 관련 기능 샘플",
         onItemClicked: () {
           context.pushNamed(all_page_auth_sample.pageName);
         }));
 
-    itemList.add(iw_sample_list.SampleItem(
+    itemList.add(SampleItemViewModel(
         itemTitle: "기타 샘플 리스트",
         itemDescription: "기타 테스트 샘플을 모아둔 리스트",
         onItemClicked: () {
           context.pushNamed(all_page_etc_sample_list.pageName);
         }));
 
-    iwSampleListStateGk.currentState?.refreshUi();
+    itemListBloc.refreshUi();
   }
 
 // [private 함수]
+}
+
+class SampleItemViewModel {
+  SampleItemViewModel(
+      {required this.itemTitle,
+      required this.itemDescription,
+      required this.onItemClicked});
+
+  // 샘플 타이틀
+  final String itemTitle;
+
+  // 샘플 설명
+  final String itemDescription;
+
+  final void Function() onItemClicked;
+
+  bool isHovering = false;
+  gc_template_classes.RefreshableBloc isHoveringBloc =
+      gc_template_classes.RefreshableBloc();
 }
