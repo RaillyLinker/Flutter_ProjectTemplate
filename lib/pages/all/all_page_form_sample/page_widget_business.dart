@@ -8,8 +8,8 @@ import 'page_widget.dart' as page_widget;
 // (all)
 import '../../../global_widgets/gw_page_outer_frame/sl_widget_business.dart'
     as gw_page_outer_frame_business;
-import '../../../global_widgets/gw_text_form_field_wrapper/sf_widget_state.dart'
-    as gw_text_form_field_wrapper_state;
+import '../../../global_classes/gc_template_classes.dart'
+    as gc_template_classes;
 import '../../../dialogs/all/all_dialog_info/dialog_widget.dart'
     as all_dialog_info;
 import '../../../dialogs/all/all_dialog_info/dialog_widget_state.dart'
@@ -31,6 +31,14 @@ class PageWidgetBusiness {
   // (전체 위젯 dispose)
   void dispose() {
     // !!!initState 로직 작성!!!
+    input1TextFieldController.dispose();
+    input1TextFieldFocus.dispose();
+    input2TextFieldController.dispose();
+    input2TextFieldFocus.dispose();
+    input3TextFieldController.dispose();
+    input3TextFieldFocus.dispose();
+    input4TextFieldController.dispose();
+    input4TextFieldFocus.dispose();
   }
 
   // (전체 위젯의 FocusDetector 콜백들)
@@ -83,19 +91,38 @@ class PageWidgetBusiness {
   final gw_page_outer_frame_business.SlWidgetBusiness pageOutFrameBusiness =
       gw_page_outer_frame_business.SlWidgetBusiness();
 
-  final GlobalKey<gw_text_form_field_wrapper_state.SfWidgetState>
-      input1StateGk = GlobalKey();
+  // (input1TextField)
+  final TextEditingController input1TextFieldController =
+      TextEditingController();
+  final FocusNode input1TextFieldFocus = FocusNode();
+  String? input1TextFieldErrorMsg;
+  gc_template_classes.RefreshableBloc input1TextFieldBloc =
+      gc_template_classes.RefreshableBloc();
 
-  final GlobalKey<gw_text_form_field_wrapper_state.SfWidgetState>
-      input2StateGk = GlobalKey();
+  // (input2TextField)
+  final TextEditingController input2TextFieldController =
+      TextEditingController();
+  final FocusNode input2TextFieldFocus = FocusNode();
+  String? input2TextFieldErrorMsg;
+  gc_template_classes.RefreshableBloc input2TextFieldBloc =
+      gc_template_classes.RefreshableBloc();
 
-  final GlobalKey<gw_text_form_field_wrapper_state.SfWidgetState>
-      input3StateGk = GlobalKey();
+  // (input3TextField)
+  final TextEditingController input3TextFieldController =
+      TextEditingController();
+  final FocusNode input3TextFieldFocus = FocusNode();
+  String? input3TextFieldErrorMsg;
+  gc_template_classes.RefreshableBloc input3TextFieldBloc =
+      gc_template_classes.RefreshableBloc();
 
-  final GlobalKey<gw_text_form_field_wrapper_state.SfWidgetState>
-      input4StateGk = GlobalKey();
-
-  bool input4StateHide = true;
+  // (input4TextField)
+  final TextEditingController input4TextFieldController =
+      TextEditingController();
+  final FocusNode input4TextFieldFocus = FocusNode();
+  String? input4TextFieldErrorMsg;
+  gc_template_classes.RefreshableBloc input4TextFieldBloc =
+      gc_template_classes.RefreshableBloc();
+  bool input4TextFieldHide = true;
 
   // [private 변수]
 
@@ -103,109 +130,102 @@ class PageWidgetBusiness {
   // (Widget 화면 갱신) - WidgetUi.viewWidgetBuild 의 return 값을 다시 불러 옵니다.
   late VoidCallback refreshUi;
 
-  // (input1 입력창 검사 콜백 - 에러가 있다면 에러 메세지 String 반환)
-  String? input1StateValidator(String value) {
-    // 검사 : return 으로 반환하는 에러 메세지가 null 이 아니라면 에러로 처리
-    if (value.isEmpty) {
-      return '이 항목을 입력 하세요.';
-    }
-    return null;
-  }
-
   // (input1 입력창에서 엔터를 쳤을 때의 콜백)
   void input1StateEntered() {
-    // 입력창 포커스 상태에서 엔터
-    if (input1StateGk.currentState != null &&
-        input1StateGk.currentState!.validate() == null) {
-      input2StateGk.currentState?.requestFocus();
+    String input1Text = input1TextFieldController.text;
+    if (input1Text.isEmpty) {
+      input1TextFieldErrorMsg = '이 항목을 입력 하세요.';
+      input1TextFieldBloc.refreshUi();
+      return;
     }
-  }
-
-  // (input2 입력창 검사 콜백 - 에러가 있다면 에러 메세지 String 반환)
-  String? input2StateValidator(String value) {
-    // 검사 : return 으로 반환하는 에러 메세지가 null 이 아니라면 에러로 처리
-    if (value.isEmpty) {
-      return '이 항목을 입력 하세요.';
-    } else if (!RegExp(r'^[a-zA-Z0-9]{16}$').hasMatch(value)) {
-      return '영문 / 숫자를 16자 입력 하세요.';
-    } else {
-      return null;
-    }
+    FocusScope.of(context).requestFocus(input2TextFieldFocus);
   }
 
   // (input2 입력창에서 엔터를 쳤을 때의 콜백)
   void input2StateEntered() {
-    // 입력창 포커스 상태에서 엔터
-    if (input2StateGk.currentState != null &&
-        input2StateGk.currentState!.validate() == null) {
-      input3StateGk.currentState?.requestFocus();
+    String input2Text = input2TextFieldController.text;
+    if (input2Text.isEmpty) {
+      input2TextFieldErrorMsg = '이 항목을 입력 하세요.';
+      input2TextFieldBloc.refreshUi();
+      return;
+    } else if (!RegExp(r'^[a-zA-Z0-9]{16}$').hasMatch(input2Text)) {
+      input2TextFieldErrorMsg = '영문 / 숫자를 16자 입력 하세요.';
+      input2TextFieldBloc.refreshUi();
+      return;
     }
-  }
-
-  // (input3 입력창 검사 콜백 - 에러가 있다면 에러 메세지 String 반환)
-  String? input3StateValidator(String value) {
-    // 검사 : return 으로 반환하는 에러 메세지가 null 이 아니라면 에러로 처리
-    if (value.isEmpty) {
-      return '이 항목을 입력 하세요.';
-    } else if (!RegExp(r'^[0-9]{1,16}$').hasMatch(value)) {
-      return '숫자를 16자 이내에 입력 하세요.';
-    } else {
-      return null;
-    }
+    FocusScope.of(context).requestFocus(input3TextFieldFocus);
   }
 
   // (input3 입력창에서 엔터를 쳤을 때의 콜백)
   void input3StateEntered() {
-    // 입력창 포커스 상태에서 엔터
-    if (input3StateGk.currentState != null &&
-        input3StateGk.currentState!.validate() == null) {
-      input4StateGk.currentState?.requestFocus();
+    String input3Text = input3TextFieldController.text;
+    if (input3Text.isEmpty) {
+      input3TextFieldErrorMsg = '이 항목을 입력 하세요.';
+      input3TextFieldBloc.refreshUi();
+      return;
+    } else if (!RegExp(r'^[0-9]{1,16}$').hasMatch(input3Text)) {
+      input3TextFieldErrorMsg = '숫자를 16자 이내에 입력 하세요.';
+      input3TextFieldBloc.refreshUi();
+      return;
     }
-  }
-
-  // (input4 입력창 검사 콜백 - 에러가 있다면 에러 메세지 String 반환)
-  String? input4StateValidator(String value) {
-    // 검사 : return 으로 반환하는 에러 메세지가 null 이 아니라면 에러로 처리
-    if (value.isEmpty) {
-      return '이 항목을 입력 하세요.';
-    }
-    return null;
+    FocusScope.of(context).requestFocus(input4TextFieldFocus);
   }
 
   // (input4 입력창에서 엔터를 쳤을 때의 콜백)
   void input4StateEntered() {
-    // 입력창 포커스 상태에서 엔터
-    if (input4StateGk.currentState != null &&
-        input4StateGk.currentState!.validate() == null) {
-      completeTestForm();
+    String input4Text = input4TextFieldController.text;
+    if (input4Text.isEmpty) {
+      input4TextFieldErrorMsg = '이 항목을 입력 하세요.';
+      input4TextFieldBloc.refreshUi();
+      return;
     }
+    completeTestForm();
   }
 
   void completeTestForm() {
-    if (input1StateGk.currentState == null ||
-        input1StateGk.currentState!.validate() != null) {
+    String input1Text = input1TextFieldController.text;
+    if (input1Text.isEmpty) {
+      input1TextFieldErrorMsg = '이 항목을 입력 하세요.';
+      input1TextFieldBloc.refreshUi();
+      FocusScope.of(context).requestFocus(input1TextFieldFocus);
+      return;
+    }
+    String input2Text = input2TextFieldController.text;
+    if (input2Text.isEmpty) {
+      input2TextFieldErrorMsg = '이 항목을 입력 하세요.';
+      input2TextFieldBloc.refreshUi();
+      FocusScope.of(context).requestFocus(input2TextFieldFocus);
+      return;
+    } else if (!RegExp(r'^[a-zA-Z0-9]{16}$').hasMatch(input2Text)) {
+      input2TextFieldErrorMsg = '영문 / 숫자를 16자 입력 하세요.';
+      input2TextFieldBloc.refreshUi();
+      FocusScope.of(context).requestFocus(input2TextFieldFocus);
+      return;
+    }
+    String input3Text = input3TextFieldController.text;
+    if (input3Text.isEmpty) {
+      input3TextFieldErrorMsg = '이 항목을 입력 하세요.';
+      input3TextFieldBloc.refreshUi();
+      FocusScope.of(context).requestFocus(input3TextFieldFocus);
+      return;
+    } else if (!RegExp(r'^[0-9]{1,16}$').hasMatch(input3Text)) {
+      input3TextFieldErrorMsg = '숫자를 16자 이내에 입력 하세요.';
+      input3TextFieldBloc.refreshUi();
+      FocusScope.of(context).requestFocus(input3TextFieldFocus);
+      return;
+    }
+    String input4Text = input4TextFieldController.text;
+    if (input4Text.isEmpty) {
+      input4TextFieldErrorMsg = '이 항목을 입력 하세요.';
+      input4TextFieldBloc.refreshUi();
+      FocusScope.of(context).requestFocus(input4TextFieldFocus);
       return;
     }
 
-    if (input2StateGk.currentState == null ||
-        input2StateGk.currentState!.validate() != null) {
-      return;
-    }
-
-    if (input3StateGk.currentState == null ||
-        input3StateGk.currentState!.validate() != null) {
-      return;
-    }
-
-    if (input4StateGk.currentState == null ||
-        input4StateGk.currentState!.validate() != null) {
-      return;
-    }
-
-    String input1 = input1StateGk.currentState!.getInputValue();
-    String input2 = input2StateGk.currentState!.getInputValue();
-    String input3 = input3StateGk.currentState!.getInputValue();
-    String input4 = input4StateGk.currentState!.getInputValue();
+    String input1 = input1Text;
+    String input2 = input2Text;
+    String input3 = input3Text;
+    String input4 = input4Text;
 
     final GlobalKey<all_dialog_info_state.DialogWidgetState> allDialogInfoGk =
         GlobalKey();

@@ -171,7 +171,6 @@ class WidgetUi {
                               suffixIcon: IconButton(
                                 onPressed: () {
                                   business.input1TextFieldController.text = "";
-                                  // todo
                                 },
                                 icon: const Icon(Icons.clear),
                               ),

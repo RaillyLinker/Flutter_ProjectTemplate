@@ -29,6 +29,8 @@ class PageWidgetBusiness {
   // (전체 위젯 dispose)
   void dispose() {
     // !!!initState 로직 작성!!!
+    input1TextFieldController.dispose();
+    input1TextFieldFocus.dispose();
   }
 
   // (전체 위젯의 FocusDetector 콜백들)
