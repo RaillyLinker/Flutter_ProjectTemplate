@@ -1,16 +1,16 @@
 // (external)
 import 'package:flutter/material.dart';
-import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 
 // (inner Folder)
 import 'page_widget.dart' as page_widget;
-import 'inner_widgets/iw_sample_list/sf_widget_state.dart'
-    as iw_sample_list_state;
 
 // (all)
 import '../../../global_widgets/gw_page_outer_frame/sl_widget_business.dart'
     as gw_page_outer_frame_business;
+import '../../../global_classes/gc_template_classes.dart'
+    as gc_template_classes;
 import '../all_page_input_and_output_push_test/page_widget.dart'
     as all_page_input_and_output_push_test;
 import '../../../pages/all/all_page_just_push_test1/page_widget.dart'
@@ -33,6 +33,8 @@ class PageWidgetBusiness {
   // (전체 위젯 initState)
   void initState() {
     // !!!initState 로직 작성!!!
+
+    setListItem();
   }
 
   // (전체 위젯 dispose)
@@ -90,8 +92,9 @@ class PageWidgetBusiness {
   final gw_page_outer_frame_business.SlWidgetBusiness pageOutFrameBusiness =
       gw_page_outer_frame_business.SlWidgetBusiness();
 
-  final GlobalKey<iw_sample_list_state.SfWidgetState> iwSampleListStateGk =
-      GlobalKey();
+  List<SampleItemViewModel> itemList = [];
+  gc_template_classes.RefreshableBloc itemListBloc =
+      gc_template_classes.RefreshableBloc();
 
   // [private 변수]
 
@@ -99,47 +102,88 @@ class PageWidgetBusiness {
   // (Widget 화면 갱신) - WidgetUi.viewWidgetBuild 의 return 값을 다시 불러 옵니다.
   late VoidCallback refreshUi;
 
-  void onPageTemplateItemClicked() {
-    context.pushNamed(all_page_template.pageName);
-  }
+  void setListItem() {
+    itemList = [];
+    itemList.add(SampleItemViewModel(
+        itemTitle: "페이지 템플릿",
+        itemDescription: "템플릿 페이지를 호출합니다.",
+        onItemClicked: () {
+          context.pushNamed(all_page_template.pageName);
+        }));
 
-  void onJustPushPageItemClicked() {
-    context.pushNamed(all_page_just_push_test1.pageName);
-  }
+    itemList.add(SampleItemViewModel(
+        itemTitle: "페이지 Push 테스트",
+        itemDescription: "페이지 Push 를 통한 페이지 이동을 테스트합니다.",
+        onItemClicked: () {
+          context.pushNamed(all_page_just_push_test1.pageName);
+        }));
 
-  Future<void> onPageInputAndOutputItemClicked() async {
-    all_page_input_and_output_push_test.OutputVo? pageResult = await context
-        .pushNamed(all_page_input_and_output_push_test.pageName,
-            queryParameters: {
-          "inputValueString": "테스트 입력값",
-          "inputValueStringList": ["a", "b", "c"],
-          "inputValueInt": "1234" // int 를 원하더라도, 여기선 String 으로 줘야함
-        });
+    itemList.add(SampleItemViewModel(
+        itemTitle: "페이지 입/출력 테스트",
+        itemDescription: "페이지 Push 시에 전달하는 입력값, Pop 시에 반환하는 출력값 테스트",
+        onItemClicked: () async {
+          all_page_input_and_output_push_test.OutputVo? pageResult =
+              await context.pushNamed(
+                  all_page_input_and_output_push_test.pageName,
+                  queryParameters: {
+                "inputValueString": "테스트 입력값",
+                "inputValueStringList": ["a", "b", "c"],
+                "inputValueInt": "1234" // int 를 원하더라도, 여기선 String 으로 줘야함
+              });
 
-    if (pageResult == null) {
-      if (!context.mounted) return;
-      showToast(
-        "반환값이 없습니다.",
-        context: context,
-        animation: StyledToastAnimation.scale,
-      );
-    } else {
-      if (!context.mounted) return;
-      showToast(
-        pageResult.resultValue,
-        context: context,
-        animation: StyledToastAnimation.scale,
-      );
-    }
-  }
+          if (pageResult == null) {
+            if (!context.mounted) return;
+            showToast(
+              "반환값이 없습니다.",
+              context: context,
+              animation: StyledToastAnimation.scale,
+            );
+          } else {
+            if (!context.mounted) return;
+            showToast(
+              pageResult.resultValue,
+              context: context,
+              animation: StyledToastAnimation.scale,
+            );
+          }
+        }));
 
-  void onPageAnimationItemClicked() {
-    context.pushNamed(all_page_page_transition_animation_sample_list.pageName);
-  }
+    itemList.add(SampleItemViewModel(
+        itemTitle: "페이지 이동 애니메이션 샘플 리스트",
+        itemDescription: "페이지 이동시 적용되는 애니메이션 샘플 리스트",
+        onItemClicked: () {
+          context.pushNamed(
+              all_page_page_transition_animation_sample_list.pageName);
+        }));
 
-  void onPageGridSampleItemClicked() {
-    context.pushNamed(all_page_grid_sample.pageName);
+    itemList.add(SampleItemViewModel(
+        itemTitle: "페이지 Grid 샘플",
+        itemDescription: "화면 사이즈에 따라 동적으로 변하는 Grid 페이지 샘플",
+        onItemClicked: () {
+          context.pushNamed(all_page_grid_sample.pageName);
+        }));
+
+    itemListBloc.refreshUi();
   }
 
 // [private 함수]
+}
+
+class SampleItemViewModel {
+  SampleItemViewModel(
+      {required this.itemTitle,
+      required this.itemDescription,
+      required this.onItemClicked});
+
+  // 샘플 타이틀
+  final String itemTitle;
+
+  // 샘플 설명
+  final String itemDescription;
+
+  final void Function() onItemClicked;
+
+  bool isHovering = false;
+  gc_template_classes.RefreshableBloc isHoveringBloc =
+      gc_template_classes.RefreshableBloc();
 }

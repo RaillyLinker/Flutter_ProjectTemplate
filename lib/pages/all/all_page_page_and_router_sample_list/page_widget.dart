@@ -1,15 +1,17 @@
 // (external)
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:focus_detector_v2/focus_detector_v2.dart';
 import 'package:go_router/go_router.dart';
 
 // (inner Folder)
 import 'page_widget_business.dart' as page_widget_business;
-import 'inner_widgets/iw_sample_list/sf_widget.dart' as iw_sample_list;
 
 // (all)
 import '../../../global_widgets/gw_page_outer_frame/sl_widget.dart'
     as gw_page_outer_frame;
+import '../../../global_classes/gc_template_classes.dart'
+    as gc_template_classes;
 
 // [위젯 뷰]
 // 위젯의 화면 작성은 여기서 합니다.
@@ -116,51 +118,103 @@ class WidgetUi {
       {required BuildContext context,
       required page_widget_business.PageWidgetBusiness business}) {
     // !!!뷰 위젯 반환 콜백 작성 하기!!!
-    final List<iw_sample_list.SampleItem> itemList = [];
-    itemList.add(iw_sample_list.SampleItem(
-        itemTitle: "페이지 템플릿",
-        itemDescription: "템플릿 페이지를 호출합니다.",
-        onItemClicked: () {
-          business.onPageTemplateItemClicked();
-        }));
-
-    itemList.add(iw_sample_list.SampleItem(
-        itemTitle: "페이지 Push 테스트",
-        itemDescription: "페이지 Push 를 통한 페이지 이동을 테스트합니다.",
-        onItemClicked: () {
-          business.onJustPushPageItemClicked();
-        }));
-
-    itemList.add(iw_sample_list.SampleItem(
-        itemTitle: "페이지 입/출력 테스트",
-        itemDescription: "페이지 Push 시에 전달하는 입력값, Pop 시에 반환하는 출력값 테스트",
-        onItemClicked: () {
-          business.onPageInputAndOutputItemClicked();
-        }));
-
-    itemList.add(iw_sample_list.SampleItem(
-        itemTitle: "페이지 이동 애니메이션 샘플 리스트",
-        itemDescription: "페이지 이동시 적용되는 애니메이션 샘플 리스트",
-        onItemClicked: () {
-          business.onPageAnimationItemClicked();
-        }));
-
-    itemList.add(iw_sample_list.SampleItem(
-        itemTitle: "페이지 Grid 샘플",
-        itemDescription: "화면 사이즈에 따라 동적으로 변하는 Grid 페이지 샘플",
-        onItemClicked: () {
-          business.onPageGridSampleItemClicked();
-        }));
 
     return gw_page_outer_frame.SlWidget(
       business: business.pageOutFrameBusiness,
       inputVo: gw_page_outer_frame.InputVo(
         pageTitle: "페이지 / 라우터 샘플 리스트",
-        child: iw_sample_list.SfWidget(
-          globalKey: business.iwSampleListStateGk,
-          inputVo: iw_sample_list.InputVo(itemList: itemList),
+        child: BlocProvider(
+          create: (context) => business.itemListBloc,
+          child: BlocBuilder<gc_template_classes.RefreshableBloc, bool>(
+            builder: (c, s) {
+              return ListView.builder(
+                itemCount: business.itemList.length,
+                itemBuilder: (context, index) {
+                  var sampleItem = business.itemList[index];
+
+                  return Column(
+                    children: [
+                      BlocProvider(
+                        create: (context) => sampleItem.isHoveringBloc,
+                        child: BlocBuilder<gc_template_classes.RefreshableBloc,
+                            bool>(
+                          builder: (c, s) {
+                            return MouseRegion(
+                              // 커서 변경 및 호버링 상태 변경
+                              cursor: SystemMouseCursors.click,
+                              onEnter: (details) {
+                                sampleItem.isHovering = true;
+                                sampleItem.isHoveringBloc.refreshUi();
+                              },
+                              onExit: (details) {
+                                sampleItem.isHovering = false;
+                                sampleItem.isHoveringBloc.refreshUi();
+                              },
+                              child: GestureDetector(
+                                // 클릭시 제스쳐 콜백
+                                onTap: () {
+                                  sampleItem.onItemClicked();
+                                },
+                                child: Container(
+                                  color: sampleItem.isHovering
+                                      ? Colors.blue.withOpacity(0.2)
+                                      : Colors.white,
+                                  child: ListTile(
+                                    mouseCursor: SystemMouseCursors.click,
+                                    title: Text(
+                                      sampleItem.itemTitle,
+                                      style: const TextStyle(
+                                          fontFamily: "MaruBuri"),
+                                    ),
+                                    subtitle: Text(
+                                      sampleItem.itemDescription,
+                                      style: const TextStyle(
+                                          fontFamily: "MaruBuri"),
+                                    ),
+                                    trailing: const Icon(Icons.chevron_right),
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                      const Divider(
+                        color: Colors.grey,
+                        height: 0.1,
+                      ),
+                    ],
+                  );
+                },
+              );
+            },
+          ),
         ),
       ),
     );
   }
 }
+
+// (BLoC 갱신 구역 설정 방법)
+// 위젯을 작성 하다가 특정 부분은 상태에 따라 UI 가 변하도록 하고 싶은 부분이 있습니다.
+// 이 경우 Stateful 위젯을 생성 해서 사용 하면 되지만,
+// 간단히 갱신 영역을 지정 하여 해당 구역만 갱신 하도록 하기 위해선 BLoC 갱신 구역을 설정 하여 사용 하면 됩니다.
+// Business 클래스 안에 BLoC 갱신 구역 조작 객체로
+// gc_template_classes.RefreshableBloc refreshableBloc = gc_template_classes.RefreshableBloc();
+// 위와 같이 선언 및 생성 하고,
+// Widget 에서는, 갱신 하려는 구역을
+// BlocProvider(
+//         create: (context) => business.refreshableBloc,
+//         child: BlocBuilder<gc_template_classes.RefreshableBloc, bool>(
+//         builder: (c,s){
+//             return Text(business.sampleInt.toString());
+//         },
+//     ),
+// )
+// 위와 같이 감싸 줍니다.
+// 만약 위와 같은 Text 위젯에서 숫자 표시를 갱신 하려면,
+// business.sampleInt += 1;
+// business.refreshableBloc.refreshUi();
+// 이처럼 Text 위젯에서 사용 하는 상태 변수의 값을 변경 하고,
+// 갱신 구역 객체의 refreshUi() 함수를 실행 시키면,
+// builder 가 다시 실행 되며, 그 안의 위젯이 재조립 되어 화면을 갱신 합니다.

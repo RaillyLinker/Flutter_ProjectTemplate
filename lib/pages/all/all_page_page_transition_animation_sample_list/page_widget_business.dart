@@ -4,12 +4,12 @@ import 'package:go_router/go_router.dart';
 
 // (inner Folder)
 import 'page_widget.dart' as page_widget;
-import 'inner_widgets/iw_sample_list/sf_widget_state.dart'
-    as iw_sample_list_state;
 
 // (all)
 import '../../../global_widgets/gw_page_outer_frame/sl_widget_business.dart'
     as gw_page_outer_frame_business;
+import '../../../global_classes/gc_template_classes.dart'
+    as gc_template_classes;
 
 // [위젯 비즈니스]
 // 위젯의 비즈니스 로직 + State 변수 처리는 이 곳에서 합니다.
@@ -22,6 +22,8 @@ class PageWidgetBusiness {
   // (전체 위젯 initState)
   void initState() {
     // !!!initState 로직 작성!!!
+
+    setListItem();
   }
 
   // (전체 위젯 dispose)
@@ -79,8 +81,9 @@ class PageWidgetBusiness {
   final gw_page_outer_frame_business.SlWidgetBusiness pageOutFrameBusiness =
       gw_page_outer_frame_business.SlWidgetBusiness();
 
-  final GlobalKey<iw_sample_list_state.SfWidgetState> iwSampleListStateGk =
-      GlobalKey();
+  List<SampleItemViewModel> itemList = [];
+  gc_template_classes.RefreshableBloc itemListBloc =
+      gc_template_classes.RefreshableBloc();
 
   // [private 변수]
 
@@ -88,38 +91,68 @@ class PageWidgetBusiness {
   // (Widget 화면 갱신) - WidgetUi.viewWidgetBuild 의 return 값을 다시 불러 옵니다.
   late VoidCallback refreshUi;
 
-  void onFadeAnimationItemClicked() {
-    // 페이지 전환 애니메이션 변경
-    page_widget.pageTransitionsBuilder =
-        (context, animation, secondaryAnimation, child) {
-      return FadeTransition(opacity: animation, child: child);
-    };
+  void setListItem() {
+    itemList = [];
+    itemList.add(SampleItemViewModel(
+        itemTitle: "Fade 애니메이션",
+        itemDescription: "Fade In / Out 을 사용한 화면 전환 애니메이션",
+        onItemClicked: () {
+          // 페이지 전환 애니메이션 변경
+          page_widget.pageTransitionsBuilder =
+              (context, animation, secondaryAnimation, child) {
+            return FadeTransition(opacity: animation, child: child);
+          };
 
-    context.pushNamed(page_widget.pageName);
-  }
+          context.pushNamed(page_widget.pageName);
+        }));
 
-  void onSlideUpAnimationItemClicked() {
-    // 페이지 전환 애니메이션 변경
-    page_widget.pageTransitionsBuilder =
-        (context, animation, secondaryAnimation, child) {
-      var begin = const Offset(0.0, 1.0);
-      var end = Offset.zero;
-      var curve = Curves.ease;
+    itemList.add(SampleItemViewModel(
+        itemTitle: "Slide Up 애니메이션",
+        itemDescription: "Slide 가 위로 올라오는 화면 전환 애니메이션",
+        onItemClicked: () {
+          // 페이지 전환 애니메이션 변경
+          page_widget.pageTransitionsBuilder =
+              (context, animation, secondaryAnimation, child) {
+            var begin = const Offset(0.0, 1.0);
+            var end = Offset.zero;
+            var curve = Curves.ease;
 
-      var tween = Tween(begin: begin, end: end);
-      var curvedAnimation = CurvedAnimation(
-        parent: animation,
-        curve: curve,
-      );
+            var tween = Tween(begin: begin, end: end);
+            var curvedAnimation = CurvedAnimation(
+              parent: animation,
+              curve: curve,
+            );
 
-      return SlideTransition(
-        position: tween.animate(curvedAnimation),
-        child: child,
-      );
-    };
+            return SlideTransition(
+              position: tween.animate(curvedAnimation),
+              child: child,
+            );
+          };
 
-    context.pushNamed(page_widget.pageName);
+          context.pushNamed(page_widget.pageName);
+        }));
+
+    itemListBloc.refreshUi();
   }
 
 // [private 함수]
+}
+
+class SampleItemViewModel {
+  SampleItemViewModel(
+      {required this.itemTitle,
+      required this.itemDescription,
+      required this.onItemClicked});
+
+  // 샘플 타이틀
+  final String itemTitle;
+
+  // 샘플 설명
+  final String itemDescription;
+
+  final void Function() onItemClicked;
+
+  bool isHovering = false;
+  gc_template_classes.RefreshableBloc isHoveringBloc =
+      gc_template_classes.RefreshableBloc();
 }

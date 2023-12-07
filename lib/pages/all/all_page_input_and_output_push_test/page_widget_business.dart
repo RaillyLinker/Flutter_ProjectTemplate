@@ -9,9 +9,9 @@ import 'page_widget.dart' as page_widget;
 // (all)
 import '../../../global_widgets/gw_page_outer_frame/sl_widget_business.dart'
     as gw_page_outer_frame_business;
-import '../../../pages/all/all_page_home/page_widget.dart' as all_page_home;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
+import '../../../pages/all/all_page_home/page_widget.dart' as all_page_home;
 
 // [위젯 비즈니스]
 // 위젯의 비즈니스 로직 + State 변수 처리는 이 곳에서 합니다.
