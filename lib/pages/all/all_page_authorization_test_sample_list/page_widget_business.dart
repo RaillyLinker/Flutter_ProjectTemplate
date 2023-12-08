@@ -1,15 +1,16 @@
 // (external)
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 
 // (inner Folder)
 import 'page_widget.dart' as page_widget;
-import 'inner_widgets/iw_sample_list/sf_widget_state.dart'
-    as iw_sample_list_state;
 
 // (all)
 import '../../../global_widgets/gw_page_outer_frame/sl_widget_business.dart'
     as gw_page_outer_frame_business;
+import '../../../global_classes/gc_template_classes.dart'
+    as gc_template_classes;
 import '../../../../repositories/network/apis/api_main_server.dart'
     as api_main_server;
 import '../../../../repositories/spws/spw_auth_member_info.dart'
@@ -34,6 +35,8 @@ class PageWidgetBusiness {
   // (전체 위젯 initState)
   void initState() {
     // !!!initState 로직 작성!!!
+
+    setListItem();
   }
 
   // (전체 위젯 dispose)
@@ -91,8 +94,9 @@ class PageWidgetBusiness {
   final gw_page_outer_frame_business.SlWidgetBusiness pageOutFrameBusiness =
       gw_page_outer_frame_business.SlWidgetBusiness();
 
-  final GlobalKey<iw_sample_list_state.SfWidgetState> iwSampleListStateGk =
-      GlobalKey();
+  List<SampleItemViewModel> itemList = [];
+  gc_template_classes.RefreshableBloc itemListBloc =
+      gc_template_classes.RefreshableBloc();
 
   // [private 변수]
 
@@ -100,280 +104,318 @@ class PageWidgetBusiness {
   // (Widget 화면 갱신) - WidgetUi.viewWidgetBuild 의 return 값을 다시 불러 옵니다.
   late VoidCallback refreshUi;
 
-  Future<void> onUnAuthorizedTestItemClickedAsync() async {
-    // 서버 접속 테스트
-    // 로딩 다이얼로그 표시
-    GlobalKey<all_dialog_loading_spinner_state.DialogWidgetState>
-        allDialogLoadingSpinnerStateGk = GlobalKey();
+  void setListItem() {
+    itemList = [];
+    itemList.add(SampleItemViewModel(
+        itemTitle: "비 로그인 접속 테스트",
+        itemDescription: "비 로그인 상태에서도 호출 가능한 API",
+        onItemClicked: () async {
+          // 서버 접속 테스트
+          // 로딩 다이얼로그 표시
+          GlobalKey<all_dialog_loading_spinner_state.DialogWidgetState>
+              allDialogLoadingSpinnerStateGk = GlobalKey();
 
-    showDialog(
-        barrierDismissible: false,
-        context: context,
-        builder: (context) => all_dialog_loading_spinner.DialogWidget(
-            globalKey: allDialogLoadingSpinnerStateGk,
-            inputVo: const all_dialog_loading_spinner.InputVo(),
-            onDialogCreated: () {})).then((outputVo) {});
+          showDialog(
+              barrierDismissible: false,
+              context: context,
+              builder: (context) => all_dialog_loading_spinner.DialogWidget(
+                  globalKey: allDialogLoadingSpinnerStateGk,
+                  inputVo: const all_dialog_loading_spinner.InputVo(),
+                  onDialogCreated: () {})).then((outputVo) {});
 
-    var response =
-        await api_main_server.getService1TkV1AuthForNoLoggedInAsync();
+          var response =
+              await api_main_server.getService1TkV1AuthForNoLoggedInAsync();
 
-    // 로딩 다이얼로그 제거
-    allDialogLoadingSpinnerStateGk.currentState?.closeDialog();
+          // 로딩 다이얼로그 제거
+          allDialogLoadingSpinnerStateGk.currentState?.closeDialog();
 
-    if (response.dioException == null) {
-      // Dio 네트워크 응답
+          if (response.dioException == null) {
+            // Dio 네트워크 응답
 
-      var networkResponseObjectOk = response.networkResponseObjectOk!;
+            var networkResponseObjectOk = response.networkResponseObjectOk!;
 
-      var responseBody = networkResponseObjectOk.responseBody;
+            var responseBody = networkResponseObjectOk.responseBody;
 
-      // (확인 다이얼로그 호출)
-      GlobalKey<all_dialog_info_state.DialogWidgetState> allDialogInfoGk =
-          GlobalKey();
-      if (!context.mounted) return;
-      showDialog(
-          barrierDismissible: true,
-          context: context,
-          builder: (context) => all_dialog_info.DialogWidget(
-                globalKey: allDialogInfoGk,
-                inputVo: all_dialog_info.InputVo(
-                    dialogTitle: "응답 결과",
-                    dialogContent:
-                        "Http Status Code : ${networkResponseObjectOk.responseStatusCode}\n\nResponse Body:\n${responseBody.toString()}",
-                    checkBtnTitle: "확인"),
-                onDialogCreated: () {},
-              )).then((outputVo) {});
-    } else {
-      // Dio 네트워크 에러
-      final GlobalKey<all_dialog_info_state.DialogWidgetState> allDialogInfoGk =
-          GlobalKey();
-      if (!context.mounted) return;
-      showDialog(
-          barrierDismissible: true,
-          context: context,
-          builder: (context) => all_dialog_info.DialogWidget(
-                globalKey: allDialogInfoGk,
-                inputVo: const all_dialog_info.InputVo(
-                    dialogTitle: "네트워크 에러",
-                    dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
-                    checkBtnTitle: "확인"),
-                onDialogCreated: () {},
-              ));
-    }
-  }
+            // (확인 다이얼로그 호출)
+            GlobalKey<all_dialog_info_state.DialogWidgetState> allDialogInfoGk =
+                GlobalKey();
+            if (!context.mounted) return;
+            showDialog(
+                barrierDismissible: true,
+                context: context,
+                builder: (context) => all_dialog_info.DialogWidget(
+                      globalKey: allDialogInfoGk,
+                      inputVo: all_dialog_info.InputVo(
+                          dialogTitle: "응답 결과",
+                          dialogContent:
+                              "Http Status Code : ${networkResponseObjectOk.responseStatusCode}\n\nResponse Body:\n${responseBody.toString()}",
+                          checkBtnTitle: "확인"),
+                      onDialogCreated: () {},
+                    )).then((outputVo) {});
+          } else {
+            // Dio 네트워크 에러
+            final GlobalKey<all_dialog_info_state.DialogWidgetState>
+                allDialogInfoGk = GlobalKey();
+            if (!context.mounted) return;
+            showDialog(
+                barrierDismissible: true,
+                context: context,
+                builder: (context) => all_dialog_info.DialogWidget(
+                      globalKey: allDialogInfoGk,
+                      inputVo: const all_dialog_info.InputVo(
+                          dialogTitle: "네트워크 에러",
+                          dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
+                          checkBtnTitle: "확인"),
+                      onDialogCreated: () {},
+                    ));
+          }
+        }));
 
-  Future<void> onAuthorizedTestItemClickedAsync() async {
-    // 무권한 로그인 진입 테스트
-    // 로딩 다이얼로그 표시
-    GlobalKey<all_dialog_loading_spinner_state.DialogWidgetState>
-        allDialogLoadingSpinnerStateGk = GlobalKey();
+    itemList.add(SampleItemViewModel(
+        itemTitle: "로그인 접속 테스트",
+        itemDescription: "로그인 상태에서 호출 가능한 API",
+        onItemClicked: () async {
+          // 무권한 로그인 진입 테스트
+          // 로딩 다이얼로그 표시
+          GlobalKey<all_dialog_loading_spinner_state.DialogWidgetState>
+              allDialogLoadingSpinnerStateGk = GlobalKey();
 
-    showDialog(
-        barrierDismissible: false,
-        context: context,
-        builder: (context) => all_dialog_loading_spinner.DialogWidget(
-            globalKey: allDialogLoadingSpinnerStateGk,
-            inputVo: const all_dialog_loading_spinner.InputVo(),
-            onDialogCreated: () {})).then((outputVo) {});
+          showDialog(
+              barrierDismissible: false,
+              context: context,
+              builder: (context) => all_dialog_loading_spinner.DialogWidget(
+                  globalKey: allDialogLoadingSpinnerStateGk,
+                  inputVo: const all_dialog_loading_spinner.InputVo(),
+                  onDialogCreated: () {})).then((outputVo) {});
 
-    spw_auth_member_info.SharedPreferenceWrapperVo? loginMemberInfo =
-        spw_auth_member_info.SharedPreferenceWrapper.get();
+          spw_auth_member_info.SharedPreferenceWrapperVo? loginMemberInfo =
+              spw_auth_member_info.SharedPreferenceWrapper.get();
 
-    String? authorization = (loginMemberInfo == null)
-        ? null
-        : "${loginMemberInfo.tokenType} ${loginMemberInfo.accessToken}";
+          String? authorization = (loginMemberInfo == null)
+              ? null
+              : "${loginMemberInfo.tokenType} ${loginMemberInfo.accessToken}";
 
-    var response = await api_main_server.getService1TkV1AuthForLoggedInAsync(
-        requestHeaderVo:
-            api_main_server.GetService1TkV1AuthForLoggedInAsyncRequestHeaderVo(
-                authorization: authorization));
+          var response =
+              await api_main_server.getService1TkV1AuthForLoggedInAsync(
+                  requestHeaderVo: api_main_server
+                      .GetService1TkV1AuthForLoggedInAsyncRequestHeaderVo(
+                          authorization: authorization));
 
-    // 로딩 다이얼로그 제거
-    allDialogLoadingSpinnerStateGk.currentState?.closeDialog();
+          // 로딩 다이얼로그 제거
+          allDialogLoadingSpinnerStateGk.currentState?.closeDialog();
 
-    if (response.dioException == null) {
-      // Dio 네트워크 응답
+          if (response.dioException == null) {
+            // Dio 네트워크 응답
 
-      var networkResponseObjectOk = response.networkResponseObjectOk!;
+            var networkResponseObjectOk = response.networkResponseObjectOk!;
 
-      var responseBody = networkResponseObjectOk.responseBody;
+            var responseBody = networkResponseObjectOk.responseBody;
 
-      // (확인 다이얼로그 호출)
-      GlobalKey<all_dialog_info_state.DialogWidgetState> allDialogInfoGk =
-          GlobalKey();
-      if (!context.mounted) return;
-      showDialog(
-          barrierDismissible: true,
-          context: context,
-          builder: (context) => all_dialog_info.DialogWidget(
-                globalKey: allDialogInfoGk,
-                inputVo: all_dialog_info.InputVo(
-                    dialogTitle: "응답 결과",
-                    dialogContent:
-                        "Http Status Code : ${networkResponseObjectOk.responseStatusCode}\n\nResponse Body:\n${responseBody.toString()}",
-                    checkBtnTitle: "확인"),
-                onDialogCreated: () {},
-              )).then((outputVo) {});
-    } else {
-      // Dio 네트워크 에러
-      GlobalKey<all_dialog_info_state.DialogWidgetState> allDialogInfoGk =
-          GlobalKey();
-      if (!context.mounted) return;
-      showDialog(
-          barrierDismissible: true,
-          context: context,
-          builder: (context) => all_dialog_info.DialogWidget(
-                globalKey: allDialogInfoGk,
-                inputVo: const all_dialog_info.InputVo(
-                    dialogTitle: "네트워크 에러",
-                    dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
-                    checkBtnTitle: "확인"),
-                onDialogCreated: () {},
-              ));
-    }
-  }
+            // (확인 다이얼로그 호출)
+            GlobalKey<all_dialog_info_state.DialogWidgetState> allDialogInfoGk =
+                GlobalKey();
+            if (!context.mounted) return;
+            showDialog(
+                barrierDismissible: true,
+                context: context,
+                builder: (context) => all_dialog_info.DialogWidget(
+                      globalKey: allDialogInfoGk,
+                      inputVo: all_dialog_info.InputVo(
+                          dialogTitle: "응답 결과",
+                          dialogContent:
+                              "Http Status Code : ${networkResponseObjectOk.responseStatusCode}\n\nResponse Body:\n${responseBody.toString()}",
+                          checkBtnTitle: "확인"),
+                      onDialogCreated: () {},
+                    )).then((outputVo) {});
+          } else {
+            // Dio 네트워크 에러
+            GlobalKey<all_dialog_info_state.DialogWidgetState> allDialogInfoGk =
+                GlobalKey();
+            if (!context.mounted) return;
+            showDialog(
+                barrierDismissible: true,
+                context: context,
+                builder: (context) => all_dialog_info.DialogWidget(
+                      globalKey: allDialogInfoGk,
+                      inputVo: const all_dialog_info.InputVo(
+                          dialogTitle: "네트워크 에러",
+                          dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
+                          checkBtnTitle: "확인"),
+                      onDialogCreated: () {},
+                    ));
+          }
+        }));
 
-  Future<void> onDeveloperRoleTestItemClickedAsync() async {
-    // DEVELOPER 권한 진입 테스트
-    // 로딩 다이얼로그 표시
-    GlobalKey<all_dialog_loading_spinner_state.DialogWidgetState>
-        allDialogLoadingSpinnerStateGk = GlobalKey();
+    itemList.add(SampleItemViewModel(
+        itemTitle: "Developer 권한 진입 테스트",
+        itemDescription: "ADMIN 혹은 DEVELOPER 권한이 있는 상태에서 호출 가능한 API",
+        onItemClicked: () async {
+          // DEVELOPER 권한 진입 테스트
+          // 로딩 다이얼로그 표시
+          GlobalKey<all_dialog_loading_spinner_state.DialogWidgetState>
+              allDialogLoadingSpinnerStateGk = GlobalKey();
 
-    showDialog(
-        barrierDismissible: false,
-        context: context,
-        builder: (context) => all_dialog_loading_spinner.DialogWidget(
-            globalKey: allDialogLoadingSpinnerStateGk,
-            inputVo: const all_dialog_loading_spinner.InputVo(),
-            onDialogCreated: () {})).then((outputVo) {});
+          showDialog(
+              barrierDismissible: false,
+              context: context,
+              builder: (context) => all_dialog_loading_spinner.DialogWidget(
+                  globalKey: allDialogLoadingSpinnerStateGk,
+                  inputVo: const all_dialog_loading_spinner.InputVo(),
+                  onDialogCreated: () {})).then((outputVo) {});
 
-    spw_auth_member_info.SharedPreferenceWrapperVo? loginMemberInfo =
-        spw_auth_member_info.SharedPreferenceWrapper.get();
+          spw_auth_member_info.SharedPreferenceWrapperVo? loginMemberInfo =
+              spw_auth_member_info.SharedPreferenceWrapper.get();
 
-    String? authorization = (loginMemberInfo == null)
-        ? null
-        : "${loginMemberInfo.tokenType} ${loginMemberInfo.accessToken}";
+          String? authorization = (loginMemberInfo == null)
+              ? null
+              : "${loginMemberInfo.tokenType} ${loginMemberInfo.accessToken}";
 
-    var response = await api_main_server.getService1TkV1AuthForDeveloperAsync(
-        requestHeaderVo:
-            api_main_server.GetService1TkV1AuthForDeveloperAsyncRequestHeaderVo(
-                authorization: authorization));
+          var response =
+              await api_main_server.getService1TkV1AuthForDeveloperAsync(
+                  requestHeaderVo: api_main_server
+                      .GetService1TkV1AuthForDeveloperAsyncRequestHeaderVo(
+                          authorization: authorization));
 
-    // 로딩 다이얼로그 제거
-    allDialogLoadingSpinnerStateGk.currentState?.closeDialog();
+          // 로딩 다이얼로그 제거
+          allDialogLoadingSpinnerStateGk.currentState?.closeDialog();
 
-    if (response.dioException == null) {
-      // Dio 네트워크 응답
+          if (response.dioException == null) {
+            // Dio 네트워크 응답
 
-      var networkResponseObjectOk = response.networkResponseObjectOk!;
+            var networkResponseObjectOk = response.networkResponseObjectOk!;
 
-      var responseBody = networkResponseObjectOk.responseBody;
+            var responseBody = networkResponseObjectOk.responseBody;
 
-      // (확인 다이얼로그 호출)
-      final GlobalKey<all_dialog_info_state.DialogWidgetState> allDialogInfoGk =
-          GlobalKey();
-      if (!context.mounted) return;
-      showDialog(
-          barrierDismissible: true,
-          context: context,
-          builder: (context) => all_dialog_info.DialogWidget(
-                globalKey: allDialogInfoGk,
-                inputVo: all_dialog_info.InputVo(
-                    dialogTitle: "응답 결과",
-                    dialogContent:
-                        "Http Status Code : ${networkResponseObjectOk.responseStatusCode}\n\nResponse Body:\n${responseBody.toString()}",
-                    checkBtnTitle: "확인"),
-                onDialogCreated: () {},
-              )).then((outputVo) {});
-    } else {
-      // Dio 네트워크 에러
-      final GlobalKey<all_dialog_info_state.DialogWidgetState> allDialogInfoGk =
-          GlobalKey();
-      if (!context.mounted) return;
-      showDialog(
-          barrierDismissible: true,
-          context: context,
-          builder: (context) => all_dialog_info.DialogWidget(
-                globalKey: allDialogInfoGk,
-                inputVo: const all_dialog_info.InputVo(
-                    dialogTitle: "네트워크 에러",
-                    dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
-                    checkBtnTitle: "확인"),
-                onDialogCreated: () {},
-              ));
-    }
-  }
+            // (확인 다이얼로그 호출)
+            final GlobalKey<all_dialog_info_state.DialogWidgetState>
+                allDialogInfoGk = GlobalKey();
+            if (!context.mounted) return;
+            showDialog(
+                barrierDismissible: true,
+                context: context,
+                builder: (context) => all_dialog_info.DialogWidget(
+                      globalKey: allDialogInfoGk,
+                      inputVo: all_dialog_info.InputVo(
+                          dialogTitle: "응답 결과",
+                          dialogContent:
+                              "Http Status Code : ${networkResponseObjectOk.responseStatusCode}\n\nResponse Body:\n${responseBody.toString()}",
+                          checkBtnTitle: "확인"),
+                      onDialogCreated: () {},
+                    )).then((outputVo) {});
+          } else {
+            // Dio 네트워크 에러
+            final GlobalKey<all_dialog_info_state.DialogWidgetState>
+                allDialogInfoGk = GlobalKey();
+            if (!context.mounted) return;
+            showDialog(
+                barrierDismissible: true,
+                context: context,
+                builder: (context) => all_dialog_info.DialogWidget(
+                      globalKey: allDialogInfoGk,
+                      inputVo: const all_dialog_info.InputVo(
+                          dialogTitle: "네트워크 에러",
+                          dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
+                          checkBtnTitle: "확인"),
+                      onDialogCreated: () {},
+                    ));
+          }
+        }));
 
-  Future<void> onAdminRoleTestItemClickedAsync() async {
-    // ADMIN 권한 진입 테스트
-    // 로딩 다이얼로그 표시
-    GlobalKey<all_dialog_loading_spinner_state.DialogWidgetState>
-        allDialogLoadingSpinnerStateGk = GlobalKey();
+    itemList.add(SampleItemViewModel(
+        itemTitle: "ADMIN 권한 진입 테스트",
+        itemDescription: "ADMIN 권한이 있는 상태에서 호출 가능한 API",
+        onItemClicked: () async {
+          // ADMIN 권한 진입 테스트
+          // 로딩 다이얼로그 표시
+          GlobalKey<all_dialog_loading_spinner_state.DialogWidgetState>
+              allDialogLoadingSpinnerStateGk = GlobalKey();
 
-    showDialog(
-        barrierDismissible: false,
-        context: context,
-        builder: (context) => all_dialog_loading_spinner.DialogWidget(
-            globalKey: allDialogLoadingSpinnerStateGk,
-            inputVo: const all_dialog_loading_spinner.InputVo(),
-            onDialogCreated: () {})).then((outputVo) {});
+          showDialog(
+              barrierDismissible: false,
+              context: context,
+              builder: (context) => all_dialog_loading_spinner.DialogWidget(
+                  globalKey: allDialogLoadingSpinnerStateGk,
+                  inputVo: const all_dialog_loading_spinner.InputVo(),
+                  onDialogCreated: () {})).then((outputVo) {});
 
-    spw_auth_member_info.SharedPreferenceWrapperVo? loginMemberInfo =
-        spw_auth_member_info.SharedPreferenceWrapper.get();
+          spw_auth_member_info.SharedPreferenceWrapperVo? loginMemberInfo =
+              spw_auth_member_info.SharedPreferenceWrapper.get();
 
-    String? authorization = (loginMemberInfo == null)
-        ? null
-        : "${loginMemberInfo.tokenType} ${loginMemberInfo.accessToken}";
+          String? authorization = (loginMemberInfo == null)
+              ? null
+              : "${loginMemberInfo.tokenType} ${loginMemberInfo.accessToken}";
 
-    var response = await api_main_server.getService1TkV1AuthForAdminAsync(
-        requestHeaderVo:
-            api_main_server.GetService1TkV1AuthForAdminAsyncRequestHeaderVo(
-                authorization: authorization));
+          var response = await api_main_server.getService1TkV1AuthForAdminAsync(
+              requestHeaderVo: api_main_server
+                  .GetService1TkV1AuthForAdminAsyncRequestHeaderVo(
+                      authorization: authorization));
 
-    // 로딩 다이얼로그 제거
-    allDialogLoadingSpinnerStateGk.currentState?.closeDialog();
+          // 로딩 다이얼로그 제거
+          allDialogLoadingSpinnerStateGk.currentState?.closeDialog();
 
-    if (response.dioException == null) {
-      // Dio 네트워크 응답
+          if (response.dioException == null) {
+            // Dio 네트워크 응답
 
-      var networkResponseObjectOk = response.networkResponseObjectOk!;
+            var networkResponseObjectOk = response.networkResponseObjectOk!;
 
-      var responseBody = networkResponseObjectOk.responseBody;
+            var responseBody = networkResponseObjectOk.responseBody;
 
-      // (확인 다이얼로그 호출)
-      final GlobalKey<all_dialog_info_state.DialogWidgetState> allDialogInfoGk =
-          GlobalKey();
-      if (!context.mounted) return;
-      showDialog(
-          barrierDismissible: true,
-          context: context,
-          builder: (context) => all_dialog_info.DialogWidget(
-                globalKey: allDialogInfoGk,
-                inputVo: all_dialog_info.InputVo(
-                    dialogTitle: "응답 결과",
-                    dialogContent:
-                        "Http Status Code : ${networkResponseObjectOk.responseStatusCode}\n\nResponse Body:\n${responseBody.toString()}",
-                    checkBtnTitle: "확인"),
-                onDialogCreated: () {},
-              )).then((outputVo) {});
-    } else {
-      // Dio 네트워크 에러
-      final GlobalKey<all_dialog_info_state.DialogWidgetState> allDialogInfoGk =
-          GlobalKey();
-      if (!context.mounted) return;
-      showDialog(
-          barrierDismissible: true,
-          context: context,
-          builder: (context) => all_dialog_info.DialogWidget(
-                globalKey: allDialogInfoGk,
-                inputVo: const all_dialog_info.InputVo(
-                    dialogTitle: "네트워크 에러",
-                    dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
-                    checkBtnTitle: "확인"),
-                onDialogCreated: () {},
-              ));
-    }
+            // (확인 다이얼로그 호출)
+            final GlobalKey<all_dialog_info_state.DialogWidgetState>
+                allDialogInfoGk = GlobalKey();
+            if (!context.mounted) return;
+            showDialog(
+                barrierDismissible: true,
+                context: context,
+                builder: (context) => all_dialog_info.DialogWidget(
+                      globalKey: allDialogInfoGk,
+                      inputVo: all_dialog_info.InputVo(
+                          dialogTitle: "응답 결과",
+                          dialogContent:
+                              "Http Status Code : ${networkResponseObjectOk.responseStatusCode}\n\nResponse Body:\n${responseBody.toString()}",
+                          checkBtnTitle: "확인"),
+                      onDialogCreated: () {},
+                    )).then((outputVo) {});
+          } else {
+            // Dio 네트워크 에러
+            final GlobalKey<all_dialog_info_state.DialogWidgetState>
+                allDialogInfoGk = GlobalKey();
+            if (!context.mounted) return;
+            showDialog(
+                barrierDismissible: true,
+                context: context,
+                builder: (context) => all_dialog_info.DialogWidget(
+                      globalKey: allDialogInfoGk,
+                      inputVo: const all_dialog_info.InputVo(
+                          dialogTitle: "네트워크 에러",
+                          dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
+                          checkBtnTitle: "확인"),
+                      onDialogCreated: () {},
+                    ));
+          }
+        }));
+
+    itemListBloc.refreshUi();
   }
 
 // [private 함수]
+}
+
+class SampleItemViewModel {
+  SampleItemViewModel(
+      {required this.itemTitle,
+      required this.itemDescription,
+      required this.onItemClicked});
+
+  // 샘플 타이틀
+  final String itemTitle;
+
+  // 샘플 설명
+  final String itemDescription;
+
+  final void Function() onItemClicked;
+
+  bool isHovering = false;
+  gc_template_classes.RefreshableBloc isHoveringBloc =
+      gc_template_classes.RefreshableBloc();
 }
