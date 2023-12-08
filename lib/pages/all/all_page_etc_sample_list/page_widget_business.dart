@@ -19,7 +19,7 @@ import '../../../pages/all/all_page_shared_preferences_sample/page_entrance.dart
     as all_page_shared_preferences_sample;
 import '../../../pages/all/all_page_url_launcher_sample/page_entrance.dart'
     as all_page_url_launcher_sample;
-import '../../../pages/all/all_page_widget_change_animation_sample_list/page_entrance.dart'
+import '../../../pages/all/all_page_widget_change_animation_sample_list/page_widget.dart'
     as all_page_widget_change_animation_sample_list;
 import '../../../pages/all/all_page_gif_sample/page_widget.dart'
     as all_page_gif_sample;

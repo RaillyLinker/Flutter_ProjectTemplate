@@ -4,12 +4,12 @@ import 'package:go_router/go_router.dart';
 
 // (inner Folder)
 import 'page_widget.dart' as page_widget;
-import 'inner_widgets/iw_global_variable_widget/sf_widget_state.dart'
-    as iw_global_variable_widget_state;
 
 // (all)
 import '../../../global_widgets/gw_page_outer_frame/sl_widget_business.dart'
     as gw_page_outer_frame_business;
+import '../../../global_classes/gc_template_classes.dart'
+    as gc_template_classes;
 import '../../../global_data/gd_variable_my_data.dart' as gd_variable_my_data;
 
 // [위젯 비즈니스]
@@ -80,8 +80,8 @@ class PageWidgetBusiness {
   final gw_page_outer_frame_business.SlWidgetBusiness pageOutFrameBusiness =
       gw_page_outer_frame_business.SlWidgetBusiness();
 
-  final GlobalKey<iw_global_variable_widget_state.SfWidgetState>
-      iwGlobalVariableWidgetStateGk = GlobalKey();
+  gc_template_classes.RefreshableBloc refreshableBloc =
+      gc_template_classes.RefreshableBloc();
 
   // [private 변수]
 
@@ -92,7 +92,7 @@ class PageWidgetBusiness {
   // (화면 카운트 +1)
   void countPlus1() {
     gd_variable_my_data.sampleNumber = gd_variable_my_data.sampleNumber + 1;
-    iwGlobalVariableWidgetStateGk.currentState?.refreshUi();
+    refreshableBloc.refreshUi();
   }
 
 // [private 함수]
