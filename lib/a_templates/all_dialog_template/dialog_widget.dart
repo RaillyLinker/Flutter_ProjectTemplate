@@ -78,7 +78,7 @@ class DialogWidget extends StatefulWidget {
 // 이 경우 Stateful 위젯을 생성 해서 사용 하면 되지만,
 // 간단히 갱신 영역을 지정 하여 해당 구역만 갱신 하도록 하기 위해선 BLoC 갱신 구역을 설정 하여 사용 하면 됩니다.
 // Widget State 클래스 안에 BLoC 갱신 구역 조작 객체로
-// gc_template_classes.RefreshableBloc refreshableBloc = gc_template_classes.RefreshableBloc();
+// final gc_template_classes.RefreshableBloc refreshableBloc = gc_template_classes.RefreshableBloc();
 // 위와 같이 선언 및 생성 하고,
 // Widget 에서는, 갱신 하려는 구역을
 // BlocProvider(

@@ -69,6 +69,9 @@ class DialogWidgetState extends State<dialog_widget.DialogWidget>
   }
 
   // [public 변수]
+  // BLoC 객체 샘플 :
+  // final gc_template_classes.RefreshableBloc refreshableBloc = gc_template_classes.RefreshableBloc();
+
   // (최초 실행 플래그)
   bool needInitState = true;
 
