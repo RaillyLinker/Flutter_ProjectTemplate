@@ -16,7 +16,7 @@ import '../../../global_classes/gc_template_classes.dart'
 
 // [위젯 뷰]
 // 위젯의 화면 작성은 여기서 합니다.
-// todo 전체 검토 및 Form 입력 양식 검토 후 Form 페이지에 적용하고, 완료되면 다른 모든 네트워크 요청 페이지에 적용하기
+// todo : 리스트 관련 지웠다가 생겼다가 했을 때 에러 표시시 에러 발생 원인 찾아보기
 
 //------------------------------------------------------------------------------
 // !!!페이지 진입 라우트 Name 정의!!!
@@ -423,9 +423,11 @@ class WidgetUi {
                                     return TextFormField(
                                       keyboardType:
                                           const TextInputType.numberWithOptions(
-                                              decimal: false, signed: false),
+                                              decimal: false, signed: true),
                                       inputFormatters: <TextInputFormatter>[
-                                        FilteringTextInputFormatter.digitsOnly
+                                        FilteringTextInputFormatter.allow(
+                                          RegExp(r'^-?[0-9]*$'),
+                                        ),
                                       ],
                                       controller:
                                           business.input3TextFieldController,
@@ -532,9 +534,11 @@ class WidgetUi {
                                     return TextFormField(
                                       keyboardType:
                                           const TextInputType.numberWithOptions(
-                                              decimal: false, signed: false),
+                                              decimal: false, signed: true),
                                       inputFormatters: <TextInputFormatter>[
-                                        FilteringTextInputFormatter.digitsOnly
+                                        FilteringTextInputFormatter.allow(
+                                          RegExp(r'^-?[0-9]*$'),
+                                        ),
                                       ],
                                       controller:
                                           business.input4TextFieldController,
@@ -641,18 +645,11 @@ class WidgetUi {
                                     return TextFormField(
                                       keyboardType:
                                           const TextInputType.numberWithOptions(
-                                              decimal: true, signed: false),
+                                              decimal: true, signed: true),
                                       inputFormatters: <TextInputFormatter>[
                                         FilteringTextInputFormatter.allow(
-                                            RegExp(r"[0-9.]")),
-                                        TextInputFormatter.withFunction(
-                                            (oldValue, newValue) {
-                                          String text = newValue.text;
-                                          if (text.isNotEmpty) {
-                                            double.parse(text);
-                                          }
-                                          return newValue;
-                                        }),
+                                          RegExp(r'^-?[0-9]*\.?[0-9]*$'),
+                                        ),
                                       ],
                                       controller:
                                           business.input5TextFieldController,
@@ -759,18 +756,11 @@ class WidgetUi {
                                     return TextFormField(
                                       keyboardType:
                                           const TextInputType.numberWithOptions(
-                                              decimal: true, signed: false),
+                                              decimal: true, signed: true),
                                       inputFormatters: <TextInputFormatter>[
                                         FilteringTextInputFormatter.allow(
-                                            RegExp(r"[0-9.]")),
-                                        TextInputFormatter.withFunction(
-                                            (oldValue, newValue) {
-                                          String text = newValue.text;
-                                          if (text.isNotEmpty) {
-                                            double.parse(text);
-                                          }
-                                          return newValue;
-                                        }),
+                                          RegExp(r'^-?[0-9]*\.?[0-9]*$'),
+                                        ),
                                       ],
                                       controller:
                                           business.input6TextFieldController,
@@ -1130,7 +1120,7 @@ class WidgetUi {
                                               child: ElevatedButton(
                                                   onPressed: () {
                                                     business
-                                                        .deleteNetworkRequestParamTextFieldValue9(
+                                                        .deleteInput9ListItem(
                                                             idx);
                                                   },
                                                   style:
@@ -1169,7 +1159,7 @@ class WidgetUi {
                                     child: ElevatedButton(
                                         onPressed: () {
                                           business
-                                              .addNetworkRequestParamTextFieldValue9();
+                                              .addInput9ListItem();
                                         },
                                         style: ElevatedButton.styleFrom(
                                           backgroundColor: Colors.blue,
@@ -1329,7 +1319,7 @@ class WidgetUi {
                                             child: ElevatedButton(
                                                 onPressed: () {
                                                   business
-                                                      .deleteNetworkRequestParamTextFieldValue10(
+                                                      .deleteInput10ListItem(
                                                           idx);
                                                 },
                                                 style: ElevatedButton.styleFrom(
@@ -1365,7 +1355,7 @@ class WidgetUi {
                                     child: ElevatedButton(
                                         onPressed: () {
                                           business
-                                              .addNetworkRequestParamTextFieldValue10();
+                                              .addInput10ListItem();
                                         },
                                         style: ElevatedButton.styleFrom(
                                           backgroundColor: Colors.blue,

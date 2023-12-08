@@ -176,12 +176,6 @@ class PageWidgetBusiness {
   gc_template_classes.RefreshableBloc input10ListBloc =
       gc_template_classes.RefreshableBloc();
 
-  // List<TextEditingController> networkRequestParamTextFieldValue9 = [
-  //   TextEditingController()..text = "testString"
-  // ];
-  //
-  // List<TextEditingController> networkRequestParamTextFieldValue10 = [];
-
   // [private 변수]
 
   // [public 함수]
@@ -189,13 +183,13 @@ class PageWidgetBusiness {
   late VoidCallback refreshUi;
 
   // (리스트 파라미터 추가)
-  void addNetworkRequestParamTextFieldValue9() {
+  void addInput9ListItem() {
     input9List.add(Input9ListItemViewModel());
     input9ListBloc.refreshUi();
   }
 
   // (리스트 파라미터 제거)
-  void deleteNetworkRequestParamTextFieldValue9(int idx) {
+  void deleteInput9ListItem(int idx) {
     var input9Item = input9List[idx];
     input9Item.inputTextFieldController.dispose();
     input9Item.inputTextFieldFocus.dispose();
@@ -204,13 +198,13 @@ class PageWidgetBusiness {
   }
 
   // (리스트 파라미터 추가)
-  void addNetworkRequestParamTextFieldValue10() {
+  void addInput10ListItem() {
     input10List.add(Input10ListItemViewModel());
     input10ListBloc.refreshUi();
   }
 
   // (리스트 파라미터 제거)
-  void deleteNetworkRequestParamTextFieldValue10(int idx) {
+  void deleteInput10ListItem(int idx) {
     var input10Item = input10List[idx];
     input10Item.inputTextFieldController.dispose();
     input10Item.inputTextFieldFocus.dispose();
@@ -230,156 +224,160 @@ class PageWidgetBusiness {
         builder: (context) => all_dialog_loading_spinner.DialogWidget(
             globalKey: allDialogLoadingSpinnerStateGk,
             inputVo: const all_dialog_loading_spinner.InputVo(),
-            onDialogCreated: () {})).then((outputVo) {});
+            onDialogCreated: () async {
+              String input1Text = input1TextFieldController.text;
+              if (input1Text.isEmpty) {
+                // 로딩 다이얼로그 제거
+                allDialogLoadingSpinnerStateGk.currentState?.closeDialog();
+                input1TextFieldErrorMsg = '이 항목을 입력 하세요.';
+                input1TextFieldBloc.refreshUi();
+                FocusScope.of(context).requestFocus(input1TextFieldFocus);
+                return;
+              }
 
-    String input1Text = input1TextFieldController.text;
-    if (input1Text.isEmpty) {
-      // 로딩 다이얼로그 제거
-      allDialogLoadingSpinnerStateGk.currentState?.closeDialog();
-      input1TextFieldErrorMsg = '이 항목을 입력 하세요.';
-      input1TextFieldBloc.refreshUi();
-      FocusScope.of(context).requestFocus(input1TextFieldFocus);
-      return;
-    }
+              String input3Text = input3TextFieldController.text;
+              if (input3Text.isEmpty) {
+                allDialogLoadingSpinnerStateGk.currentState?.closeDialog();
+                input3TextFieldErrorMsg = '이 항목을 입력 하세요.';
+                input3TextFieldBloc.refreshUi();
+                FocusScope.of(context).requestFocus(input3TextFieldFocus);
+                return;
+              }
 
-    String input3Text = input3TextFieldController.text;
-    if (input3Text.isEmpty) {
-      allDialogLoadingSpinnerStateGk.currentState?.closeDialog();
-      input3TextFieldErrorMsg = '이 항목을 입력 하세요.';
-      input3TextFieldBloc.refreshUi();
-      FocusScope.of(context).requestFocus(input3TextFieldFocus);
-      return;
-    }
+              String input5Text = input5TextFieldController.text;
+              if (input5Text.isEmpty) {
+                allDialogLoadingSpinnerStateGk.currentState?.closeDialog();
+                input5TextFieldErrorMsg = '이 항목을 입력 하세요.';
+                input5TextFieldBloc.refreshUi();
+                FocusScope.of(context).requestFocus(input5TextFieldFocus);
+                return;
+              }
 
-    String input5Text = input5TextFieldController.text;
-    if (input5Text.isEmpty) {
-      allDialogLoadingSpinnerStateGk.currentState?.closeDialog();
-      input5TextFieldErrorMsg = '이 항목을 입력 하세요.';
-      input5TextFieldBloc.refreshUi();
-      FocusScope.of(context).requestFocus(input5TextFieldFocus);
-      return;
-    }
+              List<String> queryParamStringList = [];
+              for (Input9ListItemViewModel tec in input9List) {
+                String value = tec.inputTextFieldController.text;
+                print(value);
+                if (value.isEmpty) {
+                  allDialogLoadingSpinnerStateGk.currentState?.closeDialog();
+                  tec.inputTextFieldErrorMsg = '이 항목을 입력 하세요.';
+                  tec.inputTextFieldBloc.refreshUi();
+                  FocusScope.of(context).requestFocus(tec.inputTextFieldFocus);
+                  return;
+                }
+                queryParamStringList.add(value);
+              }
 
-    List<String> queryParamStringList = [];
-    for (Input9ListItemViewModel tec in input9List) {
-      String value = tec.inputTextFieldController.text;
-      if (value.isEmpty) {
-        allDialogLoadingSpinnerStateGk.currentState?.closeDialog();
-        tec.inputTextFieldErrorMsg = '이 항목을 입력 하세요.';
-        tec.inputTextFieldBloc.refreshUi();
-        FocusScope.of(context).requestFocus(tec.inputTextFieldFocus);
-        return;
-      }
-      queryParamStringList.add(value);
-    }
+              List<String>? queryParamStringListNullable;
+              if (input10List.isNotEmpty) {
+                queryParamStringListNullable = [];
+                for (Input10ListItemViewModel tec in input10List) {
+                  String value = tec.inputTextFieldController.text;
+                  if (value.isEmpty) {
+                    allDialogLoadingSpinnerStateGk.currentState?.closeDialog();
+                    tec.inputTextFieldErrorMsg = '이 항목을 입력 하세요.';
+                    tec.inputTextFieldBloc.refreshUi();
+                    FocusScope.of(context)
+                        .requestFocus(tec.inputTextFieldFocus);
+                    return;
+                  }
+                  queryParamStringListNullable.add(value);
+                }
+              }
 
-    List<String>? queryParamStringListNullable;
-    if (input10List.isNotEmpty) {
-      queryParamStringListNullable = [];
-      for (Input10ListItemViewModel tec in input10List) {
-        String value = tec.inputTextFieldController.text;
-        if (value.isEmpty) {
-          allDialogLoadingSpinnerStateGk.currentState?.closeDialog();
-          tec.inputTextFieldErrorMsg = '이 항목을 입력 하세요.';
-          tec.inputTextFieldBloc.refreshUi();
-          FocusScope.of(context).requestFocus(tec.inputTextFieldFocus);
-          return;
-        }
-        queryParamStringListNullable.add(value);
-      }
-    }
+              var response = await api_main_server
+                  .getService1TkV1RequestTestGetRequestAsync(
+                      requestQueryVo: api_main_server
+                          .GetService1TkV1RequestTestGetRequestAsyncRequestQueryVo(
+                              queryParamString: input1Text,
+                              queryParamStringNullable:
+                                  (input2TextFieldController.text == "")
+                                      ? null
+                                      : input2TextFieldController.text,
+                              queryParamInt: int.parse(input3Text),
+                              queryParamIntNullable: (input4TextFieldController
+                                          .text ==
+                                      "")
+                                  ? null
+                                  : int.parse(input4TextFieldController.text),
+                              queryParamDouble: double.parse(input5Text),
+                              queryParamDoubleNullable:
+                                  (input6TextFieldController.text == "")
+                                      ? null
+                                      : double.parse(
+                                          input6TextFieldController.text),
+                              queryParamBoolean: input7Value,
+                              queryParamBooleanNullable: input8Value,
+                              queryParamStringList: queryParamStringList,
+                              queryParamStringListNullable:
+                                  queryParamStringListNullable));
 
-    var response =
-        await api_main_server.getService1TkV1RequestTestGetRequestAsync(
-            requestQueryVo: api_main_server
-                .GetService1TkV1RequestTestGetRequestAsyncRequestQueryVo(
-                    queryParamString: input1Text,
-                    queryParamStringNullable:
-                        (input2TextFieldController.text == "")
-                            ? null
-                            : input2TextFieldController.text,
-                    queryParamInt: int.parse(input3Text),
-                    queryParamIntNullable:
-                        (input4TextFieldController.text == "")
-                            ? null
-                            : int.parse(input4TextFieldController.text),
-                    queryParamDouble: double.parse(input5Text),
-                    queryParamDoubleNullable:
-                        (input6TextFieldController.text == "")
-                            ? null
-                            : double.parse(input6TextFieldController.text),
-                    queryParamBoolean: input7Value,
-                    queryParamBooleanNullable: input8Value,
-                    queryParamStringList: queryParamStringList,
-                    queryParamStringListNullable:
-                        queryParamStringListNullable));
+              // 로딩 다이얼로그 제거
+              allDialogLoadingSpinnerStateGk.currentState?.closeDialog();
 
-    // 로딩 다이얼로그 제거
-    allDialogLoadingSpinnerStateGk.currentState?.closeDialog();
+              if (response.dioException == null) {
+                // Dio 네트워크 응답
 
-    if (response.dioException == null) {
-      // Dio 네트워크 응답
+                var networkResponseObjectOk = response.networkResponseObjectOk!;
 
-      var networkResponseObjectOk = response.networkResponseObjectOk!;
+                if (networkResponseObjectOk.responseStatusCode == 200) {
+                  // 정상 응답
 
-      if (networkResponseObjectOk.responseStatusCode == 200) {
-        // 정상 응답
+                  // 응답 body
+                  var responseBody = networkResponseObjectOk.responseBody
+                      as api_main_server
+                      .GetService1TkV1RequestTestGetRequestAsyncResponseBodyVo;
 
-        // 응답 body
-        var responseBody = networkResponseObjectOk.responseBody
-            as api_main_server
-            .GetService1TkV1RequestTestGetRequestAsyncResponseBodyVo;
-
-        // 확인 다이얼로그 호출
-        final GlobalKey<all_dialog_info_state.DialogWidgetState>
-            allDialogInfoGk = GlobalKey();
-        if (!context.mounted) return;
-        showDialog(
-            barrierDismissible: true,
-            context: context,
-            builder: (context) => all_dialog_info.DialogWidget(
-                  globalKey: allDialogInfoGk,
-                  inputVo: all_dialog_info.InputVo(
-                      dialogTitle: "응답 결과",
-                      dialogContent:
-                          "Http Status Code : ${networkResponseObjectOk.responseStatusCode}\n\nResponse Body:\n${responseBody.toString()}",
-                      checkBtnTitle: "확인"),
-                  onDialogCreated: () {},
-                )).then((outputVo) {});
-      } else {
-        // 비정상 응답
-        final GlobalKey<all_dialog_info_state.DialogWidgetState>
-            allDialogInfoGk = GlobalKey();
-        if (!context.mounted) return;
-        showDialog(
-            barrierDismissible: false,
-            context: context,
-            builder: (context) => all_dialog_info.DialogWidget(
-                  globalKey: allDialogInfoGk,
-                  inputVo: const all_dialog_info.InputVo(
-                      dialogTitle: "네트워크 에러",
-                      dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
-                      checkBtnTitle: "확인"),
-                  onDialogCreated: () {},
-                ));
-      }
-    } else {
-      // Dio 네트워크 에러
-      final GlobalKey<all_dialog_info_state.DialogWidgetState> allDialogInfoGk =
-          GlobalKey();
-      if (!context.mounted) return;
-      showDialog(
-          barrierDismissible: true,
-          context: context,
-          builder: (context) => all_dialog_info.DialogWidget(
-                globalKey: allDialogInfoGk,
-                inputVo: const all_dialog_info.InputVo(
-                    dialogTitle: "네트워크 에러",
-                    dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
-                    checkBtnTitle: "확인"),
-                onDialogCreated: () {},
-              ));
-    }
+                  // 확인 다이얼로그 호출
+                  final GlobalKey<all_dialog_info_state.DialogWidgetState>
+                      allDialogInfoGk = GlobalKey();
+                  if (!context.mounted) return;
+                  showDialog(
+                      barrierDismissible: true,
+                      context: context,
+                      builder: (context) => all_dialog_info.DialogWidget(
+                            globalKey: allDialogInfoGk,
+                            inputVo: all_dialog_info.InputVo(
+                                dialogTitle: "응답 결과",
+                                dialogContent:
+                                    "Http Status Code : ${networkResponseObjectOk.responseStatusCode}\n\nResponse Body:\n${responseBody.toString()}",
+                                checkBtnTitle: "확인"),
+                            onDialogCreated: () {},
+                          )).then((outputVo) {});
+                } else {
+                  // 비정상 응답
+                  final GlobalKey<all_dialog_info_state.DialogWidgetState>
+                      allDialogInfoGk = GlobalKey();
+                  if (!context.mounted) return;
+                  showDialog(
+                      barrierDismissible: false,
+                      context: context,
+                      builder: (context) => all_dialog_info.DialogWidget(
+                            globalKey: allDialogInfoGk,
+                            inputVo: const all_dialog_info.InputVo(
+                                dialogTitle: "네트워크 에러",
+                                dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
+                                checkBtnTitle: "확인"),
+                            onDialogCreated: () {},
+                          ));
+                }
+              } else {
+                // Dio 네트워크 에러
+                final GlobalKey<all_dialog_info_state.DialogWidgetState>
+                    allDialogInfoGk = GlobalKey();
+                if (!context.mounted) return;
+                showDialog(
+                    barrierDismissible: true,
+                    context: context,
+                    builder: (context) => all_dialog_info.DialogWidget(
+                          globalKey: allDialogInfoGk,
+                          inputVo: const all_dialog_info.InputVo(
+                              dialogTitle: "네트워크 에러",
+                              dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
+                              checkBtnTitle: "확인"),
+                          onDialogCreated: () {},
+                        ));
+              }
+            })).then((outputVo) {});
   }
 
 // [private 함수]
