@@ -15,7 +15,7 @@ import '../../../global_classes/gc_template_classes.dart'
 import '../../../../repositories/spws/spw_auth_member_info.dart'
     as spw_auth_member_info;
 import '../../../global_functions/gf_my_functions.dart' as gf_my_functions;
-import '../../../pages/all/all_page_membership_withdrawal/page_entrance.dart'
+import '../../../pages/all/all_page_membership_withdrawal/page_widget.dart'
     as all_page_membership_withdrawal;
 import '../../../pages/all/all_page_login/page_entrance.dart' as all_page_login;
 
@@ -155,7 +155,7 @@ class PageBusiness {
   // (회원 탈퇴 버튼 누름)
   Future<void> tapWithdrawalBtn() async {
     // 회원탈퇴 페이지로 이동
-    all_page_membership_withdrawal.PageOutputVo? pageOutputVo =
+    all_page_membership_withdrawal.OutputVo? pageOutputVo =
         await _context.pushNamed(all_page_membership_withdrawal.pageName);
     if (pageOutputVo != null && pageOutputVo.withdrawalOk) {
       if (!_context.mounted) return;
