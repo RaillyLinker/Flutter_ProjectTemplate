@@ -214,9 +214,9 @@ class PageWidgetBusiness {
         itemDescription: "로딩 스피너 다이얼로그를 호출하고 2초 후 종료합니다.",
         onItemClicked: () {
           // (로딩 스피너 다이얼로그 호출)
-          all_dialog_loading_spinner_business.PageWidgetBusiness
+          all_dialog_loading_spinner_business.DialogWidgetBusiness
               allDialogLoadingSpinnerBusiness =
-              all_dialog_loading_spinner_business.PageWidgetBusiness();
+              all_dialog_loading_spinner_business.DialogWidgetBusiness();
 
           showDialog(
               barrierDismissible: false,
@@ -228,7 +228,7 @@ class PageWidgetBusiness {
 
           // 3초 후 닫힘
           Future.delayed(const Duration(seconds: 2)).then((value) {
-            allDialogLoadingSpinnerBusiness.closeDialog(context: context);
+            allDialogLoadingSpinnerBusiness.closeDialog();
           });
         }));
 

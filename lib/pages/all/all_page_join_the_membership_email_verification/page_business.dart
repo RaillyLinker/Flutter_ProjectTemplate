@@ -184,9 +184,9 @@ class PageBusiness {
     } else {
       // 입력값 검증 완료
       // (로딩 스피너 다이얼로그 호출)
-      all_dialog_loading_spinner_business.PageWidgetBusiness
+      all_dialog_loading_spinner_business.DialogWidgetBusiness
           allDialogLoadingSpinnerBusiness =
-          all_dialog_loading_spinner_business.PageWidgetBusiness();
+          all_dialog_loading_spinner_business.DialogWidgetBusiness();
 
       showDialog(
           barrierDismissible: false,
@@ -204,7 +204,7 @@ class PageBusiness {
 
       if (responseVo.dioException == null) {
         // Dio 네트워크 응답
-        allDialogLoadingSpinnerBusiness.closeDialog(context: context);
+        allDialogLoadingSpinnerBusiness.closeDialog();
         var networkResponseObjectOk = responseVo.networkResponseObjectOk!;
 
         if (networkResponseObjectOk.responseStatusCode == 200) {
@@ -304,7 +304,7 @@ class PageBusiness {
           }
         }
       } else {
-        allDialogLoadingSpinnerBusiness.closeDialog(context: context);
+        allDialogLoadingSpinnerBusiness.closeDialog();
         final all_dialog_info_business.DialogWidgetBusiness
             allDialogInfoBusiness =
             all_dialog_info_business.DialogWidgetBusiness();

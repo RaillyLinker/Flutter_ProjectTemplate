@@ -154,9 +154,9 @@ class PageWidgetBusiness {
         itemDescription: "에러 발생시의 신호를 응답하는 Post 메소드 샘플",
         onItemClicked: () async {
           // 로딩 다이얼로그 표시
-          all_dialog_loading_spinner_business.PageWidgetBusiness
+          all_dialog_loading_spinner_business.DialogWidgetBusiness
               allDialogLoadingSpinnerBusiness =
-              all_dialog_loading_spinner_business.PageWidgetBusiness();
+              all_dialog_loading_spinner_business.DialogWidgetBusiness();
 
           showDialog(
               barrierDismissible: false,
@@ -170,7 +170,7 @@ class PageWidgetBusiness {
               .postService1TkV1RequestTestGenerateErrorAsync();
 
           // 로딩 다이얼로그 제거
-          allDialogLoadingSpinnerBusiness.closeDialog(context: context);
+          allDialogLoadingSpinnerBusiness.closeDialog();
 
           if (response.dioException == null) {
             // Dio 네트워크 응답
@@ -217,9 +217,9 @@ class PageWidgetBusiness {
         itemDescription: "String 을 반환하는 Get 메소드 샘플",
         onItemClicked: () async {
           // 로딩 다이얼로그 표시
-          all_dialog_loading_spinner_business.PageWidgetBusiness
+          all_dialog_loading_spinner_business.DialogWidgetBusiness
               allDialogLoadingSpinnerBusiness =
-              all_dialog_loading_spinner_business.PageWidgetBusiness();
+              all_dialog_loading_spinner_business.DialogWidgetBusiness();
 
           showDialog(
               barrierDismissible: false,
@@ -233,7 +233,7 @@ class PageWidgetBusiness {
               .getService1TkV1RequestTestReturnTextStringAsync();
 
           // 로딩 다이얼로그 제거
-          allDialogLoadingSpinnerBusiness.closeDialog(context: context);
+          allDialogLoadingSpinnerBusiness.closeDialog();
 
           if (response.dioException == null) {
             // Dio 네트워크 응답
@@ -307,9 +307,9 @@ class PageWidgetBusiness {
         itemDescription: "HTML String 을 반환하는 Get 메소드 샘플",
         onItemClicked: () async {
           // 로딩 다이얼로그 표시
-          all_dialog_loading_spinner_business.PageWidgetBusiness
+          all_dialog_loading_spinner_business.DialogWidgetBusiness
               allDialogLoadingSpinnerBusiness =
-              all_dialog_loading_spinner_business.PageWidgetBusiness();
+              all_dialog_loading_spinner_business.DialogWidgetBusiness();
 
           showDialog(
               barrierDismissible: false,
@@ -323,7 +323,7 @@ class PageWidgetBusiness {
               .getService1TkV1RequestTestReturnTextHtmlAsync();
 
           // 로딩 다이얼로그 제거
-          allDialogLoadingSpinnerBusiness.closeDialog(context: context);
+          allDialogLoadingSpinnerBusiness.closeDialog();
 
           if (response.dioException == null) {
             // Dio 네트워크 응답

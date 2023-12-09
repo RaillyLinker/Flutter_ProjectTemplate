@@ -156,9 +156,9 @@ class PageBusiness {
   // (네트워크 리퀘스트)
   Future<void> doNetworkRequest({required BuildContext context}) async {
     // 로딩 다이얼로그 표시
-    all_dialog_loading_spinner_business.PageWidgetBusiness
+    all_dialog_loading_spinner_business.DialogWidgetBusiness
         allDialogLoadingSpinnerBusiness =
-        all_dialog_loading_spinner_business.PageWidgetBusiness();
+        all_dialog_loading_spinner_business.DialogWidgetBusiness();
 
     showDialog(
         barrierDismissible: false,
@@ -208,7 +208,7 @@ class PageBusiness {
             requestBodyStringListNullable: queryParamStringListNullable));
 
     // 로딩 다이얼로그 제거
-    allDialogLoadingSpinnerBusiness.closeDialog(context: context);
+    allDialogLoadingSpinnerBusiness.closeDialog();
 
     if (response.dioException == null) {
       // Dio 네트워크 응답

@@ -185,9 +185,9 @@ class PageBusiness {
             return;
           }
 
-          all_dialog_loading_spinner_business.PageWidgetBusiness
+          all_dialog_loading_spinner_business.DialogWidgetBusiness
               allDialogLoadingSpinnerBusiness =
-              all_dialog_loading_spinner_business.PageWidgetBusiness();
+              all_dialog_loading_spinner_business.DialogWidgetBusiness();
 
           showDialog(
               barrierDismissible: false,
@@ -204,7 +204,7 @@ class PageBusiness {
                       .PostService1TkV1AuthLoginWithPasswordAsyncRequestBodyVo(
                           loginTypeCode: 1, id: id, password: password));
 
-          allDialogLoadingSpinnerBusiness.closeDialog(context: context);
+          allDialogLoadingSpinnerBusiness.closeDialog();
 
           if (responseVo.dioException == null) {
             // Dio 네트워크 응답

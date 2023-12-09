@@ -112,9 +112,9 @@ class PageWidgetBusiness {
         onItemClicked: () async {
           // 서버 접속 테스트
           // 로딩 다이얼로그 표시
-          all_dialog_loading_spinner_business.PageWidgetBusiness
+          all_dialog_loading_spinner_business.DialogWidgetBusiness
               allDialogLoadingSpinnerBusiness =
-              all_dialog_loading_spinner_business.PageWidgetBusiness();
+              all_dialog_loading_spinner_business.DialogWidgetBusiness();
 
           showDialog(
               barrierDismissible: false,
@@ -128,7 +128,7 @@ class PageWidgetBusiness {
               await api_main_server.getService1TkV1AuthForNoLoggedInAsync();
 
           // 로딩 다이얼로그 제거
-          allDialogLoadingSpinnerBusiness.closeDialog(context: context);
+          allDialogLoadingSpinnerBusiness.closeDialog();
 
           if (response.dioException == null) {
             // Dio 네트워크 응답
@@ -180,9 +180,9 @@ class PageWidgetBusiness {
         onItemClicked: () async {
           // 무권한 로그인 진입 테스트
           // 로딩 다이얼로그 표시
-          all_dialog_loading_spinner_business.PageWidgetBusiness
+          all_dialog_loading_spinner_business.DialogWidgetBusiness
               allDialogLoadingSpinnerBusiness =
-              all_dialog_loading_spinner_business.PageWidgetBusiness();
+              all_dialog_loading_spinner_business.DialogWidgetBusiness();
 
           showDialog(
               barrierDismissible: false,
@@ -206,7 +206,7 @@ class PageWidgetBusiness {
                           authorization: authorization));
 
           // 로딩 다이얼로그 제거
-          allDialogLoadingSpinnerBusiness.closeDialog(context: context);
+          allDialogLoadingSpinnerBusiness.closeDialog();
 
           if (response.dioException == null) {
             // Dio 네트워크 응답
@@ -258,9 +258,9 @@ class PageWidgetBusiness {
         onItemClicked: () async {
           // DEVELOPER 권한 진입 테스트
           // 로딩 다이얼로그 표시
-          all_dialog_loading_spinner_business.PageWidgetBusiness
+          all_dialog_loading_spinner_business.DialogWidgetBusiness
               allDialogLoadingSpinnerBusiness =
-              all_dialog_loading_spinner_business.PageWidgetBusiness();
+              all_dialog_loading_spinner_business.DialogWidgetBusiness();
 
           showDialog(
               barrierDismissible: false,
@@ -284,7 +284,7 @@ class PageWidgetBusiness {
                           authorization: authorization));
 
           // 로딩 다이얼로그 제거
-          allDialogLoadingSpinnerBusiness.closeDialog(context: context);
+          allDialogLoadingSpinnerBusiness.closeDialog();
 
           if (response.dioException == null) {
             // Dio 네트워크 응답
@@ -336,9 +336,9 @@ class PageWidgetBusiness {
         onItemClicked: () async {
           // ADMIN 권한 진입 테스트
           // 로딩 다이얼로그 표시
-          all_dialog_loading_spinner_business.PageWidgetBusiness
+          all_dialog_loading_spinner_business.DialogWidgetBusiness
               allDialogLoadingSpinnerBusiness =
-              all_dialog_loading_spinner_business.PageWidgetBusiness();
+              all_dialog_loading_spinner_business.DialogWidgetBusiness();
 
           showDialog(
               barrierDismissible: false,
@@ -361,7 +361,7 @@ class PageWidgetBusiness {
                       authorization: authorization));
 
           // 로딩 다이얼로그 제거
-          allDialogLoadingSpinnerBusiness.closeDialog(context: context);
+          allDialogLoadingSpinnerBusiness.closeDialog();
 
           if (response.dioException == null) {
             // Dio 네트워크 응답

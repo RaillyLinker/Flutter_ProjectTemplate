@@ -167,9 +167,9 @@ class PageWidgetBusiness {
               onDialogCreated: () {},
             )).then((outputVo) async {
       if (outputVo.checkPositiveBtn) {
-        all_dialog_loading_spinner_business.PageWidgetBusiness
+        all_dialog_loading_spinner_business.DialogWidgetBusiness
             allDialogLoadingSpinnerBusiness =
-            all_dialog_loading_spinner_business.PageWidgetBusiness();
+            all_dialog_loading_spinner_business.DialogWidgetBusiness();
 
         showDialog(
             barrierDismissible: false,
@@ -188,7 +188,7 @@ class PageWidgetBusiness {
                       "${signInInfo.tokenType} ${signInInfo.accessToken}"),
         );
 
-        allDialogLoadingSpinnerBusiness.closeDialog(context: context);
+        allDialogLoadingSpinnerBusiness.closeDialog();
 
         if (responseVo.dioException == null) {
           // Dio 네트워크 응답

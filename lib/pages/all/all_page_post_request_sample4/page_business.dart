@@ -212,9 +212,9 @@ class PageBusiness {
       );
     } else {
       // 로딩 다이얼로그 표시
-      all_dialog_loading_spinner_business.PageWidgetBusiness
+      all_dialog_loading_spinner_business.DialogWidgetBusiness
           allDialogLoadingSpinnerBusiness =
-          all_dialog_loading_spinner_business.PageWidgetBusiness();
+          all_dialog_loading_spinner_business.DialogWidgetBusiness();
 
       showDialog(
           barrierDismissible: false,
@@ -246,7 +246,7 @@ class PageBusiness {
                           (pickFile2 == null) ? null : pickFile2));
 
       // 로딩 다이얼로그 제거
-      allDialogLoadingSpinnerBusiness.closeDialog(context: context);
+      allDialogLoadingSpinnerBusiness.closeDialog();
 
       if (response.dioException == null) {
         // Dio 네트워크 응답

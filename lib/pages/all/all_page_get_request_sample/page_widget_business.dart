@@ -215,9 +215,9 @@ class PageWidgetBusiness {
   // (네트워크 리퀘스트)
   Future<void> doNetworkRequest() async {
     // 로딩 다이얼로그 표시
-    all_dialog_loading_spinner_business.PageWidgetBusiness
+    all_dialog_loading_spinner_business.DialogWidgetBusiness
         allDialogLoadingSpinnerBusiness =
-        all_dialog_loading_spinner_business.PageWidgetBusiness();
+        all_dialog_loading_spinner_business.DialogWidgetBusiness();
 
     showDialog(
         barrierDismissible: false,
@@ -229,7 +229,7 @@ class PageWidgetBusiness {
               String input1Text = input1TextFieldController.text;
               if (input1Text.isEmpty) {
                 // 로딩 다이얼로그 제거
-                allDialogLoadingSpinnerBusiness.closeDialog(context: context);
+                allDialogLoadingSpinnerBusiness.closeDialog();
                 input1TextFieldErrorMsg = '이 항목을 입력 하세요.';
                 input1TextFieldBloc.refreshUi();
                 FocusScope.of(context).requestFocus(input1TextFieldFocus);
@@ -238,7 +238,7 @@ class PageWidgetBusiness {
 
               String input3Text = input3TextFieldController.text;
               if (input3Text.isEmpty) {
-                allDialogLoadingSpinnerBusiness.closeDialog(context: context);
+                allDialogLoadingSpinnerBusiness.closeDialog();
                 input3TextFieldErrorMsg = '이 항목을 입력 하세요.';
                 input3TextFieldBloc.refreshUi();
                 FocusScope.of(context).requestFocus(input3TextFieldFocus);
@@ -247,7 +247,7 @@ class PageWidgetBusiness {
 
               String input5Text = input5TextFieldController.text;
               if (input5Text.isEmpty) {
-                allDialogLoadingSpinnerBusiness.closeDialog(context: context);
+                allDialogLoadingSpinnerBusiness.closeDialog();
                 input5TextFieldErrorMsg = '이 항목을 입력 하세요.';
                 input5TextFieldBloc.refreshUi();
                 FocusScope.of(context).requestFocus(input5TextFieldFocus);
@@ -259,7 +259,7 @@ class PageWidgetBusiness {
                 String value = tec.inputTextFieldController.text;
                 print(value);
                 if (value.isEmpty) {
-                  allDialogLoadingSpinnerBusiness.closeDialog(context: context);
+                  allDialogLoadingSpinnerBusiness.closeDialog();
                   tec.inputTextFieldErrorMsg = '이 항목을 입력 하세요.';
                   tec.inputTextFieldBloc.refreshUi();
                   FocusScope.of(context).requestFocus(tec.inputTextFieldFocus);
@@ -274,8 +274,7 @@ class PageWidgetBusiness {
                 for (Input10ListItemViewModel tec in input10List) {
                   String value = tec.inputTextFieldController.text;
                   if (value.isEmpty) {
-                    allDialogLoadingSpinnerBusiness.closeDialog(
-                        context: context);
+                    allDialogLoadingSpinnerBusiness.closeDialog();
                     tec.inputTextFieldErrorMsg = '이 항목을 입력 하세요.';
                     tec.inputTextFieldBloc.refreshUi();
                     FocusScope.of(context)
@@ -314,7 +313,7 @@ class PageWidgetBusiness {
                                   queryParamStringListNullable));
 
               // 로딩 다이얼로그 제거
-              allDialogLoadingSpinnerBusiness.closeDialog(context: context);
+              allDialogLoadingSpinnerBusiness.closeDialog();
 
               if (response.dioException == null) {
                 // Dio 네트워크 응답

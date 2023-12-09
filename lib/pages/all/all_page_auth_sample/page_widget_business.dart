@@ -151,9 +151,9 @@ class PageWidgetBusiness {
           itemTitle: "로그아웃",
           itemDescription: "로그아웃 처리를 합니다.",
           onItemClicked: () async {
-            all_dialog_loading_spinner_business.PageWidgetBusiness
+            all_dialog_loading_spinner_business.DialogWidgetBusiness
                 allDialogLoadingSpinnerBusiness =
-                all_dialog_loading_spinner_business.PageWidgetBusiness();
+                all_dialog_loading_spinner_business.DialogWidgetBusiness();
 
             showDialog(
                 barrierDismissible: false,
@@ -179,7 +179,7 @@ class PageWidgetBusiness {
               spw_auth_member_info.SharedPreferenceWrapper.set(value: null);
             }
 
-            allDialogLoadingSpinnerBusiness.closeDialog(context: context);
+            allDialogLoadingSpinnerBusiness.closeDialog();
 
             // 화면 정보 갱신
             memberInfoViewModel = getMemberInfoVo();
@@ -191,9 +191,9 @@ class PageWidgetBusiness {
           itemTitle: "인증 토큰 갱신",
           itemDescription: "인증 토큰을 갱신합니다.",
           onItemClicked: () async {
-            all_dialog_loading_spinner_business.PageWidgetBusiness
+            all_dialog_loading_spinner_business.DialogWidgetBusiness
                 allDialogLoadingSpinnerBusiness =
-                all_dialog_loading_spinner_business.PageWidgetBusiness();
+                all_dialog_loading_spinner_business.DialogWidgetBusiness();
 
             showDialog(
                 barrierDismissible: false,
@@ -221,7 +221,7 @@ class PageWidgetBusiness {
                 // 리플래시 토큰이 사용 불가이므로 로그아웃 처리
                 // login_user_info SPW 비우기
                 spw_auth_member_info.SharedPreferenceWrapper.set(value: null);
-                allDialogLoadingSpinnerBusiness.closeDialog(context: context);
+                allDialogLoadingSpinnerBusiness.closeDialog();
 
                 memberInfoViewModel = getMemberInfoVo();
                 memberInfoBloc.refreshUi();
@@ -336,8 +336,7 @@ class PageWidgetBusiness {
                     spw_auth_member_info.SharedPreferenceWrapper.set(
                         value: loginMemberInfo);
 
-                    allDialogLoadingSpinnerBusiness.closeDialog(
-                        context: context);
+                    allDialogLoadingSpinnerBusiness.closeDialog();
 
                     memberInfoViewModel = getMemberInfoVo();
                     memberInfoBloc.refreshUi();
@@ -349,8 +348,7 @@ class PageWidgetBusiness {
 
                     // 비정상 응답
                     if (postReissueResponseHeader.apiResultCode == null) {
-                      allDialogLoadingSpinnerBusiness.closeDialog(
-                          context: context);
+                      allDialogLoadingSpinnerBusiness.closeDialog();
 
                       // 비정상 응답이면서 서버에서 에러 원인 코드가 전달되지 않았을 때
                       final all_dialog_info_business.DialogWidgetBusiness
@@ -370,8 +368,7 @@ class PageWidgetBusiness {
                                 onDialogCreated: () {},
                               ));
                     } else {
-                      allDialogLoadingSpinnerBusiness.closeDialog(
-                          context: context);
+                      allDialogLoadingSpinnerBusiness.closeDialog();
 
                       // 서버 지정 에러 코드를 전달 받았을 때
                       String apiResultCode =
@@ -402,7 +399,7 @@ class PageWidgetBusiness {
                     }
                   }
                 } else {
-                  allDialogLoadingSpinnerBusiness.closeDialog(context: context);
+                  allDialogLoadingSpinnerBusiness.closeDialog();
 
                   // Dio 네트워크 에러
                   final all_dialog_info_business.DialogWidgetBusiness

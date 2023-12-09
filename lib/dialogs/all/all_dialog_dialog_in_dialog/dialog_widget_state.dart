@@ -113,9 +113,9 @@ class DialogWidgetState extends State<dialog_widget.DialogWidget>
 
   // (Loading 다이얼로그 호출)
   void showLoadingDialog() {
-    all_dialog_loading_spinner_business.PageWidgetBusiness
+    all_dialog_loading_spinner_business.DialogWidgetBusiness
         allDialogLoadingSpinnerBusiness =
-        all_dialog_loading_spinner_business.PageWidgetBusiness();
+        all_dialog_loading_spinner_business.DialogWidgetBusiness();
 
     showDialog(
         barrierDismissible: true,
