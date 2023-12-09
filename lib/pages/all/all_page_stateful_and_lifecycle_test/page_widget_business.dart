@@ -1,22 +1,20 @@
 // (external)
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:flutter/foundation.dart';
 
 // (inner Folder)
 import 'page_widget.dart' as page_widget;
-import 'inner_widgets/iw_stateful_sample_number/sf_widget_state.dart'
-    as iw_stateful_sample_number_state;
 
 // (all)
 import '../../../global_widgets/gw_page_outer_frame/sl_widget_business.dart'
     as gw_page_outer_frame_business;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
-import '../../../pages/all/all_page_just_push_test1/page_widget.dart'
-    as all_page_just_push_test1;
 import '../../../global_widgets/gw_stateful_test/sf_widget_state.dart'
     as gw_stateful_test_state;
+import '../../../pages/all/all_page_page_and_router_sample_list/page_widget.dart'
+    as all_page_page_and_router_sample_list;
 
 // [위젯 비즈니스]
 // 위젯의 비즈니스 로직 + State 변수 처리는 이 곳에서 합니다.
@@ -27,65 +25,66 @@ import '../../../global_widgets/gw_stateful_test/sf_widget_state.dart'
 class PageWidgetBusiness {
   // [콜백 함수]
   // (전체 위젯 initState)
-  void initState() {
+  void initState({required BuildContext context}) {
     // !!!initState 로직 작성!!!
     if (kDebugMode) {
-      print("--- initState 호출됨");
+      print("+++ initState 호출됨");
     }
   }
 
   // (전체 위젯 dispose)
-  void dispose() {
+  void dispose({required BuildContext context}) {
     // !!!initState 로직 작성!!!
     if (kDebugMode) {
-      print("--- dispose 호출됨");
+      print("+++ dispose 호출됨");
     }
   }
 
   // (전체 위젯의 FocusDetector 콜백들)
-  Future<void> onFocusGained() async {
+  Future<void> onFocusGained({required BuildContext context}) async {
     // !!!onFocusGained 로직 작성!!!
     if (kDebugMode) {
-      print("--- onFocusGained 호출됨");
+      print("+++ onFocusGained 호출됨");
     }
   }
 
-  Future<void> onFocusLost() async {
+  Future<void> onFocusLost({required BuildContext context}) async {
     // !!!onFocusLost 로직 작성!!!
     if (kDebugMode) {
-      print("--- onFocusLost 호출됨");
+      print("+++ onFocusLost 호출됨");
     }
   }
 
-  Future<void> onVisibilityGained() async {
+  Future<void> onVisibilityGained({required BuildContext context}) async {
     // !!!onFocusLost 로직 작성!!!
     if (kDebugMode) {
-      print("--- onVisibilityGained 호출됨");
+      print("+++ onVisibilityGained 호출됨");
     }
   }
 
-  Future<void> onVisibilityLost() async {
+  Future<void> onVisibilityLost({required BuildContext context}) async {
     // !!!onVisibilityLost 로직 작성!!!
     if (kDebugMode) {
-      print("--- onVisibilityLost 호출됨");
+      print("+++ onVisibilityLost 호출됨");
     }
   }
 
-  Future<void> onForegroundGained() async {
+  Future<void> onForegroundGained({required BuildContext context}) async {
     // !!!onForegroundGained 로직 작성!!!
     if (kDebugMode) {
-      print("--- onForegroundGained 호출됨");
+      print("+++ onForegroundGained 호출됨");
     }
   }
 
-  Future<void> onForegroundLost() async {
+  Future<void> onForegroundLost({required BuildContext context}) async {
     // !!!onForegroundLost 로직 작성!!!
     if (kDebugMode) {
-      print("--- onForegroundLost 호출됨");
+      print("+++ onForegroundLost 호출됨");
     }
   }
 
-  void onCheckPageInputVo({required GoRouterState goRouterState}) {
+  void onCheckPageInputVo(
+      {required BuildContext context, required GoRouterState goRouterState}) {
     // !!!pageInputVo 체크!!!
     // ex :
     // if (!goRouterState.uri.queryParameters
@@ -93,7 +92,7 @@ class PageWidgetBusiness {
     //   // 필수 파라미터가 없는 경우에 대한 처리
     // }
     if (kDebugMode) {
-      print("--- onCheckPageInputVo 호출됨");
+      print("+++ onCheckPageInputVo 호출됨");
     }
 
     // !!!PageInputVo 입력!!!
@@ -101,21 +100,43 @@ class PageWidgetBusiness {
   }
 
   // [public 변수]
-  late BuildContext context;
+  // (페이지 pop 가능 여부 변수)
+  bool canPop = true;
 
   // (위젯 입력값)
   late page_widget.InputVo inputVo;
 
-  // (페이지 pop 가능 여부 변수)
-  bool canPop = true;
+  // (페이지 뷰모델 객체)
+  late PageWidgetViewModel pageWidgetViewModel;
+
+  // [public 함수]
+  // (Widget 화면 갱신) - WidgetUi.viewWidgetBuild 의 return 값을 다시 불러 옵니다.
+  late VoidCallback refreshUi;
+
+// !!!사용 함수 추가하기!!!
+
+  // (BLoC 샘플 텍스트 클릭시)
+  void onBlocSampleClicked() {
+    pageWidgetViewModel.blocSampleIntValue += 1;
+    pageWidgetViewModel.blocSampleBloc.refreshUi();
+  }
+
+  void goToParentPage({required BuildContext context}) {
+    context.pushNamed(all_page_page_and_router_sample_list.pageName);
+  }
+}
+
+// (페이지에서 사용할 변수 저장 클래스)
+class PageWidgetViewModel {
+  PageWidgetViewModel({required BuildContext context});
+
+// !!!페이지에서 사용할 변수를 아래에 선언하기!!!
+  // BLoC 객체 샘플 :
+  // final gc_template_classes.RefreshableBloc refreshableBloc = gc_template_classes.RefreshableBloc();
 
   // (pageOutFrameBusiness)
   final gw_page_outer_frame_business.SlWidgetBusiness pageOutFrameBusiness =
       gw_page_outer_frame_business.SlWidgetBusiness();
-
-  // (sampleNumberTextBusiness)
-  final GlobalKey<iw_stateful_sample_number_state.SfWidgetState>
-      statefulSampleNumberGk = GlobalKey();
 
   // (statefulTestBusiness)
   var statefulTestGk = GlobalKey<gw_stateful_test_state.SfWidgetState>();
@@ -124,34 +145,4 @@ class PageWidgetBusiness {
   gc_template_classes.RefreshableBloc blocSampleBloc =
       gc_template_classes.RefreshableBloc();
   int blocSampleIntValue = 0;
-
-  // [private 변수]
-
-  // [public 함수]
-  // (Widget 화면 갱신) - WidgetUi.viewWidgetBuild 의 return 값을 다시 불러 옵니다.
-  late VoidCallback refreshUi;
-
-  // (just_push_test 로 이동)
-  void goToJustPushTest1Page(BuildContext context) {
-    context.pushNamed(all_page_just_push_test1.pageName);
-  }
-
-  // (just_push_test 로 이동)
-  void goToJustPushTest2Page(BuildContext context) {
-    context.pushNamed(page_widget.pageName);
-  }
-
-  // (화면 카운트 +1)
-  void countPlus1() {
-    statefulSampleNumberGk.currentState?.sampleInt += 1;
-    statefulSampleNumberGk.currentState?.refreshUi();
-  }
-
-  // (BLoC 샘플 텍스트 클릭시)
-  void onBlocSampleClicked() {
-    blocSampleIntValue += 1;
-    blocSampleBloc.refreshUi();
-  }
-
-// [private 함수]
 }

@@ -5,6 +5,8 @@ import 'package:go_router/go_router.dart';
 
 // (all)
 import 'a_templates/all_page_template/page_widget.dart' as all_page_template;
+import 'pages/all/all_page_stateful_and_lifecycle_test/page_widget.dart'
+    as all_page_stateful_and_lifecycle_test;
 import 'pages/all/all_page_auth_sample/page_widget.dart'
     as all_page_auth_sample;
 import 'pages/all/all_page_authorization_test_sample_list/page_widget.dart'
@@ -30,10 +32,6 @@ import 'pages/all/all_page_join_the_membership_edit_member_info/page_entrance.da
     as all_page_join_the_membership_edit_member_info;
 import 'pages/all/all_page_join_the_membership_email_verification/page_entrance.dart'
     as all_page_join_the_membership_email_verification;
-import 'pages/all/all_page_just_push_test1/page_widget.dart'
-    as all_page_just_push_test1;
-import 'pages/all/all_page_just_push_test2/page_widget.dart'
-    as all_page_just_push_test2;
 import 'pages/all/all_page_login/page_entrance.dart' as all_page_login;
 import 'pages/all/all_page_member_info/page_widget.dart'
     as all_page_member_info;
@@ -152,6 +150,16 @@ GoRouter getRouter() {
       routes: subRouteListPageAndRouterSampleList));
 
   subRouteListPageAndRouterSampleList.add(GoRoute(
+      path: "stateful-and-lifecycle-test",
+      name: all_page_stateful_and_lifecycle_test.pageName,
+      pageBuilder: (c, s) {
+        return CustomTransitionPage(
+            key: s.pageKey,
+            child: all_page_stateful_and_lifecycle_test.PageWidget(goRouterState: s),
+            transitionsBuilder: all_page_stateful_and_lifecycle_test.pageTransitionsBuilder);
+      }));
+
+  subRouteListPageAndRouterSampleList.add(GoRoute(
       path: "page-template",
       name: all_page_template.pageName,
       pageBuilder: (c, s) {
@@ -159,32 +167,6 @@ GoRouter getRouter() {
             key: s.pageKey,
             child: all_page_template.PageWidget(goRouterState: s),
             transitionsBuilder: all_page_template.pageTransitionsBuilder);
-      }));
-
-  subRouteListPageAndRouterSampleList.add(GoRoute(
-      path: "just-push-test1",
-      name: all_page_just_push_test1.pageName,
-      pageBuilder: (c, s) {
-        return CustomTransitionPage(
-            key: s.pageKey,
-            child: all_page_just_push_test1.PageWidget(
-              goRouterState: s,
-            ),
-            transitionsBuilder:
-                all_page_just_push_test1.pageTransitionsBuilder);
-      }));
-
-  subRouteListPageAndRouterSampleList.add(GoRoute(
-      path: "just-push-test2",
-      name: all_page_just_push_test2.pageName,
-      pageBuilder: (c, s) {
-        return CustomTransitionPage(
-            key: s.pageKey,
-            child: all_page_just_push_test2.PageWidget(
-              goRouterState: s,
-            ),
-            transitionsBuilder:
-                all_page_just_push_test2.pageTransitionsBuilder);
       }));
 
   subRouteListPageAndRouterSampleList.add(GoRoute(

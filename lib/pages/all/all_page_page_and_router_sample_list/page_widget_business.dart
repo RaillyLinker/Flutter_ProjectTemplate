@@ -13,14 +13,14 @@ import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
 import '../all_page_input_and_output_push_test/page_widget.dart'
     as all_page_input_and_output_push_test;
-import '../../../pages/all/all_page_just_push_test1/page_widget.dart'
-    as all_page_just_push_test1;
 import '../../../a_templates/all_page_template/page_widget.dart'
     as all_page_template;
 import '../../../pages/all/all_page_page_transition_animation_sample_list/page_widget.dart'
     as all_page_page_transition_animation_sample_list;
 import '../../../pages/all/all_page_grid_sample/page_widget.dart'
     as all_page_grid_sample;
+import '../../../pages/all/all_page_stateful_and_lifecycle_test/page_widget.dart'
+as all_page_stateful_and_lifecycle_test;
 
 // [위젯 비즈니스]
 // 위젯의 비즈니스 로직 + State 변수 처리는 이 곳에서 합니다.
@@ -112,10 +112,10 @@ class PageWidgetBusiness {
         }));
 
     itemList.add(SampleItemViewModel(
-        itemTitle: "페이지 Push 테스트",
-        itemDescription: "페이지 Push 를 통한 페이지 이동을 테스트합니다.",
+        itemTitle: "Stateful 및 라이프사이클 테스트",
+        itemDescription: "위젯 상태 변경 테스트",
         onItemClicked: () {
-          context.pushNamed(all_page_just_push_test1.pageName);
+          context.pushNamed(all_page_stateful_and_lifecycle_test.pageName);
         }));
 
     itemList.add(SampleItemViewModel(
