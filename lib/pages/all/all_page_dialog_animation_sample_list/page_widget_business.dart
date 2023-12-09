@@ -17,8 +17,8 @@ import '../../../a_templates/all_dialog_template/dialog_widget_business.dart'
     as all_dialog_template_state;
 import '../../../dialogs/all/all_dialog_small_circle_transform_sample/dialog_widget.dart'
     as all_dialog_small_circle_transform_sample;
-import '../../../dialogs/all/all_dialog_small_circle_transform_sample/dialog_widget_state.dart'
-    as all_dialog_small_circle_transform_sample_state;
+import '../../../dialogs/all/all_dialog_small_circle_transform_sample/dialog_widget_business.dart'
+    as all_dialog_small_circle_transform_sample_business;
 
 // [위젯 비즈니스]
 // 위젯의 비즈니스 로직 + State 변수 처리는 이 곳에서 합니다.
@@ -195,19 +195,27 @@ class PageWidgetBusiness {
         itemDescription: "작업이 완료되면 작은 원으로 변하였다가 사라집니다.",
         onItemClicked: () {
           // 다이얼로그에서 다른 다이얼로그를 호출하는 샘플
-          final GlobalKey<
-                  all_dialog_small_circle_transform_sample_state
-                  .DialogWidgetState> allDialogSmallCircleTransformSampleGk =
-              GlobalKey();
+          final all_dialog_small_circle_transform_sample_business
+              .DialogWidgetBusiness
+              allDialogSmallCircleTransformSampleBusiness =
+              all_dialog_small_circle_transform_sample_business
+                  .DialogWidgetBusiness();
           showDialog(
               barrierDismissible: false,
               context: context,
               builder: (context) =>
                   all_dialog_small_circle_transform_sample.DialogWidget(
-                    globalKey: allDialogSmallCircleTransformSampleGk,
+                    business: allDialogSmallCircleTransformSampleBusiness,
                     inputVo: const all_dialog_small_circle_transform_sample
                         .InputVo(),
-                    onDialogCreated: () {},
+                    onDialogCreated: () async {
+                      // 2초 대기
+                      await Future.delayed(const Duration(seconds: 2));
+
+                      // 다이얼로그 완료 처리
+                      allDialogSmallCircleTransformSampleBusiness
+                          .dialogComplete();
+                    },
                   )).then((outputVo) {});
         }));
 

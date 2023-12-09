@@ -2,9 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
-import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
-import 'dart:io';
 import 'package:flutter/foundation.dart';
 
 // (inner Folder)
@@ -117,9 +115,9 @@ class PageWidgetBusiness {
 
   // (프로필 이미지 클릭)
   Future<void> onProfileImageTap() async {
-    final all_dialog_image_selector_menu_business.PageWidgetBusiness
+    final all_dialog_image_selector_menu_business.DialogWidgetBusiness
         allDialogImageSelectorMenuBusiness =
-        all_dialog_image_selector_menu_business.PageWidgetBusiness();
+        all_dialog_image_selector_menu_business.DialogWidgetBusiness();
 
     if (!context.mounted) return;
     var pageOutputVo = await showDialog(
@@ -127,10 +125,7 @@ class PageWidgetBusiness {
         context: context,
         builder: (context) => all_dialog_image_selector_menu.DialogWidget(
               business: allDialogImageSelectorMenuBusiness,
-              inputVo: all_dialog_image_selector_menu.InputVo(
-                  cameraAvailable:
-                      // 카메라는 모바일 환경에서만
-                      !kIsWeb && (Platform.isAndroid || Platform.isIOS)),
+              inputVo: const all_dialog_image_selector_menu.InputVo(),
               onDialogCreated: () {},
             ));
 
@@ -199,9 +194,9 @@ class PageWidgetBusiness {
       return;
     }
 
-    final all_dialog_image_selector_menu_business.PageWidgetBusiness
+    final all_dialog_image_selector_menu_business.DialogWidgetBusiness
         allDialogImageSelectorMenuBusiness =
-        all_dialog_image_selector_menu_business.PageWidgetBusiness();
+        all_dialog_image_selector_menu_business.DialogWidgetBusiness();
 
     if (!context.mounted) return;
     var pageOutputVo = await showDialog(
@@ -209,10 +204,7 @@ class PageWidgetBusiness {
         context: context,
         builder: (context) => all_dialog_image_selector_menu.DialogWidget(
               business: allDialogImageSelectorMenuBusiness,
-              inputVo: all_dialog_image_selector_menu.InputVo(
-                  cameraAvailable:
-                      // 카메라는 모바일 환경에서만
-                      !kIsWeb && (Platform.isAndroid || Platform.isIOS)),
+              inputVo: const all_dialog_image_selector_menu.InputVo(),
               onDialogCreated: () {},
             ));
 

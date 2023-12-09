@@ -18,10 +18,10 @@ import '../../../global_widgets/gw_page_outer_frame/sl_widget_business.dart'
     as gw_page_outer_frame_business;
 import '../../../../repositories/network/apis/api_main_server.dart'
     as api_main_server;
-import '../../../dialogs/all/all_dialog_auth_join_the_membership_select_member_profile_image_src/dialog_widget.dart'
-    as all_dialog_auth_join_the_membership_select_member_profile_image_src;
-import '../../../dialogs/all/all_dialog_auth_join_the_membership_select_member_profile_image_src/dialog_widget_business.dart'
-    as all_dialog_auth_join_the_membership_select_member_profile_image_src_business;
+import '../../../dialogs/all/all_dialog_image_selector_menu/dialog_widget.dart'
+    as all_dialog_image_selector_menu;
+import '../../../dialogs/all/all_dialog_image_selector_menu/dialog_widget_business.dart'
+    as all_dialog_image_selector_menu_business;
 import '../../../dialogs/all/all_dialog_info/dialog_widget.dart'
     as all_dialog_info;
 import '../../../dialogs/all/all_dialog_info/dialog_widget_business.dart'
@@ -579,30 +579,22 @@ class PageBusiness {
 
   // 프로필 이미지 클릭
   Future<void> onProfileImageTap() async {
-    final all_dialog_auth_join_the_membership_select_member_profile_image_src_business
-        .PageWidgetBusiness
-        allDialogAuthJoinTheMembershipSelectMemberProfileImageSrcBusiness =
-        all_dialog_auth_join_the_membership_select_member_profile_image_src_business
-            .PageWidgetBusiness();
+    final all_dialog_image_selector_menu_business.DialogWidgetBusiness
+        allDialogImageSelectorMenuBusiness =
+        all_dialog_image_selector_menu_business.DialogWidgetBusiness();
     if (!_context.mounted) return;
     var pageOutputVo = await showDialog(
         barrierDismissible: true,
         context: _context,
-        builder: (context) =>
-            all_dialog_auth_join_the_membership_select_member_profile_image_src
-                .DialogWidget(
-              business:
-                  allDialogAuthJoinTheMembershipSelectMemberProfileImageSrcBusiness,
-              inputVo:
-                  const all_dialog_auth_join_the_membership_select_member_profile_image_src
-                      .InputVo(),
+        builder: (context) => all_dialog_image_selector_menu.DialogWidget(
+              business: allDialogImageSelectorMenuBusiness,
+              inputVo: const all_dialog_image_selector_menu.InputVo(),
               onDialogCreated: () {},
             ));
 
     if (pageOutputVo != null) {
       switch (pageOutputVo.imageSourceType) {
-        case all_dialog_auth_join_the_membership_select_member_profile_image_src
-              .ImageSourceType.gallery:
+        case all_dialog_image_selector_menu.ImageSourceType.gallery:
           {
             // 갤러리에서 선택하기
             try {
@@ -622,8 +614,7 @@ class PageBusiness {
             } catch (_) {}
           }
           break;
-        case all_dialog_auth_join_the_membership_select_member_profile_image_src
-              .ImageSourceType.camera:
+        case all_dialog_image_selector_menu.ImageSourceType.camera:
           {
             // 사진 찍기
             try {
@@ -643,8 +634,7 @@ class PageBusiness {
             } catch (_) {}
           }
           break;
-        case all_dialog_auth_join_the_membership_select_member_profile_image_src
-              .ImageSourceType.defaultImage:
+        case all_dialog_image_selector_menu.ImageSourceType.defaultImage:
           {
             // 기본 프로필 이미지 적용
             pageViewModel.profileImage = null;

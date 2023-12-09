@@ -33,8 +33,8 @@ import '../../../dialogs/all/all_dialog_modal_bottom_sheet_sample/dialog_widget_
     as all_dialog_modal_bottom_sheet_sample_business;
 import '../../../dialogs/all/all_dialog_dialog_in_dialog/dialog_widget.dart'
     as all_dialog_dialog_in_dialog;
-import '../../../dialogs/all/all_dialog_dialog_in_dialog/dialog_widget_state.dart'
-    as all_dialog_dialog_in_dialog_state;
+import '../../../dialogs/all/all_dialog_dialog_in_dialog/dialog_widget_business.dart'
+    as all_dialog_dialog_in_dialog_business;
 import '../../../dialogs/all/all_dialog_context_menu_sample/dialog_widget.dart'
     as all_dialog_context_menu_sample;
 import '../../../dialogs/all/all_dialog_context_menu_sample/dialog_widget_business.dart'
@@ -266,13 +266,14 @@ class PageWidgetBusiness {
         itemDescription: "다이얼로그에서 다이얼로그를 호출합니다.",
         onItemClicked: () {
           // 다이얼로그에서 다른 다이얼로그를 호출하는 샘플
-          GlobalKey<all_dialog_dialog_in_dialog_state.DialogWidgetState>
-              allDialogDialogInDialogViewState = GlobalKey();
+          final all_dialog_dialog_in_dialog_business.DialogWidgetBusiness
+              allDialogDialogInDialogViewBusiness =
+              all_dialog_dialog_in_dialog_business.DialogWidgetBusiness();
           showDialog(
               barrierDismissible: true,
               context: context,
               builder: (context) => all_dialog_dialog_in_dialog.DialogWidget(
-                    globalKey: allDialogDialogInDialogViewState,
+                    business: allDialogDialogInDialogViewBusiness,
                     inputVo: const all_dialog_dialog_in_dialog.InputVo(),
                     onDialogCreated: () {},
                   )).then((outputVo) {});
