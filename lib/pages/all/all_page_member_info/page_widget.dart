@@ -1,37 +1,127 @@
 // (external)
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:focus_detector_v2/focus_detector_v2.dart';
+import 'package:go_router/go_router.dart';
 
-// (page)
-import 'page_business.dart' as page_business;
+// (inner Folder)
+import 'page_widget_business.dart' as page_widget_business;
 
 // (all)
 import '../../../global_widgets/gw_page_outer_frame/sl_widget.dart'
-    as gw_page_outer_frame_view;
+    as gw_page_outer_frame;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
 
-// [페이지 화면 위젯 작성 파일]
-// 페이지 화면 구현을 담당합니다.
-// 로직 처리는 pageBusiness 객체에 위임하세요.
+// [위젯 뷰]
+// 위젯의 화면 작성은 여기서 합니다.
 
 //------------------------------------------------------------------------------
-// (페이지 UI 위젯)
-// !!!세부 화면 정의!!!
-class PageView extends StatelessWidget {
-  const PageView({super.key});
+// !!!페이지 진입 라우트 Name 정의!!!
+// 폴더명과 동일하게 작성하세요.
+const pageName = "all_page_member_info";
+
+// !!!페이지 호출/반납 애니메이션!!!
+// 동적으로 변경이 가능합니다.
+Widget Function(BuildContext context, Animation<double> animation,
+        Animation<double> secondaryAnimation, Widget child)
+    pageTransitionsBuilder = (context, animation, secondaryAnimation, child) {
+  return FadeTransition(opacity: animation, child: child);
+};
+
+// (입력 데이터)
+class InputVo {
+  // !!!위젯 입력값 선언!!!
+  const InputVo();
+}
+
+// (결과 데이터)
+class OutputVo {
+  // !!!위젯 출력값 선언!!!
+  const OutputVo();
+}
+
+//------------------------------------------------------------------------------
+class PageWidget extends StatefulWidget {
+  const PageWidget({super.key, required this.goRouterState});
+
+  final GoRouterState goRouterState;
+
+  @override
+  PageWidgetState createState() => PageWidgetState();
+}
+
+class PageWidgetState extends State<PageWidget> with WidgetsBindingObserver {
+  // [콜백 함수]
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    business = page_widget_business.PageWidgetBusiness();
+    business.onCheckPageInputVo(goRouterState: widget.goRouterState);
+    business.refreshUi = refreshUi;
+    business.context = context;
+    business.initState();
+  }
+
+  @override
+  void dispose() {
+    business.dispose();
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    // pageBusiness 객체
-    page_business.PageBusiness pageBusiness =
-        BlocProvider.of<gc_template_classes.BlocPageInfo>(context)
-            .state
-            .pageBusiness;
+    business.refreshUi = refreshUi;
+    business.context = context;
+    return PopScope(
+      canPop: business.canPop,
+      child: FocusDetector(
+        // (페이지 위젯의 FocusDetector 콜백들)
+        onFocusGained: () async {
+          await business.onFocusGained();
+        },
+        onFocusLost: () async {
+          await business.onFocusLost();
+        },
+        onVisibilityGained: () async {
+          await business.onVisibilityGained();
+        },
+        onVisibilityLost: () async {
+          await business.onVisibilityLost();
+        },
+        onForegroundGained: () async {
+          await business.onForegroundGained();
+        },
+        onForegroundLost: () async {
+          await business.onForegroundLost();
+        },
+        child: WidgetUi.viewWidgetBuild(context: context, business: business),
+      ),
+    );
+  }
 
-    return gw_page_outer_frame_view.SlWidget(
-      business: pageBusiness.pageViewModel.pageOutFrameBusiness,
-      inputVo: gw_page_outer_frame_view.InputVo(
+  // [public 변수]
+  late page_widget_business.PageWidgetBusiness business;
+
+  // [public 함수]
+  // (Stateful Widget 화면 갱신)
+  void refreshUi() {
+    setState(() {});
+  }
+}
+
+class WidgetUi {
+  // [뷰 위젯]
+  static Widget viewWidgetBuild(
+      {required BuildContext context,
+      required page_widget_business.PageWidgetBusiness business}) {
+    // !!!뷰 위젯 반환 콜백 작성 하기!!!
+
+    return gw_page_outer_frame.SlWidget(
+      business: business.pageOutFrameBusiness,
+      inputVo: gw_page_outer_frame.InputVo(
         pageTitle: "회원 정보",
         child: SingleChildScrollView(
           child: Center(
@@ -48,58 +138,62 @@ class PageView extends StatelessWidget {
                       },
                       child: Stack(
                         children: [
-                          BlocBuilder<page_business.BlocProfileImage, bool>(
+                          BlocProvider(
+                            create: (context) => business.profileImageBloc,
+                            child: BlocBuilder<
+                                gc_template_classes.RefreshableBloc, bool>(
                               builder: (c, s) {
-                            if (pageBusiness.pageViewModel.frontProfileIdx ==
-                                null) {
-                              return ClipOval(
-                                  child: Container(
-                                color: Colors.blue,
-                                width: 100,
-                                height: 100,
-                                child: const Icon(
-                                  Icons.photo_outlined,
-                                  color: Colors.white,
-                                  size: 70,
-                                ),
-                              ));
-                            } else {
-                              return ClipOval(
-                                child: SizedBox(
-                                  width: 100,
-                                  height: 100,
-                                  child: Image(
-                                    image: NetworkImage(pageBusiness
-                                        .pageViewModel
-                                        .myProfileList[pageBusiness
-                                            .pageViewModel.frontProfileIdx!]
-                                        .imageFullUrl),
-                                    fit: BoxFit.cover,
-                                    loadingBuilder: (BuildContext context,
-                                        Widget child,
-                                        ImageChunkEvent? loadingProgress) {
-                                      // 로딩 중일 때 플레이스 홀더를 보여줍니다.
-                                      if (loadingProgress == null) {
-                                        return child; // 로딩이 끝났을 경우
-                                      }
-                                      return const Center(
-                                        child: CircularProgressIndicator(),
-                                      );
-                                    },
-                                    errorBuilder: (context, error, stackTrace) {
-                                      // 에러 발생 시 설정한 에러 위젯을 반환합니다.
-                                      return const Center(
-                                        child: Icon(
-                                          Icons.error,
-                                          color: Colors.red,
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                ),
-                              );
-                            }
-                          }),
+                                if (business.frontProfileIdx == null) {
+                                  return ClipOval(
+                                      child: Container(
+                                    color: Colors.blue,
+                                    width: 100,
+                                    height: 100,
+                                    child: const Icon(
+                                      Icons.photo_outlined,
+                                      color: Colors.white,
+                                      size: 70,
+                                    ),
+                                  ));
+                                } else {
+                                  return ClipOval(
+                                    child: SizedBox(
+                                      width: 100,
+                                      height: 100,
+                                      child: Image(
+                                        image: NetworkImage(business
+                                            .myProfileList[
+                                                business.frontProfileIdx!]
+                                            .imageFullUrl),
+                                        fit: BoxFit.cover,
+                                        loadingBuilder: (BuildContext context,
+                                            Widget child,
+                                            ImageChunkEvent? loadingProgress) {
+                                          // 로딩 중일 때 플레이스 홀더를 보여줍니다.
+                                          if (loadingProgress == null) {
+                                            return child; // 로딩이 끝났을 경우
+                                          }
+                                          return const Center(
+                                            child: CircularProgressIndicator(),
+                                          );
+                                        },
+                                        errorBuilder:
+                                            (context, error, stackTrace) {
+                                          // 에러 발생 시 설정한 에러 위젯을 반환합니다.
+                                          return const Center(
+                                            child: Icon(
+                                              Icons.error,
+                                              color: Colors.red,
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                  );
+                                }
+                              },
+                            ),
+                          ),
                           Positioned(
                             width: 30,
                             height: 30,
@@ -151,24 +245,25 @@ class PageView extends StatelessWidget {
                               )),
                           Expanded(
                               flex: 20,
-                              child:
-                                  BlocBuilder<page_business.BlocNickname, bool>(
-                                builder: (c, s) {
-                                  return Container(
-                                    color: Colors.orange,
-                                    child: Text(
-                                      pageBusiness.pageViewModel.nickName ==
-                                              null
-                                          ? ""
-                                          : pageBusiness
-                                              .pageViewModel.nickName!,
-                                      textAlign: TextAlign.center,
-                                      style: const TextStyle(
-                                          color: Colors.blueAccent,
-                                          fontFamily: "MaruBuri"),
-                                    ),
-                                  );
-                                },
+                              child: BlocProvider(
+                                create: (context) => business.nicknameBloc,
+                                child: BlocBuilder<
+                                    gc_template_classes.RefreshableBloc, bool>(
+                                  builder: (c, s) {
+                                    return Container(
+                                      color: Colors.orange,
+                                      child: Text(
+                                        business.nickName == null
+                                            ? ""
+                                            : business.nickName!,
+                                        textAlign: TextAlign.center,
+                                        style: const TextStyle(
+                                            color: Colors.blueAccent,
+                                            fontFamily: "MaruBuri"),
+                                      ),
+                                    );
+                                  },
+                                ),
                               )),
                         ],
                       ),
@@ -231,18 +326,18 @@ class PageView extends StatelessWidget {
                                 ),
                               )),
                           Expanded(
-                              flex: 20,
-                              child: BlocBuilder<page_business.BlocEmail, bool>(
+                            flex: 20,
+                            child: BlocProvider(
+                              create: (context) => business.emailBloc,
+                              child: BlocBuilder<
+                                  gc_template_classes.RefreshableBloc, bool>(
                                 builder: (c, s) {
                                   return Container(
                                     color: Colors.orange,
                                     child: Text(
-                                      pageBusiness.pageViewModel.myEmailList ==
-                                              null
+                                      business.myEmailList == null
                                           ? ""
-                                          : pageBusiness
-                                              .pageViewModel.myEmailList
-                                              .toString(),
+                                          : business.myEmailList.toString(),
                                       textAlign: TextAlign.center,
                                       style: const TextStyle(
                                           color: Colors.blueAccent,
@@ -250,7 +345,9 @@ class PageView extends StatelessWidget {
                                     ),
                                   );
                                 },
-                              )),
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -276,19 +373,18 @@ class PageView extends StatelessWidget {
                                 ),
                               )),
                           Expanded(
-                              flex: 20,
-                              child: BlocBuilder<page_business.BlocPhoneNumber,
-                                  bool>(
+                            flex: 20,
+                            child: BlocProvider(
+                              create: (context) => business.phoneNumberBloc,
+                              child: BlocBuilder<
+                                  gc_template_classes.RefreshableBloc, bool>(
                                 builder: (c, s) {
                                   return Container(
                                     color: Colors.orange,
                                     child: Text(
-                                      pageBusiness.pageViewModel
-                                                  .myPhoneNumberList ==
-                                              null
+                                      business.myPhoneNumberList == null
                                           ? ""
-                                          : pageBusiness
-                                              .pageViewModel.myPhoneNumberList
+                                          : business.myPhoneNumberList
                                               .toString(),
                                       textAlign: TextAlign.center,
                                       style: const TextStyle(
@@ -297,7 +393,9 @@ class PageView extends StatelessWidget {
                                     ),
                                   );
                                 },
-                              )),
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -323,19 +421,18 @@ class PageView extends StatelessWidget {
                                 ),
                               )),
                           Expanded(
-                              flex: 20,
-                              child:
-                                  BlocBuilder<page_business.BlocOAuth2, bool>(
+                            flex: 20,
+                            child: BlocProvider(
+                              create: (context) => business.oAuth2Bloc,
+                              child: BlocBuilder<
+                                  gc_template_classes.RefreshableBloc, bool>(
                                 builder: (c, s) {
                                   return Container(
                                     color: Colors.orange,
                                     child: Text(
-                                      pageBusiness.pageViewModel.myOAuth2List ==
-                                              null
+                                      business.myOAuth2List == null
                                           ? ""
-                                          : pageBusiness
-                                              .pageViewModel.myOAuth2List
-                                              .toString(),
+                                          : business.myOAuth2List.toString(),
                                       textAlign: TextAlign.center,
                                       style: const TextStyle(
                                           color: Colors.blueAccent,
@@ -343,7 +440,9 @@ class PageView extends StatelessWidget {
                                     ),
                                   );
                                 },
-                              )),
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -369,18 +468,18 @@ class PageView extends StatelessWidget {
                                 ),
                               )),
                           Expanded(
-                              flex: 20,
-                              child: BlocBuilder<page_business.BlocPermission,
-                                  bool>(
+                            flex: 20,
+                            child: BlocProvider(
+                              create: (context) => business.permissionBloc,
+                              child: BlocBuilder<
+                                  gc_template_classes.RefreshableBloc, bool>(
                                 builder: (c, s) {
                                   return Container(
                                     color: Colors.orange,
                                     child: Text(
-                                      pageBusiness.pageViewModel.roleList ==
-                                              null
+                                      business.roleList == null
                                           ? ""
-                                          : pageBusiness.pageViewModel.roleList
-                                              .toString(),
+                                          : business.roleList.toString(),
                                       textAlign: TextAlign.center,
                                       style: const TextStyle(
                                           color: Colors.blueAccent,
@@ -388,7 +487,9 @@ class PageView extends StatelessWidget {
                                     ),
                                   );
                                 },
-                              )),
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -400,7 +501,7 @@ class PageView extends StatelessWidget {
                     cursor: SystemMouseCursors.click,
                     child: GestureDetector(
                       onTap: () {
-                        pageBusiness.tapWithdrawalBtn();
+                        business.tapWithdrawalBtn();
                       },
                       child: const Text(
                         "회원 탈퇴하기",
@@ -419,3 +520,27 @@ class PageView extends StatelessWidget {
     );
   }
 }
+
+// (BLoC 갱신 구역 설정 방법)
+// 위젯을 작성 하다가 특정 부분은 상태에 따라 UI 가 변하도록 하고 싶은 부분이 있습니다.
+// 이 경우 Stateful 위젯을 생성 해서 사용 하면 되지만,
+// 간단히 갱신 영역을 지정 하여 해당 구역만 갱신 하도록 하기 위해선 BLoC 갱신 구역을 설정 하여 사용 하면 됩니다.
+// Business 클래스 안에 BLoC 갱신 구역 조작 객체로
+// final gc_template_classes.RefreshableBloc refreshableBloc = gc_template_classes.RefreshableBloc();
+// 위와 같이 선언 및 생성 하고,
+// Widget 에서는, 갱신 하려는 구역을
+// BlocProvider(
+//         create: (context) => business.refreshableBloc,
+//         child: BlocBuilder<gc_template_classes.RefreshableBloc, bool>(
+//         builder: (c,s){
+//             return Text(business.sampleInt.toString());
+//         },
+//     ),
+// )
+// 위와 같이 감싸 줍니다.
+// 만약 위와 같은 Text 위젯에서 숫자 표시를 갱신 하려면,
+// business.sampleInt += 1;
+// business.refreshableBloc.refreshUi();
+// 이처럼 Text 위젯에서 사용 하는 상태 변수의 값을 변경 하고,
+// 갱신 구역 객체의 refreshUi() 함수를 실행 시키면,
+// builder 가 다시 실행 되며, 그 안의 위젯이 재조립 되어 화면을 갱신 합니다.

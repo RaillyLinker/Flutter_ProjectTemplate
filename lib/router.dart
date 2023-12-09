@@ -35,7 +35,7 @@ import 'pages/all/all_page_just_push_test1/page_widget.dart'
 import 'pages/all/all_page_just_push_test2/page_widget.dart'
     as all_page_just_push_test2;
 import 'pages/all/all_page_login/page_entrance.dart' as all_page_login;
-import 'pages/all/all_page_member_info/page_entrance.dart'
+import 'pages/all/all_page_member_info/page_widget.dart'
     as all_page_member_info;
 import 'pages/all/all_page_membership_withdrawal/page_widget.dart'
     as all_page_membership_withdrawal;
@@ -352,7 +352,7 @@ GoRouter getRouter() {
       pageBuilder: (c, s) {
         return CustomTransitionPage(
             key: s.pageKey,
-            child: all_page_member_info.PageEntrance(s),
+            child: all_page_member_info.PageWidget(goRouterState: s),
             transitionsBuilder: all_page_member_info.pageTransitionsBuilder);
       }));
 

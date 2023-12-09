@@ -25,7 +25,7 @@ import '../../../dialogs/all/all_dialog_loading_spinner/dialog_widget.dart'
 import '../../../dialogs/all/all_dialog_loading_spinner/dialog_widget_state.dart'
     as all_dialog_loading_spinner_state;
 import '../../../pages/all/all_page_login/page_entrance.dart' as all_page_login;
-import '../../../pages/all/all_page_member_info/page_entrance.dart'
+import '../../../pages/all/all_page_member_info/page_widget.dart'
     as all_page_member_info;
 import '../../../pages/all/all_page_authorization_test_sample_list/page_widget.dart'
     as all_page_authorization_test_sample_list;
