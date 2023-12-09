@@ -238,9 +238,9 @@ class PageBusiness {
           if (defaultTargetPlatform == TargetPlatform.iOS ||
               defaultTargetPlatform == TargetPlatform.android) {
             // 모바일 환경 : 업데이트 스토어로 이동
-            final all_dialog_info_business.PageWidgetBusiness
+            final all_dialog_info_business.DialogWidgetBusiness
                 allDialogInfoBusiness =
-                all_dialog_info_business.PageWidgetBusiness();
+                all_dialog_info_business.DialogWidgetBusiness();
             if (!_context.mounted) return;
             showDialog(
                 barrierDismissible: true,
@@ -266,9 +266,9 @@ class PageBusiness {
             });
           } else {
             // PC 환경 : 업데이트 정보를 알려주고 종료
-            final all_dialog_info_business.PageWidgetBusiness
+            final all_dialog_info_business.DialogWidgetBusiness
                 allDialogInfoBusiness =
-                all_dialog_info_business.PageWidgetBusiness();
+                all_dialog_info_business.DialogWidgetBusiness();
             if (!_context.mounted) return;
             showDialog(
                 barrierDismissible: true,
@@ -479,9 +479,9 @@ class PageBusiness {
               if (pageViewModel.signInRetryCount ==
                   pageViewModel.signInRetryCountLimit) {
                 pageViewModel.signInRetryCount = 0;
-                final all_dialog_info_business.PageWidgetBusiness
+                final all_dialog_info_business.DialogWidgetBusiness
                     allDialogInfoBusiness =
-                    all_dialog_info_business.PageWidgetBusiness();
+                    all_dialog_info_business.DialogWidgetBusiness();
                 if (!_context.mounted) return;
                 await showDialog(
                     barrierDismissible: true,
@@ -559,9 +559,9 @@ class PageBusiness {
           if (pageViewModel.signInRetryCount ==
               pageViewModel.signInRetryCountLimit) {
             pageViewModel.signInRetryCount = 0;
-            final all_dialog_info_business.PageWidgetBusiness
+            final all_dialog_info_business.DialogWidgetBusiness
                 allDialogInfoBusiness =
-                all_dialog_info_business.PageWidgetBusiness();
+                all_dialog_info_business.DialogWidgetBusiness();
             if (!_context.mounted) return;
             await showDialog(
                 barrierDismissible: true,

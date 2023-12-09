@@ -198,9 +198,9 @@ class PageWidgetBusiness {
             // 정상 응답
             // 로그아웃 처리
             spw_auth_member_info.SharedPreferenceWrapper.set(value: null);
-            final all_dialog_info_business.PageWidgetBusiness
+            final all_dialog_info_business.DialogWidgetBusiness
                 allDialogInfoBusiness =
-                all_dialog_info_business.PageWidgetBusiness();
+                all_dialog_info_business.DialogWidgetBusiness();
             if (!context.mounted) return;
             await showDialog(
                 barrierDismissible: true,
@@ -227,9 +227,9 @@ class PageWidgetBusiness {
             return;
           } else {
             // 비정상 응답
-            final all_dialog_info_business.PageWidgetBusiness
+            final all_dialog_info_business.DialogWidgetBusiness
                 allDialogInfoBusiness =
-                all_dialog_info_business.PageWidgetBusiness();
+                all_dialog_info_business.DialogWidgetBusiness();
             if (!context.mounted) return;
             showDialog(
                 barrierDismissible: true,
@@ -244,9 +244,9 @@ class PageWidgetBusiness {
                     ));
           }
         } else {
-          final all_dialog_info_business.PageWidgetBusiness
+          final all_dialog_info_business.DialogWidgetBusiness
               allDialogInfoBusiness =
-              all_dialog_info_business.PageWidgetBusiness();
+              all_dialog_info_business.DialogWidgetBusiness();
           if (!context.mounted) return;
           showDialog(
               barrierDismissible: true,

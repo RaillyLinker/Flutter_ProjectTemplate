@@ -227,8 +227,8 @@ class PageWidgetBusiness {
     String input3 = input3Text;
     String input4 = input4Text;
 
-    final all_dialog_info_business.PageWidgetBusiness allDialogInfoBusiness =
-        all_dialog_info_business.PageWidgetBusiness();
+    final all_dialog_info_business.DialogWidgetBusiness allDialogInfoBusiness =
+        all_dialog_info_business.DialogWidgetBusiness();
     showDialog(
         barrierDismissible: true,
         context: context,

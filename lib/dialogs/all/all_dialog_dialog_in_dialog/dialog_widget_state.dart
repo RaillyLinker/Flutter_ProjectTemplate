@@ -96,8 +96,8 @@ class DialogWidgetState extends State<dialog_widget.DialogWidget>
 
   // (Info 다이얼로그 호출)
   void showInfoDialog() {
-    final all_dialog_info_business.PageWidgetBusiness allDialogInfoBusiness =
-        all_dialog_info_business.PageWidgetBusiness();
+    final all_dialog_info_business.DialogWidgetBusiness allDialogInfoBusiness =
+        all_dialog_info_business.DialogWidgetBusiness();
     showDialog(
         barrierDismissible: true,
         context: context,

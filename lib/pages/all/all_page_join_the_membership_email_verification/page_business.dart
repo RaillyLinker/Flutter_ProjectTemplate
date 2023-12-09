@@ -255,9 +255,9 @@ class PageBusiness {
 
           if (responseHeaders.apiResultCode == null) {
             // 비정상 응답이면서 서버에서 에러 원인 코드가 전달되지 않았을 때
-            final all_dialog_info_business.PageWidgetBusiness
+            final all_dialog_info_business.DialogWidgetBusiness
                 allDialogInfoBusiness =
-                all_dialog_info_business.PageWidgetBusiness();
+                all_dialog_info_business.DialogWidgetBusiness();
             if (!_context.mounted) return;
             showDialog(
                 barrierDismissible: true,
@@ -278,9 +278,9 @@ class PageBusiness {
               case "1":
                 {
                   // 기존 회원 존재
-                  final all_dialog_info_business.PageWidgetBusiness
+                  final all_dialog_info_business.DialogWidgetBusiness
                       allDialogInfoBusiness =
-                      all_dialog_info_business.PageWidgetBusiness();
+                      all_dialog_info_business.DialogWidgetBusiness();
                   if (!_context.mounted) return;
                   showDialog(
                       barrierDismissible: true,
@@ -305,9 +305,9 @@ class PageBusiness {
         }
       } else {
         allDialogLoadingSpinnerBusiness.closeDialog(context: context);
-        final all_dialog_info_business.PageWidgetBusiness
+        final all_dialog_info_business.DialogWidgetBusiness
             allDialogInfoBusiness =
-            all_dialog_info_business.PageWidgetBusiness();
+            all_dialog_info_business.DialogWidgetBusiness();
         if (!_context.mounted) return;
         showDialog(
             barrierDismissible: true,

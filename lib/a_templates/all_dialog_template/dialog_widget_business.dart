@@ -57,8 +57,8 @@ class DialogWidgetBusiness {
   late VoidCallback refreshUi;
 
   // (다이얼로그 종료 함수)
-  void closeDialog({required BuildContext context}) {
-    context.pop();
+  void closeDialog() {
+    viewModel.context.pop();
   }
 
 // !!!사용 함수 추가하기!!!

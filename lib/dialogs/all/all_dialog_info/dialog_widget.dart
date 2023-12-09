@@ -43,10 +43,10 @@ class DialogWidget extends StatefulWidget {
 
   final InputVo inputVo;
 
+  final dialog_widget_business.DialogWidgetBusiness business;
+
   // 다이얼로그가 Created 된 시점에 한번 실행됨
   final VoidCallback onDialogCreated;
-
-  final dialog_widget_business.PageWidgetBusiness business;
 
   @override
   DialogWidgetState createState() => DialogWidgetState();
@@ -60,49 +60,50 @@ class DialogWidgetState extends State<DialogWidget>
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     business = widget.business;
+    business.viewModel = dialog_widget_business.PageWidgetViewModel(
+        context: context, inputVo: widget.inputVo);
     business.refreshUi = refreshUi;
-    business.inputVo = widget.inputVo;
-    business.viewModel =
-        dialog_widget_business.PageWidgetViewModel(context: context);
-    business.initState(context: context);
+    business.initState();
   }
 
   @override
   void dispose() {
-    business.dispose(context: context);
+    business.viewModel.context = context;
+    business.dispose();
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    business.viewModel.context = context;
     business.refreshUi = refreshUi;
     return PopScope(
-      canPop: business.canPop,
+      canPop: business.viewModel.canPop,
       child: FocusDetector(
         // (페이지 위젯의 FocusDetector 콜백들)
         onFocusGained: () async {
-          if (business.needInitState) {
-            business.needInitState = false;
+          if (business.viewModel.needInitState) {
+            business.viewModel.needInitState = false;
             widget.onDialogCreated();
           }
 
-          await business.onFocusGained(context: context);
+          await business.onFocusGained();
         },
         onFocusLost: () async {
-          await business.onFocusLost(context: context);
+          await business.onFocusLost();
         },
         onVisibilityGained: () async {
-          await business.onVisibilityGained(context: context);
+          await business.onVisibilityGained();
         },
         onVisibilityLost: () async {
-          await business.onVisibilityLost(context: context);
+          await business.onVisibilityLost();
         },
         onForegroundGained: () async {
-          await business.onForegroundGained(context: context);
+          await business.onForegroundGained();
         },
         onForegroundLost: () async {
-          await business.onForegroundLost(context: context);
+          await business.onForegroundLost();
         },
         child: WidgetUi.viewWidgetBuild(context: context, business: business),
       ),
@@ -110,7 +111,7 @@ class DialogWidgetState extends State<DialogWidget>
   }
 
   // [public 변수]
-  late dialog_widget_business.PageWidgetBusiness business;
+  late dialog_widget_business.DialogWidgetBusiness business;
 
   // [public 함수]
   // (Stateful Widget 화면 갱신)
@@ -123,7 +124,7 @@ class WidgetUi {
   // [뷰 위젯]
   static Widget viewWidgetBuild(
       {required BuildContext context,
-      required dialog_widget_business.PageWidgetBusiness business}) {
+      required dialog_widget_business.DialogWidgetBusiness business}) {
     // !!!뷰 위젯 반환 콜백 작성 하기!!!
 
     return Dialog(
@@ -149,7 +150,7 @@ class WidgetUi {
                     child: Text(
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      business.inputVo.dialogTitle,
+                      business.viewModel.inputVo.dialogTitle,
                       style: const TextStyle(
                           fontSize: 17,
                           fontFamily: "MaruBuri",
@@ -167,7 +168,7 @@ class WidgetUi {
                     padding: const EdgeInsets.only(left: 17, right: 17),
                     child: SingleChildScrollView(
                       child: Text(
-                        business.inputVo.dialogContent,
+                        business.viewModel.inputVo.dialogContent,
                         style: const TextStyle(
                             fontFamily: "MaruBuri", color: Colors.black),
                         textAlign: TextAlign.center,
@@ -195,13 +196,13 @@ class WidgetUi {
                         const BoxConstraints(minWidth: 100, maxWidth: 200),
                     child: ElevatedButton(
                       onPressed: () {
-                        business.closeDialog(context: context);
+                        business.closeDialog();
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.blue,
                       ),
                       child: Text(
-                        business.inputVo.checkBtnTitle,
+                        business.viewModel.inputVo.checkBtnTitle,
                         style: const TextStyle(
                             color: Colors.white, fontFamily: "MaruBuri"),
                       ),

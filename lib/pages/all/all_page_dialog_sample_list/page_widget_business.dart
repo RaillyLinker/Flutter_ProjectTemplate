@@ -148,9 +148,9 @@ class PageWidgetBusiness {
         itemDescription: "버튼이 하나인 확인 다이얼로그를 호출합니다.",
         onItemClicked: () {
           // (확인 다이얼로그 호출)
-          final all_dialog_info_business.PageWidgetBusiness
+          final all_dialog_info_business.DialogWidgetBusiness
               allDialogInfoBusiness =
-              all_dialog_info_business.PageWidgetBusiness();
+              all_dialog_info_business.DialogWidgetBusiness();
           showDialog(
               barrierDismissible: true,
               context: context,

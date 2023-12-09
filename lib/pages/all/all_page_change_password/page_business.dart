@@ -469,9 +469,9 @@ class PageBusiness {
         // 비정상 응답
         if (responseHeaders.apiResultCode == null) {
           // 비정상 응답이면서 서버에서 에러 원인 코드가 전달되지 않았을 때
-          final all_dialog_info_business.PageWidgetBusiness
+          final all_dialog_info_business.DialogWidgetBusiness
               allDialogInfoBusiness =
-              all_dialog_info_business.PageWidgetBusiness();
+              all_dialog_info_business.DialogWidgetBusiness();
           if (!_context.mounted) return;
           showDialog(
               barrierDismissible: true,
@@ -492,9 +492,9 @@ class PageBusiness {
             case "1":
               {
                 // 탈퇴된 회원
-                final all_dialog_info_business.PageWidgetBusiness
+                final all_dialog_info_business.DialogWidgetBusiness
                     allDialogInfoBusiness =
-                    all_dialog_info_business.PageWidgetBusiness();
+                    all_dialog_info_business.DialogWidgetBusiness();
                 if (!_context.mounted) return;
                 await showDialog(
                     barrierDismissible: true,
@@ -512,9 +512,9 @@ class PageBusiness {
             case "2":
               {
                 // 기존 비밀번호가 일치하지 않음
-                final all_dialog_info_business.PageWidgetBusiness
+                final all_dialog_info_business.DialogWidgetBusiness
                     allDialogInfoBusiness =
-                    all_dialog_info_business.PageWidgetBusiness();
+                    all_dialog_info_business.DialogWidgetBusiness();
                 if (!_context.mounted) return;
                 await showDialog(
                     barrierDismissible: true,
@@ -532,9 +532,9 @@ class PageBusiness {
             case "3":
               {
                 // 비번을 null 로 만들려고 할 때 account 외의 OAuth2 인증이 없기에 비번 제거 불가
-                final all_dialog_info_business.PageWidgetBusiness
+                final all_dialog_info_business.DialogWidgetBusiness
                     allDialogInfoBusiness =
-                    all_dialog_info_business.PageWidgetBusiness();
+                    all_dialog_info_business.DialogWidgetBusiness();
                 if (!_context.mounted) return;
                 await showDialog(
                     barrierDismissible: true,
@@ -559,8 +559,9 @@ class PageBusiness {
       }
     } else {
       // Dio 네트워크 에러
-      final all_dialog_info_business.PageWidgetBusiness allDialogInfoBusiness =
-          all_dialog_info_business.PageWidgetBusiness();
+      final all_dialog_info_business.DialogWidgetBusiness
+          allDialogInfoBusiness =
+          all_dialog_info_business.DialogWidgetBusiness();
       if (!_context.mounted) return;
       showDialog(
           barrierDismissible: true,

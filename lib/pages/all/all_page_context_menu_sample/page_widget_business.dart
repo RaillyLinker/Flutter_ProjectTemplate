@@ -109,8 +109,8 @@ class PageWidgetBusiness {
 
   // (context 메뉴의 다이얼로그 테스트 항목을 클릭)
   void dialogTestMenuBtn() {
-    final all_dialog_info_business.PageWidgetBusiness allDialogInfoBusiness =
-        all_dialog_info_business.PageWidgetBusiness();
+    final all_dialog_info_business.DialogWidgetBusiness allDialogInfoBusiness =
+        all_dialog_info_business.DialogWidgetBusiness();
     showDialog(
         barrierDismissible: true,
         context: context,

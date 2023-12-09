@@ -224,9 +224,9 @@ class PageBusiness {
             .PostService1TkV1RequestTestPostRequestApplicationJsonAsyncResponseBodyVo;
 
         // 확인 다이얼로그 호출
-        final all_dialog_info_business.PageWidgetBusiness
+        final all_dialog_info_business.DialogWidgetBusiness
             allDialogInfoBusiness =
-            all_dialog_info_business.PageWidgetBusiness();
+            all_dialog_info_business.DialogWidgetBusiness();
         if (!_context.mounted) return;
         showDialog(
             barrierDismissible: true,
@@ -242,9 +242,9 @@ class PageBusiness {
                 )).then((outputVo) {});
       } else {
         // 비정상 응답
-        final all_dialog_info_business.PageWidgetBusiness
+        final all_dialog_info_business.DialogWidgetBusiness
             allDialogInfoBusiness =
-            all_dialog_info_business.PageWidgetBusiness();
+            all_dialog_info_business.DialogWidgetBusiness();
         if (!_context.mounted) return;
         showDialog(
             barrierDismissible: false,
@@ -260,8 +260,9 @@ class PageBusiness {
       }
     } else {
       // Dio 네트워크 에러
-      final all_dialog_info_business.PageWidgetBusiness allDialogInfoBusiness =
-          all_dialog_info_business.PageWidgetBusiness();
+      final all_dialog_info_business.DialogWidgetBusiness
+          allDialogInfoBusiness =
+          all_dialog_info_business.DialogWidgetBusiness();
       if (!_context.mounted) return;
       showDialog(
           barrierDismissible: true,

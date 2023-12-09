@@ -212,9 +212,9 @@ class PageBusiness {
 
           if (responseHeaders.apiResultCode == null) {
             // 비정상 응답이면서 서버에서 에러 원인 코드가 전달되지 않았을 때
-            final all_dialog_info_business.PageWidgetBusiness
+            final all_dialog_info_business.DialogWidgetBusiness
                 allDialogInfoBusiness =
-                all_dialog_info_business.PageWidgetBusiness();
+                all_dialog_info_business.DialogWidgetBusiness();
             if (!_context.mounted) return;
             showDialog(
                 barrierDismissible: true,
@@ -235,9 +235,9 @@ class PageBusiness {
               case "1":
                 {
                   // 가입되지 않은 회원
-                  final all_dialog_info_business.PageWidgetBusiness
+                  final all_dialog_info_business.DialogWidgetBusiness
                       allDialogInfoBusiness =
-                      all_dialog_info_business.PageWidgetBusiness();
+                      all_dialog_info_business.DialogWidgetBusiness();
                   if (!_context.mounted) return;
                   showDialog(
                       barrierDismissible: true,
@@ -262,9 +262,9 @@ class PageBusiness {
         }
       } else {
         allDialogLoadingSpinnerBusiness.closeDialog(context: context);
-        final all_dialog_info_business.PageWidgetBusiness
+        final all_dialog_info_business.DialogWidgetBusiness
             allDialogInfoBusiness =
-            all_dialog_info_business.PageWidgetBusiness();
+            all_dialog_info_business.DialogWidgetBusiness();
         if (!_context.mounted) return;
         showDialog(
             barrierDismissible: true,
@@ -369,9 +369,9 @@ class PageBusiness {
           pageViewModel.emailTextEditErrorMsg = null;
           blocObjects.blocEmailEditText.refresh();
 
-          final all_dialog_info_business.PageWidgetBusiness
+          final all_dialog_info_business.DialogWidgetBusiness
               allDialogInfoBusiness =
-              all_dialog_info_business.PageWidgetBusiness();
+              all_dialog_info_business.DialogWidgetBusiness();
           if (!_context.mounted) return;
           await showDialog(
               barrierDismissible: true,
@@ -397,9 +397,9 @@ class PageBusiness {
 
           if (responseHeaders.apiResultCode == null) {
             // 비정상 응답이면서 서버에서 에러 원인 코드가 전달되지 않았을 때
-            final all_dialog_info_business.PageWidgetBusiness
+            final all_dialog_info_business.DialogWidgetBusiness
                 allDialogInfoBusiness =
-                all_dialog_info_business.PageWidgetBusiness();
+                all_dialog_info_business.DialogWidgetBusiness();
             if (!_context.mounted) return;
             showDialog(
                 barrierDismissible: true,
@@ -420,9 +420,9 @@ class PageBusiness {
               case "1":
                 {
                   // 이메일 검증 요청을 보낸 적 없음
-                  final all_dialog_info_business.PageWidgetBusiness
+                  final all_dialog_info_business.DialogWidgetBusiness
                       allDialogInfoBusiness =
-                      all_dialog_info_business.PageWidgetBusiness();
+                      all_dialog_info_business.DialogWidgetBusiness();
                   if (!_context.mounted) return;
                   showDialog(
                       barrierDismissible: true,
@@ -441,9 +441,9 @@ class PageBusiness {
               case "2":
                 {
                   // 이메일 검증 요청이 만료됨
-                  final all_dialog_info_business.PageWidgetBusiness
+                  final all_dialog_info_business.DialogWidgetBusiness
                       allDialogInfoBusiness =
-                      all_dialog_info_business.PageWidgetBusiness();
+                      all_dialog_info_business.DialogWidgetBusiness();
                   if (!_context.mounted) return;
                   showDialog(
                       barrierDismissible: true,
@@ -461,9 +461,9 @@ class PageBusiness {
               case "3":
                 {
                   // verificationCode 가 일치하지 않음
-                  final all_dialog_info_business.PageWidgetBusiness
+                  final all_dialog_info_business.DialogWidgetBusiness
                       allDialogInfoBusiness =
-                      all_dialog_info_business.PageWidgetBusiness();
+                      all_dialog_info_business.DialogWidgetBusiness();
                   if (!_context.mounted) return;
                   showDialog(
                       barrierDismissible: true,
@@ -481,9 +481,9 @@ class PageBusiness {
               case "4":
                 {
                   // 탈퇴한 회원입니다.
-                  final all_dialog_info_business.PageWidgetBusiness
+                  final all_dialog_info_business.DialogWidgetBusiness
                       allDialogInfoBusiness =
-                      all_dialog_info_business.PageWidgetBusiness();
+                      all_dialog_info_business.DialogWidgetBusiness();
                   if (!_context.mounted) return;
                   showDialog(
                       barrierDismissible: true,
@@ -508,9 +508,9 @@ class PageBusiness {
         }
       } else {
         allDialogLoadingSpinnerBusiness.closeDialog(context: context);
-        final all_dialog_info_business.PageWidgetBusiness
+        final all_dialog_info_business.DialogWidgetBusiness
             allDialogInfoBusiness =
-            all_dialog_info_business.PageWidgetBusiness();
+            all_dialog_info_business.DialogWidgetBusiness();
         if (!_context.mounted) return;
         showDialog(
             barrierDismissible: true,

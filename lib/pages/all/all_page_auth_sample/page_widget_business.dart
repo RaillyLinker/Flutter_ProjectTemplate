@@ -353,9 +353,9 @@ class PageWidgetBusiness {
                           context: context);
 
                       // 비정상 응답이면서 서버에서 에러 원인 코드가 전달되지 않았을 때
-                      final all_dialog_info_business.PageWidgetBusiness
+                      final all_dialog_info_business.DialogWidgetBusiness
                           allDialogInfoBusiness =
-                          all_dialog_info_business.PageWidgetBusiness();
+                          all_dialog_info_business.DialogWidgetBusiness();
                       if (!context.mounted) return;
                       showDialog(
                           barrierDismissible: false,
@@ -405,9 +405,9 @@ class PageWidgetBusiness {
                   allDialogLoadingSpinnerBusiness.closeDialog(context: context);
 
                   // Dio 네트워크 에러
-                  final all_dialog_info_business.PageWidgetBusiness
+                  final all_dialog_info_business.DialogWidgetBusiness
                       allDialogInfoBusiness =
-                      all_dialog_info_business.PageWidgetBusiness();
+                      all_dialog_info_business.DialogWidgetBusiness();
                   if (!context.mounted) return;
                   showDialog(
                       barrierDismissible: false,

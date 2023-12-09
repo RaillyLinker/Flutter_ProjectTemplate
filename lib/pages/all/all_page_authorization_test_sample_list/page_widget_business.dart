@@ -138,9 +138,9 @@ class PageWidgetBusiness {
             var responseBody = networkResponseObjectOk.responseBody;
 
             // (확인 다이얼로그 호출)
-            final all_dialog_info_business.PageWidgetBusiness
+            final all_dialog_info_business.DialogWidgetBusiness
                 allDialogInfoBusiness =
-                all_dialog_info_business.PageWidgetBusiness();
+                all_dialog_info_business.DialogWidgetBusiness();
             if (!context.mounted) return;
             showDialog(
                 barrierDismissible: true,
@@ -156,9 +156,9 @@ class PageWidgetBusiness {
                     )).then((outputVo) {});
           } else {
             // Dio 네트워크 에러
-            final all_dialog_info_business.PageWidgetBusiness
+            final all_dialog_info_business.DialogWidgetBusiness
                 allDialogInfoBusiness =
-                all_dialog_info_business.PageWidgetBusiness();
+                all_dialog_info_business.DialogWidgetBusiness();
             if (!context.mounted) return;
             showDialog(
                 barrierDismissible: true,
@@ -216,9 +216,9 @@ class PageWidgetBusiness {
             var responseBody = networkResponseObjectOk.responseBody;
 
             // (확인 다이얼로그 호출)
-            final all_dialog_info_business.PageWidgetBusiness
+            final all_dialog_info_business.DialogWidgetBusiness
                 allDialogInfoBusiness =
-                all_dialog_info_business.PageWidgetBusiness();
+                all_dialog_info_business.DialogWidgetBusiness();
             if (!context.mounted) return;
             showDialog(
                 barrierDismissible: true,
@@ -234,9 +234,9 @@ class PageWidgetBusiness {
                     )).then((outputVo) {});
           } else {
             // Dio 네트워크 에러
-            final all_dialog_info_business.PageWidgetBusiness
+            final all_dialog_info_business.DialogWidgetBusiness
                 allDialogInfoBusiness =
-                all_dialog_info_business.PageWidgetBusiness();
+                all_dialog_info_business.DialogWidgetBusiness();
             if (!context.mounted) return;
             showDialog(
                 barrierDismissible: true,
@@ -294,9 +294,9 @@ class PageWidgetBusiness {
             var responseBody = networkResponseObjectOk.responseBody;
 
             // (확인 다이얼로그 호출)
-            final all_dialog_info_business.PageWidgetBusiness
+            final all_dialog_info_business.DialogWidgetBusiness
                 allDialogInfoBusiness =
-                all_dialog_info_business.PageWidgetBusiness();
+                all_dialog_info_business.DialogWidgetBusiness();
             if (!context.mounted) return;
             showDialog(
                 barrierDismissible: true,
@@ -312,9 +312,9 @@ class PageWidgetBusiness {
                     )).then((outputVo) {});
           } else {
             // Dio 네트워크 에러
-            final all_dialog_info_business.PageWidgetBusiness
+            final all_dialog_info_business.DialogWidgetBusiness
                 allDialogInfoBusiness =
-                all_dialog_info_business.PageWidgetBusiness();
+                all_dialog_info_business.DialogWidgetBusiness();
             if (!context.mounted) return;
             showDialog(
                 barrierDismissible: true,
@@ -371,9 +371,9 @@ class PageWidgetBusiness {
             var responseBody = networkResponseObjectOk.responseBody;
 
             // (확인 다이얼로그 호출)
-            final all_dialog_info_business.PageWidgetBusiness
+            final all_dialog_info_business.DialogWidgetBusiness
                 allDialogInfoBusiness =
-                all_dialog_info_business.PageWidgetBusiness();
+                all_dialog_info_business.DialogWidgetBusiness();
             if (!context.mounted) return;
             showDialog(
                 barrierDismissible: true,
@@ -389,9 +389,9 @@ class PageWidgetBusiness {
                     )).then((outputVo) {});
           } else {
             // Dio 네트워크 에러
-            final all_dialog_info_business.PageWidgetBusiness
+            final all_dialog_info_business.DialogWidgetBusiness
                 allDialogInfoBusiness =
-                all_dialog_info_business.PageWidgetBusiness();
+                all_dialog_info_business.DialogWidgetBusiness();
             if (!context.mounted) return;
             showDialog(
                 barrierDismissible: true,
