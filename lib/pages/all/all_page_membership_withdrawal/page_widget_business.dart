@@ -27,10 +27,7 @@ import '../../../dialogs/all/all_dialog_yes_or_no/dialog_widget.dart'
     as all_dialog_yes_or_no;
 import '../../../dialogs/all/all_dialog_yes_or_no/dialog_widget_business.dart'
     as all_dialog_yes_or_no_business;
-import '../../../global_classes/gc_template_classes.dart'
-    as gc_template_classes;
-import '../../../global_functions/gf_my_functions.dart' as gf_my_functions;
-import '../../../pages/all/all_page_login/page_entrance.dart' as all_page_login;
+import '../../../pages/all/all_page_home/page_widget.dart' as all_page_home;
 
 // [위젯 비즈니스]
 // 위젯의 비즈니스 로직 + State 변수 처리는 이 곳에서 합니다.
@@ -215,7 +212,8 @@ class PageWidgetBusiness {
                       onDialogCreated: () {},
                     ));
             if (!context.mounted) return;
-            context.pop(page_widget.OutputVo(true));
+            // 홈 페이지로 이동
+            context.goNamed(all_page_home.pageName);
           } else if (networkResponseObjectOk.responseStatusCode == 401) {
             // 비회원 처리됨
             if (!context.mounted) return;

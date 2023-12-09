@@ -149,12 +149,7 @@ class PageWidgetBusiness {
   // (회원 탈퇴 버튼 누름)
   Future<void> tapWithdrawalBtn() async {
     // 회원탈퇴 페이지로 이동
-    all_page_membership_withdrawal.OutputVo? pageOutputVo =
-        await context.pushNamed(all_page_membership_withdrawal.pageName);
-    if (pageOutputVo != null && pageOutputVo.withdrawalOk) {
-      if (!context.mounted) return;
-      context.pop();
-    }
+    context.pushNamed(all_page_membership_withdrawal.pageName);
   }
 
   void setNowMemberInfo() {

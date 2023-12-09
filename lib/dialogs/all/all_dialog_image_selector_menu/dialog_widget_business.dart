@@ -91,5 +91,5 @@ class PageWidgetViewModel {
   dialog_widget.InputVo inputVo;
 
 // !!!페이지에서 사용할 변수를 아래에 선언하기!!!
-bool cameraAvailable = !kIsWeb && (Platform.isAndroid || Platform.isIOS);
+  bool cameraAvailable = !kIsWeb && (Platform.isAndroid || Platform.isIOS);
 }

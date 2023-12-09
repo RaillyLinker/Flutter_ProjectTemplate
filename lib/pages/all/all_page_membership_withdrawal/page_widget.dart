@@ -38,10 +38,7 @@ class InputVo {
 // (결과 데이터)
 class OutputVo {
   // !!!위젯 출력값 선언!!!
-  OutputVo(this.withdrawalOk);
-
-  // 회원탈퇴 완료 여부
-  bool withdrawalOk;
+  OutputVo();
 }
 
 //------------------------------------------------------------------------------
