@@ -22,8 +22,8 @@ import '../../../dialogs/all/all_dialog_loading_spinner/dialog_widget_business.d
     as all_dialog_loading_spinner_business;
 import '../../../dialogs/all/all_dialog_yes_or_no/dialog_widget.dart'
     as all_dialog_yes_or_no;
-import '../../../dialogs/all/all_dialog_yes_or_no/dialog_widget_state.dart'
-    as all_dialog_yes_or_no_state;
+import '../../../dialogs/all/all_dialog_yes_or_no/dialog_widget_business.dart'
+    as all_dialog_yes_or_no_business;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
 import '../../../../repositories/spws/spw_auth_member_info.dart'
@@ -370,14 +370,15 @@ class PageBusiness {
         // 정상 응답
 
         // 확인 다이얼로그 호출
-        GlobalKey<all_dialog_yes_or_no_state.DialogWidgetState>
-            allDialogYesOrNoBusiness = GlobalKey();
+        final all_dialog_yes_or_no_business.DialogWidgetBusiness
+            allDialogYesOrNoBusiness =
+            all_dialog_yes_or_no_business.DialogWidgetBusiness();
         if (!_context.mounted) return;
         showDialog(
             barrierDismissible: true,
             context: _context,
             builder: (context) => all_dialog_yes_or_no.DialogWidget(
-                  globalKey: allDialogYesOrNoBusiness,
+                  business: allDialogYesOrNoBusiness,
                   inputVo: const all_dialog_yes_or_no.InputVo(
                       dialogTitle: "비밀번호 변경",
                       dialogContent: "비밀번호 변경이 완료되었습니다.\n"

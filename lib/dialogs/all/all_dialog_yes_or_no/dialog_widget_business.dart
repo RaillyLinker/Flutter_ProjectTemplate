@@ -1,16 +1,9 @@
 // (external)
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 // (inner Folder)
 import 'dialog_widget.dart' as dialog_widget;
-
-// (all)
-import '../../../global_widgets/gw_stateful_test/sf_widget_state.dart'
-    as gw_stateful_test_state;
-import '../../../pages/all/all_page_dialog_sample_list/page_widget.dart'
-    as all_page_dialog_sample_list;
 
 // [위젯 비즈니스]
 // 위젯의 비즈니스 로직 + State 변수 처리는 이 곳에서 합니다.
@@ -23,60 +16,36 @@ class DialogWidgetBusiness {
   // (전체 위젯 initState)
   void initState() {
     // !!!initState 로직 작성!!!
-    if (kDebugMode) {
-      print("+++ initState 호출됨");
-    }
   }
 
   // (전체 위젯 dispose)
   void dispose() {
     // !!!initState 로직 작성!!!
-    if (kDebugMode) {
-      print("+++ dispose 호출됨");
-    }
   }
 
   // (전체 위젯의 FocusDetector 콜백들)
   Future<void> onFocusGained() async {
     // !!!onFocusGained 로직 작성!!!
-    if (kDebugMode) {
-      print("+++ onFocusGained 호출됨");
-    }
   }
 
   Future<void> onFocusLost() async {
     // !!!onFocusLost 로직 작성!!!
-    if (kDebugMode) {
-      print("+++ onFocusLost 호출됨");
-    }
   }
 
   Future<void> onVisibilityGained() async {
     // !!!onFocusLost 로직 작성!!!
-    if (kDebugMode) {
-      print("+++ onVisibilityGained 호출됨");
-    }
   }
 
   Future<void> onVisibilityLost() async {
     // !!!onVisibilityLost 로직 작성!!!
-    if (kDebugMode) {
-      print("+++ onVisibilityLost 호출됨");
-    }
   }
 
   Future<void> onForegroundGained() async {
     // !!!onForegroundGained 로직 작성!!!
-    if (kDebugMode) {
-      print("+++ onForegroundGained 호출됨");
-    }
   }
 
   Future<void> onForegroundLost() async {
     // !!!onForegroundLost 로직 작성!!!
-    if (kDebugMode) {
-      print("+++ onForegroundLost 호출됨");
-    }
   }
 
   // [public 변수]
@@ -92,9 +61,15 @@ class DialogWidgetBusiness {
     viewModel.context.pop();
   }
 
-  // (다른 페이지로 이동)
-  void pushToAnotherPage() {
-    viewModel.context.pushNamed(all_page_dialog_sample_list.pageName);
+  // (긍정 버튼 클릭시)
+  void onPositiveBtnClicked() {
+    viewModel.context.pop(const dialog_widget.OutputVo(checkPositiveBtn: true));
+  }
+
+  // (부정 버튼 클릭시)
+  void onNegativeBtnClicked() {
+    viewModel.context
+        .pop(const dialog_widget.OutputVo(checkPositiveBtn: false));
   }
 
 // !!!사용 함수 추가하기!!!
@@ -117,8 +92,4 @@ class PageWidgetViewModel {
   dialog_widget.InputVo inputVo;
 
 // !!!페이지에서 사용할 변수를 아래에 선언하기!!!
-
-  // (statefulTestBusiness)
-  final GlobalKey<gw_stateful_test_state.SfWidgetState> statefulTestGk =
-      GlobalKey();
 }

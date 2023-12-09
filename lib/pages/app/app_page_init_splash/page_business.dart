@@ -25,8 +25,8 @@ import '../../../dialogs/all/all_dialog_info/dialog_widget_business.dart'
     as all_dialog_info_business;
 import '../../../dialogs/all/all_dialog_yes_or_no/dialog_widget.dart'
     as all_dialog_yes_or_no;
-import '../../../dialogs/all/all_dialog_yes_or_no/dialog_widget_state.dart'
-    as all_dialog_yes_or_no_state;
+import '../../../dialogs/all/all_dialog_yes_or_no/dialog_widget_business.dart'
+    as all_dialog_yes_or_no_business;
 import '../../../global_classes/gc_my_classes.dart' as gc_my_classes;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
@@ -295,14 +295,15 @@ class PageBusiness {
         }
       } else {
         // 정상 코드가 아님
-        GlobalKey<all_dialog_yes_or_no_state.DialogWidgetState>
-            allDialogYesOrNoBusiness = GlobalKey();
+        final all_dialog_yes_or_no_business.DialogWidgetBusiness
+            allDialogYesOrNoBusiness =
+            all_dialog_yes_or_no_business.DialogWidgetBusiness();
         if (!_context.mounted) return;
         showDialog(
             barrierDismissible: false,
             context: _context,
             builder: (context) => all_dialog_yes_or_no.DialogWidget(
-                  globalKey: allDialogYesOrNoBusiness,
+                  business: allDialogYesOrNoBusiness,
                   inputVo: const all_dialog_yes_or_no.InputVo(
                       dialogTitle: "네트워크 에러",
                       dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
@@ -324,14 +325,15 @@ class PageBusiness {
       }
     } else {
       // Dio 네트워크 에러
-      GlobalKey<all_dialog_yes_or_no_state.DialogWidgetState>
-          allDialogYesOrNoBusiness = GlobalKey();
+      final all_dialog_yes_or_no_business.DialogWidgetBusiness
+          allDialogYesOrNoBusiness =
+          all_dialog_yes_or_no_business.DialogWidgetBusiness();
       if (!_context.mounted) return;
       showDialog(
           barrierDismissible: false,
           context: _context,
           builder: (context) => all_dialog_yes_or_no.DialogWidget(
-                globalKey: allDialogYesOrNoBusiness,
+                business: allDialogYesOrNoBusiness,
                 inputVo: const all_dialog_yes_or_no.InputVo(
                     dialogTitle: "네트워크 에러",
                     dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
@@ -502,14 +504,15 @@ class PageBusiness {
                 return;
               }
 
-              GlobalKey<all_dialog_yes_or_no_state.DialogWidgetState>
-                  allDialogYesOrNoBusiness = GlobalKey();
+              final all_dialog_yes_or_no_business.DialogWidgetBusiness
+                  allDialogYesOrNoBusiness =
+                  all_dialog_yes_or_no_business.DialogWidgetBusiness();
               if (!_context.mounted) return;
               showDialog(
                   barrierDismissible: false,
                   context: _context,
                   builder: (context) => all_dialog_yes_or_no.DialogWidget(
-                        globalKey: allDialogYesOrNoBusiness,
+                        business: allDialogYesOrNoBusiness,
                         inputVo: const all_dialog_yes_or_no.InputVo(
                             dialogTitle: "네트워크 에러",
                             dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
@@ -583,14 +586,15 @@ class PageBusiness {
           }
 
           // Dio 네트워크 에러
-          GlobalKey<all_dialog_yes_or_no_state.DialogWidgetState>
-              allDialogYesOrNoBusiness = GlobalKey();
+          final all_dialog_yes_or_no_business.DialogWidgetBusiness
+              allDialogYesOrNoBusiness =
+              all_dialog_yes_or_no_business.DialogWidgetBusiness();
           if (!_context.mounted) return;
           showDialog(
               barrierDismissible: false,
               context: _context,
               builder: (context) => all_dialog_yes_or_no.DialogWidget(
-                    globalKey: allDialogYesOrNoBusiness,
+                    business: allDialogYesOrNoBusiness,
                     inputVo: const all_dialog_yes_or_no.InputVo(
                         dialogTitle: "네트워크 에러",
                         dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
