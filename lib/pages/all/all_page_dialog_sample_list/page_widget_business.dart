@@ -131,13 +131,13 @@ class PageWidgetBusiness {
         itemDescription: "템플릿 다이얼로그를 호출합니다.",
         onItemClicked: () {
           // (템플릿 다이얼로그 호출)
-          var dialogBusiness =all_dialog_template_state.PageWidgetBusiness();
+          var dialogBusiness = all_dialog_template_state.PageWidgetBusiness();
 
           showDialog(
               barrierDismissible: true,
               context: context,
               builder: (context) => all_dialog_template_view.DialogWidget(
-                business: dialogBusiness,
+                    business: dialogBusiness,
                     inputVo: const all_dialog_template_view.InputVo(),
                     onDialogCreated: () {},
                   )).then((outputVo) {});
@@ -279,7 +279,7 @@ class PageWidgetBusiness {
         itemDescription: "다이얼로그 영역 바깥의 색상을 지정합니다.",
         onItemClicked: () {
           // 다이얼로그 외부 색 설정
-          var dialogBusiness =all_dialog_template_state.PageWidgetBusiness();
+          var dialogBusiness = all_dialog_template_state.PageWidgetBusiness();
 
           showDialog(
               barrierDismissible: true,

@@ -155,8 +155,10 @@ GoRouter getRouter() {
       pageBuilder: (c, s) {
         return CustomTransitionPage(
             key: s.pageKey,
-            child: all_page_stateful_and_lifecycle_test.PageWidget(goRouterState: s),
-            transitionsBuilder: all_page_stateful_and_lifecycle_test.pageTransitionsBuilder);
+            child: all_page_stateful_and_lifecycle_test.PageWidget(
+                goRouterState: s),
+            transitionsBuilder:
+                all_page_stateful_and_lifecycle_test.pageTransitionsBuilder);
       }));
 
   subRouteListPageAndRouterSampleList.add(GoRoute(

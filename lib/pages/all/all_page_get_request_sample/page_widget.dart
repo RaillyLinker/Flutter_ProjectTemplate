@@ -1158,8 +1158,7 @@ class WidgetUi {
                                     margin: const EdgeInsets.only(top: 10),
                                     child: ElevatedButton(
                                         onPressed: () {
-                                          business
-                                              .addInput9ListItem();
+                                          business.addInput9ListItem();
                                         },
                                         style: ElevatedButton.styleFrom(
                                           backgroundColor: Colors.blue,
@@ -1354,8 +1353,7 @@ class WidgetUi {
                                     margin: const EdgeInsets.only(top: 10),
                                     child: ElevatedButton(
                                         onPressed: () {
-                                          business
-                                              .addInput10ListItem();
+                                          business.addInput10ListItem();
                                         },
                                         style: ElevatedButton.styleFrom(
                                           backgroundColor: Colors.blue,

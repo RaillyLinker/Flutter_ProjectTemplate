@@ -10,9 +10,6 @@ import '../../../global_widgets/gw_text_form_field_wrapper/sf_widget_state.dart'
     as gw_text_form_field_wrapper_state;
 import '../../../../repositories/network/apis/api_main_server.dart'
     as api_main_server;
-import '../../../../repositories/spws/spw_auth_member_info.dart'
-    as spw_auth_member_info;
-import '../../../global_functions/gf_my_functions.dart' as gf_my_functions;
 import '../../../dialogs/all/all_dialog_info/dialog_widget.dart'
     as all_dialog_info;
 import '../../../dialogs/all/all_dialog_info/dialog_widget_state.dart'
@@ -272,8 +269,9 @@ class PageWidgetBusiness {
 
         // 검증 완료
         if (!context.mounted) return;
-        context.pop(
-            dialog_widget.OutputVo(checkedVerificationCode: verificationCode));
+        context.pop(dialog_widget.OutputVo(
+            checkedVerificationCode: verificationCode,
+            verificationUid: viewModel.verificationUid));
       } else {
         var responseHeaders = networkResponseObjectOk.responseHeaders
             as api_main_server

@@ -343,7 +343,8 @@ class WidgetUi {
                                             children: [
                                               ElevatedButton(
                                                   onPressed: () {
-                                                    business.itemErrorToggle(index-1);
+                                                    business.itemErrorToggle(
+                                                        index - 1);
                                                   },
                                                   child: Text("E")),
                                               ElevatedButton(

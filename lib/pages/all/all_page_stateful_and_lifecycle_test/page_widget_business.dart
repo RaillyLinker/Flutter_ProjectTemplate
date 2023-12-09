@@ -39,7 +39,7 @@ class PageWidgetBusiness {
       print("+++ dispose 호출됨");
     }
 
-    for(var item in pageWidgetViewModel.itemList){
+    for (var item in pageWidgetViewModel.itemList) {
       item.inputTextFieldController.dispose();
       item.inputTextFieldFocus.dispose();
     }
@@ -141,7 +141,8 @@ class PageWidgetBusiness {
 
     // 여기서 itemListBloc을 닫은 후 다시 만듭니다.
     pageWidgetViewModel.itemList[i].inputTextFieldBloc.close();
-    pageWidgetViewModel.itemList[i].inputTextFieldBloc = gc_template_classes.RefreshableBloc();
+    pageWidgetViewModel.itemList[i].inputTextFieldBloc =
+        gc_template_classes.RefreshableBloc();
 
     pageWidgetViewModel.itemList.removeAt(i);
     pageWidgetViewModel.itemListBloc.refreshUi();
@@ -149,9 +150,9 @@ class PageWidgetBusiness {
 
   void itemErrorToggle(int index) {
     var item = pageWidgetViewModel.itemList[index];
-    if(item.inputTextFieldErrorMsg ==null){
+    if (item.inputTextFieldErrorMsg == null) {
       item.inputTextFieldErrorMsg = "error";
-    }else{
+    } else {
       item.inputTextFieldErrorMsg = null;
     }
     item.inputTextFieldBloc.refreshUi();
@@ -174,7 +175,8 @@ class PageWidgetViewModel {
   var statefulTestGk = GlobalKey<gw_stateful_test_state.SfWidgetState>();
 
   List<ItemListViewModel> itemList = [];
-   gc_template_classes.RefreshableBloc itemListBloc = gc_template_classes.RefreshableBloc();
+  gc_template_classes.RefreshableBloc itemListBloc =
+      gc_template_classes.RefreshableBloc();
 
   // (sampleBLoC)
   gc_template_classes.RefreshableBloc blocSampleBloc =
@@ -183,9 +185,10 @@ class PageWidgetViewModel {
 }
 
 class ItemListViewModel {
-  final TextEditingController inputTextFieldController = TextEditingController();
+  final TextEditingController inputTextFieldController =
+      TextEditingController();
   final FocusNode inputTextFieldFocus = FocusNode();
   String? inputTextFieldErrorMsg;
   gc_template_classes.RefreshableBloc inputTextFieldBloc =
-  gc_template_classes.RefreshableBloc();
+      gc_template_classes.RefreshableBloc();
 }

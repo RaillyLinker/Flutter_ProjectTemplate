@@ -20,8 +20,8 @@ import '../../../../repositories/network/apis/api_main_server.dart'
     as api_main_server;
 import '../../../dialogs/all/all_dialog_auth_join_the_membership_select_member_profile_image_src/dialog_widget.dart'
     as all_dialog_auth_join_the_membership_select_member_profile_image_src;
-import '../../../dialogs/all/all_dialog_auth_join_the_membership_select_member_profile_image_src/dialog_widget_state.dart'
-    as all_dialog_auth_join_the_membership_select_member_profile_image_src_state;
+import '../../../dialogs/all/all_dialog_auth_join_the_membership_select_member_profile_image_src/dialog_widget_business.dart'
+    as all_dialog_auth_join_the_membership_select_member_profile_image_src_business;
 import '../../../dialogs/all/all_dialog_info/dialog_widget.dart'
     as all_dialog_info;
 import '../../../dialogs/all/all_dialog_info/dialog_widget_state.dart'
@@ -570,11 +570,11 @@ class PageBusiness {
 
   // 프로필 이미지 클릭
   Future<void> onProfileImageTap() async {
-    GlobalKey<
-            all_dialog_auth_join_the_membership_select_member_profile_image_src_state
-            .DialogWidgetState>
-        allDialogAuthJoinTheMembershipSelectMemberProfileImageSrcGk =
-        GlobalKey();
+    final all_dialog_auth_join_the_membership_select_member_profile_image_src_business
+        .PageWidgetBusiness
+        allDialogAuthJoinTheMembershipSelectMemberProfileImageSrcBusiness =
+        all_dialog_auth_join_the_membership_select_member_profile_image_src_business
+            .PageWidgetBusiness();
     if (!_context.mounted) return;
     var pageOutputVo = await showDialog(
         barrierDismissible: true,
@@ -582,8 +582,8 @@ class PageBusiness {
         builder: (context) =>
             all_dialog_auth_join_the_membership_select_member_profile_image_src
                 .DialogWidget(
-              globalKey:
-                  allDialogAuthJoinTheMembershipSelectMemberProfileImageSrcGk,
+              business:
+                  allDialogAuthJoinTheMembershipSelectMemberProfileImageSrcBusiness,
               inputVo:
                   const all_dialog_auth_join_the_membership_select_member_profile_image_src
                       .InputVo(),

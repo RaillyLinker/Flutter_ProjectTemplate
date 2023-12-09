@@ -213,8 +213,11 @@ class PageBusiness {
 
           // 정상 응답
           // 검증번호 입력 다이얼로그 띄우기
-          all_dialog_auth_join_the_membership_email_verification_business.PageWidgetBusiness
-              allDialogAuthJoinTheMembershipEmailVerificationBusiness = all_dialog_auth_join_the_membership_email_verification_business.PageWidgetBusiness();
+          all_dialog_auth_join_the_membership_email_verification_business
+              .PageWidgetBusiness
+              allDialogAuthJoinTheMembershipEmailVerificationBusiness =
+              all_dialog_auth_join_the_membership_email_verification_business
+                  .PageWidgetBusiness();
           if (!_context.mounted) return;
           var dialogResult = await showDialog(
               barrierDismissible: false,
@@ -223,7 +226,7 @@ class PageBusiness {
                   all_dialog_auth_join_the_membership_email_verification
                       .DialogWidget(
                     business:
-                    allDialogAuthJoinTheMembershipEmailVerificationBusiness,
+                        allDialogAuthJoinTheMembershipEmailVerificationBusiness,
                     inputVo:
                         all_dialog_auth_join_the_membership_email_verification
                             .InputVo(
@@ -233,7 +236,7 @@ class PageBusiness {
                   ));
 
           if (dialogResult != null) {
-            pageViewModel.verificationUid = responseBody.verificationUid;
+            pageViewModel.verificationUid = dialogResult.verificationUid;
             pageViewModel.checkedEmailVerificationCode =
                 dialogResult.checkedVerificationCode;
             pageViewModel.emailTextEditEnabled = false;

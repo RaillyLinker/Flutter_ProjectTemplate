@@ -28,10 +28,14 @@ class InputVo {
 // (결과 데이터)
 class OutputVo {
   // !!!위젯 출력값 선언!!!
-  const OutputVo({required this.checkedVerificationCode});
+  const OutputVo(
+      {required this.checkedVerificationCode, required this.verificationUid});
 
   // 발급받은 본인 인증 코드
   final String checkedVerificationCode;
+
+  // 본인 인증 고유번호
+  final int verificationUid;
 }
 
 //------------------------------------------------------------------------------

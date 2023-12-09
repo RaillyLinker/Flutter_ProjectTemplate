@@ -12,10 +12,10 @@ import '../../../global_widgets/gw_page_outer_frame/sl_widget_business.dart'
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
 import '../../../../repositories/spws/spw_auth_member_info.dart'
-as spw_auth_member_info;
+    as spw_auth_member_info;
 import '../../../global_functions/gf_my_functions.dart' as gf_my_functions;
 import '../../../pages/all/all_page_membership_withdrawal/page_widget.dart'
-as all_page_membership_withdrawal;
+    as all_page_membership_withdrawal;
 import '../../../pages/all/all_page_login/page_entrance.dart' as all_page_login;
 
 // [위젯 비즈니스]
@@ -116,23 +116,29 @@ class PageWidgetBusiness {
   String? nickName; // 닉네임
   List<String>? roleList; // 멤버 권한 리스트 (관리자 : ROLE_ADMIN, 개발자 : ROLE_DEVELOPER)
   late List<spw_auth_member_info.SharedPreferenceWrapperVoProfileInfo>
-  myProfileList; // 내가 등록한 Profile 정보 리스트
+      myProfileList; // 내가 등록한 Profile 정보 리스트
   int? frontProfileIdx; // myProfileList 의 대표 프로필 인덱스
   List<spw_auth_member_info.SharedPreferenceWrapperVoOAuth2Info>?
-  myOAuth2List; // 내가 등록한 OAuth2 정보 리스트
+      myOAuth2List; // 내가 등록한 OAuth2 정보 리스트
   List<spw_auth_member_info.SharedPreferenceWrapperVoEmailInfo>?
-  myEmailList; // 내가 등록한 이메일 정보 리스트
+      myEmailList; // 내가 등록한 이메일 정보 리스트
   List<spw_auth_member_info.SharedPreferenceWrapperVoPhoneInfo>?
-  myPhoneNumberList; // 내가 등록한 전화번호 정보 리스트
+      myPhoneNumberList; // 내가 등록한 전화번호 정보 리스트
   bool?
-  authPasswordIsNull; // 계정 로그인 비밀번호 설정 Null 여부 (OAuth2 만으로 회원가입한 경우는 비밀번호가 없으므로 true)
+      authPasswordIsNull; // 계정 로그인 비밀번호 설정 Null 여부 (OAuth2 만으로 회원가입한 경우는 비밀번호가 없으므로 true)
 
-  final gc_template_classes.RefreshableBloc profileImageBloc = gc_template_classes.RefreshableBloc();
-  final gc_template_classes.RefreshableBloc nicknameBloc = gc_template_classes.RefreshableBloc();
-  final gc_template_classes.RefreshableBloc emailBloc = gc_template_classes.RefreshableBloc();
-  final gc_template_classes.RefreshableBloc phoneNumberBloc = gc_template_classes.RefreshableBloc();
-  final gc_template_classes.RefreshableBloc oAuth2Bloc = gc_template_classes.RefreshableBloc();
-  final gc_template_classes.RefreshableBloc permissionBloc = gc_template_classes.RefreshableBloc();
+  final gc_template_classes.RefreshableBloc profileImageBloc =
+      gc_template_classes.RefreshableBloc();
+  final gc_template_classes.RefreshableBloc nicknameBloc =
+      gc_template_classes.RefreshableBloc();
+  final gc_template_classes.RefreshableBloc emailBloc =
+      gc_template_classes.RefreshableBloc();
+  final gc_template_classes.RefreshableBloc phoneNumberBloc =
+      gc_template_classes.RefreshableBloc();
+  final gc_template_classes.RefreshableBloc oAuth2Bloc =
+      gc_template_classes.RefreshableBloc();
+  final gc_template_classes.RefreshableBloc permissionBloc =
+      gc_template_classes.RefreshableBloc();
 
   // [private 변수]
 
@@ -144,17 +150,17 @@ class PageWidgetBusiness {
   Future<void> tapWithdrawalBtn() async {
     // 회원탈퇴 페이지로 이동
     all_page_membership_withdrawal.OutputVo? pageOutputVo =
-    await context.pushNamed(all_page_membership_withdrawal.pageName);
+        await context.pushNamed(all_page_membership_withdrawal.pageName);
     if (pageOutputVo != null && pageOutputVo.withdrawalOk) {
       if (!context.mounted) return;
       context.pop();
     }
   }
 
-  void setNowMemberInfo(){
+  void setNowMemberInfo() {
     // 검증된 현재 회원 정보 가져오기 (비회원이라면 null)
     spw_auth_member_info.SharedPreferenceWrapperVo? nowLoginMemberInfo =
-    gf_my_functions.getNowVerifiedMemberInfo();
+        gf_my_functions.getNowVerifiedMemberInfo();
 
     if (nowLoginMemberInfo == null) {
       // 비회원 상태라면 진입 금지
