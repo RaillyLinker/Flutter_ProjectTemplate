@@ -23,7 +23,7 @@ import '../../../pages/all/all_page_widget_change_animation_sample_list/page_wid
     as all_page_widget_change_animation_sample_list;
 import '../../../pages/all/all_page_gif_sample/page_widget.dart'
     as all_page_gif_sample;
-import '../../../pages/all/all_page_image_selector_sample/page_entrance.dart'
+import '../../../pages/all/all_page_image_selector_sample/page_widget.dart'
     as all_page_image_selector_sample;
 import '../../../pages/all/all_page_image_loading_sample/page_widget.dart'
     as all_page_image_loading_sample;
