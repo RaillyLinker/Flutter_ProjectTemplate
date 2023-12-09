@@ -70,6 +70,11 @@ class DialogWidgetState extends State<DialogWidget>
       child: FocusDetector(
         // (페이지 위젯의 FocusDetector 콜백들)
         onFocusGained: () async {
+          if (business.needInitState) {
+            business.needInitState = false;
+            widget.onDialogCreated();
+          }
+
           await business.onFocusGained(context: context);
         },
         onFocusLost: () async {

@@ -1,18 +1,18 @@
 // (external)
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:focus_detector_v2/focus_detector_v2.dart';
 
 // (inner Folder)
-import 'dialog_widget_state.dart' as dialog_widget_state;
+import 'dialog_widget_business.dart' as dialog_widget_business;
 
 // (all)
-import '../../../global_classes/gc_template_classes.dart'
-    as gc_template_classes;
+import '../../../global_widgets/gw_text_form_field_wrapper/sf_widget.dart'
+    as gw_text_form_field_wrapper;
 
 // [위젯 뷰]
 // 위젯의 화면 작성은 여기서 합니다.
 
-// -----------------------------------------------------------------------------
+//------------------------------------------------------------------------------
 // (입력 데이터)
 class InputVo {
   // !!!위젯 입력값 선언!!!
@@ -34,29 +34,97 @@ class OutputVo {
   final String checkedVerificationCode;
 }
 
+//------------------------------------------------------------------------------
 class DialogWidget extends StatefulWidget {
   const DialogWidget(
-      {required this.globalKey,
+      {super.key,
       required this.inputVo,
-      required this.onDialogCreated})
-      : super(key: globalKey);
+      required this.business,
+      required this.onDialogCreated});
 
-  // [콜백 함수]
-  @override
-  dialog_widget_state.DialogWidgetState createState() =>
-      dialog_widget_state.DialogWidgetState();
-
-  // [public 변수]
   final InputVo inputVo;
-  final GlobalKey<dialog_widget_state.DialogWidgetState> globalKey;
 
   // 다이얼로그가 Created 된 시점에 한번 실행됨
   final VoidCallback onDialogCreated;
 
-  // [화면 작성]
-  Widget widgetUiBuild(
+  final dialog_widget_business.PageWidgetBusiness business;
+
+  @override
+  DialogWidgetState createState() => DialogWidgetState();
+}
+
+class DialogWidgetState extends State<DialogWidget>
+    with WidgetsBindingObserver {
+  // [콜백 함수]
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    business = widget.business;
+    business.refreshUi = refreshUi;
+    business.inputVo = widget.inputVo;
+    business.viewModel =
+        dialog_widget_business.PageWidgetViewModel(context: context);
+    business.initState(context: context);
+  }
+
+  @override
+  void dispose() {
+    business.dispose(context: context);
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    business.refreshUi = refreshUi;
+    return PopScope(
+      canPop: business.canPop,
+      child: FocusDetector(
+        // (페이지 위젯의 FocusDetector 콜백들)
+        onFocusGained: () async {
+          if (business.needInitState) {
+            business.needInitState = false;
+            widget.onDialogCreated();
+          }
+
+          await business.onFocusGained(context: context);
+        },
+        onFocusLost: () async {
+          await business.onFocusLost(context: context);
+        },
+        onVisibilityGained: () async {
+          await business.onVisibilityGained(context: context);
+        },
+        onVisibilityLost: () async {
+          await business.onVisibilityLost(context: context);
+        },
+        onForegroundGained: () async {
+          await business.onForegroundGained(context: context);
+        },
+        onForegroundLost: () async {
+          await business.onForegroundLost(context: context);
+        },
+        child: WidgetUi.viewWidgetBuild(context: context, business: business),
+      ),
+    );
+  }
+
+  // [public 변수]
+  late dialog_widget_business.PageWidgetBusiness business;
+
+  // [public 함수]
+  // (Stateful Widget 화면 갱신)
+  void refreshUi() {
+    setState(() {});
+  }
+}
+
+class WidgetUi {
+  // [뷰 위젯]
+  static Widget viewWidgetBuild(
       {required BuildContext context,
-      required dialog_widget_state.DialogWidgetState currentState}) {
+      required dialog_widget_business.PageWidgetBusiness business}) {
     // !!!뷰 위젯 반환 콜백 작성 하기!!!
 
     return Dialog(
@@ -83,7 +151,7 @@ class DialogWidget extends StatefulWidget {
                           color: Colors.grey,
                         ),
                         onPressed: () {
-                          currentState.closeDialog();
+                          business.closeDialog(context: context);
                         },
                       )),
                   Container(
@@ -118,7 +186,7 @@ class DialogWidget extends StatefulWidget {
                   SizedBox(
                     width: 400,
                     child: Text(
-                      '이메일 회원 가입을 위하여,\n본인 인증 이메일을\n(${inputVo.emailAddress})\n에 발송하였습니다.',
+                      '이메일 회원 가입을 위하여,\n본인 인증 이메일을\n(${business.inputVo.emailAddress})\n에 발송하였습니다.',
                       style: const TextStyle(
                           fontSize: 16.0,
                           fontWeight: FontWeight.normal,
@@ -129,59 +197,52 @@ class DialogWidget extends StatefulWidget {
                   SizedBox(
                     width: 400,
                     child: Form(
-                      child: BlocProvider(
-                        create: (context) =>
-                            currentState.verificationCodeTextFieldBloc,
-                        child: BlocBuilder<gc_template_classes.RefreshableBloc,
-                            bool>(
-                          builder: (c, s) {
-                            return TextFormField(
-                              autofocus: true,
-                              controller: currentState
-                                  .verificationCodeTextFieldController,
-                              focusNode:
-                                  currentState.verificationCodeTextFieldFocus,
-                              decoration: InputDecoration(
-                                errorText: currentState
-                                    .verificationCodeTextFieldErrorMsg,
-                                labelText: '본인 이메일 인증 코드',
-                                floatingLabelStyle:
-                                    const TextStyle(color: Colors.blue),
-                                hintText: "발송된 본인 이메일 인증 코드를 입력하세요.",
-                                focusedBorder: const UnderlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.blue),
-                                ),
-                                suffixIcon: IconButton(
-                                  onPressed: () {
-                                    currentState
-                                        .verificationCodeTextFieldController
-                                        .text = "";
-                                    currentState
-                                            .verificationCodeTextFieldErrorMsg =
-                                        null;
-                                    currentState.verificationCodeTextFieldBloc
-                                        .refreshUi();
-                                  },
-                                  icon: const Icon(Icons.clear),
-                                ),
-                              ),
-                              onChanged: (value) {
-                                // 입력값 변경시 에러 메세지 삭제
-                                if (currentState
-                                        .verificationCodeTextFieldErrorMsg !=
-                                    null) {
-                                  currentState
-                                      .verificationCodeTextFieldErrorMsg = null;
-                                  currentState.verificationCodeTextFieldBloc
-                                      .refreshUi();
-                                }
+                      child: gw_text_form_field_wrapper.SfWidget(
+                        globalKey:
+                            business.viewModel.gwTextFormFieldWrapperStateGk,
+                        inputVo: gw_text_form_field_wrapper.InputVo(
+                            autofocus: true,
+                            labelText: '본인 이메일 인증 코드',
+                            floatingLabelStyle:
+                                const TextStyle(color: Colors.blue),
+                            hintText: "발송된 본인 이메일 인증 코드를 입력하세요.",
+                            focusedBorder: const UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.blue),
+                            ),
+                            suffixIcon: IconButton(
+                              onPressed: () {
+                                business
+                                    .viewModel
+                                    .gwTextFormFieldWrapperStateGk
+                                    .currentState
+                                    ?.textFieldController
+                                    .text = "";
+                                business.viewModel.gwTextFormFieldWrapperStateGk
+                                    .currentState?.textFieldErrorMsg = null;
+                                business.viewModel.gwTextFormFieldWrapperStateGk
+                                    .currentState
+                                    ?.refreshUi();
                               },
-                              onEditingComplete: () {
-                                currentState.verifyCodeAndGoNext();
-                              },
-                            );
-                          },
-                        ),
+                              icon: const Icon(Icons.clear),
+                            ),
+                            onChanged: (value) {
+                              // 입력값 변경시 에러 메세지 삭제
+                              if (business
+                                      .viewModel
+                                      .gwTextFormFieldWrapperStateGk
+                                      .currentState
+                                      ?.textFieldErrorMsg !=
+                                  null) {
+                                business.viewModel.gwTextFormFieldWrapperStateGk
+                                    .currentState?.textFieldErrorMsg = null;
+                                business.viewModel.gwTextFormFieldWrapperStateGk
+                                    .currentState
+                                    ?.refreshUi();
+                              }
+                            },
+                            onEditingComplete: () {
+                              business.verifyCodeAndGoNext(context: context);
+                            }),
                       ),
                     ),
                   ),
@@ -190,7 +251,7 @@ class DialogWidget extends StatefulWidget {
                     cursor: SystemMouseCursors.click,
                     child: GestureDetector(
                       onTap: () {
-                        currentState.resendVerificationEmail();
+                        business.resendVerificationEmail(context: context);
                       },
                       child: Container(
                         constraints: const BoxConstraints(maxWidth: 160),
@@ -226,7 +287,7 @@ class DialogWidget extends StatefulWidget {
                   const SizedBox(height: 40.0),
                   ElevatedButton(
                     onPressed: () {
-                      currentState.verifyCodeAndGoNext();
+                      business.verifyCodeAndGoNext(context: context);
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue,
@@ -253,26 +314,92 @@ class DialogWidget extends StatefulWidget {
   }
 }
 
-// (BLoC 갱신 구역 설정 방법)
-// 위젯을 작성 하다가 특정 부분은 상태에 따라 UI 가 변하도록 하고 싶은 부분이 있습니다.
-// 이 경우 Stateful 위젯을 생성 해서 사용 하면 되지만,
-// 간단히 갱신 영역을 지정 하여 해당 구역만 갱신 하도록 하기 위해선 BLoC 갱신 구역을 설정 하여 사용 하면 됩니다.
-// Widget State 클래스 안에 BLoC 갱신 구역 조작 객체로
-// gc_template_classes.RefreshableBloc refreshableBloc = gc_template_classes.RefreshableBloc();
-// 위와 같이 선언 및 생성 하고,
-// Widget 에서는, 갱신 하려는 구역을
-// BlocProvider(
-//         create: (context) => currentState.refreshableBloc,
-//         child: BlocBuilder<gc_template_classes.RefreshableBloc, bool>(
-//         builder: (c,s){
-//             return Text(currentState.sampleInt.toString());
-//         },
-//     ),
-// )
-// 위와 같이 감싸 줍니다.
-// 만약 위와 같은 Text 위젯에서 숫자 표시를 갱신 하려면,
-// currentState.sampleInt += 1;
-// currentState.refreshableBloc.refreshUi();
-// 이처럼 Text 위젯에서 사용 하는 상태 변수의 값을 변경 하고,
-// 갱신 구역 객체의 refreshUi() 함수를 실행 시키면,
-// builder 가 다시 실행 되며, 그 안의 위젯이 재조립 되어 화면을 갱신 합니다.
+// (Stateful Widget 예시)
+// class SfWidget extends StatefulWidget {
+//   const SfWidget({required this.globalKey}) : super(key: globalKey);
+//
+//   // [콜백 함수]
+//   @override
+//   SfWidgetState createState() => SfWidgetState();
+//
+//   // [public 변수]
+//   final GlobalKey<SfWidgetState> globalKey;
+//
+//   // !!!외부 입력 변수 선언 하기!!!
+//
+//   // [화면 작성]
+//   Widget widgetUiBuild(
+//       {required BuildContext context, required SfWidgetState business}) {
+//     // !!!뷰 위젯 반환 콜백 작성 하기!!!
+//
+//     return const Text("Sample");
+//   }
+// }
+//
+// class SfWidgetState extends State<SfWidget> {
+//   SfWidgetState();
+//
+//   // [콜백 함수]
+//   @override
+//   Widget build(BuildContext context) {
+//     return widget.widgetUiBuild(context: context, business: this);
+//   }
+//
+//   @override
+//   void initState() {
+//     super.initState();
+//     // !!!initState 작성!!!
+//   }
+//
+//   @override
+//   void dispose() {
+//     // !!!dispose 작성!!!
+//     super.dispose();
+//   }
+//
+//   // [public 변수]
+//
+//   // [private 변수]
+//
+//   // [public 함수]
+//   // (Stateful Widget 화면 갱신)
+//   void refreshUi() {
+//     setState(() {});
+//   }
+// }
+
+// (Stateless Widget 예시)
+// class SlWidget extends StatelessWidget {
+//   const SlWidget({super.key, required this.business});
+//
+//   // [public 변수]
+//   final SlWidgetBusiness business;
+//
+//   // !!!외부 입력 변수 선언 하기!!!
+//
+//   // [콜백 함수]
+//   // (위젯을 화면에 draw 할 때의 콜백)
+//   @override
+//   Widget build(BuildContext context) {
+//     return widgetUiBuild(context: context);
+//   }
+//
+//   // [화면 작성]
+//   Widget widgetUiBuild({required BuildContext context}) {
+//     // !!!뷰 위젯 반환 콜백 작성 하기!!!
+//
+//     return const Text("Sample");
+//   }
+// }
+//
+// class SlWidgetBusiness {
+//   // [콜백 함수]
+//
+//   // [public 변수]
+//
+//   // [private 변수]
+//
+//   // [public 함수]
+//
+//   // [private 함수]
+// }

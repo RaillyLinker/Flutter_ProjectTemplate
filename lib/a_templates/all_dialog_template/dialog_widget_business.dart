@@ -1,5 +1,6 @@
 // (external)
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 // (inner Folder)
 import 'dialog_widget.dart' as dialog_widget;
@@ -48,6 +49,9 @@ class PageWidgetBusiness {
   }
 
   // [public 변수]
+  // (최초 실행 플래그)
+  bool needInitState = true;
+
   // (페이지 pop 가능 여부 변수)
   bool canPop = true;
 
@@ -60,6 +64,11 @@ class PageWidgetBusiness {
   // [public 함수]
   // (Widget 화면 갱신) - WidgetUi.viewWidgetBuild 의 return 값을 다시 불러 옵니다.
   late VoidCallback refreshUi;
+
+  // (다이얼로그 종료 함수)
+  void closeDialog({required BuildContext context}) {
+    context.pop();
+  }
 
 // !!!사용 함수 추가하기!!!
 }

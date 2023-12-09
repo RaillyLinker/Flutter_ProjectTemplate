@@ -14,8 +14,8 @@ import '../../../../repositories/network/apis/api_main_server.dart'
     as api_main_server;
 import '../../../dialogs/all/all_dialog_auth_join_the_membership_email_verification/dialog_widget.dart'
     as all_dialog_auth_join_the_membership_email_verification;
-import '../../../dialogs/all/all_dialog_auth_join_the_membership_email_verification/dialog_widget_state.dart'
-    as all_dialog_auth_join_the_membership_email_verification_state;
+import '../../../dialogs/all/all_dialog_auth_join_the_membership_email_verification/dialog_widget_business.dart'
+    as all_dialog_auth_join_the_membership_email_verification_business;
 import '../../../dialogs/all/all_dialog_info/dialog_widget.dart'
     as all_dialog_info;
 import '../../../dialogs/all/all_dialog_info/dialog_widget_state.dart'
@@ -213,10 +213,8 @@ class PageBusiness {
 
           // 정상 응답
           // 검증번호 입력 다이얼로그 띄우기
-          GlobalKey<
-                  all_dialog_auth_join_the_membership_email_verification_state
-                  .DialogWidgetState>
-              allDialogAuthJoinTheMembershipEmailVerificationGk = GlobalKey();
+          all_dialog_auth_join_the_membership_email_verification_business.PageWidgetBusiness
+              allDialogAuthJoinTheMembershipEmailVerificationBusiness = all_dialog_auth_join_the_membership_email_verification_business.PageWidgetBusiness();
           if (!_context.mounted) return;
           var dialogResult = await showDialog(
               barrierDismissible: false,
@@ -224,8 +222,8 @@ class PageBusiness {
               builder: (context) =>
                   all_dialog_auth_join_the_membership_email_verification
                       .DialogWidget(
-                    globalKey:
-                        allDialogAuthJoinTheMembershipEmailVerificationGk,
+                    business:
+                    allDialogAuthJoinTheMembershipEmailVerificationBusiness,
                     inputVo:
                         all_dialog_auth_join_the_membership_email_verification
                             .InputVo(
