@@ -5,6 +5,8 @@ import 'package:go_router/go_router.dart';
 
 // (inner Folder)
 import 'dialog_widget.dart' as dialog_widget;
+
+// (all)
 import '../../../global_widgets/gw_context_menu_region/sf_widget_state.dart'
     as gw_context_menu_region_state;
 
@@ -14,53 +16,44 @@ import '../../../global_widgets/gw_context_menu_region/sf_widget_state.dart'
 //------------------------------------------------------------------------------
 // 페이지의 비즈니스 로직 담당
 // PageBusiness 인스턴스는 해당 페이지가 소멸하기 전까지 활용됩니다.
-class PageWidgetBusiness {
+class DialogWidgetBusiness {
   // [콜백 함수]
   // (전체 위젯 initState)
-  void initState({required BuildContext context}) {
+  void initState() {
     // !!!initState 로직 작성!!!
   }
 
   // (전체 위젯 dispose)
-  void dispose({required BuildContext context}) {
+  void dispose() {
     // !!!initState 로직 작성!!!
   }
 
   // (전체 위젯의 FocusDetector 콜백들)
-  Future<void> onFocusGained({required BuildContext context}) async {
+  Future<void> onFocusGained() async {
     // !!!onFocusGained 로직 작성!!!
   }
 
-  Future<void> onFocusLost({required BuildContext context}) async {
+  Future<void> onFocusLost() async {
     // !!!onFocusLost 로직 작성!!!
   }
 
-  Future<void> onVisibilityGained({required BuildContext context}) async {
+  Future<void> onVisibilityGained() async {
     // !!!onFocusLost 로직 작성!!!
   }
 
-  Future<void> onVisibilityLost({required BuildContext context}) async {
+  Future<void> onVisibilityLost() async {
     // !!!onVisibilityLost 로직 작성!!!
   }
 
-  Future<void> onForegroundGained({required BuildContext context}) async {
+  Future<void> onForegroundGained() async {
     // !!!onForegroundGained 로직 작성!!!
   }
 
-  Future<void> onForegroundLost({required BuildContext context}) async {
+  Future<void> onForegroundLost() async {
     // !!!onForegroundLost 로직 작성!!!
   }
 
   // [public 변수]
-  // (최초 실행 플래그)
-  bool needInitState = true;
-
-  // (페이지 pop 가능 여부 변수)
-  bool canPop = true;
-
-  // (위젯 입력값)
-  late dialog_widget.InputVo inputVo;
-
   // (페이지 뷰모델 객체)
   late PageWidgetViewModel viewModel;
 
@@ -69,15 +62,15 @@ class PageWidgetBusiness {
   late VoidCallback refreshUi;
 
   // (다이얼로그 종료 함수)
-  void closeDialog({required BuildContext context}) {
-    context.pop();
+  void closeDialog() {
+    viewModel.context.pop();
   }
 
   // (context 메뉴의 토스트 테스트 항목을 클릭)
-  void toastTestMenuBtn({required BuildContext context}) {
+  void toastTestMenuBtn() {
     showToast(
       "토스트 테스트 메뉴가 선택되었습니다.",
-      context: context,
+      context: viewModel.context,
       animation: StyledToastAnimation.scale,
     );
   }
@@ -87,11 +80,23 @@ class PageWidgetBusiness {
 
 // (페이지에서 사용할 변수 저장 클래스)
 class PageWidgetViewModel {
-  PageWidgetViewModel({required BuildContext context});
+  PageWidgetViewModel({required this.context, required this.inputVo});
+
+  // (최초 실행 플래그)
+  bool needInitState = true;
+
+  // (페이지 pop 가능 여부 변수)
+  bool canPop = true;
+
+  // (페이지 컨텍스트 객체)
+  BuildContext context;
+
+  // (위젯 입력값)
+  dialog_widget.InputVo inputVo;
 
 // !!!페이지에서 사용할 변수를 아래에 선언하기!!!
 
   // (contextMenuRegionBusiness)
-  var contextMenuRegionGk =
-      GlobalKey<gw_context_menu_region_state.SfWidgetState>();
+  final GlobalKey<gw_context_menu_region_state.SfWidgetState>
+      contextMenuRegionGk = GlobalKey();
 }

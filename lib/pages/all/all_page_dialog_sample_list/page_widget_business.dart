@@ -299,9 +299,9 @@ class PageWidgetBusiness {
         itemTitle: "컨텍스트 메뉴 샘플",
         itemDescription: "다이얼로그에서 컨텍스트 메뉴를 사용하는 샘플",
         onItemClicked: () {
-          all_dialog_context_menu_sample_business.PageWidgetBusiness
+          final all_dialog_context_menu_sample_business.DialogWidgetBusiness
               allDialogContextMenuSampleBusiness =
-              all_dialog_context_menu_sample_business.PageWidgetBusiness();
+              all_dialog_context_menu_sample_business.DialogWidgetBusiness();
           showDialog(
               barrierDismissible: true,
               context: context,
