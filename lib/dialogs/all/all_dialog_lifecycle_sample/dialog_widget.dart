@@ -4,8 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 // (inner Folder)
 import 'dialog_widget_state.dart' as dialog_widget_state;
-import 'inner_widgets/iw_stateful_sample_number/sf_widget.dart'
-    as iw_stateful_sample_number;
 
 // (all)
 import '../../../global_classes/gc_template_classes.dart'
@@ -85,20 +83,6 @@ class DialogWidget extends StatefulWidget {
                 gw_stateful_test.SfWidget(
                     globalKey: currentState.statefulTestGk,
                     inputVo: const gw_stateful_test.InputVo()),
-                const SizedBox(
-                  height: 5,
-                ),
-                const Text(
-                  "로컬 위젯 상태 변수",
-                  style: TextStyle(color: Colors.black, fontFamily: "MaruBuri"),
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                iw_stateful_sample_number.SfWidget(
-                  globalKey: currentState.statefulSampleNumberGk,
-                  inputVo: const iw_stateful_sample_number.InputVo(),
-                ),
                 const SizedBox(
                   height: 5,
                 ),

@@ -6,8 +6,6 @@ import 'package:go_router/go_router.dart';
 
 // (inner Folder)
 import 'dialog_widget.dart' as dialog_widget;
-import 'inner_widgets/iw_stateful_sample_number/sf_widget_state.dart'
-    as iw_stateful_sample_number_state;
 
 // (all)
 import '../../../global_classes/gc_template_classes.dart'
@@ -109,10 +107,6 @@ class DialogWidgetState extends State<dialog_widget.DialogWidget>
 
   // (로그 남기기 용 랜덤 문자열)
   final String randString = gf_my_functions.generateRandomString(10);
-
-  // (statefulSampleNumberBusiness)
-  final GlobalKey<iw_stateful_sample_number_state.SfWidgetState>
-      statefulSampleNumberGk = GlobalKey();
 
   // (statefulTestBusiness)
   final GlobalKey<gw_stateful_test_state.SfWidgetState> statefulTestGk =
