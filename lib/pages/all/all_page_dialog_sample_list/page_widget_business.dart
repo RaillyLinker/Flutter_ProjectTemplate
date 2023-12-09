@@ -29,8 +29,8 @@ import '../../../dialogs/all/all_dialog_loading_spinner/dialog_widget_business.d
     as all_dialog_loading_spinner_business;
 import '../../../dialogs/all/all_dialog_modal_bottom_sheet_sample/dialog_widget.dart'
     as all_dialog_modal_bottom_sheet_sample;
-import '../../../dialogs/all/all_dialog_modal_bottom_sheet_sample/dialog_widget_state.dart'
-    as all_dialog_modal_bottom_sheet_sample_state;
+import '../../../dialogs/all/all_dialog_modal_bottom_sheet_sample/dialog_widget_business.dart'
+    as all_dialog_modal_bottom_sheet_sample_business;
 import '../../../dialogs/all/all_dialog_dialog_in_dialog/dialog_widget.dart'
     as all_dialog_dialog_in_dialog;
 import '../../../dialogs/all/all_dialog_dialog_in_dialog/dialog_widget_state.dart'
@@ -240,9 +240,10 @@ class PageWidgetBusiness {
           // 일반 다이얼로그 위젯에 호출만 showModalBottomSheet 로 하면 됩니다.
           // BS 다이얼로그는 무조건 width 가 Max 입니다.
 
-          final GlobalKey<
-                  all_dialog_modal_bottom_sheet_sample_state.DialogWidgetState>
-              allDialogModalBottomSheetSampleGk = GlobalKey();
+          final all_dialog_modal_bottom_sheet_sample_business
+              .DialogWidgetBusiness allDialogModalBottomSheetSampleBusiness =
+              all_dialog_modal_bottom_sheet_sample_business
+                  .DialogWidgetBusiness();
 
           showModalBottomSheet<void>(
             constraints: const BoxConstraints(minWidth: double.infinity),
@@ -252,7 +253,7 @@ class PageWidgetBusiness {
             // 슬라이드 가능여부
             builder: (context) =>
                 all_dialog_modal_bottom_sheet_sample.DialogWidget(
-              globalKey: allDialogModalBottomSheetSampleGk,
+              business: allDialogModalBottomSheetSampleBusiness,
               inputVo: const all_dialog_modal_bottom_sheet_sample.InputVo(),
               onDialogCreated: () {},
             ),
