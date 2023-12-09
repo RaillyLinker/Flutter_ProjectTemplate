@@ -183,6 +183,207 @@ class WidgetUi {
                 gw_stateful_test.SfWidget(
                     globalKey: business.pageWidgetViewModel.statefulTestGk,
                     inputVo: const gw_stateful_test.InputVo()),
+                const SizedBox(
+                  height: 5,
+                ),
+                const Text(
+                  "BLoC 리스트 상태 변수",
+                  style: TextStyle(color: Colors.black, fontFamily: "MaruBuri"),
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                // 이미지 리스트 선택
+                Container(
+                  margin: const EdgeInsets.only(
+                    left: 20,
+                    right: 20,
+                  ),
+                  height: 150,
+                  //decoration: const BoxDecoration(
+                  //  color: Color.fromARGB(255, 249, 249, 249),
+                  //),
+                  child: Center(
+                    child: BlocProvider(
+                      create: (context) =>
+                          business.pageWidgetViewModel.itemListBloc,
+                      child: BlocBuilder<gc_template_classes.RefreshableBloc,
+                          bool>(
+                        builder: (c, s) {
+                          return ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: 1 +
+                                business.pageWidgetViewModel.itemList.length,
+                            itemBuilder: (context, index) {
+                              // 첫번째 인덱스는 무조건 추가 버튼
+                              if (0 == index) {
+                                return Stack(
+                                  children: [
+                                    Container(
+                                      width: 100,
+                                      height: 100,
+                                      alignment: Alignment.center,
+                                      // 중앙에 위치하도록 설정
+                                      decoration: const BoxDecoration(
+                                        border: Border(
+                                          top: BorderSide(
+                                              width: 1.0, color: Colors.black),
+                                          bottom: BorderSide(
+                                              width: 1.0, color: Colors.black),
+                                          left: BorderSide(
+                                              width: 1.0, color: Colors.black),
+                                          right: BorderSide(
+                                              width: 1.0, color: Colors.black),
+                                        ),
+                                      ),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          IconButton(
+                                            onPressed: () {
+                                              business.pressAddItemBtn();
+                                            },
+                                            iconSize: 35,
+                                            color: const Color.fromARGB(
+                                                255, 158, 158, 158),
+                                            icon:
+                                                const Icon(Icons.photo_library),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              } else {
+                                page_widget_business.ItemListViewModel item =
+                                    business.pageWidgetViewModel
+                                        .itemList[index - 1];
+
+                                return Padding(
+                                  padding: const EdgeInsets.only(left: 10),
+                                  child: Stack(
+                                    children: [
+                                      // todo 아래에 에러 토글 버튼과 포커스 버튼
+                                      Column(
+                                        children: [
+                                          Container(
+                                            width: 200,
+                                            height: 100,
+                                            alignment: Alignment.center,
+                                            decoration: BoxDecoration(
+                                              color: Colors.blue[100],
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                            ),
+                                            child: BlocProvider(
+                                              create: (context) =>
+                                                  item.inputTextFieldBloc,
+                                              child: BlocBuilder<
+                                                  gc_template_classes
+                                                  .RefreshableBloc,
+                                                  bool>(
+                                                builder: (c, s) {
+                                                  return Container(
+                                                    color: Colors.white,
+                                                    child: TextFormField(
+                                                      controller: item
+                                                          .inputTextFieldController,
+                                                      focusNode: item
+                                                          .inputTextFieldFocus,
+                                                      decoration:
+                                                          InputDecoration(
+                                                        errorText: item
+                                                            .inputTextFieldErrorMsg,
+                                                        floatingLabelStyle:
+                                                            const TextStyle(
+                                                                color: Colors
+                                                                    .blue),
+                                                        border:
+                                                            const OutlineInputBorder(),
+                                                        contentPadding:
+                                                            const EdgeInsets
+                                                                .symmetric(
+                                                                vertical: 10.0,
+                                                                horizontal:
+                                                                    10.0),
+                                                        focusedBorder:
+                                                            const OutlineInputBorder(
+                                                          borderSide:
+                                                              BorderSide(
+                                                                  color: Colors
+                                                                      .blue),
+                                                        ),
+                                                        suffixIcon: IconButton(
+                                                          onPressed: () {
+                                                            item.inputTextFieldController
+                                                                .text = "";
+                                                          },
+                                                          icon: const Icon(
+                                                              Icons.clear),
+                                                        ),
+                                                      ),
+                                                      onChanged: (value) {
+                                                        // 입력값 변경시 에러 메세지 삭제
+                                                        if (item.inputTextFieldErrorMsg !=
+                                                            null) {
+                                                          item.inputTextFieldErrorMsg =
+                                                              null;
+                                                          item.inputTextFieldBloc
+                                                              .refreshUi();
+                                                        }
+                                                      },
+                                                    ),
+                                                  );
+                                                },
+                                              ),
+                                            ),
+                                          ),
+                                          Row(
+                                            children: [
+                                              ElevatedButton(
+                                                  onPressed: () {
+                                                    business.itemErrorToggle(index-1);
+                                                  },
+                                                  child: Text("E")),
+                                              ElevatedButton(
+                                                  onPressed: () {},
+                                                  child: Text("F"))
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                      Positioned(
+                                        top: -10,
+                                        right: -10,
+                                        child: IconButton(
+                                          onPressed: () {
+                                            // todo
+                                            business.pressDeleteItem(index - 1);
+                                          },
+                                          iconSize: 15,
+                                          color: Colors.white,
+                                          icon: const Icon(
+                                            Icons.cancel,
+                                            color: Colors.grey,
+                                            size: 15.0,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              }
+                            },
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
                 ElevatedButton(
                     onPressed: () {
                       business.goToParentPage(context: context);

@@ -17,7 +17,7 @@ import '../../../dialogs/all/all_dialog_info/dialog_widget_state.dart'
     as all_dialog_info_state;
 import '../../../a_templates/all_dialog_template/dialog_widget.dart'
     as all_dialog_template_view;
-import '../../../a_templates/all_dialog_template/dialog_widget_state.dart'
+import '../../../a_templates/all_dialog_template/dialog_widget_business.dart'
     as all_dialog_template_state;
 import '../../../dialogs/all/all_dialog_yes_or_no/dialog_widget.dart'
     as all_dialog_yes_or_no;
@@ -131,14 +131,13 @@ class PageWidgetBusiness {
         itemDescription: "템플릿 다이얼로그를 호출합니다.",
         onItemClicked: () {
           // (템플릿 다이얼로그 호출)
-          var dialogGk =
-              GlobalKey<all_dialog_template_state.DialogWidgetState>();
+          var dialogBusiness =all_dialog_template_state.PageWidgetBusiness();
 
           showDialog(
               barrierDismissible: true,
               context: context,
               builder: (context) => all_dialog_template_view.DialogWidget(
-                    globalKey: dialogGk,
+                business: dialogBusiness,
                     inputVo: const all_dialog_template_view.InputVo(),
                     onDialogCreated: () {},
                   )).then((outputVo) {});
@@ -280,15 +279,14 @@ class PageWidgetBusiness {
         itemDescription: "다이얼로그 영역 바깥의 색상을 지정합니다.",
         onItemClicked: () {
           // 다이얼로그 외부 색 설정
-          var dialogGk =
-              GlobalKey<all_dialog_template_state.DialogWidgetState>();
+          var dialogBusiness =all_dialog_template_state.PageWidgetBusiness();
 
           showDialog(
               barrierDismissible: true,
               context: context,
               barrierColor: Colors.blue.withOpacity(0.5),
               builder: (context) => all_dialog_template_view.DialogWidget(
-                    globalKey: dialogGk,
+                    business: dialogBusiness,
                     inputVo: const all_dialog_template_view.InputVo(),
                     onDialogCreated: () {},
                   )).then((outputVo) {});

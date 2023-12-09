@@ -13,7 +13,7 @@ import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
 import '../../../a_templates/all_dialog_template/dialog_widget.dart'
     as all_dialog_template_view;
-import '../../../a_templates/all_dialog_template/dialog_widget_state.dart'
+import '../../../a_templates/all_dialog_template/dialog_widget_business.dart'
     as all_dialog_template_state;
 import '../../../dialogs/all/all_dialog_small_circle_transform_sample/dialog_widget.dart'
     as all_dialog_small_circle_transform_sample;
@@ -106,8 +106,7 @@ class PageWidgetBusiness {
         itemTitle: "회전 애니메이션",
         itemDescription: "다이얼로그가 회전하며 나타납니다.",
         onItemClicked: () {
-          var dialogGk =
-              GlobalKey<all_dialog_template_state.DialogWidgetState>();
+          var dialogBusiness =all_dialog_template_state.PageWidgetBusiness();
 
           // 회전 애니메이션
           showGeneralDialog(
@@ -121,7 +120,7 @@ class PageWidgetBusiness {
               return Transform.rotate(
                 angle: math.radians(a1.value * 360),
                 child: all_dialog_template_view.DialogWidget(
-                  globalKey: dialogGk,
+                  business: dialogBusiness,
                   inputVo: const all_dialog_template_view.InputVo(),
                   onDialogCreated: () {},
                 ),
@@ -135,8 +134,7 @@ class PageWidgetBusiness {
         itemTitle: "확대 애니메이션",
         itemDescription: "다이얼로그가 확대되며 나타납니다.",
         onItemClicked: () {
-          var dialogGk =
-              GlobalKey<all_dialog_template_state.DialogWidgetState>();
+          var dialogBusiness =all_dialog_template_state.PageWidgetBusiness();
 
           // 확대 애니메이션
           showGeneralDialog(
@@ -151,7 +149,7 @@ class PageWidgetBusiness {
               return Transform.scale(
                 scale: curve,
                 child: all_dialog_template_view.DialogWidget(
-                  globalKey: dialogGk,
+                  business: dialogBusiness,
                   inputVo: const all_dialog_template_view.InputVo(),
                   onDialogCreated: () {},
                 ),
@@ -165,8 +163,7 @@ class PageWidgetBusiness {
         itemTitle: "슬라이드 다운 애니메이션",
         itemDescription: "다이얼로그가 위에서 아래로 나타납니다.",
         onItemClicked: () {
-          var dialogGk =
-              GlobalKey<all_dialog_template_state.DialogWidgetState>();
+          var dialogBusiness =all_dialog_template_state.PageWidgetBusiness();
 
           // Slide Down 애니메이션
           showGeneralDialog(
@@ -183,7 +180,7 @@ class PageWidgetBusiness {
                 transform:
                     Matrix4.translationValues(0.0, curvedValue * 1600, 0.0),
                 child: all_dialog_template_view.DialogWidget(
-                  globalKey: dialogGk,
+                  business: dialogBusiness,
                   inputVo: const all_dialog_template_view.InputVo(),
                   onDialogCreated: () {},
                 ),

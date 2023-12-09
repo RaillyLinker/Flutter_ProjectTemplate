@@ -31,10 +31,6 @@ class SlWidget extends StatelessWidget {
     return widgetUiBuild(context: context);
   }
 
-  // [public 함수]
-
-  // [private 함수]
-
   // [화면 작성]
   Widget widgetUiBuild({required BuildContext context}) {
     // !!!뷰 위젯 반환 콜백 작성 하기!!!

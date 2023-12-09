@@ -38,6 +38,11 @@ class PageWidgetBusiness {
     if (kDebugMode) {
       print("+++ dispose 호출됨");
     }
+
+    for(var item in pageWidgetViewModel.itemList){
+      item.inputTextFieldController.dispose();
+      item.inputTextFieldFocus.dispose();
+    }
   }
 
   // (전체 위젯의 FocusDetector 콜백들)
@@ -124,6 +129,33 @@ class PageWidgetBusiness {
   void goToParentPage({required BuildContext context}) {
     context.pushNamed(all_page_page_and_router_sample_list.pageName);
   }
+
+  void pressAddItemBtn() {
+    pageWidgetViewModel.itemList.add(ItemListViewModel());
+    pageWidgetViewModel.itemListBloc.refreshUi();
+  }
+
+  void pressDeleteItem(int i) {
+    pageWidgetViewModel.itemList[i].inputTextFieldFocus.dispose();
+    pageWidgetViewModel.itemList[i].inputTextFieldController.dispose();
+
+    // 여기서 itemListBloc을 닫은 후 다시 만듭니다.
+    pageWidgetViewModel.itemList[i].inputTextFieldBloc.close();
+    pageWidgetViewModel.itemList[i].inputTextFieldBloc = gc_template_classes.RefreshableBloc();
+
+    pageWidgetViewModel.itemList.removeAt(i);
+    pageWidgetViewModel.itemListBloc.refreshUi();
+  }
+
+  void itemErrorToggle(int index) {
+    var item = pageWidgetViewModel.itemList[index];
+    if(item.inputTextFieldErrorMsg ==null){
+      item.inputTextFieldErrorMsg = "error";
+    }else{
+      item.inputTextFieldErrorMsg = null;
+    }
+    item.inputTextFieldBloc.refreshUi();
+  }
 }
 
 // (페이지에서 사용할 변수 저장 클래스)
@@ -141,8 +173,19 @@ class PageWidgetViewModel {
   // (statefulTestBusiness)
   var statefulTestGk = GlobalKey<gw_stateful_test_state.SfWidgetState>();
 
+  List<ItemListViewModel> itemList = [];
+   gc_template_classes.RefreshableBloc itemListBloc = gc_template_classes.RefreshableBloc();
+
   // (sampleBLoC)
   gc_template_classes.RefreshableBloc blocSampleBloc =
       gc_template_classes.RefreshableBloc();
   int blocSampleIntValue = 0;
+}
+
+class ItemListViewModel {
+  final TextEditingController inputTextFieldController = TextEditingController();
+  final FocusNode inputTextFieldFocus = FocusNode();
+  String? inputTextFieldErrorMsg;
+  gc_template_classes.RefreshableBloc inputTextFieldBloc =
+  gc_template_classes.RefreshableBloc();
 }

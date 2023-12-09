@@ -1,13 +1,8 @@
 // (external)
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 // (inner Folder)
-import 'page_widget.dart' as page_widget;
-
-// (all)
-import '../../../global_widgets/gw_page_outer_frame/sl_widget_business.dart'
-    as gw_page_outer_frame_business;
+import 'dialog_widget.dart' as dialog_widget;
 
 // [위젯 비즈니스]
 // 위젯의 비즈니스 로직 + State 변수 처리는 이 곳에서 합니다.
@@ -52,25 +47,12 @@ class PageWidgetBusiness {
     // !!!onForegroundLost 로직 작성!!!
   }
 
-  void onCheckPageInputVo(
-      {required BuildContext context, required GoRouterState goRouterState}) {
-    // !!!pageInputVo 체크!!!
-    // ex :
-    // if (!goRouterState.uri.queryParameters
-    //     .containsKey("inputValueString")) {
-    //   // 필수 파라미터가 없는 경우에 대한 처리
-    // }
-
-    // !!!PageInputVo 입력!!!
-    inputVo = const page_widget.InputVo();
-  }
-
   // [public 변수]
   // (페이지 pop 가능 여부 변수)
   bool canPop = true;
 
   // (위젯 입력값)
-  late page_widget.InputVo inputVo;
+  late dialog_widget.InputVo inputVo;
 
   // (페이지 뷰모델 객체)
   late PageWidgetViewModel viewModel;
@@ -87,8 +69,4 @@ class PageWidgetViewModel {
   PageWidgetViewModel({required BuildContext context});
 
 // !!!페이지에서 사용할 변수를 아래에 선언하기!!!
-
-  // (pageOutFrameBusiness)
-  final gw_page_outer_frame_business.SlWidgetBusiness pageOutFrameBusiness =
-      gw_page_outer_frame_business.SlWidgetBusiness();
 }

@@ -1,6 +1,5 @@
 // (external)
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:focus_detector_v2/focus_detector_v2.dart';
 import 'package:go_router/go_router.dart';
 
@@ -10,8 +9,6 @@ import 'page_widget_business.dart' as page_widget_business;
 // (all)
 import '../../../global_widgets/gw_page_outer_frame/sl_widget.dart'
     as gw_page_outer_frame;
-import '../../../global_classes/gc_template_classes.dart'
-    as gc_template_classes;
 
 // [위젯 뷰]
 // 위젯의 화면 작성은 여기서 합니다.
@@ -61,7 +58,7 @@ class PageWidgetState extends State<PageWidget> with WidgetsBindingObserver {
     business.refreshUi = refreshUi;
     business.onCheckPageInputVo(
         context: context, goRouterState: widget.goRouterState);
-    business.pageWidgetViewModel =
+    business.viewModel =
         page_widget_business.PageWidgetViewModel(context: context);
     business.initState(context: context);
   }
@@ -121,7 +118,7 @@ class WidgetUi {
     // !!!뷰 위젯 반환 콜백 작성 하기!!!
 
     return gw_page_outer_frame.SlWidget(
-      business: business.pageWidgetViewModel.pageOutFrameBusiness,
+      business: business.viewModel.pageOutFrameBusiness,
       inputVo: const gw_page_outer_frame.InputVo(
         pageTitle: "페이지 템플릿",
         child: Center(
@@ -132,12 +129,92 @@ class WidgetUi {
   }
 }
 
-// (BLoC 위젯 예시)
-// BlocProvider(
-//         create: (context) => business.refreshableBloc,
-//         child: BlocBuilder<gc_template_classes.RefreshableBloc, bool>(
-//         builder: (c,s){
-//             return Text(business.sampleInt.toString());
-//         },
-//     ),
-// )
+// (Stateful Widget 예시)
+// class SfWidget extends StatefulWidget {
+//   const SfWidget({required this.globalKey}) : super(key: globalKey);
+//
+//   // [콜백 함수]
+//   @override
+//   SfWidgetState createState() => SfWidgetState();
+//
+//   // [public 변수]
+//   final GlobalKey<SfWidgetState> globalKey;
+//
+//   // !!!외부 입력 변수 선언 하기!!!
+//
+//   // [화면 작성]
+//   Widget widgetUiBuild(
+//       {required BuildContext context, required SfWidgetState currentState}) {
+//     // !!!뷰 위젯 반환 콜백 작성 하기!!!
+//
+//     return const Text("Sample");
+//   }
+// }
+//
+// class SfWidgetState extends State<SfWidget> {
+//   SfWidgetState();
+//
+//   // [콜백 함수]
+//   @override
+//   Widget build(BuildContext context) {
+//     return widget.widgetUiBuild(context: context, currentState: this);
+//   }
+//
+//   @override
+//   void initState() {
+//     super.initState();
+//     // !!!initState 작성!!!
+//   }
+//
+//   @override
+//   void dispose() {
+//     // !!!dispose 작성!!!
+//     super.dispose();
+//   }
+//
+//   // [public 변수]
+//
+//   // [private 변수]
+//
+//   // [public 함수]
+//   // (Stateful Widget 화면 갱신)
+//   void refreshUi() {
+//     setState(() {});
+//   }
+// }
+
+// (Stateless Widget 예시)
+// class SlWidget extends StatelessWidget {
+//   const SlWidget({super.key, required this.business});
+//
+//   // [public 변수]
+//   final SlWidgetBusiness business;
+//
+//   // !!!외부 입력 변수 선언 하기!!!
+//
+//   // [콜백 함수]
+//   // (위젯을 화면에 draw 할 때의 콜백)
+//   @override
+//   Widget build(BuildContext context) {
+//     return widgetUiBuild(context: context);
+//   }
+//
+//   // [화면 작성]
+//   Widget widgetUiBuild({required BuildContext context}) {
+//     // !!!뷰 위젯 반환 콜백 작성 하기!!!
+//
+//     return const Text("Sample");
+//   }
+// }
+//
+// class SlWidgetBusiness {
+//   // [콜백 함수]
+//
+//   // [public 변수]
+//
+//   // [private 변수]
+//
+//   // [public 함수]
+//
+//   // [private 함수]
+// }
