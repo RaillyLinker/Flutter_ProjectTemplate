@@ -25,7 +25,7 @@ import '../../../dialogs/all/all_dialog_loading_spinner/dialog_widget_business.d
 //------------------------------------------------------------------------------
 // 페이지의 비즈니스 로직 담당
 // PageBusiness 인스턴스는 해당 페이지가 소멸하기 전까지 활용됩니다.
-class PageWidgetBusiness {
+class DialogWidgetBusiness {
   // [콜백 함수]
   // (전체 위젯 initState)
   void initState({required BuildContext context}) {

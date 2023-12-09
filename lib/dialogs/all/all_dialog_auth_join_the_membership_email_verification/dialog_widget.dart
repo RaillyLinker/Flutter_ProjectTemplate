@@ -51,7 +51,7 @@ class DialogWidget extends StatefulWidget {
   // 다이얼로그가 Created 된 시점에 한번 실행됨
   final VoidCallback onDialogCreated;
 
-  final dialog_widget_business.PageWidgetBusiness business;
+  final dialog_widget_business.DialogWidgetBusiness business;
 
   @override
   DialogWidgetState createState() => DialogWidgetState();
@@ -115,7 +115,7 @@ class DialogWidgetState extends State<DialogWidget>
   }
 
   // [public 변수]
-  late dialog_widget_business.PageWidgetBusiness business;
+  late dialog_widget_business.DialogWidgetBusiness business;
 
   // [public 함수]
   // (Stateful Widget 화면 갱신)
@@ -128,7 +128,7 @@ class WidgetUi {
   // [뷰 위젯]
   static Widget viewWidgetBuild(
       {required BuildContext context,
-      required dialog_widget_business.PageWidgetBusiness business}) {
+      required dialog_widget_business.DialogWidgetBusiness business}) {
     // !!!뷰 위젯 반환 콜백 작성 하기!!!
 
     return Dialog(

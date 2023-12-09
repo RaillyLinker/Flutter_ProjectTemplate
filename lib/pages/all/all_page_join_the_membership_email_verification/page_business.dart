@@ -215,10 +215,10 @@ class PageBusiness {
           // 정상 응답
           // 검증번호 입력 다이얼로그 띄우기
           all_dialog_auth_join_the_membership_email_verification_business
-              .PageWidgetBusiness
+              .DialogWidgetBusiness
               allDialogAuthJoinTheMembershipEmailVerificationBusiness =
               all_dialog_auth_join_the_membership_email_verification_business
-                  .PageWidgetBusiness();
+                  .DialogWidgetBusiness();
           if (!_context.mounted) return;
           var dialogResult = await showDialog(
               barrierDismissible: false,
