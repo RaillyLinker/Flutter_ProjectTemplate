@@ -112,8 +112,8 @@ class PageWidgetBusiness {
         }));
 
     itemList.add(SampleItemViewModel(
-        itemTitle: "Stateful 및 라이프사이클 테스트",
-        itemDescription: "위젯 상태 변경 테스트",
+        itemTitle: "페이지 Stateful 상태 및 생명주기 테스트",
+        itemDescription: "페이지 Stateful 상태 및 생명주기를 테스트 합니다.",
         onItemClicked: () {
           context.pushNamed(all_page_stateful_and_lifecycle_test.pageName);
         }));

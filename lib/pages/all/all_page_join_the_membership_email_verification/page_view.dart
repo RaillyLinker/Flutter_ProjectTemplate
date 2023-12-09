@@ -81,7 +81,8 @@ class PageView extends StatelessWidget {
                                     return ElevatedButton(
                                       onPressed: () {
                                         // 중복 확인 버튼 동작
-                                        pageBusiness.onEmailBtnClick();
+                                        pageBusiness.onEmailBtnClick(
+                                            context: c);
                                       },
                                       style: ElevatedButton.styleFrom(
                                         backgroundColor: Colors.blue,

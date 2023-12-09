@@ -4,6 +4,8 @@ import 'package:focus_detector_v2/focus_detector_v2.dart';
 
 // (inner Folder)
 import 'dialog_widget_business.dart' as dialog_widget_business;
+import '../../../global_widgets/gw_stateful_test/sf_widget.dart'
+    as gw_stateful_test;
 
 // [위젯 뷰]
 // 위젯의 화면 작성은 여기서 합니다.
@@ -31,10 +33,10 @@ class DialogWidget extends StatefulWidget {
 
   final InputVo inputVo;
 
-  final dialog_widget_business.DialogWidgetBusiness business;
-
   // 다이얼로그가 Created 된 시점에 한번 실행됨
   final VoidCallback onDialogCreated;
+
+  final dialog_widget_business.PageWidgetBusiness business;
 
   @override
   DialogWidgetState createState() => DialogWidgetState();
@@ -48,50 +50,49 @@ class DialogWidgetState extends State<DialogWidget>
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     business = widget.business;
-    business.viewModel = dialog_widget_business.PageWidgetViewModel(
-        context: context, inputVo: widget.inputVo);
     business.refreshUi = refreshUi;
-    business.initState();
+    business.inputVo = widget.inputVo;
+    business.viewModel =
+        dialog_widget_business.PageWidgetViewModel(context: context);
+    business.initState(context: context);
   }
 
   @override
   void dispose() {
-    business.viewModel.context = context;
-    business.dispose();
+    business.dispose(context: context);
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    business.viewModel.context = context;
     business.refreshUi = refreshUi;
     return PopScope(
-      canPop: business.viewModel.canPop,
+      canPop: business.canPop,
       child: FocusDetector(
         // (페이지 위젯의 FocusDetector 콜백들)
         onFocusGained: () async {
-          if (business.viewModel.needInitState) {
-            business.viewModel.needInitState = false;
+          if (business.needInitState) {
+            business.needInitState = false;
             widget.onDialogCreated();
           }
 
-          await business.onFocusGained();
+          await business.onFocusGained(context: context);
         },
         onFocusLost: () async {
-          await business.onFocusLost();
+          await business.onFocusLost(context: context);
         },
         onVisibilityGained: () async {
-          await business.onVisibilityGained();
+          await business.onVisibilityGained(context: context);
         },
         onVisibilityLost: () async {
-          await business.onVisibilityLost();
+          await business.onVisibilityLost(context: context);
         },
         onForegroundGained: () async {
-          await business.onForegroundGained();
+          await business.onForegroundGained(context: context);
         },
         onForegroundLost: () async {
-          await business.onForegroundLost();
+          await business.onForegroundLost(context: context);
         },
         child: WidgetUi.viewWidgetBuild(context: context, business: business),
       ),
@@ -99,7 +100,7 @@ class DialogWidgetState extends State<DialogWidget>
   }
 
   // [public 변수]
-  late dialog_widget_business.DialogWidgetBusiness business;
+  late dialog_widget_business.PageWidgetBusiness business;
 
   // [public 함수]
   // (Stateful Widget 화면 갱신)
@@ -112,7 +113,7 @@ class WidgetUi {
   // [뷰 위젯]
   static Widget viewWidgetBuild(
       {required BuildContext context,
-      required dialog_widget_business.DialogWidgetBusiness business}) {
+      required dialog_widget_business.PageWidgetBusiness business}) {
     // !!!뷰 위젯 반환 콜백 작성 하기!!!
 
     return Dialog(
@@ -120,7 +121,7 @@ class WidgetUi {
       backgroundColor: Colors.transparent,
       child: SingleChildScrollView(
         child: Container(
-          height: 280,
+          height: 300,
           width: 300,
           decoration: const BoxDecoration(
             color: Colors.white,
@@ -129,8 +130,37 @@ class WidgetUi {
               Radius.circular(16),
             ),
           ),
-          child: const Center(
-            child: Text("템플릿 다이얼로그"),
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                  "Stateful Widget 상태 변수",
+                  style: TextStyle(color: Colors.black, fontFamily: "MaruBuri"),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                gw_stateful_test.SfWidget(
+                    globalKey: business.viewModel.statefulTestGk,
+                    inputVo: const gw_stateful_test.InputVo()),
+                const SizedBox(
+                  height: 10,
+                ),
+                ElevatedButton(
+                    onPressed: () {
+                      business.pushToAnotherPage(context: context);
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue,
+                    ),
+                    child: const Text(
+                      "페이지 이동",
+                      style: TextStyle(
+                          color: Colors.white, fontFamily: "MaruBuri"),
+                    )),
+              ],
+            ),
           ),
         ),
       ),

@@ -7,16 +7,14 @@ import 'package:go_router/go_router.dart';
 import 'dialog_widget.dart' as dialog_widget;
 
 // (all)
-import '../../../global_classes/gc_template_classes.dart'
-    as gc_template_classes;
 import '../../../dialogs/all/all_dialog_loading_spinner/dialog_widget.dart'
     as all_dialog_loading_spinner;
-import '../../../dialogs/all/all_dialog_loading_spinner/dialog_widget_state.dart'
-    as all_dialog_loading_spinner_state;
+import '../../../dialogs/all/all_dialog_loading_spinner/dialog_widget_business.dart'
+    as all_dialog_loading_spinner_business;
 import '../../../dialogs/all/all_dialog_info/dialog_widget.dart'
     as all_dialog_info;
-import '../../../dialogs/all/all_dialog_info/dialog_widget_state.dart'
-    as all_dialog_info_state;
+import '../../../dialogs/all/all_dialog_info/dialog_widget_business.dart'
+    as all_dialog_info_business;
 
 // [위젯 비즈니스]
 // 위젯의 비즈니스 로직 + State 변수 처리는 이 곳에서 합니다.
@@ -98,13 +96,13 @@ class DialogWidgetState extends State<dialog_widget.DialogWidget>
 
   // (Info 다이얼로그 호출)
   void showInfoDialog() {
-    GlobalKey<all_dialog_info_state.DialogWidgetState> allDialogInfoGk =
-        GlobalKey();
+    final all_dialog_info_business.PageWidgetBusiness allDialogInfoBusiness =
+        all_dialog_info_business.PageWidgetBusiness();
     showDialog(
         barrierDismissible: true,
         context: context,
         builder: (context) => all_dialog_info.DialogWidget(
-              globalKey: allDialogInfoGk,
+              business: allDialogInfoBusiness,
               inputVo: const all_dialog_info.InputVo(
                   dialogTitle: "확인 다이얼로그",
                   dialogContent: "확인 다이얼로그를 호출했습니다.",
@@ -115,14 +113,15 @@ class DialogWidgetState extends State<dialog_widget.DialogWidget>
 
   // (Loading 다이얼로그 호출)
   void showLoadingDialog() {
-    GlobalKey<all_dialog_loading_spinner_state.DialogWidgetState>
-        allDialogLoadingSpinnerStateGk = GlobalKey();
+    all_dialog_loading_spinner_business.PageWidgetBusiness
+        allDialogLoadingSpinnerBusiness =
+        all_dialog_loading_spinner_business.PageWidgetBusiness();
 
     showDialog(
         barrierDismissible: true,
         context: context,
         builder: (context) => all_dialog_loading_spinner.DialogWidget(
-            globalKey: allDialogLoadingSpinnerStateGk,
+            business: allDialogLoadingSpinnerBusiness,
             inputVo: const all_dialog_loading_spinner.InputVo(),
             onDialogCreated: () {})).then((outputVo) {});
   }

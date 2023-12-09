@@ -12,8 +12,8 @@ import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
 import '../../../dialogs/all/all_dialog_info/dialog_widget.dart'
     as all_dialog_info;
-import '../../../dialogs/all/all_dialog_info/dialog_widget_state.dart'
-    as all_dialog_info_state;
+import '../../../dialogs/all/all_dialog_info/dialog_widget_business.dart'
+    as all_dialog_info_business;
 
 // [위젯 비즈니스]
 // 위젯의 비즈니스 로직 + State 변수 처리는 이 곳에서 합니다.
@@ -227,13 +227,13 @@ class PageWidgetBusiness {
     String input3 = input3Text;
     String input4 = input4Text;
 
-    final GlobalKey<all_dialog_info_state.DialogWidgetState> allDialogInfoGk =
-        GlobalKey();
+    final all_dialog_info_business.PageWidgetBusiness allDialogInfoBusiness =
+        all_dialog_info_business.PageWidgetBusiness();
     showDialog(
         barrierDismissible: true,
         context: context,
         builder: (context) => all_dialog_info.DialogWidget(
-              globalKey: allDialogInfoGk,
+              business: allDialogInfoBusiness,
               inputVo: all_dialog_info.InputVo(
                 dialogTitle: "폼 입력 결과",
                 dialogContent: "입력1 : $input1\n"

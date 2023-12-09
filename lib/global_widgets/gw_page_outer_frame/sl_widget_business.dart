@@ -13,6 +13,9 @@ class SlWidgetBusiness {
   // [콜백 함수]
 
   // [public 변수]
+  // (페이지 컨텍스트 객체)
+  late BuildContext context;
+
   // (goToHomeIconButtonBusiness)
   var goToHomeIconButtonGk =
       GlobalKey<iw_go_home_icon_button_state.SfWidgetState>();

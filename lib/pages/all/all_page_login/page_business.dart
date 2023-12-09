@@ -16,12 +16,12 @@ import '../../../../repositories/spws/spw_auth_member_info.dart'
     as spw_auth_member_info;
 import '../../../dialogs/all/all_dialog_info/dialog_widget.dart'
     as all_dialog_info;
-import '../../../dialogs/all/all_dialog_info/dialog_widget_state.dart'
-    as all_dialog_info_state;
+import '../../../dialogs/all/all_dialog_info/dialog_widget_business.dart'
+    as all_dialog_info_business;
 import '../../../dialogs/all/all_dialog_loading_spinner/dialog_widget.dart'
     as all_dialog_loading_spinner;
-import '../../../dialogs/all/all_dialog_loading_spinner/dialog_widget_state.dart'
-    as all_dialog_loading_spinner_state;
+import '../../../dialogs/all/all_dialog_loading_spinner/dialog_widget_business.dart'
+    as all_dialog_loading_spinner_business;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
 import '../../../pages/all/all_page_find_password_with_email/page_entrance.dart'
@@ -150,7 +150,7 @@ class PageBusiness {
   // (계정 로그인 버튼 클릭)
   bool accountLoginAsyncClicked = false;
 
-  void accountLoginAsync() async {
+  void accountLoginAsync({required BuildContext context}) async {
     if (accountLoginAsyncClicked) {
       return;
     }
@@ -185,14 +185,15 @@ class PageBusiness {
             return;
           }
 
-          GlobalKey<all_dialog_loading_spinner_state.DialogWidgetState>
-              allDialogLoadingSpinnerStateGk = GlobalKey();
+          all_dialog_loading_spinner_business.PageWidgetBusiness
+              allDialogLoadingSpinnerBusiness =
+              all_dialog_loading_spinner_business.PageWidgetBusiness();
 
           showDialog(
               barrierDismissible: false,
               context: _context,
               builder: (context) => all_dialog_loading_spinner.DialogWidget(
-                  globalKey: allDialogLoadingSpinnerStateGk,
+                  business: allDialogLoadingSpinnerBusiness,
                   inputVo: const all_dialog_loading_spinner.InputVo(),
                   onDialogCreated: () {}));
 
@@ -203,7 +204,7 @@ class PageBusiness {
                       .PostService1TkV1AuthLoginWithPasswordAsyncRequestBodyVo(
                           loginTypeCode: 1, id: id, password: password));
 
-          allDialogLoadingSpinnerStateGk.currentState?.closeDialog();
+          allDialogLoadingSpinnerBusiness.closeDialog(context: context);
 
           if (responseVo.dioException == null) {
             // Dio 네트워크 응답
@@ -295,14 +296,15 @@ class PageBusiness {
                 case "1":
                   {
                     // 가입 되지 않은 회원
-                    final GlobalKey<all_dialog_info_state.DialogWidgetState>
-                        allDialogInfoGk = GlobalKey();
+                    final all_dialog_info_business.PageWidgetBusiness
+                        allDialogInfoBusiness =
+                        all_dialog_info_business.PageWidgetBusiness();
                     if (!_context.mounted) return;
                     showDialog(
                         barrierDismissible: true,
                         context: _context,
                         builder: (context) => all_dialog_info.DialogWidget(
-                              globalKey: allDialogInfoGk,
+                              business: allDialogInfoBusiness,
                               inputVo: const all_dialog_info.InputVo(
                                   dialogTitle: "로그인 실패",
                                   dialogContent: "가입되지 않은 회원입니다.",
@@ -315,14 +317,15 @@ class PageBusiness {
                 case "2":
                   {
                     // 로그인 정보 검증 불일치
-                    final GlobalKey<all_dialog_info_state.DialogWidgetState>
-                        allDialogInfoGk = GlobalKey();
+                    final all_dialog_info_business.PageWidgetBusiness
+                        allDialogInfoBusiness =
+                        all_dialog_info_business.PageWidgetBusiness();
                     if (!_context.mounted) return;
                     showDialog(
                         barrierDismissible: true,
                         context: _context,
                         builder: (context) => all_dialog_info.DialogWidget(
-                              globalKey: allDialogInfoGk,
+                              business: allDialogInfoBusiness,
                               inputVo: const all_dialog_info.InputVo(
                                   dialogTitle: "로그인 실패",
                                   dialogContent: "비밀번호가 일치하지 않습니다.",
@@ -335,14 +338,15 @@ class PageBusiness {
                 default:
                   {
                     // 비정상 응답이면서 서버에서 에러 원인 코드가 전달되지 않았을 때
-                    final GlobalKey<all_dialog_info_state.DialogWidgetState>
-                        allDialogInfoGk = GlobalKey();
+                    final all_dialog_info_business.PageWidgetBusiness
+                        allDialogInfoBusiness =
+                        all_dialog_info_business.PageWidgetBusiness();
                     if (!_context.mounted) return;
                     showDialog(
                         barrierDismissible: true,
                         context: _context,
                         builder: (context) => all_dialog_info.DialogWidget(
-                              globalKey: allDialogInfoGk,
+                              business: allDialogInfoBusiness,
                               inputVo: const all_dialog_info.InputVo(
                                   dialogTitle: "네트워크 에러",
                                   dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
@@ -354,14 +358,15 @@ class PageBusiness {
               }
             }
           } else {
-            final GlobalKey<all_dialog_info_state.DialogWidgetState>
-                allDialogInfoGk = GlobalKey();
+            final all_dialog_info_business.PageWidgetBusiness
+                allDialogInfoBusiness =
+                all_dialog_info_business.PageWidgetBusiness();
             if (!_context.mounted) return;
             showDialog(
                 barrierDismissible: true,
                 context: _context,
                 builder: (context) => all_dialog_info.DialogWidget(
-                      globalKey: allDialogInfoGk,
+                      business: allDialogInfoBusiness,
                       inputVo: const all_dialog_info.InputVo(
                           dialogTitle: "네트워크 에러",
                           dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
@@ -464,7 +469,7 @@ class PageBusiness {
   }
 
   // (Password 입력창에서 엔터를 쳤을 때)
-  void onPasswordFieldSubmitted() {
+  void onPasswordFieldSubmitted({required BuildContext context}) {
     String id = pageViewModel.idTextFieldController.text;
     String pw = pageViewModel.passwordTextFieldController.text;
 
@@ -499,7 +504,7 @@ class PageBusiness {
         animation: StyledToastAnimation.scale,
       );
     } else {
-      accountLoginAsync();
+      accountLoginAsync(context: context);
     }
   }
 

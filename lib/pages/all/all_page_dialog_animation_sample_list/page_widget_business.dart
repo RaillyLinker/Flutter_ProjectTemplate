@@ -106,7 +106,7 @@ class PageWidgetBusiness {
         itemTitle: "회전 애니메이션",
         itemDescription: "다이얼로그가 회전하며 나타납니다.",
         onItemClicked: () {
-          var dialogBusiness = all_dialog_template_state.PageWidgetBusiness();
+          var dialogBusiness = all_dialog_template_state.DialogWidgetBusiness();
 
           // 회전 애니메이션
           showGeneralDialog(
@@ -134,7 +134,7 @@ class PageWidgetBusiness {
         itemTitle: "확대 애니메이션",
         itemDescription: "다이얼로그가 확대되며 나타납니다.",
         onItemClicked: () {
-          var dialogBusiness = all_dialog_template_state.PageWidgetBusiness();
+          var dialogBusiness = all_dialog_template_state.DialogWidgetBusiness();
 
           // 확대 애니메이션
           showGeneralDialog(
@@ -163,7 +163,7 @@ class PageWidgetBusiness {
         itemTitle: "슬라이드 다운 애니메이션",
         itemDescription: "다이얼로그가 위에서 아래로 나타납니다.",
         onItemClicked: () {
-          var dialogBusiness = all_dialog_template_state.PageWidgetBusiness();
+          var dialogBusiness = all_dialog_template_state.DialogWidgetBusiness();
 
           // Slide Down 애니메이션
           showGeneralDialog(

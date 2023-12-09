@@ -17,12 +17,12 @@ import '../../../../repositories/spws/spw_auth_member_info.dart'
     as spw_auth_member_info;
 import '../../../dialogs/all/all_dialog_info/dialog_widget.dart'
     as all_dialog_info;
-import '../../../dialogs/all/all_dialog_info/dialog_widget_state.dart'
-    as all_dialog_info_state;
+import '../../../dialogs/all/all_dialog_info/dialog_widget_business.dart'
+    as all_dialog_info_business;
 import '../../../dialogs/all/all_dialog_loading_spinner/dialog_widget.dart'
     as all_dialog_loading_spinner;
-import '../../../dialogs/all/all_dialog_loading_spinner/dialog_widget_state.dart'
-    as all_dialog_loading_spinner_state;
+import '../../../dialogs/all/all_dialog_loading_spinner/dialog_widget_business.dart'
+    as all_dialog_loading_spinner_business;
 
 // [위젯 비즈니스]
 // 위젯의 비즈니스 로직 + State 변수 처리는 이 곳에서 합니다.
@@ -112,14 +112,15 @@ class PageWidgetBusiness {
         onItemClicked: () async {
           // 서버 접속 테스트
           // 로딩 다이얼로그 표시
-          GlobalKey<all_dialog_loading_spinner_state.DialogWidgetState>
-              allDialogLoadingSpinnerStateGk = GlobalKey();
+          all_dialog_loading_spinner_business.PageWidgetBusiness
+              allDialogLoadingSpinnerBusiness =
+              all_dialog_loading_spinner_business.PageWidgetBusiness();
 
           showDialog(
               barrierDismissible: false,
               context: context,
               builder: (context) => all_dialog_loading_spinner.DialogWidget(
-                  globalKey: allDialogLoadingSpinnerStateGk,
+                  business: allDialogLoadingSpinnerBusiness,
                   inputVo: const all_dialog_loading_spinner.InputVo(),
                   onDialogCreated: () {})).then((outputVo) {});
 
@@ -127,7 +128,7 @@ class PageWidgetBusiness {
               await api_main_server.getService1TkV1AuthForNoLoggedInAsync();
 
           // 로딩 다이얼로그 제거
-          allDialogLoadingSpinnerStateGk.currentState?.closeDialog();
+          allDialogLoadingSpinnerBusiness.closeDialog(context: context);
 
           if (response.dioException == null) {
             // Dio 네트워크 응답
@@ -137,14 +138,15 @@ class PageWidgetBusiness {
             var responseBody = networkResponseObjectOk.responseBody;
 
             // (확인 다이얼로그 호출)
-            GlobalKey<all_dialog_info_state.DialogWidgetState> allDialogInfoGk =
-                GlobalKey();
+            final all_dialog_info_business.PageWidgetBusiness
+                allDialogInfoBusiness =
+                all_dialog_info_business.PageWidgetBusiness();
             if (!context.mounted) return;
             showDialog(
                 barrierDismissible: true,
                 context: context,
                 builder: (context) => all_dialog_info.DialogWidget(
-                      globalKey: allDialogInfoGk,
+                      business: allDialogInfoBusiness,
                       inputVo: all_dialog_info.InputVo(
                           dialogTitle: "응답 결과",
                           dialogContent:
@@ -154,14 +156,15 @@ class PageWidgetBusiness {
                     )).then((outputVo) {});
           } else {
             // Dio 네트워크 에러
-            final GlobalKey<all_dialog_info_state.DialogWidgetState>
-                allDialogInfoGk = GlobalKey();
+            final all_dialog_info_business.PageWidgetBusiness
+                allDialogInfoBusiness =
+                all_dialog_info_business.PageWidgetBusiness();
             if (!context.mounted) return;
             showDialog(
                 barrierDismissible: true,
                 context: context,
                 builder: (context) => all_dialog_info.DialogWidget(
-                      globalKey: allDialogInfoGk,
+                      business: allDialogInfoBusiness,
                       inputVo: const all_dialog_info.InputVo(
                           dialogTitle: "네트워크 에러",
                           dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
@@ -177,14 +180,15 @@ class PageWidgetBusiness {
         onItemClicked: () async {
           // 무권한 로그인 진입 테스트
           // 로딩 다이얼로그 표시
-          GlobalKey<all_dialog_loading_spinner_state.DialogWidgetState>
-              allDialogLoadingSpinnerStateGk = GlobalKey();
+          all_dialog_loading_spinner_business.PageWidgetBusiness
+              allDialogLoadingSpinnerBusiness =
+              all_dialog_loading_spinner_business.PageWidgetBusiness();
 
           showDialog(
               barrierDismissible: false,
               context: context,
               builder: (context) => all_dialog_loading_spinner.DialogWidget(
-                  globalKey: allDialogLoadingSpinnerStateGk,
+                  business: allDialogLoadingSpinnerBusiness,
                   inputVo: const all_dialog_loading_spinner.InputVo(),
                   onDialogCreated: () {})).then((outputVo) {});
 
@@ -202,7 +206,7 @@ class PageWidgetBusiness {
                           authorization: authorization));
 
           // 로딩 다이얼로그 제거
-          allDialogLoadingSpinnerStateGk.currentState?.closeDialog();
+          allDialogLoadingSpinnerBusiness.closeDialog(context: context);
 
           if (response.dioException == null) {
             // Dio 네트워크 응답
@@ -212,14 +216,15 @@ class PageWidgetBusiness {
             var responseBody = networkResponseObjectOk.responseBody;
 
             // (확인 다이얼로그 호출)
-            GlobalKey<all_dialog_info_state.DialogWidgetState> allDialogInfoGk =
-                GlobalKey();
+            final all_dialog_info_business.PageWidgetBusiness
+                allDialogInfoBusiness =
+                all_dialog_info_business.PageWidgetBusiness();
             if (!context.mounted) return;
             showDialog(
                 barrierDismissible: true,
                 context: context,
                 builder: (context) => all_dialog_info.DialogWidget(
-                      globalKey: allDialogInfoGk,
+                      business: allDialogInfoBusiness,
                       inputVo: all_dialog_info.InputVo(
                           dialogTitle: "응답 결과",
                           dialogContent:
@@ -229,14 +234,15 @@ class PageWidgetBusiness {
                     )).then((outputVo) {});
           } else {
             // Dio 네트워크 에러
-            GlobalKey<all_dialog_info_state.DialogWidgetState> allDialogInfoGk =
-                GlobalKey();
+            final all_dialog_info_business.PageWidgetBusiness
+                allDialogInfoBusiness =
+                all_dialog_info_business.PageWidgetBusiness();
             if (!context.mounted) return;
             showDialog(
                 barrierDismissible: true,
                 context: context,
                 builder: (context) => all_dialog_info.DialogWidget(
-                      globalKey: allDialogInfoGk,
+                      business: allDialogInfoBusiness,
                       inputVo: const all_dialog_info.InputVo(
                           dialogTitle: "네트워크 에러",
                           dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
@@ -252,14 +258,15 @@ class PageWidgetBusiness {
         onItemClicked: () async {
           // DEVELOPER 권한 진입 테스트
           // 로딩 다이얼로그 표시
-          GlobalKey<all_dialog_loading_spinner_state.DialogWidgetState>
-              allDialogLoadingSpinnerStateGk = GlobalKey();
+          all_dialog_loading_spinner_business.PageWidgetBusiness
+              allDialogLoadingSpinnerBusiness =
+              all_dialog_loading_spinner_business.PageWidgetBusiness();
 
           showDialog(
               barrierDismissible: false,
               context: context,
               builder: (context) => all_dialog_loading_spinner.DialogWidget(
-                  globalKey: allDialogLoadingSpinnerStateGk,
+                  business: allDialogLoadingSpinnerBusiness,
                   inputVo: const all_dialog_loading_spinner.InputVo(),
                   onDialogCreated: () {})).then((outputVo) {});
 
@@ -277,7 +284,7 @@ class PageWidgetBusiness {
                           authorization: authorization));
 
           // 로딩 다이얼로그 제거
-          allDialogLoadingSpinnerStateGk.currentState?.closeDialog();
+          allDialogLoadingSpinnerBusiness.closeDialog(context: context);
 
           if (response.dioException == null) {
             // Dio 네트워크 응답
@@ -287,14 +294,15 @@ class PageWidgetBusiness {
             var responseBody = networkResponseObjectOk.responseBody;
 
             // (확인 다이얼로그 호출)
-            final GlobalKey<all_dialog_info_state.DialogWidgetState>
-                allDialogInfoGk = GlobalKey();
+            final all_dialog_info_business.PageWidgetBusiness
+                allDialogInfoBusiness =
+                all_dialog_info_business.PageWidgetBusiness();
             if (!context.mounted) return;
             showDialog(
                 barrierDismissible: true,
                 context: context,
                 builder: (context) => all_dialog_info.DialogWidget(
-                      globalKey: allDialogInfoGk,
+                      business: allDialogInfoBusiness,
                       inputVo: all_dialog_info.InputVo(
                           dialogTitle: "응답 결과",
                           dialogContent:
@@ -304,14 +312,15 @@ class PageWidgetBusiness {
                     )).then((outputVo) {});
           } else {
             // Dio 네트워크 에러
-            final GlobalKey<all_dialog_info_state.DialogWidgetState>
-                allDialogInfoGk = GlobalKey();
+            final all_dialog_info_business.PageWidgetBusiness
+                allDialogInfoBusiness =
+                all_dialog_info_business.PageWidgetBusiness();
             if (!context.mounted) return;
             showDialog(
                 barrierDismissible: true,
                 context: context,
                 builder: (context) => all_dialog_info.DialogWidget(
-                      globalKey: allDialogInfoGk,
+                      business: allDialogInfoBusiness,
                       inputVo: const all_dialog_info.InputVo(
                           dialogTitle: "네트워크 에러",
                           dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
@@ -327,14 +336,15 @@ class PageWidgetBusiness {
         onItemClicked: () async {
           // ADMIN 권한 진입 테스트
           // 로딩 다이얼로그 표시
-          GlobalKey<all_dialog_loading_spinner_state.DialogWidgetState>
-              allDialogLoadingSpinnerStateGk = GlobalKey();
+          all_dialog_loading_spinner_business.PageWidgetBusiness
+              allDialogLoadingSpinnerBusiness =
+              all_dialog_loading_spinner_business.PageWidgetBusiness();
 
           showDialog(
               barrierDismissible: false,
               context: context,
               builder: (context) => all_dialog_loading_spinner.DialogWidget(
-                  globalKey: allDialogLoadingSpinnerStateGk,
+                  business: allDialogLoadingSpinnerBusiness,
                   inputVo: const all_dialog_loading_spinner.InputVo(),
                   onDialogCreated: () {})).then((outputVo) {});
 
@@ -351,7 +361,7 @@ class PageWidgetBusiness {
                       authorization: authorization));
 
           // 로딩 다이얼로그 제거
-          allDialogLoadingSpinnerStateGk.currentState?.closeDialog();
+          allDialogLoadingSpinnerBusiness.closeDialog(context: context);
 
           if (response.dioException == null) {
             // Dio 네트워크 응답
@@ -361,14 +371,15 @@ class PageWidgetBusiness {
             var responseBody = networkResponseObjectOk.responseBody;
 
             // (확인 다이얼로그 호출)
-            final GlobalKey<all_dialog_info_state.DialogWidgetState>
-                allDialogInfoGk = GlobalKey();
+            final all_dialog_info_business.PageWidgetBusiness
+                allDialogInfoBusiness =
+                all_dialog_info_business.PageWidgetBusiness();
             if (!context.mounted) return;
             showDialog(
                 barrierDismissible: true,
                 context: context,
                 builder: (context) => all_dialog_info.DialogWidget(
-                      globalKey: allDialogInfoGk,
+                      business: allDialogInfoBusiness,
                       inputVo: all_dialog_info.InputVo(
                           dialogTitle: "응답 결과",
                           dialogContent:
@@ -378,14 +389,15 @@ class PageWidgetBusiness {
                     )).then((outputVo) {});
           } else {
             // Dio 네트워크 에러
-            final GlobalKey<all_dialog_info_state.DialogWidgetState>
-                allDialogInfoGk = GlobalKey();
+            final all_dialog_info_business.PageWidgetBusiness
+                allDialogInfoBusiness =
+                all_dialog_info_business.PageWidgetBusiness();
             if (!context.mounted) return;
             showDialog(
                 barrierDismissible: true,
                 context: context,
                 builder: (context) => all_dialog_info.DialogWidget(
-                      globalKey: allDialogInfoGk,
+                      business: allDialogInfoBusiness,
                       inputVo: const all_dialog_info.InputVo(
                           dialogTitle: "네트워크 에러",
                           dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",

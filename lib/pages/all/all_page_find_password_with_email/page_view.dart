@@ -76,7 +76,8 @@ class PageView extends StatelessWidget {
                                   child: ElevatedButton(
                                     onPressed: () {
                                       // 중복 확인 버튼 동작
-                                      pageBusiness.sendVerificationEmail();
+                                      pageBusiness.sendVerificationEmail(
+                                          context: context);
                                     },
                                     style: ElevatedButton.styleFrom(
                                       backgroundColor: Colors.blue,
@@ -116,7 +117,8 @@ class PageView extends StatelessWidget {
                                       .verificationCodeTextFieldController,
                                   onFieldSubmitted: (value) {
                                     pageBusiness
-                                        .onVerificationCodeFieldSubmitted();
+                                        .onVerificationCodeFieldSubmitted(
+                                            context: c);
                                   },
                                   decoration: InputDecoration(
                                       errorText: pageBusiness.pageViewModel
@@ -134,7 +136,7 @@ class PageView extends StatelessWidget {
                   const SizedBox(height: 30.0),
                   ElevatedButton(
                     onPressed: () {
-                      pageBusiness.findPassword();
+                      pageBusiness.findPassword(context: context);
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue,

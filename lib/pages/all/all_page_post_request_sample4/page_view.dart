@@ -1134,7 +1134,7 @@ class PageView extends StatelessWidget {
                   margin: const EdgeInsets.only(top: 50),
                   child: ElevatedButton(
                       onPressed: () {
-                        pageBusiness.doNetworkRequest();
+                        pageBusiness.doNetworkRequest(context: context);
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.blue,

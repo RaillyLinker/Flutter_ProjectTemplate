@@ -13,8 +13,8 @@ import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
 import '../../../dialogs/all/all_dialog_info/dialog_widget.dart'
     as all_dialog_info;
-import '../../../dialogs/all/all_dialog_info/dialog_widget_state.dart'
-    as all_dialog_info_state;
+import '../../../dialogs/all/all_dialog_info/dialog_widget_business.dart'
+    as all_dialog_info_business;
 import '../../../a_templates/all_dialog_template/dialog_widget.dart'
     as all_dialog_template_view;
 import '../../../a_templates/all_dialog_template/dialog_widget_business.dart'
@@ -25,8 +25,8 @@ import '../../../dialogs/all/all_dialog_yes_or_no/dialog_widget_state.dart'
     as all_dialog_yes_or_no_state;
 import '../../../dialogs/all/all_dialog_loading_spinner/dialog_widget.dart'
     as all_dialog_loading_spinner;
-import '../../../dialogs/all/all_dialog_loading_spinner/dialog_widget_state.dart'
-    as all_dialog_loading_spinner_state;
+import '../../../dialogs/all/all_dialog_loading_spinner/dialog_widget_business.dart'
+    as all_dialog_loading_spinner_business;
 import '../../../dialogs/all/all_dialog_modal_bottom_sheet_sample/dialog_widget.dart'
     as all_dialog_modal_bottom_sheet_sample;
 import '../../../dialogs/all/all_dialog_modal_bottom_sheet_sample/dialog_widget_state.dart'
@@ -37,12 +37,12 @@ import '../../../dialogs/all/all_dialog_dialog_in_dialog/dialog_widget_state.dar
     as all_dialog_dialog_in_dialog_state;
 import '../../../dialogs/all/all_dialog_context_menu_sample/dialog_widget.dart'
     as all_dialog_context_menu_sample;
-import '../../../dialogs/all/all_dialog_context_menu_sample/dialog_widget_state.dart'
-    as all_dialog_context_menu_sample_state;
-import '../../../dialogs/all/all_dialog_lifecycle_sample/dialog_widget.dart'
-    as all_dialog_lifecycle_sample;
-import '../../../dialogs/all/all_dialog_lifecycle_sample/dialog_widget_state.dart'
-    as all_dialog_lifecycle_sample_state;
+import '../../../dialogs/all/all_dialog_context_menu_sample/dialog_widget_business.dart'
+    as all_dialog_context_menu_sample_business;
+import '../../../dialogs/all/all_dialog_stateful_and_lifecycle_test/dialog_widget.dart'
+    as all_dialog_stateful_and_lifecycle_test;
+import '../../../dialogs/all/all_dialog_stateful_and_lifecycle_test/dialog_widget_business.dart'
+    as all_dialog_stateful_and_lifecycle_test_business;
 
 // [위젯 비즈니스]
 // 위젯의 비즈니스 로직 + State 변수 처리는 이 곳에서 합니다.
@@ -131,7 +131,7 @@ class PageWidgetBusiness {
         itemDescription: "템플릿 다이얼로그를 호출합니다.",
         onItemClicked: () {
           // (템플릿 다이얼로그 호출)
-          var dialogBusiness = all_dialog_template_state.PageWidgetBusiness();
+          var dialogBusiness = all_dialog_template_state.DialogWidgetBusiness();
 
           showDialog(
               barrierDismissible: true,
@@ -148,13 +148,14 @@ class PageWidgetBusiness {
         itemDescription: "버튼이 하나인 확인 다이얼로그를 호출합니다.",
         onItemClicked: () {
           // (확인 다이얼로그 호출)
-          final GlobalKey<all_dialog_info_state.DialogWidgetState>
-              allDialogInfoGk = GlobalKey();
+          final all_dialog_info_business.PageWidgetBusiness
+              allDialogInfoBusiness =
+              all_dialog_info_business.PageWidgetBusiness();
           showDialog(
               barrierDismissible: true,
               context: context,
               builder: (context) => all_dialog_info.DialogWidget(
-                    globalKey: allDialogInfoGk,
+                    business: allDialogInfoBusiness,
                     inputVo: const all_dialog_info.InputVo(
                         dialogTitle: "확인 다이얼로그",
                         dialogContent: "확인 다이얼로그를 호출했습니다.",
@@ -213,20 +214,21 @@ class PageWidgetBusiness {
         itemDescription: "로딩 스피너 다이얼로그를 호출하고 2초 후 종료합니다.",
         onItemClicked: () {
           // (로딩 스피너 다이얼로그 호출)
-          GlobalKey<all_dialog_loading_spinner_state.DialogWidgetState>
-              allDialogLoadingSpinnerStateGk = GlobalKey();
+          all_dialog_loading_spinner_business.PageWidgetBusiness
+              allDialogLoadingSpinnerBusiness =
+              all_dialog_loading_spinner_business.PageWidgetBusiness();
 
           showDialog(
               barrierDismissible: false,
               context: context,
               builder: (context) => all_dialog_loading_spinner.DialogWidget(
-                  globalKey: allDialogLoadingSpinnerStateGk,
+                  business: allDialogLoadingSpinnerBusiness,
                   inputVo: const all_dialog_loading_spinner.InputVo(),
                   onDialogCreated: () {})).then((outputVo) {});
 
           // 3초 후 닫힘
           Future.delayed(const Duration(seconds: 2)).then((value) {
-            allDialogLoadingSpinnerStateGk.currentState?.closeDialog();
+            allDialogLoadingSpinnerBusiness.closeDialog(context: context);
           });
         }));
 
@@ -279,7 +281,7 @@ class PageWidgetBusiness {
         itemDescription: "다이얼로그 영역 바깥의 색상을 지정합니다.",
         onItemClicked: () {
           // 다이얼로그 외부 색 설정
-          var dialogBusiness = all_dialog_template_state.PageWidgetBusiness();
+          var dialogBusiness = all_dialog_template_state.DialogWidgetBusiness();
 
           showDialog(
               barrierDismissible: true,
@@ -296,32 +298,37 @@ class PageWidgetBusiness {
         itemTitle: "컨텍스트 메뉴 샘플",
         itemDescription: "다이얼로그에서 컨텍스트 메뉴를 사용하는 샘플",
         onItemClicked: () {
-          GlobalKey<all_dialog_context_menu_sample_state.DialogWidgetState>
-              allDialogContextMenuSampleState = GlobalKey();
+          all_dialog_context_menu_sample_business.PageWidgetBusiness
+              allDialogContextMenuSampleBusiness =
+              all_dialog_context_menu_sample_business.PageWidgetBusiness();
           showDialog(
               barrierDismissible: true,
               context: context,
               builder: (context) => all_dialog_context_menu_sample.DialogWidget(
-                    globalKey: allDialogContextMenuSampleState,
+                    business: allDialogContextMenuSampleBusiness,
                     inputVo: const all_dialog_context_menu_sample.InputVo(),
                     onDialogCreated: () {},
                   )).then((outputVo) {});
         }));
 
     itemList.add(SampleItemViewModel(
-        itemTitle: "다이얼로그 생명주기 샘플",
-        itemDescription: "다이얼로그에서의 생명주기를 확인하는 샘플",
+        itemTitle: "다이얼로그 Stateful 상태 및 생명주기 테스트",
+        itemDescription: "다이얼로그 Stateful 상태 및 생명주기를 테스트 합니다.",
         onItemClicked: () {
           // 다이얼로그 생명주기 샘플
-          final GlobalKey<all_dialog_lifecycle_sample_state.DialogWidgetState>
-              lifecycleSampleBusinessGk = GlobalKey();
+          final all_dialog_stateful_and_lifecycle_test_business
+              .PageWidgetBusiness allDialogStatefulAndLifecycleTestBusiness =
+              all_dialog_stateful_and_lifecycle_test_business
+                  .PageWidgetBusiness();
 
           showDialog(
               barrierDismissible: true,
               context: context,
-              builder: (context) => all_dialog_lifecycle_sample.DialogWidget(
-                    globalKey: lifecycleSampleBusinessGk,
-                    inputVo: const all_dialog_lifecycle_sample.InputVo(),
+              builder: (context) =>
+                  all_dialog_stateful_and_lifecycle_test.DialogWidget(
+                    business: allDialogStatefulAndLifecycleTestBusiness,
+                    inputVo:
+                        const all_dialog_stateful_and_lifecycle_test.InputVo(),
                     onDialogCreated: () {},
                   )).then((outputVo) {});
         }));

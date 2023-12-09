@@ -13,8 +13,8 @@ import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
 import '../../../dialogs/all/all_dialog_info/dialog_widget.dart'
     as all_dialog_info;
-import '../../../dialogs/all/all_dialog_info/dialog_widget_state.dart'
-    as all_dialog_info_state;
+import '../../../dialogs/all/all_dialog_info/dialog_widget_business.dart'
+    as all_dialog_info_business;
 import '../../../global_widgets/gw_context_menu_region/sf_widget_state.dart'
     as gw_context_menu_region_state;
 
@@ -109,13 +109,13 @@ class PageWidgetBusiness {
 
   // (context 메뉴의 다이얼로그 테스트 항목을 클릭)
   void dialogTestMenuBtn() {
-    final GlobalKey<all_dialog_info_state.DialogWidgetState> allDialogInfoGk =
-        GlobalKey();
+    final all_dialog_info_business.PageWidgetBusiness allDialogInfoBusiness =
+        all_dialog_info_business.PageWidgetBusiness();
     showDialog(
         barrierDismissible: true,
         context: context,
         builder: (context) => all_dialog_info.DialogWidget(
-              globalKey: allDialogInfoGk,
+              business: allDialogInfoBusiness,
               inputVo: const all_dialog_info.InputVo(
                   dialogTitle: "컨텍스트 메뉴 테스트",
                   dialogContent: "다이얼로그 테스트 메뉴가\n선택되었습니다.",

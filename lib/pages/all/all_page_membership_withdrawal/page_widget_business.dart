@@ -17,12 +17,12 @@ import '../../../../repositories/spws/spw_auth_member_info.dart'
     as spw_auth_member_info;
 import '../../../dialogs/all/all_dialog_info/dialog_widget.dart'
     as all_dialog_info;
-import '../../../dialogs/all/all_dialog_info/dialog_widget_state.dart'
-    as all_dialog_info_state;
+import '../../../dialogs/all/all_dialog_info/dialog_widget_business.dart'
+    as all_dialog_info_business;
 import '../../../dialogs/all/all_dialog_loading_spinner/dialog_widget.dart'
     as all_dialog_loading_spinner;
-import '../../../dialogs/all/all_dialog_loading_spinner/dialog_widget_state.dart'
-    as all_dialog_loading_spinner_state;
+import '../../../dialogs/all/all_dialog_loading_spinner/dialog_widget_business.dart'
+    as all_dialog_loading_spinner_business;
 import '../../../dialogs/all/all_dialog_yes_or_no/dialog_widget.dart'
     as all_dialog_yes_or_no;
 import '../../../dialogs/all/all_dialog_yes_or_no/dialog_widget_state.dart'
@@ -167,14 +167,15 @@ class PageWidgetBusiness {
               onDialogCreated: () {},
             )).then((outputVo) async {
       if (outputVo.checkPositiveBtn) {
-        GlobalKey<all_dialog_loading_spinner_state.DialogWidgetState>
-            allDialogLoadingSpinnerStateGk = GlobalKey();
+        all_dialog_loading_spinner_business.PageWidgetBusiness
+            allDialogLoadingSpinnerBusiness =
+            all_dialog_loading_spinner_business.PageWidgetBusiness();
 
         showDialog(
             barrierDismissible: false,
             context: context,
             builder: (context) => all_dialog_loading_spinner.DialogWidget(
-                globalKey: allDialogLoadingSpinnerStateGk,
+                business: allDialogLoadingSpinnerBusiness,
                 inputVo: const all_dialog_loading_spinner.InputVo(),
                 onDialogCreated: () {}));
 
@@ -187,7 +188,7 @@ class PageWidgetBusiness {
                       "${signInInfo.tokenType} ${signInInfo.accessToken}"),
         );
 
-        allDialogLoadingSpinnerStateGk.currentState?.closeDialog();
+        allDialogLoadingSpinnerBusiness.closeDialog(context: context);
 
         if (responseVo.dioException == null) {
           // Dio 네트워크 응답
@@ -197,14 +198,15 @@ class PageWidgetBusiness {
             // 정상 응답
             // 로그아웃 처리
             spw_auth_member_info.SharedPreferenceWrapper.set(value: null);
-            final GlobalKey<all_dialog_info_state.DialogWidgetState>
-                allDialogInfoGk = GlobalKey();
+            final all_dialog_info_business.PageWidgetBusiness
+                allDialogInfoBusiness =
+                all_dialog_info_business.PageWidgetBusiness();
             if (!context.mounted) return;
             await showDialog(
                 barrierDismissible: true,
                 context: context,
                 builder: (context) => all_dialog_info.DialogWidget(
-                      globalKey: allDialogInfoGk,
+                      business: allDialogInfoBusiness,
                       inputVo: const all_dialog_info.InputVo(
                           dialogTitle: "회원 탈퇴 완료",
                           dialogContent: "회원 탈퇴가 완료되었습니다.\n안녕히 가세요.",
@@ -225,14 +227,15 @@ class PageWidgetBusiness {
             return;
           } else {
             // 비정상 응답
-            final GlobalKey<all_dialog_info_state.DialogWidgetState>
-                allDialogInfoGk = GlobalKey();
+            final all_dialog_info_business.PageWidgetBusiness
+                allDialogInfoBusiness =
+                all_dialog_info_business.PageWidgetBusiness();
             if (!context.mounted) return;
             showDialog(
                 barrierDismissible: true,
                 context: context,
                 builder: (context) => all_dialog_info.DialogWidget(
-                      globalKey: allDialogInfoGk,
+                      business: allDialogInfoBusiness,
                       inputVo: const all_dialog_info.InputVo(
                           dialogTitle: "네트워크 에러",
                           dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
@@ -241,14 +244,15 @@ class PageWidgetBusiness {
                     ));
           }
         } else {
-          final GlobalKey<all_dialog_info_state.DialogWidgetState>
-              allDialogInfoGk = GlobalKey();
+          final all_dialog_info_business.PageWidgetBusiness
+              allDialogInfoBusiness =
+              all_dialog_info_business.PageWidgetBusiness();
           if (!context.mounted) return;
           showDialog(
               barrierDismissible: true,
               context: context,
               builder: (context) => all_dialog_info.DialogWidget(
-                    globalKey: allDialogInfoGk,
+                    business: allDialogInfoBusiness,
                     inputVo: const all_dialog_info.InputVo(
                         dialogTitle: "네트워크 에러",
                         dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",

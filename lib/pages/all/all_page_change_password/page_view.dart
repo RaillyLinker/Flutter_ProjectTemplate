@@ -233,7 +233,8 @@ class PageView extends StatelessWidget {
                                       .pageViewModel.hideNewPasswordCheck,
                                   onFieldSubmitted: (value) {
                                     pageBusiness
-                                        .onNewPasswordCheckFieldSubmitted();
+                                        .onNewPasswordCheckFieldSubmitted(
+                                            context: c);
                                   },
                                   decoration: InputDecoration(
                                     errorText: pageBusiness.pageViewModel
@@ -265,7 +266,7 @@ class PageView extends StatelessWidget {
                     constraints: const BoxConstraints(minWidth: 200),
                     child: ElevatedButton(
                       onPressed: () {
-                        pageBusiness.changePassword();
+                        pageBusiness.changePassword(context: context);
                       },
                       style: ElevatedButton.styleFrom(
                           foregroundColor: Colors.white,

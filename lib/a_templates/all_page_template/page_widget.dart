@@ -55,45 +55,47 @@ class PageWidgetState extends State<PageWidget> with WidgetsBindingObserver {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     business = page_widget_business.PageWidgetBusiness();
+    business.viewModel = page_widget_business.PageWidgetViewModel(
+        context: context,
+        inputVo: business.onCheckPageInputVo(
+            context: context, goRouterState: widget.goRouterState));
     business.refreshUi = refreshUi;
-    business.onCheckPageInputVo(
-        context: context, goRouterState: widget.goRouterState);
-    business.viewModel =
-        page_widget_business.PageWidgetViewModel(context: context);
-    business.initState(context: context);
+    business.initState();
   }
 
   @override
   void dispose() {
-    business.dispose(context: context);
+    business.viewModel.context = context;
+    business.dispose();
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    business.viewModel.context = context;
     business.refreshUi = refreshUi;
     return PopScope(
-      canPop: business.canPop,
+      canPop: business.viewModel.canPop,
       child: FocusDetector(
         // (페이지 위젯의 FocusDetector 콜백들)
         onFocusGained: () async {
-          await business.onFocusGained(context: context);
+          await business.onFocusGained();
         },
         onFocusLost: () async {
-          await business.onFocusLost(context: context);
+          await business.onFocusLost();
         },
         onVisibilityGained: () async {
-          await business.onVisibilityGained(context: context);
+          await business.onVisibilityGained();
         },
         onVisibilityLost: () async {
-          await business.onVisibilityLost(context: context);
+          await business.onVisibilityLost();
         },
         onForegroundGained: () async {
-          await business.onForegroundGained(context: context);
+          await business.onForegroundGained();
         },
         onForegroundLost: () async {
-          await business.onForegroundLost(context: context);
+          await business.onForegroundLost();
         },
         child: WidgetUi.viewWidgetBuild(context: context, business: business),
       ),

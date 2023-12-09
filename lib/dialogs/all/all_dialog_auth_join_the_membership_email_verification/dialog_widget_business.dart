@@ -12,12 +12,12 @@ import '../../../../repositories/network/apis/api_main_server.dart'
     as api_main_server;
 import '../../../dialogs/all/all_dialog_info/dialog_widget.dart'
     as all_dialog_info;
-import '../../../dialogs/all/all_dialog_info/dialog_widget_state.dart'
-    as all_dialog_info_state;
+import '../../../dialogs/all/all_dialog_info/dialog_widget_business.dart'
+    as all_dialog_info_business;
 import '../../../dialogs/all/all_dialog_loading_spinner/dialog_widget.dart'
     as all_dialog_loading_spinner;
-import '../../../dialogs/all/all_dialog_loading_spinner/dialog_widget_state.dart'
-    as all_dialog_loading_spinner_state;
+import '../../../dialogs/all/all_dialog_loading_spinner/dialog_widget_business.dart'
+    as all_dialog_loading_spinner_business;
 
 // [위젯 비즈니스]
 // 위젯의 비즈니스 로직 + State 변수 처리는 이 곳에서 합니다.
@@ -89,14 +89,15 @@ class PageWidgetBusiness {
   Future<void> resendVerificationEmail({required BuildContext context}) async {
     // 입력값 검증 완료
     // (로딩 스피너 다이얼로그 호출)
-    GlobalKey<all_dialog_loading_spinner_state.DialogWidgetState>
-        allDialogLoadingSpinnerStateGk = GlobalKey();
+    all_dialog_loading_spinner_business.PageWidgetBusiness
+        allDialogLoadingSpinnerBusiness =
+        all_dialog_loading_spinner_business.PageWidgetBusiness();
 
     showDialog(
         barrierDismissible: false,
         context: context,
         builder: (context) => all_dialog_loading_spinner.DialogWidget(
-            globalKey: allDialogLoadingSpinnerStateGk,
+            business: allDialogLoadingSpinnerBusiness,
             inputVo: const all_dialog_loading_spinner.InputVo(),
             onDialogCreated: () {})).then((outputVo) {});
 
@@ -108,7 +109,7 @@ class PageWidgetBusiness {
 
     if (responseVo.dioException == null) {
       // Dio 네트워크 응답
-      allDialogLoadingSpinnerStateGk.currentState?.closeDialog();
+      allDialogLoadingSpinnerBusiness.closeDialog(context: context);
       var networkResponseObjectOk = responseVo.networkResponseObjectOk!;
 
       if (networkResponseObjectOk.responseStatusCode == 200) {
@@ -119,14 +120,15 @@ class PageWidgetBusiness {
         viewModel.verificationUid = responseBody.verificationUid;
 
         // 정상 응답
-        final GlobalKey<all_dialog_info_state.DialogWidgetState>
-            allDialogInfoGk = GlobalKey();
+        final all_dialog_info_business.PageWidgetBusiness
+            allDialogInfoBusiness =
+            all_dialog_info_business.PageWidgetBusiness();
         if (!context.mounted) return;
         await showDialog(
             barrierDismissible: true,
             context: context,
             builder: (context) => all_dialog_info.DialogWidget(
-                  globalKey: allDialogInfoGk,
+                  business: allDialogInfoBusiness,
                   inputVo: all_dialog_info.InputVo(
                       dialogTitle: "이메일 재발송 성공",
                       dialogContent:
@@ -150,14 +152,15 @@ class PageWidgetBusiness {
         // 비정상 응답
         if (responseHeaders.apiResultCode == null) {
           // 비정상 응답이면서 서버에서 에러 원인 코드가 전달되지 않았을 때
-          final GlobalKey<all_dialog_info_state.DialogWidgetState>
-              allDialogInfoGk = GlobalKey();
+          final all_dialog_info_business.PageWidgetBusiness
+              allDialogInfoBusiness =
+              all_dialog_info_business.PageWidgetBusiness();
           if (!context.mounted) return;
           showDialog(
               barrierDismissible: true,
               context: context,
               builder: (context) => all_dialog_info.DialogWidget(
-                    globalKey: allDialogInfoGk,
+                    business: allDialogInfoBusiness,
                     inputVo: const all_dialog_info.InputVo(
                         dialogTitle: "네트워크 에러",
                         dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
@@ -172,14 +175,15 @@ class PageWidgetBusiness {
             case "1":
               {
                 // 기존 회원 존재
-                final GlobalKey<all_dialog_info_state.DialogWidgetState>
-                    allDialogInfoGk = GlobalKey();
+                final all_dialog_info_business.PageWidgetBusiness
+                    allDialogInfoBusiness =
+                    all_dialog_info_business.PageWidgetBusiness();
                 if (!context.mounted) return;
                 await showDialog(
                     barrierDismissible: true,
                     context: context,
                     builder: (context) => all_dialog_info.DialogWidget(
-                          globalKey: allDialogInfoGk,
+                          business: allDialogInfoBusiness,
                           inputVo: const all_dialog_info.InputVo(
                               dialogTitle: "인증 이메일 발송 실패",
                               dialogContent: "이미 가입된 이메일입니다.",
@@ -199,15 +203,15 @@ class PageWidgetBusiness {
         }
       }
     } else {
-      allDialogLoadingSpinnerStateGk.currentState?.closeDialog();
-      final GlobalKey<all_dialog_info_state.DialogWidgetState> allDialogInfoGk =
-          GlobalKey();
+      allDialogLoadingSpinnerBusiness.closeDialog(context: context);
+      final all_dialog_info_business.PageWidgetBusiness allDialogInfoBusiness =
+          all_dialog_info_business.PageWidgetBusiness();
       if (!context.mounted) return;
       showDialog(
           barrierDismissible: true,
           context: context,
           builder: (context) => all_dialog_info.DialogWidget(
-                globalKey: allDialogInfoGk,
+                business: allDialogInfoBusiness,
                 inputVo: const all_dialog_info.InputVo(
                     dialogTitle: "네트워크 에러",
                     dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
@@ -240,14 +244,15 @@ class PageWidgetBusiness {
 
     // 코드 검증
     // (로딩 스피너 다이얼로그 호출)
-    GlobalKey<all_dialog_loading_spinner_state.DialogWidgetState>
-        allDialogLoadingSpinnerStateGk = GlobalKey();
+    all_dialog_loading_spinner_business.PageWidgetBusiness
+        allDialogLoadingSpinnerBusiness =
+        all_dialog_loading_spinner_business.PageWidgetBusiness();
 
     showDialog(
         barrierDismissible: false,
         context: context,
         builder: (context) => all_dialog_loading_spinner.DialogWidget(
-            globalKey: allDialogLoadingSpinnerStateGk,
+            business: allDialogLoadingSpinnerBusiness,
             inputVo: const all_dialog_loading_spinner.InputVo(),
             onDialogCreated: () {})).then((outputVo) {});
 
@@ -261,7 +266,7 @@ class PageWidgetBusiness {
 
     if (responseVo.dioException == null) {
       // Dio 네트워크 응답
-      allDialogLoadingSpinnerStateGk.currentState?.closeDialog();
+      allDialogLoadingSpinnerBusiness.closeDialog(context: context);
       var networkResponseObjectOk = responseVo.networkResponseObjectOk!;
 
       if (networkResponseObjectOk.responseStatusCode == 200) {
@@ -280,14 +285,15 @@ class PageWidgetBusiness {
         // 비정상 응답
         if (responseHeaders.apiResultCode == null) {
           // 비정상 응답이면서 서버에서 에러 원인 코드가 전달되지 않았을 때
-          final GlobalKey<all_dialog_info_state.DialogWidgetState>
-              allDialogInfoGk = GlobalKey();
+          final all_dialog_info_business.PageWidgetBusiness
+              allDialogInfoBusiness =
+              all_dialog_info_business.PageWidgetBusiness();
           if (!context.mounted) return;
           showDialog(
               barrierDismissible: true,
               context: context,
               builder: (context) => all_dialog_info.DialogWidget(
-                    globalKey: allDialogInfoGk,
+                    business: allDialogInfoBusiness,
                     inputVo: const all_dialog_info.InputVo(
                         dialogTitle: "네트워크 에러",
                         dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
@@ -302,14 +308,15 @@ class PageWidgetBusiness {
             case "1":
               {
                 // 이메일 검증 요청을 보낸 적 없음
-                final GlobalKey<all_dialog_info_state.DialogWidgetState>
-                    allDialogInfoGk = GlobalKey();
+                final all_dialog_info_business.PageWidgetBusiness
+                    allDialogInfoBusiness =
+                    all_dialog_info_business.PageWidgetBusiness();
                 if (!context.mounted) return;
                 await showDialog(
                     barrierDismissible: true,
                     context: context,
                     builder: (context) => all_dialog_info.DialogWidget(
-                          globalKey: allDialogInfoGk,
+                          business: allDialogInfoBusiness,
                           inputVo: const all_dialog_info.InputVo(
                               dialogTitle: "본인 인증 코드 검증 실패",
                               dialogContent:
@@ -322,14 +329,15 @@ class PageWidgetBusiness {
             case "2":
               {
                 // 이메일 검증 요청이 만료됨
-                final GlobalKey<all_dialog_info_state.DialogWidgetState>
-                    allDialogInfoGk = GlobalKey();
+                final all_dialog_info_business.PageWidgetBusiness
+                    allDialogInfoBusiness =
+                    all_dialog_info_business.PageWidgetBusiness();
                 if (!context.mounted) return;
                 await showDialog(
                     barrierDismissible: true,
                     context: context,
                     builder: (context) => all_dialog_info.DialogWidget(
-                          globalKey: allDialogInfoGk,
+                          business: allDialogInfoBusiness,
                           inputVo: const all_dialog_info.InputVo(
                               dialogTitle: "본인 인증 코드 검증 실패",
                               dialogContent:
@@ -361,15 +369,15 @@ class PageWidgetBusiness {
         }
       }
     } else {
-      allDialogLoadingSpinnerStateGk.currentState?.closeDialog();
-      final GlobalKey<all_dialog_info_state.DialogWidgetState> allDialogInfoGk =
-          GlobalKey();
+      allDialogLoadingSpinnerBusiness.closeDialog(context: context);
+      final all_dialog_info_business.PageWidgetBusiness allDialogInfoBusiness =
+          all_dialog_info_business.PageWidgetBusiness();
       if (!context.mounted) return;
       showDialog(
           barrierDismissible: true,
           context: context,
           builder: (context) => all_dialog_info.DialogWidget(
-                globalKey: allDialogInfoGk,
+                business: allDialogInfoBusiness,
                 inputVo: const all_dialog_info.InputVo(
                     dialogTitle: "네트워크 에러",
                     dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",

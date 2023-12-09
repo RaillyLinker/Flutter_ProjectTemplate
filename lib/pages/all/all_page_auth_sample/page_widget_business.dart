@@ -18,12 +18,12 @@ import '../../../../repositories/spws/spw_auth_member_info.dart'
     as spw_auth_member_info;
 import '../../../dialogs/all/all_dialog_info/dialog_widget.dart'
     as all_dialog_info;
-import '../../../dialogs/all/all_dialog_info/dialog_widget_state.dart'
-    as all_dialog_info_state;
+import '../../../dialogs/all/all_dialog_info/dialog_widget_business.dart'
+    as all_dialog_info_business;
 import '../../../dialogs/all/all_dialog_loading_spinner/dialog_widget.dart'
     as all_dialog_loading_spinner;
-import '../../../dialogs/all/all_dialog_loading_spinner/dialog_widget_state.dart'
-    as all_dialog_loading_spinner_state;
+import '../../../dialogs/all/all_dialog_loading_spinner/dialog_widget_business.dart'
+    as all_dialog_loading_spinner_business;
 import '../../../pages/all/all_page_login/page_entrance.dart' as all_page_login;
 import '../../../pages/all/all_page_member_info/page_widget.dart'
     as all_page_member_info;
@@ -151,14 +151,15 @@ class PageWidgetBusiness {
           itemTitle: "로그아웃",
           itemDescription: "로그아웃 처리를 합니다.",
           onItemClicked: () async {
-            GlobalKey<all_dialog_loading_spinner_state.DialogWidgetState>
-                allDialogLoadingSpinnerStateGk = GlobalKey();
+            all_dialog_loading_spinner_business.PageWidgetBusiness
+                allDialogLoadingSpinnerBusiness =
+                all_dialog_loading_spinner_business.PageWidgetBusiness();
 
             showDialog(
                 barrierDismissible: false,
                 context: context,
                 builder: (context) => all_dialog_loading_spinner.DialogWidget(
-                    globalKey: allDialogLoadingSpinnerStateGk,
+                    business: allDialogLoadingSpinnerBusiness,
                     inputVo: const all_dialog_loading_spinner.InputVo(),
                     onDialogCreated: () async {})).then((outputVo) {});
 
@@ -178,7 +179,7 @@ class PageWidgetBusiness {
               spw_auth_member_info.SharedPreferenceWrapper.set(value: null);
             }
 
-            allDialogLoadingSpinnerStateGk.currentState?.closeDialog();
+            allDialogLoadingSpinnerBusiness.closeDialog(context: context);
 
             // 화면 정보 갱신
             memberInfoViewModel = getMemberInfoVo();
@@ -190,14 +191,15 @@ class PageWidgetBusiness {
           itemTitle: "인증 토큰 갱신",
           itemDescription: "인증 토큰을 갱신합니다.",
           onItemClicked: () async {
-            GlobalKey<all_dialog_loading_spinner_state.DialogWidgetState>
-                allDialogLoadingSpinnerStateGk = GlobalKey();
+            all_dialog_loading_spinner_business.PageWidgetBusiness
+                allDialogLoadingSpinnerBusiness =
+                all_dialog_loading_spinner_business.PageWidgetBusiness();
 
             showDialog(
                 barrierDismissible: false,
                 context: context,
                 builder: (context) => all_dialog_loading_spinner.DialogWidget(
-                    globalKey: allDialogLoadingSpinnerStateGk,
+                    business: allDialogLoadingSpinnerBusiness,
                     inputVo: const all_dialog_loading_spinner.InputVo(),
                     onDialogCreated: () async {})).then((outputVo) {});
 
@@ -219,7 +221,7 @@ class PageWidgetBusiness {
                 // 리플래시 토큰이 사용 불가이므로 로그아웃 처리
                 // login_user_info SPW 비우기
                 spw_auth_member_info.SharedPreferenceWrapper.set(value: null);
-                allDialogLoadingSpinnerStateGk.currentState?.closeDialog();
+                allDialogLoadingSpinnerBusiness.closeDialog(context: context);
 
                 memberInfoViewModel = getMemberInfoVo();
                 memberInfoBloc.refreshUi();
@@ -334,7 +336,8 @@ class PageWidgetBusiness {
                     spw_auth_member_info.SharedPreferenceWrapper.set(
                         value: loginMemberInfo);
 
-                    allDialogLoadingSpinnerStateGk.currentState?.closeDialog();
+                    allDialogLoadingSpinnerBusiness.closeDialog(
+                        context: context);
 
                     memberInfoViewModel = getMemberInfoVo();
                     memberInfoBloc.refreshUi();
@@ -346,18 +349,19 @@ class PageWidgetBusiness {
 
                     // 비정상 응답
                     if (postReissueResponseHeader.apiResultCode == null) {
-                      allDialogLoadingSpinnerStateGk.currentState
-                          ?.closeDialog();
+                      allDialogLoadingSpinnerBusiness.closeDialog(
+                          context: context);
 
                       // 비정상 응답이면서 서버에서 에러 원인 코드가 전달되지 않았을 때
-                      GlobalKey<all_dialog_info_state.DialogWidgetState>
-                          allDialogInfoGk = GlobalKey();
+                      final all_dialog_info_business.PageWidgetBusiness
+                          allDialogInfoBusiness =
+                          all_dialog_info_business.PageWidgetBusiness();
                       if (!context.mounted) return;
                       showDialog(
                           barrierDismissible: false,
                           context: context,
                           builder: (context) => all_dialog_info.DialogWidget(
-                                globalKey: allDialogInfoGk,
+                                business: allDialogInfoBusiness,
                                 inputVo: const all_dialog_info.InputVo(
                                     dialogTitle: "네트워크 에러",
                                     dialogContent:
@@ -366,8 +370,8 @@ class PageWidgetBusiness {
                                 onDialogCreated: () {},
                               ));
                     } else {
-                      allDialogLoadingSpinnerStateGk.currentState
-                          ?.closeDialog();
+                      allDialogLoadingSpinnerBusiness.closeDialog(
+                          context: context);
 
                       // 서버 지정 에러 코드를 전달 받았을 때
                       String apiResultCode =
@@ -398,17 +402,18 @@ class PageWidgetBusiness {
                     }
                   }
                 } else {
-                  allDialogLoadingSpinnerStateGk.currentState?.closeDialog();
+                  allDialogLoadingSpinnerBusiness.closeDialog(context: context);
 
                   // Dio 네트워크 에러
-                  final GlobalKey<all_dialog_info_state.DialogWidgetState>
-                      allDialogInfoGk = GlobalKey();
+                  final all_dialog_info_business.PageWidgetBusiness
+                      allDialogInfoBusiness =
+                      all_dialog_info_business.PageWidgetBusiness();
                   if (!context.mounted) return;
                   showDialog(
                       barrierDismissible: false,
                       context: context,
                       builder: (context) => all_dialog_info.DialogWidget(
-                            globalKey: allDialogInfoGk,
+                            business: allDialogInfoBusiness,
                             inputVo: const all_dialog_info.InputVo(
                                 dialogTitle: "네트워크 에러",
                                 dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",

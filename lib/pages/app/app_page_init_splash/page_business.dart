@@ -21,8 +21,8 @@ import '../../../../../repositories/spws/spw_auth_member_info.dart'
     as spw_auth_member_info;
 import '../../../dialogs/all/all_dialog_info/dialog_widget.dart'
     as all_dialog_info;
-import '../../../dialogs/all/all_dialog_info/dialog_widget_state.dart'
-    as all_dialog_info_state;
+import '../../../dialogs/all/all_dialog_info/dialog_widget_business.dart'
+    as all_dialog_info_business;
 import '../../../dialogs/all/all_dialog_yes_or_no/dialog_widget.dart'
     as all_dialog_yes_or_no;
 import '../../../dialogs/all/all_dialog_yes_or_no/dialog_widget_state.dart'
@@ -238,14 +238,15 @@ class PageBusiness {
           if (defaultTargetPlatform == TargetPlatform.iOS ||
               defaultTargetPlatform == TargetPlatform.android) {
             // 모바일 환경 : 업데이트 스토어로 이동
-            final GlobalKey<all_dialog_info_state.DialogWidgetState>
-                allDialogInfoGk = GlobalKey();
+            final all_dialog_info_business.PageWidgetBusiness
+                allDialogInfoBusiness =
+                all_dialog_info_business.PageWidgetBusiness();
             if (!_context.mounted) return;
             showDialog(
                 barrierDismissible: true,
                 context: _context,
                 builder: (context) => all_dialog_info.DialogWidget(
-                      globalKey: allDialogInfoGk,
+                      business: allDialogInfoBusiness,
                       inputVo: const all_dialog_info.InputVo(
                           dialogTitle: "업데이트 필요",
                           dialogContent: "새 버전 업데이트가 필요합니다.",
@@ -265,14 +266,15 @@ class PageBusiness {
             });
           } else {
             // PC 환경 : 업데이트 정보를 알려주고 종료
-            final GlobalKey<all_dialog_info_state.DialogWidgetState>
-                allDialogInfoGk = GlobalKey();
+            final all_dialog_info_business.PageWidgetBusiness
+                allDialogInfoBusiness =
+                all_dialog_info_business.PageWidgetBusiness();
             if (!_context.mounted) return;
             showDialog(
                 barrierDismissible: true,
                 context: _context,
                 builder: (context) => all_dialog_info.DialogWidget(
-                      globalKey: allDialogInfoGk,
+                      business: allDialogInfoBusiness,
                       inputVo: const all_dialog_info.InputVo(
                           dialogTitle: "업데이트 필요",
                           dialogContent: "새 버전 업데이트가 필요합니다.",
@@ -477,14 +479,15 @@ class PageBusiness {
               if (pageViewModel.signInRetryCount ==
                   pageViewModel.signInRetryCountLimit) {
                 pageViewModel.signInRetryCount = 0;
-                final GlobalKey<all_dialog_info_state.DialogWidgetState>
-                    allDialogInfoGk = GlobalKey();
+                final all_dialog_info_business.PageWidgetBusiness
+                    allDialogInfoBusiness =
+                    all_dialog_info_business.PageWidgetBusiness();
                 if (!_context.mounted) return;
                 await showDialog(
                     barrierDismissible: true,
                     context: _context,
                     builder: (context) => all_dialog_info.DialogWidget(
-                          globalKey: allDialogInfoGk,
+                          business: allDialogInfoBusiness,
                           inputVo: const all_dialog_info.InputVo(
                               dialogTitle: "로그인 실패",
                               dialogContent:
@@ -556,14 +559,15 @@ class PageBusiness {
           if (pageViewModel.signInRetryCount ==
               pageViewModel.signInRetryCountLimit) {
             pageViewModel.signInRetryCount = 0;
-            final GlobalKey<all_dialog_info_state.DialogWidgetState>
-                allDialogInfoGk = GlobalKey();
+            final all_dialog_info_business.PageWidgetBusiness
+                allDialogInfoBusiness =
+                all_dialog_info_business.PageWidgetBusiness();
             if (!_context.mounted) return;
             await showDialog(
                 barrierDismissible: true,
                 context: _context,
                 builder: (context) => all_dialog_info.DialogWidget(
-                      globalKey: allDialogInfoGk,
+                      business: allDialogInfoBusiness,
                       inputVo: const all_dialog_info.InputVo(
                           dialogTitle: "로그인 실패",
                           dialogContent:

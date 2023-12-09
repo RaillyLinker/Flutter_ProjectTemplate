@@ -28,6 +28,7 @@ class SlWidget extends StatelessWidget {
   // (위젯을 화면에 draw 할 때의 콜백)
   @override
   Widget build(BuildContext context) {
+    business.context = context;
     return widgetUiBuild(context: context);
   }
 

@@ -14,12 +14,12 @@ import '../../../../repositories/network/apis/api_main_server.dart'
     as api_main_server;
 import '../../../dialogs/all/all_dialog_info/dialog_widget.dart'
     as all_dialog_info;
-import '../../../dialogs/all/all_dialog_info/dialog_widget_state.dart'
-    as all_dialog_info_state;
+import '../../../dialogs/all/all_dialog_info/dialog_widget_business.dart'
+    as all_dialog_info_business;
 import '../../../dialogs/all/all_dialog_loading_spinner/dialog_widget.dart'
     as all_dialog_loading_spinner;
-import '../../../dialogs/all/all_dialog_loading_spinner/dialog_widget_state.dart'
-    as all_dialog_loading_spinner_state;
+import '../../../dialogs/all/all_dialog_loading_spinner/dialog_widget_business.dart'
+    as all_dialog_loading_spinner_business;
 import '../../../dialogs/all/all_dialog_yes_or_no/dialog_widget.dart'
     as all_dialog_yes_or_no;
 import '../../../dialogs/all/all_dialog_yes_or_no/dialog_widget_state.dart'
@@ -226,14 +226,14 @@ class PageBusiness {
     blocObjects.blocNewPasswordCheckTextField.refresh();
   }
 
-  void onNewPasswordCheckFieldSubmitted() {
-    changePassword();
+  void onNewPasswordCheckFieldSubmitted({required BuildContext context}) {
+    changePassword(context: context);
   }
 
   // (비밀번호 변경)
   bool changePasswordStart = false;
 
-  Future<void> changePassword() async {
+  Future<void> changePassword({required BuildContext context}) async {
     if (changePasswordStart) {
       return;
     }
@@ -293,7 +293,7 @@ class PageBusiness {
         FocusScope.of(_context)
             .requestFocus(pageViewModel.newPasswordCheckTextFieldFocus);
       } else {
-        await _requestChangePassword();
+        await _requestChangePassword(context: context);
       }
     }
 
@@ -309,15 +309,16 @@ class PageBusiness {
 ////
 // [내부 함수]
 // !!!내부에서만 사용할 함수를 아래에 구현!!!
-  Future<void> _requestChangePassword() async {
-    GlobalKey<all_dialog_loading_spinner_state.DialogWidgetState>
-        allDialogLoadingSpinnerStateGk = GlobalKey();
+  Future<void> _requestChangePassword({required BuildContext context}) async {
+    all_dialog_loading_spinner_business.PageWidgetBusiness
+        allDialogLoadingSpinnerBusiness =
+        all_dialog_loading_spinner_business.PageWidgetBusiness();
 
     showDialog(
         barrierDismissible: false,
         context: _context,
         builder: (context) => all_dialog_loading_spinner.DialogWidget(
-            globalKey: allDialogLoadingSpinnerStateGk,
+            business: allDialogLoadingSpinnerBusiness,
             inputVo: const all_dialog_loading_spinner.InputVo(),
             onDialogCreated: () {})).then((outputVo) {});
 
@@ -359,7 +360,7 @@ class PageBusiness {
                     oldPassword: oldPw, newPassword: newPw));
 
     // 로딩 다이얼로그 제거
-    allDialogLoadingSpinnerStateGk.currentState?.closeDialog();
+    allDialogLoadingSpinnerBusiness.closeDialog(context: context);
 
     if (response.dioException == null) {
       // Dio 네트워크 응답
@@ -389,14 +390,15 @@ class PageBusiness {
                 )).then((outputVo) async {
           if (outputVo.checkPositiveBtn) {
             // 계정 로그아웃 처리
-            GlobalKey<all_dialog_loading_spinner_state.DialogWidgetState>
-                allDialogLoadingSpinnerStateGk = GlobalKey();
+            all_dialog_loading_spinner_business.PageWidgetBusiness
+                allDialogLoadingSpinnerBusiness =
+                all_dialog_loading_spinner_business.PageWidgetBusiness();
 
             showDialog(
                 barrierDismissible: false,
                 context: _context,
                 builder: (context) => all_dialog_loading_spinner.DialogWidget(
-                    globalKey: allDialogLoadingSpinnerStateGk,
+                    business: allDialogLoadingSpinnerBusiness,
                     inputVo: const all_dialog_loading_spinner.InputVo(),
                     onDialogCreated: () {})).then((outputVo) {});
 
@@ -420,19 +422,20 @@ class PageBusiness {
               spw_auth_member_info.SharedPreferenceWrapper.set(value: null);
             }
 
-            allDialogLoadingSpinnerStateGk.currentState?.closeDialog();
+            allDialogLoadingSpinnerBusiness.closeDialog(context: context);
             if (!_context.mounted) return;
             _context.pop();
           } else {
             // 계정 로그아웃 처리
-            GlobalKey<all_dialog_loading_spinner_state.DialogWidgetState>
-                allDialogLoadingSpinnerStateGk = GlobalKey();
+            all_dialog_loading_spinner_business.PageWidgetBusiness
+                allDialogLoadingSpinnerBusiness =
+                all_dialog_loading_spinner_business.PageWidgetBusiness();
 
             showDialog(
                 barrierDismissible: false,
                 context: _context,
                 builder: (context) => all_dialog_loading_spinner.DialogWidget(
-                    globalKey: allDialogLoadingSpinnerStateGk,
+                    business: allDialogLoadingSpinnerBusiness,
                     inputVo: const all_dialog_loading_spinner.InputVo(),
                     onDialogCreated: () {})).then((outputVo) {});
 
@@ -453,7 +456,7 @@ class PageBusiness {
               spw_auth_member_info.SharedPreferenceWrapper.set(value: null);
             }
 
-            allDialogLoadingSpinnerStateGk.currentState?.closeDialog();
+            allDialogLoadingSpinnerBusiness.closeDialog(context: context);
             if (!_context.mounted) return;
             _context.pop();
           }
@@ -466,14 +469,15 @@ class PageBusiness {
         // 비정상 응답
         if (responseHeaders.apiResultCode == null) {
           // 비정상 응답이면서 서버에서 에러 원인 코드가 전달되지 않았을 때
-          final GlobalKey<all_dialog_info_state.DialogWidgetState>
-              allDialogInfoGk = GlobalKey();
+          final all_dialog_info_business.PageWidgetBusiness
+              allDialogInfoBusiness =
+              all_dialog_info_business.PageWidgetBusiness();
           if (!_context.mounted) return;
           showDialog(
               barrierDismissible: true,
               context: _context,
               builder: (context) => all_dialog_info.DialogWidget(
-                    globalKey: allDialogInfoGk,
+                    business: allDialogInfoBusiness,
                     inputVo: const all_dialog_info.InputVo(
                         dialogTitle: "네트워크 에러",
                         dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
@@ -488,14 +492,15 @@ class PageBusiness {
             case "1":
               {
                 // 탈퇴된 회원
-                final GlobalKey<all_dialog_info_state.DialogWidgetState>
-                    allDialogInfoGk = GlobalKey();
+                final all_dialog_info_business.PageWidgetBusiness
+                    allDialogInfoBusiness =
+                    all_dialog_info_business.PageWidgetBusiness();
                 if (!_context.mounted) return;
                 await showDialog(
                     barrierDismissible: true,
                     context: _context,
                     builder: (context) => all_dialog_info.DialogWidget(
-                          globalKey: allDialogInfoGk,
+                          business: allDialogInfoBusiness,
                           inputVo: const all_dialog_info.InputVo(
                               dialogTitle: "비밀번호 변경 실패",
                               dialogContent: "탈퇴된 회원입니다.",
@@ -507,14 +512,15 @@ class PageBusiness {
             case "2":
               {
                 // 기존 비밀번호가 일치하지 않음
-                final GlobalKey<all_dialog_info_state.DialogWidgetState>
-                    allDialogInfoGk = GlobalKey();
+                final all_dialog_info_business.PageWidgetBusiness
+                    allDialogInfoBusiness =
+                    all_dialog_info_business.PageWidgetBusiness();
                 if (!_context.mounted) return;
                 await showDialog(
                     barrierDismissible: true,
                     context: _context,
                     builder: (context) => all_dialog_info.DialogWidget(
-                          globalKey: allDialogInfoGk,
+                          business: allDialogInfoBusiness,
                           inputVo: const all_dialog_info.InputVo(
                               dialogTitle: "비밀번호 변경 실패",
                               dialogContent: "입력한 현재 비밀번호가\n일치하지 않습니다.",
@@ -526,14 +532,15 @@ class PageBusiness {
             case "3":
               {
                 // 비번을 null 로 만들려고 할 때 account 외의 OAuth2 인증이 없기에 비번 제거 불가
-                final GlobalKey<all_dialog_info_state.DialogWidgetState>
-                    allDialogInfoGk = GlobalKey();
+                final all_dialog_info_business.PageWidgetBusiness
+                    allDialogInfoBusiness =
+                    all_dialog_info_business.PageWidgetBusiness();
                 if (!_context.mounted) return;
                 await showDialog(
                     barrierDismissible: true,
                     context: _context,
                     builder: (context) => all_dialog_info.DialogWidget(
-                          globalKey: allDialogInfoGk,
+                          business: allDialogInfoBusiness,
                           inputVo: const all_dialog_info.InputVo(
                               dialogTitle: "비밀번호 변경 실패",
                               dialogContent: "비밀번호를 제거할 수 없습니다.",
@@ -552,14 +559,14 @@ class PageBusiness {
       }
     } else {
       // Dio 네트워크 에러
-      final GlobalKey<all_dialog_info_state.DialogWidgetState> allDialogInfoGk =
-          GlobalKey();
+      final all_dialog_info_business.PageWidgetBusiness allDialogInfoBusiness =
+          all_dialog_info_business.PageWidgetBusiness();
       if (!_context.mounted) return;
       showDialog(
           barrierDismissible: true,
           context: _context,
           builder: (context) => all_dialog_info.DialogWidget(
-                globalKey: allDialogInfoGk,
+                business: allDialogInfoBusiness,
                 inputVo: const all_dialog_info.InputVo(
                     dialogTitle: "네트워크 에러",
                     dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",

@@ -17,8 +17,8 @@ import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
 import '../../../dialogs/all/all_dialog_image_selector_menu/dialog_widget.dart'
     as all_dialog_image_selector_menu;
-import '../../../dialogs/all/all_dialog_image_selector_menu/dialog_widget_state.dart'
-    as all_dialog_image_selector_menu_state;
+import '../../../dialogs/all/all_dialog_image_selector_menu/dialog_widget_business.dart'
+    as all_dialog_image_selector_menu_business;
 
 // [위젯 비즈니스]
 // 위젯의 비즈니스 로직 + State 변수 처리는 이 곳에서 합니다.
@@ -117,15 +117,16 @@ class PageWidgetBusiness {
 
   // (프로필 이미지 클릭)
   Future<void> onProfileImageTap() async {
-    GlobalKey<all_dialog_image_selector_menu_state.DialogWidgetState>
-        allDialogImageSelectorMenuState = GlobalKey();
+    final all_dialog_image_selector_menu_business.PageWidgetBusiness
+        allDialogImageSelectorMenuBusiness =
+        all_dialog_image_selector_menu_business.PageWidgetBusiness();
 
     if (!context.mounted) return;
     var pageOutputVo = await showDialog(
         barrierDismissible: true,
         context: context,
         builder: (context) => all_dialog_image_selector_menu.DialogWidget(
-              globalKey: allDialogImageSelectorMenuState,
+              business: allDialogImageSelectorMenuBusiness,
               inputVo: all_dialog_image_selector_menu.InputVo(
                   cameraAvailable:
                       // 카메라는 모바일 환경에서만
@@ -198,15 +199,16 @@ class PageWidgetBusiness {
       return;
     }
 
-    GlobalKey<all_dialog_image_selector_menu_state.DialogWidgetState>
-        allDialogImageSelectorMenuState = GlobalKey();
+    final all_dialog_image_selector_menu_business.PageWidgetBusiness
+        allDialogImageSelectorMenuBusiness =
+        all_dialog_image_selector_menu_business.PageWidgetBusiness();
 
     if (!context.mounted) return;
     var pageOutputVo = await showDialog(
         barrierDismissible: true,
         context: context,
         builder: (context) => all_dialog_image_selector_menu.DialogWidget(
-              globalKey: allDialogImageSelectorMenuState,
+              business: allDialogImageSelectorMenuBusiness,
               inputVo: all_dialog_image_selector_menu.InputVo(
                   cameraAvailable:
                       // 카메라는 모바일 환경에서만

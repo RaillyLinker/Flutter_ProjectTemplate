@@ -107,7 +107,7 @@ class PageView extends StatelessWidget {
                             .pageViewModel.passwordTextFieldController,
                         obscureText: pageBusiness.pageViewModel.hidePassword,
                         onFieldSubmitted: (value) {
-                          pageBusiness.onPasswordFieldSubmitted();
+                          pageBusiness.onPasswordFieldSubmitted(context: c);
                         },
                         decoration: InputDecoration(
                           contentPadding: const EdgeInsets.symmetric(
@@ -178,7 +178,7 @@ class PageView extends StatelessWidget {
                   constraints: const BoxConstraints(minWidth: 200),
                   child: ElevatedButton(
                     onPressed: () {
-                      pageBusiness.accountLoginAsync();
+                      pageBusiness.accountLoginAsync(context: context);
                     },
                     style: ElevatedButton.styleFrom(
                         foregroundColor: Colors.white,
