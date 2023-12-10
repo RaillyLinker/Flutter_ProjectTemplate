@@ -81,7 +81,8 @@ class PageWidgetBusiness {
       return FadeTransition(opacity: animation, child: child);
     };
 
-    viewModel.context.pushNamed(page_widget.pageName);}
+    viewModel.context.pushNamed(page_widget.pageName);
+  }
 
   void onSlideAnimationItemClicked() {
     // 페이지 전환 애니메이션 변경
@@ -103,7 +104,8 @@ class PageWidgetBusiness {
       );
     };
 
-    viewModel.context.pushNamed(page_widget.pageName);}
+    viewModel.context.pushNamed(page_widget.pageName);
+  }
 
 // !!!사용 함수 추가하기!!!
 }

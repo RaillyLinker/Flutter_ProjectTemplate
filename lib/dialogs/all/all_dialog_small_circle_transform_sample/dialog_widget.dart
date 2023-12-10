@@ -155,5 +155,3 @@ class DialogWidgetState extends State<DialogWidget>
     );
   }
 }
-
-

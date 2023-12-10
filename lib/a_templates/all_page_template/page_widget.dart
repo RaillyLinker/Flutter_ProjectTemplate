@@ -128,5 +128,3 @@ class PageWidgetState extends State<PageWidget> with WidgetsBindingObserver {
     );
   }
 }
-
-
