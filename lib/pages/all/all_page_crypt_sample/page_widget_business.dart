@@ -8,8 +8,8 @@ import 'inner_widgets/iw_crypt_result_text/sf_widget_state.dart'
     as iw_crypt_result_text_state;
 
 // (all)
-import '../../../global_widgets/gw_page_outer_frame/sl_widget_business.dart'
-    as gw_page_outer_frame_business;
+import '../../../global_widgets/gw_slw_page_outer_frame.dart'
+    as gw_slw_page_outer_frame;
 import '../../../global_functions/gf_crypto.dart' as gf_crypto;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
@@ -90,8 +90,8 @@ class PageWidgetBusiness {
   bool canPop = true;
 
   // (pageOutFrameBusiness)
-  final gw_page_outer_frame_business.SlWidgetBusiness pageOutFrameBusiness =
-      gw_page_outer_frame_business.SlWidgetBusiness();
+  final gw_slw_page_outer_frame.SlwPageOuterFrameBusiness pageOutFrameBusiness =
+      gw_slw_page_outer_frame.SlwPageOuterFrameBusiness();
 
   // (input1TextField)
   final TextEditingController input1TextFieldController =

@@ -9,8 +9,8 @@ import 'package:permission_handler/permission_handler.dart';
 import 'page_entrance.dart' as page_entrance;
 
 // (all)
-import '../../../global_widgets/gw_page_outer_frame/sl_widget_business.dart'
-    as gw_page_outer_frame_business;
+import '../../../global_widgets/gw_slw_page_outer_frame.dart'
+    as gw_slw_page_outer_frame;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
 import '../../../dialogs/all/all_dialog_yes_or_no/dialog_widget.dart'
@@ -2699,8 +2699,8 @@ class PageViewModel {
   // int sampleNumber = 0;
 
   // PageOutFrameViewModel
-  final gw_page_outer_frame_business.SlWidgetBusiness pageOutFrameBusiness =
-      gw_page_outer_frame_business.SlWidgetBusiness();
+  final gw_slw_page_outer_frame.SlwPageOuterFrameBusiness pageOutFrameBusiness =
+      gw_slw_page_outer_frame.SlwPageOuterFrameBusiness();
 
   // (샘플 페이지 원본 리스트)
   List<SampleItem> allSampleList = [];

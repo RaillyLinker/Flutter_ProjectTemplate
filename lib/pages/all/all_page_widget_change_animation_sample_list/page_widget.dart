@@ -8,8 +8,8 @@ import 'package:go_router/go_router.dart';
 import 'page_widget_business.dart' as page_widget_business;
 
 // (all)
-import '../../../global_widgets/gw_page_outer_frame/sl_widget.dart'
-    as gw_page_outer_frame;
+import '../../../global_widgets/gw_slw_page_outer_frame.dart'
+    as gw_slw_page_outer_frame;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
 
@@ -119,114 +119,110 @@ class WidgetUi {
       required page_widget_business.PageWidgetBusiness business}) {
     // !!!뷰 위젯 반환 콜백 작성 하기!!!
 
-    return gw_page_outer_frame.SlWidget(
+    return gw_slw_page_outer_frame.SlwPageOuterFrame(
       business: business.pageOutFrameBusiness,
-      inputVo: gw_page_outer_frame.InputVo(
-        pageTitle: "위젯 변경 애니메이션 샘플 리스트",
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Container(
-                color: Colors.white,
-                height: 150,
-                alignment: Alignment.center,
-                child: BlocProvider(
-                  create: (context) => business.sampleWidgetBloc,
-                  child: BlocBuilder<gc_template_classes.RefreshableBloc, bool>(
-                    builder: (c, s) {
-                      return AnimatedSwitcher(
-                          duration: business
-                              .widgetChangeAnimatedSwitcherConfig.duration,
-                          reverseDuration: business
-                              .widgetChangeAnimatedSwitcherConfig
-                              .reverseDuration,
-                          switchInCurve: business
-                              .widgetChangeAnimatedSwitcherConfig.switchInCurve,
-                          switchOutCurve: business
-                              .widgetChangeAnimatedSwitcherConfig
-                              .switchOutCurve,
-                          layoutBuilder: business
-                              .widgetChangeAnimatedSwitcherConfig.layoutBuilder,
-                          transitionBuilder: business
-                              .widgetChangeAnimatedSwitcherConfig
-                              .transitionBuilder,
-                          child: business.sampleWidget);
-                    },
-                  ),
-                ),
-              ),
-              BlocProvider(
-                create: (context) => business.itemListBloc,
+      pageTitle: "위젯 변경 애니메이션 샘플 리스트",
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              color: Colors.white,
+              height: 150,
+              alignment: Alignment.center,
+              child: BlocProvider(
+                create: (context) => business.sampleWidgetBloc,
                 child: BlocBuilder<gc_template_classes.RefreshableBloc, bool>(
                   builder: (c, s) {
-                    return ListView.builder(
-                      shrinkWrap: true, // 리스트뷰 크기 고정
-                      primary: false, // 리스트뷰 내부는 스크롤 금지
-                      itemCount: business.itemList.length,
-                      itemBuilder: (context, index) {
-                        var sampleItem = business.itemList[index];
-
-                        return Column(
-                          children: [
-                            BlocProvider(
-                              create: (context) => sampleItem.isHoveringBloc,
-                              child: BlocBuilder<
-                                  gc_template_classes.RefreshableBloc, bool>(
-                                builder: (c, s) {
-                                  return MouseRegion(
-                                    // 커서 변경 및 호버링 상태 변경
-                                    cursor: SystemMouseCursors.click,
-                                    onEnter: (details) {
-                                      sampleItem.isHovering = true;
-                                      sampleItem.isHoveringBloc.refreshUi();
-                                    },
-                                    onExit: (details) {
-                                      sampleItem.isHovering = false;
-                                      sampleItem.isHoveringBloc.refreshUi();
-                                    },
-                                    child: GestureDetector(
-                                      // 클릭시 제스쳐 콜백
-                                      onTap: () {
-                                        sampleItem.onItemClicked();
-                                      },
-                                      child: Container(
-                                        color: sampleItem.isHovering
-                                            ? Colors.blue.withOpacity(0.2)
-                                            : Colors.white,
-                                        child: ListTile(
-                                          mouseCursor: SystemMouseCursors.click,
-                                          title: Text(
-                                            sampleItem.itemTitle,
-                                            style: const TextStyle(
-                                                fontFamily: "MaruBuri"),
-                                          ),
-                                          subtitle: Text(
-                                            sampleItem.itemDescription,
-                                            style: const TextStyle(
-                                                fontFamily: "MaruBuri"),
-                                          ),
-                                          trailing:
-                                              const Icon(Icons.chevron_right),
-                                        ),
-                                      ),
-                                    ),
-                                  );
-                                },
-                              ),
-                            ),
-                            const Divider(
-                              color: Colors.grey,
-                              height: 0.1,
-                            ),
-                          ],
-                        );
-                      },
-                    );
+                    return AnimatedSwitcher(
+                        duration: business
+                            .widgetChangeAnimatedSwitcherConfig.duration,
+                        reverseDuration: business
+                            .widgetChangeAnimatedSwitcherConfig.reverseDuration,
+                        switchInCurve: business
+                            .widgetChangeAnimatedSwitcherConfig.switchInCurve,
+                        switchOutCurve: business
+                            .widgetChangeAnimatedSwitcherConfig.switchOutCurve,
+                        layoutBuilder: business
+                            .widgetChangeAnimatedSwitcherConfig.layoutBuilder,
+                        transitionBuilder: business
+                            .widgetChangeAnimatedSwitcherConfig
+                            .transitionBuilder,
+                        child: business.sampleWidget);
                   },
                 ),
-              )
-            ],
-          ),
+              ),
+            ),
+            BlocProvider(
+              create: (context) => business.itemListBloc,
+              child: BlocBuilder<gc_template_classes.RefreshableBloc, bool>(
+                builder: (c, s) {
+                  return ListView.builder(
+                    shrinkWrap: true, // 리스트뷰 크기 고정
+                    primary: false, // 리스트뷰 내부는 스크롤 금지
+                    itemCount: business.itemList.length,
+                    itemBuilder: (context, index) {
+                      var sampleItem = business.itemList[index];
+
+                      return Column(
+                        children: [
+                          BlocProvider(
+                            create: (context) => sampleItem.isHoveringBloc,
+                            child: BlocBuilder<
+                                gc_template_classes.RefreshableBloc, bool>(
+                              builder: (c, s) {
+                                return MouseRegion(
+                                  // 커서 변경 및 호버링 상태 변경
+                                  cursor: SystemMouseCursors.click,
+                                  onEnter: (details) {
+                                    sampleItem.isHovering = true;
+                                    sampleItem.isHoveringBloc.refreshUi();
+                                  },
+                                  onExit: (details) {
+                                    sampleItem.isHovering = false;
+                                    sampleItem.isHoveringBloc.refreshUi();
+                                  },
+                                  child: GestureDetector(
+                                    // 클릭시 제스쳐 콜백
+                                    onTap: () {
+                                      sampleItem.onItemClicked();
+                                    },
+                                    child: Container(
+                                      color: sampleItem.isHovering
+                                          ? Colors.blue.withOpacity(0.2)
+                                          : Colors.white,
+                                      child: ListTile(
+                                        mouseCursor: SystemMouseCursors.click,
+                                        title: Text(
+                                          sampleItem.itemTitle,
+                                          style: const TextStyle(
+                                              fontFamily: "MaruBuri"),
+                                        ),
+                                        subtitle: Text(
+                                          sampleItem.itemDescription,
+                                          style: const TextStyle(
+                                              fontFamily: "MaruBuri"),
+                                        ),
+                                        trailing:
+                                            const Icon(Icons.chevron_right),
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                          const Divider(
+                            color: Colors.grey,
+                            height: 0.1,
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                },
+              ),
+            )
+          ],
         ),
       ),
     );

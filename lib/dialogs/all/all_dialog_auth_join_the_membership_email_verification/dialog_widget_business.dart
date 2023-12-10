@@ -1,14 +1,12 @@
 // (external)
 import 'package:flutter/material.dart';
-import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:go_router/go_router.dart';
 
 // (inner Folder)
 import 'dialog_widget.dart' as dialog_widget;
 
 // (all)
-import '../../../global_widgets/gw_text_form_field_wrapper/sf_widget_state.dart'
-    as gw_text_form_field_wrapper_state;
+import '../../../global_widgets/gw_sfw_wrapper.dart' as gw_sfw_wrapper;
 import '../../../../repositories/network/apis/api_main_server.dart'
     as api_main_server;
 import '../../../dialogs/all/all_dialog_info/dialog_widget.dart'
@@ -428,7 +426,7 @@ class PageWidgetViewModel {
 // !!!페이지에서 사용할 변수를 아래에 선언하기!!!
 
 // !!!페이지에서 사용할 변수를 아래에 선언하기!!!
-  final GlobalKey<gw_text_form_field_wrapper_state.SfWidgetState>
+  final GlobalKey<gw_sfw_wrapper.SfwTextFormFieldState>
       gwTextFormFieldWrapperStateGk = GlobalKey();
 
   // (검증 요청 고유번호)

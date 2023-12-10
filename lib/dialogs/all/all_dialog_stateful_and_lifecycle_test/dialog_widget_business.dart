@@ -7,8 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'dialog_widget.dart' as dialog_widget;
 
 // (all)
-import '../../../global_widgets/gw_stateful_test/sf_widget_state.dart'
-    as gw_stateful_test_state;
+import '../../../global_widgets/gw_sfw_test.dart' as gw_sfw_test;
 import '../../../pages/all/all_page_dialog_sample_list/page_widget.dart'
     as all_page_dialog_sample_list;
 
@@ -119,6 +118,5 @@ class PageWidgetViewModel {
 // !!!페이지에서 사용할 변수를 아래에 선언하기!!!
 
   // (statefulTestBusiness)
-  final GlobalKey<gw_stateful_test_state.SfWidgetState> statefulTestGk =
-      GlobalKey();
+  final GlobalKey<gw_sfw_test.SfwTestState> statefulTestGk = GlobalKey();
 }

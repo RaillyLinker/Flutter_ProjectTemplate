@@ -8,8 +8,8 @@ import 'package:go_router/go_router.dart';
 import 'page_widget_business.dart' as page_widget_business;
 
 // (all)
-import '../../../global_widgets/gw_page_outer_frame/sl_widget.dart'
-    as gw_page_outer_frame;
+import '../../../global_widgets/gw_slw_page_outer_frame.dart'
+    as gw_slw_page_outer_frame;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
 
@@ -119,76 +119,74 @@ class WidgetUi {
       required page_widget_business.PageWidgetBusiness business}) {
     // !!!뷰 위젯 반환 콜백 작성 하기!!!
 
-    return gw_page_outer_frame.SlWidget(
+    return gw_slw_page_outer_frame.SlwPageOuterFrame(
       business: business.pageOutFrameBusiness,
-      inputVo: gw_page_outer_frame.InputVo(
-        pageTitle: "인증 / 인가 네트워크 요청 테스트 샘플 리스트",
-        child: BlocProvider(
-          create: (context) => business.itemListBloc,
-          child: BlocBuilder<gc_template_classes.RefreshableBloc, bool>(
-            builder: (c, s) {
-              return ListView.builder(
-                itemCount: business.itemList.length,
-                itemBuilder: (context, index) {
-                  var sampleItem = business.itemList[index];
+      pageTitle: "인증 / 인가 네트워크 요청 테스트 샘플 리스트",
+      child: BlocProvider(
+        create: (context) => business.itemListBloc,
+        child: BlocBuilder<gc_template_classes.RefreshableBloc, bool>(
+          builder: (c, s) {
+            return ListView.builder(
+              itemCount: business.itemList.length,
+              itemBuilder: (context, index) {
+                var sampleItem = business.itemList[index];
 
-                  return Column(
-                    children: [
-                      BlocProvider(
-                        create: (context) => sampleItem.isHoveringBloc,
-                        child: BlocBuilder<gc_template_classes.RefreshableBloc,
-                            bool>(
-                          builder: (c, s) {
-                            return MouseRegion(
-                              // 커서 변경 및 호버링 상태 변경
-                              cursor: SystemMouseCursors.click,
-                              onEnter: (details) {
-                                sampleItem.isHovering = true;
-                                sampleItem.isHoveringBloc.refreshUi();
+                return Column(
+                  children: [
+                    BlocProvider(
+                      create: (context) => sampleItem.isHoveringBloc,
+                      child: BlocBuilder<gc_template_classes.RefreshableBloc,
+                          bool>(
+                        builder: (c, s) {
+                          return MouseRegion(
+                            // 커서 변경 및 호버링 상태 변경
+                            cursor: SystemMouseCursors.click,
+                            onEnter: (details) {
+                              sampleItem.isHovering = true;
+                              sampleItem.isHoveringBloc.refreshUi();
+                            },
+                            onExit: (details) {
+                              sampleItem.isHovering = false;
+                              sampleItem.isHoveringBloc.refreshUi();
+                            },
+                            child: GestureDetector(
+                              // 클릭시 제스쳐 콜백
+                              onTap: () {
+                                sampleItem.onItemClicked();
                               },
-                              onExit: (details) {
-                                sampleItem.isHovering = false;
-                                sampleItem.isHoveringBloc.refreshUi();
-                              },
-                              child: GestureDetector(
-                                // 클릭시 제스쳐 콜백
-                                onTap: () {
-                                  sampleItem.onItemClicked();
-                                },
-                                child: Container(
-                                  color: sampleItem.isHovering
-                                      ? Colors.blue.withOpacity(0.2)
-                                      : Colors.white,
-                                  child: ListTile(
-                                    mouseCursor: SystemMouseCursors.click,
-                                    title: Text(
-                                      sampleItem.itemTitle,
-                                      style: const TextStyle(
-                                          fontFamily: "MaruBuri"),
-                                    ),
-                                    subtitle: Text(
-                                      sampleItem.itemDescription,
-                                      style: const TextStyle(
-                                          fontFamily: "MaruBuri"),
-                                    ),
-                                    trailing: const Icon(Icons.chevron_right),
+                              child: Container(
+                                color: sampleItem.isHovering
+                                    ? Colors.blue.withOpacity(0.2)
+                                    : Colors.white,
+                                child: ListTile(
+                                  mouseCursor: SystemMouseCursors.click,
+                                  title: Text(
+                                    sampleItem.itemTitle,
+                                    style:
+                                        const TextStyle(fontFamily: "MaruBuri"),
                                   ),
+                                  subtitle: Text(
+                                    sampleItem.itemDescription,
+                                    style:
+                                        const TextStyle(fontFamily: "MaruBuri"),
+                                  ),
+                                  trailing: const Icon(Icons.chevron_right),
                                 ),
                               ),
-                            );
-                          },
-                        ),
+                            ),
+                          );
+                        },
                       ),
-                      const Divider(
-                        color: Colors.grey,
-                        height: 0.1,
-                      ),
-                    ],
-                  );
-                },
-              );
-            },
-          ),
+                    ),
+                    const Divider(
+                      color: Colors.grey,
+                      height: 0.1,
+                    ),
+                  ],
+                );
+              },
+            );
+          },
         ),
       ),
     );

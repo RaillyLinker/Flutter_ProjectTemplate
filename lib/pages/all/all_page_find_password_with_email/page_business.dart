@@ -8,8 +8,8 @@ import 'package:go_router/go_router.dart';
 import 'page_entrance.dart' as page_entrance;
 
 // (all)
-import '../../../global_widgets/gw_page_outer_frame/sl_widget_business.dart'
-    as gw_page_outer_frame_business;
+import '../../../global_widgets/gw_slw_page_outer_frame.dart'
+    as gw_slw_page_outer_frame;
 import '../../../../repositories/network/apis/api_main_server.dart'
     as api_main_server;
 import '../../../dialogs/all/all_dialog_info/dialog_widget.dart'
@@ -552,8 +552,8 @@ class PageViewModel {
   // int sampleNumber = 0;
 
   // PageOutFrameViewModel
-  final gw_page_outer_frame_business.SlWidgetBusiness pageOutFrameBusiness =
-      gw_page_outer_frame_business.SlWidgetBusiness();
+  final gw_slw_page_outer_frame.SlwPageOuterFrameBusiness pageOutFrameBusiness =
+      gw_slw_page_outer_frame.SlwPageOuterFrameBusiness();
 
   // 이메일 입력창 에러 메세지
   String? emailTextEditErrorMsg;

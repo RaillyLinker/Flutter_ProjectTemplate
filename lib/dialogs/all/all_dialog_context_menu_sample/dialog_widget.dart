@@ -6,8 +6,8 @@ import 'package:focus_detector_v2/focus_detector_v2.dart';
 import 'dialog_widget_business.dart' as dialog_widget_business;
 
 // (all)
-import '../../../global_widgets/gw_context_menu_region/sf_widget.dart'
-    as gw_context_menu_region_view;
+import '../../../global_widgets/gw_sfw_wrapper.dart'
+    as gw_sfw_context_menu_region;
 
 // [위젯 뷰]
 // 위젯의 화면 작성은 여기서 합니다.
@@ -131,40 +131,38 @@ class WidgetUi {
               shape: BoxShape.rectangle,
               borderRadius: BorderRadius.all(Radius.circular(16))),
           child: Center(
-            child: gw_context_menu_region_view.SfWidget(
-              globalKey: business.viewModel.contextMenuRegionGk,
-              inputVo: gw_context_menu_region_view.InputVo(
-                  contextMenuRegionItemVoList: [
-                    gw_context_menu_region_view.ContextMenuRegionItemVo(
-                        menuItemWidget: const Text(
-                          "토스트 테스트",
-                          style: TextStyle(
-                              color: Colors.black, fontFamily: "MaruBuri"),
-                        ),
-                        menuItemCallback: () {
-                          business.toastTestMenuBtn();
-                        }),
-                    gw_context_menu_region_view.ContextMenuRegionItemVo(
-                        menuItemWidget: const Text(
-                          "다이얼로그 닫기",
-                          style: TextStyle(
-                              color: Colors.black, fontFamily: "MaruBuri"),
-                        ),
-                        menuItemCallback: () {
-                          business.closeDialog();
-                        }),
-                  ],
-                  child: Container(
-                    padding: const EdgeInsets.only(
-                        top: 10, bottom: 10, left: 10, right: 10),
-                    color: Colors.blue[100], // 옅은 파란색
-                    child: const Text(
-                      '우클릭 해보세요.',
-                      style: TextStyle(
-                          color: Colors.black, fontFamily: "MaruBuri"),
-                    ),
-                  )),
-            ),
+            child: gw_sfw_context_menu_region.SfwContextMenuRegion(
+                globalKey: business.viewModel.contextMenuRegionGk,
+                contextMenuRegionItemVoList: [
+                  gw_sfw_context_menu_region.ContextMenuRegionItemVo(
+                      menuItemWidget: const Text(
+                        "토스트 테스트",
+                        style: TextStyle(
+                            color: Colors.black, fontFamily: "MaruBuri"),
+                      ),
+                      menuItemCallback: () {
+                        business.toastTestMenuBtn();
+                      }),
+                  gw_sfw_context_menu_region.ContextMenuRegionItemVo(
+                      menuItemWidget: const Text(
+                        "다이얼로그 닫기",
+                        style: TextStyle(
+                            color: Colors.black, fontFamily: "MaruBuri"),
+                      ),
+                      menuItemCallback: () {
+                        business.closeDialog();
+                      }),
+                ],
+                child: Container(
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 10, left: 10, right: 10),
+                  color: Colors.blue[100], // 옅은 파란색
+                  child: const Text(
+                    '우클릭 해보세요.',
+                    style:
+                        TextStyle(color: Colors.black, fontFamily: "MaruBuri"),
+                  ),
+                )),
           ),
         ),
       ),

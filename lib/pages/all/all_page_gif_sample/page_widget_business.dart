@@ -6,12 +6,9 @@ import 'package:go_router/go_router.dart';
 import 'page_widget.dart' as page_widget;
 
 // (all)
-import '../../../global_widgets/gw_page_outer_frame/sl_widget_business.dart'
-    as gw_page_outer_frame_business;
-import '../../../global_classes/gc_template_classes.dart'
-    as gc_template_classes;
-import '../../../global_widgets/gw_gif_wrapper/sf_widget_state.dart'
-    as gw_gif_wrapper_state;
+import '../../../global_widgets/gw_slw_page_outer_frame.dart'
+    as gw_slw_page_outer_frame;
+import '../../../global_widgets/gw_sfw_wrapper.dart' as gw_sfw_wrapper;
 import '../../../../pages/all/all_page_home/page_widget.dart' as all_page_home;
 
 // [위젯 비즈니스]
@@ -79,11 +76,12 @@ class PageWidgetBusiness {
   bool canPop = true;
 
   // (pageOutFrameBusiness)
-  final gw_page_outer_frame_business.SlWidgetBusiness pageOutFrameBusiness =
-      gw_page_outer_frame_business.SlWidgetBusiness();
+  final gw_slw_page_outer_frame.SlwPageOuterFrameBusiness pageOutFrameBusiness =
+      gw_slw_page_outer_frame.SlwPageOuterFrameBusiness();
 
   // (Gif 래퍼 GlobalKey)
-  GlobalKey<gw_gif_wrapper_state.SfWidgetState> gwGifWrapperGk = GlobalKey();
+  final GlobalKey<gw_sfw_wrapper.SfwGifWidgetState> gwGifWrapperGk =
+      GlobalKey();
 
   // [private 변수]
 

@@ -7,12 +7,11 @@ import 'package:go_router/go_router.dart';
 import 'page_widget.dart' as page_widget;
 
 // (all)
-import '../../../global_widgets/gw_page_outer_frame/sl_widget_business.dart'
-    as gw_page_outer_frame_business;
+import '../../../global_widgets/gw_slw_page_outer_frame.dart'
+    as gw_slw_page_outer_frame;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
-import '../../../global_widgets/gw_stateful_test/sf_widget_state.dart'
-    as gw_stateful_test_state;
+import '../../../global_widgets/gw_sfw_test.dart' as gw_sfw_test;
 import '../../../pages/all/all_page_page_and_router_sample_list/page_widget.dart'
     as all_page_page_and_router_sample_list;
 
@@ -168,11 +167,11 @@ class PageWidgetViewModel {
   // final gc_template_classes.RefreshableBloc refreshableBloc = gc_template_classes.RefreshableBloc();
 
   // (pageOutFrameBusiness)
-  final gw_page_outer_frame_business.SlWidgetBusiness pageOutFrameBusiness =
-      gw_page_outer_frame_business.SlWidgetBusiness();
+  final gw_slw_page_outer_frame.SlwPageOuterFrameBusiness pageOutFrameBusiness =
+      gw_slw_page_outer_frame.SlwPageOuterFrameBusiness();
 
   // (statefulTestBusiness)
-  var statefulTestGk = GlobalKey<gw_stateful_test_state.SfWidgetState>();
+  var statefulTestGk = GlobalKey<gw_sfw_test.SfwTestState>();
 
   List<ItemListViewModel> itemList = [];
   gc_template_classes.RefreshableBloc itemListBloc =

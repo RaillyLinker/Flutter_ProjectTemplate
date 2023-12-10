@@ -9,8 +9,8 @@ import 'package:go_router/go_router.dart';
 import 'page_widget_business.dart' as page_widget_business;
 
 // (all)
-import '../../../global_widgets/gw_page_outer_frame/sl_widget.dart'
-    as gw_page_outer_frame;
+import '../../../global_widgets/gw_slw_page_outer_frame.dart'
+    as gw_slw_page_outer_frame;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
 
@@ -121,1205 +121,979 @@ class WidgetUi {
       required page_widget_business.PageWidgetBusiness business}) {
     // !!!뷰 위젯 반환 콜백 작성 하기!!!
 
-    return gw_page_outer_frame.SlWidget(
+    return gw_slw_page_outer_frame.SlwPageOuterFrame(
       business: business.pageOutFrameBusiness,
-      inputVo: gw_page_outer_frame.InputVo(
-        pageTitle: "Get 메소드 요청 샘플",
-        child: SingleChildScrollView(
-          child: Container(
-            margin:
-                const EdgeInsets.only(left: 10, right: 10, top: 20, bottom: 20),
-            child: Column(
-              children: [
-                Container(
-                  padding: const EdgeInsets.only(bottom: 10),
-                  decoration: const BoxDecoration(
-                    border: Border(
-                      bottom: BorderSide(width: 1.0, color: Colors.black),
-                    ),
+      pageTitle: "Get 메소드 요청 샘플",
+      child: SingleChildScrollView(
+        child: Container(
+          margin:
+              const EdgeInsets.only(left: 10, right: 10, top: 20, bottom: 20),
+          child: Column(
+            children: [
+              Container(
+                padding: const EdgeInsets.only(bottom: 10),
+                decoration: const BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(width: 1.0, color: Colors.black),
                   ),
-                  child: const Row(
-                    children: [
-                      Expanded(
+                ),
+                child: const Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        "변수명",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontFamily: "MaruBuri"),
+                      ),
+                    ),
+                    Expanded(
+                        flex: 2,
                         child: Text(
-                          "변수명",
+                          "설명 및 입력",
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontFamily: "MaruBuri"),
-                        ),
-                      ),
-                      Expanded(
-                          flex: 2,
-                          child: Text(
-                            "설명 및 입력",
+                        ))
+                  ],
+                ),
+              ),
+              Container(
+                margin: const EdgeInsets.only(top: 20),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            "queryParamString",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontFamily: "MaruBuri"),
-                          ))
-                    ],
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(top: 20),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              "queryParamString",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: "MaruBuri"),
+                          ),
+                          Container(
+                            constraints: const BoxConstraints(maxWidth: 250),
+                            child: const Row(
+                              children: [
+                                Expanded(
+                                    child: Text(
+                                  "(Query ",
+                                  style: TextStyle(fontFamily: "MaruBuri"),
+                                )),
+                                Expanded(
+                                    child: Text("String",
+                                        style: TextStyle(
+                                            color: Colors.red,
+                                            fontFamily: "MaruBuri"))),
+                                Expanded(
+                                    child: Text(
+                                  ")",
+                                  style: TextStyle(fontFamily: "MaruBuri"),
+                                ))
+                              ],
                             ),
-                            Container(
-                              constraints: const BoxConstraints(maxWidth: 250),
-                              child: const Row(
-                                children: [
-                                  Expanded(
-                                      child: Text(
-                                    "(Query ",
-                                    style: TextStyle(fontFamily: "MaruBuri"),
-                                  )),
-                                  Expanded(
-                                      child: Text("String",
-                                          style: TextStyle(
-                                              color: Colors.red,
-                                              fontFamily: "MaruBuri"))),
-                                  Expanded(
-                                      child: Text(
-                                    ")",
-                                    style: TextStyle(fontFamily: "MaruBuri"),
-                                  ))
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
+                          )
+                        ],
                       ),
-                      Expanded(
-                        flex: 2,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              "String Query 파라미터",
-                              style: TextStyle(fontFamily: "MaruBuri"),
-                            ),
-                            Container(
-                              margin: const EdgeInsets.only(top: 10),
-                              child: BlocProvider(
-                                create: (context) =>
-                                    business.input1TextFieldBloc,
-                                child: BlocBuilder<
-                                    gc_template_classes.RefreshableBloc, bool>(
-                                  builder: (c, s) {
-                                    return TextFormField(
-                                      autofocus: true,
-                                      controller:
-                                          business.input1TextFieldController,
-                                      focusNode: business.input1TextFieldFocus,
-                                      decoration: InputDecoration(
-                                        errorText:
-                                            business.input1TextFieldErrorMsg,
-                                        floatingLabelStyle:
-                                            const TextStyle(color: Colors.blue),
-                                        border: const OutlineInputBorder(),
-                                        contentPadding:
-                                            const EdgeInsets.symmetric(
-                                                vertical: 10.0,
-                                                horizontal: 10.0),
-                                        focusedBorder: const OutlineInputBorder(
-                                          borderSide:
-                                              BorderSide(color: Colors.blue),
-                                        ),
-                                        suffixIcon: IconButton(
-                                          onPressed: () {
-                                            business.input1TextFieldController
-                                                .text = "";
-                                          },
-                                          icon: const Icon(Icons.clear),
-                                        ),
+                    ),
+                    Expanded(
+                      flex: 2,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            "String Query 파라미터",
+                            style: TextStyle(fontFamily: "MaruBuri"),
+                          ),
+                          Container(
+                            margin: const EdgeInsets.only(top: 10),
+                            child: BlocProvider(
+                              create: (context) => business.input1TextFieldBloc,
+                              child: BlocBuilder<
+                                  gc_template_classes.RefreshableBloc, bool>(
+                                builder: (c, s) {
+                                  return TextFormField(
+                                    autofocus: true,
+                                    controller:
+                                        business.input1TextFieldController,
+                                    focusNode: business.input1TextFieldFocus,
+                                    decoration: InputDecoration(
+                                      errorText:
+                                          business.input1TextFieldErrorMsg,
+                                      floatingLabelStyle:
+                                          const TextStyle(color: Colors.blue),
+                                      border: const OutlineInputBorder(),
+                                      contentPadding:
+                                          const EdgeInsets.symmetric(
+                                              vertical: 10.0, horizontal: 10.0),
+                                      focusedBorder: const OutlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: Colors.blue),
                                       ),
-                                      onChanged: (value) {
-                                        // 입력값 변경시 에러 메세지 삭제
-                                        if (business.input1TextFieldErrorMsg !=
-                                            null) {
-                                          business.input1TextFieldErrorMsg =
-                                              null;
-                                          business.input1TextFieldBloc
-                                              .refreshUi();
-                                        }
-                                      },
-                                    );
-                                  },
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(top: 20),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              "queryParamStringNullable",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: "MaruBuri"),
-                            ),
-                            Container(
-                              constraints: const BoxConstraints(maxWidth: 250),
-                              child: const Row(
-                                children: [
-                                  Expanded(
-                                      child: Text(
-                                    "(Query ",
-                                    style: TextStyle(fontFamily: "MaruBuri"),
-                                  )),
-                                  Expanded(
-                                      child: Text("String?",
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontFamily: "MaruBuri"))),
-                                  Expanded(
-                                      child: Text(
-                                    ")",
-                                    style: TextStyle(fontFamily: "MaruBuri"),
-                                  ))
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        flex: 2,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              "String Query 파라미터 Nullable",
-                              style: TextStyle(fontFamily: "MaruBuri"),
-                            ),
-                            Container(
-                              margin: const EdgeInsets.only(top: 10),
-                              child: BlocProvider(
-                                create: (context) =>
-                                    business.input2TextFieldBloc,
-                                child: BlocBuilder<
-                                    gc_template_classes.RefreshableBloc, bool>(
-                                  builder: (c, s) {
-                                    return TextFormField(
-                                      controller:
-                                          business.input2TextFieldController,
-                                      focusNode: business.input2TextFieldFocus,
-                                      decoration: InputDecoration(
-                                        errorText:
-                                            business.input2TextFieldErrorMsg,
-                                        floatingLabelStyle:
-                                            const TextStyle(color: Colors.blue),
-                                        border: const OutlineInputBorder(),
-                                        contentPadding:
-                                            const EdgeInsets.symmetric(
-                                                vertical: 10.0,
-                                                horizontal: 10.0),
-                                        focusedBorder: const OutlineInputBorder(
-                                          borderSide:
-                                              BorderSide(color: Colors.blue),
-                                        ),
-                                        suffixIcon: IconButton(
-                                          onPressed: () {
-                                            business.input2TextFieldController
-                                                .text = "";
-                                          },
-                                          icon: const Icon(Icons.clear),
-                                        ),
-                                      ),
-                                      onChanged: (value) {
-                                        // 입력값 변경시 에러 메세지 삭제
-                                        if (business.input2TextFieldErrorMsg !=
-                                            null) {
-                                          business.input2TextFieldErrorMsg =
-                                              null;
-                                          business.input2TextFieldBloc
-                                              .refreshUi();
-                                        }
-                                      },
-                                    );
-                                  },
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(top: 20),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              "queryParamInt",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: "MaruBuri"),
-                            ),
-                            Container(
-                              constraints: const BoxConstraints(maxWidth: 250),
-                              child: const Row(
-                                children: [
-                                  Expanded(
-                                      child: Text(
-                                    "(Query ",
-                                    style: TextStyle(fontFamily: "MaruBuri"),
-                                  )),
-                                  Expanded(
-                                      child: Text("Int",
-                                          style: TextStyle(color: Colors.red))),
-                                  Expanded(
-                                      child: Text(
-                                    ")",
-                                    style: TextStyle(fontFamily: "MaruBuri"),
-                                  ))
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        flex: 2,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              "Int Query 파라미터",
-                              style: TextStyle(fontFamily: "MaruBuri"),
-                            ),
-                            Container(
-                              margin: const EdgeInsets.only(top: 10),
-                              child: BlocProvider(
-                                create: (context) =>
-                                    business.input3TextFieldBloc,
-                                child: BlocBuilder<
-                                    gc_template_classes.RefreshableBloc, bool>(
-                                  builder: (c, s) {
-                                    return TextFormField(
-                                      keyboardType:
-                                          const TextInputType.numberWithOptions(
-                                              decimal: false, signed: true),
-                                      inputFormatters: <TextInputFormatter>[
-                                        FilteringTextInputFormatter.allow(
-                                          RegExp(r'^-?[0-9]*$'),
-                                        ),
-                                      ],
-                                      controller:
-                                          business.input3TextFieldController,
-                                      focusNode: business.input3TextFieldFocus,
-                                      decoration: InputDecoration(
-                                        errorText:
-                                            business.input3TextFieldErrorMsg,
-                                        floatingLabelStyle:
-                                            const TextStyle(color: Colors.blue),
-                                        border: const OutlineInputBorder(),
-                                        contentPadding:
-                                            const EdgeInsets.symmetric(
-                                                vertical: 10.0,
-                                                horizontal: 10.0),
-                                        focusedBorder: const OutlineInputBorder(
-                                          borderSide:
-                                              BorderSide(color: Colors.blue),
-                                        ),
-                                        suffixIcon: IconButton(
-                                          onPressed: () {
-                                            business.input3TextFieldController
-                                                .text = "";
-                                          },
-                                          icon: const Icon(Icons.clear),
-                                        ),
-                                      ),
-                                      onChanged: (value) {
-                                        // 입력값 변경시 에러 메세지 삭제
-                                        if (business.input3TextFieldErrorMsg !=
-                                            null) {
-                                          business.input3TextFieldErrorMsg =
-                                              null;
-                                          business.input3TextFieldBloc
-                                              .refreshUi();
-                                        }
-                                      },
-                                    );
-                                  },
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(top: 20),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              "queryParamIntNullable",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: "MaruBuri"),
-                            ),
-                            Container(
-                              constraints: const BoxConstraints(maxWidth: 250),
-                              child: const Row(
-                                children: [
-                                  Expanded(
-                                      child: Text(
-                                    "(Query ",
-                                    style: TextStyle(fontFamily: "MaruBuri"),
-                                  )),
-                                  Expanded(
-                                      child: Text("Int?",
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontFamily: "MaruBuri"))),
-                                  Expanded(
-                                      child: Text(
-                                    ")",
-                                    style: TextStyle(fontFamily: "MaruBuri"),
-                                  ))
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        flex: 2,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              "Int Query 파라미터 Nullable",
-                              style: TextStyle(fontFamily: "MaruBuri"),
-                            ),
-                            Container(
-                              margin: const EdgeInsets.only(top: 10),
-                              child: BlocProvider(
-                                create: (context) =>
-                                    business.input3TextFieldBloc,
-                                child: BlocBuilder<
-                                    gc_template_classes.RefreshableBloc, bool>(
-                                  builder: (c, s) {
-                                    return TextFormField(
-                                      keyboardType:
-                                          const TextInputType.numberWithOptions(
-                                              decimal: false, signed: true),
-                                      inputFormatters: <TextInputFormatter>[
-                                        FilteringTextInputFormatter.allow(
-                                          RegExp(r'^-?[0-9]*$'),
-                                        ),
-                                      ],
-                                      controller:
-                                          business.input4TextFieldController,
-                                      focusNode: business.input4TextFieldFocus,
-                                      decoration: InputDecoration(
-                                        errorText:
-                                            business.input4TextFieldErrorMsg,
-                                        floatingLabelStyle:
-                                            const TextStyle(color: Colors.blue),
-                                        border: const OutlineInputBorder(),
-                                        contentPadding:
-                                            const EdgeInsets.symmetric(
-                                                vertical: 10.0,
-                                                horizontal: 10.0),
-                                        focusedBorder: const OutlineInputBorder(
-                                          borderSide:
-                                              BorderSide(color: Colors.blue),
-                                        ),
-                                        suffixIcon: IconButton(
-                                          onPressed: () {
-                                            business.input4TextFieldController
-                                                .text = "";
-                                          },
-                                          icon: const Icon(Icons.clear),
-                                        ),
-                                      ),
-                                      onChanged: (value) {
-                                        // 입력값 변경시 에러 메세지 삭제
-                                        if (business.input4TextFieldErrorMsg !=
-                                            null) {
-                                          business.input4TextFieldErrorMsg =
-                                              null;
-                                          business.input4TextFieldBloc
-                                              .refreshUi();
-                                        }
-                                      },
-                                    );
-                                  },
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(top: 20),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              "queryParamDouble",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: "MaruBuri"),
-                            ),
-                            Container(
-                              constraints: const BoxConstraints(maxWidth: 250),
-                              child: const Row(
-                                children: [
-                                  Expanded(
-                                      child: Text(
-                                    "(Query ",
-                                    style: TextStyle(fontFamily: "MaruBuri"),
-                                  )),
-                                  Expanded(
-                                      child: Text("Double",
-                                          style: TextStyle(
-                                              color: Colors.red,
-                                              fontFamily: "MaruBuri"))),
-                                  Expanded(
-                                      child: Text(
-                                    ")",
-                                    style: TextStyle(fontFamily: "MaruBuri"),
-                                  ))
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        flex: 2,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              "Double Query 파라미터",
-                              style: TextStyle(fontFamily: "MaruBuri"),
-                            ),
-                            Container(
-                              margin: const EdgeInsets.only(top: 10),
-                              child: BlocProvider(
-                                create: (context) =>
-                                    business.input5TextFieldBloc,
-                                child: BlocBuilder<
-                                    gc_template_classes.RefreshableBloc, bool>(
-                                  builder: (c, s) {
-                                    return TextFormField(
-                                      keyboardType:
-                                          const TextInputType.numberWithOptions(
-                                              decimal: true, signed: true),
-                                      inputFormatters: <TextInputFormatter>[
-                                        FilteringTextInputFormatter.allow(
-                                          RegExp(r'^-?[0-9]*\.?[0-9]*$'),
-                                        ),
-                                      ],
-                                      controller:
-                                          business.input5TextFieldController,
-                                      focusNode: business.input5TextFieldFocus,
-                                      decoration: InputDecoration(
-                                        errorText:
-                                            business.input5TextFieldErrorMsg,
-                                        floatingLabelStyle:
-                                            const TextStyle(color: Colors.blue),
-                                        border: const OutlineInputBorder(),
-                                        contentPadding:
-                                            const EdgeInsets.symmetric(
-                                                vertical: 10.0,
-                                                horizontal: 10.0),
-                                        focusedBorder: const OutlineInputBorder(
-                                          borderSide:
-                                              BorderSide(color: Colors.blue),
-                                        ),
-                                        suffixIcon: IconButton(
-                                          onPressed: () {
-                                            business.input5TextFieldController
-                                                .text = "";
-                                          },
-                                          icon: const Icon(Icons.clear),
-                                        ),
-                                      ),
-                                      onChanged: (value) {
-                                        // 입력값 변경시 에러 메세지 삭제
-                                        if (business.input5TextFieldErrorMsg !=
-                                            null) {
-                                          business.input5TextFieldErrorMsg =
-                                              null;
-                                          business.input5TextFieldBloc
-                                              .refreshUi();
-                                        }
-                                      },
-                                    );
-                                  },
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(top: 20),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              "queryParamDoubleNullable",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: "MaruBuri"),
-                            ),
-                            Container(
-                              constraints: const BoxConstraints(maxWidth: 250),
-                              child: const Row(
-                                children: [
-                                  Expanded(
-                                      child: Text(
-                                    "(Query ",
-                                    style: TextStyle(fontFamily: "MaruBuri"),
-                                  )),
-                                  Expanded(
-                                      child: Text("Double?",
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontFamily: "MaruBuri"))),
-                                  Expanded(
-                                      child: Text(
-                                    ")",
-                                    style: TextStyle(fontFamily: "MaruBuri"),
-                                  ))
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        flex: 2,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              "Double Query 파라미터 Nullable",
-                              style: TextStyle(fontFamily: "MaruBuri"),
-                            ),
-                            Container(
-                              margin: const EdgeInsets.only(top: 10),
-                              child: BlocProvider(
-                                create: (context) =>
-                                    business.input6TextFieldBloc,
-                                child: BlocBuilder<
-                                    gc_template_classes.RefreshableBloc, bool>(
-                                  builder: (c, s) {
-                                    return TextFormField(
-                                      keyboardType:
-                                          const TextInputType.numberWithOptions(
-                                              decimal: true, signed: true),
-                                      inputFormatters: <TextInputFormatter>[
-                                        FilteringTextInputFormatter.allow(
-                                          RegExp(r'^-?[0-9]*\.?[0-9]*$'),
-                                        ),
-                                      ],
-                                      controller:
-                                          business.input6TextFieldController,
-                                      focusNode: business.input6TextFieldFocus,
-                                      decoration: InputDecoration(
-                                        errorText:
-                                            business.input6TextFieldErrorMsg,
-                                        floatingLabelStyle:
-                                            const TextStyle(color: Colors.blue),
-                                        border: const OutlineInputBorder(),
-                                        contentPadding:
-                                            const EdgeInsets.symmetric(
-                                                vertical: 10.0,
-                                                horizontal: 10.0),
-                                        focusedBorder: const OutlineInputBorder(
-                                          borderSide:
-                                              BorderSide(color: Colors.blue),
-                                        ),
-                                        suffixIcon: IconButton(
-                                          onPressed: () {
-                                            business.input6TextFieldController
-                                                .text = "";
-                                          },
-                                          icon: const Icon(Icons.clear),
-                                        ),
-                                      ),
-                                      onChanged: (value) {
-                                        // 입력값 변경시 에러 메세지 삭제
-                                        if (business.input6TextFieldErrorMsg !=
-                                            null) {
-                                          business.input6TextFieldErrorMsg =
-                                              null;
-                                          business.input6TextFieldBloc
-                                              .refreshUi();
-                                        }
-                                      },
-                                    );
-                                  },
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(top: 20),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              "queryParamBoolean",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: "MaruBuri"),
-                            ),
-                            Container(
-                              constraints: const BoxConstraints(maxWidth: 250),
-                              child: const Row(
-                                children: [
-                                  Expanded(
-                                      child: Text(
-                                    "(Query ",
-                                    style: TextStyle(fontFamily: "MaruBuri"),
-                                  )),
-                                  Expanded(
-                                      child: Text("Boolean",
-                                          style: TextStyle(
-                                              color: Colors.red,
-                                              fontFamily: "MaruBuri"))),
-                                  Expanded(
-                                      child: Text(
-                                    ")",
-                                    style: TextStyle(fontFamily: "MaruBuri"),
-                                  ))
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        flex: 2,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              "Boolean Query 파라미터",
-                              style: TextStyle(fontFamily: "MaruBuri"),
-                            ),
-                            Container(
-                              margin: const EdgeInsets.only(top: 10),
-                              child: BlocProvider(
-                                create: (context) =>
-                                    business.input7TextFieldBloc,
-                                child: BlocBuilder<
-                                    gc_template_classes.RefreshableBloc, bool>(
-                                  builder: (c, s) {
-                                    return DropdownButton<bool>(
-                                      value: business.input7Value,
-                                      items: <bool>[true, false]
-                                          .map<DropdownMenuItem<bool>>(
-                                              (bool value) {
-                                        return DropdownMenuItem<bool>(
-                                          value: value,
-                                          child: Text(
-                                            "$value",
-                                            style: const TextStyle(
-                                                fontFamily: "MaruBuri"),
-                                          ),
-                                        );
-                                      }).toList(),
-                                      onChanged: (bool? newValue) {
-                                        business.input7Value = newValue!;
-                                        business.input7TextFieldBloc
-                                            .refreshUi();
-                                      },
-                                    );
-                                  },
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(top: 20),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              "queryParamBooleanNullable",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: "MaruBuri"),
-                            ),
-                            Container(
-                              constraints: const BoxConstraints(maxWidth: 250),
-                              child: const Row(
-                                children: [
-                                  Expanded(
-                                      child: Text(
-                                    "(Query ",
-                                    style: TextStyle(fontFamily: "MaruBuri"),
-                                  )),
-                                  Expanded(
-                                      child: Text("Boolean?",
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontFamily: "MaruBuri"))),
-                                  Expanded(
-                                      child: Text(
-                                    ")",
-                                    style: TextStyle(fontFamily: "MaruBuri"),
-                                  ))
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        flex: 2,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              "Boolean Query 파라미터 Nullable",
-                              style: TextStyle(fontFamily: "MaruBuri"),
-                            ),
-                            Container(
-                              margin: const EdgeInsets.only(top: 10),
-                              child: BlocProvider(
-                                create: (context) =>
-                                    business.input8TextFieldBloc,
-                                child: BlocBuilder<
-                                    gc_template_classes.RefreshableBloc, bool>(
-                                  builder: (c, s) {
-                                    return DropdownButton<bool?>(
-                                      value: business.input8Value,
-                                      items: <bool?>[true, false, null]
-                                          .map<DropdownMenuItem<bool?>>(
-                                              (bool? value) {
-                                        return DropdownMenuItem<bool?>(
-                                          value: value,
-                                          child: Text(
-                                            "$value",
-                                            style: const TextStyle(
-                                                fontFamily: "MaruBuri"),
-                                          ),
-                                        );
-                                      }).toList(),
-                                      onChanged: (bool? newValue) {
-                                        business.input8Value = newValue;
-                                        business.input8TextFieldBloc
-                                            .refreshUi();
-                                      },
-                                    );
-                                  },
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(top: 20),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              "queryParamStringList",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: "MaruBuri"),
-                            ),
-                            Container(
-                              constraints: const BoxConstraints(maxWidth: 250),
-                              child: const Row(
-                                children: [
-                                  Expanded(
-                                      child: Text(
-                                    "(Query ",
-                                    style: TextStyle(fontFamily: "MaruBuri"),
-                                  )),
-                                  Expanded(
-                                      child: Text("array[string]",
-                                          style: TextStyle(
-                                              color: Colors.red,
-                                              fontFamily: "MaruBuri"))),
-                                  Expanded(
-                                      child: Text(
-                                    ")",
-                                    style: TextStyle(fontFamily: "MaruBuri"),
-                                  ))
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        flex: 2,
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              "StringList Query 파라미터",
-                              style: TextStyle(fontFamily: "MaruBuri"),
-                            ),
-                            Container(
-                              margin: const EdgeInsets.only(top: 10),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  BlocProvider(
-                                    create: (context) =>
-                                        business.input9ListBloc,
-                                    child: BlocBuilder<
-                                        gc_template_classes.RefreshableBloc,
-                                        bool>(
-                                      builder: (c, s) {
-                                        List<Widget> widgetList = [];
-                                        for (int idx = 0;
-                                            idx < business.input9List.length;
-                                            idx++) {
-                                          page_widget_business
-                                              .Input9ListItemViewModel tec =
-                                              business.input9List[idx];
-
-                                          List<Widget> textFieldRow = [
-                                            Expanded(
-                                              child: BlocProvider(
-                                                create: (context) =>
-                                                    tec.inputTextFieldBloc,
-                                                child: BlocBuilder<
-                                                    gc_template_classes
-                                                    .RefreshableBloc,
-                                                    bool>(
-                                                  builder: (c, s) {
-                                                    return TextFormField(
-                                                      controller: tec
-                                                          .inputTextFieldController,
-                                                      focusNode: tec
-                                                          .inputTextFieldFocus,
-                                                      decoration:
-                                                          InputDecoration(
-                                                        errorText: tec
-                                                            .inputTextFieldErrorMsg,
-                                                        floatingLabelStyle:
-                                                            const TextStyle(
-                                                                color: Colors
-                                                                    .blue),
-                                                        border:
-                                                            const OutlineInputBorder(),
-                                                        contentPadding:
-                                                            const EdgeInsets
-                                                                .symmetric(
-                                                                vertical: 10.0,
-                                                                horizontal:
-                                                                    10.0),
-                                                        focusedBorder:
-                                                            const OutlineInputBorder(
-                                                          borderSide:
-                                                              BorderSide(
-                                                                  color: Colors
-                                                                      .blue),
-                                                        ),
-                                                        suffixIcon: IconButton(
-                                                          onPressed: () {
-                                                            tec.inputTextFieldController
-                                                                .text = "";
-                                                          },
-                                                          icon: const Icon(
-                                                              Icons.clear),
-                                                        ),
-                                                      ),
-                                                      onChanged: (value) {
-                                                        // 입력값 변경시 에러 메세지 삭제
-                                                        if (tec.inputTextFieldErrorMsg !=
-                                                            null) {
-                                                          tec.inputTextFieldErrorMsg =
-                                                              null;
-                                                          tec.inputTextFieldBloc
-                                                              .refreshUi();
-                                                        }
-                                                      },
-                                                    );
-                                                  },
-                                                ),
-                                              ),
-                                            ),
-                                          ];
-
-                                          if (business.input9List.length > 1) {
-                                            textFieldRow.add(Container(
-                                              margin: const EdgeInsets.only(
-                                                  left: 5),
-                                              child: ElevatedButton(
-                                                  onPressed: () {
-                                                    business
-                                                        .deleteInput9ListItem(
-                                                            idx);
-                                                  },
-                                                  style:
-                                                      ElevatedButton.styleFrom(
-                                                    backgroundColor:
-                                                        Colors.blue,
-                                                  ),
-                                                  child: const Text(
-                                                    "-",
-                                                    style: TextStyle(
-                                                        color: Colors.white,
-                                                        fontFamily: "MaruBuri"),
-                                                  )),
-                                            ));
-                                          }
-
-                                          widgetList.add(Container(
-                                            margin:
-                                                const EdgeInsets.only(top: 10),
-                                            child: Row(
-                                              children: textFieldRow,
-                                            ),
-                                          ));
-                                        }
-
-                                        Column stringListColumn = Column(
-                                          children: widgetList,
-                                        );
-
-                                        return stringListColumn;
-                                      },
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: const EdgeInsets.only(top: 10),
-                                    child: ElevatedButton(
+                                      suffixIcon: IconButton(
                                         onPressed: () {
-                                          business.addInput9ListItem();
+                                          business.input1TextFieldController
+                                              .text = "";
                                         },
-                                        style: ElevatedButton.styleFrom(
-                                          backgroundColor: Colors.blue,
-                                        ),
-                                        child: const Text(
-                                          "리스트 추가",
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontFamily: "MaruBuri"),
-                                        )),
-                                  )
-                                ],
+                                        icon: const Icon(Icons.clear),
+                                      ),
+                                    ),
+                                    onChanged: (value) {
+                                      // 입력값 변경시 에러 메세지 삭제
+                                      if (business.input1TextFieldErrorMsg !=
+                                          null) {
+                                        business.input1TextFieldErrorMsg = null;
+                                        business.input1TextFieldBloc
+                                            .refreshUi();
+                                      }
+                                    },
+                                  );
+                                },
                               ),
-                            )
-                          ],
-                        ),
+                            ),
+                          )
+                        ],
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-                Container(
-                  margin: const EdgeInsets.only(top: 20),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              "queryParamStringListNullable",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: "MaruBuri"),
+              ),
+              Container(
+                margin: const EdgeInsets.only(top: 20),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            "queryParamStringNullable",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontFamily: "MaruBuri"),
+                          ),
+                          Container(
+                            constraints: const BoxConstraints(maxWidth: 250),
+                            child: const Row(
+                              children: [
+                                Expanded(
+                                    child: Text(
+                                  "(Query ",
+                                  style: TextStyle(fontFamily: "MaruBuri"),
+                                )),
+                                Expanded(
+                                    child: Text("String?",
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontFamily: "MaruBuri"))),
+                                Expanded(
+                                    child: Text(
+                                  ")",
+                                  style: TextStyle(fontFamily: "MaruBuri"),
+                                ))
+                              ],
                             ),
-                            Container(
-                              constraints: const BoxConstraints(maxWidth: 250),
-                              child: const Row(
-                                children: [
-                                  Expanded(
-                                      child: Text(
-                                    "(Query ",
-                                    style: TextStyle(fontFamily: "MaruBuri"),
-                                  )),
-                                  Expanded(
-                                      child: Text("array[string]?",
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontFamily: "MaruBuri"))),
-                                  Expanded(
-                                      child: Text(
-                                    ")",
-                                    style: TextStyle(fontFamily: "MaruBuri"),
-                                  ))
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
+                          )
+                        ],
                       ),
-                      Expanded(
-                        flex: 2,
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              "StringList Query 파라미터 Nullable",
-                              style: TextStyle(fontFamily: "MaruBuri"),
+                    ),
+                    Expanded(
+                      flex: 2,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            "String Query 파라미터 Nullable",
+                            style: TextStyle(fontFamily: "MaruBuri"),
+                          ),
+                          Container(
+                            margin: const EdgeInsets.only(top: 10),
+                            child: BlocProvider(
+                              create: (context) => business.input2TextFieldBloc,
+                              child: BlocBuilder<
+                                  gc_template_classes.RefreshableBloc, bool>(
+                                builder: (c, s) {
+                                  return TextFormField(
+                                    controller:
+                                        business.input2TextFieldController,
+                                    focusNode: business.input2TextFieldFocus,
+                                    decoration: InputDecoration(
+                                      errorText:
+                                          business.input2TextFieldErrorMsg,
+                                      floatingLabelStyle:
+                                          const TextStyle(color: Colors.blue),
+                                      border: const OutlineInputBorder(),
+                                      contentPadding:
+                                          const EdgeInsets.symmetric(
+                                              vertical: 10.0, horizontal: 10.0),
+                                      focusedBorder: const OutlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: Colors.blue),
+                                      ),
+                                      suffixIcon: IconButton(
+                                        onPressed: () {
+                                          business.input2TextFieldController
+                                              .text = "";
+                                        },
+                                        icon: const Icon(Icons.clear),
+                                      ),
+                                    ),
+                                    onChanged: (value) {
+                                      // 입력값 변경시 에러 메세지 삭제
+                                      if (business.input2TextFieldErrorMsg !=
+                                          null) {
+                                        business.input2TextFieldErrorMsg = null;
+                                        business.input2TextFieldBloc
+                                            .refreshUi();
+                                      }
+                                    },
+                                  );
+                                },
+                              ),
                             ),
-                            Container(
-                              margin: const EdgeInsets.only(top: 10),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  BlocProvider(
-                                    create: (context) =>
-                                        business.input10ListBloc,
-                                    child: BlocBuilder<
-                                        gc_template_classes.RefreshableBloc,
-                                        bool>(
-                                      builder: (c, s) {
-                                        List<Widget> widgetList = [];
-                                        for (int idx = 0;
-                                            idx < business.input10List.length;
-                                            idx++) {
-                                          page_widget_business
-                                              .Input10ListItemViewModel tec =
-                                              business.input10List[idx];
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                margin: const EdgeInsets.only(top: 20),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            "queryParamInt",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontFamily: "MaruBuri"),
+                          ),
+                          Container(
+                            constraints: const BoxConstraints(maxWidth: 250),
+                            child: const Row(
+                              children: [
+                                Expanded(
+                                    child: Text(
+                                  "(Query ",
+                                  style: TextStyle(fontFamily: "MaruBuri"),
+                                )),
+                                Expanded(
+                                    child: Text("Int",
+                                        style: TextStyle(color: Colors.red))),
+                                Expanded(
+                                    child: Text(
+                                  ")",
+                                  style: TextStyle(fontFamily: "MaruBuri"),
+                                ))
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      flex: 2,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            "Int Query 파라미터",
+                            style: TextStyle(fontFamily: "MaruBuri"),
+                          ),
+                          Container(
+                            margin: const EdgeInsets.only(top: 10),
+                            child: BlocProvider(
+                              create: (context) => business.input3TextFieldBloc,
+                              child: BlocBuilder<
+                                  gc_template_classes.RefreshableBloc, bool>(
+                                builder: (c, s) {
+                                  return TextFormField(
+                                    keyboardType:
+                                        const TextInputType.numberWithOptions(
+                                            decimal: false, signed: true),
+                                    inputFormatters: <TextInputFormatter>[
+                                      FilteringTextInputFormatter.allow(
+                                        RegExp(r'^-?[0-9]*$'),
+                                      ),
+                                    ],
+                                    controller:
+                                        business.input3TextFieldController,
+                                    focusNode: business.input3TextFieldFocus,
+                                    decoration: InputDecoration(
+                                      errorText:
+                                          business.input3TextFieldErrorMsg,
+                                      floatingLabelStyle:
+                                          const TextStyle(color: Colors.blue),
+                                      border: const OutlineInputBorder(),
+                                      contentPadding:
+                                          const EdgeInsets.symmetric(
+                                              vertical: 10.0, horizontal: 10.0),
+                                      focusedBorder: const OutlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: Colors.blue),
+                                      ),
+                                      suffixIcon: IconButton(
+                                        onPressed: () {
+                                          business.input3TextFieldController
+                                              .text = "";
+                                        },
+                                        icon: const Icon(Icons.clear),
+                                      ),
+                                    ),
+                                    onChanged: (value) {
+                                      // 입력값 변경시 에러 메세지 삭제
+                                      if (business.input3TextFieldErrorMsg !=
+                                          null) {
+                                        business.input3TextFieldErrorMsg = null;
+                                        business.input3TextFieldBloc
+                                            .refreshUi();
+                                      }
+                                    },
+                                  );
+                                },
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                margin: const EdgeInsets.only(top: 20),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            "queryParamIntNullable",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontFamily: "MaruBuri"),
+                          ),
+                          Container(
+                            constraints: const BoxConstraints(maxWidth: 250),
+                            child: const Row(
+                              children: [
+                                Expanded(
+                                    child: Text(
+                                  "(Query ",
+                                  style: TextStyle(fontFamily: "MaruBuri"),
+                                )),
+                                Expanded(
+                                    child: Text("Int?",
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontFamily: "MaruBuri"))),
+                                Expanded(
+                                    child: Text(
+                                  ")",
+                                  style: TextStyle(fontFamily: "MaruBuri"),
+                                ))
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      flex: 2,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            "Int Query 파라미터 Nullable",
+                            style: TextStyle(fontFamily: "MaruBuri"),
+                          ),
+                          Container(
+                            margin: const EdgeInsets.only(top: 10),
+                            child: BlocProvider(
+                              create: (context) => business.input3TextFieldBloc,
+                              child: BlocBuilder<
+                                  gc_template_classes.RefreshableBloc, bool>(
+                                builder: (c, s) {
+                                  return TextFormField(
+                                    keyboardType:
+                                        const TextInputType.numberWithOptions(
+                                            decimal: false, signed: true),
+                                    inputFormatters: <TextInputFormatter>[
+                                      FilteringTextInputFormatter.allow(
+                                        RegExp(r'^-?[0-9]*$'),
+                                      ),
+                                    ],
+                                    controller:
+                                        business.input4TextFieldController,
+                                    focusNode: business.input4TextFieldFocus,
+                                    decoration: InputDecoration(
+                                      errorText:
+                                          business.input4TextFieldErrorMsg,
+                                      floatingLabelStyle:
+                                          const TextStyle(color: Colors.blue),
+                                      border: const OutlineInputBorder(),
+                                      contentPadding:
+                                          const EdgeInsets.symmetric(
+                                              vertical: 10.0, horizontal: 10.0),
+                                      focusedBorder: const OutlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: Colors.blue),
+                                      ),
+                                      suffixIcon: IconButton(
+                                        onPressed: () {
+                                          business.input4TextFieldController
+                                              .text = "";
+                                        },
+                                        icon: const Icon(Icons.clear),
+                                      ),
+                                    ),
+                                    onChanged: (value) {
+                                      // 입력값 변경시 에러 메세지 삭제
+                                      if (business.input4TextFieldErrorMsg !=
+                                          null) {
+                                        business.input4TextFieldErrorMsg = null;
+                                        business.input4TextFieldBloc
+                                            .refreshUi();
+                                      }
+                                    },
+                                  );
+                                },
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                margin: const EdgeInsets.only(top: 20),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            "queryParamDouble",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontFamily: "MaruBuri"),
+                          ),
+                          Container(
+                            constraints: const BoxConstraints(maxWidth: 250),
+                            child: const Row(
+                              children: [
+                                Expanded(
+                                    child: Text(
+                                  "(Query ",
+                                  style: TextStyle(fontFamily: "MaruBuri"),
+                                )),
+                                Expanded(
+                                    child: Text("Double",
+                                        style: TextStyle(
+                                            color: Colors.red,
+                                            fontFamily: "MaruBuri"))),
+                                Expanded(
+                                    child: Text(
+                                  ")",
+                                  style: TextStyle(fontFamily: "MaruBuri"),
+                                ))
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      flex: 2,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            "Double Query 파라미터",
+                            style: TextStyle(fontFamily: "MaruBuri"),
+                          ),
+                          Container(
+                            margin: const EdgeInsets.only(top: 10),
+                            child: BlocProvider(
+                              create: (context) => business.input5TextFieldBloc,
+                              child: BlocBuilder<
+                                  gc_template_classes.RefreshableBloc, bool>(
+                                builder: (c, s) {
+                                  return TextFormField(
+                                    keyboardType:
+                                        const TextInputType.numberWithOptions(
+                                            decimal: true, signed: true),
+                                    inputFormatters: <TextInputFormatter>[
+                                      FilteringTextInputFormatter.allow(
+                                        RegExp(r'^-?[0-9]*\.?[0-9]*$'),
+                                      ),
+                                    ],
+                                    controller:
+                                        business.input5TextFieldController,
+                                    focusNode: business.input5TextFieldFocus,
+                                    decoration: InputDecoration(
+                                      errorText:
+                                          business.input5TextFieldErrorMsg,
+                                      floatingLabelStyle:
+                                          const TextStyle(color: Colors.blue),
+                                      border: const OutlineInputBorder(),
+                                      contentPadding:
+                                          const EdgeInsets.symmetric(
+                                              vertical: 10.0, horizontal: 10.0),
+                                      focusedBorder: const OutlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: Colors.blue),
+                                      ),
+                                      suffixIcon: IconButton(
+                                        onPressed: () {
+                                          business.input5TextFieldController
+                                              .text = "";
+                                        },
+                                        icon: const Icon(Icons.clear),
+                                      ),
+                                    ),
+                                    onChanged: (value) {
+                                      // 입력값 변경시 에러 메세지 삭제
+                                      if (business.input5TextFieldErrorMsg !=
+                                          null) {
+                                        business.input5TextFieldErrorMsg = null;
+                                        business.input5TextFieldBloc
+                                            .refreshUi();
+                                      }
+                                    },
+                                  );
+                                },
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                margin: const EdgeInsets.only(top: 20),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            "queryParamDoubleNullable",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontFamily: "MaruBuri"),
+                          ),
+                          Container(
+                            constraints: const BoxConstraints(maxWidth: 250),
+                            child: const Row(
+                              children: [
+                                Expanded(
+                                    child: Text(
+                                  "(Query ",
+                                  style: TextStyle(fontFamily: "MaruBuri"),
+                                )),
+                                Expanded(
+                                    child: Text("Double?",
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontFamily: "MaruBuri"))),
+                                Expanded(
+                                    child: Text(
+                                  ")",
+                                  style: TextStyle(fontFamily: "MaruBuri"),
+                                ))
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      flex: 2,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            "Double Query 파라미터 Nullable",
+                            style: TextStyle(fontFamily: "MaruBuri"),
+                          ),
+                          Container(
+                            margin: const EdgeInsets.only(top: 10),
+                            child: BlocProvider(
+                              create: (context) => business.input6TextFieldBloc,
+                              child: BlocBuilder<
+                                  gc_template_classes.RefreshableBloc, bool>(
+                                builder: (c, s) {
+                                  return TextFormField(
+                                    keyboardType:
+                                        const TextInputType.numberWithOptions(
+                                            decimal: true, signed: true),
+                                    inputFormatters: <TextInputFormatter>[
+                                      FilteringTextInputFormatter.allow(
+                                        RegExp(r'^-?[0-9]*\.?[0-9]*$'),
+                                      ),
+                                    ],
+                                    controller:
+                                        business.input6TextFieldController,
+                                    focusNode: business.input6TextFieldFocus,
+                                    decoration: InputDecoration(
+                                      errorText:
+                                          business.input6TextFieldErrorMsg,
+                                      floatingLabelStyle:
+                                          const TextStyle(color: Colors.blue),
+                                      border: const OutlineInputBorder(),
+                                      contentPadding:
+                                          const EdgeInsets.symmetric(
+                                              vertical: 10.0, horizontal: 10.0),
+                                      focusedBorder: const OutlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: Colors.blue),
+                                      ),
+                                      suffixIcon: IconButton(
+                                        onPressed: () {
+                                          business.input6TextFieldController
+                                              .text = "";
+                                        },
+                                        icon: const Icon(Icons.clear),
+                                      ),
+                                    ),
+                                    onChanged: (value) {
+                                      // 입력값 변경시 에러 메세지 삭제
+                                      if (business.input6TextFieldErrorMsg !=
+                                          null) {
+                                        business.input6TextFieldErrorMsg = null;
+                                        business.input6TextFieldBloc
+                                            .refreshUi();
+                                      }
+                                    },
+                                  );
+                                },
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                margin: const EdgeInsets.only(top: 20),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            "queryParamBoolean",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontFamily: "MaruBuri"),
+                          ),
+                          Container(
+                            constraints: const BoxConstraints(maxWidth: 250),
+                            child: const Row(
+                              children: [
+                                Expanded(
+                                    child: Text(
+                                  "(Query ",
+                                  style: TextStyle(fontFamily: "MaruBuri"),
+                                )),
+                                Expanded(
+                                    child: Text("Boolean",
+                                        style: TextStyle(
+                                            color: Colors.red,
+                                            fontFamily: "MaruBuri"))),
+                                Expanded(
+                                    child: Text(
+                                  ")",
+                                  style: TextStyle(fontFamily: "MaruBuri"),
+                                ))
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      flex: 2,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            "Boolean Query 파라미터",
+                            style: TextStyle(fontFamily: "MaruBuri"),
+                          ),
+                          Container(
+                            margin: const EdgeInsets.only(top: 10),
+                            child: BlocProvider(
+                              create: (context) => business.input7TextFieldBloc,
+                              child: BlocBuilder<
+                                  gc_template_classes.RefreshableBloc, bool>(
+                                builder: (c, s) {
+                                  return DropdownButton<bool>(
+                                    value: business.input7Value,
+                                    items: <bool>[
+                                      true,
+                                      false
+                                    ].map<DropdownMenuItem<bool>>((bool value) {
+                                      return DropdownMenuItem<bool>(
+                                        value: value,
+                                        child: Text(
+                                          "$value",
+                                          style: const TextStyle(
+                                              fontFamily: "MaruBuri"),
+                                        ),
+                                      );
+                                    }).toList(),
+                                    onChanged: (bool? newValue) {
+                                      business.input7Value = newValue!;
+                                      business.input7TextFieldBloc.refreshUi();
+                                    },
+                                  );
+                                },
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                margin: const EdgeInsets.only(top: 20),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            "queryParamBooleanNullable",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontFamily: "MaruBuri"),
+                          ),
+                          Container(
+                            constraints: const BoxConstraints(maxWidth: 250),
+                            child: const Row(
+                              children: [
+                                Expanded(
+                                    child: Text(
+                                  "(Query ",
+                                  style: TextStyle(fontFamily: "MaruBuri"),
+                                )),
+                                Expanded(
+                                    child: Text("Boolean?",
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontFamily: "MaruBuri"))),
+                                Expanded(
+                                    child: Text(
+                                  ")",
+                                  style: TextStyle(fontFamily: "MaruBuri"),
+                                ))
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      flex: 2,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            "Boolean Query 파라미터 Nullable",
+                            style: TextStyle(fontFamily: "MaruBuri"),
+                          ),
+                          Container(
+                            margin: const EdgeInsets.only(top: 10),
+                            child: BlocProvider(
+                              create: (context) => business.input8TextFieldBloc,
+                              child: BlocBuilder<
+                                  gc_template_classes.RefreshableBloc, bool>(
+                                builder: (c, s) {
+                                  return DropdownButton<bool?>(
+                                    value: business.input8Value,
+                                    items: <bool?>[true, false, null]
+                                        .map<DropdownMenuItem<bool?>>(
+                                            (bool? value) {
+                                      return DropdownMenuItem<bool?>(
+                                        value: value,
+                                        child: Text(
+                                          "$value",
+                                          style: const TextStyle(
+                                              fontFamily: "MaruBuri"),
+                                        ),
+                                      );
+                                    }).toList(),
+                                    onChanged: (bool? newValue) {
+                                      business.input8Value = newValue;
+                                      business.input8TextFieldBloc.refreshUi();
+                                    },
+                                  );
+                                },
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                margin: const EdgeInsets.only(top: 20),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            "queryParamStringList",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontFamily: "MaruBuri"),
+                          ),
+                          Container(
+                            constraints: const BoxConstraints(maxWidth: 250),
+                            child: const Row(
+                              children: [
+                                Expanded(
+                                    child: Text(
+                                  "(Query ",
+                                  style: TextStyle(fontFamily: "MaruBuri"),
+                                )),
+                                Expanded(
+                                    child: Text("array[string]",
+                                        style: TextStyle(
+                                            color: Colors.red,
+                                            fontFamily: "MaruBuri"))),
+                                Expanded(
+                                    child: Text(
+                                  ")",
+                                  style: TextStyle(fontFamily: "MaruBuri"),
+                                ))
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      flex: 2,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            "StringList Query 파라미터",
+                            style: TextStyle(fontFamily: "MaruBuri"),
+                          ),
+                          Container(
+                            margin: const EdgeInsets.only(top: 10),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                BlocProvider(
+                                  create: (context) => business.input9ListBloc,
+                                  child: BlocBuilder<
+                                      gc_template_classes.RefreshableBloc,
+                                      bool>(
+                                    builder: (c, s) {
+                                      List<Widget> widgetList = [];
+                                      for (int idx = 0;
+                                          idx < business.input9List.length;
+                                          idx++) {
+                                        page_widget_business
+                                            .Input9ListItemViewModel tec =
+                                            business.input9List[idx];
 
-                                          List<Widget> textFieldRow = [
-                                            Expanded(
-                                              child: BlocProvider(
-                                                create: (context) =>
-                                                    tec.inputTextFieldBloc,
-                                                child: BlocBuilder<
-                                                    gc_template_classes
-                                                    .RefreshableBloc,
-                                                    bool>(
-                                                  builder: (c, s) {
-                                                    return TextFormField(
-                                                      controller: tec
-                                                          .inputTextFieldController,
-                                                      focusNode: tec
-                                                          .inputTextFieldFocus,
-                                                      decoration:
-                                                          InputDecoration(
-                                                        errorText: tec
-                                                            .inputTextFieldErrorMsg,
-                                                        floatingLabelStyle:
-                                                            const TextStyle(
-                                                                color: Colors
-                                                                    .blue),
-                                                        border:
-                                                            const OutlineInputBorder(),
-                                                        contentPadding:
-                                                            const EdgeInsets
-                                                                .symmetric(
-                                                                vertical: 10.0,
-                                                                horizontal:
-                                                                    10.0),
-                                                        focusedBorder:
-                                                            const OutlineInputBorder(
-                                                          borderSide:
-                                                              BorderSide(
-                                                                  color: Colors
-                                                                      .blue),
-                                                        ),
-                                                        suffixIcon: IconButton(
-                                                          onPressed: () {
-                                                            tec.inputTextFieldController
-                                                                .text = "";
-                                                          },
-                                                          icon: const Icon(
-                                                              Icons.clear),
-                                                        ),
+                                        List<Widget> textFieldRow = [
+                                          Expanded(
+                                            child: BlocProvider(
+                                              create: (context) =>
+                                                  tec.inputTextFieldBloc,
+                                              child: BlocBuilder<
+                                                  gc_template_classes
+                                                  .RefreshableBloc,
+                                                  bool>(
+                                                builder: (c, s) {
+                                                  return TextFormField(
+                                                    controller: tec
+                                                        .inputTextFieldController,
+                                                    focusNode:
+                                                        tec.inputTextFieldFocus,
+                                                    decoration: InputDecoration(
+                                                      errorText: tec
+                                                          .inputTextFieldErrorMsg,
+                                                      floatingLabelStyle:
+                                                          const TextStyle(
+                                                              color:
+                                                                  Colors.blue),
+                                                      border:
+                                                          const OutlineInputBorder(),
+                                                      contentPadding:
+                                                          const EdgeInsets
+                                                              .symmetric(
+                                                              vertical: 10.0,
+                                                              horizontal: 10.0),
+                                                      focusedBorder:
+                                                          const OutlineInputBorder(
+                                                        borderSide: BorderSide(
+                                                            color: Colors.blue),
                                                       ),
-                                                      onChanged: (value) {
-                                                        // 입력값 변경시 에러 메세지 삭제
-                                                        if (tec.inputTextFieldErrorMsg !=
-                                                            null) {
-                                                          tec.inputTextFieldErrorMsg =
-                                                              null;
-                                                          tec.inputTextFieldBloc
-                                                              .refreshUi();
-                                                        }
-                                                      },
-                                                    );
-                                                  },
-                                                ),
+                                                      suffixIcon: IconButton(
+                                                        onPressed: () {
+                                                          tec.inputTextFieldController
+                                                              .text = "";
+                                                        },
+                                                        icon: const Icon(
+                                                            Icons.clear),
+                                                      ),
+                                                    ),
+                                                    onChanged: (value) {
+                                                      // 입력값 변경시 에러 메세지 삭제
+                                                      if (tec.inputTextFieldErrorMsg !=
+                                                          null) {
+                                                        tec.inputTextFieldErrorMsg =
+                                                            null;
+                                                        tec.inputTextFieldBloc
+                                                            .refreshUi();
+                                                      }
+                                                    },
+                                                  );
+                                                },
                                               ),
                                             ),
-                                          ];
+                                          ),
+                                        ];
 
+                                        if (business.input9List.length > 1) {
                                           textFieldRow.add(Container(
                                             margin:
                                                 const EdgeInsets.only(left: 5),
                                             child: ElevatedButton(
                                                 onPressed: () {
-                                                  business
-                                                      .deleteInput10ListItem(
-                                                          idx);
+                                                  business.deleteInput9ListItem(
+                                                      idx);
                                                 },
                                                 style: ElevatedButton.styleFrom(
                                                   backgroundColor: Colors.blue,
@@ -1331,66 +1105,255 @@ class WidgetUi {
                                                       fontFamily: "MaruBuri"),
                                                 )),
                                           ));
-
-                                          widgetList.add(Container(
-                                            margin:
-                                                const EdgeInsets.only(top: 10),
-                                            child: Row(
-                                              children: textFieldRow,
-                                            ),
-                                          ));
                                         }
 
-                                        Column stringListColumn = Column(
-                                          children: widgetList,
-                                        );
+                                        widgetList.add(Container(
+                                          margin:
+                                              const EdgeInsets.only(top: 10),
+                                          child: Row(
+                                            children: textFieldRow,
+                                          ),
+                                        ));
+                                      }
 
-                                        return stringListColumn;
-                                      },
-                                    ),
+                                      Column stringListColumn = Column(
+                                        children: widgetList,
+                                      );
+
+                                      return stringListColumn;
+                                    },
                                   ),
-                                  Container(
-                                    margin: const EdgeInsets.only(top: 10),
-                                    child: ElevatedButton(
-                                        onPressed: () {
-                                          business.addInput10ListItem();
-                                        },
-                                        style: ElevatedButton.styleFrom(
-                                          backgroundColor: Colors.blue,
-                                        ),
-                                        child: const Text(
-                                          "리스트 추가",
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontFamily: "MaruBuri"),
-                                        )),
-                                  )
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
+                                ),
+                                Container(
+                                  margin: const EdgeInsets.only(top: 10),
+                                  child: ElevatedButton(
+                                      onPressed: () {
+                                        business.addInput9ListItem();
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: Colors.blue,
+                                      ),
+                                      child: const Text(
+                                        "리스트 추가",
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontFamily: "MaruBuri"),
+                                      )),
+                                )
+                              ],
+                            ),
+                          )
+                        ],
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-                Container(
-                  margin: const EdgeInsets.only(top: 50),
-                  child: ElevatedButton(
-                      onPressed: () {
-                        business.doNetworkRequest();
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blue,
+              ),
+              Container(
+                margin: const EdgeInsets.only(top: 20),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            "queryParamStringListNullable",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontFamily: "MaruBuri"),
+                          ),
+                          Container(
+                            constraints: const BoxConstraints(maxWidth: 250),
+                            child: const Row(
+                              children: [
+                                Expanded(
+                                    child: Text(
+                                  "(Query ",
+                                  style: TextStyle(fontFamily: "MaruBuri"),
+                                )),
+                                Expanded(
+                                    child: Text("array[string]?",
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontFamily: "MaruBuri"))),
+                                Expanded(
+                                    child: Text(
+                                  ")",
+                                  style: TextStyle(fontFamily: "MaruBuri"),
+                                ))
+                              ],
+                            ),
+                          )
+                        ],
                       ),
-                      child: const Text(
-                        "네트워크 요청 테스트",
-                        style: TextStyle(
-                            color: Colors.white, fontFamily: "MaruBuri"),
-                      )),
-                )
-              ],
-            ),
+                    ),
+                    Expanded(
+                      flex: 2,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            "StringList Query 파라미터 Nullable",
+                            style: TextStyle(fontFamily: "MaruBuri"),
+                          ),
+                          Container(
+                            margin: const EdgeInsets.only(top: 10),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                BlocProvider(
+                                  create: (context) => business.input10ListBloc,
+                                  child: BlocBuilder<
+                                      gc_template_classes.RefreshableBloc,
+                                      bool>(
+                                    builder: (c, s) {
+                                      List<Widget> widgetList = [];
+                                      for (int idx = 0;
+                                          idx < business.input10List.length;
+                                          idx++) {
+                                        page_widget_business
+                                            .Input10ListItemViewModel tec =
+                                            business.input10List[idx];
+
+                                        List<Widget> textFieldRow = [
+                                          Expanded(
+                                            child: BlocProvider(
+                                              create: (context) =>
+                                                  tec.inputTextFieldBloc,
+                                              child: BlocBuilder<
+                                                  gc_template_classes
+                                                  .RefreshableBloc,
+                                                  bool>(
+                                                builder: (c, s) {
+                                                  return TextFormField(
+                                                    controller: tec
+                                                        .inputTextFieldController,
+                                                    focusNode:
+                                                        tec.inputTextFieldFocus,
+                                                    decoration: InputDecoration(
+                                                      errorText: tec
+                                                          .inputTextFieldErrorMsg,
+                                                      floatingLabelStyle:
+                                                          const TextStyle(
+                                                              color:
+                                                                  Colors.blue),
+                                                      border:
+                                                          const OutlineInputBorder(),
+                                                      contentPadding:
+                                                          const EdgeInsets
+                                                              .symmetric(
+                                                              vertical: 10.0,
+                                                              horizontal: 10.0),
+                                                      focusedBorder:
+                                                          const OutlineInputBorder(
+                                                        borderSide: BorderSide(
+                                                            color: Colors.blue),
+                                                      ),
+                                                      suffixIcon: IconButton(
+                                                        onPressed: () {
+                                                          tec.inputTextFieldController
+                                                              .text = "";
+                                                        },
+                                                        icon: const Icon(
+                                                            Icons.clear),
+                                                      ),
+                                                    ),
+                                                    onChanged: (value) {
+                                                      // 입력값 변경시 에러 메세지 삭제
+                                                      if (tec.inputTextFieldErrorMsg !=
+                                                          null) {
+                                                        tec.inputTextFieldErrorMsg =
+                                                            null;
+                                                        tec.inputTextFieldBloc
+                                                            .refreshUi();
+                                                      }
+                                                    },
+                                                  );
+                                                },
+                                              ),
+                                            ),
+                                          ),
+                                        ];
+
+                                        textFieldRow.add(Container(
+                                          margin:
+                                              const EdgeInsets.only(left: 5),
+                                          child: ElevatedButton(
+                                              onPressed: () {
+                                                business
+                                                    .deleteInput10ListItem(idx);
+                                              },
+                                              style: ElevatedButton.styleFrom(
+                                                backgroundColor: Colors.blue,
+                                              ),
+                                              child: const Text(
+                                                "-",
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontFamily: "MaruBuri"),
+                                              )),
+                                        ));
+
+                                        widgetList.add(Container(
+                                          margin:
+                                              const EdgeInsets.only(top: 10),
+                                          child: Row(
+                                            children: textFieldRow,
+                                          ),
+                                        ));
+                                      }
+
+                                      Column stringListColumn = Column(
+                                        children: widgetList,
+                                      );
+
+                                      return stringListColumn;
+                                    },
+                                  ),
+                                ),
+                                Container(
+                                  margin: const EdgeInsets.only(top: 10),
+                                  child: ElevatedButton(
+                                      onPressed: () {
+                                        business.addInput10ListItem();
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: Colors.blue,
+                                      ),
+                                      child: const Text(
+                                        "리스트 추가",
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontFamily: "MaruBuri"),
+                                      )),
+                                )
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                margin: const EdgeInsets.only(top: 50),
+                child: ElevatedButton(
+                    onPressed: () {
+                      business.doNetworkRequest();
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue,
+                    ),
+                    child: const Text(
+                      "네트워크 요청 테스트",
+                      style: TextStyle(
+                          color: Colors.white, fontFamily: "MaruBuri"),
+                    )),
+              )
+            ],
           ),
         ),
       ),

@@ -7,8 +7,8 @@ import 'package:go_router/go_router.dart';
 import 'page_widget_business.dart' as page_widget_business;
 
 // (all)
-import '../../../global_widgets/gw_page_outer_frame/sl_widget.dart'
-    as gw_page_outer_frame;
+import '../../../global_widgets/gw_slw_page_outer_frame.dart'
+    as gw_slw_page_outer_frame;
 
 // [위젯 뷰]
 // 위젯의 화면 작성은 여기서 합니다.
@@ -119,13 +119,11 @@ class WidgetUi {
       required page_widget_business.PageWidgetBusiness business}) {
     // !!!뷰 위젯 반환 콜백 작성 하기!!!
 
-    return gw_page_outer_frame.SlWidget(
+    return gw_slw_page_outer_frame.SlwPageOuterFrame(
       business: business.viewModel.pageOutFrameBusiness,
-      inputVo: const gw_page_outer_frame.InputVo(
-        pageTitle: "페이지 템플릿",
-        child: Center(
-          child: Text("템플릿 페이지"),
-        ),
+      pageTitle: "페이지 템플릿",
+      child: const Center(
+        child: Text("템플릿 페이지"),
       ),
     );
   }

@@ -8,8 +8,8 @@ import 'package:go_router/go_router.dart';
 import 'page_widget_business.dart' as page_widget_business;
 
 // (all)
-import '../../../global_widgets/gw_page_outer_frame/sl_widget.dart'
-    as gw_page_outer_frame;
+import '../../../global_widgets/gw_slw_page_outer_frame.dart'
+    as gw_slw_page_outer_frame;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
 
@@ -119,400 +119,397 @@ class WidgetUi {
       required page_widget_business.PageWidgetBusiness business}) {
     // !!!뷰 위젯 반환 콜백 작성 하기!!!
 
-    return gw_page_outer_frame.SlWidget(
+    return gw_slw_page_outer_frame.SlwPageOuterFrame(
       business: business.pageOutFrameBusiness,
-      inputVo: gw_page_outer_frame.InputVo(
-        pageTitle: "회원 정보",
-        child: SingleChildScrollView(
-          child: Center(
-            child: Padding(
-              padding: const EdgeInsets.only(top: 50),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  MouseRegion(
-                    cursor: SystemMouseCursors.click,
-                    child: GestureDetector(
-                      onTap: () {
-                        // todo all_page_join_the_membership_edit_member_info 참고
-                      },
-                      child: Stack(
-                        children: [
-                          BlocProvider(
-                            create: (context) => business.profileImageBloc,
+      pageTitle: "회원 정보",
+      child: SingleChildScrollView(
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.only(top: 50),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                MouseRegion(
+                  cursor: SystemMouseCursors.click,
+                  child: GestureDetector(
+                    onTap: () {
+                      // todo all_page_join_the_membership_edit_member_info 참고
+                    },
+                    child: Stack(
+                      children: [
+                        BlocProvider(
+                          create: (context) => business.profileImageBloc,
+                          child: BlocBuilder<
+                              gc_template_classes.RefreshableBloc, bool>(
+                            builder: (c, s) {
+                              if (business.frontProfileIdx == null) {
+                                return ClipOval(
+                                    child: Container(
+                                  color: Colors.blue,
+                                  width: 100,
+                                  height: 100,
+                                  child: const Icon(
+                                    Icons.photo_outlined,
+                                    color: Colors.white,
+                                    size: 70,
+                                  ),
+                                ));
+                              } else {
+                                return ClipOval(
+                                  child: SizedBox(
+                                    width: 100,
+                                    height: 100,
+                                    child: Image(
+                                      image: NetworkImage(business
+                                          .myProfileList[
+                                              business.frontProfileIdx!]
+                                          .imageFullUrl),
+                                      fit: BoxFit.cover,
+                                      loadingBuilder: (BuildContext context,
+                                          Widget child,
+                                          ImageChunkEvent? loadingProgress) {
+                                        // 로딩 중일 때 플레이스 홀더를 보여줍니다.
+                                        if (loadingProgress == null) {
+                                          return child; // 로딩이 끝났을 경우
+                                        }
+                                        return const Center(
+                                          child: CircularProgressIndicator(),
+                                        );
+                                      },
+                                      errorBuilder:
+                                          (context, error, stackTrace) {
+                                        // 에러 발생 시 설정한 에러 위젯을 반환합니다.
+                                        return const Center(
+                                          child: Icon(
+                                            Icons.error,
+                                            color: Colors.red,
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                );
+                              }
+                            },
+                          ),
+                        ),
+                        Positioned(
+                          width: 30,
+                          height: 30,
+                          bottom: 0,
+                          right: 0,
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(50),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.5),
+                                    spreadRadius: 3,
+                                    blurRadius: 5,
+                                    offset: const Offset(
+                                        0, 2), // changes position of shadow
+                                  ),
+                                ]),
+                            child: const Icon(
+                              Icons.photo_library,
+                              color: Colors.grey,
+                              size: 20.0,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Center(
+                  child: Container(
+                    margin: const EdgeInsets.only(top: 30),
+                    constraints: const BoxConstraints(maxWidth: 300),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Expanded(
+                            flex: 10,
+                            child: Container(
+                              color: Colors.red,
+                              width: 200,
+                              child: const Text(
+                                "닉네임",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontFamily: "MaruBuri"),
+                              ),
+                            )),
+                        Expanded(
+                            flex: 20,
+                            child: BlocProvider(
+                              create: (context) => business.nicknameBloc,
+                              child: BlocBuilder<
+                                  gc_template_classes.RefreshableBloc, bool>(
+                                builder: (c, s) {
+                                  return Container(
+                                    color: Colors.orange,
+                                    child: Text(
+                                      business.nickName == null
+                                          ? ""
+                                          : business.nickName!,
+                                      textAlign: TextAlign.center,
+                                      style: const TextStyle(
+                                          color: Colors.blueAccent,
+                                          fontFamily: "MaruBuri"),
+                                    ),
+                                  );
+                                },
+                              ),
+                            )),
+                      ],
+                    ),
+                  ),
+                ),
+                Center(
+                  child: Container(
+                    margin: const EdgeInsets.only(top: 10),
+                    constraints: const BoxConstraints(maxWidth: 300),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Expanded(
+                            flex: 10,
+                            child: Container(
+                              color: Colors.red,
+                              width: 200,
+                              child: const Text(
+                                "비밀번호",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontFamily: "MaruBuri"),
+                              ),
+                            )),
+                        Expanded(
+                            flex: 20,
+                            child: Container(
+                              color: Colors.orange,
+                              child: const Text(
+                                "수정하기",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    color: Colors.blueAccent,
+                                    fontFamily: "MaruBuri"),
+                              ),
+                            )),
+                      ],
+                    ),
+                  ),
+                ),
+                Center(
+                  child: Container(
+                    margin: const EdgeInsets.only(top: 10),
+                    constraints: const BoxConstraints(maxWidth: 300),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Expanded(
+                            flex: 10,
+                            child: Container(
+                              color: Colors.red,
+                              width: 200,
+                              child: const Text(
+                                "이메일",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontFamily: "MaruBuri"),
+                              ),
+                            )),
+                        Expanded(
+                          flex: 20,
+                          child: BlocProvider(
+                            create: (context) => business.emailBloc,
                             child: BlocBuilder<
                                 gc_template_classes.RefreshableBloc, bool>(
                               builder: (c, s) {
-                                if (business.frontProfileIdx == null) {
-                                  return ClipOval(
-                                      child: Container(
-                                    color: Colors.blue,
-                                    width: 100,
-                                    height: 100,
-                                    child: const Icon(
-                                      Icons.photo_outlined,
-                                      color: Colors.white,
-                                      size: 70,
-                                    ),
-                                  ));
-                                } else {
-                                  return ClipOval(
-                                    child: SizedBox(
-                                      width: 100,
-                                      height: 100,
-                                      child: Image(
-                                        image: NetworkImage(business
-                                            .myProfileList[
-                                                business.frontProfileIdx!]
-                                            .imageFullUrl),
-                                        fit: BoxFit.cover,
-                                        loadingBuilder: (BuildContext context,
-                                            Widget child,
-                                            ImageChunkEvent? loadingProgress) {
-                                          // 로딩 중일 때 플레이스 홀더를 보여줍니다.
-                                          if (loadingProgress == null) {
-                                            return child; // 로딩이 끝났을 경우
-                                          }
-                                          return const Center(
-                                            child: CircularProgressIndicator(),
-                                          );
-                                        },
-                                        errorBuilder:
-                                            (context, error, stackTrace) {
-                                          // 에러 발생 시 설정한 에러 위젯을 반환합니다.
-                                          return const Center(
-                                            child: Icon(
-                                              Icons.error,
-                                              color: Colors.red,
-                                            ),
-                                          );
-                                        },
-                                      ),
-                                    ),
-                                  );
-                                }
+                                return Container(
+                                  color: Colors.orange,
+                                  child: Text(
+                                    business.myEmailList == null
+                                        ? ""
+                                        : business.myEmailList.toString(),
+                                    textAlign: TextAlign.center,
+                                    style: const TextStyle(
+                                        color: Colors.blueAccent,
+                                        fontFamily: "MaruBuri"),
+                                  ),
+                                );
                               },
                             ),
                           ),
-                          Positioned(
-                            width: 30,
-                            height: 30,
-                            bottom: 0,
-                            right: 0,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Center(
+                  child: Container(
+                    margin: const EdgeInsets.only(top: 10),
+                    constraints: const BoxConstraints(maxWidth: 300),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Expanded(
+                            flex: 10,
                             child: Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(50),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.grey.withOpacity(0.5),
-                                      spreadRadius: 3,
-                                      blurRadius: 5,
-                                      offset: const Offset(
-                                          0, 2), // changes position of shadow
-                                    ),
-                                  ]),
-                              child: const Icon(
-                                Icons.photo_library,
-                                color: Colors.grey,
-                                size: 20.0,
+                              color: Colors.red,
+                              width: 200,
+                              child: const Text(
+                                "전화번호",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontFamily: "MaruBuri"),
                               ),
+                            )),
+                        Expanded(
+                          flex: 20,
+                          child: BlocProvider(
+                            create: (context) => business.phoneNumberBloc,
+                            child: BlocBuilder<
+                                gc_template_classes.RefreshableBloc, bool>(
+                              builder: (c, s) {
+                                return Container(
+                                  color: Colors.orange,
+                                  child: Text(
+                                    business.myPhoneNumberList == null
+                                        ? ""
+                                        : business.myPhoneNumberList.toString(),
+                                    textAlign: TextAlign.center,
+                                    style: const TextStyle(
+                                        color: Colors.blueAccent,
+                                        fontFamily: "MaruBuri"),
+                                  ),
+                                );
+                              },
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
-                  Center(
-                    child: Container(
-                      margin: const EdgeInsets.only(top: 30),
-                      constraints: const BoxConstraints(maxWidth: 300),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Expanded(
-                              flex: 10,
-                              child: Container(
-                                color: Colors.red,
-                                width: 200,
-                                child: const Text(
-                                  "닉네임",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontFamily: "MaruBuri"),
-                                ),
-                              )),
-                          Expanded(
-                              flex: 20,
-                              child: BlocProvider(
-                                create: (context) => business.nicknameBloc,
-                                child: BlocBuilder<
-                                    gc_template_classes.RefreshableBloc, bool>(
-                                  builder: (c, s) {
-                                    return Container(
-                                      color: Colors.orange,
-                                      child: Text(
-                                        business.nickName == null
-                                            ? ""
-                                            : business.nickName!,
-                                        textAlign: TextAlign.center,
-                                        style: const TextStyle(
-                                            color: Colors.blueAccent,
-                                            fontFamily: "MaruBuri"),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              )),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Center(
-                    child: Container(
-                      margin: const EdgeInsets.only(top: 10),
-                      constraints: const BoxConstraints(maxWidth: 300),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Expanded(
-                              flex: 10,
-                              child: Container(
-                                color: Colors.red,
-                                width: 200,
-                                child: const Text(
-                                  "비밀번호",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontFamily: "MaruBuri"),
-                                ),
-                              )),
-                          Expanded(
-                              flex: 20,
-                              child: Container(
-                                color: Colors.orange,
-                                child: const Text(
-                                  "수정하기",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      color: Colors.blueAccent,
-                                      fontFamily: "MaruBuri"),
-                                ),
-                              )),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Center(
-                    child: Container(
-                      margin: const EdgeInsets.only(top: 10),
-                      constraints: const BoxConstraints(maxWidth: 300),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Expanded(
-                              flex: 10,
-                              child: Container(
-                                color: Colors.red,
-                                width: 200,
-                                child: const Text(
-                                  "이메일",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontFamily: "MaruBuri"),
-                                ),
-                              )),
-                          Expanded(
-                            flex: 20,
-                            child: BlocProvider(
-                              create: (context) => business.emailBloc,
-                              child: BlocBuilder<
-                                  gc_template_classes.RefreshableBloc, bool>(
-                                builder: (c, s) {
-                                  return Container(
-                                    color: Colors.orange,
-                                    child: Text(
-                                      business.myEmailList == null
-                                          ? ""
-                                          : business.myEmailList.toString(),
-                                      textAlign: TextAlign.center,
-                                      style: const TextStyle(
-                                          color: Colors.blueAccent,
-                                          fontFamily: "MaruBuri"),
-                                    ),
-                                  );
-                                },
+                ),
+                Center(
+                  child: Container(
+                    margin: const EdgeInsets.only(top: 10),
+                    constraints: const BoxConstraints(maxWidth: 300),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Expanded(
+                            flex: 10,
+                            child: Container(
+                              color: Colors.red,
+                              width: 200,
+                              child: const Text(
+                                "간편 로그인",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontFamily: "MaruBuri"),
                               ),
+                            )),
+                        Expanded(
+                          flex: 20,
+                          child: BlocProvider(
+                            create: (context) => business.oAuth2Bloc,
+                            child: BlocBuilder<
+                                gc_template_classes.RefreshableBloc, bool>(
+                              builder: (c, s) {
+                                return Container(
+                                  color: Colors.orange,
+                                  child: Text(
+                                    business.myOAuth2List == null
+                                        ? ""
+                                        : business.myOAuth2List.toString(),
+                                    textAlign: TextAlign.center,
+                                    style: const TextStyle(
+                                        color: Colors.blueAccent,
+                                        fontFamily: "MaruBuri"),
+                                  ),
+                                );
+                              },
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
-                  Center(
-                    child: Container(
-                      margin: const EdgeInsets.only(top: 10),
-                      constraints: const BoxConstraints(maxWidth: 300),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Expanded(
-                              flex: 10,
-                              child: Container(
-                                color: Colors.red,
-                                width: 200,
-                                child: const Text(
-                                  "전화번호",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontFamily: "MaruBuri"),
-                                ),
-                              )),
-                          Expanded(
-                            flex: 20,
-                            child: BlocProvider(
-                              create: (context) => business.phoneNumberBloc,
-                              child: BlocBuilder<
-                                  gc_template_classes.RefreshableBloc, bool>(
-                                builder: (c, s) {
-                                  return Container(
-                                    color: Colors.orange,
-                                    child: Text(
-                                      business.myPhoneNumberList == null
-                                          ? ""
-                                          : business.myPhoneNumberList
-                                              .toString(),
-                                      textAlign: TextAlign.center,
-                                      style: const TextStyle(
-                                          color: Colors.blueAccent,
-                                          fontFamily: "MaruBuri"),
-                                    ),
-                                  );
-                                },
+                ),
+                Center(
+                  child: Container(
+                    margin: const EdgeInsets.only(top: 10),
+                    constraints: const BoxConstraints(maxWidth: 300),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Expanded(
+                            flex: 10,
+                            child: Container(
+                              color: Colors.red,
+                              width: 200,
+                              child: const Text(
+                                "회원 권한",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontFamily: "MaruBuri"),
                               ),
+                            )),
+                        Expanded(
+                          flex: 20,
+                          child: BlocProvider(
+                            create: (context) => business.permissionBloc,
+                            child: BlocBuilder<
+                                gc_template_classes.RefreshableBloc, bool>(
+                              builder: (c, s) {
+                                return Container(
+                                  color: Colors.orange,
+                                  child: Text(
+                                    business.roleList == null
+                                        ? ""
+                                        : business.roleList.toString(),
+                                    textAlign: TextAlign.center,
+                                    style: const TextStyle(
+                                        color: Colors.blueAccent,
+                                        fontFamily: "MaruBuri"),
+                                  ),
+                                );
+                              },
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
-                  Center(
-                    child: Container(
-                      margin: const EdgeInsets.only(top: 10),
-                      constraints: const BoxConstraints(maxWidth: 300),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Expanded(
-                              flex: 10,
-                              child: Container(
-                                color: Colors.red,
-                                width: 200,
-                                child: const Text(
-                                  "간편 로그인",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontFamily: "MaruBuri"),
-                                ),
-                              )),
-                          Expanded(
-                            flex: 20,
-                            child: BlocProvider(
-                              create: (context) => business.oAuth2Bloc,
-                              child: BlocBuilder<
-                                  gc_template_classes.RefreshableBloc, bool>(
-                                builder: (c, s) {
-                                  return Container(
-                                    color: Colors.orange,
-                                    child: Text(
-                                      business.myOAuth2List == null
-                                          ? ""
-                                          : business.myOAuth2List.toString(),
-                                      textAlign: TextAlign.center,
-                                      style: const TextStyle(
-                                          color: Colors.blueAccent,
-                                          fontFamily: "MaruBuri"),
-                                    ),
-                                  );
-                                },
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
+                MouseRegion(
+                  cursor: SystemMouseCursors.click,
+                  child: GestureDetector(
+                    onTap: () {
+                      business.tapWithdrawalBtn();
+                    },
+                    child: const Text(
+                      "회원 탈퇴하기",
+                      textAlign: TextAlign.center,
+                      style:
+                          TextStyle(color: Colors.red, fontFamily: "MaruBuri"),
                     ),
                   ),
-                  Center(
-                    child: Container(
-                      margin: const EdgeInsets.only(top: 10),
-                      constraints: const BoxConstraints(maxWidth: 300),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Expanded(
-                              flex: 10,
-                              child: Container(
-                                color: Colors.red,
-                                width: 200,
-                                child: const Text(
-                                  "회원 권한",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontFamily: "MaruBuri"),
-                                ),
-                              )),
-                          Expanded(
-                            flex: 20,
-                            child: BlocProvider(
-                              create: (context) => business.permissionBloc,
-                              child: BlocBuilder<
-                                  gc_template_classes.RefreshableBloc, bool>(
-                                builder: (c, s) {
-                                  return Container(
-                                    color: Colors.orange,
-                                    child: Text(
-                                      business.roleList == null
-                                          ? ""
-                                          : business.roleList.toString(),
-                                      textAlign: TextAlign.center,
-                                      style: const TextStyle(
-                                          color: Colors.blueAccent,
-                                          fontFamily: "MaruBuri"),
-                                    ),
-                                  );
-                                },
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  MouseRegion(
-                    cursor: SystemMouseCursors.click,
-                    child: GestureDetector(
-                      onTap: () {
-                        business.tapWithdrawalBtn();
-                      },
-                      child: const Text(
-                        "회원 탈퇴하기",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: Colors.red, fontFamily: "MaruBuri"),
-                      ),
-                    ),
-                  )
-                ],
-              ),
+                )
+              ],
             ),
           ),
         ),

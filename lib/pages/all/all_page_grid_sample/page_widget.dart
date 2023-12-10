@@ -8,8 +8,8 @@ import 'package:go_router/go_router.dart';
 import 'page_widget_business.dart' as page_widget_business;
 
 // (all)
-import '../../../global_widgets/gw_page_outer_frame/sl_widget.dart'
-    as gw_page_outer_frame;
+import '../../../global_widgets/gw_slw_page_outer_frame.dart'
+    as gw_slw_page_outer_frame;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
 
@@ -119,32 +119,30 @@ class WidgetUi {
       required page_widget_business.PageWidgetBusiness business}) {
     // !!!뷰 위젯 반환 콜백 작성 하기!!!
 
-    return gw_page_outer_frame.SlWidget(
+    return gw_slw_page_outer_frame.SlwPageOuterFrame(
       business: business.pageOutFrameBusiness,
-      inputVo: gw_page_outer_frame.InputVo(
-        pageTitle: "페이지 Grid 샘플",
-        child: Center(
-          child: Container(
-            padding:
-                const EdgeInsets.only(left: 10, top: 10, right: 10, bottom: 10),
-            child: GridView.builder(
-              itemCount: 100, // 아이템 개수
-              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                  maxCrossAxisExtent: 300, // item 최대 width 크기
-                  mainAxisSpacing: 2.0, // 행 간 여백
-                  crossAxisSpacing: 2.0, // 열 간 여백
-                  childAspectRatio: 1.5 // width / height
-                  ),
-              itemBuilder: (BuildContext context, int index) {
-                // 아이템 타일
-                return Container(
-                  color: Colors.grey,
-                  child: ListTile(
-                    title: Text('Item $index'),
-                  ),
-                );
-              },
-            ),
+      pageTitle: "페이지 Grid 샘플",
+      child: Center(
+        child: Container(
+          padding:
+              const EdgeInsets.only(left: 10, top: 10, right: 10, bottom: 10),
+          child: GridView.builder(
+            itemCount: 100, // 아이템 개수
+            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                maxCrossAxisExtent: 300, // item 최대 width 크기
+                mainAxisSpacing: 2.0, // 행 간 여백
+                crossAxisSpacing: 2.0, // 열 간 여백
+                childAspectRatio: 1.5 // width / height
+                ),
+            itemBuilder: (BuildContext context, int index) {
+              // 아이템 타일
+              return Container(
+                color: Colors.grey,
+                child: ListTile(
+                  title: Text('Item $index'),
+                ),
+              );
+            },
           ),
         ),
       ),

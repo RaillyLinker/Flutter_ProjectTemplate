@@ -6,8 +6,7 @@ import 'package:focus_detector_v2/focus_detector_v2.dart';
 import 'dialog_widget_business.dart' as dialog_widget_business;
 
 // (all)
-import '../../../global_widgets/gw_text_form_field_wrapper/sf_widget.dart'
-    as gw_text_form_field_wrapper;
+import '../../../global_widgets/gw_sfw_wrapper.dart' as gw_sfw_wrapper;
 
 // [위젯 뷰]
 // 위젯의 화면 작성은 여기서 합니다.
@@ -202,52 +201,43 @@ class WidgetUi {
                   SizedBox(
                     width: 400,
                     child: Form(
-                      child: gw_text_form_field_wrapper.SfWidget(
+                      child: gw_sfw_wrapper.SfwTextFormField(
                         globalKey:
                             business.viewModel.gwTextFormFieldWrapperStateGk,
-                        inputVo: gw_text_form_field_wrapper.InputVo(
-                            autofocus: true,
-                            labelText: '본인 이메일 인증 코드',
-                            floatingLabelStyle:
-                                const TextStyle(color: Colors.blue),
-                            hintText: "발송된 본인 이메일 인증 코드를 입력하세요.",
-                            focusedBorder: const UnderlineInputBorder(
-                              borderSide: BorderSide(color: Colors.blue),
-                            ),
-                            suffixIcon: IconButton(
-                              onPressed: () {
-                                business
-                                    .viewModel
-                                    .gwTextFormFieldWrapperStateGk
-                                    .currentState
-                                    ?.textFieldController
-                                    .text = "";
-                                business.viewModel.gwTextFormFieldWrapperStateGk
-                                    .currentState?.textFieldErrorMsg = null;
-                                business.viewModel.gwTextFormFieldWrapperStateGk
-                                    .currentState
-                                    ?.refreshUi();
-                              },
-                              icon: const Icon(Icons.clear),
-                            ),
-                            onChanged: (value) {
-                              // 입력값 변경시 에러 메세지 삭제
-                              if (business
-                                      .viewModel
-                                      .gwTextFormFieldWrapperStateGk
-                                      .currentState
-                                      ?.textFieldErrorMsg !=
-                                  null) {
-                                business.viewModel.gwTextFormFieldWrapperStateGk
-                                    .currentState?.textFieldErrorMsg = null;
-                                business.viewModel.gwTextFormFieldWrapperStateGk
-                                    .currentState
-                                    ?.refreshUi();
-                              }
-                            },
-                            onEditingComplete: () {
-                              business.verifyCodeAndGoNext(context: context);
-                            }),
+                        autofocus: true,
+                        labelText: '본인 이메일 인증 코드',
+                        floatingLabelStyle: const TextStyle(color: Colors.blue),
+                        hintText: "발송된 본인 이메일 인증 코드를 입력하세요.",
+                        focusedBorder: const UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.blue),
+                        ),
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                            business.viewModel.gwTextFormFieldWrapperStateGk
+                                .currentState?.textFieldController.text = "";
+                            business.viewModel.gwTextFormFieldWrapperStateGk
+                                .currentState?.textFieldErrorMsg = null;
+                            business.viewModel.gwTextFormFieldWrapperStateGk
+                                .currentState
+                                ?.refreshUi();
+                          },
+                          icon: const Icon(Icons.clear),
+                        ),
+                        onChanged: (value) {
+                          // 입력값 변경시 에러 메세지 삭제
+                          if (business.viewModel.gwTextFormFieldWrapperStateGk
+                                  .currentState?.textFieldErrorMsg !=
+                              null) {
+                            business.viewModel.gwTextFormFieldWrapperStateGk
+                                .currentState?.textFieldErrorMsg = null;
+                            business.viewModel.gwTextFormFieldWrapperStateGk
+                                .currentState
+                                ?.refreshUi();
+                          }
+                        },
+                        onEditingComplete: () {
+                          business.verifyCodeAndGoNext(context: context);
+                        },
                       ),
                     ),
                   ),

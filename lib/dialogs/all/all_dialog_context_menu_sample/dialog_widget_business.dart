@@ -7,8 +7,8 @@ import 'package:go_router/go_router.dart';
 import 'dialog_widget.dart' as dialog_widget;
 
 // (all)
-import '../../../global_widgets/gw_context_menu_region/sf_widget_state.dart'
-    as gw_context_menu_region_state;
+import '../../../global_widgets/gw_sfw_wrapper.dart'
+    as gw_sfw_context_menu_region;
 
 // [위젯 비즈니스]
 // 위젯의 비즈니스 로직 + State 변수 처리는 이 곳에서 합니다.
@@ -97,6 +97,6 @@ class PageWidgetViewModel {
 // !!!페이지에서 사용할 변수를 아래에 선언하기!!!
 
   // (contextMenuRegionBusiness)
-  final GlobalKey<gw_context_menu_region_state.SfWidgetState>
+  final GlobalKey<gw_sfw_context_menu_region.SfwContextMenuRegionState>
       contextMenuRegionGk = GlobalKey();
 }

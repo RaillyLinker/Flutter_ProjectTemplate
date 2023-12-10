@@ -6,8 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'dialog_widget.dart' as dialog_widget;
 
 // (all)
-import '../../../global_widgets/gw_gif_wrapper/sf_widget_state.dart'
-    as gw_gif_wrapper_state;
+import '../../../global_widgets/gw_sfw_wrapper.dart' as gw_sfw_wrapper;
 
 // [위젯 비즈니스]
 // 위젯의 비즈니스 로직 + State 변수 처리는 이 곳에서 합니다.
@@ -87,6 +86,6 @@ class PageWidgetViewModel {
 // !!!페이지에서 사용할 변수를 아래에 선언하기!!!
 
   // (Gif 래퍼 GlobalKey)
-  final GlobalKey<gw_gif_wrapper_state.SfWidgetState> gwGifWrapperGk =
+  final GlobalKey<gw_sfw_wrapper.SfwGifWidgetState> gwGifWrapperGk =
       GlobalKey();
 }

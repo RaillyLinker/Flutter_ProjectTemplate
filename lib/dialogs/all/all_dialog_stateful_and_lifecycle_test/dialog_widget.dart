@@ -6,8 +6,7 @@ import 'package:focus_detector_v2/focus_detector_v2.dart';
 import 'dialog_widget_business.dart' as dialog_widget_business;
 
 // (all)
-import '../../../global_widgets/gw_stateful_test/sf_widget.dart'
-    as gw_stateful_test;
+import '../../../global_widgets/gw_sfw_test.dart' as gw_sfw_test;
 
 // [위젯 뷰]
 // 위젯의 화면 작성은 여기서 합니다.
@@ -144,9 +143,9 @@ class WidgetUi {
                 const SizedBox(
                   height: 10,
                 ),
-                gw_stateful_test.SfWidget(
-                    globalKey: business.viewModel.statefulTestGk,
-                    inputVo: const gw_stateful_test.InputVo()),
+                gw_sfw_test.SfwTest(
+                  globalKey: business.viewModel.statefulTestGk,
+                ),
                 const SizedBox(
                   height: 10,
                 ),

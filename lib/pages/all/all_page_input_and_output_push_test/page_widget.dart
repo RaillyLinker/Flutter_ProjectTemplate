@@ -8,8 +8,8 @@ import 'package:go_router/go_router.dart';
 import 'page_widget_business.dart' as page_widget_business;
 
 // (all)
-import '../../../global_widgets/gw_page_outer_frame/sl_widget.dart'
-    as gw_page_outer_frame;
+import '../../../global_widgets/gw_slw_page_outer_frame.dart'
+    as gw_slw_page_outer_frame;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
 
@@ -130,90 +130,88 @@ class WidgetUi {
       required page_widget_business.PageWidgetBusiness business}) {
     // !!!뷰 위젯 반환 콜백 작성 하기!!!
 
-    return gw_page_outer_frame.SlWidget(
+    return gw_slw_page_outer_frame.SlwPageOuterFrame(
       business: business.pageOutFrameBusiness,
-      inputVo: gw_page_outer_frame.InputVo(
-        pageTitle: "페이지 입/출력 테스트",
-        child: Center(
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Form(
-                  child: Container(
-                    width: 200,
-                    margin: const EdgeInsets.only(top: 20),
-                    child: BlocProvider(
-                      create: (context) => business.input1TextFieldBloc,
-                      child: BlocBuilder<gc_template_classes.RefreshableBloc,
-                          bool>(
-                        builder: (c, s) {
-                          return TextFormField(
-                            autofocus: true,
-                            keyboardType: TextInputType.text,
-                            controller: business.input1TextFieldController,
-                            focusNode: business.input1TextFieldFocus,
-                            decoration: InputDecoration(
-                              labelText: '페이지 출력 값',
-                              errorText: business.input1TextFieldErrorMsg,
-                              contentPadding: const EdgeInsets.symmetric(
-                                  vertical: 10.0, horizontal: 10.0),
-                              filled: true,
-                              fillColor: Colors.grey[100],
-                              isDense: true,
-                              hintText: "페이지 출력 값 입력",
-                              border: const OutlineInputBorder(),
-                              floatingLabelStyle:
-                                  const TextStyle(color: Colors.blue),
-                              focusedBorder: const OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.blue),
-                              ),
-                              suffixIcon: IconButton(
-                                onPressed: () {
-                                  business.input1TextFieldController.text = "";
-                                },
-                                icon: const Icon(Icons.clear),
-                              ),
+      pageTitle: "페이지 입/출력 테스트",
+      child: Center(
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Form(
+                child: Container(
+                  width: 200,
+                  margin: const EdgeInsets.only(top: 20),
+                  child: BlocProvider(
+                    create: (context) => business.input1TextFieldBloc,
+                    child:
+                        BlocBuilder<gc_template_classes.RefreshableBloc, bool>(
+                      builder: (c, s) {
+                        return TextFormField(
+                          autofocus: true,
+                          keyboardType: TextInputType.text,
+                          controller: business.input1TextFieldController,
+                          focusNode: business.input1TextFieldFocus,
+                          decoration: InputDecoration(
+                            labelText: '페이지 출력 값',
+                            errorText: business.input1TextFieldErrorMsg,
+                            contentPadding: const EdgeInsets.symmetric(
+                                vertical: 10.0, horizontal: 10.0),
+                            filled: true,
+                            fillColor: Colors.grey[100],
+                            isDense: true,
+                            hintText: "페이지 출력 값 입력",
+                            border: const OutlineInputBorder(),
+                            floatingLabelStyle:
+                                const TextStyle(color: Colors.blue),
+                            focusedBorder: const OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.blue),
                             ),
-                            onChanged: (value) {
-                              // 입력값 변경시 에러 메세지 삭제
-                              if (business.input1TextFieldErrorMsg != null) {
-                                business.input1TextFieldErrorMsg = null;
-                                business.input1TextFieldBloc.refreshUi();
-                              }
-                            },
-                            onEditingComplete: () {
-                              business.onPressedReturnBtn();
-                            },
-                          );
-                        },
-                      ),
+                            suffixIcon: IconButton(
+                              onPressed: () {
+                                business.input1TextFieldController.text = "";
+                              },
+                              icon: const Icon(Icons.clear),
+                            ),
+                          ),
+                          onChanged: (value) {
+                            // 입력값 변경시 에러 메세지 삭제
+                            if (business.input1TextFieldErrorMsg != null) {
+                              business.input1TextFieldErrorMsg = null;
+                              business.input1TextFieldBloc.refreshUi();
+                            }
+                          },
+                          onEditingComplete: () {
+                            business.onPressedReturnBtn();
+                          },
+                        );
+                      },
                     ),
                   ),
                 ),
-                Container(
-                  margin: const EdgeInsets.only(top: 20),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      business.onPressedReturnBtn();
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue,
-                    ),
-                    child: Container(
-                      margin: const EdgeInsets.only(top: 8, bottom: 8),
-                      child: const Text(
-                        "출력 값 반환",
-                        style: TextStyle(
-                            fontSize: 15,
-                            color: Colors.white,
-                            fontFamily: "MaruBuri"),
-                      ),
+              ),
+              Container(
+                margin: const EdgeInsets.only(top: 20),
+                child: ElevatedButton(
+                  onPressed: () {
+                    business.onPressedReturnBtn();
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blue,
+                  ),
+                  child: Container(
+                    margin: const EdgeInsets.only(top: 8, bottom: 8),
+                    child: const Text(
+                      "출력 값 반환",
+                      style: TextStyle(
+                          fontSize: 15,
+                          color: Colors.white,
+                          fontFamily: "MaruBuri"),
                     ),
                   ),
-                )
-              ],
-            ),
+                ),
+              )
+            ],
           ),
         ),
       ),

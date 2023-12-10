@@ -6,8 +6,7 @@ import 'package:focus_detector_v2/focus_detector_v2.dart';
 import 'dialog_widget_business.dart' as dialog_widget_business;
 
 // (all)
-import '../../../global_widgets/gw_gif_wrapper/sf_widget.dart'
-    as gw_gif_wrapper;
+import '../../../global_widgets/gw_sfw_wrapper.dart' as gw_sfw_wrapper;
 
 // [위젯 뷰]
 // 위젯의 화면 작성은 여기서 합니다.
@@ -125,10 +124,9 @@ class WidgetUi {
       child: SizedBox(
         width: 70,
         height: 70,
-        child: gw_gif_wrapper.SfWidget(
+        child: gw_sfw_wrapper.SfwGifWidget(
           globalKey: business.viewModel.gwGifWrapperGk,
-          inputVo: const gw_gif_wrapper.InputVo(
-              gifImage: AssetImage("lib/assets/images/loading_spinner.gif")),
+          gifImage: const AssetImage("lib/assets/images/loading_spinner.gif"),
         ),
       ),
     );

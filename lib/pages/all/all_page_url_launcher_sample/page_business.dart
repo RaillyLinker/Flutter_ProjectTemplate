@@ -8,8 +8,8 @@ import 'package:url_launcher/url_launcher.dart';
 import 'page_entrance.dart' as page_entrance;
 
 // (all)
-import '../../../global_widgets/gw_page_outer_frame/sl_widget_business.dart'
-    as gw_page_outer_frame_business;
+import '../../../global_widgets/gw_slw_page_outer_frame.dart'
+    as gw_slw_page_outer_frame;
 import '../../../global_classes/gc_template_classes.dart'
     as gc_template_classes;
 
@@ -187,8 +187,8 @@ class PageViewModel {
   // int sampleNumber = 0;
 
   // PageOutFrameViewModel
-  final gw_page_outer_frame_business.SlWidgetBusiness pageOutFrameBusiness =
-      gw_page_outer_frame_business.SlWidgetBusiness();
+  final gw_slw_page_outer_frame.SlwPageOuterFrameBusiness pageOutFrameBusiness =
+      gw_slw_page_outer_frame.SlwPageOuterFrameBusiness();
 
   TextEditingController urlTextEditController = TextEditingController();
 
