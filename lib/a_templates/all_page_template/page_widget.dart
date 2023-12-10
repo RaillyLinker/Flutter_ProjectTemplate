@@ -97,7 +97,7 @@ class PageWidgetState extends State<PageWidget> with WidgetsBindingObserver {
         onForegroundLost: () async {
           await business.onForegroundLost();
         },
-        child: WidgetUi.viewWidgetBuild(context: context, business: business),
+        child: viewWidgetBuild(context: context, business: business),
       ),
     );
   }
@@ -110,11 +110,11 @@ class PageWidgetState extends State<PageWidget> with WidgetsBindingObserver {
   void refreshUi() {
     setState(() {});
   }
-}
 
-class WidgetUi {
-  // [뷰 위젯]
-  static Widget viewWidgetBuild(
+  // [private 함수]
+
+  // [뷰 위젯 작성 공간]
+  Widget viewWidgetBuild(
       {required BuildContext context,
       required page_widget_business.PageWidgetBusiness business}) {
     // !!!뷰 위젯 반환 콜백 작성 하기!!!
