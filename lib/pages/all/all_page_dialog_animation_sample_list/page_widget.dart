@@ -121,7 +121,7 @@ class WidgetUi {
 
     return gw_slw_page_outer_frame.SlwPageOuterFrame(
       business: business.pageOutFrameBusiness,
-      pageTitle: "다이얼로그 샘플 리스트",
+      pageTitle: "다이얼로그 애니메이션 샘플 리스트",
       child: BlocProvider(
         create: (context) => business.itemListBloc,
         child: BlocBuilder<gc_template_classes.RefreshableBloc, bool>(
