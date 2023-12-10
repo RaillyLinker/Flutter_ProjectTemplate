@@ -495,7 +495,7 @@ class SfwTextFormFieldState extends State<SfwTextFormField> {
 // (ListView.Builder)
 class SfwListViewBuilder extends StatefulWidget {
   const SfwListViewBuilder(
-      {required this.globalKey, required this.itemWidgetList})
+      {required this.globalKey, required this.itemWidgetList,  this.shrinkWrap = false, this.primary})
       : super(key: globalKey);
 
   // [콜백 함수]
@@ -508,6 +508,10 @@ class SfwListViewBuilder extends StatefulWidget {
   // !!!외부 입력 변수 선언 하기!!!
   final List<Widget> itemWidgetList;
 
+  final bool shrinkWrap;
+
+  final bool? primary;
+
   // [화면 작성]
   Widget widgetUiBuild(
       {required BuildContext context,
@@ -515,6 +519,8 @@ class SfwListViewBuilder extends StatefulWidget {
     // !!!뷰 위젯 반환 콜백 작성 하기!!!
 
     return ListView.builder(
+      shrinkWrap: shrinkWrap,
+      primary: primary,
       itemCount: currentState.itemWidgetList.length,
       itemBuilder: (context, index) {
         return currentState.itemWidgetList[index];
