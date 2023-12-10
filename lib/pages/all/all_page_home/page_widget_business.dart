@@ -1,6 +1,4 @@
 // (external)
-import 'dart:io';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -10,6 +8,7 @@ import 'page_widget.dart' as page_widget;
 // (all)
 import '../../../global_widgets/gw_slw_page_outer_frame.dart'
     as gw_slw_page_outer_frame;
+import '../../../global_widgets/gw_sfw_wrapper.dart' as gw_sfw_wrapper;
 import '../../../pages/all/all_page_page_and_router_sample_list/page_widget.dart'
     as all_page_page_and_router_sample_list;
 import '../../../pages/all/all_page_dialog_sample_list/page_widget.dart'
@@ -22,8 +21,6 @@ import '../../../pages/all/all_page_auth_sample/page_widget.dart'
     as all_page_auth_sample;
 import '../../../pages/all/all_page_etc_sample_list/page_widget.dart'
     as all_page_etc_sample_list;
-import '../../../global_classes/gc_template_classes.dart'
-    as gc_template_classes;
 
 // (mobile)
 import '../../../pages/mobile/mobile_page_permission_sample_list/page_entrance.dart'
@@ -40,8 +37,6 @@ class PageWidgetBusiness {
   // (전체 위젯 initState)
   void initState() {
     // !!!initState 로직 작성!!!
-
-    setListItem();
   }
 
   // (전체 위젯 dispose)
@@ -74,115 +69,84 @@ class PageWidgetBusiness {
     // !!!onForegroundLost 로직 작성!!!
   }
 
-  void onCheckPageInputVo({required GoRouterState goRouterState}) {
-    // !!!pageInputVo 체크!!!
+  page_widget.InputVo? onCheckPageInputVo(
+      {required BuildContext context, required GoRouterState goRouterState}) {
+    // !!!pageInputVo 체크!!! - 필수 정보 누락시 null 반환
     // ex :
     // if (!goRouterState.uri.queryParameters
     //     .containsKey("inputValueString")) {
-    //   // 필수 파라미터가 없는 경우에 대한 처리
+    //   return null;
     // }
 
     // !!!PageInputVo 입력!!!
-    inputVo = const page_widget.InputVo();
+    return const page_widget.InputVo();
   }
 
   // [public 변수]
-  late BuildContext context;
-
-  // (위젯 입력값)
-  late page_widget.InputVo inputVo;
-
-  // (페이지 pop 가능 여부 변수)
-  bool canPop = true;
-
-  // (pageOutFrameBusiness)
-  final gw_slw_page_outer_frame.SlwPageOuterFrameBusiness pageOutFrameBusiness =
-      gw_slw_page_outer_frame.SlwPageOuterFrameBusiness();
-
-  List<SampleItemViewModel> itemList = [];
-  gc_template_classes.RefreshableBloc itemListBloc =
-      gc_template_classes.RefreshableBloc();
-
-  // [private 변수]
+  // (페이지 뷰모델 객체)
+  late PageWidgetViewModel viewModel;
 
   // [public 함수]
   // (Widget 화면 갱신) - WidgetUi.viewWidgetBuild 의 return 값을 다시 불러 옵니다.
   late VoidCallback refreshUi;
 
-  void setListItem() {
-    itemList = [];
-    itemList.add(SampleItemViewModel(
-        itemTitle: "페이지 / 라우터 샘플 리스트",
-        itemDescription: "페이지 이동, 파라미터 전달 등의 샘플 리스트",
-        onItemClicked: () {
-          context.pushNamed(all_page_page_and_router_sample_list.pageName);
-        }));
-
-    itemList.add(SampleItemViewModel(
-        itemTitle: "다이얼로그 샘플 리스트",
-        itemDescription: "다이얼로그 호출 샘플 리스트",
-        onItemClicked: () {
-          context.pushNamed(all_page_dialog_sample_list.pageName);
-        }));
-
-    itemList.add(SampleItemViewModel(
-        itemTitle: "다이얼로그 애니메이션 샘플 리스트",
-        itemDescription: "다이얼로그 호출 애니메이션 샘플 리스트",
-        onItemClicked: () {
-          context.pushNamed(all_page_dialog_animation_sample_list.pageName);
-        }));
-
-    itemList.add(SampleItemViewModel(
-        itemTitle: "네트워크 요청 샘플 리스트",
-        itemDescription: "네트워크 요청 및 응답 처리 샘플 리스트",
-        onItemClicked: () {
-          context.pushNamed(all_page_network_request_sample_list.pageName);
-        }));
-
-    if (!kIsWeb && (Platform.isAndroid || Platform.isIOS)) {
-      itemList.add(SampleItemViewModel(
-          itemTitle: "모바일 권한 샘플 리스트",
-          itemDescription: "모바일 디바이스 권한 처리 샘플 리스트",
-          onItemClicked: () {
-            context.pushNamed(mobile_page_permission_sample_list.pageName);
-          }));
-    }
-
-    itemList.add(SampleItemViewModel(
-        itemTitle: "계정 샘플",
-        itemDescription: "계정 관련 기능 샘플",
-        onItemClicked: () {
-          context.pushNamed(all_page_auth_sample.pageName);
-        }));
-
-    itemList.add(SampleItemViewModel(
-        itemTitle: "기타 샘플 리스트",
-        itemDescription: "기타 테스트 샘플을 모아둔 리스트",
-        onItemClicked: () {
-          context.pushNamed(all_page_etc_sample_list.pageName);
-        }));
-
-    itemListBloc.refreshUi();
+  void onPageRouterSampleItemClicked() {
+    viewModel.context.pushNamed(all_page_page_and_router_sample_list.pageName);
   }
 
-// [private 함수]
+  void onDialogSampleItemClicked() {
+    viewModel.context.pushNamed(all_page_dialog_sample_list.pageName);
+  }
+
+  void onDialogAnimationSampleItemClicked() {
+    viewModel.context.pushNamed(all_page_dialog_animation_sample_list.pageName);
+  }
+
+  void onNetworkRequestSampleItemClicked() {
+    viewModel.context.pushNamed(all_page_network_request_sample_list.pageName);
+  }
+
+  void onMobilePermissionSampleItemClicked() {
+    viewModel.context.pushNamed(mobile_page_permission_sample_list.pageName);
+  }
+
+  void onAuthSampleItemClicked() {
+    viewModel.context.pushNamed(all_page_auth_sample.pageName);
+  }
+
+  void onEtcSampleItemClicked() {
+    viewModel.context.pushNamed(all_page_etc_sample_list.pageName);
+  }
+
+// !!!사용 함수 추가하기!!!
 }
 
-class SampleItemViewModel {
-  SampleItemViewModel(
-      {required this.itemTitle,
-      required this.itemDescription,
-      required this.onItemClicked});
+// (페이지에서 사용할 변수 저장 클래스)
+class PageWidgetViewModel {
+  PageWidgetViewModel(
+      {required this.context, required page_widget.InputVo? inputVo}) {
+    if (inputVo == null) {
+      // !!!InputVo 가 충족 되지 않은 경우에 대한 처리!!!
+      context.pop();
+    } else {
+      this.inputVo = inputVo;
+    }
+  }
 
-  // 샘플 타이틀
-  final String itemTitle;
+  // (페이지 pop 가능 여부 변수)
+  bool canPop = true;
 
-  // 샘플 설명
-  final String itemDescription;
+  // (페이지 컨텍스트 객체)
+  BuildContext context;
 
-  final void Function() onItemClicked;
+  // (위젯 입력값)
+  late page_widget.InputVo inputVo;
 
-  bool isHovering = false;
-  gc_template_classes.RefreshableBloc isHoveringBloc =
-      gc_template_classes.RefreshableBloc();
+// !!!페이지에서 사용할 변수를 아래에 선언하기!!!
+
+  // (pageOutFrameBusiness)
+  final gw_slw_page_outer_frame.SlwPageOuterFrameBusiness pageOutFrameBusiness =
+      gw_slw_page_outer_frame.SlwPageOuterFrameBusiness();
+  final GlobalKey<gw_sfw_wrapper.SfwListViewBuilderState>
+      sfwListViewBuilderStateGk = GlobalKey();
 }
