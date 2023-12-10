@@ -7,33 +7,20 @@ import 'package:flutter/cupertino.dart';
 // -----------------------------------------------------------------------------
 // (Stateful Widget 예시)
 class SfwTemplate extends StatefulWidget {
-  const SfwTemplate({required this.globalKey}) : super(key: globalKey);
+  const SfwTemplate({required super.key});
+
+  // !!!외부 입력 변수 선언 하기!!!
 
   // [콜백 함수]
   @override
   SfwTemplateState createState() => SfwTemplateState();
-
-  // [public 변수]
-  final GlobalKey<SfwTemplateState> globalKey;
-
-  // !!!외부 입력 변수 선언 하기!!!
-
-  // [화면 작성]
-  Widget widgetUiBuild(
-      {required BuildContext context, required SfwTemplateState currentState}) {
-    // !!!뷰 위젯 반환 콜백 작성 하기!!!
-
-    return const Text("Sample");
-  }
 }
 
 class SfwTemplateState extends State<SfwTemplate> {
-  SfwTemplateState();
-
   // [콜백 함수]
   @override
   Widget build(BuildContext context) {
-    return widget.widgetUiBuild(context: context, currentState: this);
+    return getScreenWidget(context: context);
   }
 
   @override
@@ -48,13 +35,22 @@ class SfwTemplateState extends State<SfwTemplate> {
     super.dispose();
   }
 
-  // [public 변수]
-
-  // [private 변수]
-
   // [public 함수]
   // (Stateful Widget 화면 갱신)
   void refreshUi() {
     setState(() {});
+  }
+
+  // [private 함수]
+
+  //----------------------------------------------------------------------------
+  // [public 변수]
+
+  // [private 변수]
+
+  //----------------------------------------------------------------------------
+  // [화면 작성]
+  Widget getScreenWidget({required BuildContext context}) {
+    return const Text("Sample");
   }
 }

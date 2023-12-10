@@ -7,36 +7,30 @@ import 'package:flutter/cupertino.dart';
 // -----------------------------------------------------------------------------
 // (Stateless Widget 예시)
 class SlwTemplate extends StatelessWidget {
-  const SlwTemplate({super.key, required this.business});
-
-  // [public 변수]
-  final SlwTemplateBusiness business;
+  const SlwTemplate({super.key});
 
   // !!!외부 입력 변수 선언 하기!!!
 
+  //----------------------------------------------------------------------------
   // [콜백 함수]
-  // (위젯을 화면에 draw 할 때의 콜백)
   @override
   Widget build(BuildContext context) {
-    return widgetUiBuild(context: context);
+    return getScreenWidget(context: context);
   }
 
-  // [화면 작성]
-  Widget widgetUiBuild({required BuildContext context}) {
-    // !!!뷰 위젯 반환 콜백 작성 하기!!!
+  //----------------------------------------------------------------------------
+  // [public 함수]
 
-    return const Text("Sample");
-  }
-}
+  // [private 함수]
 
-class SlwTemplateBusiness {
-  // [콜백 함수]
-
+  //----------------------------------------------------------------------------
   // [public 변수]
 
   // [private 변수]
 
-  // [public 함수]
-
-  // [private 함수]
+  //----------------------------------------------------------------------------
+  // [화면 작성]
+  Widget getScreenWidget({required BuildContext context}) {
+    return const Text("Sample");
+  }
 }

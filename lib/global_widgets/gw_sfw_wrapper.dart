@@ -495,7 +495,10 @@ class SfwTextFormFieldState extends State<SfwTextFormField> {
 // (ListView.Builder)
 class SfwListViewBuilder extends StatefulWidget {
   const SfwListViewBuilder(
-      {required this.globalKey, required this.itemWidgetList,  this.shrinkWrap = false, this.primary})
+      {required this.globalKey,
+      required this.itemWidgetList,
+      this.shrinkWrap = false,
+      this.primary})
       : super(key: globalKey);
 
   // [콜백 함수]

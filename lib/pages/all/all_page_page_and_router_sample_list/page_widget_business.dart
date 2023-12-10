@@ -12,7 +12,7 @@ import '../../../global_widgets/gw_slw_page_outer_frame.dart'
 import '../../../global_widgets/gw_sfw_wrapper.dart' as gw_sfw_wrapper;
 import '../all_page_input_and_output_push_test/page_widget.dart'
     as all_page_input_and_output_push_test;
-import '../../../a_templates/all_page_template/page_widget.dart'
+import '../../../a_templates/all_page_template/main_widget.dart'
     as all_page_template;
 import '../../../pages/all/all_page_page_transition_animation_sample_list/page_widget.dart'
     as all_page_page_transition_animation_sample_list;
