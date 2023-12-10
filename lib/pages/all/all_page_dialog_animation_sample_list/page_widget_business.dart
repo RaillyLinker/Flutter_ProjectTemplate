@@ -10,10 +10,8 @@ import 'page_widget.dart' as page_widget;
 import '../../../global_widgets/gw_slw_page_outer_frame.dart'
     as gw_slw_page_outer_frame;
 import '../../../global_widgets/gw_sfw_wrapper.dart' as gw_sfw_wrapper;
-import '../../../a_templates/all_dialog_template/dialog_widget.dart'
-    as all_dialog_template_view;
-import '../../../a_templates/all_dialog_template/dialog_widget_business.dart'
-    as all_dialog_template_state;
+import '../../../a_templates/all_dialog_template/main_widget.dart'
+    as all_dialog_template;
 import '../../../dialogs/all/all_dialog_small_circle_transform_sample/dialog_widget.dart'
     as all_dialog_small_circle_transform_sample;
 import '../../../dialogs/all/all_dialog_small_circle_transform_sample/dialog_widget_business.dart'
@@ -84,8 +82,8 @@ class PageWidgetBusiness {
   late VoidCallback refreshUi;
 
   void onRotateAnimationItemClicked() {
-    final all_dialog_template_state.DialogWidgetBusiness dialogBusiness =
-        all_dialog_template_state.DialogWidgetBusiness();
+    final GlobalKey<all_dialog_template.MainWidgetState>
+        allDialogTemplateStateGk = GlobalKey();
 
     // 회전 애니메이션
     showGeneralDialog(
@@ -98,10 +96,9 @@ class PageWidgetBusiness {
       transitionBuilder: (ctx, a1, a2, child) {
         return Transform.rotate(
           angle: math.radians(a1.value * 360),
-          child: all_dialog_template_view.DialogWidget(
-            business: dialogBusiness,
-            inputVo: const all_dialog_template_view.InputVo(),
-            onDialogCreated: () {},
+          child: all_dialog_template.MainWidget(
+            key: allDialogTemplateStateGk,
+            inputVo: all_dialog_template.InputVo(onDialogCreated: () {}),
           ),
         );
       },
@@ -110,8 +107,8 @@ class PageWidgetBusiness {
   }
 
   void onScaleUpAnimationItemClicked() {
-    final all_dialog_template_state.DialogWidgetBusiness dialogBusiness =
-        all_dialog_template_state.DialogWidgetBusiness();
+    final GlobalKey<all_dialog_template.MainWidgetState>
+        allDialogTemplateStateGk = GlobalKey();
 
     // 확대 애니메이션
     showGeneralDialog(
@@ -125,10 +122,9 @@ class PageWidgetBusiness {
         var curve = Curves.easeInOut.transform(a1.value);
         return Transform.scale(
           scale: curve,
-          child: all_dialog_template_view.DialogWidget(
-            business: dialogBusiness,
-            inputVo: const all_dialog_template_view.InputVo(),
-            onDialogCreated: () {},
+          child: all_dialog_template.MainWidget(
+            key: allDialogTemplateStateGk,
+            inputVo: all_dialog_template.InputVo(onDialogCreated: () {}),
           ),
         );
       },
@@ -137,7 +133,8 @@ class PageWidgetBusiness {
   }
 
   void onSlideDownAnimationItemClicked() {
-    var dialogBusiness = all_dialog_template_state.DialogWidgetBusiness();
+    final GlobalKey<all_dialog_template.MainWidgetState>
+        allDialogTemplateStateGk = GlobalKey();
 
     // Slide Down 애니메이션
     showGeneralDialog(
@@ -151,10 +148,9 @@ class PageWidgetBusiness {
         final curvedValue = Curves.easeInOutBack.transform(a1.value) - 1.0;
         return Transform(
           transform: Matrix4.translationValues(0.0, curvedValue * 1600, 0.0),
-          child: all_dialog_template_view.DialogWidget(
-            business: dialogBusiness,
-            inputVo: const all_dialog_template_view.InputVo(),
-            onDialogCreated: () {},
+          child: all_dialog_template.MainWidget(
+            key: allDialogTemplateStateGk,
+            inputVo: all_dialog_template.InputVo(onDialogCreated: () {}),
           ),
         );
       },

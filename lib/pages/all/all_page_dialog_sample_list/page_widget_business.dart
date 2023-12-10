@@ -14,10 +14,8 @@ import '../../../dialogs/all/all_dialog_info/dialog_widget.dart'
     as all_dialog_info;
 import '../../../dialogs/all/all_dialog_info/dialog_widget_business.dart'
     as all_dialog_info_business;
-import '../../../a_templates/all_dialog_template/dialog_widget.dart'
-    as all_dialog_template_view;
-import '../../../a_templates/all_dialog_template/dialog_widget_business.dart'
-    as all_dialog_template_state;
+import '../../../a_templates/all_dialog_template/main_widget.dart'
+    as all_dialog_template;
 import '../../../dialogs/all/all_dialog_yes_or_no/dialog_widget.dart'
     as all_dialog_yes_or_no;
 import '../../../dialogs/all/all_dialog_yes_or_no/dialog_widget_business.dart'
@@ -109,15 +107,15 @@ class PageWidgetBusiness {
 
   void onDialogTemplateItemClicked() {
     // (템플릿 다이얼로그 호출)
-    var dialogBusiness = all_dialog_template_state.DialogWidgetBusiness();
+    final GlobalKey<all_dialog_template.MainWidgetState>
+        allDialogTemplateStateGk = GlobalKey();
 
     showDialog(
         barrierDismissible: true,
         context: viewModel.context,
-        builder: (context) => all_dialog_template_view.DialogWidget(
-              business: dialogBusiness,
-              inputVo: const all_dialog_template_view.InputVo(),
-              onDialogCreated: () {},
+        builder: (context) => all_dialog_template.MainWidget(
+              key: allDialogTemplateStateGk,
+              inputVo: all_dialog_template.InputVo(onDialogCreated: () {}),
             )).then((outputVo) {});
   }
 
@@ -240,16 +238,16 @@ class PageWidgetBusiness {
 
   void onDialogBackgroundColorItemClicked() {
     // 다이얼로그 외부 색 설정
-    var dialogBusiness = all_dialog_template_state.DialogWidgetBusiness();
+    final GlobalKey<all_dialog_template.MainWidgetState>
+        allDialogTemplateStateGk = GlobalKey();
 
     showDialog(
         barrierDismissible: true,
         context: viewModel.context,
         barrierColor: Colors.blue.withOpacity(0.5),
-        builder: (context) => all_dialog_template_view.DialogWidget(
-              business: dialogBusiness,
-              inputVo: const all_dialog_template_view.InputVo(),
-              onDialogCreated: () {},
+        builder: (context) => all_dialog_template.MainWidget(
+              key: allDialogTemplateStateGk,
+              inputVo: all_dialog_template.InputVo(onDialogCreated: () {}),
             )).then((outputVo) {});
   }
 
