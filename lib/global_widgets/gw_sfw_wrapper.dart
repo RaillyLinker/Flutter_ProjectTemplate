@@ -491,3 +491,68 @@ class SfwTextFormFieldState extends State<SfwTextFormField> {
     FocusScope.of(context).requestFocus(textFieldFocus);
   }
 }
+
+// (ListView.Builder)
+class SfwListViewBuilder extends StatefulWidget {
+  const SfwListViewBuilder(
+      {required this.globalKey, required this.itemWidgetList})
+      : super(key: globalKey);
+
+  // [콜백 함수]
+  @override
+  SfwListViewBuilderState createState() => SfwListViewBuilderState();
+
+  // [public 변수]
+  final GlobalKey<SfwListViewBuilderState> globalKey;
+
+  // !!!외부 입력 변수 선언 하기!!!
+  final List<Widget> itemWidgetList;
+
+  // [화면 작성]
+  Widget widgetUiBuild(
+      {required BuildContext context,
+      required SfwListViewBuilderState currentState}) {
+    // !!!뷰 위젯 반환 콜백 작성 하기!!!
+
+    return ListView.builder(
+      itemCount: currentState.itemWidgetList.length,
+      itemBuilder: (context, index) {
+        return currentState.itemWidgetList[index];
+      },
+    );
+  }
+}
+
+class SfwListViewBuilderState extends State<SfwListViewBuilder> {
+  SfwListViewBuilderState();
+
+  // [콜백 함수]
+  @override
+  Widget build(BuildContext context) {
+    return widget.widgetUiBuild(context: context, currentState: this);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    // !!!initState 작성!!!
+    itemWidgetList = widget.itemWidgetList;
+  }
+
+  @override
+  void dispose() {
+    // !!!dispose 작성!!!
+    super.dispose();
+  }
+
+  // [public 변수]
+  List<Widget> itemWidgetList = [];
+
+  // [private 변수]
+
+  // [public 함수]
+  // (Stateful Widget 화면 갱신)
+  void refreshUi() {
+    setState(() {});
+  }
+}
