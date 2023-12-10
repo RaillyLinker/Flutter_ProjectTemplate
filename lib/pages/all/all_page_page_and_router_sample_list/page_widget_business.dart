@@ -1,7 +1,7 @@
 // (external)
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
+import 'package:go_router/go_router.dart';
 
 // (inner Folder)
 import 'page_widget.dart' as page_widget;
@@ -9,8 +9,7 @@ import 'page_widget.dart' as page_widget;
 // (all)
 import '../../../global_widgets/gw_slw_page_outer_frame.dart'
     as gw_slw_page_outer_frame;
-import '../../../global_classes/gc_template_classes.dart'
-    as gc_template_classes;
+import '../../../global_widgets/gw_sfw_wrapper.dart' as gw_sfw_wrapper;
 import '../all_page_input_and_output_push_test/page_widget.dart'
     as all_page_input_and_output_push_test;
 import '../../../a_templates/all_page_template/page_widget.dart'
@@ -33,8 +32,6 @@ class PageWidgetBusiness {
   // (전체 위젯 initState)
   void initState() {
     // !!!initState 로직 작성!!!
-
-    setListItem();
   }
 
   // (전체 위젯 dispose)
@@ -67,123 +64,101 @@ class PageWidgetBusiness {
     // !!!onForegroundLost 로직 작성!!!
   }
 
-  void onCheckPageInputVo({required GoRouterState goRouterState}) {
-    // !!!pageInputVo 체크!!!
+  page_widget.InputVo? onCheckPageInputVo(
+      {required BuildContext context, required GoRouterState goRouterState}) {
+    // !!!pageInputVo 체크!!! - 필수 정보 누락시 null 반환
     // ex :
     // if (!goRouterState.uri.queryParameters
     //     .containsKey("inputValueString")) {
-    //   // 필수 파라미터가 없는 경우에 대한 처리
+    //   return null;
     // }
 
     // !!!PageInputVo 입력!!!
-    inputVo = const page_widget.InputVo();
+    return const page_widget.InputVo();
   }
 
   // [public 변수]
-  late BuildContext context;
-
-  // (위젯 입력값)
-  late page_widget.InputVo inputVo;
-
-  // (페이지 pop 가능 여부 변수)
-  bool canPop = true;
-
-  // (pageOutFrameBusiness)
-  final gw_slw_page_outer_frame.SlwPageOuterFrameBusiness pageOutFrameBusiness =
-      gw_slw_page_outer_frame.SlwPageOuterFrameBusiness();
-
-  List<SampleItemViewModel> itemList = [];
-  gc_template_classes.RefreshableBloc itemListBloc =
-      gc_template_classes.RefreshableBloc();
-
-  // [private 변수]
+  // (페이지 뷰모델 객체)
+  late PageWidgetViewModel viewModel;
 
   // [public 함수]
   // (Widget 화면 갱신) - WidgetUi.viewWidgetBuild 의 return 값을 다시 불러 옵니다.
   late VoidCallback refreshUi;
 
-  void setListItem() {
-    itemList = [];
-    itemList.add(SampleItemViewModel(
-        itemTitle: "페이지 템플릿",
-        itemDescription: "템플릿 페이지를 호출합니다.",
-        onItemClicked: () {
-          context.pushNamed(all_page_template.pageName);
-        }));
-
-    itemList.add(SampleItemViewModel(
-        itemTitle: "페이지 Stateful 상태 및 생명주기 테스트",
-        itemDescription: "페이지 Stateful 상태 및 생명주기를 테스트 합니다.",
-        onItemClicked: () {
-          context.pushNamed(all_page_stateful_and_lifecycle_test.pageName);
-        }));
-
-    itemList.add(SampleItemViewModel(
-        itemTitle: "페이지 입/출력 테스트",
-        itemDescription: "페이지 Push 시에 전달하는 입력값, Pop 시에 반환하는 출력값 테스트",
-        onItemClicked: () async {
-          all_page_input_and_output_push_test.OutputVo? pageResult =
-              await context.pushNamed(
-                  all_page_input_and_output_push_test.pageName,
-                  queryParameters: {
-                "inputValueString": "테스트 입력값",
-                "inputValueStringList": ["a", "b", "c"],
-                "inputValueInt": "1234" // int 를 원하더라도, 여기선 String 으로 줘야함
-              });
-
-          if (pageResult == null) {
-            if (!context.mounted) return;
-            showToast(
-              "반환값이 없습니다.",
-              context: context,
-              animation: StyledToastAnimation.scale,
-            );
-          } else {
-            if (!context.mounted) return;
-            showToast(
-              pageResult.resultValue,
-              context: context,
-              animation: StyledToastAnimation.scale,
-            );
-          }
-        }));
-
-    itemList.add(SampleItemViewModel(
-        itemTitle: "페이지 이동 애니메이션 샘플 리스트",
-        itemDescription: "페이지 이동시 적용되는 애니메이션 샘플 리스트",
-        onItemClicked: () {
-          context.pushNamed(
-              all_page_page_transition_animation_sample_list.pageName);
-        }));
-
-    itemList.add(SampleItemViewModel(
-        itemTitle: "페이지 Grid 샘플",
-        itemDescription: "화면 사이즈에 따라 동적으로 변하는 Grid 페이지 샘플",
-        onItemClicked: () {
-          context.pushNamed(all_page_grid_sample.pageName);
-        }));
-
-    itemListBloc.refreshUi();
+  void onPageTemplateItemClicked() {
+    viewModel.context.pushNamed(all_page_template.pageName);
   }
 
-// [private 함수]
+  void onStatefulAndLifecycleTestItemClicked() {
+    viewModel.context.pushNamed(all_page_stateful_and_lifecycle_test.pageName);
+  }
+
+  void onPageInputAndOutputTestItemClicked() async {
+    all_page_input_and_output_push_test.OutputVo? pageResult = await viewModel
+        .context
+        .pushNamed(all_page_input_and_output_push_test.pageName,
+            queryParameters: {
+          "inputValueString": "테스트 입력값",
+          "inputValueStringList": ["a", "b", "c"],
+          "inputValueInt": "1234" // int 를 원하더라도, 여기선 String 으로 줘야함
+        });
+
+    BuildContext context = viewModel.context;
+    if (pageResult == null) {
+      if (!context.mounted) return;
+      showToast(
+        "반환값이 없습니다.",
+        context: context,
+        animation: StyledToastAnimation.scale,
+      );
+    } else {
+      if (!context.mounted) return;
+      showToast(
+        pageResult.resultValue,
+        context: context,
+        animation: StyledToastAnimation.scale,
+      );
+    }
+  }
+
+  void onPageTransitionAnimationSampleItemClicked() {
+    viewModel.context
+        .pushNamed(all_page_page_transition_animation_sample_list.pageName);
+  }
+
+  void onGridWidgetSampleItemClicked() {
+    viewModel.context.pushNamed(all_page_grid_sample.pageName);
+  }
+
+// !!!사용 함수 추가하기!!!
 }
 
-class SampleItemViewModel {
-  SampleItemViewModel(
-      {required this.itemTitle,
-      required this.itemDescription,
-      required this.onItemClicked});
+// (페이지에서 사용할 변수 저장 클래스)
+class PageWidgetViewModel {
+  PageWidgetViewModel(
+      {required this.context, required page_widget.InputVo? inputVo}) {
+    if (inputVo == null) {
+      // !!!InputVo 가 충족 되지 않은 경우에 대한 처리!!!
+      context.pop();
+    } else {
+      this.inputVo = inputVo;
+    }
+  }
 
-  // 샘플 타이틀
-  final String itemTitle;
+  // (페이지 pop 가능 여부 변수)
+  bool canPop = true;
 
-  // 샘플 설명
-  final String itemDescription;
+  // (페이지 컨텍스트 객체)
+  BuildContext context;
 
-  final void Function() onItemClicked;
+  // (위젯 입력값)
+  late page_widget.InputVo inputVo;
 
-  bool isHovering = false;
-  gc_template_classes.RefreshableBloc isHoveringBloc =
-      gc_template_classes.RefreshableBloc();
+// !!!페이지에서 사용할 변수를 아래에 선언하기!!!
+
+  // (pageOutFrameBusiness)
+  final gw_slw_page_outer_frame.SlwPageOuterFrameBusiness pageOutFrameBusiness =
+      gw_slw_page_outer_frame.SlwPageOuterFrameBusiness();
+  final GlobalKey<gw_sfw_wrapper.SfwListViewBuilderState>
+      sfwListViewBuilderStateGk = GlobalKey();
 }
