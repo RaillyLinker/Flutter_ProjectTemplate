@@ -6,7 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'dialog_widget.dart' as dialog_widget;
 
 // (all)
-import '../../../global_widgets/gw_do_delete.dart' as gw_do_delete;
+import '../../../global_widgets/todo_do_delete.dart' as gw_do_delete;
 import '../../../../repositories/network/apis/api_main_server.dart'
     as api_main_server;
 import '../../../dialogs/all/all_dialog_info/dialog_widget.dart'

@@ -7,49 +7,20 @@ import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
 // (Stateful Widget 예시)
 class SfwTest extends StatefulWidget {
-  const SfwTest({required this.globalKey}) : super(key: globalKey);
+  const SfwTest({required super.key});
+
+  // !!!외부 입력 변수 선언 하기!!!
 
   // [콜백 함수]
   @override
   SfwTestState createState() => SfwTestState();
-
-  // [public 변수]
-  final GlobalKey<SfwTestState> globalKey;
-
-  // !!!외부 입력 변수 선언 하기!!!
-
-  // [화면 작성]
-  Widget widgetUiBuild(
-      {required BuildContext context, required SfwTestState currentState}) {
-    // !!!뷰 위젯 반환 콜백 작성 하기!!!
-
-    return MouseRegion(
-      cursor: SystemMouseCursors.click,
-      child: GestureDetector(
-        onTap: () {
-          currentState.countPlus1();
-        },
-        child: Container(
-          decoration: const BoxDecoration(
-            border: Border(bottom: BorderSide(color: Colors.black)),
-          ),
-          margin: const EdgeInsets.only(bottom: 20),
-          child: Text("${currentState.sampleInt}",
-              style: const TextStyle(
-                  fontSize: 20, color: Colors.black, fontFamily: "MaruBuri")),
-        ),
-      ),
-    );
-  }
 }
 
 class SfwTestState extends State<SfwTest> {
-  SfwTestState();
-
   // [콜백 함수]
   @override
   Widget build(BuildContext context) {
-    return widget.widgetUiBuild(context: context, currentState: this);
+    return getScreenWidget(context: context);
   }
 
   @override
@@ -64,12 +35,16 @@ class SfwTestState extends State<SfwTest> {
     super.dispose();
   }
 
+  //----------------------------------------------------------------------------
+  // !!!위젯 변수를 저장 하세요.!!!
   // [public 변수]
   // (샘플 정수)
   int sampleInt = 0;
 
   // [private 변수]
 
+  //----------------------------------------------------------------------------
+  // !!!위젯 함수를 작성 하세요.!!!
   // [public 함수]
   // (Stateful Widget 화면 갱신)
   void refreshUi() {
@@ -80,5 +55,31 @@ class SfwTestState extends State<SfwTest> {
   void countPlus1() {
     sampleInt += 1;
     refreshUi();
+  }
+
+  // [private 함수]
+
+  //----------------------------------------------------------------------------
+  // [화면 작성]
+  Widget getScreenWidget({required BuildContext context}) {
+    // !!!위젯 화면을 작성 하세요.!!!
+
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      child: GestureDetector(
+        onTap: () {
+          countPlus1();
+        },
+        child: Container(
+          decoration: const BoxDecoration(
+            border: Border(bottom: BorderSide(color: Colors.black)),
+          ),
+          margin: const EdgeInsets.only(bottom: 20),
+          child: Text("$sampleInt",
+              style: const TextStyle(
+                  fontSize: 20, color: Colors.black, fontFamily: "MaruBuri")),
+        ),
+      ),
+    );
   }
 }

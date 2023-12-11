@@ -129,7 +129,7 @@ class WidgetUi {
             width: 200,
             height: 200,
             child: gw_sfw_wrapper.SfwGifWidget(
-              globalKey: business.gwGifWrapperGk,
+              key: business.gwGifWrapperGk,
               gifImage: const AssetImage("lib/assets/images/test.gif"),
             ),
           ),

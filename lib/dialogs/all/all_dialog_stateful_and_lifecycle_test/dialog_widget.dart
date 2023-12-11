@@ -144,7 +144,7 @@ class DialogWidgetState extends State<DialogWidget>
                   height: 10,
                 ),
                 gw_sfw_test.SfwTest(
-                  globalKey: business.viewModel.statefulTestGk,
+                  key: business.viewModel.statefulTestGk,
                 ),
                 const SizedBox(
                   height: 10,

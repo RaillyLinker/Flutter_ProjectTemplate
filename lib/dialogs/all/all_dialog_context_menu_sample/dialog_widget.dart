@@ -132,7 +132,7 @@ class DialogWidgetState extends State<DialogWidget>
               borderRadius: BorderRadius.all(Radius.circular(16))),
           child: Center(
             child: gw_sfw_context_menu_region.SfwContextMenuRegion(
-                globalKey: business.viewModel.contextMenuRegionGk,
+                key: business.viewModel.contextMenuRegionGk,
                 contextMenuRegionItemVoList: [
                   gw_sfw_context_menu_region.ContextMenuRegionItemVo(
                       menuItemWidget: const Text(

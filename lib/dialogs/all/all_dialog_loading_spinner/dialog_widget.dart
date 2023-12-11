@@ -125,7 +125,7 @@ class DialogWidgetState extends State<DialogWidget>
         width: 70,
         height: 70,
         child: gw_sfw_wrapper.SfwGifWidget(
-          globalKey: business.viewModel.gwGifWrapperGk,
+          key: business.viewModel.gwGifWrapperGk,
           gifImage: const AssetImage("lib/assets/images/loading_spinner.gif"),
         ),
       ),

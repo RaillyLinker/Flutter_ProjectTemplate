@@ -1,32 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+// todo : refreshWrapper 적용 후 파일 삭제
 // (TextFormField)
 class SfwTextFormField extends StatefulWidget {
   const SfwTextFormField(
       {required this.globalKey,
-        this.autofocus = false,
-        this.obscureText = false,
-        this.labelText,
-        this.labelStyle,
-        this.floatingLabelStyle,
-        this.hintText,
-        this.hintStyle,
-        this.suffixIcon,
-        this.keyboardType,
-        this.focusedBorder,
-        this.onChanged,
-        this.inputValidator,
-        this.onEditingComplete,
-        this.contentPadding,
-        this.filled,
-        this.fillColor,
-        this.isDense,
-        this.border,
-        this.maxLength,
-        this.inputFormatters,
-        this.prefixIcon,
-        this.autofillHints})
+      this.autofocus = false,
+      this.obscureText = false,
+      this.labelText,
+      this.labelStyle,
+      this.floatingLabelStyle,
+      this.hintText,
+      this.hintStyle,
+      this.suffixIcon,
+      this.keyboardType,
+      this.focusedBorder,
+      this.onChanged,
+      this.inputValidator,
+      this.onEditingComplete,
+      this.contentPadding,
+      this.filled,
+      this.fillColor,
+      this.isDense,
+      this.border,
+      this.maxLength,
+      this.inputFormatters,
+      this.prefixIcon,
+      this.autofillHints})
       : super(key: globalKey);
 
   // [콜백 함수]
@@ -96,7 +97,7 @@ class SfwTextFormField extends StatefulWidget {
   // [화면 작성]
   Widget widgetUiBuild(
       {required BuildContext context,
-        required SfwTextFormFieldState currentState}) {
+      required SfwTextFormFieldState currentState}) {
     // !!!뷰 위젯 반환 콜백 작성 하기!!!
 
     return TextFormField(
@@ -282,9 +283,9 @@ class SfwTextFormFieldState extends State<SfwTextFormField> {
 class SfwListViewBuilder extends StatefulWidget {
   const SfwListViewBuilder(
       {required this.globalKey,
-        required this.itemWidgetList,
-        this.shrinkWrap = false,
-        this.primary})
+      required this.itemWidgetList,
+      this.shrinkWrap = false,
+      this.primary})
       : super(key: globalKey);
 
   // [콜백 함수]
@@ -304,7 +305,7 @@ class SfwListViewBuilder extends StatefulWidget {
   // [화면 작성]
   Widget widgetUiBuild(
       {required BuildContext context,
-        required SfwListViewBuilderState currentState}) {
+      required SfwListViewBuilderState currentState}) {
     // !!!뷰 위젯 반환 콜백 작성 하기!!!
 
     return ListView.builder(

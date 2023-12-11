@@ -1,7 +1,9 @@
 // (external)
 import 'package:flutter/material.dart';
 import 'package:focus_detector_v2/focus_detector_v2.dart';
-import 'package:go_router/go_router.dart';
+
+// (inner_folder)
+import 'main_business.dart' as main_business;
 
 // [위젯 뷰]
 
@@ -23,7 +25,7 @@ class OutputVo {
 
 //------------------------------------------------------------------------------
 class MainWidget extends StatefulWidget {
-  const MainWidget({required super.key, required this.inputVo});
+  const MainWidget({super.key, required this.inputVo});
 
   final InputVo inputVo;
 
@@ -36,25 +38,29 @@ class MainWidgetState extends State<MainWidget> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     return PopScope(
-      canPop: canPop,
+      canPop: mainBusiness.canPop,
       child: FocusDetector(
         onFocusGained: () async {
-          onFocusGained();
+          if (mainBusiness.needInitState) {
+            mainBusiness.needInitState = false;
+            widget.inputVo.onDialogCreated();
+          }
+          await mainBusiness.onFocusGainedAsync();
         },
         onFocusLost: () async {
-          onFocusLost();
+          await mainBusiness.onFocusLostAsync();
         },
         onVisibilityGained: () async {
-          onVisibilityGained();
+          await mainBusiness.onVisibilityGainedAsync();
         },
         onVisibilityLost: () async {
-          onVisibilityLost();
+          await mainBusiness.onVisibilityLostAsync();
         },
         onForegroundGained: () async {
-          onForegroundGained();
+          await mainBusiness.onForegroundGainedAsync();
         },
         onForegroundLost: () async {
-          onForegroundLost();
+          await mainBusiness.onForegroundLostAsync();
         },
         child: getScreenWidget(context: context),
       ),
@@ -65,74 +71,36 @@ class MainWidgetState extends State<MainWidget> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-    inputVo = widget.inputVo;
-    // !!!initState 로직 작성!!!
+    mainBusiness.inputVo = widget.inputVo;
+    mainBusiness.initState();
   }
 
   @override
   void dispose() {
-    // !!!dispose 로직 작성!!!
+    mainBusiness.dispose();
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 
-  // (전체 위젯의 FocusDetector 콜백들)
-  Future<void> onFocusGained() async {
-    if (_needInitState) {
-      _needInitState = false;
-      inputVo.onDialogCreated();
-    }
-    // !!!onFocusGained 로직 작성!!!
-  }
-
-  Future<void> onFocusLost() async {
-    // !!!onFocusLost 로직 작성!!!
-  }
-
-  Future<void> onVisibilityGained() async {
-    // !!!onFocusLost 로직 작성!!!
-  }
-
-  Future<void> onVisibilityLost() async {
-    // !!!onVisibilityLost 로직 작성!!!
-  }
-
-  Future<void> onForegroundGained() async {
-    // !!!onForegroundGained 로직 작성!!!
-  }
-
-  Future<void> onForegroundLost() async {
-    // !!!onForegroundLost 로직 작성!!!
-  }
-
-  // [public 함수]
-  // (Stateful Widget 화면 갱신)
   void refreshUi() {
     setState(() {});
   }
 
-  // (다이얼로그 종료 함수)
-  void closeDialog() {
-    context.pop();
-  }
+  // [public 변수]
+  // (mainBusiness) - 데이터 변수 및 함수 저장 역할
+  final main_business.MainBusiness mainBusiness = main_business.MainBusiness();
+
+  //----------------------------------------------------------------------------
+  // !!!위젯 관련 함수는 이 곳에서 저장 하여 사용 하세요.!!!
+  // [public 함수]
 
   // [private 함수]
 
   //----------------------------------------------------------------------------
-  // [public 변수]
-  // (위젯 입력값)
-  late InputVo inputVo;
-
-  // (페이지 pop 가능 여부 변수)
-  bool canPop = true;
-
-  // [private 변수]
-  // (최초 실행 플래그)
-  bool _needInitState = true;
-
-  //----------------------------------------------------------------------------
   // [화면 작성]
   Widget getScreenWidget({required BuildContext context}) {
+    // !!!화면 위젯 작성 하기!!!
+
     return Dialog(
       elevation: 0,
       backgroundColor: Colors.transparent,

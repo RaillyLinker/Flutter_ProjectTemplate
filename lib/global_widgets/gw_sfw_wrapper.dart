@@ -1,7 +1,6 @@
 // (external)
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:gif/gif.dart';
 
 // [위젯 뷰]
@@ -41,6 +40,14 @@ class SfwRefreshWrapperState extends State<SfwRefreshWrapper> {
     super.dispose();
   }
 
+  //----------------------------------------------------------------------------
+  // !!!위젯 변수를 저장 하세요.!!!
+  // [public 변수]
+
+  // [private 변수]
+
+  //----------------------------------------------------------------------------
+  // !!!위젯 함수를 작성 하세요.!!!
   // [public 함수]
   // (Stateful Widget 화면 갱신)
   void refreshUi() {
@@ -50,31 +57,21 @@ class SfwRefreshWrapperState extends State<SfwRefreshWrapper> {
   // [private 함수]
 
   //----------------------------------------------------------------------------
-  // [public 변수]
-
-  // [private 변수]
-
-  //----------------------------------------------------------------------------
   // [화면 작성]
   Widget getScreenWidget({required BuildContext context}) {
+    // !!!위젯 화면을 작성 하세요.!!!
+
     return widget.childWidgetBuilder(context);
   }
 }
 
+////
 // (컨택스트 메뉴 영역 위젯)
 class SfwContextMenuRegion extends StatefulWidget {
   const SfwContextMenuRegion(
-      {required this.globalKey,
+      {required super.key,
       required this.child,
-      required this.contextMenuRegionItemVoList})
-      : super(key: globalKey);
-
-  // [콜백 함수]
-  @override
-  SfwContextMenuRegionState createState() => SfwContextMenuRegionState();
-
-  // [public 변수]
-  final GlobalKey<SfwContextMenuRegionState> globalKey;
+      required this.contextMenuRegionItemVoList});
 
   // !!!외부 입력 변수 선언 하기!!!
   // (래핑할 대상 위젯)
@@ -83,41 +80,16 @@ class SfwContextMenuRegion extends StatefulWidget {
   // (컨텍스트 메뉴 리스트)
   final List<ContextMenuRegionItemVo> contextMenuRegionItemVoList;
 
-  // [화면 작성]
-  Widget widgetUiBuild(
-      {required BuildContext context,
-      required SfwContextMenuRegionState currentState}) {
-    // !!!뷰 위젯 반환 콜백 작성 하기!!!
-
-    return GestureDetector(
-        behavior: HitTestBehavior.opaque,
-        onSecondaryTapUp: (TapUpDetails details) {
-          currentState.show(position: details.globalPosition);
-        },
-        onLongPress: globalKey.currentState!.longPressEnabled
-            ? () {
-                assert(currentState.longPressOffset != null);
-                globalKey.currentState
-                    ?.show(position: globalKey.currentState!.longPressOffset!);
-                currentState.longPressOffset = null;
-              }
-            : null,
-        onLongPressStart: globalKey.currentState!.longPressEnabled
-            ? (LongPressStartDetails details) {
-                currentState.longPressOffset = details.globalPosition;
-              }
-            : null,
-        child: child);
-  }
+  // [콜백 함수]
+  @override
+  SfwContextMenuRegionState createState() => SfwContextMenuRegionState();
 }
 
 class SfwContextMenuRegionState extends State<SfwContextMenuRegion> {
-  SfwContextMenuRegionState();
-
   // [콜백 함수]
   @override
   Widget build(BuildContext context) {
-    return widget.widgetUiBuild(context: context, currentState: this);
+    return getScreenWidget(context: context);
   }
 
   @override
@@ -132,11 +104,15 @@ class SfwContextMenuRegionState extends State<SfwContextMenuRegion> {
     super.dispose();
   }
 
+  //----------------------------------------------------------------------------
+  // !!!위젯 변수를 저장 하세요.!!!
   // [public 변수]
   Offset? longPressOffset;
 
   // [private 변수]
 
+  //----------------------------------------------------------------------------
+  // !!!위젯 함수를 작성 하세요.!!!
   // [public 함수]
   // (Stateful Widget 화면 갱신)
   void refreshUi() {
@@ -187,6 +163,33 @@ class SfwContextMenuRegionState extends State<SfwContextMenuRegion> {
         return false;
     }
   }
+
+  // [private 함수]
+
+  //----------------------------------------------------------------------------
+  // [화면 작성]
+  Widget getScreenWidget({required BuildContext context}) {
+    // !!!위젯 화면을 작성 하세요.!!!
+
+    return GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onSecondaryTapUp: (TapUpDetails details) {
+          show(position: details.globalPosition);
+        },
+        onLongPress: longPressEnabled
+            ? () {
+                assert(longPressOffset != null);
+                show(position: longPressOffset!);
+                longPressOffset = null;
+              }
+            : null,
+        onLongPressStart: longPressEnabled
+            ? (LongPressStartDetails details) {
+                longPressOffset = details.globalPosition;
+              }
+            : null,
+        child: widget.child);
+  }
 }
 
 class ContextMenuRegionItemVo {
@@ -197,44 +200,26 @@ class ContextMenuRegionItemVo {
   void Function() menuItemCallback;
 }
 
+////
 // (Gif Widget)
 class SfwGifWidget extends StatefulWidget {
-  const SfwGifWidget({required this.globalKey, required this.gifImage})
-      : super(key: globalKey);
+  const SfwGifWidget({required super.key, required this.gifImage});
+
+  // !!!외부 입력 변수 선언 하기!!!
+  // (gif 이미지 객체)
+  final ImageProvider gifImage;
 
   // [콜백 함수]
   @override
   SfwGifWidgetState createState() => SfwGifWidgetState();
-
-  // [public 변수]
-  final GlobalKey<SfwGifWidgetState> globalKey;
-
-  // !!!외부 입력 변수 선언 하기!!!
-  final ImageProvider gifImage;
-
-  // [화면 작성]
-  Widget widgetUiBuild(
-      {required BuildContext context,
-      required SfwGifWidgetState currentState}) {
-    // !!!뷰 위젯 반환 콜백 작성 하기!!!
-
-    return Gif(
-      image: gifImage,
-      controller: currentState.dialogSpinnerGifController,
-      placeholder: (context) => const Text(''),
-      onFetchCompleted: () {},
-    );
-  }
 }
 
 class SfwGifWidgetState extends State<SfwGifWidget>
     with SingleTickerProviderStateMixin {
-  SfwGifWidgetState();
-
   // [콜백 함수]
   @override
   Widget build(BuildContext context) {
-    return widget.widgetUiBuild(context: context, currentState: this);
+    return getScreenWidget(context: context);
   }
 
   @override
@@ -254,15 +239,34 @@ class SfwGifWidgetState extends State<SfwGifWidget>
     super.dispose();
   }
 
+  //----------------------------------------------------------------------------
+  // !!!위젯 변수를 저장 하세요.!!!
   // [public 변수]
   // (Gif 컨트롤러)
   late GifController dialogSpinnerGifController;
 
   // [private 변수]
 
+  //----------------------------------------------------------------------------
+  // !!!위젯 함수를 작성 하세요.!!!
   // [public 함수]
   // (Stateful Widget 화면 갱신)
   void refreshUi() {
     setState(() {});
+  }
+
+  // [private 함수]
+
+  //----------------------------------------------------------------------------
+  // [화면 작성]
+  Widget getScreenWidget({required BuildContext context}) {
+    // !!!위젯 화면을 작성 하세요.!!!
+
+    return Gif(
+      image: widget.gifImage,
+      controller: dialogSpinnerGifController,
+      placeholder: (context) => const Text(''),
+      onFetchCompleted: () {},
+    );
   }
 }

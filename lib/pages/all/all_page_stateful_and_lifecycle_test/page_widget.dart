@@ -179,7 +179,7 @@ class WidgetUi {
                 height: 5,
               ),
               gw_sfw_test.SfwTest(
-                globalKey: business.pageWidgetViewModel.statefulTestGk,
+                key: business.pageWidgetViewModel.statefulTestGk,
               ),
               const SizedBox(
                 height: 5,

@@ -9,7 +9,7 @@ import 'page_widget.dart' as page_widget;
 // (all)
 import '../../../global_widgets/gw_slw_page_outer_frame.dart'
     as gw_slw_page_outer_frame;
-import '../../../global_widgets/gw_do_delete.dart' as gw_do_delete;
+import '../../../global_widgets/todo_do_delete.dart' as gw_do_delete;
 import '../../../a_templates/all_dialog_template/main_widget.dart'
     as all_dialog_template;
 import '../../../dialogs/all/all_dialog_small_circle_transform_sample/dialog_widget.dart'

@@ -128,7 +128,7 @@ class WidgetUi {
                 height: 100,
               ),
               gw_sfw_wrapper.SfwContextMenuRegion(
-                globalKey: business.contextMenuRegionGk,
+                key: business.contextMenuRegionGk,
                 contextMenuRegionItemVoList: [
                   gw_sfw_wrapper.ContextMenuRegionItemVo(
                       menuItemWidget: const Text(
@@ -164,7 +164,7 @@ class WidgetUi {
                 height: 100,
               ),
               gw_sfw_wrapper.SfwContextMenuRegion(
-                globalKey: business.contextMenuRegionGk2,
+                key: business.contextMenuRegionGk2,
                 contextMenuRegionItemVoList: [
                   gw_sfw_wrapper.ContextMenuRegionItemVo(
                       menuItemWidget: const Text(

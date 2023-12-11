@@ -21,7 +21,6 @@ class SlwPageOuterFrame extends StatelessWidget {
       required this.pageTitle,
       this.backgroundColor = Colors.white});
 
-  // [public 변수]
   final SlwPageOuterFrameBusiness business;
 
   // !!!외부 입력 변수 선언 하기!!!
@@ -37,16 +36,33 @@ class SlwPageOuterFrame extends StatelessWidget {
   // (페이지 배경색을 파란색으로 할지 여부)
   final Color backgroundColor;
 
+  //----------------------------------------------------------------------------
   // [콜백 함수]
-  // (위젯을 화면에 draw 할 때의 콜백)
   @override
   Widget build(BuildContext context) {
-    return widgetUiBuild(context: context);
+    return business.getScreenWidget(context: context, widget: this);
   }
+}
 
+class SlwPageOuterFrameBusiness {
+  // !!!위젯 변수를 저장 하세요.!!!
+  // [public 변수]
+  // (goToHomeIconButtonBusiness)
+  final GlobalKey<HomeIconButtonState> goToHomeIconButtonGk = GlobalKey();
+
+  // [private 변수]
+
+  //----------------------------------------------------------------------------
+  // !!!위젯 함수를 작성 하세요.!!!
+  // [public 함수]
+
+  // [private 함수]
+
+  //----------------------------------------------------------------------------
   // [화면 작성]
-  Widget widgetUiBuild({required BuildContext context}) {
-    // !!!뷰 위젯 반환 콜백 작성 하기!!!
+  Widget getScreenWidget(
+      {required BuildContext context, required SlwPageOuterFrame widget}) {
+    // !!!위젯 화면을 작성 하세요.!!!
 
     // Mobile 앱 status bar 색상 변경
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
@@ -60,14 +76,14 @@ class SlwPageOuterFrame extends StatelessWidget {
             title: Row(
               children: [
                 HomeIconButton(
-                  globalKey: business.goToHomeIconButtonGk,
+                  key: goToHomeIconButtonGk,
                 ),
                 const SizedBox(
                   width: 15,
                 ),
                 Expanded(
                     child: Text(
-                  pageTitle,
+                  widget.pageTitle,
                   style: const TextStyle(
                       color: Colors.white, fontFamily: "MaruBuri"),
                 ))
@@ -77,56 +93,77 @@ class SlwPageOuterFrame extends StatelessWidget {
             iconTheme:
                 const IconThemeData(color: Colors.white //change your color here
                     )),
-        backgroundColor: backgroundColor,
-        floatingActionButton: floatingActionButton,
-        body: child);
+        backgroundColor: widget.backgroundColor,
+        floatingActionButton: widget.floatingActionButton,
+        body: widget.child);
   }
 }
 
-class SlwPageOuterFrameBusiness {
-  // [콜백 함수]
-
-  // [public 변수]
-  // (goToHomeIconButtonBusiness)
-  final GlobalKey<HomeIconButtonState> goToHomeIconButtonGk = GlobalKey();
-
-// [private 변수]
-
-// [public 함수]
-
-// [private 함수]
-}
-
+////
 // (홈 아이콘 버튼)
 class HomeIconButton extends StatefulWidget {
-  const HomeIconButton({required this.globalKey}) : super(key: globalKey);
+  const HomeIconButton({required super.key});
+
+  // !!!외부 입력 변수 선언 하기!!!
 
   // [콜백 함수]
   @override
   HomeIconButtonState createState() => HomeIconButtonState();
+}
 
+class HomeIconButtonState extends State<HomeIconButton> {
+  // [콜백 함수]
+  @override
+  Widget build(BuildContext context) {
+    return getScreenWidget(context: context);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    // !!!initState 작성!!!
+  }
+
+  @override
+  void dispose() {
+    // !!!dispose 작성!!!
+    super.dispose();
+  }
+
+  //----------------------------------------------------------------------------
+  // !!!위젯 변수를 저장 하세요.!!!
   // [public 변수]
-  final GlobalKey<HomeIconButtonState> globalKey;
+  // (위젯 호버링 여부)
+  bool isHovering = false;
 
-  // !!!외부 입력 변수 선언 하기!!!
+  // [private 변수]
 
+  //----------------------------------------------------------------------------
+  // !!!위젯 함수를 작성 하세요.!!!
+  // [public 함수]
+  // (Stateful Widget 화면 갱신)
+  void refreshUi() {
+    setState(() {});
+  }
+
+  // [private 함수]
+
+  //----------------------------------------------------------------------------
   // [화면 작성]
-  Widget widgetUiBuild(
-      {required BuildContext context,
-      required HomeIconButtonState currentState}) {
-    // !!!뷰 위젯 반환 콜백 작성 하기!!!
+  Widget getScreenWidget({required BuildContext context}) {
+    // !!!위젯 화면을 작성 하세요.!!!
 
     return ClipOval(
       child: MouseRegion(
         // 커서 변경 및 호버링 상태 변경
         cursor: SystemMouseCursors.click,
         onEnter: (details) {
-          currentState.isHovering = true;
-          currentState.refreshUi();
+          isHovering = true;
+          refreshUi();
         },
         onExit: (details) {
-          currentState.isHovering = false;
-          currentState.refreshUi();
+          isHovering = false;
+          refreshUi();
         },
         child: Tooltip(
           message: "홈으로",
@@ -169,7 +206,7 @@ class HomeIconButton extends StatefulWidget {
                 ),
                 // 호버링시 가릴 위젯(보여줄 위젯과 동일한 사이즈를 준비)
                 Opacity(
-                  opacity: currentState.isHovering ? 1.0 : 0.0,
+                  opacity: isHovering ? 1.0 : 0.0,
                   // 0.0: 완전 투명, 1.0: 완전 불투명
                   child: Container(
                       width: 35,
@@ -183,39 +220,5 @@ class HomeIconButton extends StatefulWidget {
         ),
       ),
     );
-  }
-}
-
-class HomeIconButtonState extends State<HomeIconButton> {
-  HomeIconButtonState();
-
-  // [콜백 함수]
-  @override
-  Widget build(BuildContext context) {
-    return widget.widgetUiBuild(context: context, currentState: this);
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    // !!!initState 작성!!!
-  }
-
-  @override
-  void dispose() {
-    // !!!dispose 작성!!!
-    super.dispose();
-  }
-
-  // [public 변수]
-  // (위젯 호버링 여부)
-  bool isHovering = false;
-
-  // [private 변수]
-
-  // [public 함수]
-  // (Stateful Widget 화면 갱신)
-  void refreshUi() {
-    setState(() {});
   }
 }

@@ -17,16 +17,13 @@ class SlwTemplate extends StatelessWidget {
   // [콜백 함수]
   @override
   Widget build(BuildContext context) {
-    return business.getScreenWidget(context: context);
+    return business.getScreenWidget(context: context, widget: this);
   }
 }
 
 class SlwTemplateBusiness {
-  const SlwTemplateBusiness({required this.widget});
-
   // !!!위젯 변수를 저장 하세요.!!!
   // [public 변수]
-  final SlwTemplate widget;
 
   // [private 변수]
 
@@ -38,7 +35,8 @@ class SlwTemplateBusiness {
 
   //----------------------------------------------------------------------------
   // [화면 작성]
-  Widget getScreenWidget({required BuildContext context}) {
+  Widget getScreenWidget(
+      {required BuildContext context, required SlwTemplate widget}) {
     // !!!위젯 화면을 작성 하세요.!!!
 
     return const Text("Sample");
