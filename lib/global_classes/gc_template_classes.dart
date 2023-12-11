@@ -4,7 +4,6 @@ import 'package:dio/dio.dart';
 // [템플릿 코드를 줄이기 위해 사용하는 클래스 모음 파일]
 
 // -----------------------------------------------------------------------------
-
 // (네트워크 응답 Vo)
 class NetworkResponseObject<ResponseHeaderVo, ResponseBodyVo> {
   NetworkResponseObject(
