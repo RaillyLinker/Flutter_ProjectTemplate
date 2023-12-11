@@ -12,10 +12,8 @@ import 'package:flutter_project_template/global_widgets/gw_slw_page_outer_frame.
     as gw_slw_page_outer_frame;
 import 'package:flutter_project_template/repositories/network/apis/api_main_server.dart'
     as api_main_server;
-import 'package:flutter_project_template/dialogs/all/all_dialog_info/dialog_widget.dart'
+import 'package:flutter_project_template/dialogs/all/all_dialog_info/main_widget.dart'
     as all_dialog_info;
-import 'package:flutter_project_template/dialogs/all/all_dialog_info/dialog_widget_business.dart'
-    as all_dialog_info_business;
 import 'package:flutter_project_template/dialogs/all/all_dialog_loading_spinner/dialog_widget.dart'
     as all_dialog_loading_spinner;
 import 'package:flutter_project_template/dialogs/all/all_dialog_loading_spinner/dialog_widget_business.dart'
@@ -214,20 +212,21 @@ class PageBusiness {
 
           if (responseHeaders.apiResultCode == null) {
             // 비정상 응답이면서 서버에서 에러 원인 코드가 전달되지 않았을 때
-            final all_dialog_info_business.DialogWidgetBusiness
-                allDialogInfoBusiness =
-                all_dialog_info_business.DialogWidgetBusiness();
+            final GlobalKey<all_dialog_info.MainWidgetState>
+                allDialogInfoStateGk =
+                GlobalKey<all_dialog_info.MainWidgetState>();
             if (!_context.mounted) return;
             showDialog(
                 barrierDismissible: true,
                 context: _context,
-                builder: (context) => all_dialog_info.DialogWidget(
-                      business: allDialogInfoBusiness,
-                      inputVo: const all_dialog_info.InputVo(
-                          dialogTitle: "네트워크 에러",
-                          dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
-                          checkBtnTitle: "확인"),
-                      onDialogCreated: () {},
+                builder: (context) => all_dialog_info.MainWidget(
+                      key: allDialogInfoStateGk,
+                      inputVo: all_dialog_info.InputVo(
+                        dialogTitle: "네트워크 에러",
+                        dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
+                        checkBtnTitle: "확인",
+                        onDialogCreated: () {},
+                      ),
                     ));
           } else {
             // 서버 지정 에러 코드를 전달 받았을 때
@@ -237,20 +236,21 @@ class PageBusiness {
               case "1":
                 {
                   // 가입되지 않은 회원
-                  final all_dialog_info_business.DialogWidgetBusiness
-                      allDialogInfoBusiness =
-                      all_dialog_info_business.DialogWidgetBusiness();
+                  final GlobalKey<all_dialog_info.MainWidgetState>
+                      allDialogInfoStateGk =
+                      GlobalKey<all_dialog_info.MainWidgetState>();
                   if (!_context.mounted) return;
                   showDialog(
                       barrierDismissible: true,
                       context: _context,
-                      builder: (context) => all_dialog_info.DialogWidget(
-                            business: allDialogInfoBusiness,
-                            inputVo: const all_dialog_info.InputVo(
-                                dialogTitle: "인증 이메일 발송 실패",
-                                dialogContent: "가입되지 않은 이메일입니다.",
-                                checkBtnTitle: "확인"),
-                            onDialogCreated: () {},
+                      builder: (context) => all_dialog_info.MainWidget(
+                            key: allDialogInfoStateGk,
+                            inputVo: all_dialog_info.InputVo(
+                              dialogTitle: "인증 이메일 발송 실패",
+                              dialogContent: "가입되지 않은 이메일입니다.",
+                              checkBtnTitle: "확인",
+                              onDialogCreated: () {},
+                            ),
                           ));
                 }
                 break;
@@ -264,20 +264,20 @@ class PageBusiness {
         }
       } else {
         allDialogLoadingSpinnerBusiness.closeDialog();
-        final all_dialog_info_business.DialogWidgetBusiness
-            allDialogInfoBusiness =
-            all_dialog_info_business.DialogWidgetBusiness();
+        final GlobalKey<all_dialog_info.MainWidgetState> allDialogInfoStateGk =
+            GlobalKey<all_dialog_info.MainWidgetState>();
         if (!_context.mounted) return;
         showDialog(
             barrierDismissible: true,
             context: _context,
-            builder: (context) => all_dialog_info.DialogWidget(
-                  business: allDialogInfoBusiness,
-                  inputVo: const all_dialog_info.InputVo(
-                      dialogTitle: "네트워크 에러",
-                      dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
-                      checkBtnTitle: "확인"),
-                  onDialogCreated: () {},
+            builder: (context) => all_dialog_info.MainWidget(
+                  key: allDialogInfoStateGk,
+                  inputVo: all_dialog_info.InputVo(
+                    dialogTitle: "네트워크 에러",
+                    dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
+                    checkBtnTitle: "확인",
+                    onDialogCreated: () {},
+                  ),
                 ));
       }
 
@@ -371,22 +371,23 @@ class PageBusiness {
           pageViewModel.emailTextEditErrorMsg = null;
           blocObjects.blocEmailEditText.refresh();
 
-          final all_dialog_info_business.DialogWidgetBusiness
-              allDialogInfoBusiness =
-              all_dialog_info_business.DialogWidgetBusiness();
+          final GlobalKey<all_dialog_info.MainWidgetState>
+              allDialogInfoStateGk =
+              GlobalKey<all_dialog_info.MainWidgetState>();
           if (!_context.mounted) return;
           await showDialog(
               barrierDismissible: true,
               context: _context,
-              builder: (context) => all_dialog_info.DialogWidget(
-                    business: allDialogInfoBusiness,
+              builder: (context) => all_dialog_info.MainWidget(
+                    key: allDialogInfoStateGk,
                     inputVo: all_dialog_info.InputVo(
-                        dialogTitle: "비밀번호 찾기 완료",
-                        dialogContent: "새로운 비밀번호가\n"
-                            "이메일로 전송되었습니다.\n"
-                            "($email)",
-                        checkBtnTitle: "확인"),
-                    onDialogCreated: () {},
+                      dialogTitle: "비밀번호 찾기 완료",
+                      dialogContent: "새로운 비밀번호가\n"
+                          "이메일로 전송되었습니다.\n"
+                          "($email)",
+                      checkBtnTitle: "확인",
+                      onDialogCreated: () {},
+                    ),
                   ));
 
           if (!_context.mounted) return;
@@ -399,20 +400,21 @@ class PageBusiness {
 
           if (responseHeaders.apiResultCode == null) {
             // 비정상 응답이면서 서버에서 에러 원인 코드가 전달되지 않았을 때
-            final all_dialog_info_business.DialogWidgetBusiness
-                allDialogInfoBusiness =
-                all_dialog_info_business.DialogWidgetBusiness();
+            final GlobalKey<all_dialog_info.MainWidgetState>
+                allDialogInfoStateGk =
+                GlobalKey<all_dialog_info.MainWidgetState>();
             if (!_context.mounted) return;
             showDialog(
                 barrierDismissible: true,
                 context: _context,
-                builder: (context) => all_dialog_info.DialogWidget(
-                      business: allDialogInfoBusiness,
-                      inputVo: const all_dialog_info.InputVo(
-                          dialogTitle: "네트워크 에러",
-                          dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
-                          checkBtnTitle: "확인"),
-                      onDialogCreated: () {},
+                builder: (context) => all_dialog_info.MainWidget(
+                      key: allDialogInfoStateGk,
+                      inputVo: all_dialog_info.InputVo(
+                        dialogTitle: "네트워크 에러",
+                        dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
+                        checkBtnTitle: "확인",
+                        onDialogCreated: () {},
+                      ),
                     ));
           } else {
             // 서버 지정 에러 코드를 전달 받았을 때
@@ -422,81 +424,85 @@ class PageBusiness {
               case "1":
                 {
                   // 이메일 검증 요청을 보낸 적 없음
-                  final all_dialog_info_business.DialogWidgetBusiness
-                      allDialogInfoBusiness =
-                      all_dialog_info_business.DialogWidgetBusiness();
+                  final GlobalKey<all_dialog_info.MainWidgetState>
+                      allDialogInfoStateGk =
+                      GlobalKey<all_dialog_info.MainWidgetState>();
                   if (!_context.mounted) return;
                   showDialog(
                       barrierDismissible: true,
                       context: _context,
-                      builder: (context) => all_dialog_info.DialogWidget(
-                            business: allDialogInfoBusiness,
-                            inputVo: const all_dialog_info.InputVo(
-                                dialogTitle: "비밀번호 찾기 실패",
-                                dialogContent: "이메일 검증 요청을 보내지 않았습니다.\n"
-                                    "이메일 발송 버튼을 누르세요.",
-                                checkBtnTitle: "확인"),
-                            onDialogCreated: () {},
+                      builder: (context) => all_dialog_info.MainWidget(
+                            key: allDialogInfoStateGk,
+                            inputVo: all_dialog_info.InputVo(
+                              dialogTitle: "비밀번호 찾기 실패",
+                              dialogContent: "이메일 검증 요청을 보내지 않았습니다.\n"
+                                  "이메일 발송 버튼을 누르세요.",
+                              checkBtnTitle: "확인",
+                              onDialogCreated: () {},
+                            ),
                           ));
                 }
                 break;
               case "2":
                 {
                   // 이메일 검증 요청이 만료됨
-                  final all_dialog_info_business.DialogWidgetBusiness
-                      allDialogInfoBusiness =
-                      all_dialog_info_business.DialogWidgetBusiness();
+                  final GlobalKey<all_dialog_info.MainWidgetState>
+                      allDialogInfoStateGk =
+                      GlobalKey<all_dialog_info.MainWidgetState>();
                   if (!_context.mounted) return;
                   showDialog(
                       barrierDismissible: true,
                       context: _context,
-                      builder: (context) => all_dialog_info.DialogWidget(
-                            business: allDialogInfoBusiness,
-                            inputVo: const all_dialog_info.InputVo(
-                                dialogTitle: "비밀번호 찾기 실패",
-                                dialogContent: "이메일 검증 요청이 만료되었습니다.",
-                                checkBtnTitle: "확인"),
-                            onDialogCreated: () {},
+                      builder: (context) => all_dialog_info.MainWidget(
+                            key: allDialogInfoStateGk,
+                            inputVo: all_dialog_info.InputVo(
+                              dialogTitle: "비밀번호 찾기 실패",
+                              dialogContent: "이메일 검증 요청이 만료되었습니다.",
+                              checkBtnTitle: "확인",
+                              onDialogCreated: () {},
+                            ),
                           ));
                 }
                 break;
               case "3":
                 {
                   // verificationCode 가 일치하지 않음
-                  final all_dialog_info_business.DialogWidgetBusiness
-                      allDialogInfoBusiness =
-                      all_dialog_info_business.DialogWidgetBusiness();
+                  final GlobalKey<all_dialog_info.MainWidgetState>
+                      allDialogInfoStateGk =
+                      GlobalKey<all_dialog_info.MainWidgetState>();
                   if (!_context.mounted) return;
                   showDialog(
                       barrierDismissible: true,
                       context: _context,
-                      builder: (context) => all_dialog_info.DialogWidget(
-                            business: allDialogInfoBusiness,
-                            inputVo: const all_dialog_info.InputVo(
-                                dialogTitle: "비밀번호 찾기 실패",
-                                dialogContent: "본인 인증 코드가 일치하지 않습니다.",
-                                checkBtnTitle: "확인"),
-                            onDialogCreated: () {},
+                      builder: (context) => all_dialog_info.MainWidget(
+                            key: allDialogInfoStateGk,
+                            inputVo: all_dialog_info.InputVo(
+                              dialogTitle: "비밀번호 찾기 실패",
+                              dialogContent: "본인 인증 코드가 일치하지 않습니다.",
+                              checkBtnTitle: "확인",
+                              onDialogCreated: () {},
+                            ),
                           ));
                 }
                 break;
               case "4":
                 {
                   // 탈퇴한 회원입니다.
-                  final all_dialog_info_business.DialogWidgetBusiness
-                      allDialogInfoBusiness =
-                      all_dialog_info_business.DialogWidgetBusiness();
+                  final GlobalKey<all_dialog_info.MainWidgetState>
+                      allDialogInfoStateGk =
+                      GlobalKey<all_dialog_info.MainWidgetState>();
                   if (!_context.mounted) return;
                   showDialog(
                       barrierDismissible: true,
                       context: _context,
-                      builder: (context) => all_dialog_info.DialogWidget(
-                            business: allDialogInfoBusiness,
-                            inputVo: const all_dialog_info.InputVo(
-                                dialogTitle: "비밀번호 찾기 실패",
-                                dialogContent: "탈퇴된 이메일입니다.",
-                                checkBtnTitle: "확인"),
-                            onDialogCreated: () {},
+                      builder: (context) => all_dialog_info.MainWidget(
+                            key: allDialogInfoStateGk,
+                            inputVo: all_dialog_info.InputVo(
+                              dialogTitle: "비밀번호 찾기 실패",
+                              dialogContent: "탈퇴된 이메일입니다.",
+                              checkBtnTitle: "확인",
+                              onDialogCreated: () {},
+                            ),
                           ));
                 }
                 break;
@@ -510,20 +516,20 @@ class PageBusiness {
         }
       } else {
         allDialogLoadingSpinnerBusiness.closeDialog();
-        final all_dialog_info_business.DialogWidgetBusiness
-            allDialogInfoBusiness =
-            all_dialog_info_business.DialogWidgetBusiness();
+        final GlobalKey<all_dialog_info.MainWidgetState> allDialogInfoStateGk =
+            GlobalKey<all_dialog_info.MainWidgetState>();
         if (!_context.mounted) return;
         showDialog(
             barrierDismissible: true,
             context: _context,
-            builder: (context) => all_dialog_info.DialogWidget(
-                  business: allDialogInfoBusiness,
-                  inputVo: const all_dialog_info.InputVo(
-                      dialogTitle: "네트워크 에러",
-                      dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
-                      checkBtnTitle: "확인"),
-                  onDialogCreated: () {},
+            builder: (context) => all_dialog_info.MainWidget(
+                  key: allDialogInfoStateGk,
+                  inputVo: all_dialog_info.InputVo(
+                    dialogTitle: "네트워크 에러",
+                    dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
+                    checkBtnTitle: "확인",
+                    onDialogCreated: () {},
+                  ),
                 ));
       }
     }

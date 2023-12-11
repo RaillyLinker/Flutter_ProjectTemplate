@@ -9,10 +9,8 @@ import 'page_widget.dart' as page_widget;
 // (all)
 import 'package:flutter_project_template/global_widgets/gw_slw_page_outer_frame.dart'
     as gw_slw_page_outer_frame;
-import 'package:flutter_project_template/dialogs/all/all_dialog_info/dialog_widget.dart'
+import 'package:flutter_project_template/dialogs/all/all_dialog_info/main_widget.dart'
     as all_dialog_info;
-import 'package:flutter_project_template/dialogs/all/all_dialog_info/dialog_widget_business.dart'
-    as all_dialog_info_business;
 import 'package:flutter_project_template/global_widgets/gw_sfw_wrapper.dart'
     as gw_sfw_wrapper;
 
@@ -107,18 +105,19 @@ class PageWidgetBusiness {
 
   // (context 메뉴의 다이얼로그 테스트 항목을 클릭)
   void dialogTestMenuBtn() {
-    final all_dialog_info_business.DialogWidgetBusiness allDialogInfoBusiness =
-        all_dialog_info_business.DialogWidgetBusiness();
+    final GlobalKey<all_dialog_info.MainWidgetState> allDialogInfoStateGk =
+        GlobalKey<all_dialog_info.MainWidgetState>();
     showDialog(
         barrierDismissible: true,
         context: context,
-        builder: (context) => all_dialog_info.DialogWidget(
-              business: allDialogInfoBusiness,
-              inputVo: const all_dialog_info.InputVo(
-                  dialogTitle: "컨텍스트 메뉴 테스트",
-                  dialogContent: "다이얼로그 테스트 메뉴가\n선택되었습니다.",
-                  checkBtnTitle: "확인"),
-              onDialogCreated: () {},
+        builder: (context) => all_dialog_info.MainWidget(
+              key: allDialogInfoStateGk,
+              inputVo: all_dialog_info.InputVo(
+                dialogTitle: "컨텍스트 메뉴 테스트",
+                dialogContent: "다이얼로그 테스트 메뉴가\n선택되었습니다.",
+                checkBtnTitle: "확인",
+                onDialogCreated: () {},
+              ),
             ));
   }
 

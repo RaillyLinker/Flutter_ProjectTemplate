@@ -16,10 +16,8 @@ import 'package:flutter_project_template/global_widgets/gw_slw_page_outer_frame.
     as gw_slw_page_outer_frame;
 import 'package:flutter_project_template/repositories/network/apis/api_main_server.dart'
     as api_main_server;
-import 'package:flutter_project_template/dialogs/all/all_dialog_info/dialog_widget.dart'
+import 'package:flutter_project_template/dialogs/all/all_dialog_info/main_widget.dart'
     as all_dialog_info;
-import 'package:flutter_project_template/dialogs/all/all_dialog_info/dialog_widget_business.dart'
-    as all_dialog_info_business;
 import 'package:flutter_project_template/dialogs/all/all_dialog_loading_spinner/dialog_widget.dart'
     as all_dialog_loading_spinner;
 import 'package:flutter_project_template/dialogs/all/all_dialog_loading_spinner/dialog_widget_business.dart'
@@ -262,56 +260,58 @@ class PageBusiness {
               .PostService1TkV1RequestTestPostRequestMultipartFormDataJsonAsyncResponseBodyVo;
 
           // 확인 다이얼로그 호출
-          final all_dialog_info_business.DialogWidgetBusiness
-              allDialogInfoBusiness =
-              all_dialog_info_business.DialogWidgetBusiness();
+          final GlobalKey<all_dialog_info.MainWidgetState>
+              allDialogInfoStateGk =
+              GlobalKey<all_dialog_info.MainWidgetState>();
           if (!_context.mounted) return;
           showDialog(
               barrierDismissible: true,
               context: _context,
-              builder: (context) => all_dialog_info.DialogWidget(
-                    business: allDialogInfoBusiness,
+              builder: (context) => all_dialog_info.MainWidget(
+                    key: allDialogInfoStateGk,
                     inputVo: all_dialog_info.InputVo(
-                        dialogTitle: "응답 결과",
-                        dialogContent:
-                            "Http Status Code : ${networkResponseObjectOk.responseStatusCode}\n\nResponse Body:\n${responseBody.toString()}",
-                        checkBtnTitle: "확인"),
-                    onDialogCreated: () {},
+                      dialogTitle: "응답 결과",
+                      dialogContent:
+                          "Http Status Code : ${networkResponseObjectOk.responseStatusCode}\n\nResponse Body:\n${responseBody.toString()}",
+                      checkBtnTitle: "확인",
+                      onDialogCreated: () {},
+                    ),
                   )).then((outputVo) {});
         } else {
           // 비정상 응답
-          final all_dialog_info_business.DialogWidgetBusiness
-              allDialogInfoBusiness =
-              all_dialog_info_business.DialogWidgetBusiness();
+          final GlobalKey<all_dialog_info.MainWidgetState>
+              allDialogInfoStateGk =
+              GlobalKey<all_dialog_info.MainWidgetState>();
           if (!_context.mounted) return;
           showDialog(
               barrierDismissible: false,
               context: _context,
-              builder: (context) => all_dialog_info.DialogWidget(
-                    business: allDialogInfoBusiness,
-                    inputVo: const all_dialog_info.InputVo(
-                        dialogTitle: "네트워크 에러",
-                        dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
-                        checkBtnTitle: "확인"),
-                    onDialogCreated: () {},
+              builder: (context) => all_dialog_info.MainWidget(
+                    key: allDialogInfoStateGk,
+                    inputVo: all_dialog_info.InputVo(
+                      dialogTitle: "네트워크 에러",
+                      dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
+                      checkBtnTitle: "확인",
+                      onDialogCreated: () {},
+                    ),
                   ));
         }
       } else {
         // Dio 네트워크 에러
-        final all_dialog_info_business.DialogWidgetBusiness
-            allDialogInfoBusiness =
-            all_dialog_info_business.DialogWidgetBusiness();
+        final GlobalKey<all_dialog_info.MainWidgetState> allDialogInfoStateGk =
+            GlobalKey<all_dialog_info.MainWidgetState>();
         if (!_context.mounted) return;
         showDialog(
             barrierDismissible: false,
             context: _context,
-            builder: (context) => all_dialog_info.DialogWidget(
-                  business: allDialogInfoBusiness,
-                  inputVo: const all_dialog_info.InputVo(
-                      dialogTitle: "네트워크 에러",
-                      dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
-                      checkBtnTitle: "확인"),
-                  onDialogCreated: () {},
+            builder: (context) => all_dialog_info.MainWidget(
+                  key: allDialogInfoStateGk,
+                  inputVo: all_dialog_info.InputVo(
+                    dialogTitle: "네트워크 에러",
+                    dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
+                    checkBtnTitle: "확인",
+                    onDialogCreated: () {},
+                  ),
                 ));
       }
     }

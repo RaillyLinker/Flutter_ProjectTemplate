@@ -15,10 +15,8 @@ import 'package:flutter_project_template/repositories/network/apis/api_main_serv
     as api_main_server;
 import 'package:flutter_project_template/repositories/spws/spw_auth_member_info.dart'
     as spw_auth_member_info;
-import 'package:flutter_project_template/dialogs/all/all_dialog_info/dialog_widget.dart'
+import 'package:flutter_project_template/dialogs/all/all_dialog_info/main_widget.dart'
     as all_dialog_info;
-import 'package:flutter_project_template/dialogs/all/all_dialog_info/dialog_widget_business.dart'
-    as all_dialog_info_business;
 import 'package:flutter_project_template/dialogs/all/all_dialog_loading_spinner/dialog_widget.dart'
     as all_dialog_loading_spinner;
 import 'package:flutter_project_template/dialogs/all/all_dialog_loading_spinner/dialog_widget_business.dart'
@@ -197,20 +195,21 @@ class PageWidgetBusiness {
             // 정상 응답
             // 로그아웃 처리
             spw_auth_member_info.SharedPreferenceWrapper.set(value: null);
-            final all_dialog_info_business.DialogWidgetBusiness
-                allDialogInfoBusiness =
-                all_dialog_info_business.DialogWidgetBusiness();
+            final GlobalKey<all_dialog_info.MainWidgetState>
+                allDialogInfoStateGk =
+                GlobalKey<all_dialog_info.MainWidgetState>();
             if (!context.mounted) return;
             await showDialog(
                 barrierDismissible: true,
                 context: context,
-                builder: (context) => all_dialog_info.DialogWidget(
-                      business: allDialogInfoBusiness,
-                      inputVo: const all_dialog_info.InputVo(
-                          dialogTitle: "회원 탈퇴 완료",
-                          dialogContent: "회원 탈퇴가 완료되었습니다.\n안녕히 가세요.",
-                          checkBtnTitle: "확인"),
-                      onDialogCreated: () {},
+                builder: (context) => all_dialog_info.MainWidget(
+                      key: allDialogInfoStateGk,
+                      inputVo: all_dialog_info.InputVo(
+                        dialogTitle: "회원 탈퇴 완료",
+                        dialogContent: "회원 탈퇴가 완료되었습니다.\n안녕히 가세요.",
+                        checkBtnTitle: "확인",
+                        onDialogCreated: () {},
+                      ),
                     ));
             if (!context.mounted) return;
             // 홈 페이지로 이동
@@ -227,37 +226,39 @@ class PageWidgetBusiness {
             return;
           } else {
             // 비정상 응답
-            final all_dialog_info_business.DialogWidgetBusiness
-                allDialogInfoBusiness =
-                all_dialog_info_business.DialogWidgetBusiness();
+            final GlobalKey<all_dialog_info.MainWidgetState>
+                allDialogInfoStateGk =
+                GlobalKey<all_dialog_info.MainWidgetState>();
             if (!context.mounted) return;
             showDialog(
                 barrierDismissible: true,
                 context: context,
-                builder: (context) => all_dialog_info.DialogWidget(
-                      business: allDialogInfoBusiness,
-                      inputVo: const all_dialog_info.InputVo(
-                          dialogTitle: "네트워크 에러",
-                          dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
-                          checkBtnTitle: "확인"),
-                      onDialogCreated: () {},
+                builder: (context) => all_dialog_info.MainWidget(
+                      key: allDialogInfoStateGk,
+                      inputVo: all_dialog_info.InputVo(
+                        dialogTitle: "네트워크 에러",
+                        dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
+                        checkBtnTitle: "확인",
+                        onDialogCreated: () {},
+                      ),
                     ));
           }
         } else {
-          final all_dialog_info_business.DialogWidgetBusiness
-              allDialogInfoBusiness =
-              all_dialog_info_business.DialogWidgetBusiness();
+          final GlobalKey<all_dialog_info.MainWidgetState>
+              allDialogInfoStateGk =
+              GlobalKey<all_dialog_info.MainWidgetState>();
           if (!context.mounted) return;
           showDialog(
               barrierDismissible: true,
               context: context,
-              builder: (context) => all_dialog_info.DialogWidget(
-                    business: allDialogInfoBusiness,
-                    inputVo: const all_dialog_info.InputVo(
-                        dialogTitle: "네트워크 에러",
-                        dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
-                        checkBtnTitle: "확인"),
-                    onDialogCreated: () {},
+              builder: (context) => all_dialog_info.MainWidget(
+                    key: allDialogInfoStateGk,
+                    inputVo: all_dialog_info.InputVo(
+                      dialogTitle: "네트워크 에러",
+                      dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
+                      checkBtnTitle: "확인",
+                      onDialogCreated: () {},
+                    ),
                   ));
         }
       }

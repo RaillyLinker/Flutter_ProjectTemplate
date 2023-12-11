@@ -11,10 +11,8 @@ import 'package:flutter_project_template/global_widgets/gw_slw_page_outer_frame.
     as gw_slw_page_outer_frame;
 import 'package:flutter_project_template/global_widgets/todo_do_delete.dart'
     as gw_do_delete;
-import 'package:flutter_project_template/dialogs/all/all_dialog_info/dialog_widget.dart'
+import 'package:flutter_project_template/dialogs/all/all_dialog_info/main_widget.dart'
     as all_dialog_info;
-import 'package:flutter_project_template/dialogs/all/all_dialog_info/dialog_widget_business.dart'
-    as all_dialog_info_business;
 import 'package:flutter_project_template/a_templates/all_dialog_template/main_widget.dart'
     as all_dialog_template;
 import 'package:flutter_project_template/dialogs/all/all_dialog_yes_or_no/dialog_widget.dart'
@@ -122,18 +120,19 @@ class PageWidgetBusiness {
 
   void onInfoDialogItemClicked() {
     // (확인 다이얼로그 호출)
-    final all_dialog_info_business.DialogWidgetBusiness allDialogInfoBusiness =
-        all_dialog_info_business.DialogWidgetBusiness();
+    final GlobalKey<all_dialog_info.MainWidgetState> allDialogInfoStateGk =
+        GlobalKey<all_dialog_info.MainWidgetState>();
     showDialog(
         barrierDismissible: true,
         context: viewModel.context,
-        builder: (context) => all_dialog_info.DialogWidget(
-              business: allDialogInfoBusiness,
-              inputVo: const all_dialog_info.InputVo(
-                  dialogTitle: "확인 다이얼로그",
-                  dialogContent: "확인 다이얼로그를 호출했습니다.",
-                  checkBtnTitle: "확인"),
-              onDialogCreated: () {},
+        builder: (context) => all_dialog_info.MainWidget(
+              key: allDialogInfoStateGk,
+              inputVo: all_dialog_info.InputVo(
+                dialogTitle: "확인 다이얼로그",
+                dialogContent: "확인 다이얼로그를 호출했습니다.",
+                checkBtnTitle: "확인",
+                onDialogCreated: () {},
+              ),
             )).then((outputVo) {});
   }
 

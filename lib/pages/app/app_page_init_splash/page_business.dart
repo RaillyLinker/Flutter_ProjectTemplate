@@ -13,16 +13,12 @@ import 'package:url_launcher/url_launcher.dart';
 import 'page_entrance.dart' as page_entrance;
 
 // (all)
-import 'package:flutter_project_template/global_widgets/gw_slw_page_outer_frame.dart'
-    as gw_slw_page_outer_frame;
 import 'package:flutter_project_template/repositories/network/apis/api_main_server.dart'
     as api_main_server;
 import 'package:flutter_project_template/repositories/spws/spw_auth_member_info.dart'
     as spw_auth_member_info;
-import 'package:flutter_project_template/dialogs/all/all_dialog_info/dialog_widget.dart'
+import 'package:flutter_project_template/dialogs/all/all_dialog_info/main_widget.dart'
     as all_dialog_info;
-import 'package:flutter_project_template/dialogs/all/all_dialog_info/dialog_widget_business.dart'
-    as all_dialog_info_business;
 import 'package:flutter_project_template/dialogs/all/all_dialog_yes_or_no/dialog_widget.dart'
     as all_dialog_yes_or_no;
 import 'package:flutter_project_template/dialogs/all/all_dialog_yes_or_no/dialog_widget_business.dart'
@@ -241,20 +237,21 @@ class PageBusiness {
           if (defaultTargetPlatform == TargetPlatform.iOS ||
               defaultTargetPlatform == TargetPlatform.android) {
             // 모바일 환경 : 업데이트 스토어로 이동
-            final all_dialog_info_business.DialogWidgetBusiness
-                allDialogInfoBusiness =
-                all_dialog_info_business.DialogWidgetBusiness();
+            final GlobalKey<all_dialog_info.MainWidgetState>
+                allDialogInfoStateGk =
+                GlobalKey<all_dialog_info.MainWidgetState>();
             if (!_context.mounted) return;
             showDialog(
                 barrierDismissible: true,
                 context: _context,
-                builder: (context) => all_dialog_info.DialogWidget(
-                      business: allDialogInfoBusiness,
-                      inputVo: const all_dialog_info.InputVo(
-                          dialogTitle: "업데이트 필요",
-                          dialogContent: "새 버전 업데이트가 필요합니다.",
-                          checkBtnTitle: "확인"),
-                      onDialogCreated: () {},
+                builder: (context) => all_dialog_info.MainWidget(
+                      key: allDialogInfoStateGk,
+                      inputVo: all_dialog_info.InputVo(
+                        dialogTitle: "업데이트 필요",
+                        dialogContent: "새 버전 업데이트가 필요합니다.",
+                        checkBtnTitle: "확인",
+                        onDialogCreated: () {},
+                      ),
                     )).then((value) {
               // 앱 업데이트 스토어로 이동
               try {
@@ -269,20 +266,21 @@ class PageBusiness {
             });
           } else {
             // PC 환경 : 업데이트 정보를 알려주고 종료
-            final all_dialog_info_business.DialogWidgetBusiness
-                allDialogInfoBusiness =
-                all_dialog_info_business.DialogWidgetBusiness();
+            final GlobalKey<all_dialog_info.MainWidgetState>
+                allDialogInfoStateGk =
+                GlobalKey<all_dialog_info.MainWidgetState>();
             if (!_context.mounted) return;
             showDialog(
                 barrierDismissible: true,
                 context: _context,
-                builder: (context) => all_dialog_info.DialogWidget(
-                      business: allDialogInfoBusiness,
-                      inputVo: const all_dialog_info.InputVo(
-                          dialogTitle: "업데이트 필요",
-                          dialogContent: "새 버전 업데이트가 필요합니다.",
-                          checkBtnTitle: "확인"),
-                      onDialogCreated: () {},
+                builder: (context) => all_dialog_info.MainWidget(
+                      key: allDialogInfoStateGk,
+                      inputVo: all_dialog_info.InputVo(
+                        dialogTitle: "업데이트 필요",
+                        dialogContent: "새 버전 업데이트가 필요합니다.",
+                        checkBtnTitle: "확인",
+                        onDialogCreated: () {},
+                      ),
                     )).then((value) {
               // !!!앱 업데이트 사이트로 이동!!!
               launchUrl(Uri.parse('https://todo.com')).then((value) {
@@ -484,21 +482,22 @@ class PageBusiness {
               if (pageViewModel.signInRetryCount ==
                   pageViewModel.signInRetryCountLimit) {
                 pageViewModel.signInRetryCount = 0;
-                final all_dialog_info_business.DialogWidgetBusiness
-                    allDialogInfoBusiness =
-                    all_dialog_info_business.DialogWidgetBusiness();
+                final GlobalKey<all_dialog_info.MainWidgetState>
+                    allDialogInfoStateGk =
+                    GlobalKey<all_dialog_info.MainWidgetState>();
                 if (!_context.mounted) return;
                 await showDialog(
                     barrierDismissible: true,
                     context: _context,
-                    builder: (context) => all_dialog_info.DialogWidget(
-                          business: allDialogInfoBusiness,
-                          inputVo: const all_dialog_info.InputVo(
-                              dialogTitle: "로그인 실패",
-                              dialogContent:
-                                  "저장된 로그인 정보를 사용할 수 없습니다.\n비회원 상태로 전환합니다.",
-                              checkBtnTitle: "확인"),
-                          onDialogCreated: () {},
+                    builder: (context) => all_dialog_info.MainWidget(
+                          key: allDialogInfoStateGk,
+                          inputVo: all_dialog_info.InputVo(
+                            dialogTitle: "로그인 실패",
+                            dialogContent:
+                                "저장된 로그인 정보를 사용할 수 없습니다.\n비회원 상태로 전환합니다.",
+                            checkBtnTitle: "확인",
+                            onDialogCreated: () {},
+                          ),
                         ));
 
                 // login_user_info SSW 비우기 (= 로그아웃 처리)
@@ -565,21 +564,22 @@ class PageBusiness {
           if (pageViewModel.signInRetryCount ==
               pageViewModel.signInRetryCountLimit) {
             pageViewModel.signInRetryCount = 0;
-            final all_dialog_info_business.DialogWidgetBusiness
-                allDialogInfoBusiness =
-                all_dialog_info_business.DialogWidgetBusiness();
+            final GlobalKey<all_dialog_info.MainWidgetState>
+                allDialogInfoStateGk =
+                GlobalKey<all_dialog_info.MainWidgetState>();
             if (!_context.mounted) return;
             await showDialog(
                 barrierDismissible: true,
                 context: _context,
-                builder: (context) => all_dialog_info.DialogWidget(
-                      business: allDialogInfoBusiness,
-                      inputVo: const all_dialog_info.InputVo(
-                          dialogTitle: "로그인 실패",
-                          dialogContent:
-                              "저장된 로그인 정보를 사용할 수 없습니다.\n비회원 상태로 전환합니다.",
-                          checkBtnTitle: "확인"),
-                      onDialogCreated: () {},
+                builder: (context) => all_dialog_info.MainWidget(
+                      key: allDialogInfoStateGk,
+                      inputVo: all_dialog_info.InputVo(
+                        dialogTitle: "로그인 실패",
+                        dialogContent:
+                            "저장된 로그인 정보를 사용할 수 없습니다.\n비회원 상태로 전환합니다.",
+                        checkBtnTitle: "확인",
+                        onDialogCreated: () {},
+                      ),
                     ));
 
             // login_user_info SSW 비우기 (= 로그아웃 처리)

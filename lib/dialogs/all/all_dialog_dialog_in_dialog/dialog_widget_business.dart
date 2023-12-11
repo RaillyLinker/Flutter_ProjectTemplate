@@ -10,10 +10,8 @@ import 'package:flutter_project_template/dialogs/all/all_dialog_loading_spinner/
     as all_dialog_loading_spinner;
 import 'package:flutter_project_template/dialogs/all/all_dialog_loading_spinner/dialog_widget_business.dart'
     as all_dialog_loading_spinner_business;
-import 'package:flutter_project_template/dialogs/all/all_dialog_info/dialog_widget.dart'
+import 'package:flutter_project_template/dialogs/all/all_dialog_info/main_widget.dart'
     as all_dialog_info;
-import 'package:flutter_project_template/dialogs/all/all_dialog_info/dialog_widget_business.dart'
-    as all_dialog_info_business;
 
 // [위젯 비즈니스]
 // 위젯의 비즈니스 로직 + State 변수 처리는 이 곳에서 합니다.
@@ -73,18 +71,19 @@ class DialogWidgetBusiness {
 
   // (Info 다이얼로그 호출)
   void showInfoDialog() {
-    final all_dialog_info_business.DialogWidgetBusiness allDialogInfoBusiness =
-        all_dialog_info_business.DialogWidgetBusiness();
+    final GlobalKey<all_dialog_info.MainWidgetState> allDialogInfoStateGk =
+        GlobalKey<all_dialog_info.MainWidgetState>();
     showDialog(
         barrierDismissible: true,
         context: viewModel.context,
-        builder: (context) => all_dialog_info.DialogWidget(
-              business: allDialogInfoBusiness,
-              inputVo: const all_dialog_info.InputVo(
-                  dialogTitle: "확인 다이얼로그",
-                  dialogContent: "확인 다이얼로그를 호출했습니다.",
-                  checkBtnTitle: "확인"),
-              onDialogCreated: () {},
+        builder: (context) => all_dialog_info.MainWidget(
+              key: allDialogInfoStateGk,
+              inputVo: all_dialog_info.InputVo(
+                dialogTitle: "확인 다이얼로그",
+                dialogContent: "확인 다이얼로그를 호출했습니다.",
+                checkBtnTitle: "확인",
+                onDialogCreated: () {},
+              ),
             )).then((outputVo) {});
   }
 

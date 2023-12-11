@@ -12,10 +12,8 @@ import 'package:flutter_project_template/global_widgets/gw_slw_page_outer_frame.
     as gw_slw_page_outer_frame;
 import 'package:flutter_project_template/repositories/network/apis/api_main_server.dart'
     as api_main_server;
-import 'package:flutter_project_template/dialogs/all/all_dialog_info/dialog_widget.dart'
+import 'package:flutter_project_template/dialogs/all/all_dialog_info/main_widget.dart'
     as all_dialog_info;
-import 'package:flutter_project_template/dialogs/all/all_dialog_info/dialog_widget_business.dart'
-    as all_dialog_info_business;
 import 'package:flutter_project_template/dialogs/all/all_dialog_loading_spinner/dialog_widget.dart'
     as all_dialog_loading_spinner;
 import 'package:flutter_project_template/dialogs/all/all_dialog_loading_spinner/dialog_widget_business.dart'
@@ -472,20 +470,21 @@ class PageBusiness {
         // 비정상 응답
         if (responseHeaders.apiResultCode == null) {
           // 비정상 응답이면서 서버에서 에러 원인 코드가 전달되지 않았을 때
-          final all_dialog_info_business.DialogWidgetBusiness
-              allDialogInfoBusiness =
-              all_dialog_info_business.DialogWidgetBusiness();
+          final GlobalKey<all_dialog_info.MainWidgetState>
+              allDialogInfoStateGk =
+              GlobalKey<all_dialog_info.MainWidgetState>();
           if (!_context.mounted) return;
           showDialog(
               barrierDismissible: true,
               context: _context,
-              builder: (context) => all_dialog_info.DialogWidget(
-                    business: allDialogInfoBusiness,
-                    inputVo: const all_dialog_info.InputVo(
-                        dialogTitle: "네트워크 에러",
-                        dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
-                        checkBtnTitle: "확인"),
-                    onDialogCreated: () {},
+              builder: (context) => all_dialog_info.MainWidget(
+                    key: allDialogInfoStateGk,
+                    inputVo: all_dialog_info.InputVo(
+                      dialogTitle: "네트워크 에러",
+                      dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
+                      checkBtnTitle: "확인",
+                      onDialogCreated: () {},
+                    ),
                   ));
         } else {
           // 서버 지정 에러 코드를 전달 받았을 때
@@ -495,60 +494,63 @@ class PageBusiness {
             case "1":
               {
                 // 탈퇴된 회원
-                final all_dialog_info_business.DialogWidgetBusiness
-                    allDialogInfoBusiness =
-                    all_dialog_info_business.DialogWidgetBusiness();
+                final GlobalKey<all_dialog_info.MainWidgetState>
+                    allDialogInfoStateGk =
+                    GlobalKey<all_dialog_info.MainWidgetState>();
                 if (!_context.mounted) return;
                 await showDialog(
                     barrierDismissible: true,
                     context: _context,
-                    builder: (context) => all_dialog_info.DialogWidget(
-                          business: allDialogInfoBusiness,
-                          inputVo: const all_dialog_info.InputVo(
-                              dialogTitle: "비밀번호 변경 실패",
-                              dialogContent: "탈퇴된 회원입니다.",
-                              checkBtnTitle: "확인"),
-                          onDialogCreated: () {},
+                    builder: (context) => all_dialog_info.MainWidget(
+                          key: allDialogInfoStateGk,
+                          inputVo: all_dialog_info.InputVo(
+                            dialogTitle: "비밀번호 변경 실패",
+                            dialogContent: "탈퇴된 회원입니다.",
+                            checkBtnTitle: "확인",
+                            onDialogCreated: () {},
+                          ),
                         ));
               }
               break;
             case "2":
               {
                 // 기존 비밀번호가 일치하지 않음
-                final all_dialog_info_business.DialogWidgetBusiness
-                    allDialogInfoBusiness =
-                    all_dialog_info_business.DialogWidgetBusiness();
+                final GlobalKey<all_dialog_info.MainWidgetState>
+                    allDialogInfoStateGk =
+                    GlobalKey<all_dialog_info.MainWidgetState>();
                 if (!_context.mounted) return;
                 await showDialog(
                     barrierDismissible: true,
                     context: _context,
-                    builder: (context) => all_dialog_info.DialogWidget(
-                          business: allDialogInfoBusiness,
-                          inputVo: const all_dialog_info.InputVo(
-                              dialogTitle: "비밀번호 변경 실패",
-                              dialogContent: "입력한 현재 비밀번호가\n일치하지 않습니다.",
-                              checkBtnTitle: "확인"),
-                          onDialogCreated: () {},
+                    builder: (context) => all_dialog_info.MainWidget(
+                          key: allDialogInfoStateGk,
+                          inputVo: all_dialog_info.InputVo(
+                            dialogTitle: "비밀번호 변경 실패",
+                            dialogContent: "입력한 현재 비밀번호가\n일치하지 않습니다.",
+                            checkBtnTitle: "확인",
+                            onDialogCreated: () {},
+                          ),
                         ));
               }
               break;
             case "3":
               {
                 // 비번을 null 로 만들려고 할 때 account 외의 OAuth2 인증이 없기에 비번 제거 불가
-                final all_dialog_info_business.DialogWidgetBusiness
-                    allDialogInfoBusiness =
-                    all_dialog_info_business.DialogWidgetBusiness();
+                final GlobalKey<all_dialog_info.MainWidgetState>
+                    allDialogInfoStateGk =
+                    GlobalKey<all_dialog_info.MainWidgetState>();
                 if (!_context.mounted) return;
                 await showDialog(
                     barrierDismissible: true,
                     context: _context,
-                    builder: (context) => all_dialog_info.DialogWidget(
-                          business: allDialogInfoBusiness,
-                          inputVo: const all_dialog_info.InputVo(
-                              dialogTitle: "비밀번호 변경 실패",
-                              dialogContent: "비밀번호를 제거할 수 없습니다.",
-                              checkBtnTitle: "확인"),
-                          onDialogCreated: () {},
+                    builder: (context) => all_dialog_info.MainWidget(
+                          key: allDialogInfoStateGk,
+                          inputVo: all_dialog_info.InputVo(
+                            dialogTitle: "비밀번호 변경 실패",
+                            dialogContent: "비밀번호를 제거할 수 없습니다.",
+                            checkBtnTitle: "확인",
+                            onDialogCreated: () {},
+                          ),
                         ));
               }
               break;
@@ -562,20 +564,20 @@ class PageBusiness {
       }
     } else {
       // Dio 네트워크 에러
-      final all_dialog_info_business.DialogWidgetBusiness
-          allDialogInfoBusiness =
-          all_dialog_info_business.DialogWidgetBusiness();
+      final GlobalKey<all_dialog_info.MainWidgetState> allDialogInfoStateGk =
+          GlobalKey<all_dialog_info.MainWidgetState>();
       if (!_context.mounted) return;
       showDialog(
           barrierDismissible: true,
           context: _context,
-          builder: (context) => all_dialog_info.DialogWidget(
-                business: allDialogInfoBusiness,
-                inputVo: const all_dialog_info.InputVo(
-                    dialogTitle: "네트워크 에러",
-                    dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
-                    checkBtnTitle: "확인"),
-                onDialogCreated: () {},
+          builder: (context) => all_dialog_info.MainWidget(
+                key: allDialogInfoStateGk,
+                inputVo: all_dialog_info.InputVo(
+                  dialogTitle: "네트워크 에러",
+                  dialogContent: "네트워크 상태가 불안정합니다.\n다시 시도해주세요.",
+                  checkBtnTitle: "확인",
+                  onDialogCreated: () {},
+                ),
               ));
     }
   }
