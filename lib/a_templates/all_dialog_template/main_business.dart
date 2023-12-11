@@ -5,6 +5,10 @@ import 'package:go_router/go_router.dart';
 // (inner_folder)
 import 'main_widget.dart' as main_widget;
 
+// (all)
+import 'package:flutter_project_template/global_widgets/gw_sfw_wrapper.dart'
+    as gw_sfw_wrapper;
+
 // [위젯 비즈니스]
 
 //------------------------------------------------------------------------------
