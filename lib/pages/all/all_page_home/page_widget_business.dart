@@ -6,24 +6,25 @@ import 'package:go_router/go_router.dart';
 import 'page_widget.dart' as page_widget;
 
 // (all)
-import '../../../global_widgets/gw_slw_page_outer_frame.dart'
+import 'package:flutter_project_template/global_widgets/gw_slw_page_outer_frame.dart'
     as gw_slw_page_outer_frame;
-import '../../../global_widgets/todo_do_delete.dart' as gw_sfw_wrapper;
-import '../../../pages/all/all_page_page_and_router_sample_list/page_widget.dart'
+import 'package:flutter_project_template/global_widgets/todo_do_delete.dart'
+    as gw_sfw_wrapper;
+import 'package:flutter_project_template/pages/all/all_page_page_and_router_sample_list/page_widget.dart'
     as all_page_page_and_router_sample_list;
-import '../../../pages/all/all_page_dialog_sample_list/page_widget.dart'
+import 'package:flutter_project_template/pages/all/all_page_dialog_sample_list/page_widget.dart'
     as all_page_dialog_sample_list;
-import '../../../pages/all/all_page_dialog_animation_sample_list/page_widget.dart'
+import 'package:flutter_project_template/pages/all/all_page_dialog_animation_sample_list/page_widget.dart'
     as all_page_dialog_animation_sample_list;
-import '../../../pages/all/all_page_network_request_sample_list/page_widget.dart'
+import 'package:flutter_project_template/pages/all/all_page_network_request_sample_list/page_widget.dart'
     as all_page_network_request_sample_list;
-import '../../../pages/all/all_page_auth_sample/page_widget.dart'
+import 'package:flutter_project_template/pages/all/all_page_auth_sample/page_widget.dart'
     as all_page_auth_sample;
-import '../../../pages/all/all_page_etc_sample_list/page_widget.dart'
+import 'package:flutter_project_template/pages/all/all_page_etc_sample_list/page_widget.dart'
     as all_page_etc_sample_list;
 
 // (mobile)
-import '../../../pages/mobile/mobile_page_permission_sample_list/page_entrance.dart'
+import 'package:flutter_project_template/pages/mobile/mobile_page_permission_sample_list/page_entrance.dart'
     as mobile_page_permission_sample_list;
 
 // [위젯 비즈니스]

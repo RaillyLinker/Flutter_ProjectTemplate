@@ -5,8 +5,10 @@ import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 // (all)
 import 'apis/api_main_server.dart' as api_main_server;
-import '../../global_data/gd_const_config.dart' as gd_const_config;
-import '../spws/spw_auth_member_info.dart' as spw_auth_member_info;
+import 'package:flutter_project_template/global_data/gd_const_config.dart'
+    as gd_const_config;
+import 'package:flutter_project_template/repositories/spws/spw_auth_member_info.dart'
+    as spw_auth_member_info;
 
 // [네트워크 요청 객체 파일]
 // 네트워크 요청 객체 선언, 생성, 설정 파일

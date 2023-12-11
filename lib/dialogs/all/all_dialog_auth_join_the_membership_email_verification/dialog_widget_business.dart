@@ -6,20 +6,22 @@ import 'package:go_router/go_router.dart';
 import 'dialog_widget.dart' as dialog_widget;
 
 // (all)
-import '../../../global_widgets/todo_do_delete.dart' as gw_do_delete;
-import '../../../../repositories/network/apis/api_main_server.dart'
+import 'package:flutter_project_template/global_widgets/todo_do_delete.dart'
+    as gw_do_delete;
+import 'package:flutter_project_template/repositories/network/apis/api_main_server.dart'
     as api_main_server;
-import '../../../dialogs/all/all_dialog_info/dialog_widget.dart'
+import 'package:flutter_project_template/dialogs/all/all_dialog_info/dialog_widget.dart'
     as all_dialog_info;
-import '../../../dialogs/all/all_dialog_info/dialog_widget_business.dart'
+import 'package:flutter_project_template/dialogs/all/all_dialog_info/dialog_widget_business.dart'
     as all_dialog_info_business;
-import '../../../dialogs/all/all_dialog_loading_spinner/dialog_widget.dart'
+import 'package:flutter_project_template/dialogs/all/all_dialog_loading_spinner/dialog_widget.dart'
     as all_dialog_loading_spinner;
-import '../../../dialogs/all/all_dialog_loading_spinner/dialog_widget_business.dart'
+import 'package:flutter_project_template/dialogs/all/all_dialog_loading_spinner/dialog_widget_business.dart'
     as all_dialog_loading_spinner_business;
-import '../../../../repositories/spws/spw_auth_member_info.dart'
+import 'package:flutter_project_template/repositories/spws/spw_auth_member_info.dart'
     as spw_auth_member_info;
-import '../../../global_functions/gf_my_functions.dart' as gf_my_functions;
+import 'package:flutter_project_template/global_functions/gf_my_functions.dart'
+    as gf_my_functions;
 
 // [위젯 비즈니스]
 // 위젯의 비즈니스 로직 + State 변수 처리는 이 곳에서 합니다.

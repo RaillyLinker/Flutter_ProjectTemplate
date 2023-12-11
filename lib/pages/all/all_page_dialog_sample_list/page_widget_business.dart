@@ -7,38 +7,39 @@ import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'page_widget.dart' as page_widget;
 
 // (all)
-import '../../../global_widgets/gw_slw_page_outer_frame.dart'
+import 'package:flutter_project_template/global_widgets/gw_slw_page_outer_frame.dart'
     as gw_slw_page_outer_frame;
-import '../../../global_widgets/todo_do_delete.dart' as gw_do_delete;
-import '../../../dialogs/all/all_dialog_info/dialog_widget.dart'
+import 'package:flutter_project_template/global_widgets/todo_do_delete.dart'
+    as gw_do_delete;
+import 'package:flutter_project_template/dialogs/all/all_dialog_info/dialog_widget.dart'
     as all_dialog_info;
-import '../../../dialogs/all/all_dialog_info/dialog_widget_business.dart'
+import 'package:flutter_project_template/dialogs/all/all_dialog_info/dialog_widget_business.dart'
     as all_dialog_info_business;
-import '../../../a_templates/all_dialog_template/main_widget.dart'
+import 'package:flutter_project_template/a_templates/all_dialog_template/main_widget.dart'
     as all_dialog_template;
-import '../../../dialogs/all/all_dialog_yes_or_no/dialog_widget.dart'
+import 'package:flutter_project_template/dialogs/all/all_dialog_yes_or_no/dialog_widget.dart'
     as all_dialog_yes_or_no;
-import '../../../dialogs/all/all_dialog_yes_or_no/dialog_widget_business.dart'
+import 'package:flutter_project_template/dialogs/all/all_dialog_yes_or_no/dialog_widget_business.dart'
     as all_dialog_yes_or_no_business;
-import '../../../dialogs/all/all_dialog_loading_spinner/dialog_widget.dart'
+import 'package:flutter_project_template/dialogs/all/all_dialog_loading_spinner/dialog_widget.dart'
     as all_dialog_loading_spinner;
-import '../../../dialogs/all/all_dialog_loading_spinner/dialog_widget_business.dart'
+import 'package:flutter_project_template/dialogs/all/all_dialog_loading_spinner/dialog_widget_business.dart'
     as all_dialog_loading_spinner_business;
-import '../../../dialogs/all/all_dialog_modal_bottom_sheet_sample/dialog_widget.dart'
+import 'package:flutter_project_template/dialogs/all/all_dialog_modal_bottom_sheet_sample/dialog_widget.dart'
     as all_dialog_modal_bottom_sheet_sample;
-import '../../../dialogs/all/all_dialog_modal_bottom_sheet_sample/dialog_widget_business.dart'
+import 'package:flutter_project_template/dialogs/all/all_dialog_modal_bottom_sheet_sample/dialog_widget_business.dart'
     as all_dialog_modal_bottom_sheet_sample_business;
-import '../../../dialogs/all/all_dialog_dialog_in_dialog/dialog_widget.dart'
+import 'package:flutter_project_template/dialogs/all/all_dialog_dialog_in_dialog/dialog_widget.dart'
     as all_dialog_dialog_in_dialog;
-import '../../../dialogs/all/all_dialog_dialog_in_dialog/dialog_widget_business.dart'
+import 'package:flutter_project_template/dialogs/all/all_dialog_dialog_in_dialog/dialog_widget_business.dart'
     as all_dialog_dialog_in_dialog_business;
-import '../../../dialogs/all/all_dialog_context_menu_sample/dialog_widget.dart'
+import 'package:flutter_project_template/dialogs/all/all_dialog_context_menu_sample/dialog_widget.dart'
     as all_dialog_context_menu_sample;
-import '../../../dialogs/all/all_dialog_context_menu_sample/dialog_widget_business.dart'
+import 'package:flutter_project_template/dialogs/all/all_dialog_context_menu_sample/dialog_widget_business.dart'
     as all_dialog_context_menu_sample_business;
-import '../../../dialogs/all/all_dialog_stateful_and_lifecycle_test/dialog_widget.dart'
+import 'package:flutter_project_template/dialogs/all/all_dialog_stateful_and_lifecycle_test/dialog_widget.dart'
     as all_dialog_stateful_and_lifecycle_test;
-import '../../../dialogs/all/all_dialog_stateful_and_lifecycle_test/dialog_widget_business.dart'
+import 'package:flutter_project_template/dialogs/all/all_dialog_stateful_and_lifecycle_test/dialog_widget_business.dart'
     as all_dialog_stateful_and_lifecycle_test_business;
 
 // [위젯 비즈니스]

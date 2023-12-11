@@ -54,6 +54,7 @@ class ThreadConfluenceObj {
   }
 }
 
+////
 // (AnimatedSwitcher 설정)
 class AnimatedSwitcherConfig {
   AnimatedSwitcherConfig(

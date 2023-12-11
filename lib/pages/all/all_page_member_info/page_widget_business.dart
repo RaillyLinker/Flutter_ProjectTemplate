@@ -7,16 +7,18 @@ import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'page_widget.dart' as page_widget;
 
 // (all)
-import '../../../global_widgets/gw_slw_page_outer_frame.dart'
+import 'package:flutter_project_template/global_widgets/gw_slw_page_outer_frame.dart'
     as gw_slw_page_outer_frame;
-import '../../../global_classes/gc_template_classes.dart'
+import 'package:flutter_project_template/global_classes/todo_gc_delete.dart'
     as gc_template_classes;
-import '../../../../repositories/spws/spw_auth_member_info.dart'
+import 'package:flutter_project_template/repositories/spws/spw_auth_member_info.dart'
     as spw_auth_member_info;
-import '../../../global_functions/gf_my_functions.dart' as gf_my_functions;
-import '../../../pages/all/all_page_membership_withdrawal/page_widget.dart'
+import 'package:flutter_project_template/global_functions/gf_my_functions.dart'
+    as gf_my_functions;
+import 'package:flutter_project_template/pages/all/all_page_membership_withdrawal/page_widget.dart'
     as all_page_membership_withdrawal;
-import '../../../pages/all/all_page_login/page_entrance.dart' as all_page_login;
+import 'package:flutter_project_template/pages/all/all_page_login/page_entrance.dart'
+    as all_page_login;
 
 // [위젯 비즈니스]
 // 위젯의 비즈니스 로직 + State 변수 처리는 이 곳에서 합니다.

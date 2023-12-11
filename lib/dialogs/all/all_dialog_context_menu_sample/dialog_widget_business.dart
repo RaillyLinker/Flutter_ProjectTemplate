@@ -7,7 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'dialog_widget.dart' as dialog_widget;
 
 // (all)
-import '../../../global_widgets/gw_sfw_wrapper.dart'
+import 'package:flutter_project_template/global_widgets/gw_sfw_wrapper.dart'
     as gw_sfw_context_menu_region;
 
 // [위젯 비즈니스]

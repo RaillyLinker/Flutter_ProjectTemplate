@@ -11,9 +11,9 @@ import 'inner_widgets/iw_crypt_result_text/sf_widget.dart'
     as iw_crypt_result_text;
 
 // (all)
-import '../../../global_widgets/gw_slw_page_outer_frame.dart'
+import 'package:flutter_project_template/global_widgets/gw_slw_page_outer_frame.dart'
     as gw_slw_page_outer_frame;
-import '../../../global_classes/gc_template_classes.dart'
+import 'package:flutter_project_template/global_classes/todo_gc_delete.dart'
     as gc_template_classes;
 
 // [위젯 뷰]

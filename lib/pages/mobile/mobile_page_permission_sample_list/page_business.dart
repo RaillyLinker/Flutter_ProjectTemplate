@@ -9,15 +9,15 @@ import 'package:permission_handler/permission_handler.dart';
 import 'page_entrance.dart' as page_entrance;
 
 // (all)
-import '../../../global_widgets/gw_slw_page_outer_frame.dart'
+import 'package:flutter_project_template/global_widgets/gw_slw_page_outer_frame.dart'
     as gw_slw_page_outer_frame;
-import '../../../global_classes/gc_template_classes.dart'
+import 'package:flutter_project_template/global_classes/todo_gc_delete.dart'
     as gc_template_classes;
-import '../../../dialogs/all/all_dialog_yes_or_no/dialog_widget.dart'
+import 'package:flutter_project_template/dialogs/all/all_dialog_yes_or_no/dialog_widget.dart'
     as all_dialog_yes_or_no;
-import '../../../dialogs/all/all_dialog_yes_or_no/dialog_widget_business.dart'
+import 'package:flutter_project_template/dialogs/all/all_dialog_yes_or_no/dialog_widget_business.dart'
     as all_dialog_yes_or_no_business;
-import '../../../global_data/gd_const.dart' as gd_const;
+import 'package:flutter_project_template/global_data/gd_const.dart' as gd_const;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
 // todo : 템플릿 적용

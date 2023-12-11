@@ -9,13 +9,13 @@ import 'package:flutter/foundation.dart';
 import 'page_widget.dart' as page_widget;
 
 // (all)
-import '../../../global_widgets/gw_slw_page_outer_frame.dart'
+import 'package:flutter_project_template/global_widgets/gw_slw_page_outer_frame.dart'
     as gw_slw_page_outer_frame;
-import '../../../global_classes/gc_template_classes.dart'
+import 'package:flutter_project_template/global_classes/todo_gc_delete.dart'
     as gc_template_classes;
-import '../../../dialogs/all/all_dialog_image_selector_menu/dialog_widget.dart'
+import 'package:flutter_project_template/dialogs/all/all_dialog_image_selector_menu/dialog_widget.dart'
     as all_dialog_image_selector_menu;
-import '../../../dialogs/all/all_dialog_image_selector_menu/dialog_widget_business.dart'
+import 'package:flutter_project_template/dialogs/all/all_dialog_image_selector_menu/dialog_widget_business.dart'
     as all_dialog_image_selector_menu_business;
 
 // [위젯 비즈니스]

@@ -4,11 +4,12 @@ import 'package:dio/dio.dart';
 // (all)
 import 'package:flutter_project_template/repositories/network/network_repositories.dart'
     as network_repositories;
-import '../../../global_functions/gf_template_functions.dart'
+import 'package:flutter_project_template/global_functions/gf_template_functions.dart'
     as gf_template_functions;
-import '../../../global_classes/gc_template_classes.dart'
+import 'package:flutter_project_template/global_classes/gc_template_classes.dart'
     as gc_template_classes;
-import '../../../global_data/gd_const_config.dart' as gd_const_config;
+import 'package:flutter_project_template/global_data/gd_const_config.dart'
+    as gd_const_config;
 
 // [네트워크 API 파일]
 // 하나의 Dio 에 대응하는 API 함수 모음 파일

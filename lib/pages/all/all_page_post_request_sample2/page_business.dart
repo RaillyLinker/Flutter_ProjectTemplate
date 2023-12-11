@@ -7,19 +7,19 @@ import 'package:go_router/go_router.dart';
 import 'page_entrance.dart' as page_entrance;
 
 // (all)
-import '../../../global_widgets/gw_slw_page_outer_frame.dart'
+import 'package:flutter_project_template/global_widgets/gw_slw_page_outer_frame.dart'
     as gw_slw_page_outer_frame;
-import '../../../../repositories/network/apis/api_main_server.dart'
+import 'package:flutter_project_template/repositories/network/apis/api_main_server.dart'
     as api_main_server;
-import '../../../dialogs/all/all_dialog_info/dialog_widget.dart'
+import 'package:flutter_project_template/dialogs/all/all_dialog_info/dialog_widget.dart'
     as all_dialog_info;
-import '../../../dialogs/all/all_dialog_info/dialog_widget_business.dart'
+import 'package:flutter_project_template/dialogs/all/all_dialog_info/dialog_widget_business.dart'
     as all_dialog_info_business;
-import '../../../global_classes/gc_template_classes.dart'
+import 'package:flutter_project_template/global_classes/todo_gc_delete.dart'
     as gc_template_classes;
-import '../../../dialogs/all/all_dialog_loading_spinner/dialog_widget.dart'
+import 'package:flutter_project_template/dialogs/all/all_dialog_loading_spinner/dialog_widget.dart'
     as all_dialog_loading_spinner;
-import '../../../dialogs/all/all_dialog_loading_spinner/dialog_widget_business.dart'
+import 'package:flutter_project_template/dialogs/all/all_dialog_loading_spinner/dialog_widget_business.dart'
     as all_dialog_loading_spinner_business;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]

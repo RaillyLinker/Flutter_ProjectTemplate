@@ -11,11 +11,13 @@ String base64Encode({required String plainText}) {
   return base64.encode(utf8.encode(plainText));
 }
 
+////
 // (Base64 디코딩)
 String base64Decode({required String encodedText}) {
   return utf8.decode(base64.decode(encodedText));
 }
 
+////
 // (AES 256 암호화 함수)
 // plainText 가 "" 라면 에러 발생
 // plainText : 암호화하려는 평문
@@ -31,6 +33,7 @@ String aes256Encrypt(
           .bytes);
 }
 
+////
 // (AES 256 복호화 함수)
 // cipherText 가 "" 라면 에러 발생
 // cipherText : 복호화하려는 암호문

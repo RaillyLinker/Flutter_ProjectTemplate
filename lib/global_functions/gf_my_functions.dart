@@ -2,28 +2,16 @@
 import 'dart:math';
 import 'dart:typed_data';
 import 'package:image/image.dart' as img;
-import 'package:flutter/widgets.dart' as widgets;
 import 'package:intl/intl.dart';
 
 // (all)
-import '../../../../repositories/spws/spw_auth_member_info.dart'
+import 'package:flutter_project_template/repositories/spws/spw_auth_member_info.dart'
     as spw_sign_in_member_info;
 
 // [전역 함수 작성 파일]
 // 프로그램 전역에서 사용할 함수들은 여기에 모아둡니다.
 
 // -----------------------------------------------------------------------------
-// (위젯에서 앞서 설정한 키 값을 가져오기)
-String? getWidgetKeyValue({required widgets.Widget widget}) {
-  if (widget.key == null) {
-    return null;
-  } else {
-    String? widgetKeyString = widget.key.toString(); // ex : <keyValue> or null
-    return widgetKeyString.substring(
-        widgetKeyString.indexOf('<') + 1, widgetKeyString.indexOf('>'));
-  }
-}
-
 // (현 시점 검증된 로그인 정보 가져오기)
 // 검증된 현재 회원 정보 가져오기 (비회원이라면 null)
 spw_sign_in_member_info.SharedPreferenceWrapperVo? getNowVerifiedMemberInfo() {
@@ -65,7 +53,8 @@ spw_sign_in_member_info.SharedPreferenceWrapperVo? getNowVerifiedMemberInfo() {
   return nowLoginMemberInfo;
 }
 
-// Gif 정보 가져오기
+////
+// (Gif 정보 가져오기)
 GetGifDetailsOutputVo getGifDetails({required ByteData byteData}) {
   // GIF 이미지 데이터 로드
   var gif = img.decodeGif(byteData.buffer.asUint8List());
@@ -88,6 +77,7 @@ class GetGifDetailsOutputVo {
   int duration;
 }
 
+////
 // (영문, 숫자 랜덤 String 을 length 만큼의 길이로 반환)
 String generateRandomString(int length) {
   const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';

@@ -14,24 +14,26 @@ import 'package:image_picker/image_picker.dart';
 import 'page_entrance.dart' as page_entrance;
 
 // (all)
-import '../../../global_widgets/gw_slw_page_outer_frame.dart'
+import 'package:flutter_project_template/global_widgets/gw_slw_page_outer_frame.dart'
     as gw_slw_page_outer_frame;
-import '../../../../repositories/network/apis/api_main_server.dart'
+import 'package:flutter_project_template/repositories/network/apis/api_main_server.dart'
     as api_main_server;
-import '../../../dialogs/all/all_dialog_image_selector_menu/dialog_widget.dart'
+import 'package:flutter_project_template/dialogs/all/all_dialog_image_selector_menu/dialog_widget.dart'
     as all_dialog_image_selector_menu;
-import '../../../dialogs/all/all_dialog_image_selector_menu/dialog_widget_business.dart'
+import 'package:flutter_project_template/dialogs/all/all_dialog_image_selector_menu/dialog_widget_business.dart'
     as all_dialog_image_selector_menu_business;
-import '../../../dialogs/all/all_dialog_info/dialog_widget.dart'
+import 'package:flutter_project_template/dialogs/all/all_dialog_info/dialog_widget.dart'
     as all_dialog_info;
-import '../../../dialogs/all/all_dialog_info/dialog_widget_business.dart'
+import 'package:flutter_project_template/dialogs/all/all_dialog_info/dialog_widget_business.dart'
     as all_dialog_info_business;
-import '../../../global_classes/gc_template_classes.dart'
+import 'package:flutter_project_template/global_classes/todo_gc_delete.dart'
     as gc_template_classes;
-import '../../../../repositories/spws/spw_auth_member_info.dart'
+import 'package:flutter_project_template/repositories/spws/spw_auth_member_info.dart'
     as spw_auth_member_info;
-import '../../../global_functions/gf_my_functions.dart' as gf_my_functions;
-import '../../../pages/all/all_page_home/page_widget.dart' as all_page_home;
+import 'package:flutter_project_template/global_functions/gf_my_functions.dart'
+    as gf_my_functions;
+import 'package:flutter_project_template/pages/all/all_page_home/page_widget.dart'
+    as all_page_home;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
 // todo : 템플릿 적용

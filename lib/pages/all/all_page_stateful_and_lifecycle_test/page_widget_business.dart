@@ -7,12 +7,13 @@ import 'package:go_router/go_router.dart';
 import 'page_widget.dart' as page_widget;
 
 // (all)
-import '../../../global_widgets/gw_slw_page_outer_frame.dart'
+import 'package:flutter_project_template/global_widgets/gw_slw_page_outer_frame.dart'
     as gw_slw_page_outer_frame;
-import '../../../global_classes/gc_template_classes.dart'
+import 'package:flutter_project_template/global_classes/todo_gc_delete.dart'
     as gc_template_classes;
-import '../../../global_widgets/gw_sfw_test.dart' as gw_sfw_test;
-import '../../../pages/all/all_page_page_and_router_sample_list/page_widget.dart'
+import 'package:flutter_project_template/global_widgets/gw_sfw_test.dart'
+    as gw_sfw_test;
+import 'package:flutter_project_template/pages/all/all_page_page_and_router_sample_list/page_widget.dart'
     as all_page_page_and_router_sample_list;
 
 // [위젯 비즈니스]

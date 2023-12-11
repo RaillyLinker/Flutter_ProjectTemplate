@@ -6,15 +6,13 @@ import 'package:go_router/go_router.dart';
 import 'page_widget.dart' as page_widget;
 
 // (all)
-import '../../../global_widgets/gw_slw_page_outer_frame.dart'
+import 'package:flutter_project_template/global_widgets/gw_slw_page_outer_frame.dart'
     as gw_slw_page_outer_frame;
-import '../../../global_classes/gc_template_classes.dart'
+import 'package:flutter_project_template/global_classes/todo_gc_delete.dart'
     as gc_template_classes;
-import '../../../global_classes/gc_my_classes.dart' as gc_my_classes;
-import '../../../global_functions/gf_my_functions.dart' as gf_my_functions;
-import '../../../global_classes/gc_template_classes.dart'
-    as gc_template_classes;
-import '../../../global_classes/gc_animated_builder.dart'
+import 'package:flutter_project_template/global_classes/gc_my_classes.dart'
+    as gc_my_classes;
+import 'package:flutter_project_template/global_classes/gc_animated_builder.dart'
     as gc_animated_builder;
 
 // [위젯 비즈니스]
@@ -133,8 +131,8 @@ class PageWidgetBusiness {
         onItemClicked: () {
           // 애니메이션 없음
 
-          int sampleWidgetKeyValue = int.parse(
-              gf_my_functions.getWidgetKeyValue(widget: sampleWidget)!);
+          int sampleWidgetKeyValue =
+              int.parse(_getWidgetKeyValue(widget: sampleWidget)!);
           if (sampleWidgetEnum == SampleWidgetEnum.blueCircleWidget) {
             sampleWidgetEnum = SampleWidgetEnum.greenRoundSquareWidget;
             sampleWidget = Container(
@@ -187,8 +185,8 @@ class PageWidgetBusiness {
         onItemClicked: () {
           // Fade 애니메이션 적용
 
-          int sampleWidgetKeyValue = int.parse(
-              gf_my_functions.getWidgetKeyValue(widget: sampleWidget)!);
+          int sampleWidgetKeyValue =
+              int.parse(_getWidgetKeyValue(widget: sampleWidget)!);
           if (sampleWidgetEnum == SampleWidgetEnum.blueCircleWidget) {
             sampleWidgetEnum = SampleWidgetEnum.greenRoundSquareWidget;
             sampleWidget = Container(
@@ -247,8 +245,8 @@ class PageWidgetBusiness {
         onItemClicked: () {
           // Scale 애니메이션 적용
 
-          int sampleWidgetKeyValue = int.parse(
-              gf_my_functions.getWidgetKeyValue(widget: sampleWidget)!);
+          int sampleWidgetKeyValue =
+              int.parse(_getWidgetKeyValue(widget: sampleWidget)!);
           if (sampleWidgetEnum == SampleWidgetEnum.blueCircleWidget) {
             sampleWidgetEnum = SampleWidgetEnum.greenRoundSquareWidget;
             sampleWidget = Container(
@@ -307,8 +305,8 @@ class PageWidgetBusiness {
         onItemClicked: () {
           // Flip 애니메이션 적용
 
-          int sampleWidgetKeyValue = int.parse(
-              gf_my_functions.getWidgetKeyValue(widget: sampleWidget)!);
+          int sampleWidgetKeyValue =
+              int.parse(_getWidgetKeyValue(widget: sampleWidget)!);
           if (sampleWidgetEnum == SampleWidgetEnum.redSquareWidget) {
             sampleWidgetEnum = SampleWidgetEnum.blueSquareWidget;
             sampleWidget = Container(
@@ -353,6 +351,17 @@ class PageWidgetBusiness {
   }
 
 // [private 함수]
+  // todo 다른 방법 찾아보기
+  String? _getWidgetKeyValue({required Widget widget}) {
+    if (widget.key == null) {
+      return null;
+    } else {
+      String? widgetKeyString =
+          widget.key.toString(); // ex : <keyValue> or null
+      return widgetKeyString.substring(
+          widgetKeyString.indexOf('<') + 1, widgetKeyString.indexOf('>'));
+    }
+  }
 }
 
 class SampleItemViewModel {

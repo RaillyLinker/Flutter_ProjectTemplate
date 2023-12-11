@@ -1,8 +1,5 @@
 [TODO]
-- 다이얼로그 템플릿에 페이지 템플릿 구조를 적용
-- 펫링크 파트너스에 본 템플릿 프로젝트 적용
-- 리플레시 위젯 래퍼를 적용하고 쓸데없는 래퍼 없애기
-- todo_do_delete.dart 제거
+- 리플레시 위젯 래퍼를 적용하고 todo_do_delete.dart 제거
 - info -> yes_or_no -> loading_spinner 순서로 다이얼로그 템플릿 적용 (auth 다이얼로그는 가장 나중)
 - home 페이지 템플릿 적용
 - 리스트가 있는 모든 페이지에 home 페이지 형식 적용
@@ -12,7 +9,7 @@
 - 계정 샘플 페이지 수정
 - 이외 모든 페이지 수정
 - 페이지 템플릿 적용 (BLoC 영역, 함수, 생성자 파라미터를 모두 이름 있는 것으로 바꾸기)
-- 템플릿 다 적용하고 BLoC 라이브러리 제거 및 사용하지 않는 global_classes, global_data, global_functions 제거
+- 템플릿 다 적용하고 BLoC 라이브러리 제거 및 todo_gc_delete.dart 제거
 
 - 리스트 아이템 순서 바꾸기
 - 리스트 아이템 순서 갱신시 애니메이션

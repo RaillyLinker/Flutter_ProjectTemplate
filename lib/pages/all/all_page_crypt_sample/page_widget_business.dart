@@ -8,10 +8,11 @@ import 'inner_widgets/iw_crypt_result_text/sf_widget_state.dart'
     as iw_crypt_result_text_state;
 
 // (all)
-import '../../../global_widgets/gw_slw_page_outer_frame.dart'
+import 'package:flutter_project_template/global_widgets/gw_slw_page_outer_frame.dart'
     as gw_slw_page_outer_frame;
-import '../../../global_functions/gf_crypto.dart' as gf_crypto;
-import '../../../global_classes/gc_template_classes.dart'
+import 'package:flutter_project_template/global_functions/gf_crypto.dart'
+    as gf_crypto;
+import 'package:flutter_project_template/global_classes/todo_gc_delete.dart'
     as gc_template_classes;
 
 // [위젯 비즈니스]

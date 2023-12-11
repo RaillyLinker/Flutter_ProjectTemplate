@@ -7,37 +7,37 @@ import 'package:go_router/go_router.dart';
 import 'page_widget.dart' as page_widget;
 
 // (all)
-import '../../../global_widgets/gw_slw_page_outer_frame.dart'
+import 'package:flutter_project_template/global_widgets/gw_slw_page_outer_frame.dart'
     as gw_slw_page_outer_frame;
-import '../../../global_classes/gc_template_classes.dart'
+import 'package:flutter_project_template/global_classes/todo_gc_delete.dart'
     as gc_template_classes;
-import '../../../pages/all/all_page_crypt_sample/page_widget.dart'
+import 'package:flutter_project_template/pages/all/all_page_crypt_sample/page_widget.dart'
     as all_page_crypt_sample;
-import '../../../pages/all/all_page_global_variable_state_test_sample/page_widget.dart'
+import 'package:flutter_project_template/pages/all/all_page_global_variable_state_test_sample/page_widget.dart'
     as all_page_global_variable_state_test_sample;
-import '../../../pages/all/all_page_shared_preferences_sample/page_entrance.dart'
+import 'package:flutter_project_template/pages/all/all_page_shared_preferences_sample/page_entrance.dart'
     as all_page_shared_preferences_sample;
-import '../../../pages/all/all_page_url_launcher_sample/page_entrance.dart'
+import 'package:flutter_project_template/pages/all/all_page_url_launcher_sample/page_entrance.dart'
     as all_page_url_launcher_sample;
-import '../../../pages/all/all_page_widget_change_animation_sample_list/page_widget.dart'
+import 'package:flutter_project_template/pages/all/all_page_widget_change_animation_sample_list/page_widget.dart'
     as all_page_widget_change_animation_sample_list;
-import '../../../pages/all/all_page_gif_sample/page_widget.dart'
+import 'package:flutter_project_template/pages/all/all_page_gif_sample/page_widget.dart'
     as all_page_gif_sample;
-import '../../../pages/all/all_page_image_selector_sample/page_widget.dart'
+import 'package:flutter_project_template/pages/all/all_page_image_selector_sample/page_widget.dart'
     as all_page_image_selector_sample;
-import '../../../pages/all/all_page_image_loading_sample/page_widget.dart'
+import 'package:flutter_project_template/pages/all/all_page_image_loading_sample/page_widget.dart'
     as all_page_image_loading_sample;
-import '../../../pages/all/all_page_context_menu_sample/page_widget.dart'
+import 'package:flutter_project_template/pages/all/all_page_context_menu_sample/page_widget.dart'
     as all_page_context_menu_sample;
-import '../../../pages/all/all_page_gesture_area_overlap_test/page_widget.dart'
+import 'package:flutter_project_template/pages/all/all_page_gesture_area_overlap_test/page_widget.dart'
     as all_page_gesture_area_overlap_test;
-import '../../../pages/all/all_page_form_sample/page_widget.dart'
+import 'package:flutter_project_template/pages/all/all_page_form_sample/page_widget.dart'
     as all_page_form_sample;
-import '../../../pages/all/all_page_horizontal_scroll_test/page_widget.dart'
+import 'package:flutter_project_template/pages/all/all_page_horizontal_scroll_test/page_widget.dart'
     as all_page_horizontal_scroll_test;
 
 // (app)
-import '../../../pages/app/app_page_server_sample/page_entrance.dart'
+import 'package:flutter_project_template/pages/app/app_page_server_sample/page_entrance.dart'
     as app_page_server_sample;
 
 // [위젯 비즈니스]

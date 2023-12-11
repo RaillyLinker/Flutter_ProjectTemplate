@@ -7,11 +7,12 @@ import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'page_widget.dart' as page_widget;
 
 // (all)
-import '../../../global_widgets/gw_slw_page_outer_frame.dart'
+import 'package:flutter_project_template/global_widgets/gw_slw_page_outer_frame.dart'
     as gw_slw_page_outer_frame;
-import '../../../global_classes/gc_template_classes.dart'
+import 'package:flutter_project_template/global_classes/todo_gc_delete.dart'
     as gc_template_classes;
-import '../../../pages/all/all_page_home/page_widget.dart' as all_page_home;
+import 'package:flutter_project_template/pages/all/all_page_home/page_widget.dart'
+    as all_page_home;
 
 // [위젯 비즈니스]
 // 위젯의 비즈니스 로직 + State 변수 처리는 이 곳에서 합니다.

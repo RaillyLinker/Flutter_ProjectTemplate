@@ -7,8 +7,9 @@ import 'package:go_router/go_router.dart';
 import 'dialog_widget.dart' as dialog_widget;
 
 // (all)
-import '../../../global_widgets/gw_sfw_test.dart' as gw_sfw_test;
-import '../../../pages/all/all_page_dialog_sample_list/page_widget.dart'
+import 'package:flutter_project_template/global_widgets/gw_sfw_test.dart'
+    as gw_sfw_test;
+import 'package:flutter_project_template/pages/all/all_page_dialog_sample_list/page_widget.dart'
     as all_page_dialog_sample_list;
 
 // [위젯 비즈니스]
