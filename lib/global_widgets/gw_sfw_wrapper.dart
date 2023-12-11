@@ -9,6 +9,58 @@ import 'package:gif/gif.dart';
 // 기본 Stateful Widget 의 Wrapper 클래스를 여기에 저장하여 사용합니다.
 
 // -----------------------------------------------------------------------------
+// (리플레시 래퍼 위젯)
+class SfwRefreshWrapper extends StatefulWidget {
+  const SfwRefreshWrapper(
+      {required super.key, required this.childWidgetBuilder});
+
+  // !!!외부 입력 변수 선언 하기!!!
+  final Widget Function(BuildContext context) childWidgetBuilder;
+
+  // [콜백 함수]
+  @override
+  SfwRefreshWrapperState createState() => SfwRefreshWrapperState();
+}
+
+class SfwRefreshWrapperState extends State<SfwRefreshWrapper> {
+  // [콜백 함수]
+  @override
+  Widget build(BuildContext context) {
+    return getScreenWidget(context: context);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    // !!!initState 작성!!!
+  }
+
+  @override
+  void dispose() {
+    // !!!dispose 작성!!!
+    super.dispose();
+  }
+
+  // [public 함수]
+  // (Stateful Widget 화면 갱신)
+  void refreshUi() {
+    setState(() {});
+  }
+
+  // [private 함수]
+
+  //----------------------------------------------------------------------------
+  // [public 변수]
+
+  // [private 변수]
+
+  //----------------------------------------------------------------------------
+  // [화면 작성]
+  Widget getScreenWidget({required BuildContext context}) {
+    return widget.childWidgetBuilder(context);
+  }
+}
+
 // (컨택스트 메뉴 영역 위젯)
 class SfwContextMenuRegion extends StatefulWidget {
   const SfwContextMenuRegion(
