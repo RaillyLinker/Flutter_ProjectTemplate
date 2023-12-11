@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:focus_detector_v2/focus_detector_v2.dart';
 import 'package:go_router/go_router.dart';
 
+// (inner_folder)
+import 'main_business.dart' as main_business;
+
 // (all)
 import '../../../../global_widgets/gw_slw_page_outer_frame.dart'
     as gw_slw_page_outer_frame;
@@ -47,25 +50,25 @@ class MainWidgetState extends State<MainWidget> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     return PopScope(
-      canPop: canPop,
+      canPop: mainBusiness.canPop,
       child: FocusDetector(
         onFocusGained: () async {
-          onFocusGained();
+          await mainBusiness.onFocusGainedAsync();
         },
         onFocusLost: () async {
-          onFocusLost();
+          await mainBusiness.onFocusLostAsync();
         },
         onVisibilityGained: () async {
-          onVisibilityGained();
+          await mainBusiness.onVisibilityGainedAsync();
         },
         onVisibilityLost: () async {
-          onVisibilityLost();
+          await mainBusiness.onVisibilityLostAsync();
         },
         onForegroundGained: () async {
-          onForegroundGained();
+          await mainBusiness.onForegroundGainedAsync();
         },
         onForegroundLost: () async {
-          onForegroundLost();
+          await mainBusiness.onForegroundLostAsync();
         },
         child: getScreenWidget(context: context),
       ),
@@ -78,88 +81,47 @@ class MainWidgetState extends State<MainWidget> with WidgetsBindingObserver {
     WidgetsBinding.instance.addObserver(this);
     final InputVo? inputVo = onCheckPageInputVo();
     if (inputVo == null) {
-      _inputError = true;
+      mainBusiness.inputError = true;
     } else {
-      this.inputVo = inputVo;
+      mainBusiness.inputVo = inputVo;
     }
-    // !!!initState 로직 작성!!!
+    mainBusiness.initState();
   }
 
   @override
   void dispose() {
-    // !!!dispose 로직 작성!!!
+    mainBusiness.dispose();
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 
-  // (전체 위젯의 FocusDetector 콜백들)
-  Future<void> onFocusGained() async {
-    // !!!onFocusGained 로직 작성!!!
-  }
-
-  Future<void> onFocusLost() async {
-    // !!!onFocusLost 로직 작성!!!
-  }
-
-  Future<void> onVisibilityGained() async {
-    // !!!onFocusLost 로직 작성!!!
-  }
-
-  Future<void> onVisibilityLost() async {
-    // !!!onVisibilityLost 로직 작성!!!
-  }
-
-  Future<void> onForegroundGained() async {
-    // !!!onForegroundGained 로직 작성!!!
-  }
-
-  Future<void> onForegroundLost() async {
-    // !!!onForegroundLost 로직 작성!!!
-  }
-
   InputVo? onCheckPageInputVo() {
-    // !!!pageInputVo 체크!!! - 필수 정보 누락시 null 반환
-    // ex :
-    // if (!widget.goRouterState.uri.queryParameters
-    //     .containsKey("inputValueString")) {
-    //   return null;
-    // }
-
-    // !!!PageInputVo 입력!!!
-    return const InputVo();
+    return mainBusiness.onCheckPageInputVo();
   }
 
-  // [public 함수]
-  // (Stateful Widget 화면 갱신)
   void refreshUi() {
     setState(() {});
   }
 
-  // [private 함수]
+  // [public 변수]
+  // (mainBusiness) - 데이터 변수 및 함수 저장 역할
+  final main_business.MainBusiness mainBusiness = main_business.MainBusiness();
 
   //----------------------------------------------------------------------------
-  // [public 변수]
-  // (위젯 입력값)
-  late InputVo inputVo;
+  // !!!메인 위젯에서 사용할 위젯 관련 함수는 이 곳에서 저장 하여 사용 하세요.!!!
+  // [public 함수]
 
-  // (페이지 pop 가능 여부 변수)
-  bool canPop = true;
-
-  // (pageOutFrameBusiness)
-  final gw_slw_page_outer_frame.SlwPageOuterFrameBusiness pageOutFrameBusiness =
-      gw_slw_page_outer_frame.SlwPageOuterFrameBusiness();
-
-  // [private 변수]
-  // (입력값 미충족 여부)
-  bool _inputError = false;
+  // [private 함수]
 
   //----------------------------------------------------------------------------
   // [화면 작성]
   Widget getScreenWidget({required BuildContext context}) {
-    if (_inputError == true) {
+    // !!!화면 위젯 작성 하기!!!
+
+    if (mainBusiness.inputError == true) {
       // 입력값이 미충족 되었을 때의 화면
       return gw_slw_page_outer_frame.SlwPageOuterFrame(
-        business: pageOutFrameBusiness,
+        business: mainBusiness.pageOutFrameBusiness,
         pageTitle: "페이지 템플릿",
         child: const Center(
           child: Text(
@@ -171,7 +133,7 @@ class MainWidgetState extends State<MainWidget> with WidgetsBindingObserver {
     }
 
     return gw_slw_page_outer_frame.SlwPageOuterFrame(
-      business: pageOutFrameBusiness,
+      business: mainBusiness.pageOutFrameBusiness,
       pageTitle: "페이지 템플릿",
       child: const Center(
         child: Text(
