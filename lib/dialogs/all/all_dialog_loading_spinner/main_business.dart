@@ -58,6 +58,9 @@ class MainBusiness {
   // (최초 실행 플래그)
   bool needInitState = true;
 
+  // (context 객체)
+  late BuildContext context;
+
   // (Gif 래퍼 GlobalKey)
   final GlobalKey<gw_sfw_wrapper.SfwGifWidgetState> gwGifWrapperGk =
       GlobalKey();
@@ -68,15 +71,13 @@ class MainBusiness {
   // !!!비즈니스 함수는 이 곳에서 저장 하여 사용 하세요.!!!
   // [public 함수]
   // (메인 위젯 화면 갱신)
-  void refreshUi({required main_widget.MainWidgetState mainWidgetState}) {
-    mainWidgetState.refreshUi();
-  }
+  late VoidCallback refreshUi;
 
   // (다이얼로그 종료 함수)
-  void closeDialog({required main_widget.MainWidgetState mainWidgetState}) {
-    mainWidgetState.context.pop();
+  void closeDialog() {
+    context.pop();
   }
 
   // [private 함수]
-  void _doNothing({required main_widget.MainWidgetState mainWidgetState}) {}
+  void _doNothing() {}
 }

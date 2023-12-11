@@ -1,4 +1,5 @@
 // (external)
+import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 
 // (inner_folder)
@@ -72,6 +73,9 @@ class MainBusiness {
   // (입력값 미충족 여부)
   bool inputError = false;
 
+  // (context 객체)
+  late BuildContext context;
+
   // (pageOutFrameBusiness)
   final gw_slw_page_outer_frame.SlwPageOuterFrameBusiness pageOutFrameBusiness =
       gw_slw_page_outer_frame.SlwPageOuterFrameBusiness();
@@ -82,10 +86,8 @@ class MainBusiness {
   // !!!비즈니스 함수는 이 곳에서 저장 하여 사용 하세요.!!!
   // [public 함수]
   // (메인 위젯 화면 갱신)
-  void refreshUi({required main_widget.MainWidgetState mainWidgetState}) {
-    mainWidgetState.refreshUi();
-  }
+  late VoidCallback refreshUi;
 
   // [private 함수]
-  void _doNothing({required main_widget.MainWidgetState mainWidgetState}) {}
+  void _doNothing() {}
 }

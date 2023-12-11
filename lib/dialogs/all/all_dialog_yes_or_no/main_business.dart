@@ -1,4 +1,5 @@
 // (external)
+import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 
 // (inner_folder)
@@ -53,35 +54,32 @@ class MainBusiness {
   // (최초 실행 플래그)
   bool needInitState = true;
 
+  // (context 객체)
+  late BuildContext context;
+
   // [private 변수]
 
   //----------------------------------------------------------------------------
   // !!!비즈니스 함수는 이 곳에서 저장 하여 사용 하세요.!!!
   // [public 함수]
   // (메인 위젯 화면 갱신)
-  void refreshUi({required main_widget.MainWidgetState mainWidgetState}) {
-    mainWidgetState.refreshUi();
-  }
+  late VoidCallback refreshUi;
 
   // (다이얼로그 종료 함수)
-  void closeDialog({required main_widget.MainWidgetState mainWidgetState}) {
-    mainWidgetState.context.pop();
+  void closeDialog() {
+    context.pop();
   }
 
   // (긍정 버튼 클릭시)
-  void onPositiveBtnClicked(
-      {required main_widget.MainWidgetState mainWidgetState}) {
-    mainWidgetState.context
-        .pop(const main_widget.OutputVo(checkPositiveBtn: true));
+  void onPositiveBtnClicked() {
+    context.pop(const main_widget.OutputVo(checkPositiveBtn: true));
   }
 
   // (부정 버튼 클릭시)
-  void onNegativeBtnClicked(
-      {required main_widget.MainWidgetState mainWidgetState}) {
-    mainWidgetState.context
-        .pop(const main_widget.OutputVo(checkPositiveBtn: false));
+  void onNegativeBtnClicked() {
+    context.pop(const main_widget.OutputVo(checkPositiveBtn: false));
   }
 
   // [private 함수]
-  void _doNothing({required main_widget.MainWidgetState mainWidgetState}) {}
+  void _doNothing() {}
 }

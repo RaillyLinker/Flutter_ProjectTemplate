@@ -57,6 +57,8 @@ class MainWidgetState extends State<MainWidget> with WidgetsBindingObserver {
   // [콜백 함수]
   @override
   Widget build(BuildContext context) {
+    mainBusiness.context = context;
+    mainBusiness.refreshUi = refreshUi;
     return PopScope(
       canPop: mainBusiness.canPop,
       child: FocusDetector(
@@ -91,12 +93,16 @@ class MainWidgetState extends State<MainWidget> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
+    mainBusiness.context = context;
+    mainBusiness.refreshUi = refreshUi;
     mainBusiness.inputVo = widget.inputVo;
     mainBusiness.initState();
   }
 
   @override
   void dispose() {
+    mainBusiness.context = context;
+    mainBusiness.refreshUi = refreshUi;
     mainBusiness.dispose();
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
@@ -195,8 +201,7 @@ class MainWidgetState extends State<MainWidget> with WidgetsBindingObserver {
                           flex: 5,
                           child: ElevatedButton(
                             onPressed: () {
-                              mainBusiness.onNegativeBtnClicked(
-                                  mainWidgetState: this);
+                              mainBusiness.onNegativeBtnClicked();
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.blue,
@@ -215,8 +220,7 @@ class MainWidgetState extends State<MainWidget> with WidgetsBindingObserver {
                           flex: 5,
                           child: ElevatedButton(
                             onPressed: () {
-                              mainBusiness.onPositiveBtnClicked(
-                                  mainWidgetState: this);
+                              mainBusiness.onPositiveBtnClicked();
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.blue,

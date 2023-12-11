@@ -17,6 +17,7 @@ class SlwTemplate extends StatelessWidget {
   // [콜백 함수]
   @override
   Widget build(BuildContext context) {
+    business.context = context;
     return business.getScreenWidget(context: context, widget: this);
   }
 }
@@ -24,6 +25,8 @@ class SlwTemplate extends StatelessWidget {
 class SlwTemplateBusiness {
   // !!!위젯 변수를 저장 하세요.!!!
   // [public 변수]
+  // (context 객체) - 처음 위젯이 build 되기 전에는 null, 이후는 not null
+  BuildContext? context;
 
   // [private 변수]
 

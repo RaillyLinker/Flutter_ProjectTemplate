@@ -178,9 +178,7 @@ class PageWidgetBusiness {
             }
 
             allDialogLoadingSpinnerStateGk.currentState?.mainBusiness
-                .closeDialog(
-                    mainWidgetState:
-                        allDialogLoadingSpinnerStateGk.currentState!);
+                .closeDialog();
 
             // 화면 정보 갱신
             memberInfoViewModel = getMemberInfoVo();
@@ -223,9 +221,7 @@ class PageWidgetBusiness {
                 // login_user_info SPW 비우기
                 spw_auth_member_info.SharedPreferenceWrapper.set(value: null);
                 allDialogLoadingSpinnerStateGk.currentState?.mainBusiness
-                    .closeDialog(
-                        mainWidgetState:
-                            allDialogLoadingSpinnerStateGk.currentState!);
+                    .closeDialog();
 
                 memberInfoViewModel = getMemberInfoVo();
                 memberInfoBloc.refreshUi();
@@ -341,9 +337,7 @@ class PageWidgetBusiness {
                         value: loginMemberInfo);
 
                     allDialogLoadingSpinnerStateGk.currentState?.mainBusiness
-                        .closeDialog(
-                            mainWidgetState:
-                                allDialogLoadingSpinnerStateGk.currentState!);
+                        .closeDialog();
 
                     memberInfoViewModel = getMemberInfoVo();
                     memberInfoBloc.refreshUi();
@@ -356,9 +350,7 @@ class PageWidgetBusiness {
                     // 비정상 응답
                     if (postReissueResponseHeader.apiResultCode == null) {
                       allDialogLoadingSpinnerStateGk.currentState?.mainBusiness
-                          .closeDialog(
-                              mainWidgetState:
-                                  allDialogLoadingSpinnerStateGk.currentState!);
+                          .closeDialog();
 
                       // 비정상 응답이면서 서버에서 에러 원인 코드가 전달되지 않았을 때
                       final GlobalKey<all_dialog_info.MainWidgetState>
@@ -379,9 +371,7 @@ class PageWidgetBusiness {
                               ));
                     } else {
                       allDialogLoadingSpinnerStateGk.currentState?.mainBusiness
-                          .closeDialog(
-                              mainWidgetState:
-                                  allDialogLoadingSpinnerStateGk.currentState!);
+                          .closeDialog();
 
                       // 서버 지정 에러 코드를 전달 받았을 때
                       String apiResultCode =
@@ -413,9 +403,7 @@ class PageWidgetBusiness {
                   }
                 } else {
                   allDialogLoadingSpinnerStateGk.currentState?.mainBusiness
-                      .closeDialog(
-                          mainWidgetState:
-                              allDialogLoadingSpinnerStateGk.currentState!);
+                      .closeDialog();
 
                   // Dio 네트워크 에러
                   final GlobalKey<all_dialog_info.MainWidgetState>

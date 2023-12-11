@@ -202,8 +202,8 @@ class PageBusiness {
                       .PostService1TkV1AuthLoginWithPasswordAsyncRequestBodyVo(
                           loginTypeCode: 1, id: id, password: password));
 
-          allDialogLoadingSpinnerStateGk.currentState?.mainBusiness.closeDialog(
-              mainWidgetState: allDialogLoadingSpinnerStateGk.currentState!);
+          allDialogLoadingSpinnerStateGk.currentState?.mainBusiness
+              .closeDialog();
 
           if (responseVo.dioException == null) {
             // Dio 네트워크 응답

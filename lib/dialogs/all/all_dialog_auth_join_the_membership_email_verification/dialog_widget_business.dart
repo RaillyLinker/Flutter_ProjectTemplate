@@ -109,9 +109,7 @@ class DialogWidgetBusiness {
                                 email: viewModel.inputVo.emailAddress));
 
                 allDialogLoadingSpinnerStateGk.currentState?.mainBusiness
-                    .closeDialog(
-                        mainWidgetState:
-                            allDialogLoadingSpinnerStateGk.currentState!);
+                    .closeDialog();
 
                 if (responseVo.dioException == null) {
                   // Dio 네트워크 응답
@@ -283,9 +281,7 @@ class DialogWidgetBusiness {
                 if (responseVo.dioException == null) {
                   // Dio 네트워크 응답
                   allDialogLoadingSpinnerStateGk.currentState?.mainBusiness
-                      .closeDialog(
-                          mainWidgetState:
-                              allDialogLoadingSpinnerStateGk.currentState!);
+                      .closeDialog();
                   var networkResponseObjectOk =
                       responseVo.networkResponseObjectOk!;
 
@@ -394,9 +390,7 @@ class DialogWidgetBusiness {
                   }
                 } else {
                   allDialogLoadingSpinnerStateGk.currentState?.mainBusiness
-                      .closeDialog(
-                          mainWidgetState:
-                              allDialogLoadingSpinnerStateGk.currentState!);
+                      .closeDialog();
                   final GlobalKey<all_dialog_info.MainWidgetState>
                       allDialogInfoStateGk =
                       GlobalKey<all_dialog_info.MainWidgetState>();

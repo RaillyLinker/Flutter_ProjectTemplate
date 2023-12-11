@@ -190,8 +190,7 @@ class PageWidgetBusiness {
 
     // 3초 후 닫힘
     Future.delayed(const Duration(seconds: 2)).then((value) {
-      allDialogLoadingSpinnerStateGk.currentState?.mainBusiness.closeDialog(
-          mainWidgetState: allDialogLoadingSpinnerStateGk.currentState!);
+      allDialogLoadingSpinnerStateGk.currentState?.mainBusiness.closeDialog();
     });
   }
 

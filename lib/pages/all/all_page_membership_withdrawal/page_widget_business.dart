@@ -181,8 +181,7 @@ class PageWidgetBusiness {
                       "${signInInfo.tokenType} ${signInInfo.accessToken}"),
         );
 
-        allDialogLoadingSpinnerStateGk.currentState?.mainBusiness.closeDialog(
-            mainWidgetState: allDialogLoadingSpinnerStateGk.currentState!);
+        allDialogLoadingSpinnerStateGk.currentState?.mainBusiness.closeDialog();
 
         if (responseVo.dioException == null) {
           // Dio 네트워크 응답

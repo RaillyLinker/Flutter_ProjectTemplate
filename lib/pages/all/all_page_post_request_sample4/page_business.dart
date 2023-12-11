@@ -242,8 +242,7 @@ class PageBusiness {
                           (pickFile2 == null) ? null : pickFile2));
 
       // 로딩 다이얼로그 제거
-      allDialogLoadingSpinnerStateGk.currentState?.mainBusiness.closeDialog(
-          mainWidgetState: allDialogLoadingSpinnerStateGk.currentState!);
+      allDialogLoadingSpinnerStateGk.currentState?.mainBusiness.closeDialog();
 
       if (response.dioException == null) {
         // Dio 네트워크 응답

@@ -41,6 +41,7 @@ class SlwPageOuterFrame extends StatelessWidget {
   // [콜백 함수]
   @override
   Widget build(BuildContext context) {
+    business.context = context;
     return business.getScreenWidget(context: context, widget: this);
   }
 }
@@ -50,6 +51,9 @@ class SlwPageOuterFrameBusiness {
   // [public 변수]
   // (goToHomeIconButtonBusiness)
   final GlobalKey<HomeIconButtonState> goToHomeIconButtonGk = GlobalKey();
+
+  // (context 객체) - 처음 위젯이 build 되기 전에는 null, 이후는 not null
+  BuildContext? context;
 
   // [private 변수]
 

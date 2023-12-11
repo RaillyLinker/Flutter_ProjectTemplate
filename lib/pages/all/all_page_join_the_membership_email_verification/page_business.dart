@@ -202,8 +202,7 @@ class PageBusiness {
 
       if (responseVo.dioException == null) {
         // Dio 네트워크 응답
-        allDialogLoadingSpinnerStateGk.currentState?.mainBusiness.closeDialog(
-            mainWidgetState: allDialogLoadingSpinnerStateGk.currentState!);
+        allDialogLoadingSpinnerStateGk.currentState?.mainBusiness.closeDialog();
         var networkResponseObjectOk = responseVo.networkResponseObjectOk!;
 
         if (networkResponseObjectOk.responseStatusCode == 200) {
@@ -305,8 +304,7 @@ class PageBusiness {
           }
         }
       } else {
-        allDialogLoadingSpinnerStateGk.currentState?.mainBusiness.closeDialog(
-            mainWidgetState: allDialogLoadingSpinnerStateGk.currentState!);
+        allDialogLoadingSpinnerStateGk.currentState?.mainBusiness.closeDialog();
         final GlobalKey<all_dialog_info.MainWidgetState> allDialogInfoStateGk =
             GlobalKey<all_dialog_info.MainWidgetState>();
         if (!_context.mounted) return;

@@ -129,8 +129,7 @@ class PageWidgetBusiness {
         await api_main_server.postService1TkV1RequestTestGenerateErrorAsync();
 
     // 로딩 다이얼로그 제거
-    allDialogLoadingSpinnerStateGk.currentState?.mainBusiness.closeDialog(
-        mainWidgetState: allDialogLoadingSpinnerStateGk.currentState!);
+    allDialogLoadingSpinnerStateGk.currentState?.mainBusiness.closeDialog();
 
     if (response.dioException == null) {
       // Dio 네트워크 응답
@@ -192,8 +191,7 @@ class PageWidgetBusiness {
         await api_main_server.getService1TkV1RequestTestReturnTextStringAsync();
 
     // 로딩 다이얼로그 제거
-    allDialogLoadingSpinnerStateGk.currentState?.mainBusiness.closeDialog(
-        mainWidgetState: allDialogLoadingSpinnerStateGk.currentState!);
+    allDialogLoadingSpinnerStateGk.currentState?.mainBusiness.closeDialog();
 
     if (response.dioException == null) {
       // Dio 네트워크 응답
@@ -282,8 +280,7 @@ class PageWidgetBusiness {
         await api_main_server.getService1TkV1RequestTestReturnTextHtmlAsync();
 
     // 로딩 다이얼로그 제거
-    allDialogLoadingSpinnerStateGk.currentState?.mainBusiness.closeDialog(
-        mainWidgetState: allDialogLoadingSpinnerStateGk.currentState!);
+    allDialogLoadingSpinnerStateGk.currentState?.mainBusiness.closeDialog();
 
     if (response.dioException == null) {
       // Dio 네트워크 응답
