@@ -1,6 +1,7 @@
 // (external)
 import 'package:flutter/material.dart';
 import 'package:focus_detector_v2/focus_detector_v2.dart';
+import 'package:go_router/go_router.dart';
 
 // [위젯 뷰]
 
@@ -108,6 +109,11 @@ class MainWidgetState extends State<MainWidget> with WidgetsBindingObserver {
   // (Stateful Widget 화면 갱신)
   void refreshUi() {
     setState(() {});
+  }
+
+  // (다이얼로그 종료 함수)
+  void closeDialog() {
+    context.pop();
   }
 
   // [private 함수]
