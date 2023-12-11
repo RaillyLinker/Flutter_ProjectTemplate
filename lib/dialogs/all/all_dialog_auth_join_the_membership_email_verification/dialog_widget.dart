@@ -6,7 +6,7 @@ import 'package:focus_detector_v2/focus_detector_v2.dart';
 import 'dialog_widget_business.dart' as dialog_widget_business;
 
 // (all)
-import '../../../global_widgets/gw_sfw_wrapper.dart' as gw_sfw_wrapper;
+import '../../../global_widgets/gw_do_delete.dart' as gw_do_delete;
 
 // [위젯 뷰]
 // 위젯의 화면 작성은 여기서 합니다.
@@ -201,7 +201,7 @@ class DialogWidgetState extends State<DialogWidget>
                   SizedBox(
                     width: 400,
                     child: Form(
-                      child: gw_sfw_wrapper.SfwTextFormField(
+                      child: gw_do_delete.SfwTextFormField(
                         globalKey:
                             business.viewModel.gwTextFormFieldWrapperStateGk,
                         autofocus: true,

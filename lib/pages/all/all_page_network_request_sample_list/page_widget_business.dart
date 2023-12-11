@@ -8,7 +8,7 @@ import 'page_widget.dart' as page_widget;
 // (all)
 import '../../../global_widgets/gw_slw_page_outer_frame.dart'
     as gw_slw_page_outer_frame;
-import '../../../global_widgets/gw_sfw_wrapper.dart' as gw_sfw_wrapper;
+import '../../../global_widgets/gw_do_delete.dart' as gw_sfw_wrapper;
 import '../../../dialogs/all/all_dialog_info/dialog_widget.dart'
     as all_dialog_info;
 import '../../../dialogs/all/all_dialog_info/dialog_widget_business.dart'

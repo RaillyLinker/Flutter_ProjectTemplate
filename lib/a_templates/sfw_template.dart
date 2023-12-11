@@ -35,6 +35,14 @@ class SfwTemplateState extends State<SfwTemplate> {
     super.dispose();
   }
 
+  //----------------------------------------------------------------------------
+  // !!!위젯 변수를 저장 하세요.!!!
+  // [public 변수]
+
+  // [private 변수]
+
+  //----------------------------------------------------------------------------
+  // !!!위젯 함수를 작성 하세요.!!!
   // [public 함수]
   // (Stateful Widget 화면 갱신)
   void refreshUi() {
@@ -44,13 +52,10 @@ class SfwTemplateState extends State<SfwTemplate> {
   // [private 함수]
 
   //----------------------------------------------------------------------------
-  // [public 변수]
-
-  // [private 변수]
-
-  //----------------------------------------------------------------------------
   // [화면 작성]
   Widget getScreenWidget({required BuildContext context}) {
+    // !!!위젯 화면을 작성 하세요.!!!
+
     return const Text("Sample");
   }
 }

@@ -9,7 +9,7 @@ import 'page_widget.dart' as page_widget;
 // (all)
 import '../../../global_widgets/gw_slw_page_outer_frame.dart'
     as gw_slw_page_outer_frame;
-import '../../../global_widgets/gw_sfw_wrapper.dart' as gw_sfw_wrapper;
+import '../../../global_widgets/gw_do_delete.dart' as gw_do_delete;
 import '../../../a_templates/all_dialog_template/main_widget.dart'
     as all_dialog_template;
 import '../../../dialogs/all/all_dialog_small_circle_transform_sample/dialog_widget.dart'
@@ -210,6 +210,6 @@ class PageWidgetViewModel {
   // (pageOutFrameBusiness)
   final gw_slw_page_outer_frame.SlwPageOuterFrameBusiness pageOutFrameBusiness =
       gw_slw_page_outer_frame.SlwPageOuterFrameBusiness();
-  final GlobalKey<gw_sfw_wrapper.SfwListViewBuilderState>
+  final GlobalKey<gw_do_delete.SfwListViewBuilderState>
       sfwListViewBuilderStateGk = GlobalKey();
 }

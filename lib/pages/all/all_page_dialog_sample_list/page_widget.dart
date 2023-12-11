@@ -9,7 +9,7 @@ import 'page_widget_business.dart' as page_widget_business;
 // (all)
 import '../../../global_widgets/gw_slw_page_outer_frame.dart'
     as gw_slw_page_outer_frame;
-import '../../../global_widgets/gw_sfw_wrapper.dart' as gw_sfw_wrapper;
+import '../../../global_widgets/gw_do_delete.dart' as gw_do_delete;
 
 // [위젯 뷰]
 // 위젯의 화면 작성은 여기서 합니다.
@@ -291,7 +291,7 @@ class PageWidgetState extends State<PageWidget> with WidgetsBindingObserver {
     return gw_slw_page_outer_frame.SlwPageOuterFrame(
       business: business.viewModel.pageOutFrameBusiness,
       pageTitle: "다이얼로그 샘플 리스트",
-      child: gw_sfw_wrapper.SfwListViewBuilder(
+      child: gw_do_delete.SfwListViewBuilder(
         globalKey: business.viewModel.sfwListViewBuilderStateGk,
         itemWidgetList: getNewItemWidgetList(),
       ),

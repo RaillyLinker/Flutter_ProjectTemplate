@@ -79,7 +79,8 @@ class MainWidgetState extends State<MainWidget> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-    final InputVo? inputVo = onCheckPageInputVo();
+    final InputVo? inputVo =
+        mainBusiness.onCheckPageInputVo(goRouterState: widget.goRouterState);
     if (inputVo == null) {
       mainBusiness.inputError = true;
     } else {
@@ -95,10 +96,6 @@ class MainWidgetState extends State<MainWidget> with WidgetsBindingObserver {
     super.dispose();
   }
 
-  InputVo? onCheckPageInputVo() {
-    return mainBusiness.onCheckPageInputVo();
-  }
-
   void refreshUi() {
     setState(() {});
   }
@@ -108,7 +105,7 @@ class MainWidgetState extends State<MainWidget> with WidgetsBindingObserver {
   final main_business.MainBusiness mainBusiness = main_business.MainBusiness();
 
   //----------------------------------------------------------------------------
-  // !!!메인 위젯에서 사용할 위젯 관련 함수는 이 곳에서 저장 하여 사용 하세요.!!!
+  // !!!위젯 관련 함수는 이 곳에서 저장 하여 사용 하세요.!!!
   // [public 함수]
 
   // [private 함수]

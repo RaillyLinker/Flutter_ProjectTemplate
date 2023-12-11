@@ -1,3 +1,6 @@
+// (external)
+import 'package:go_router/go_router.dart';
+
 // (inner_folder)
 import 'main_widget.dart' as main_widget;
 
@@ -10,6 +13,21 @@ import '../../../../global_widgets/gw_slw_page_outer_frame.dart'
 //------------------------------------------------------------------------------
 class MainBusiness {
   // [CallBack 함수]
+  // (inpu)
+  // State 클래스의 initState 에서 실행 되며, Business 클래스의 initState 실행 전에 실행 됩니다.
+  // 필수 정보 누락시 null 을 반환, null 이 반환 되었을 때는 inputError 가 true 가 됩니다.
+  main_widget.InputVo? onCheckPageInputVo(
+      {required GoRouterState goRouterState}) {
+    // !!!pageInputVo 체크!!!
+    // ex :
+    // if (!goRouterState.uri.queryParameters.containsKey("inputValueString")) {
+    //   return null;
+    // }
+
+    // !!!PageInputVo 입력!!!
+    return const main_widget.InputVo();
+  }
+
   void initState() {
     // !!!initState 로직 작성!!!
   }
@@ -42,18 +60,6 @@ class MainBusiness {
     // !!!onForegroundLostAsync 로직 작성!!!
   }
 
-  main_widget.InputVo? onCheckPageInputVo() {
-    // !!!pageInputVo 체크!!! - 필수 정보 누락시 null 반환
-    // ex :
-    // if (!widget.goRouterState.uri.queryParameters
-    //     .containsKey("inputValueString")) {
-    //   return null;
-    // }
-
-    // !!!PageInputVo 입력!!!
-    return const main_widget.InputVo();
-  }
-
   //----------------------------------------------------------------------------
   // !!!메인 위젯에서 사용할 변수는 이곳에서 저장하여 사용하세요.!!!
   // [public 변수]
@@ -73,7 +79,7 @@ class MainBusiness {
   // [private 변수]
 
   //----------------------------------------------------------------------------
-  // !!!메인 위젯에서 사용할 비즈니스 함수는 이 곳에서 저장 하여 사용 하세요.!!!
+  // !!!비즈니스 함수는 이 곳에서 저장 하여 사용 하세요.!!!
   // [public 함수]
   // (메인 위젯 화면 갱신)
   void refreshUi({required main_widget.MainWidgetState mainWidgetState}) {
