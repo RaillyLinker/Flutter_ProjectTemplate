@@ -8,6 +8,8 @@ import 'dialog_widget_business.dart' as dialog_widget_business;
 // (all)
 import 'package:flutter_project_template/global_widgets/gw_sfw_test.dart'
     as gw_sfw_test;
+import 'package:flutter_project_template/global_widgets/gw_sfw_wrapper.dart'
+    as gw_sfw_wrapper;
 
 // [위젯 뷰]
 // 위젯의 화면 작성은 여기서 합니다.
@@ -138,7 +140,7 @@ class DialogWidgetState extends State<DialogWidget>
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Text(
-                  "Stateful Widget 상태 변수",
+                  "Gw Stateful Widget 상태 변수",
                   style: TextStyle(color: Colors.black, fontFamily: "MaruBuri"),
                 ),
                 const SizedBox(
@@ -146,6 +148,40 @@ class DialogWidgetState extends State<DialogWidget>
                 ),
                 gw_sfw_test.SfwTest(
                   key: business.viewModel.statefulTestGk,
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                const Text(
+                  "Stateful Widget 상태 변수",
+                  style: TextStyle(color: Colors.black, fontFamily: "MaruBuri"),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                MouseRegion(
+                  cursor: SystemMouseCursors.click,
+                  child: GestureDetector(
+                    onTap: () {
+                      business.countPlus1();
+                    },
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        border: Border(bottom: BorderSide(color: Colors.black)),
+                      ),
+                      margin: const EdgeInsets.only(bottom: 20),
+                      child: gw_sfw_wrapper.SfwRefreshWrapper(
+                        key: business.viewModel.sampleIntAreaGk,
+                        childWidgetBuilder: (context) {
+                          return Text("${business.viewModel.sampleInt}",
+                              style: const TextStyle(
+                                  fontSize: 20,
+                                  color: Colors.black,
+                                  fontFamily: "MaruBuri"));
+                        },
+                      ),
+                    ),
+                  ),
                 ),
                 const SizedBox(
                   height: 10,

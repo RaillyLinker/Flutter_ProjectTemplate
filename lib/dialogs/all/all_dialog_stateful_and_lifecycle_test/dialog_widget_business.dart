@@ -11,6 +11,8 @@ import 'package:flutter_project_template/global_widgets/gw_sfw_test.dart'
     as gw_sfw_test;
 import 'package:flutter_project_template/pages/all/all_page_dialog_sample_list/page_widget.dart'
     as all_page_dialog_sample_list;
+import 'package:flutter_project_template/global_widgets/gw_sfw_wrapper.dart'
+    as gw_sfw_wrapper;
 
 // [위젯 비즈니스]
 // 위젯의 비즈니스 로직 + State 변수 처리는 이 곳에서 합니다.
@@ -97,6 +99,12 @@ class DialogWidgetBusiness {
     viewModel.context.pushNamed(all_page_dialog_sample_list.pageName);
   }
 
+  // (샘플 정수 +1)
+  void countPlus1() {
+    viewModel.sampleInt++;
+    viewModel.sampleIntAreaGk.currentState?.refreshUi();
+  }
+
 // !!!사용 함수 추가하기!!!
 }
 
@@ -120,4 +128,11 @@ class PageWidgetViewModel {
 
   // (statefulTestBusiness)
   final GlobalKey<gw_sfw_test.SfwTestState> statefulTestGk = GlobalKey();
+
+  // (샘플 정수)
+  int sampleInt = 0;
+
+  // (AreaGk)
+  final GlobalKey<gw_sfw_wrapper.SfwRefreshWrapperState> sampleIntAreaGk =
+      GlobalKey();
 }

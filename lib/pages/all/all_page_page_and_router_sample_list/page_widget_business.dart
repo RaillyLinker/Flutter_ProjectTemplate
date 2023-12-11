@@ -19,7 +19,7 @@ import 'package:flutter_project_template/pages/all/all_page_page_transition_anim
     as all_page_page_transition_animation_sample_list;
 import 'package:flutter_project_template/pages/all/all_page_grid_sample/page_widget.dart'
     as all_page_grid_sample;
-import 'package:flutter_project_template/pages/all/all_page_stateful_and_lifecycle_test/page_widget.dart'
+import 'package:flutter_project_template/pages/all/all_page_stateful_and_lifecycle_test/main_widget.dart'
     as all_page_stateful_and_lifecycle_test;
 
 // [위젯 비즈니스]

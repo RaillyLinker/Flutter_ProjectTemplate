@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 
 // (all)
 import 'a_templates/all_page_template/main_widget.dart' as all_page_template;
-import 'pages/all/all_page_stateful_and_lifecycle_test/page_widget.dart'
+import 'pages/all/all_page_stateful_and_lifecycle_test/main_widget.dart'
     as all_page_stateful_and_lifecycle_test;
 import 'pages/all/all_page_auth_sample/page_widget.dart'
     as all_page_auth_sample;
@@ -155,7 +155,7 @@ GoRouter getRouter() {
       pageBuilder: (c, s) {
         return CustomTransitionPage(
             key: s.pageKey,
-            child: all_page_stateful_and_lifecycle_test.PageWidget(
+            child: all_page_stateful_and_lifecycle_test.MainWidget(
                 goRouterState: s),
             transitionsBuilder:
                 all_page_stateful_and_lifecycle_test.pageTransitionsBuilder);

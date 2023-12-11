@@ -11,12 +11,14 @@ import 'package:flutter_project_template/global_widgets/gw_slw_page_outer_frame.
     as gw_slw_page_outer_frame;
 import 'package:flutter_project_template/global_widgets/gw_sfw_wrapper.dart'
     as gw_sfw_wrapper;
+import 'package:flutter_project_template/global_widgets/gw_sfw_test.dart'
+    as gw_sfw_test;
 
 // [위젯 뷰]
 
 //------------------------------------------------------------------------------
 // !!!페이지 진입 라우트 Name 정의!!! - 파일명과 동일하게 작성하세요.
-const pageName = "all_page_template";
+const pageName = "all_page_stateful_and_lifecycle_test";
 
 // !!!페이지 호출/반납 애니메이션!!! - 동적으로 변경이 가능합니다.
 Widget Function(BuildContext context, Animation<double> animation,
@@ -135,11 +137,76 @@ class MainWidgetState extends State<MainWidget> with WidgetsBindingObserver {
 
     return gw_slw_page_outer_frame.SlwPageOuterFrame(
       business: mainBusiness.pageOutFrameBusiness,
-      pageTitle: "페이지 템플릿",
-      child: const Center(
-        child: Text(
-          "템플릿 페이지",
-          style: TextStyle(color: Colors.black, fontFamily: "MaruBuri"),
+      pageTitle: "Stateful 및 라이프사이클 테스트",
+      child: Center(
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const SizedBox(
+                height: 10,
+              ),
+              const Text(
+                "Gw Stateful Widget 상태 변수",
+                style: TextStyle(color: Colors.black, fontFamily: "MaruBuri"),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              gw_sfw_test.SfwTest(
+                key: mainBusiness.statefulTestGk,
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              const Text(
+                "Stateful Widget 상태 변수",
+                style: TextStyle(color: Colors.black, fontFamily: "MaruBuri"),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              MouseRegion(
+                cursor: SystemMouseCursors.click,
+                child: GestureDetector(
+                  onTap: () {
+                    mainBusiness.countPlus1();
+                  },
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      border: Border(bottom: BorderSide(color: Colors.black)),
+                    ),
+                    margin: const EdgeInsets.only(bottom: 20),
+                    child: gw_sfw_wrapper.SfwRefreshWrapper(
+                      key: mainBusiness.sampleIntAreaGk,
+                      childWidgetBuilder: (context) {
+                        return Text("${mainBusiness.sampleInt}",
+                            style: const TextStyle(
+                                fontSize: 20,
+                                color: Colors.black,
+                                fontFamily: "MaruBuri"));
+                      },
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  mainBusiness.pushToAnotherPage();
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blue,
+                ),
+                child: const Text(
+                  "페이지 이동",
+                  style: TextStyle(color: Colors.white, fontFamily: "MaruBuri"),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
