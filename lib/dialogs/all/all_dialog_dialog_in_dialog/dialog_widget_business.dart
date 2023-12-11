@@ -6,10 +6,8 @@ import 'package:go_router/go_router.dart';
 import 'dialog_widget.dart' as dialog_widget;
 
 // (all)
-import 'package:flutter_project_template/dialogs/all/all_dialog_loading_spinner/dialog_widget.dart'
+import 'package:flutter_project_template/dialogs/all/all_dialog_loading_spinner/main_widget.dart'
     as all_dialog_loading_spinner;
-import 'package:flutter_project_template/dialogs/all/all_dialog_loading_spinner/dialog_widget_business.dart'
-    as all_dialog_loading_spinner_business;
 import 'package:flutter_project_template/dialogs/all/all_dialog_info/main_widget.dart'
     as all_dialog_info;
 
@@ -89,17 +87,17 @@ class DialogWidgetBusiness {
 
   // (Loading 다이얼로그 호출)
   void showLoadingDialog() {
-    final all_dialog_loading_spinner_business.DialogWidgetBusiness
-        allDialogLoadingSpinnerBusiness =
-        all_dialog_loading_spinner_business.DialogWidgetBusiness();
+    final GlobalKey<all_dialog_loading_spinner.MainWidgetState>
+        allDialogLoadingSpinnerStateGk = GlobalKey();
 
     showDialog(
         barrierDismissible: true,
         context: viewModel.context,
-        builder: (context) => all_dialog_loading_spinner.DialogWidget(
-            business: allDialogLoadingSpinnerBusiness,
-            inputVo: const all_dialog_loading_spinner.InputVo(),
-            onDialogCreated: () {})).then((outputVo) {});
+        builder: (context) => all_dialog_loading_spinner.MainWidget(
+              key: allDialogLoadingSpinnerStateGk,
+              inputVo:
+                  all_dialog_loading_spinner.InputVo(onDialogCreated: () {}),
+            )).then((outputVo) {});
   }
 
   // (현재 다이얼로그 다시 호출)

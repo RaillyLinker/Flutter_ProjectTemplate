@@ -14,10 +14,8 @@ import 'package:flutter_project_template/repositories/network/apis/api_main_serv
     as api_main_server;
 import 'package:flutter_project_template/dialogs/all/all_dialog_info/main_widget.dart'
     as all_dialog_info;
-import 'package:flutter_project_template/dialogs/all/all_dialog_loading_spinner/dialog_widget.dart'
+import 'package:flutter_project_template/dialogs/all/all_dialog_loading_spinner/main_widget.dart'
     as all_dialog_loading_spinner;
-import 'package:flutter_project_template/dialogs/all/all_dialog_loading_spinner/dialog_widget_business.dart'
-    as all_dialog_loading_spinner_business;
 import 'package:flutter_project_template/global_classes/todo_gc_delete.dart'
     as gc_template_classes;
 import 'package:flutter_project_template/repositories/spws/spw_auth_member_info.dart'
@@ -161,17 +159,17 @@ class PageBusiness {
     } else {
       // 입력값 검증 완료
       // (로딩 스피너 다이얼로그 호출)
-      all_dialog_loading_spinner_business.DialogWidgetBusiness
-          allDialogLoadingSpinnerBusiness =
-          all_dialog_loading_spinner_business.DialogWidgetBusiness();
+      GlobalKey<all_dialog_loading_spinner.MainWidgetState>
+          allDialogLoadingSpinnerStateGk = GlobalKey();
 
       showDialog(
           barrierDismissible: false,
           context: _context,
-          builder: (context) => all_dialog_loading_spinner.DialogWidget(
-              business: allDialogLoadingSpinnerBusiness,
-              inputVo: const all_dialog_loading_spinner.InputVo(),
-              onDialogCreated: () {})).then((outputVo) {});
+          builder: (context) => all_dialog_loading_spinner.MainWidget(
+                key: allDialogLoadingSpinnerStateGk,
+                inputVo:
+                    all_dialog_loading_spinner.InputVo(onDialogCreated: () {}),
+              )).then((outputVo) {});
 
       // 비번 찾기 검증 요청
       var responseVo = await api_main_server
@@ -182,7 +180,8 @@ class PageBusiness {
 
       if (responseVo.dioException == null) {
         // Dio 네트워크 응답
-        allDialogLoadingSpinnerBusiness.closeDialog();
+        allDialogLoadingSpinnerStateGk.currentState?.mainBusiness.closeDialog(
+            mainWidgetState: allDialogLoadingSpinnerStateGk.currentState!);
         var networkResponseObjectOk = responseVo.networkResponseObjectOk!;
 
         if (networkResponseObjectOk.responseStatusCode == 200) {
@@ -263,7 +262,8 @@ class PageBusiness {
           }
         }
       } else {
-        allDialogLoadingSpinnerBusiness.closeDialog();
+        allDialogLoadingSpinnerStateGk.currentState?.mainBusiness.closeDialog(
+            mainWidgetState: allDialogLoadingSpinnerStateGk.currentState!);
         final GlobalKey<all_dialog_info.MainWidgetState> allDialogInfoStateGk =
             GlobalKey<all_dialog_info.MainWidgetState>();
         if (!_context.mounted) return;
@@ -339,17 +339,17 @@ class PageBusiness {
       // 비밀번호 변경 요청 후 처리
       // 입력값 검증 완료
       // (로딩 스피너 다이얼로그 호출)
-      all_dialog_loading_spinner_business.DialogWidgetBusiness
-          allDialogLoadingSpinnerBusiness =
-          all_dialog_loading_spinner_business.DialogWidgetBusiness();
+      GlobalKey<all_dialog_loading_spinner.MainWidgetState>
+          allDialogLoadingSpinnerStateGk = GlobalKey();
 
       showDialog(
           barrierDismissible: false,
           context: _context,
-          builder: (context) => all_dialog_loading_spinner.DialogWidget(
-              business: allDialogLoadingSpinnerBusiness,
-              inputVo: const all_dialog_loading_spinner.InputVo(),
-              onDialogCreated: () {})).then((outputVo) {});
+          builder: (context) => all_dialog_loading_spinner.MainWidget(
+                key: allDialogLoadingSpinnerStateGk,
+                inputVo:
+                    all_dialog_loading_spinner.InputVo(onDialogCreated: () {}),
+              )).then((outputVo) {});
 
       // 비번 찾기 검증 요청
       var responseVo =
@@ -363,7 +363,8 @@ class PageBusiness {
 
       if (responseVo.dioException == null) {
         // Dio 네트워크 응답
-        allDialogLoadingSpinnerBusiness.closeDialog();
+        allDialogLoadingSpinnerStateGk.currentState?.mainBusiness.closeDialog(
+            mainWidgetState: allDialogLoadingSpinnerStateGk.currentState!);
         var networkResponseObjectOk = responseVo.networkResponseObjectOk!;
 
         if (networkResponseObjectOk.responseStatusCode == 200) {
@@ -515,7 +516,8 @@ class PageBusiness {
           }
         }
       } else {
-        allDialogLoadingSpinnerBusiness.closeDialog();
+        allDialogLoadingSpinnerStateGk.currentState?.mainBusiness.closeDialog(
+            mainWidgetState: allDialogLoadingSpinnerStateGk.currentState!);
         final GlobalKey<all_dialog_info.MainWidgetState> allDialogInfoStateGk =
             GlobalKey<all_dialog_info.MainWidgetState>();
         if (!_context.mounted) return;

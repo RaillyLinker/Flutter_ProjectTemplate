@@ -12,10 +12,8 @@ import 'package:flutter_project_template/global_widgets/todo_do_delete.dart'
     as gw_sfw_wrapper;
 import 'package:flutter_project_template/dialogs/all/all_dialog_info/main_widget.dart'
     as all_dialog_info;
-import 'package:flutter_project_template/dialogs/all/all_dialog_loading_spinner/dialog_widget.dart'
+import 'package:flutter_project_template/dialogs/all/all_dialog_loading_spinner/main_widget.dart'
     as all_dialog_loading_spinner;
-import 'package:flutter_project_template/dialogs/all/all_dialog_loading_spinner/dialog_widget_business.dart'
-    as all_dialog_loading_spinner_business;
 import 'package:flutter_project_template/repositories/network/apis/api_main_server.dart'
     as api_main_server;
 import 'package:flutter_project_template/pages/all/all_page_get_request_sample/page_widget.dart'
@@ -115,23 +113,24 @@ class PageWidgetBusiness {
 
   void onPostRequestErrorItemClicked() async {
     // 로딩 다이얼로그 표시
-    all_dialog_loading_spinner_business.DialogWidgetBusiness
-        allDialogLoadingSpinnerBusiness =
-        all_dialog_loading_spinner_business.DialogWidgetBusiness();
+    GlobalKey<all_dialog_loading_spinner.MainWidgetState>
+        allDialogLoadingSpinnerStateGk = GlobalKey();
 
     showDialog(
         barrierDismissible: false,
         context: viewModel.context,
-        builder: (context) => all_dialog_loading_spinner.DialogWidget(
-            business: allDialogLoadingSpinnerBusiness,
-            inputVo: const all_dialog_loading_spinner.InputVo(),
-            onDialogCreated: () {})).then((outputVo) {});
+        builder: (context) => all_dialog_loading_spinner.MainWidget(
+              key: allDialogLoadingSpinnerStateGk,
+              inputVo:
+                  all_dialog_loading_spinner.InputVo(onDialogCreated: () {}),
+            )).then((outputVo) {});
 
     var response =
         await api_main_server.postService1TkV1RequestTestGenerateErrorAsync();
 
     // 로딩 다이얼로그 제거
-    allDialogLoadingSpinnerBusiness.closeDialog();
+    allDialogLoadingSpinnerStateGk.currentState?.mainBusiness.closeDialog(
+        mainWidgetState: allDialogLoadingSpinnerStateGk.currentState!);
 
     if (response.dioException == null) {
       // Dio 네트워크 응답
@@ -177,23 +176,24 @@ class PageWidgetBusiness {
 
   void onGetStringResponseItemClicked() async {
     // 로딩 다이얼로그 표시
-    all_dialog_loading_spinner_business.DialogWidgetBusiness
-        allDialogLoadingSpinnerBusiness =
-        all_dialog_loading_spinner_business.DialogWidgetBusiness();
+    GlobalKey<all_dialog_loading_spinner.MainWidgetState>
+        allDialogLoadingSpinnerStateGk = GlobalKey();
 
     showDialog(
         barrierDismissible: false,
         context: viewModel.context,
-        builder: (context) => all_dialog_loading_spinner.DialogWidget(
-            business: allDialogLoadingSpinnerBusiness,
-            inputVo: const all_dialog_loading_spinner.InputVo(),
-            onDialogCreated: () {})).then((outputVo) {});
+        builder: (context) => all_dialog_loading_spinner.MainWidget(
+              key: allDialogLoadingSpinnerStateGk,
+              inputVo:
+                  all_dialog_loading_spinner.InputVo(onDialogCreated: () {}),
+            )).then((outputVo) {});
 
     var response =
         await api_main_server.getService1TkV1RequestTestReturnTextStringAsync();
 
     // 로딩 다이얼로그 제거
-    allDialogLoadingSpinnerBusiness.closeDialog();
+    allDialogLoadingSpinnerStateGk.currentState?.mainBusiness.closeDialog(
+        mainWidgetState: allDialogLoadingSpinnerStateGk.currentState!);
 
     if (response.dioException == null) {
       // Dio 네트워크 응답
@@ -266,23 +266,24 @@ class PageWidgetBusiness {
 
   void onGetHtmlResponseItemClicked() async {
     // 로딩 다이얼로그 표시
-    all_dialog_loading_spinner_business.DialogWidgetBusiness
-        allDialogLoadingSpinnerBusiness =
-        all_dialog_loading_spinner_business.DialogWidgetBusiness();
+    GlobalKey<all_dialog_loading_spinner.MainWidgetState>
+        allDialogLoadingSpinnerStateGk = GlobalKey();
 
     showDialog(
         barrierDismissible: false,
         context: viewModel.context,
-        builder: (context) => all_dialog_loading_spinner.DialogWidget(
-            business: allDialogLoadingSpinnerBusiness,
-            inputVo: const all_dialog_loading_spinner.InputVo(),
-            onDialogCreated: () {})).then((outputVo) {});
+        builder: (context) => all_dialog_loading_spinner.MainWidget(
+              key: allDialogLoadingSpinnerStateGk,
+              inputVo:
+                  all_dialog_loading_spinner.InputVo(onDialogCreated: () {}),
+            )).then((outputVo) {});
 
     var response =
         await api_main_server.getService1TkV1RequestTestReturnTextHtmlAsync();
 
     // 로딩 다이얼로그 제거
-    allDialogLoadingSpinnerBusiness.closeDialog();
+    allDialogLoadingSpinnerStateGk.currentState?.mainBusiness.closeDialog(
+        mainWidgetState: allDialogLoadingSpinnerStateGk.currentState!);
 
     if (response.dioException == null) {
       // Dio 네트워크 응답

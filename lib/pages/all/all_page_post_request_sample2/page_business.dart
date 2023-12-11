@@ -15,10 +15,8 @@ import 'package:flutter_project_template/dialogs/all/all_dialog_info/main_widget
     as all_dialog_info;
 import 'package:flutter_project_template/global_classes/todo_gc_delete.dart'
     as gc_template_classes;
-import 'package:flutter_project_template/dialogs/all/all_dialog_loading_spinner/dialog_widget.dart'
+import 'package:flutter_project_template/dialogs/all/all_dialog_loading_spinner/main_widget.dart'
     as all_dialog_loading_spinner;
-import 'package:flutter_project_template/dialogs/all/all_dialog_loading_spinner/dialog_widget_business.dart'
-    as all_dialog_loading_spinner_business;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
 // todo : 템플릿 적용
@@ -154,17 +152,17 @@ class PageBusiness {
   // (네트워크 리퀘스트)
   Future<void> doNetworkRequest({required BuildContext context}) async {
     // 로딩 다이얼로그 표시
-    all_dialog_loading_spinner_business.DialogWidgetBusiness
-        allDialogLoadingSpinnerBusiness =
-        all_dialog_loading_spinner_business.DialogWidgetBusiness();
+    GlobalKey<all_dialog_loading_spinner.MainWidgetState>
+        allDialogLoadingSpinnerStateGk = GlobalKey();
 
     showDialog(
         barrierDismissible: false,
         context: _context,
-        builder: (context) => all_dialog_loading_spinner.DialogWidget(
-            business: allDialogLoadingSpinnerBusiness,
-            inputVo: const all_dialog_loading_spinner.InputVo(),
-            onDialogCreated: () {})).then((outputVo) {});
+        builder: (context) => all_dialog_loading_spinner.MainWidget(
+              key: allDialogLoadingSpinnerStateGk,
+              inputVo:
+                  all_dialog_loading_spinner.InputVo(onDialogCreated: () {}),
+            )).then((outputVo) {});
 
     List<String> queryParamStringList = [];
     for (TextEditingController tec
@@ -206,7 +204,8 @@ class PageBusiness {
             requestFormStringListNullable: queryParamStringListNullable));
 
     // 로딩 다이얼로그 제거
-    allDialogLoadingSpinnerBusiness.closeDialog();
+    allDialogLoadingSpinnerStateGk.currentState?.mainBusiness.closeDialog(
+        mainWidgetState: allDialogLoadingSpinnerStateGk.currentState!);
 
     if (response.dioException == null) {
       // Dio 네트워크 응답

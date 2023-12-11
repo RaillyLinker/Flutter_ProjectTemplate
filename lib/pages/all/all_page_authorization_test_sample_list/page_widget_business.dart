@@ -17,10 +17,8 @@ import 'package:flutter_project_template/repositories/spws/spw_auth_member_info.
     as spw_auth_member_info;
 import 'package:flutter_project_template/dialogs/all/all_dialog_info/main_widget.dart'
     as all_dialog_info;
-import 'package:flutter_project_template/dialogs/all/all_dialog_loading_spinner/dialog_widget.dart'
+import 'package:flutter_project_template/dialogs/all/all_dialog_loading_spinner/main_widget.dart'
     as all_dialog_loading_spinner;
-import 'package:flutter_project_template/dialogs/all/all_dialog_loading_spinner/dialog_widget_business.dart'
-    as all_dialog_loading_spinner_business;
 
 // [위젯 비즈니스]
 // 위젯의 비즈니스 로직 + State 변수 처리는 이 곳에서 합니다.
@@ -110,23 +108,24 @@ class PageWidgetBusiness {
         onItemClicked: () async {
           // 서버 접속 테스트
           // 로딩 다이얼로그 표시
-          all_dialog_loading_spinner_business.DialogWidgetBusiness
-              allDialogLoadingSpinnerBusiness =
-              all_dialog_loading_spinner_business.DialogWidgetBusiness();
+          GlobalKey<all_dialog_loading_spinner.MainWidgetState>
+              allDialogLoadingSpinnerStateGk = GlobalKey();
 
           showDialog(
               barrierDismissible: false,
               context: context,
-              builder: (context) => all_dialog_loading_spinner.DialogWidget(
-                  business: allDialogLoadingSpinnerBusiness,
-                  inputVo: const all_dialog_loading_spinner.InputVo(),
-                  onDialogCreated: () {})).then((outputVo) {});
+              builder: (context) => all_dialog_loading_spinner.MainWidget(
+                    key: allDialogLoadingSpinnerStateGk,
+                    inputVo: all_dialog_loading_spinner.InputVo(
+                        onDialogCreated: () {}),
+                  )).then((outputVo) {});
 
           var response =
               await api_main_server.getService1TkV1AuthForNoLoggedInAsync();
 
           // 로딩 다이얼로그 제거
-          allDialogLoadingSpinnerBusiness.closeDialog();
+          allDialogLoadingSpinnerStateGk.currentState?.mainBusiness.closeDialog(
+              mainWidgetState: allDialogLoadingSpinnerStateGk.currentState!);
 
           if (response.dioException == null) {
             // Dio 네트워크 응답
@@ -180,17 +179,17 @@ class PageWidgetBusiness {
         onItemClicked: () async {
           // 무권한 로그인 진입 테스트
           // 로딩 다이얼로그 표시
-          all_dialog_loading_spinner_business.DialogWidgetBusiness
-              allDialogLoadingSpinnerBusiness =
-              all_dialog_loading_spinner_business.DialogWidgetBusiness();
+          GlobalKey<all_dialog_loading_spinner.MainWidgetState>
+              allDialogLoadingSpinnerStateGk = GlobalKey();
 
           showDialog(
               barrierDismissible: false,
               context: context,
-              builder: (context) => all_dialog_loading_spinner.DialogWidget(
-                  business: allDialogLoadingSpinnerBusiness,
-                  inputVo: const all_dialog_loading_spinner.InputVo(),
-                  onDialogCreated: () {})).then((outputVo) {});
+              builder: (context) => all_dialog_loading_spinner.MainWidget(
+                    key: allDialogLoadingSpinnerStateGk,
+                    inputVo: all_dialog_loading_spinner.InputVo(
+                        onDialogCreated: () {}),
+                  )).then((outputVo) {});
 
           spw_auth_member_info.SharedPreferenceWrapperVo? loginMemberInfo =
               spw_auth_member_info.SharedPreferenceWrapper.get();
@@ -206,7 +205,8 @@ class PageWidgetBusiness {
                           authorization: authorization));
 
           // 로딩 다이얼로그 제거
-          allDialogLoadingSpinnerBusiness.closeDialog();
+          allDialogLoadingSpinnerStateGk.currentState?.mainBusiness.closeDialog(
+              mainWidgetState: allDialogLoadingSpinnerStateGk.currentState!);
 
           if (response.dioException == null) {
             // Dio 네트워크 응답
@@ -260,17 +260,17 @@ class PageWidgetBusiness {
         onItemClicked: () async {
           // DEVELOPER 권한 진입 테스트
           // 로딩 다이얼로그 표시
-          all_dialog_loading_spinner_business.DialogWidgetBusiness
-              allDialogLoadingSpinnerBusiness =
-              all_dialog_loading_spinner_business.DialogWidgetBusiness();
+          GlobalKey<all_dialog_loading_spinner.MainWidgetState>
+              allDialogLoadingSpinnerStateGk = GlobalKey();
 
           showDialog(
               barrierDismissible: false,
               context: context,
-              builder: (context) => all_dialog_loading_spinner.DialogWidget(
-                  business: allDialogLoadingSpinnerBusiness,
-                  inputVo: const all_dialog_loading_spinner.InputVo(),
-                  onDialogCreated: () {})).then((outputVo) {});
+              builder: (context) => all_dialog_loading_spinner.MainWidget(
+                    key: allDialogLoadingSpinnerStateGk,
+                    inputVo: all_dialog_loading_spinner.InputVo(
+                        onDialogCreated: () {}),
+                  )).then((outputVo) {});
 
           spw_auth_member_info.SharedPreferenceWrapperVo? loginMemberInfo =
               spw_auth_member_info.SharedPreferenceWrapper.get();
@@ -286,7 +286,8 @@ class PageWidgetBusiness {
                           authorization: authorization));
 
           // 로딩 다이얼로그 제거
-          allDialogLoadingSpinnerBusiness.closeDialog();
+          allDialogLoadingSpinnerStateGk.currentState?.mainBusiness.closeDialog(
+              mainWidgetState: allDialogLoadingSpinnerStateGk.currentState!);
 
           if (response.dioException == null) {
             // Dio 네트워크 응답
@@ -340,17 +341,17 @@ class PageWidgetBusiness {
         onItemClicked: () async {
           // ADMIN 권한 진입 테스트
           // 로딩 다이얼로그 표시
-          all_dialog_loading_spinner_business.DialogWidgetBusiness
-              allDialogLoadingSpinnerBusiness =
-              all_dialog_loading_spinner_business.DialogWidgetBusiness();
+          GlobalKey<all_dialog_loading_spinner.MainWidgetState>
+              allDialogLoadingSpinnerStateGk = GlobalKey();
 
           showDialog(
               barrierDismissible: false,
               context: context,
-              builder: (context) => all_dialog_loading_spinner.DialogWidget(
-                  business: allDialogLoadingSpinnerBusiness,
-                  inputVo: const all_dialog_loading_spinner.InputVo(),
-                  onDialogCreated: () {})).then((outputVo) {});
+              builder: (context) => all_dialog_loading_spinner.MainWidget(
+                    key: allDialogLoadingSpinnerStateGk,
+                    inputVo: all_dialog_loading_spinner.InputVo(
+                        onDialogCreated: () {}),
+                  )).then((outputVo) {});
 
           spw_auth_member_info.SharedPreferenceWrapperVo? loginMemberInfo =
               spw_auth_member_info.SharedPreferenceWrapper.get();
@@ -365,7 +366,8 @@ class PageWidgetBusiness {
                       authorization: authorization));
 
           // 로딩 다이얼로그 제거
-          allDialogLoadingSpinnerBusiness.closeDialog();
+          allDialogLoadingSpinnerStateGk.currentState?.mainBusiness.closeDialog(
+              mainWidgetState: allDialogLoadingSpinnerStateGk.currentState!);
 
           if (response.dioException == null) {
             // Dio 네트워크 응답

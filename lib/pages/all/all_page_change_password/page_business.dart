@@ -14,14 +14,10 @@ import 'package:flutter_project_template/repositories/network/apis/api_main_serv
     as api_main_server;
 import 'package:flutter_project_template/dialogs/all/all_dialog_info/main_widget.dart'
     as all_dialog_info;
-import 'package:flutter_project_template/dialogs/all/all_dialog_loading_spinner/dialog_widget.dart'
+import 'package:flutter_project_template/dialogs/all/all_dialog_loading_spinner/main_widget.dart'
     as all_dialog_loading_spinner;
-import 'package:flutter_project_template/dialogs/all/all_dialog_loading_spinner/dialog_widget_business.dart'
-    as all_dialog_loading_spinner_business;
-import 'package:flutter_project_template/dialogs/all/all_dialog_yes_or_no/dialog_widget.dart'
+import 'package:flutter_project_template/dialogs/all/all_dialog_yes_or_no/main_widget.dart'
     as all_dialog_yes_or_no;
-import 'package:flutter_project_template/dialogs/all/all_dialog_yes_or_no/dialog_widget_business.dart'
-    as all_dialog_yes_or_no_business;
 import 'package:flutter_project_template/global_classes/todo_gc_delete.dart'
     as gc_template_classes;
 import 'package:flutter_project_template/repositories/spws/spw_auth_member_info.dart'
@@ -310,17 +306,17 @@ class PageBusiness {
 // [내부 함수]
 // !!!내부에서만 사용할 함수를 아래에 구현!!!
   Future<void> _requestChangePassword({required BuildContext context}) async {
-    all_dialog_loading_spinner_business.DialogWidgetBusiness
-        allDialogLoadingSpinnerBusiness =
-        all_dialog_loading_spinner_business.DialogWidgetBusiness();
+    GlobalKey<all_dialog_loading_spinner.MainWidgetState>
+        allDialogLoadingSpinnerStateGk = GlobalKey();
 
     showDialog(
         barrierDismissible: false,
         context: _context,
-        builder: (context) => all_dialog_loading_spinner.DialogWidget(
-            business: allDialogLoadingSpinnerBusiness,
-            inputVo: const all_dialog_loading_spinner.InputVo(),
-            onDialogCreated: () {})).then((outputVo) {});
+        builder: (context) => all_dialog_loading_spinner.MainWidget(
+              key: allDialogLoadingSpinnerStateGk,
+              inputVo:
+                  all_dialog_loading_spinner.InputVo(onDialogCreated: () {}),
+            )).then((outputVo) {});
 
     spw_auth_member_info.SharedPreferenceWrapperVo? loginMemberInfo =
         spw_auth_member_info.SharedPreferenceWrapper.get();
@@ -360,7 +356,8 @@ class PageBusiness {
                     oldPassword: oldPw, newPassword: newPw));
 
     // 로딩 다이얼로그 제거
-    allDialogLoadingSpinnerBusiness.closeDialog();
+    allDialogLoadingSpinnerStateGk.currentState?.mainBusiness.closeDialog(
+        mainWidgetState: allDialogLoadingSpinnerStateGk.currentState!);
 
     if (response.dioException == null) {
       // Dio 네트워크 응답
@@ -370,38 +367,38 @@ class PageBusiness {
         // 정상 응답
 
         // 확인 다이얼로그 호출
-        final all_dialog_yes_or_no_business.DialogWidgetBusiness
-            allDialogYesOrNoBusiness =
-            all_dialog_yes_or_no_business.DialogWidgetBusiness();
+        final GlobalKey<all_dialog_yes_or_no.MainWidgetState>
+            allDialogYesOrNoStateGk = GlobalKey();
         if (!_context.mounted) return;
         showDialog(
             barrierDismissible: true,
             context: _context,
-            builder: (context) => all_dialog_yes_or_no.DialogWidget(
-                  business: allDialogYesOrNoBusiness,
-                  inputVo: const all_dialog_yes_or_no.InputVo(
-                      dialogTitle: "비밀번호 변경",
-                      dialogContent: "비밀번호 변경이 완료되었습니다.\n"
-                          "로그아웃 됩니다.\n\n"
-                          "로그인된 다른 디바이스에서도\n"
-                          "로그아웃 처리를 하겠습니까?",
-                      positiveBtnTitle: "예",
-                      negativeBtnTitle: "아니오"),
-                  onDialogCreated: () {},
+            builder: (context) => all_dialog_yes_or_no.MainWidget(
+                  key: allDialogYesOrNoStateGk,
+                  inputVo: all_dialog_yes_or_no.InputVo(
+                    dialogTitle: "비밀번호 변경",
+                    dialogContent: "비밀번호 변경이 완료되었습니다.\n"
+                        "로그아웃 됩니다.\n\n"
+                        "로그인된 다른 디바이스에서도\n"
+                        "로그아웃 처리를 하겠습니까?",
+                    positiveBtnTitle: "예",
+                    negativeBtnTitle: "아니오",
+                    onDialogCreated: () {},
+                  ),
                 )).then((outputVo) async {
           if (outputVo.checkPositiveBtn) {
             // 계정 로그아웃 처리
-            all_dialog_loading_spinner_business.DialogWidgetBusiness
-                allDialogLoadingSpinnerBusiness =
-                all_dialog_loading_spinner_business.DialogWidgetBusiness();
+            GlobalKey<all_dialog_loading_spinner.MainWidgetState>
+                allDialogLoadingSpinnerStateGk = GlobalKey();
 
             showDialog(
                 barrierDismissible: false,
                 context: _context,
-                builder: (context) => all_dialog_loading_spinner.DialogWidget(
-                    business: allDialogLoadingSpinnerBusiness,
-                    inputVo: const all_dialog_loading_spinner.InputVo(),
-                    onDialogCreated: () {})).then((outputVo) {});
+                builder: (context) => all_dialog_loading_spinner.MainWidget(
+                      key: allDialogLoadingSpinnerStateGk,
+                      inputVo: all_dialog_loading_spinner.InputVo(
+                          onDialogCreated: () {}),
+                    )).then((outputVo) {});
 
             spw_auth_member_info.SharedPreferenceWrapperVo? loginMemberInfo =
                 spw_auth_member_info.SharedPreferenceWrapper.get();
@@ -423,22 +420,25 @@ class PageBusiness {
               spw_auth_member_info.SharedPreferenceWrapper.set(value: null);
             }
 
-            allDialogLoadingSpinnerBusiness.closeDialog();
+            allDialogLoadingSpinnerStateGk.currentState?.mainBusiness
+                .closeDialog(
+                    mainWidgetState:
+                        allDialogLoadingSpinnerStateGk.currentState!);
             if (!_context.mounted) return;
             _context.pop();
           } else {
             // 계정 로그아웃 처리
-            all_dialog_loading_spinner_business.DialogWidgetBusiness
-                allDialogLoadingSpinnerBusiness =
-                all_dialog_loading_spinner_business.DialogWidgetBusiness();
+            GlobalKey<all_dialog_loading_spinner.MainWidgetState>
+                allDialogLoadingSpinnerStateGk = GlobalKey();
 
             showDialog(
                 barrierDismissible: false,
                 context: _context,
-                builder: (context) => all_dialog_loading_spinner.DialogWidget(
-                    business: allDialogLoadingSpinnerBusiness,
-                    inputVo: const all_dialog_loading_spinner.InputVo(),
-                    onDialogCreated: () {})).then((outputVo) {});
+                builder: (context) => all_dialog_loading_spinner.MainWidget(
+                      key: allDialogLoadingSpinnerStateGk,
+                      inputVo: all_dialog_loading_spinner.InputVo(
+                          onDialogCreated: () {}),
+                    )).then((outputVo) {});
 
             spw_auth_member_info.SharedPreferenceWrapperVo? loginMemberInfo =
                 spw_auth_member_info.SharedPreferenceWrapper.get();
@@ -457,7 +457,10 @@ class PageBusiness {
               spw_auth_member_info.SharedPreferenceWrapper.set(value: null);
             }
 
-            allDialogLoadingSpinnerBusiness.closeDialog();
+            allDialogLoadingSpinnerStateGk.currentState?.mainBusiness
+                .closeDialog(
+                    mainWidgetState:
+                        allDialogLoadingSpinnerStateGk.currentState!);
             if (!_context.mounted) return;
             _context.pop();
           }

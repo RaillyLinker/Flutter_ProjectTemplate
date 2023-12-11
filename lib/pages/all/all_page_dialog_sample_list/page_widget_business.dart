@@ -15,14 +15,10 @@ import 'package:flutter_project_template/dialogs/all/all_dialog_info/main_widget
     as all_dialog_info;
 import 'package:flutter_project_template/a_templates/all_dialog_template/main_widget.dart'
     as all_dialog_template;
-import 'package:flutter_project_template/dialogs/all/all_dialog_yes_or_no/dialog_widget.dart'
+import 'package:flutter_project_template/dialogs/all/all_dialog_yes_or_no/main_widget.dart'
     as all_dialog_yes_or_no;
-import 'package:flutter_project_template/dialogs/all/all_dialog_yes_or_no/dialog_widget_business.dart'
-    as all_dialog_yes_or_no_business;
-import 'package:flutter_project_template/dialogs/all/all_dialog_loading_spinner/dialog_widget.dart'
+import 'package:flutter_project_template/dialogs/all/all_dialog_loading_spinner/main_widget.dart'
     as all_dialog_loading_spinner;
-import 'package:flutter_project_template/dialogs/all/all_dialog_loading_spinner/dialog_widget_business.dart'
-    as all_dialog_loading_spinner_business;
 import 'package:flutter_project_template/dialogs/all/all_dialog_modal_bottom_sheet_sample/dialog_widget.dart'
     as all_dialog_modal_bottom_sheet_sample;
 import 'package:flutter_project_template/dialogs/all/all_dialog_modal_bottom_sheet_sample/dialog_widget_business.dart'
@@ -138,20 +134,20 @@ class PageWidgetBusiness {
 
   void onYesOrNoDialogItemClicked() {
     // (선택 다이얼로그 호출)
-    final all_dialog_yes_or_no_business.DialogWidgetBusiness
-        allDialogYesOrNoBusiness =
-        all_dialog_yes_or_no_business.DialogWidgetBusiness();
+    final GlobalKey<all_dialog_yes_or_no.MainWidgetState>
+        allDialogYesOrNoStateGk = GlobalKey();
     showDialog(
         barrierDismissible: true,
         context: viewModel.context,
-        builder: (context) => all_dialog_yes_or_no.DialogWidget(
-              business: allDialogYesOrNoBusiness,
-              inputVo: const all_dialog_yes_or_no.InputVo(
-                  dialogTitle: "예/아니오 다이얼로그",
-                  dialogContent: "예/아니오 다이얼로그를 호출했습니다.\n예, 혹은 아니오 버튼을 누르세요.",
-                  positiveBtnTitle: "예",
-                  negativeBtnTitle: "아니오"),
-              onDialogCreated: () {},
+        builder: (context) => all_dialog_yes_or_no.MainWidget(
+              key: allDialogYesOrNoStateGk,
+              inputVo: all_dialog_yes_or_no.InputVo(
+                dialogTitle: "예/아니오 다이얼로그",
+                dialogContent: "예/아니오 다이얼로그를 호출했습니다.\n예, 혹은 아니오 버튼을 누르세요.",
+                positiveBtnTitle: "예",
+                negativeBtnTitle: "아니오",
+                onDialogCreated: () {},
+              ),
             )).then((outputVo) {
       if (outputVo == null) {
         // 아무것도 누르지 않았을 때
@@ -180,21 +176,22 @@ class PageWidgetBusiness {
 
   void onLoadingSpinnerDialogItemClicked() {
     // (로딩 스피너 다이얼로그 호출)
-    all_dialog_loading_spinner_business.DialogWidgetBusiness
-        allDialogLoadingSpinnerBusiness =
-        all_dialog_loading_spinner_business.DialogWidgetBusiness();
+    GlobalKey<all_dialog_loading_spinner.MainWidgetState>
+        allDialogLoadingSpinnerStateGk = GlobalKey();
 
     showDialog(
         barrierDismissible: false,
         context: viewModel.context,
-        builder: (context) => all_dialog_loading_spinner.DialogWidget(
-            business: allDialogLoadingSpinnerBusiness,
-            inputVo: const all_dialog_loading_spinner.InputVo(),
-            onDialogCreated: () {})).then((outputVo) {});
+        builder: (context) => all_dialog_loading_spinner.MainWidget(
+              key: allDialogLoadingSpinnerStateGk,
+              inputVo:
+                  all_dialog_loading_spinner.InputVo(onDialogCreated: () {}),
+            )).then((outputVo) {});
 
     // 3초 후 닫힘
     Future.delayed(const Duration(seconds: 2)).then((value) {
-      allDialogLoadingSpinnerBusiness.closeDialog();
+      allDialogLoadingSpinnerStateGk.currentState?.mainBusiness.closeDialog(
+          mainWidgetState: allDialogLoadingSpinnerStateGk.currentState!);
     });
   }
 

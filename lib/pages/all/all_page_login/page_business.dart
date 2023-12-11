@@ -16,10 +16,8 @@ import 'package:flutter_project_template/repositories/spws/spw_auth_member_info.
     as spw_auth_member_info;
 import 'package:flutter_project_template/dialogs/all/all_dialog_info/main_widget.dart'
     as all_dialog_info;
-import 'package:flutter_project_template/dialogs/all/all_dialog_loading_spinner/dialog_widget.dart'
+import 'package:flutter_project_template/dialogs/all/all_dialog_loading_spinner/main_widget.dart'
     as all_dialog_loading_spinner;
-import 'package:flutter_project_template/dialogs/all/all_dialog_loading_spinner/dialog_widget_business.dart'
-    as all_dialog_loading_spinner_business;
 import 'package:flutter_project_template/global_classes/todo_gc_delete.dart'
     as gc_template_classes;
 import 'package:flutter_project_template/pages/all/all_page_find_password_with_email/page_entrance.dart'
@@ -185,17 +183,17 @@ class PageBusiness {
             return;
           }
 
-          all_dialog_loading_spinner_business.DialogWidgetBusiness
-              allDialogLoadingSpinnerBusiness =
-              all_dialog_loading_spinner_business.DialogWidgetBusiness();
+          GlobalKey<all_dialog_loading_spinner.MainWidgetState>
+              allDialogLoadingSpinnerStateGk = GlobalKey();
 
           showDialog(
               barrierDismissible: false,
               context: _context,
-              builder: (context) => all_dialog_loading_spinner.DialogWidget(
-                  business: allDialogLoadingSpinnerBusiness,
-                  inputVo: const all_dialog_loading_spinner.InputVo(),
-                  onDialogCreated: () {}));
+              builder: (context) => all_dialog_loading_spinner.MainWidget(
+                    key: allDialogLoadingSpinnerStateGk,
+                    inputVo: all_dialog_loading_spinner.InputVo(
+                        onDialogCreated: () {}),
+                  ));
 
           // 네트워크 요청
           var responseVo =
@@ -204,7 +202,8 @@ class PageBusiness {
                       .PostService1TkV1AuthLoginWithPasswordAsyncRequestBodyVo(
                           loginTypeCode: 1, id: id, password: password));
 
-          allDialogLoadingSpinnerBusiness.closeDialog();
+          allDialogLoadingSpinnerStateGk.currentState?.mainBusiness.closeDialog(
+              mainWidgetState: allDialogLoadingSpinnerStateGk.currentState!);
 
           if (responseVo.dioException == null) {
             // Dio 네트워크 응답

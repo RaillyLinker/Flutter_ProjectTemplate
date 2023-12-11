@@ -19,10 +19,8 @@ import 'package:flutter_project_template/repositories/spws/spw_auth_member_info.
     as spw_auth_member_info;
 import 'package:flutter_project_template/dialogs/all/all_dialog_info/main_widget.dart'
     as all_dialog_info;
-import 'package:flutter_project_template/dialogs/all/all_dialog_loading_spinner/dialog_widget.dart'
+import 'package:flutter_project_template/dialogs/all/all_dialog_loading_spinner/main_widget.dart'
     as all_dialog_loading_spinner;
-import 'package:flutter_project_template/dialogs/all/all_dialog_loading_spinner/dialog_widget_business.dart'
-    as all_dialog_loading_spinner_business;
 import 'package:flutter_project_template/pages/all/all_page_login/page_entrance.dart'
     as all_page_login;
 import 'package:flutter_project_template/pages/all/all_page_member_info/page_widget.dart'
@@ -151,17 +149,17 @@ class PageWidgetBusiness {
           itemTitle: "로그아웃",
           itemDescription: "로그아웃 처리를 합니다.",
           onItemClicked: () async {
-            all_dialog_loading_spinner_business.DialogWidgetBusiness
-                allDialogLoadingSpinnerBusiness =
-                all_dialog_loading_spinner_business.DialogWidgetBusiness();
+            GlobalKey<all_dialog_loading_spinner.MainWidgetState>
+                allDialogLoadingSpinnerStateGk = GlobalKey();
 
             showDialog(
                 barrierDismissible: false,
                 context: context,
-                builder: (context) => all_dialog_loading_spinner.DialogWidget(
-                    business: allDialogLoadingSpinnerBusiness,
-                    inputVo: const all_dialog_loading_spinner.InputVo(),
-                    onDialogCreated: () async {})).then((outputVo) {});
+                builder: (context) => all_dialog_loading_spinner.MainWidget(
+                      key: allDialogLoadingSpinnerStateGk,
+                      inputVo: all_dialog_loading_spinner.InputVo(
+                          onDialogCreated: () async {}),
+                    )).then((outputVo) {});
 
             // 검증된 현재 회원 정보 가져오기 (비회원이라면 null)
             spw_auth_member_info.SharedPreferenceWrapperVo? loginMemberInfo =
@@ -179,7 +177,10 @@ class PageWidgetBusiness {
               spw_auth_member_info.SharedPreferenceWrapper.set(value: null);
             }
 
-            allDialogLoadingSpinnerBusiness.closeDialog();
+            allDialogLoadingSpinnerStateGk.currentState?.mainBusiness
+                .closeDialog(
+                    mainWidgetState:
+                        allDialogLoadingSpinnerStateGk.currentState!);
 
             // 화면 정보 갱신
             memberInfoViewModel = getMemberInfoVo();
@@ -191,17 +192,17 @@ class PageWidgetBusiness {
           itemTitle: "인증 토큰 갱신",
           itemDescription: "인증 토큰을 갱신합니다.",
           onItemClicked: () async {
-            all_dialog_loading_spinner_business.DialogWidgetBusiness
-                allDialogLoadingSpinnerBusiness =
-                all_dialog_loading_spinner_business.DialogWidgetBusiness();
+            GlobalKey<all_dialog_loading_spinner.MainWidgetState>
+                allDialogLoadingSpinnerStateGk = GlobalKey();
 
             showDialog(
                 barrierDismissible: false,
                 context: context,
-                builder: (context) => all_dialog_loading_spinner.DialogWidget(
-                    business: allDialogLoadingSpinnerBusiness,
-                    inputVo: const all_dialog_loading_spinner.InputVo(),
-                    onDialogCreated: () async {})).then((outputVo) {});
+                builder: (context) => all_dialog_loading_spinner.MainWidget(
+                      key: allDialogLoadingSpinnerStateGk,
+                      inputVo: all_dialog_loading_spinner.InputVo(
+                          onDialogCreated: () async {}),
+                    )).then((outputVo) {});
 
             // 검증된 현재 회원 정보 가져오기 (비회원이라면 null)
             spw_auth_member_info.SharedPreferenceWrapperVo? loginMemberInfo =
@@ -221,7 +222,10 @@ class PageWidgetBusiness {
                 // 리플래시 토큰이 사용 불가이므로 로그아웃 처리
                 // login_user_info SPW 비우기
                 spw_auth_member_info.SharedPreferenceWrapper.set(value: null);
-                allDialogLoadingSpinnerBusiness.closeDialog();
+                allDialogLoadingSpinnerStateGk.currentState?.mainBusiness
+                    .closeDialog(
+                        mainWidgetState:
+                            allDialogLoadingSpinnerStateGk.currentState!);
 
                 memberInfoViewModel = getMemberInfoVo();
                 memberInfoBloc.refreshUi();
@@ -336,7 +340,10 @@ class PageWidgetBusiness {
                     spw_auth_member_info.SharedPreferenceWrapper.set(
                         value: loginMemberInfo);
 
-                    allDialogLoadingSpinnerBusiness.closeDialog();
+                    allDialogLoadingSpinnerStateGk.currentState?.mainBusiness
+                        .closeDialog(
+                            mainWidgetState:
+                                allDialogLoadingSpinnerStateGk.currentState!);
 
                     memberInfoViewModel = getMemberInfoVo();
                     memberInfoBloc.refreshUi();
@@ -348,7 +355,10 @@ class PageWidgetBusiness {
 
                     // 비정상 응답
                     if (postReissueResponseHeader.apiResultCode == null) {
-                      allDialogLoadingSpinnerBusiness.closeDialog();
+                      allDialogLoadingSpinnerStateGk.currentState?.mainBusiness
+                          .closeDialog(
+                              mainWidgetState:
+                                  allDialogLoadingSpinnerStateGk.currentState!);
 
                       // 비정상 응답이면서 서버에서 에러 원인 코드가 전달되지 않았을 때
                       final GlobalKey<all_dialog_info.MainWidgetState>
@@ -368,7 +378,10 @@ class PageWidgetBusiness {
                                 ),
                               ));
                     } else {
-                      allDialogLoadingSpinnerBusiness.closeDialog();
+                      allDialogLoadingSpinnerStateGk.currentState?.mainBusiness
+                          .closeDialog(
+                              mainWidgetState:
+                                  allDialogLoadingSpinnerStateGk.currentState!);
 
                       // 서버 지정 에러 코드를 전달 받았을 때
                       String apiResultCode =
@@ -399,7 +412,10 @@ class PageWidgetBusiness {
                     }
                   }
                 } else {
-                  allDialogLoadingSpinnerBusiness.closeDialog();
+                  allDialogLoadingSpinnerStateGk.currentState?.mainBusiness
+                      .closeDialog(
+                          mainWidgetState:
+                              allDialogLoadingSpinnerStateGk.currentState!);
 
                   // Dio 네트워크 에러
                   final GlobalKey<all_dialog_info.MainWidgetState>
