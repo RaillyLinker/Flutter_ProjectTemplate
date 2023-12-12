@@ -23,7 +23,7 @@ import 'pages/all/all_page_find_password_with_email/page_entrance.dart'
     as all_page_find_password_with_email;
 import 'pages/all/all_page_get_request_sample/page_widget.dart'
     as all_page_get_request_sample;
-import 'pages/all/all_page_global_variable_state_test_sample/page_widget.dart'
+import 'pages/all/all_page_global_variable_state_test_sample/main_widget.dart'
     as all_page_global_variable_state_test_sample;
 import 'pages/all/all_page_home/page_widget.dart' as all_page_home;
 import 'pages/all/all_page_input_and_output_push_test/page_widget.dart'
@@ -60,19 +60,19 @@ import 'pages/all/all_page_widget_change_animation_sample_list/page_widget.dart'
 import 'pages/all/all_page_gif_sample/main_widget.dart' as all_page_gif_sample;
 import 'pages/all/all_page_dialog_animation_sample_list/page_widget.dart'
     as all_page_dialog_animation_sample_list;
-import 'pages/all/all_page_grid_sample/page_widget.dart'
+import 'pages/all/all_page_grid_sample/main_widget.dart'
     as all_page_grid_sample;
-import 'pages/all/all_page_image_selector_sample/page_widget.dart'
+import 'pages/all/all_page_image_selector_sample/main_widget.dart'
     as all_page_image_selector_sample;
-import 'pages/all/all_page_image_loading_sample/page_widget.dart'
+import 'pages/all/all_page_image_loading_sample/main_widget.dart'
     as all_page_image_loading_sample;
 import 'pages/all/all_page_context_menu_sample/main_widget.dart'
     as all_page_context_menu_sample;
-import 'pages/all/all_page_gesture_area_overlap_test/page_widget.dart'
+import 'pages/all/all_page_gesture_area_overlap_test/main_widget.dart'
     as all_page_gesture_area_overlap_test;
 import 'pages/all/all_page_form_sample/page_widget.dart'
     as all_page_form_sample;
-import 'pages/all/all_page_horizontal_scroll_test/page_widget.dart'
+import 'pages/all/all_page_horizontal_scroll_test/main_widget.dart'
     as all_page_horizontal_scroll_test;
 
 // (app)
@@ -201,7 +201,7 @@ GoRouter getRouter() {
       pageBuilder: (c, s) {
         return CustomTransitionPage(
             key: s.pageKey,
-            child: all_page_grid_sample.PageWidget(goRouterState: s),
+            child: all_page_grid_sample.MainWidget(goRouterState: s),
             transitionsBuilder: all_page_grid_sample.pageTransitionsBuilder);
       }));
 
@@ -437,7 +437,7 @@ GoRouter getRouter() {
       pageBuilder: (c, s) {
         return CustomTransitionPage(
             key: s.pageKey,
-            child: all_page_global_variable_state_test_sample.PageWidget(
+            child: all_page_global_variable_state_test_sample.MainWidget(
                 goRouterState: s),
             transitionsBuilder: all_page_global_variable_state_test_sample
                 .pageTransitionsBuilder);
@@ -481,7 +481,7 @@ GoRouter getRouter() {
       pageBuilder: (c, s) {
         return CustomTransitionPage(
             key: s.pageKey,
-            child: all_page_image_selector_sample.PageWidget(goRouterState: s),
+            child: all_page_image_selector_sample.MainWidget(goRouterState: s),
             transitionsBuilder:
                 all_page_image_selector_sample.pageTransitionsBuilder);
       }));
@@ -492,7 +492,7 @@ GoRouter getRouter() {
       pageBuilder: (c, s) {
         return CustomTransitionPage(
             key: s.pageKey,
-            child: all_page_image_loading_sample.PageWidget(goRouterState: s),
+            child: all_page_image_loading_sample.MainWidget(goRouterState: s),
             transitionsBuilder:
                 all_page_image_loading_sample.pageTransitionsBuilder);
       }));
@@ -515,7 +515,7 @@ GoRouter getRouter() {
         return CustomTransitionPage(
             key: s.pageKey,
             child:
-                all_page_gesture_area_overlap_test.PageWidget(goRouterState: s),
+                all_page_gesture_area_overlap_test.MainWidget(goRouterState: s),
             transitionsBuilder:
                 all_page_gesture_area_overlap_test.pageTransitionsBuilder);
       }));
@@ -536,7 +536,7 @@ GoRouter getRouter() {
       pageBuilder: (c, s) {
         return CustomTransitionPage(
             key: s.pageKey,
-            child: all_page_horizontal_scroll_test.PageWidget(goRouterState: s),
+            child: all_page_horizontal_scroll_test.MainWidget(goRouterState: s),
             transitionsBuilder:
                 all_page_horizontal_scroll_test.pageTransitionsBuilder);
       }));

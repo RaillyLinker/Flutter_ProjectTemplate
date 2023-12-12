@@ -13,7 +13,7 @@ import 'package:flutter_project_template/a_must_delete/todo_gc_delete.dart'
     as gc_template_classes;
 import 'package:flutter_project_template/pages/all/all_page_crypt_sample/page_widget.dart'
     as all_page_crypt_sample;
-import 'package:flutter_project_template/pages/all/all_page_global_variable_state_test_sample/page_widget.dart'
+import 'package:flutter_project_template/pages/all/all_page_global_variable_state_test_sample/main_widget.dart'
     as all_page_global_variable_state_test_sample;
 import 'package:flutter_project_template/pages/all/all_page_shared_preferences_sample/page_entrance.dart'
     as all_page_shared_preferences_sample;
@@ -23,17 +23,17 @@ import 'package:flutter_project_template/pages/all/all_page_widget_change_animat
     as all_page_widget_change_animation_sample_list;
 import 'package:flutter_project_template/pages/all/all_page_gif_sample/main_widget.dart'
     as all_page_gif_sample;
-import 'package:flutter_project_template/pages/all/all_page_image_selector_sample/page_widget.dart'
+import 'package:flutter_project_template/pages/all/all_page_image_selector_sample/main_widget.dart'
     as all_page_image_selector_sample;
-import 'package:flutter_project_template/pages/all/all_page_image_loading_sample/page_widget.dart'
+import 'package:flutter_project_template/pages/all/all_page_image_loading_sample/main_widget.dart'
     as all_page_image_loading_sample;
 import 'package:flutter_project_template/pages/all/all_page_context_menu_sample/main_widget.dart'
     as all_page_context_menu_sample;
-import 'package:flutter_project_template/pages/all/all_page_gesture_area_overlap_test/page_widget.dart'
+import 'package:flutter_project_template/pages/all/all_page_gesture_area_overlap_test/main_widget.dart'
     as all_page_gesture_area_overlap_test;
 import 'package:flutter_project_template/pages/all/all_page_form_sample/page_widget.dart'
     as all_page_form_sample;
-import 'package:flutter_project_template/pages/all/all_page_horizontal_scroll_test/page_widget.dart'
+import 'package:flutter_project_template/pages/all/all_page_horizontal_scroll_test/main_widget.dart'
     as all_page_horizontal_scroll_test;
 
 // (app)

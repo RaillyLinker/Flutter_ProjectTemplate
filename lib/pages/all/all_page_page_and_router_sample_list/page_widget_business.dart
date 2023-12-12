@@ -17,7 +17,7 @@ import 'package:flutter_project_template/a_templates/all_page_template/main_widg
     as all_page_template;
 import 'package:flutter_project_template/pages/all/all_page_page_transition_animation_sample_list/page_widget.dart'
     as all_page_page_transition_animation_sample_list;
-import 'package:flutter_project_template/pages/all/all_page_grid_sample/page_widget.dart'
+import 'package:flutter_project_template/pages/all/all_page_grid_sample/main_widget.dart'
     as all_page_grid_sample;
 import 'package:flutter_project_template/pages/all/all_page_stateful_and_lifecycle_test/main_widget.dart'
     as all_page_stateful_and_lifecycle_test;

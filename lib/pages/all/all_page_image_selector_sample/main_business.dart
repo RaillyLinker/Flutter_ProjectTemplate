@@ -5,83 +5,93 @@ import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/foundation.dart';
 
-// (inner Folder)
-import 'page_widget.dart' as page_widget;
+// (inner_folder)
+import 'main_widget.dart' as main_widget;
 
 // (all)
 import 'package:flutter_project_template/global_widgets/gw_slw_page_outer_frame.dart'
     as gw_slw_page_outer_frame;
-import 'package:flutter_project_template/a_must_delete/todo_gc_delete.dart'
-    as gc_template_classes;
+import 'package:flutter_project_template/global_widgets/gw_sfw_wrapper.dart'
+    as gw_sfw_wrapper;
 import 'package:flutter_project_template/dialogs/all/all_dialog_image_selector_menu/main_widget.dart'
     as all_dialog_image_selector_menu;
 
 // [위젯 비즈니스]
-// 위젯의 비즈니스 로직 + State 변수 처리는 이 곳에서 합니다.
 
 //------------------------------------------------------------------------------
-// 페이지의 비즈니스 로직 담당
-// PageBusiness 인스턴스는 해당 페이지가 소멸하기 전까지 활용됩니다.
-class PageWidgetBusiness {
-  // [콜백 함수]
-  // (전체 위젯 initState)
+class MainBusiness {
+  // [CallBack 함수]
+  // (inputVo 확인 콜백)
+  // State 클래스의 initState 에서 실행 되며, Business 클래스의 initState 실행 전에 실행 됩니다.
+  // 필수 정보 누락시 null 을 반환, null 이 반환 되었을 때는 inputError 가 true 가 됩니다.
+  main_widget.InputVo? onCheckPageInputVo(
+      {required GoRouterState goRouterState}) {
+    // !!!pageInputVo 체크!!!
+    // ex :
+    // if (!goRouterState.uri.queryParameters.containsKey("inputValueString")) {
+    //   return null;
+    // }
+
+    // !!!PageInputVo 입력!!!
+    return const main_widget.InputVo();
+  }
+
+  // (진입 최초 단 한번 실행) - 아직 위젯이 생성 되기 전
   void initState() {
     // !!!initState 로직 작성!!!
   }
 
-  // (전체 위젯 dispose)
+  // (종료 시점 단 한번 실행)
   void dispose() {
-    // !!!initState 로직 작성!!!
+    // !!!dispose 로직 작성!!!
   }
 
-  // (전체 위젯의 FocusDetector 콜백들)
-  Future<void> onFocusGained() async {
-    // !!!onFocusGained 로직 작성!!!
+  // (위젯이 처음 build 된 후 단 한번 실행)
+  Future<void> onCreateWidget() async {
+    // !!!onFocusGainedAsync 로직 작성!!!
   }
 
-  Future<void> onFocusLost() async {
-    // !!!onFocusLost 로직 작성!!!
+  Future<void> onFocusGainedAsync() async {
+    // !!!onFocusGainedAsync 로직 작성!!!
   }
 
-  Future<void> onVisibilityGained() async {
-    // !!!onFocusLost 로직 작성!!!
+  Future<void> onFocusLostAsync() async {
+    // !!!onFocusLostAsync 로직 작성!!!
   }
 
-  Future<void> onVisibilityLost() async {
-    // !!!onVisibilityLost 로직 작성!!!
+  Future<void> onVisibilityGainedAsync() async {
+    // !!!onVisibilityGainedAsync 로직 작성!!!
   }
 
-  Future<void> onForegroundGained() async {
-    // !!!onForegroundGained 로직 작성!!!
+  Future<void> onVisibilityLostAsync() async {
+    // !!!onVisibilityLostAsync 로직 작성!!!
   }
 
-  Future<void> onForegroundLost() async {
-    // !!!onForegroundLost 로직 작성!!!
+  Future<void> onForegroundGainedAsync() async {
+    // !!!onForegroundGainedAsync 로직 작성!!!
   }
 
-  void onCheckPageInputVo({required GoRouterState goRouterState}) {
-    // !!!pageInputVo 체크!!!
-    // ex :
-    // if (!goRouterState.uri.queryParameters
-    //     .containsKey("inputValueString")) {
-    //   // 필수 파라미터가 없는 경우에 대한 처리
-    // }
-
-    // !!!PageInputVo 입력!!!
-    inputVo = const page_widget.InputVo();
+  Future<void> onForegroundLostAsync() async {
+    // !!!onForegroundLostAsync 로직 작성!!!
   }
 
+  //----------------------------------------------------------------------------
+  // !!!메인 위젯에서 사용할 변수는 이곳에서 저장하여 사용하세요.!!!
   // [public 변수]
-  // BLoC 객체 샘플 :
-  // final gc_template_classes.RefreshableBloc refreshableBloc = gc_template_classes.RefreshableBloc();
-
-  late BuildContext context;
-
   // (위젯 입력값)
-  late page_widget.InputVo inputVo;
+  late main_widget.InputVo inputVo;
 
-  // (페이지 pop 가능 여부 변수)
+  // (페이지 pop 가능 여부 변수) - false 로 설정시 pop 불가
   bool canPop = true;
+
+  // (최초 실행 플래그)
+  bool needInitState = true;
+
+  // (입력값 미충족 여부)
+  bool inputError = false;
+
+  // (context 객체)
+  late BuildContext mainContext;
 
   // (pageOutFrameBusiness)
   final gw_slw_page_outer_frame.SlwPageOuterFrameBusiness pageOutFrameBusiness =
@@ -99,16 +109,20 @@ class PageWidgetBusiness {
   // 선택된 이미지 리스트
   List<Uint8List> imageFiles = [];
 
-  final gc_template_classes.RefreshableBloc blocProfileImage =
-      gc_template_classes.RefreshableBloc();
+  final GlobalKey<gw_sfw_wrapper.SfwRefreshWrapperState> profileImageAreaGk =
+      GlobalKey();
+  late BuildContext profileImageAreaContext;
 
-  final gc_template_classes.RefreshableBloc blocImageList =
-      gc_template_classes.RefreshableBloc();
+  final GlobalKey<gw_sfw_wrapper.SfwRefreshWrapperState> imageListAreaGk =
+      GlobalKey();
+  late BuildContext imageListAreaContext;
 
   // [private 변수]
 
+  //----------------------------------------------------------------------------
+  // !!!비즈니스 함수는 이 곳에서 저장 하여 사용 하세요.!!!
   // [public 함수]
-  // (Widget 화면 갱신) - WidgetUi.viewWidgetBuild 의 return 값을 다시 불러 옵니다.
+  // (메인 위젯 화면 갱신)
   late VoidCallback refreshUi;
 
   // (프로필 이미지 클릭)
@@ -116,10 +130,10 @@ class PageWidgetBusiness {
     final GlobalKey<all_dialog_image_selector_menu.MainWidgetState>
         allDialogImageSelectorMenuAreaGk = GlobalKey();
 
-    if (!context.mounted) return;
+    if (!mainContext.mounted) return;
     var pageOutputVo = await showDialog(
         barrierDismissible: true,
-        context: context,
+        context: mainContext,
         builder: (context) => all_dialog_image_selector_menu.MainWidget(
               key: allDialogImageSelectorMenuAreaGk,
               inputVo: all_dialog_image_selector_menu.InputVo(
@@ -143,7 +157,7 @@ class PageWidgetBusiness {
                 var image = XFile(pickedFile.path);
                 var bytes = await image.readAsBytes();
                 selectedImage = bytes;
-                blocProfileImage.refreshUi();
+                profileImageAreaGk.currentState?.refreshUi();
               }
             } catch (_) {}
           }
@@ -162,7 +176,7 @@ class PageWidgetBusiness {
                 var image = XFile(pickedFile.path);
                 var bytes = await image.readAsBytes();
                 selectedImage = bytes;
-                blocProfileImage.refreshUi();
+                profileImageAreaGk.currentState?.refreshUi();
               }
             } catch (_) {}
           }
@@ -171,7 +185,7 @@ class PageWidgetBusiness {
           {
             // 기본 프로필 이미지 적용
             selectedImage = null;
-            blocProfileImage.refreshUi();
+            profileImageAreaGk.currentState?.refreshUi();
           }
           break;
         default:
@@ -188,17 +202,17 @@ class PageWidgetBusiness {
     //최대 3장까지 입력
     if (imageFiles.length >= imageFileListMaxCount) {
       showToast("최대 ${imageFileListMaxCount}장까지만 입력 가능합니다",
-          context: context, animation: StyledToastAnimation.scale);
+          context: mainContext, animation: StyledToastAnimation.scale);
       return;
     }
 
     final GlobalKey<all_dialog_image_selector_menu.MainWidgetState>
         allDialogImageSelectorMenuAreaGk = GlobalKey();
 
-    if (!context.mounted) return;
+    if (!mainContext.mounted) return;
     var pageOutputVo = await showDialog(
         barrierDismissible: true,
-        context: context,
+        context: mainContext,
         builder: (context) => all_dialog_image_selector_menu.MainWidget(
               key: allDialogImageSelectorMenuAreaGk,
               inputVo: all_dialog_image_selector_menu.InputVo(
@@ -227,7 +241,7 @@ class PageWidgetBusiness {
                   imageFiles.add(bytes);
                 }
 
-                blocImageList.refreshUi();
+                imageListAreaGk.currentState?.refreshUi();
               }
             } catch (_) {}
           }
@@ -247,7 +261,7 @@ class PageWidgetBusiness {
                 var bytes = await image.readAsBytes();
                 imageFiles.add(bytes);
 
-                blocImageList.refreshUi();
+                imageListAreaGk.currentState?.refreshUi();
               }
             } catch (_) {}
           }
@@ -256,7 +270,7 @@ class PageWidgetBusiness {
           {
             // 기본 프로필 이미지 적용
             selectedImage = null;
-            blocImageList.refreshUi();
+            imageListAreaGk.currentState?.refreshUi();
           }
           break;
         default:
@@ -270,8 +284,9 @@ class PageWidgetBusiness {
 
   void pressDeletePicture(int pictureListItemIdx) {
     imageFiles.removeAt(pictureListItemIdx);
-    blocImageList.refreshUi();
+    imageListAreaGk.currentState?.refreshUi();
   }
 
-// [private 함수]
+  // [private 함수]
+  void _doNothing() {}
 }
