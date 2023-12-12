@@ -1,6 +1,5 @@
 [TODO]
 - [home 페이지 이식]
-  all_page_etc_sample_list
   all_page_network_request_sample_list
   all_page_page_and_router_sample_list
   all_page_page_transition_animation_sample_list
