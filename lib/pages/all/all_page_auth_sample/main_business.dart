@@ -26,7 +26,7 @@ import 'package:flutter_project_template/pages/all/all_page_login/page_entrance.
     as all_page_login;
 import 'package:flutter_project_template/pages/all/all_page_member_info/page_widget.dart'
     as all_page_member_info;
-import 'package:flutter_project_template/pages/all/all_page_authorization_test_sample_list/page_widget.dart'
+import 'package:flutter_project_template/pages/all/all_page_authorization_test_sample_list/main_widget.dart'
     as all_page_authorization_test_sample_list;
 
 // [위젯 비즈니스]

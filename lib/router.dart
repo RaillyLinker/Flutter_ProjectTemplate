@@ -9,7 +9,7 @@ import 'pages/all/all_page_stateful_and_lifecycle_test/main_widget.dart'
     as all_page_stateful_and_lifecycle_test;
 import 'pages/all/all_page_auth_sample/main_widget.dart'
     as all_page_auth_sample;
-import 'pages/all/all_page_authorization_test_sample_list/page_widget.dart'
+import 'pages/all/all_page_authorization_test_sample_list/main_widget.dart'
     as all_page_authorization_test_sample_list;
 import 'pages/all/all_page_change_password/page_entrance.dart'
     as all_page_change_password;
@@ -313,7 +313,7 @@ GoRouter getRouter() {
       pageBuilder: (c, s) {
         return CustomTransitionPage(
             key: s.pageKey,
-            child: all_page_authorization_test_sample_list.PageWidget(
+            child: all_page_authorization_test_sample_list.MainWidget(
                 goRouterState: s),
             transitionsBuilder:
                 all_page_authorization_test_sample_list.pageTransitionsBuilder);
