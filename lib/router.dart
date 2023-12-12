@@ -55,7 +55,7 @@ import 'pages/all/all_page_shared_preferences_sample/page_entrance.dart'
     as all_page_shared_preferences_sample;
 import 'pages/all/all_page_url_launcher_sample/page_entrance.dart'
     as all_page_url_launcher_sample;
-import 'pages/all/all_page_widget_change_animation_sample_list/page_widget.dart'
+import 'pages/all/all_page_widget_change_animation_sample_list/main_widget.dart'
     as all_page_widget_change_animation_sample_list;
 import 'pages/all/all_page_gif_sample/main_widget.dart' as all_page_gif_sample;
 import 'pages/all/all_page_dialog_animation_sample_list/main_widget.dart'
@@ -449,7 +449,7 @@ GoRouter getRouter() {
       pageBuilder: (c, s) {
         return CustomTransitionPage(
             key: s.pageKey,
-            child: all_page_widget_change_animation_sample_list.PageWidget(
+            child: all_page_widget_change_animation_sample_list.MainWidget(
                 goRouterState: s),
             transitionsBuilder: all_page_widget_change_animation_sample_list
                 .pageTransitionsBuilder);
