@@ -7,6 +7,7 @@
   all_page_widget_change_animation_sample_list
   mobile_page_permission_sample_list
 
+  [auth Dialog 의 formfield 이식]
   all_page_form_sample
 
   [network 리퀘스트 이식]
