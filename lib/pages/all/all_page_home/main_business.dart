@@ -20,7 +20,7 @@ import 'package:flutter_project_template/pages/all/all_page_dialog_animation_sam
     as all_page_dialog_animation_sample_list;
 import 'package:flutter_project_template/pages/all/all_page_network_request_sample_list/page_widget.dart'
     as all_page_network_request_sample_list;
-import 'package:flutter_project_template/pages/all/all_page_auth_sample/page_widget.dart'
+import 'package:flutter_project_template/pages/all/all_page_auth_sample/main_widget.dart'
     as all_page_auth_sample;
 import 'package:flutter_project_template/pages/all/all_page_etc_sample_list/page_widget.dart'
     as all_page_etc_sample_list;
