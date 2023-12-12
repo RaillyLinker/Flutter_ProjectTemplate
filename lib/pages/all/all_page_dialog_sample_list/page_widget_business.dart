@@ -19,10 +19,8 @@ import 'package:flutter_project_template/dialogs/all/all_dialog_yes_or_no/main_w
     as all_dialog_yes_or_no;
 import 'package:flutter_project_template/dialogs/all/all_dialog_loading_spinner/main_widget.dart'
     as all_dialog_loading_spinner;
-import 'package:flutter_project_template/dialogs/all/all_dialog_modal_bottom_sheet_sample/dialog_widget.dart'
+import 'package:flutter_project_template/dialogs/all/all_dialog_modal_bottom_sheet_sample/main_widget.dart'
     as all_dialog_modal_bottom_sheet_sample;
-import 'package:flutter_project_template/dialogs/all/all_dialog_modal_bottom_sheet_sample/dialog_widget_business.dart'
-    as all_dialog_modal_bottom_sheet_sample_business;
 import 'package:flutter_project_template/dialogs/all/all_dialog_dialog_in_dialog/dialog_widget.dart'
     as all_dialog_dialog_in_dialog;
 import 'package:flutter_project_template/dialogs/all/all_dialog_dialog_in_dialog/dialog_widget_business.dart'
@@ -197,9 +195,8 @@ class PageWidgetBusiness {
     // 일반 다이얼로그 위젯에 호출만 showModalBottomSheet 로 하면 됩니다.
     // BS 다이얼로그는 무조건 width 가 Max 입니다.
 
-    final all_dialog_modal_bottom_sheet_sample_business.DialogWidgetBusiness
-        allDialogModalBottomSheetSampleBusiness =
-        all_dialog_modal_bottom_sheet_sample_business.DialogWidgetBusiness();
+    final GlobalKey<all_dialog_modal_bottom_sheet_sample.MainWidgetState>
+        allDialogModalBottomSheetSampleAreaGk = GlobalKey();
 
     showModalBottomSheet<void>(
       constraints: const BoxConstraints(minWidth: double.infinity),
@@ -207,10 +204,11 @@ class PageWidgetBusiness {
       backgroundColor: Colors.transparent,
       isScrollControlled: true,
       // 슬라이드 가능여부
-      builder: (context) => all_dialog_modal_bottom_sheet_sample.DialogWidget(
-        business: allDialogModalBottomSheetSampleBusiness,
-        inputVo: const all_dialog_modal_bottom_sheet_sample.InputVo(),
-        onDialogCreated: () {},
+      builder: (context) => all_dialog_modal_bottom_sheet_sample.MainWidget(
+        key: allDialogModalBottomSheetSampleAreaGk,
+        inputVo: all_dialog_modal_bottom_sheet_sample.InputVo(
+          onDialogCreated: () {},
+        ),
       ),
     ).then((outputVo) {});
   }

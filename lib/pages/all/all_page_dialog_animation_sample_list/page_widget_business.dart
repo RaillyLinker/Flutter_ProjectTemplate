@@ -13,10 +13,8 @@ import 'package:flutter_project_template/global_widgets/todo_do_delete.dart'
     as gw_do_delete;
 import 'package:flutter_project_template/a_templates/all_dialog_template/main_widget.dart'
     as all_dialog_template;
-import 'package:flutter_project_template/dialogs/all/all_dialog_small_circle_transform_sample/dialog_widget.dart'
+import 'package:flutter_project_template/dialogs/all/all_dialog_small_circle_transform_sample/main_widget.dart'
     as all_dialog_small_circle_transform_sample;
-import 'package:flutter_project_template/dialogs/all/all_dialog_small_circle_transform_sample/dialog_widget_business.dart'
-    as all_dialog_small_circle_transform_sample_business;
 
 // [위젯 비즈니스]
 // 위젯의 비즈니스 로직 + State 변수 처리는 이 곳에서 합니다.
@@ -161,24 +159,25 @@ class PageWidgetBusiness {
 
   void onSmallCircleCloseAnimationItemClicked() {
     // 다이얼로그에서 다른 다이얼로그를 호출하는 샘플
-    final all_dialog_small_circle_transform_sample_business.DialogWidgetBusiness
-        allDialogSmallCircleTransformSampleBusiness =
-        all_dialog_small_circle_transform_sample_business
-            .DialogWidgetBusiness();
+    final GlobalKey<all_dialog_small_circle_transform_sample.MainWidgetState>
+        allDialogSmallCircleTransformSampleAreaGk = GlobalKey();
     showDialog(
         barrierDismissible: false,
         context: viewModel.context,
         builder: (context) =>
-            all_dialog_small_circle_transform_sample.DialogWidget(
-              business: allDialogSmallCircleTransformSampleBusiness,
-              inputVo: const all_dialog_small_circle_transform_sample.InputVo(),
-              onDialogCreated: () async {
-                // 2초 대기
-                await Future.delayed(const Duration(seconds: 2));
+            all_dialog_small_circle_transform_sample.MainWidget(
+              key: allDialogSmallCircleTransformSampleAreaGk,
+              inputVo: all_dialog_small_circle_transform_sample.InputVo(
+                onDialogCreated: () async {
+                  // 2초 대기
+                  await Future.delayed(const Duration(seconds: 2));
 
-                // 다이얼로그 완료 처리
-                allDialogSmallCircleTransformSampleBusiness.dialogComplete();
-              },
+                  // 다이얼로그 완료 처리
+                  allDialogSmallCircleTransformSampleAreaGk
+                      .currentState?.mainBusiness
+                      .dialogComplete();
+                },
+              ),
             )).then((outputVo) {});
   }
 

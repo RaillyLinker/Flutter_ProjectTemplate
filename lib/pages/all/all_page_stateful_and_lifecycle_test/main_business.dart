@@ -142,6 +142,9 @@ class MainBusiness {
   //----------------------------------------------------------------------------
   // !!!비즈니스 함수는 이 곳에서 저장 하여 사용 하세요.!!!
   // [public 함수]
+  // (메인 위젯 화면 갱신)
+  late VoidCallback refreshUi;
+
   // (다른 페이지로 이동)
   void pushToAnotherPage() {
     context.pushNamed(all_page_page_and_router_sample_list.pageName);

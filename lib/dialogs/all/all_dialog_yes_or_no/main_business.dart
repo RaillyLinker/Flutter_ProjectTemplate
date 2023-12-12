@@ -73,6 +73,9 @@ class MainBusiness {
   //----------------------------------------------------------------------------
   // !!!비즈니스 함수는 이 곳에서 저장 하여 사용 하세요.!!!
   // [public 함수]
+  // (메인 위젯 화면 갱신)
+  late VoidCallback refreshUi;
+
   // (다이얼로그 종료 함수)
   void closeDialog() {
     context.pop();

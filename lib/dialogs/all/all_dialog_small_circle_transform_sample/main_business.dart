@@ -6,8 +6,6 @@ import 'package:go_router/go_router.dart';
 import 'main_widget.dart' as main_widget;
 
 // (all)
-import 'package:flutter_project_template/global_widgets/gw_slw_page_outer_frame.dart'
-    as gw_slw_page_outer_frame;
 import 'package:flutter_project_template/global_widgets/gw_sfw_wrapper.dart'
     as gw_sfw_wrapper;
 
@@ -16,21 +14,6 @@ import 'package:flutter_project_template/global_widgets/gw_sfw_wrapper.dart'
 //------------------------------------------------------------------------------
 class MainBusiness {
   // [CallBack 함수]
-  // (inputVo 확인 콜백)
-  // State 클래스의 initState 에서 실행 되며, Business 클래스의 initState 실행 전에 실행 됩니다.
-  // 필수 정보 누락시 null 을 반환, null 이 반환 되었을 때는 inputError 가 true 가 됩니다.
-  main_widget.InputVo? onCheckPageInputVo(
-      {required GoRouterState goRouterState}) {
-    // !!!pageInputVo 체크!!!
-    // ex :
-    // if (!goRouterState.uri.queryParameters.containsKey("inputValueString")) {
-    //   return null;
-    // }
-
-    // !!!PageInputVo 입력!!!
-    return const main_widget.InputVo();
-  }
-
   // (진입 최초 단 한번 실행) - 아직 위젯이 생성 되기 전
   void initState() {
     // !!!initState 로직 작성!!!
@@ -82,15 +65,11 @@ class MainBusiness {
   // (최초 실행 플래그)
   bool needInitState = true;
 
-  // (입력값 미충족 여부)
-  bool inputError = false;
-
   // (context 객체)
   late BuildContext context;
 
-  // (pageOutFrameBusiness)
-  final gw_slw_page_outer_frame.SlwPageOuterFrameBusiness pageOutFrameBusiness =
-      gw_slw_page_outer_frame.SlwPageOuterFrameBusiness();
+  // (다이얼로그 작업 완료 여부)
+  bool isComplete = false;
 
   // [private 변수]
 
@@ -99,6 +78,24 @@ class MainBusiness {
   // [public 함수]
   // (메인 위젯 화면 갱신)
   late VoidCallback refreshUi;
+
+  // (다이얼로그 종료 함수)
+  void closeDialog() {
+    context.pop();
+  }
+
+  // (다이얼로그 종료 및 애니메이션 적용)
+  Future<void> dialogComplete() async {
+    isComplete = true;
+    refreshUi();
+
+    // 애니메이션의 지속 시간만큼 지연
+    await Future.delayed(const Duration(milliseconds: 800));
+
+    // 다이얼로그 닫기
+    if (!context.mounted) return;
+    context.pop();
+  }
 
   // [private 함수]
   void _doNothing() {}

@@ -1,34 +1,24 @@
 // (external)
 import 'package:flutter/material.dart';
 import 'package:focus_detector_v2/focus_detector_v2.dart';
-import 'package:go_router/go_router.dart';
 
 // (inner_folder)
 import 'main_business.dart' as main_business;
 
 // (all)
-import 'package:flutter_project_template/global_widgets/gw_slw_page_outer_frame.dart'
-    as gw_slw_page_outer_frame;
 import 'package:flutter_project_template/global_widgets/gw_sfw_wrapper.dart'
     as gw_sfw_wrapper;
 
 // [위젯 뷰]
 
 //------------------------------------------------------------------------------
-// !!!페이지 진입 라우트 Name 정의!!! - 폴더명과 동일하게 작성하세요.
-const pageName = "all_page_template";
-
-// !!!페이지 호출/반납 애니메이션!!! - 동적으로 변경이 가능합니다.
-Widget Function(BuildContext context, Animation<double> animation,
-        Animation<double> secondaryAnimation, Widget child)
-    pageTransitionsBuilder = (context, animation, secondaryAnimation, child) {
-  return FadeTransition(opacity: animation, child: child);
-};
-
 // (입력 데이터)
 class InputVo {
   // !!!위젯 입력값 선언!!!
-  const InputVo();
+  const InputVo({required this.onDialogCreated});
+
+  // (다이얼로그가 생성된 시점에 한번 실행 되는 콜백)
+  final VoidCallback onDialogCreated;
 }
 
 // (결과 데이터)
@@ -39,9 +29,9 @@ class OutputVo {
 
 //------------------------------------------------------------------------------
 class MainWidget extends StatefulWidget {
-  const MainWidget({super.key, required this.goRouterState});
+  const MainWidget({super.key, required this.inputVo});
 
-  final GoRouterState goRouterState;
+  final InputVo inputVo;
 
   @override
   MainWidgetState createState() => MainWidgetState();
@@ -59,6 +49,7 @@ class MainWidgetState extends State<MainWidget> with WidgetsBindingObserver {
         onFocusGained: () async {
           if (mainBusiness.needInitState) {
             mainBusiness.needInitState = false;
+            widget.inputVo.onDialogCreated();
             await mainBusiness.onCreateWidget();
           }
           await mainBusiness.onFocusGainedAsync();
@@ -89,13 +80,7 @@ class MainWidgetState extends State<MainWidget> with WidgetsBindingObserver {
     WidgetsBinding.instance.addObserver(this);
     mainBusiness.context = context;
     mainBusiness.refreshUi = refreshUi;
-    final InputVo? inputVo =
-        mainBusiness.onCheckPageInputVo(goRouterState: widget.goRouterState);
-    if (inputVo == null) {
-      mainBusiness.inputError = true;
-    } else {
-      mainBusiness.inputVo = inputVo;
-    }
+    mainBusiness.inputVo = widget.inputVo;
     mainBusiness.initState();
   }
 
@@ -127,24 +112,42 @@ class MainWidgetState extends State<MainWidget> with WidgetsBindingObserver {
   Widget getScreenWidget({required BuildContext context}) {
     // !!!화면 위젯 작성 하기!!!
 
-    if (mainBusiness.inputError == true) {
-      // 입력값이 미충족 되었을 때의 화면
-      return const Center(
-        child: Text(
-          "잘못된 접근입니다.",
-          style: TextStyle(color: Colors.red, fontFamily: "MaruBuri"),
-        ),
-      );
-    }
-
-    return gw_slw_page_outer_frame.SlwPageOuterFrame(
-      business: mainBusiness.pageOutFrameBusiness,
-      pageTitle: "페이지 템플릿",
-      child: const Center(
-        child: Text(
-          "템플릿 페이지",
-          style: TextStyle(color: Colors.black, fontFamily: "MaruBuri"),
-        ),
+    return Dialog(
+      elevation: 0,
+      backgroundColor: Colors.transparent,
+      child: AnimatedContainer(
+        width: mainBusiness.isComplete ? 64 : 300,
+        height: mainBusiness.isComplete ? 64 : 280,
+        curve: Curves.fastOutSlowIn,
+        duration: const Duration(milliseconds: 500),
+        child: mainBusiness.isComplete
+            ? Container(
+                height: 64,
+                width: 64,
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.grey.withOpacity(.5),
+                          spreadRadius: 5,
+                          blurRadius: 7)
+                    ]),
+                child: const Center(child: Text('성공')),
+              )
+            : SingleChildScrollView(
+                child: Container(
+                  height: 280,
+                  width: 300,
+                  decoration: const BoxDecoration(
+                      color: Colors.white,
+                      shape: BoxShape.rectangle,
+                      borderRadius: BorderRadius.all(Radius.circular(16))),
+                  child: const Center(
+                    child: Text("잠시 후 종료됩니다."),
+                  ),
+                ),
+              ),
       ),
     );
   }
