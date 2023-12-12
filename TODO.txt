@@ -1,10 +1,36 @@
 [TODO]
-- home 페이지 템플릿 적용
-- 리스트가 있는 모든 페이지에 home 페이지 형식 적용
-- 텍스트 폼 필드 페이지 샘플 수정
-- Get 네트워크 예시 수정 및 다른 네트워크 예시 적용
-- 계정 샘플 페이지 수정
-- 이외 모든 페이지 수정
+- [home 페이지 이식]
+  all_page_dialog_animation_sample_list
+  all_page_dialog_sample_list
+  all_page_etc_sample_list
+  all_page_network_request_sample_list
+  all_page_page_and_router_sample_list
+  all_page_page_transition_animation_sample_list
+  all_page_widget_change_animation_sample_list
+  mobile_page_permission_sample_list
+
+  [form 페이지 이식]
+  all_page_form_sample
+  all_page_crypt_sample
+  all_page_input_and_output_push_test
+  app_page_server_sample
+  all_page_url_launcher_sample
+  all_page_shared_preferences_sample
+  all_page_login
+  all_page_find_password_with_email
+  all_page_join_the_membership_email_verification
+  all_page_join_the_membership_edit_member_info
+  all_page_member_info
+  all_page_change_password
+  app_page_init_splash
+
+  [network 리퀘스트 이식]
+  all_page_get_request_sample
+  all_page_post_request_sample1
+  all_page_post_request_sample2
+  all_page_post_request_sample3
+  all_page_post_request_sample4
+
 - 템플릿 다 적용하고 BLoC 라이브러리 제거 및 todo_gc_delete.dart 제거
 
 - 리스트 아이템 순서 바꾸기
