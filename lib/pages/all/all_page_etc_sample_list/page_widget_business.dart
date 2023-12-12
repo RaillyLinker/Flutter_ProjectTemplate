@@ -27,7 +27,7 @@ import 'package:flutter_project_template/pages/all/all_page_image_selector_sampl
     as all_page_image_selector_sample;
 import 'package:flutter_project_template/pages/all/all_page_image_loading_sample/page_widget.dart'
     as all_page_image_loading_sample;
-import 'package:flutter_project_template/pages/all/all_page_context_menu_sample/page_widget.dart'
+import 'package:flutter_project_template/pages/all/all_page_context_menu_sample/main_widget.dart'
     as all_page_context_menu_sample;
 import 'package:flutter_project_template/pages/all/all_page_gesture_area_overlap_test/page_widget.dart'
     as all_page_gesture_area_overlap_test;
