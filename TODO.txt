@@ -1,6 +1,5 @@
 [TODO]
 - [home 페이지 이식]
-  all_page_dialog_animation_sample_list
   all_page_dialog_sample_list
   all_page_etc_sample_list
   all_page_network_request_sample_list
@@ -9,8 +8,16 @@
   all_page_widget_change_animation_sample_list
   mobile_page_permission_sample_list
 
-  [form 페이지 이식]
   all_page_form_sample
+  
+  [network 리퀘스트 이식]
+  all_page_get_request_sample
+  all_page_post_request_sample1
+  all_page_post_request_sample2
+  all_page_post_request_sample3
+  all_page_post_request_sample4
+
+  [form 페이지 이식]
   all_page_crypt_sample
   all_page_input_and_output_push_test
   app_page_server_sample
@@ -23,13 +30,6 @@
   all_page_member_info
   all_page_change_password
   app_page_init_splash
-
-  [network 리퀘스트 이식]
-  all_page_get_request_sample
-  all_page_post_request_sample1
-  all_page_post_request_sample2
-  all_page_post_request_sample3
-  all_page_post_request_sample4
 
 - 템플릿 다 적용하고 BLoC 라이브러리 제거 및 todo_gc_delete.dart 제거
 
