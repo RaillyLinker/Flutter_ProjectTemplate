@@ -1,8 +1,7 @@
 // (external)
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'dart:io';
-import 'package:flutter/foundation.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 
 // (inner_folder)
 import 'main_widget.dart' as main_widget;
@@ -12,22 +11,16 @@ import 'package:flutter_project_template/global_widgets/gw_slw_page_outer_frame.
     as gw_slw_page_outer_frame;
 import 'package:flutter_project_template/global_widgets/gw_sfw_wrapper.dart'
     as gw_sfw_wrapper;
-import 'package:flutter_project_template/pages/all/all_page_page_and_router_sample_list/main_widget.dart'
-    as all_page_page_and_router_sample_list;
-import 'package:flutter_project_template/pages/all/all_page_dialog_sample_list/main_widget.dart'
-    as all_page_dialog_sample_list;
-import 'package:flutter_project_template/pages/all/all_page_dialog_animation_sample_list/main_widget.dart'
-    as all_page_dialog_animation_sample_list;
-import 'package:flutter_project_template/pages/all/all_page_network_request_sample_list/main_widget.dart'
-    as all_page_network_request_sample_list;
-import 'package:flutter_project_template/pages/all/all_page_auth_sample/main_widget.dart'
-    as all_page_auth_sample;
-import 'package:flutter_project_template/pages/all/all_page_etc_sample_list/main_widget.dart'
-    as all_page_etc_sample_list;
-
-// (mobile)
-import 'package:flutter_project_template/pages/mobile/mobile_page_permission_sample_list/page_entrance.dart'
-    as mobile_page_permission_sample_list;
+import 'package:flutter_project_template/pages/all/all_page_input_and_output_push_test/page_widget.dart'
+    as all_page_input_and_output_push_test;
+import 'package:flutter_project_template/a_templates/all_page_template/main_widget.dart'
+    as all_page_template;
+import 'package:flutter_project_template/pages/all/all_page_page_transition_animation_sample_list/page_widget.dart'
+    as all_page_page_transition_animation_sample_list;
+import 'package:flutter_project_template/pages/all/all_page_grid_sample/main_widget.dart'
+    as all_page_grid_sample;
+import 'package:flutter_project_template/pages/all/all_page_stateful_and_lifecycle_test/main_widget.dart'
+    as all_page_stateful_and_lifecycle_test;
 
 // [위젯 비즈니스]
 
@@ -129,70 +122,72 @@ class MainBusiness {
     List<HoveringListTileViewModel> hoveringListTileViewModel = [];
     hoveringListTileViewModel.add(
       HoveringListTileViewModel(
-          itemTitle: "페이지 / 라우터 샘플 리스트",
-          itemDescription: "페이지 이동, 파라미터 전달 등의 샘플 리스트",
+          itemTitle: "페이지 템플릿",
+          itemDescription: "템플릿 페이지를 호출합니다.",
+          onItemClicked: () {
+            mainContext.pushNamed(all_page_template.pageName);
+          }),
+    );
+
+    hoveringListTileViewModel.add(
+      HoveringListTileViewModel(
+          itemTitle: "페이지 Stateful 상태 및 생명주기 테스트",
+          itemDescription: "페이지 Stateful 상태 및 생명주기를 테스트 합니다.",
           onItemClicked: () {
             mainContext
-                .pushNamed(all_page_page_and_router_sample_list.pageName);
+                .pushNamed(all_page_stateful_and_lifecycle_test.pageName);
           }),
     );
 
     hoveringListTileViewModel.add(
       HoveringListTileViewModel(
-          itemTitle: "다이얼로그 샘플 리스트",
-          itemDescription: "다이얼로그 호출 샘플 리스트",
-          onItemClicked: () {
-            mainContext.pushNamed(all_page_dialog_sample_list.pageName);
+          itemTitle: "페이지 입/출력 테스트",
+          itemDescription: "페이지 Push 시에 전달하는 입력값, Pop 시에 반환하는 출력값 테스트",
+          onItemClicked: () async {
+            all_page_input_and_output_push_test.OutputVo? pageResult =
+                await mainContext.pushNamed(
+                    all_page_input_and_output_push_test.pageName,
+                    queryParameters: {
+                  "inputValueString": "테스트 입력값",
+                  "inputValueStringList": ["a", "b", "c"],
+                  "inputValueInt": "1234" // int 를 원하더라도, 여기선 String 으로 줘야함
+                });
+
+            BuildContext context = mainContext;
+            if (pageResult == null) {
+              if (!context.mounted) return;
+              showToast(
+                "반환값이 없습니다.",
+                context: context,
+                animation: StyledToastAnimation.scale,
+              );
+            } else {
+              if (!context.mounted) return;
+              showToast(
+                pageResult.resultValue,
+                context: context,
+                animation: StyledToastAnimation.scale,
+              );
+            }
           }),
     );
 
     hoveringListTileViewModel.add(
       HoveringListTileViewModel(
-          itemTitle: "다이얼로그 애니메이션 샘플 리스트",
-          itemDescription: "다이얼로그 호출 애니메이션 샘플 리스트",
+          itemTitle: "페이지 이동 애니메이션 샘플 리스트",
+          itemDescription: "페이지 이동시 적용되는 애니메이션 샘플 리스트",
           onItemClicked: () {
-            mainContext
-                .pushNamed(all_page_dialog_animation_sample_list.pageName);
+            mainContext.pushNamed(
+                all_page_page_transition_animation_sample_list.pageName);
           }),
     );
 
     hoveringListTileViewModel.add(
       HoveringListTileViewModel(
-          itemTitle: "네트워크 요청 샘플 리스트",
-          itemDescription: "네트워크 요청 및 응답 처리 샘플 리스트",
+          itemTitle: "페이지 Grid 샘플",
+          itemDescription: "화면 사이즈에 따라 동적으로 변하는 Grid 페이지 샘플",
           onItemClicked: () {
-            mainContext
-                .pushNamed(all_page_network_request_sample_list.pageName);
-          }),
-    );
-
-    if (!kIsWeb && (Platform.isAndroid || Platform.isIOS)) {
-      hoveringListTileViewModel.add(
-        HoveringListTileViewModel(
-            itemTitle: "모바일 권한 샘플 리스트",
-            itemDescription: "모바일 디바이스 권한 처리 샘플 리스트",
-            onItemClicked: () {
-              mainContext
-                  .pushNamed(mobile_page_permission_sample_list.pageName);
-            }),
-      );
-    }
-
-    hoveringListTileViewModel.add(
-      HoveringListTileViewModel(
-          itemTitle: "계정 샘플",
-          itemDescription: "계정 관련 기능 샘플",
-          onItemClicked: () {
-            mainContext.pushNamed(all_page_auth_sample.pageName);
-          }),
-    );
-
-    hoveringListTileViewModel.add(
-      HoveringListTileViewModel(
-          itemTitle: "기타 샘플 리스트",
-          itemDescription: "기타 테스트 샘플을 모아둔 리스트",
-          onItemClicked: () {
-            mainContext.pushNamed(all_page_etc_sample_list.pageName);
+            mainContext.pushNamed(all_page_grid_sample.pageName);
           }),
     );
 
