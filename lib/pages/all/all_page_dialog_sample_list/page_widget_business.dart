@@ -23,10 +23,8 @@ import 'package:flutter_project_template/dialogs/all/all_dialog_modal_bottom_she
     as all_dialog_modal_bottom_sheet_sample;
 import 'package:flutter_project_template/dialogs/all/all_dialog_dialog_in_dialog/main_widget.dart'
     as all_dialog_dialog_in_dialog;
-import 'package:flutter_project_template/dialogs/all/all_dialog_context_menu_sample/dialog_widget.dart'
+import 'package:flutter_project_template/dialogs/all/all_dialog_context_menu_sample/main_widget.dart'
     as all_dialog_context_menu_sample;
-import 'package:flutter_project_template/dialogs/all/all_dialog_context_menu_sample/dialog_widget_business.dart'
-    as all_dialog_context_menu_sample_business;
 import 'package:flutter_project_template/dialogs/all/all_dialog_stateful_and_lifecycle_test/main_widget.dart'
     as all_dialog_stateful_and_lifecycle_test;
 
@@ -242,16 +240,16 @@ class PageWidgetBusiness {
   }
 
   void onContextMenuDialogItemClicked() {
-    final all_dialog_context_menu_sample_business.DialogWidgetBusiness
-        allDialogContextMenuSampleBusiness =
-        all_dialog_context_menu_sample_business.DialogWidgetBusiness();
+    final GlobalKey<all_dialog_context_menu_sample.MainWidgetState>
+        allDialogContextMenuSampleStateGk = GlobalKey();
     showDialog(
         barrierDismissible: true,
         context: viewModel.context,
-        builder: (context) => all_dialog_context_menu_sample.DialogWidget(
-              business: allDialogContextMenuSampleBusiness,
-              inputVo: const all_dialog_context_menu_sample.InputVo(),
-              onDialogCreated: () {},
+        builder: (context) => all_dialog_context_menu_sample.MainWidget(
+              key: allDialogContextMenuSampleStateGk,
+              inputVo: all_dialog_context_menu_sample.InputVo(
+                onDialogCreated: () {},
+              ),
             )).then((outputVo) {});
   }
 
