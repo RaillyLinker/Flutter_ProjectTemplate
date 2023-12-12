@@ -21,7 +21,7 @@ import 'package:flutter_project_template/pages/all/all_page_url_launcher_sample/
     as all_page_url_launcher_sample;
 import 'package:flutter_project_template/pages/all/all_page_widget_change_animation_sample_list/page_widget.dart'
     as all_page_widget_change_animation_sample_list;
-import 'package:flutter_project_template/pages/all/all_page_gif_sample/page_widget.dart'
+import 'package:flutter_project_template/pages/all/all_page_gif_sample/main_widget.dart'
     as all_page_gif_sample;
 import 'package:flutter_project_template/pages/all/all_page_image_selector_sample/page_widget.dart'
     as all_page_image_selector_sample;
