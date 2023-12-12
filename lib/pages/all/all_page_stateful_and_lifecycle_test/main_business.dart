@@ -121,7 +121,7 @@ class MainBusiness {
   bool inputError = false;
 
   // (context 객체)
-  late BuildContext context;
+  late BuildContext mainContext;
 
   // (pageOutFrameBusiness)
   final gw_slw_page_outer_frame.SlwPageOuterFrameBusiness pageOutFrameBusiness =
@@ -147,7 +147,7 @@ class MainBusiness {
 
   // (다른 페이지로 이동)
   void pushToAnotherPage() {
-    context.pushNamed(all_page_page_and_router_sample_list.pageName);
+    mainContext.pushNamed(all_page_page_and_router_sample_list.pageName);
   }
 
   void countPlus1() {

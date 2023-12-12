@@ -43,7 +43,7 @@ class MainWidgetState extends State<MainWidget> with WidgetsBindingObserver {
   // [콜백 함수]
   @override
   Widget build(BuildContext context) {
-    mainBusiness.context = context;
+    mainBusiness.mainContext = context;
     mainBusiness.refreshUi = refreshUi;
     return PopScope(
       canPop: mainBusiness.canPop,
@@ -80,7 +80,7 @@ class MainWidgetState extends State<MainWidget> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-    mainBusiness.context = context;
+    mainBusiness.mainContext = context;
     mainBusiness.refreshUi = refreshUi;
     mainBusiness.inputVo = widget.inputVo;
     mainBusiness.initState();
@@ -88,7 +88,7 @@ class MainWidgetState extends State<MainWidget> with WidgetsBindingObserver {
 
   @override
   void dispose() {
-    mainBusiness.context = context;
+    mainBusiness.mainContext = context;
     mainBusiness.refreshUi = refreshUi;
     mainBusiness.dispose();
     WidgetsBinding.instance.removeObserver(this);

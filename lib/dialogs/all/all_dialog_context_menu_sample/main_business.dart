@@ -67,7 +67,7 @@ class MainBusiness {
   bool needInitState = true;
 
   // (context 객체)
-  late BuildContext context;
+  late BuildContext mainContext;
 
   // (contextMenuRegionBusiness)
   final GlobalKey<gw_sfw_wrapper.SfwContextMenuRegionState>
@@ -83,14 +83,14 @@ class MainBusiness {
 
   // (다이얼로그 종료 함수)
   void closeDialog() {
-    context.pop();
+    mainContext.pop();
   }
 
   // (context 메뉴의 토스트 테스트 항목을 클릭)
   void toastTestMenuBtn() {
     showToast(
       "토스트 테스트 메뉴가 선택되었습니다.",
-      context: context,
+      context: mainContext,
       animation: StyledToastAnimation.scale,
     );
   }

@@ -69,7 +69,7 @@ class MainBusiness {
   bool needInitState = true;
 
   // (context 객체)
-  late BuildContext context;
+  late BuildContext mainContext;
 
   // (카메라 사용 가능 여부) - 모바일에서만 true
   bool cameraAvailable = !kIsWeb && (Platform.isAndroid || Platform.isIOS);
@@ -84,13 +84,13 @@ class MainBusiness {
 
   // (다이얼로그 종료 함수)
   void closeDialog() {
-    context.pop();
+    mainContext.pop();
   }
 
   // 이미지 소스 선택함
   void onResultSelected(
       {required main_widget.ImageSourceType imageSourceType}) {
-    context.pop(main_widget.OutputVo(imageSourceType: imageSourceType));
+    mainContext.pop(main_widget.OutputVo(imageSourceType: imageSourceType));
   }
 
   // [private 함수]

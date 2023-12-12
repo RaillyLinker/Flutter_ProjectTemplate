@@ -86,7 +86,7 @@ class MainBusiness {
   bool inputError = false;
 
   // (context 객체)
-  late BuildContext context;
+  late BuildContext mainContext;
 
   // (pageOutFrameBusiness)
   final gw_slw_page_outer_frame.SlwPageOuterFrameBusiness pageOutFrameBusiness =

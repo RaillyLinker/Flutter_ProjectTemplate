@@ -98,7 +98,7 @@ class MainBusiness {
   bool needInitState = true;
 
   // (context 객체)
-  late BuildContext context;
+  late BuildContext mainContext;
 
   // (샘플 정수)
   int sampleInt = 0;
@@ -120,12 +120,12 @@ class MainBusiness {
 
   // (다이얼로그 종료 함수)
   void closeDialog() {
-    context.pop();
+    mainContext.pop();
   }
 
   // (다른 페이지로 이동)
   void pushToAnotherPage() {
-    context.pushNamed(all_page_dialog_sample_list.pageName);
+    mainContext.pushNamed(all_page_dialog_sample_list.pageName);
   }
 
   // (샘플 정수 +1)

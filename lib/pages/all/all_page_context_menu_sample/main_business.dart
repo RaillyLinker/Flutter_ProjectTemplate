@@ -90,7 +90,7 @@ class MainBusiness {
   bool inputError = false;
 
   // (context 객체)
-  late BuildContext context;
+  late BuildContext mainContext;
 
   // (pageOutFrameBusiness)
   final gw_slw_page_outer_frame.SlwPageOuterFrameBusiness pageOutFrameBusiness =
@@ -114,7 +114,7 @@ class MainBusiness {
   void toastTestMenuBtn() {
     showToast(
       "토스트 테스트 메뉴가 선택되었습니다.",
-      context: context,
+      context: mainContext,
       animation: StyledToastAnimation.scale,
     );
   }
@@ -125,7 +125,7 @@ class MainBusiness {
         GlobalKey<all_dialog_info.MainWidgetState>();
     showDialog(
         barrierDismissible: true,
-        context: context,
+        context: mainContext,
         builder: (context) => all_dialog_info.MainWidget(
               key: allDialogInfoStateGk,
               inputVo: all_dialog_info.InputVo(
@@ -139,7 +139,7 @@ class MainBusiness {
 
   // (context 메뉴의 뒤로가기 항목을 클릭)
   void goBackBtn() {
-    context.pop();
+    mainContext.pop();
   }
 
   // [private 함수]

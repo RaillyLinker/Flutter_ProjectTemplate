@@ -70,7 +70,7 @@ class MainBusiness {
   bool needInitState = true;
 
   // (context 객체)
-  late BuildContext context;
+  late BuildContext mainContext;
 
   // [private 변수]
 
@@ -82,7 +82,7 @@ class MainBusiness {
 
   // (다이얼로그 종료 함수)
   void closeDialog() {
-    context.pop();
+    mainContext.pop();
   }
 
   // (Info 다이얼로그 호출)
@@ -91,7 +91,7 @@ class MainBusiness {
         GlobalKey<all_dialog_info.MainWidgetState>();
     showDialog(
         barrierDismissible: true,
-        context: context,
+        context: mainContext,
         builder: (context) => all_dialog_info.MainWidget(
               key: allDialogInfoStateGk,
               inputVo: all_dialog_info.InputVo(
@@ -110,7 +110,7 @@ class MainBusiness {
 
     showDialog(
         barrierDismissible: true,
-        context: context,
+        context: mainContext,
         builder: (context) => all_dialog_loading_spinner.MainWidget(
               key: allDialogLoadingSpinnerStateGk,
               inputVo:
@@ -125,7 +125,7 @@ class MainBusiness {
         allDialogDialogInDialogStateGk = GlobalKey();
     showDialog(
         barrierDismissible: true,
-        context: context,
+        context: mainContext,
         builder: (context) => main_widget.MainWidget(
               key: allDialogDialogInDialogStateGk,
               inputVo: main_widget.InputVo(

@@ -66,7 +66,7 @@ class MainBusiness {
   bool needInitState = true;
 
   // (context 객체)
-  late BuildContext context;
+  late BuildContext mainContext;
 
   // (Gif 래퍼 GlobalKey)
   final GlobalKey<gw_sfw_wrapper.SfwGifWidgetState> gwGifWrapperGk =
@@ -82,7 +82,7 @@ class MainBusiness {
 
   // (다이얼로그 종료 함수)
   void closeDialog() {
-    context.pop();
+    mainContext.pop();
   }
 
   // [private 함수]

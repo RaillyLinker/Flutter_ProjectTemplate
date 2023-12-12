@@ -66,7 +66,7 @@ class MainBusiness {
   bool needInitState = true;
 
   // (context 객체)
-  late BuildContext context;
+  late BuildContext mainContext;
 
   // (다이얼로그 작업 완료 여부)
   bool isComplete = false;
@@ -81,7 +81,7 @@ class MainBusiness {
 
   // (다이얼로그 종료 함수)
   void closeDialog() {
-    context.pop();
+    mainContext.pop();
   }
 
   // (다이얼로그 종료 및 애니메이션 적용)
@@ -93,8 +93,8 @@ class MainBusiness {
     await Future.delayed(const Duration(milliseconds: 800));
 
     // 다이얼로그 닫기
-    if (!context.mounted) return;
-    context.pop();
+    if (!mainContext.mounted) return;
+    mainContext.pop();
   }
 
   // [private 함수]

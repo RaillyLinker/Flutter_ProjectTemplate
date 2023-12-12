@@ -88,7 +88,7 @@ class MainBusiness {
   bool inputError = false;
 
   // (context 객체)
-  late BuildContext context;
+  late BuildContext mainContext;
 
   // (pageOutFrameBusiness)
   final gw_slw_page_outer_frame.SlwPageOuterFrameBusiness pageOutFrameBusiness =
@@ -107,7 +107,7 @@ class MainBusiness {
   late VoidCallback refreshUi;
 
   void goToHome() {
-    context.goNamed(all_page_home.pageName);
+    mainContext.goNamed(all_page_home.pageName);
   }
 
   // [private 함수]

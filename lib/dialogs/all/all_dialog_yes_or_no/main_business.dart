@@ -66,7 +66,7 @@ class MainBusiness {
   bool needInitState = true;
 
   // (context 객체)
-  late BuildContext context;
+  late BuildContext mainContext;
 
   // [private 변수]
 
@@ -78,17 +78,17 @@ class MainBusiness {
 
   // (다이얼로그 종료 함수)
   void closeDialog() {
-    context.pop();
+    mainContext.pop();
   }
 
   // (긍정 버튼 클릭시)
   void onPositiveBtnClicked() {
-    context.pop(const main_widget.OutputVo(checkPositiveBtn: true));
+    mainContext.pop(const main_widget.OutputVo(checkPositiveBtn: true));
   }
 
   // (부정 버튼 클릭시)
   void onNegativeBtnClicked() {
-    context.pop(const main_widget.OutputVo(checkPositiveBtn: false));
+    mainContext.pop(const main_widget.OutputVo(checkPositiveBtn: false));
   }
 
   // [private 함수]

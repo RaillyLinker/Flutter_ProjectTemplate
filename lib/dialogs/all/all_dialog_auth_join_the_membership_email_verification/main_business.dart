@@ -51,7 +51,7 @@ class MainBusiness {
 
     if (nowLoginMemberInfo != null) {
       // 로그인 상태라면 닫기
-      context.pop();
+      mainContext.pop();
       return;
     }
   }
@@ -89,7 +89,7 @@ class MainBusiness {
   bool needInitState = true;
 
   // (context 객체)
-  late BuildContext context;
+  late BuildContext mainContext;
 
   // (검증 요청 고유번호)
   late int verificationUid;
@@ -113,7 +113,7 @@ class MainBusiness {
 
   // (다이얼로그 종료 함수)
   void closeDialog() {
-    context.pop();
+    mainContext.pop();
   }
 
   // (검증 이메일 다시 전송)
@@ -125,7 +125,7 @@ class MainBusiness {
 
     showDialog(
         barrierDismissible: false,
-        context: context,
+        context: mainContext,
         builder: (context) => all_dialog_loading_spinner.MainWidget(
               key: allDialogLoadingSpinnerStateGk,
               inputVo:
@@ -155,10 +155,10 @@ class MainBusiness {
                     final GlobalKey<all_dialog_info.MainWidgetState>
                         allDialogInfoStateGk = GlobalKey();
 
-                    if (!context.mounted) return;
+                    if (!mainContext.mounted) return;
                     await showDialog(
                         barrierDismissible: true,
-                        context: context,
+                        context: mainContext,
                         builder: (context) => all_dialog_info.MainWidget(
                               key: allDialogInfoStateGk,
                               inputVo: all_dialog_info.InputVo(
@@ -188,10 +188,10 @@ class MainBusiness {
                           allDialogInfoStateGk =
                           GlobalKey<all_dialog_info.MainWidgetState>();
 
-                      if (!context.mounted) return;
+                      if (!mainContext.mounted) return;
                       showDialog(
                           barrierDismissible: true,
-                          context: context,
+                          context: mainContext,
                           builder: (context) => all_dialog_info.MainWidget(
                                 key: allDialogInfoStateGk,
                                 inputVo: all_dialog_info.InputVo(
@@ -213,10 +213,10 @@ class MainBusiness {
                                 allDialogInfoStateGk =
                                 GlobalKey<all_dialog_info.MainWidgetState>();
 
-                            if (!context.mounted) return;
+                            if (!mainContext.mounted) return;
                             await showDialog(
                                 barrierDismissible: true,
-                                context: context,
+                                context: mainContext,
                                 builder: (context) =>
                                     all_dialog_info.MainWidget(
                                       key: allDialogInfoStateGk,
@@ -227,8 +227,8 @@ class MainBusiness {
                                         onDialogCreated: () {},
                                       ),
                                     ));
-                            if (!context.mounted) return;
-                            context.pop();
+                            if (!mainContext.mounted) return;
+                            mainContext.pop();
                           }
                           break;
                         default:
@@ -243,10 +243,10 @@ class MainBusiness {
                   final GlobalKey<all_dialog_info.MainWidgetState>
                       allDialogInfoStateGk =
                       GlobalKey<all_dialog_info.MainWidgetState>();
-                  if (!context.mounted) return;
+                  if (!mainContext.mounted) return;
                   showDialog(
                       barrierDismissible: true,
-                      context: context,
+                      context: mainContext,
                       builder: (context) => all_dialog_info.MainWidget(
                             key: allDialogInfoStateGk,
                             inputVo: all_dialog_info.InputVo(
@@ -289,7 +289,7 @@ class MainBusiness {
 
     showDialog(
         barrierDismissible: false,
-        context: context,
+        context: mainContext,
         builder: (context) => all_dialog_loading_spinner.MainWidget(
               key: allDialogLoadingSpinnerStateGk,
               inputVo:
@@ -313,8 +313,8 @@ class MainBusiness {
                     // 정상 응답
 
                     // 검증 완료
-                    if (!context.mounted) return;
-                    context.pop(main_widget.OutputVo(
+                    if (!mainContext.mounted) return;
+                    mainContext.pop(main_widget.OutputVo(
                         checkedVerificationCode: verificationCode,
                         verificationUid: verificationUid));
                   } else {
@@ -328,10 +328,10 @@ class MainBusiness {
                       final GlobalKey<all_dialog_info.MainWidgetState>
                           allDialogInfoStateGk =
                           GlobalKey<all_dialog_info.MainWidgetState>();
-                      if (!context.mounted) return;
+                      if (!mainContext.mounted) return;
                       showDialog(
                           barrierDismissible: true,
-                          context: context,
+                          context: mainContext,
                           builder: (context) => all_dialog_info.MainWidget(
                                 key: allDialogInfoStateGk,
                                 inputVo: all_dialog_info.InputVo(
@@ -352,10 +352,10 @@ class MainBusiness {
                             final GlobalKey<all_dialog_info.MainWidgetState>
                                 allDialogInfoStateGk =
                                 GlobalKey<all_dialog_info.MainWidgetState>();
-                            if (!context.mounted) return;
+                            if (!mainContext.mounted) return;
                             await showDialog(
                                 barrierDismissible: true,
-                                context: context,
+                                context: mainContext,
                                 builder: (context) =>
                                     all_dialog_info.MainWidget(
                                       key: allDialogInfoStateGk,
@@ -375,10 +375,10 @@ class MainBusiness {
                             final GlobalKey<all_dialog_info.MainWidgetState>
                                 allDialogInfoStateGk =
                                 GlobalKey<all_dialog_info.MainWidgetState>();
-                            if (!context.mounted) return;
+                            if (!mainContext.mounted) return;
                             await showDialog(
                                 barrierDismissible: true,
-                                context: context,
+                                context: mainContext,
                                 builder: (context) =>
                                     all_dialog_info.MainWidget(
                                       key: allDialogInfoStateGk,
@@ -400,8 +400,9 @@ class MainBusiness {
                                 "본인 인증 코드가 일치하지 않습니다.";
                             verificationCodeTextFieldAreaGk.currentState
                                 ?.refreshUi();
-                            if (!verificationCodeTextFieldContext.mounted)
+                            if (!verificationCodeTextFieldContext.mounted) {
                               return;
+                            }
                             FocusScope.of(verificationCodeTextFieldContext)
                                 .requestFocus(verificationCodeTextFieldFocus);
                           }
@@ -418,10 +419,10 @@ class MainBusiness {
                   final GlobalKey<all_dialog_info.MainWidgetState>
                       allDialogInfoStateGk =
                       GlobalKey<all_dialog_info.MainWidgetState>();
-                  if (!context.mounted) return;
+                  if (!mainContext.mounted) return;
                   showDialog(
                       barrierDismissible: true,
-                      context: context,
+                      context: mainContext,
                       builder: (context) => all_dialog_info.MainWidget(
                             key: allDialogInfoStateGk,
                             inputVo: all_dialog_info.InputVo(
