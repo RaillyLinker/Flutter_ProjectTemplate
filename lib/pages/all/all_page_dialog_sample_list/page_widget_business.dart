@@ -31,10 +31,8 @@ import 'package:flutter_project_template/dialogs/all/all_dialog_context_menu_sam
     as all_dialog_context_menu_sample;
 import 'package:flutter_project_template/dialogs/all/all_dialog_context_menu_sample/dialog_widget_business.dart'
     as all_dialog_context_menu_sample_business;
-import 'package:flutter_project_template/dialogs/all/all_dialog_stateful_and_lifecycle_test/dialog_widget.dart'
+import 'package:flutter_project_template/dialogs/all/all_dialog_stateful_and_lifecycle_test/main_widget.dart'
     as all_dialog_stateful_and_lifecycle_test;
-import 'package:flutter_project_template/dialogs/all/all_dialog_stateful_and_lifecycle_test/dialog_widget_business.dart'
-    as all_dialog_stateful_and_lifecycle_test_business;
 
 // [위젯 비즈니스]
 // 위젯의 비즈니스 로직 + State 변수 처리는 이 곳에서 합니다.
@@ -263,18 +261,17 @@ class PageWidgetBusiness {
 
   void onDialogStatefulAndLifecycleTestItemClicked() {
     // 다이얼로그 생명주기 샘플
-    final all_dialog_stateful_and_lifecycle_test_business.DialogWidgetBusiness
-        allDialogStatefulAndLifecycleTestBusiness =
-        all_dialog_stateful_and_lifecycle_test_business.DialogWidgetBusiness();
+    final GlobalKey<all_dialog_stateful_and_lifecycle_test.MainWidgetState>
+        allDialogStatefulAndLifecycleTestAreaGk = GlobalKey();
 
     showDialog(
         barrierDismissible: true,
         context: viewModel.context,
-        builder: (context) =>
-            all_dialog_stateful_and_lifecycle_test.DialogWidget(
-              business: allDialogStatefulAndLifecycleTestBusiness,
-              inputVo: const all_dialog_stateful_and_lifecycle_test.InputVo(),
-              onDialogCreated: () {},
+        builder: (context) => all_dialog_stateful_and_lifecycle_test.MainWidget(
+              key: allDialogStatefulAndLifecycleTestAreaGk,
+              inputVo: all_dialog_stateful_and_lifecycle_test.InputVo(
+                onDialogCreated: () {},
+              ),
             )).then((outputVo) {});
   }
 

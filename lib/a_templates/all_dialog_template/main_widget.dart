@@ -42,7 +42,6 @@ class MainWidgetState extends State<MainWidget> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     mainBusiness.context = context;
-    mainBusiness.refreshUi = refreshUi;
     return PopScope(
       canPop: mainBusiness.canPop,
       child: FocusDetector(
@@ -50,6 +49,7 @@ class MainWidgetState extends State<MainWidget> with WidgetsBindingObserver {
           if (mainBusiness.needInitState) {
             mainBusiness.needInitState = false;
             widget.inputVo.onDialogCreated();
+            await mainBusiness.onCreateWidget();
           }
           await mainBusiness.onFocusGainedAsync();
         },
@@ -78,7 +78,6 @@ class MainWidgetState extends State<MainWidget> with WidgetsBindingObserver {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     mainBusiness.context = context;
-    mainBusiness.refreshUi = refreshUi;
     mainBusiness.inputVo = widget.inputVo;
     mainBusiness.initState();
   }
@@ -86,14 +85,9 @@ class MainWidgetState extends State<MainWidget> with WidgetsBindingObserver {
   @override
   void dispose() {
     mainBusiness.context = context;
-    mainBusiness.refreshUi = refreshUi;
     mainBusiness.dispose();
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
-  }
-
-  void refreshUi() {
-    setState(() {});
   }
 
   // [public 변수]
@@ -103,6 +97,10 @@ class MainWidgetState extends State<MainWidget> with WidgetsBindingObserver {
   //----------------------------------------------------------------------------
   // !!!위젯 관련 함수는 이 곳에서 저장 하여 사용 하세요.!!!
   // [public 함수]
+  // (MainWidget Refresh 함수)
+  void refreshUi() {
+    setState(() {});
+  }
 
   // [private 함수]
 

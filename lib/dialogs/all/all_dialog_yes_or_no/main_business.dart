@@ -5,17 +5,28 @@ import 'package:go_router/go_router.dart';
 // (inner_folder)
 import 'main_widget.dart' as main_widget;
 
+// (all)
+import 'package:flutter_project_template/global_widgets/gw_sfw_wrapper.dart'
+    as gw_sfw_wrapper;
+
 // [위젯 비즈니스]
 
 //------------------------------------------------------------------------------
 class MainBusiness {
   // [CallBack 함수]
+  // (진입 최초 단 한번 실행) - 아직 위젯이 생성 되기 전
   void initState() {
     // !!!initState 로직 작성!!!
   }
 
+  // (종료 시점 단 한번 실행)
   void dispose() {
     // !!!dispose 로직 작성!!!
+  }
+
+  // (위젯이 처음 build 된 후 단 한번 실행)
+  Future<void> onCreateWidget() async {
+    // !!!onFocusGainedAsync 로직 작성!!!
   }
 
   Future<void> onFocusGainedAsync() async {
@@ -62,9 +73,6 @@ class MainBusiness {
   //----------------------------------------------------------------------------
   // !!!비즈니스 함수는 이 곳에서 저장 하여 사용 하세요.!!!
   // [public 함수]
-  // (메인 위젯 화면 갱신)
-  late VoidCallback refreshUi;
-
   // (다이얼로그 종료 함수)
   void closeDialog() {
     context.pop();

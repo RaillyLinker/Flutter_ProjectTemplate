@@ -39,6 +39,7 @@ class MainBusiness {
     return const main_widget.InputVo();
   }
 
+  // (진입 최초 단 한번 실행) - 아직 위젯이 생성 되기 전
   void initState() {
     // !!!initState 로직 작성!!!
     if (kDebugMode) {
@@ -46,6 +47,7 @@ class MainBusiness {
     }
   }
 
+  // (종료 시점 단 한번 실행)
   void dispose() {
     // !!!dispose 로직 작성!!!
     if (kDebugMode) {
@@ -53,45 +55,53 @@ class MainBusiness {
     }
   }
 
+  // (위젯이 처음 build 된 후 단 한번 실행)
+  Future<void> onCreateWidget() async {
+    // !!!onFocusGainedAsync 로직 작성!!!
+    if (kDebugMode) {
+      print("+++ onCreateWidget 호출됨");
+    }
+  }
+
   Future<void> onFocusGainedAsync() async {
     // !!!onFocusGainedAsync 로직 작성!!!
     if (kDebugMode) {
-      print("+++ onFocusGained 호출됨");
+      print("+++ onFocusGainedAsync 호출됨");
     }
   }
 
   Future<void> onFocusLostAsync() async {
     // !!!onFocusLostAsync 로직 작성!!!
     if (kDebugMode) {
-      print("+++ onFocusLost 호출됨");
+      print("+++ onFocusLostAsync 호출됨");
     }
   }
 
   Future<void> onVisibilityGainedAsync() async {
     // !!!onVisibilityGainedAsync 로직 작성!!!
     if (kDebugMode) {
-      print("+++ onVisibilityGained 호출됨");
+      print("+++ onVisibilityGainedAsync 호출됨");
     }
   }
 
   Future<void> onVisibilityLostAsync() async {
     // !!!onVisibilityLostAsync 로직 작성!!!
     if (kDebugMode) {
-      print("+++ onVisibilityLost 호출됨");
+      print("+++ onVisibilityLostAsync 호출됨");
     }
   }
 
   Future<void> onForegroundGainedAsync() async {
     // !!!onForegroundGainedAsync 로직 작성!!!
     if (kDebugMode) {
-      print("+++ onForegroundGained 호출됨");
+      print("+++ onForegroundGainedAsync 호출됨");
     }
   }
 
   Future<void> onForegroundLostAsync() async {
     // !!!onForegroundLostAsync 로직 작성!!!
     if (kDebugMode) {
-      print("+++ onForegroundLost 호출됨");
+      print("+++ onForegroundLostAsync 호출됨");
     }
   }
 
@@ -103,6 +113,9 @@ class MainBusiness {
 
   // (페이지 pop 가능 여부 변수) - false 로 설정시 pop 불가
   bool canPop = true;
+
+  // (최초 실행 플래그)
+  bool needInitState = true;
 
   // (입력값 미충족 여부)
   bool inputError = false;
@@ -129,9 +142,6 @@ class MainBusiness {
   //----------------------------------------------------------------------------
   // !!!비즈니스 함수는 이 곳에서 저장 하여 사용 하세요.!!!
   // [public 함수]
-  // (메인 위젯 화면 갱신)
-  late VoidCallback refreshUi;
-
   // (다른 페이지로 이동)
   void pushToAnotherPage() {
     context.pushNamed(all_page_page_and_router_sample_list.pageName);

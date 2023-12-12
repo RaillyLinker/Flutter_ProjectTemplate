@@ -15,7 +15,7 @@ import 'package:flutter_project_template/global_widgets/gw_sfw_wrapper.dart'
 // [위젯 뷰]
 
 //------------------------------------------------------------------------------
-// !!!페이지 진입 라우트 Name 정의!!! - 파일명과 동일하게 작성하세요.
+// !!!페이지 진입 라우트 Name 정의!!! - 폴더명과 동일하게 작성하세요.
 const pageName = "all_page_template";
 
 // !!!페이지 호출/반납 애니메이션!!! - 동적으로 변경이 가능합니다.
@@ -52,11 +52,14 @@ class MainWidgetState extends State<MainWidget> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     mainBusiness.context = context;
-    mainBusiness.refreshUi = refreshUi;
     return PopScope(
       canPop: mainBusiness.canPop,
       child: FocusDetector(
         onFocusGained: () async {
+          if (mainBusiness.needInitState) {
+            mainBusiness.needInitState = false;
+            await mainBusiness.onCreateWidget();
+          }
           await mainBusiness.onFocusGainedAsync();
         },
         onFocusLost: () async {
@@ -84,7 +87,6 @@ class MainWidgetState extends State<MainWidget> with WidgetsBindingObserver {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     mainBusiness.context = context;
-    mainBusiness.refreshUi = refreshUi;
     final InputVo? inputVo =
         mainBusiness.onCheckPageInputVo(goRouterState: widget.goRouterState);
     if (inputVo == null) {
@@ -98,14 +100,9 @@ class MainWidgetState extends State<MainWidget> with WidgetsBindingObserver {
   @override
   void dispose() {
     mainBusiness.context = context;
-    mainBusiness.refreshUi = refreshUi;
     mainBusiness.dispose();
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
-  }
-
-  void refreshUi() {
-    setState(() {});
   }
 
   // [public 변수]
@@ -115,6 +112,10 @@ class MainWidgetState extends State<MainWidget> with WidgetsBindingObserver {
   //----------------------------------------------------------------------------
   // !!!위젯 관련 함수는 이 곳에서 저장 하여 사용 하세요.!!!
   // [public 함수]
+  // (MainWidget Refresh 함수)
+  void refreshUi() {
+    setState(() {});
+  }
 
   // [private 함수]
 

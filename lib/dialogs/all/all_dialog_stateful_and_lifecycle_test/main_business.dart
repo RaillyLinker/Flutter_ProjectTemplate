@@ -1,5 +1,6 @@
 // (external)
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:go_router/go_router.dart';
 
 // (inner_folder)
@@ -8,6 +9,10 @@ import 'main_widget.dart' as main_widget;
 // (all)
 import 'package:flutter_project_template/global_widgets/gw_sfw_wrapper.dart'
     as gw_sfw_wrapper;
+import 'package:flutter_project_template/global_widgets/gw_sfw_test.dart'
+    as gw_sfw_test;
+import 'package:flutter_project_template/pages/all/all_page_dialog_sample_list/page_widget.dart'
+    as all_page_dialog_sample_list;
 
 // [위젯 비즈니스]
 
@@ -17,40 +22,67 @@ class MainBusiness {
   // (진입 최초 단 한번 실행) - 아직 위젯이 생성 되기 전
   void initState() {
     // !!!initState 로직 작성!!!
+    if (kDebugMode) {
+      print("+++ initState 호출됨");
+    }
   }
 
   // (종료 시점 단 한번 실행)
   void dispose() {
     // !!!dispose 로직 작성!!!
+    if (kDebugMode) {
+      print("+++ dispose 호출됨");
+    }
   }
 
   // (위젯이 처음 build 된 후 단 한번 실행)
   Future<void> onCreateWidget() async {
     // !!!onFocusGainedAsync 로직 작성!!!
+    if (kDebugMode) {
+      print("+++ onCreateWidget 호출됨");
+    }
   }
 
   Future<void> onFocusGainedAsync() async {
     // !!!onFocusGainedAsync 로직 작성!!!
+    if (kDebugMode) {
+      print("+++ onFocusGainedAsync 호출됨");
+    }
   }
 
   Future<void> onFocusLostAsync() async {
     // !!!onFocusLostAsync 로직 작성!!!
+    if (kDebugMode) {
+      print("+++ onFocusLostAsync 호출됨");
+    }
   }
 
   Future<void> onVisibilityGainedAsync() async {
     // !!!onVisibilityGainedAsync 로직 작성!!!
+    if (kDebugMode) {
+      print("+++ onVisibilityGainedAsync 호출됨");
+    }
   }
 
   Future<void> onVisibilityLostAsync() async {
     // !!!onVisibilityLostAsync 로직 작성!!!
+    if (kDebugMode) {
+      print("+++ onVisibilityLostAsync 호출됨");
+    }
   }
 
   Future<void> onForegroundGainedAsync() async {
     // !!!onForegroundGainedAsync 로직 작성!!!
+    if (kDebugMode) {
+      print("+++ onForegroundGainedAsync 호출됨");
+    }
   }
 
   Future<void> onForegroundLostAsync() async {
     // !!!onForegroundLostAsync 로직 작성!!!
+    if (kDebugMode) {
+      print("+++ onForegroundLostAsync 호출됨");
+    }
   }
 
   //----------------------------------------------------------------------------
@@ -68,6 +100,16 @@ class MainBusiness {
   // (context 객체)
   late BuildContext context;
 
+  // (샘플 정수)
+  int sampleInt = 0;
+
+  // (statefulTestBusiness)
+  final GlobalKey<gw_sfw_test.SfwTestState> statefulTestGk = GlobalKey();
+
+  // (AreaGk)
+  final GlobalKey<gw_sfw_wrapper.SfwRefreshWrapperState> sampleIntAreaGk =
+      GlobalKey();
+
   // [private 변수]
 
   //----------------------------------------------------------------------------
@@ -76,6 +118,17 @@ class MainBusiness {
   // (다이얼로그 종료 함수)
   void closeDialog() {
     context.pop();
+  }
+
+  // (다른 페이지로 이동)
+  void pushToAnotherPage() {
+    context.pushNamed(all_page_dialog_sample_list.pageName);
+  }
+
+  // (샘플 정수 +1)
+  void countPlus1() {
+    sampleInt++;
+    sampleIntAreaGk.currentState?.refreshUi();
   }
 
   // [private 함수]
