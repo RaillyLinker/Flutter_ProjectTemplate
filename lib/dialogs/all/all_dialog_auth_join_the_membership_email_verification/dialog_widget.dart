@@ -6,7 +6,7 @@ import 'package:focus_detector_v2/focus_detector_v2.dart';
 import 'dialog_widget_business.dart' as dialog_widget_business;
 
 // (all)
-import 'package:flutter_project_template/global_widgets/todo_do_delete.dart'
+import 'package:flutter_project_template/a_must_delete/todo_do_delete.dart'
     as gw_do_delete;
 
 // [위젯 뷰]

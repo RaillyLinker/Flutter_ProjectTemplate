@@ -10,7 +10,7 @@ import 'page_entrance.dart' as page_entrance;
 // (all)
 import 'package:flutter_project_template/global_widgets/gw_slw_page_outer_frame.dart'
     as gw_slw_page_outer_frame;
-import 'package:flutter_project_template/global_classes/todo_gc_delete.dart'
+import 'package:flutter_project_template/a_must_delete/todo_gc_delete.dart'
     as gc_template_classes;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]

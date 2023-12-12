@@ -9,7 +9,7 @@ import 'page_widget_business.dart' as page_widget_business;
 // (all)
 import 'package:flutter_project_template/global_widgets/gw_slw_page_outer_frame.dart'
     as gw_slw_page_outer_frame;
-import 'package:flutter_project_template/global_widgets/todo_do_delete.dart'
+import 'package:flutter_project_template/a_must_delete/todo_do_delete.dart'
     as gw_do_delete;
 
 // [위젯 뷰]

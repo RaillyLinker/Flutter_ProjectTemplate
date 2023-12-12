@@ -6,7 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'dialog_widget.dart' as dialog_widget;
 
 // (all)
-import 'package:flutter_project_template/global_widgets/todo_do_delete.dart'
+import 'package:flutter_project_template/a_must_delete/todo_do_delete.dart'
     as gw_do_delete;
 import 'package:flutter_project_template/repositories/network/apis/api_main_server.dart'
     as api_main_server;

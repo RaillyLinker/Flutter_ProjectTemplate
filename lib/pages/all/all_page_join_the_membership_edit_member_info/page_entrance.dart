@@ -8,7 +8,7 @@ import 'package:go_router/go_router.dart';
 import 'page_view.dart' as page_view;
 
 // (all)
-import 'package:flutter_project_template/global_classes/todo_gc_delete.dart'
+import 'package:flutter_project_template/a_must_delete/todo_gc_delete.dart'
     as gc_template_classes;
 import 'page_business.dart' as page_business;
 

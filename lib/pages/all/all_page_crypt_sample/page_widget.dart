@@ -13,7 +13,7 @@ import 'inner_widgets/iw_crypt_result_text/sf_widget.dart'
 // (all)
 import 'package:flutter_project_template/global_widgets/gw_slw_page_outer_frame.dart'
     as gw_slw_page_outer_frame;
-import 'package:flutter_project_template/global_classes/todo_gc_delete.dart'
+import 'package:flutter_project_template/a_must_delete/todo_gc_delete.dart'
     as gc_template_classes;
 
 // [위젯 뷰]

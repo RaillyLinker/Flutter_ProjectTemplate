@@ -2,17 +2,23 @@
 import 'package:flutter/material.dart';
 import 'package:focus_detector_v2/focus_detector_v2.dart';
 
-// (inner Folder)
-import 'dialog_widget_business.dart' as dialog_widget_business;
+// (inner_folder)
+import 'main_business.dart' as main_business;
+
+// (all)
+import 'package:flutter_project_template/global_widgets/gw_sfw_wrapper.dart'
+    as gw_sfw_wrapper;
 
 // [위젯 뷰]
-// 위젯의 화면 작성은 여기서 합니다.
 
 //------------------------------------------------------------------------------
 // (입력 데이터)
 class InputVo {
   // !!!위젯 입력값 선언!!!
-  const InputVo();
+  const InputVo({required this.onDialogCreated});
+
+  // (다이얼로그가 생성된 시점에 한번 실행 되는 콜백)
+  final VoidCallback onDialogCreated;
 }
 
 // (결과 데이터)
@@ -31,98 +37,89 @@ enum ImageSourceType {
 }
 
 //------------------------------------------------------------------------------
-class DialogWidget extends StatefulWidget {
-  const DialogWidget(
-      {super.key,
-      required this.inputVo,
-      required this.business,
-      required this.onDialogCreated});
+class MainWidget extends StatefulWidget {
+  const MainWidget({super.key, required this.inputVo});
 
   final InputVo inputVo;
 
-  final dialog_widget_business.DialogWidgetBusiness business;
-
-  // 다이얼로그가 Created 된 시점에 한번 실행됨
-  final VoidCallback onDialogCreated;
-
   @override
-  DialogWidgetState createState() => DialogWidgetState();
+  MainWidgetState createState() => MainWidgetState();
 }
 
-class DialogWidgetState extends State<DialogWidget>
-    with WidgetsBindingObserver {
+class MainWidgetState extends State<MainWidget> with WidgetsBindingObserver {
   // [콜백 함수]
   @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addObserver(this);
-    business = widget.business;
-    business.viewModel = dialog_widget_business.PageWidgetViewModel(
-        context: context, inputVo: widget.inputVo);
-    business.refreshUi = refreshUi;
-    business.initState();
-  }
-
-  @override
-  void dispose() {
-    business.viewModel.context = context;
-    business.dispose();
-    WidgetsBinding.instance.removeObserver(this);
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    business.viewModel.context = context;
-    business.refreshUi = refreshUi;
+    mainBusiness.context = context;
+    mainBusiness.refreshUi = refreshUi;
     return PopScope(
-      canPop: business.viewModel.canPop,
+      canPop: mainBusiness.canPop,
       child: FocusDetector(
-        // (페이지 위젯의 FocusDetector 콜백들)
         onFocusGained: () async {
-          if (business.viewModel.needInitState) {
-            business.viewModel.needInitState = false;
-            widget.onDialogCreated();
+          if (mainBusiness.needInitState) {
+            mainBusiness.needInitState = false;
+            widget.inputVo.onDialogCreated();
+            await mainBusiness.onCreateWidget();
           }
-
-          await business.onFocusGained();
+          await mainBusiness.onFocusGainedAsync();
         },
         onFocusLost: () async {
-          await business.onFocusLost();
+          await mainBusiness.onFocusLostAsync();
         },
         onVisibilityGained: () async {
-          await business.onVisibilityGained();
+          await mainBusiness.onVisibilityGainedAsync();
         },
         onVisibilityLost: () async {
-          await business.onVisibilityLost();
+          await mainBusiness.onVisibilityLostAsync();
         },
         onForegroundGained: () async {
-          await business.onForegroundGained();
+          await mainBusiness.onForegroundGainedAsync();
         },
         onForegroundLost: () async {
-          await business.onForegroundLost();
+          await mainBusiness.onForegroundLostAsync();
         },
-        child: viewWidgetBuild(context: context, business: business),
+        child: getScreenWidget(context: context),
       ),
     );
   }
 
-  // [public 변수]
-  late dialog_widget_business.DialogWidgetBusiness business;
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    mainBusiness.context = context;
+    mainBusiness.refreshUi = refreshUi;
+    mainBusiness.inputVo = widget.inputVo;
+    mainBusiness.initState();
+  }
 
+  @override
+  void dispose() {
+    mainBusiness.context = context;
+    mainBusiness.refreshUi = refreshUi;
+    mainBusiness.dispose();
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  // [public 변수]
+  // (mainBusiness) - 데이터 변수 및 함수 저장 역할
+  final main_business.MainBusiness mainBusiness = main_business.MainBusiness();
+
+  //----------------------------------------------------------------------------
+  // !!!위젯 관련 함수는 이 곳에서 저장 하여 사용 하세요.!!!
   // [public 함수]
-  // (Stateful Widget 화면 갱신)
+  // (MainWidget Refresh 함수)
   void refreshUi() {
     setState(() {});
   }
 
   // [private 함수]
 
-  // [뷰 위젯 작성 공간]
-  Widget viewWidgetBuild(
-      {required BuildContext context,
-      required dialog_widget_business.DialogWidgetBusiness business}) {
-    // !!!뷰 위젯 반환 콜백 작성 하기!!!
+  //----------------------------------------------------------------------------
+  // [화면 작성]
+  Widget getScreenWidget({required BuildContext context}) {
+    // !!!화면 위젯 작성 하기!!!
 
     return Dialog(
       elevation: 0,
@@ -173,7 +170,7 @@ class DialogWidgetState extends State<DialogWidget>
                         children: <Widget>[
                           GestureDetector(
                             onTap: () {
-                              business.onResultSelected(
+                              mainBusiness.onResultSelected(
                                   imageSourceType: ImageSourceType.gallery);
                             },
                             child: const ListTile(
@@ -182,10 +179,10 @@ class DialogWidgetState extends State<DialogWidget>
                               title: Text('앨범에서 선택'),
                             ),
                           ),
-                          business.viewModel.cameraAvailable
+                          mainBusiness.cameraAvailable
                               ? GestureDetector(
                                   onTap: () {
-                                    business.onResultSelected(
+                                    mainBusiness.onResultSelected(
                                         imageSourceType:
                                             ImageSourceType.camera);
                                   },
@@ -198,7 +195,7 @@ class DialogWidgetState extends State<DialogWidget>
                               : const SizedBox(),
                           GestureDetector(
                             onTap: () {
-                              business.onResultSelected(
+                              mainBusiness.onResultSelected(
                                   imageSourceType:
                                       ImageSourceType.defaultImage);
                             },

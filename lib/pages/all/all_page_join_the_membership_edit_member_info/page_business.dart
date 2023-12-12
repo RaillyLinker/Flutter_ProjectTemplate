@@ -18,13 +18,11 @@ import 'package:flutter_project_template/global_widgets/gw_slw_page_outer_frame.
     as gw_slw_page_outer_frame;
 import 'package:flutter_project_template/repositories/network/apis/api_main_server.dart'
     as api_main_server;
-import 'package:flutter_project_template/dialogs/all/all_dialog_image_selector_menu/dialog_widget.dart'
+import 'package:flutter_project_template/dialogs/all/all_dialog_image_selector_menu/main_widget.dart'
     as all_dialog_image_selector_menu;
-import 'package:flutter_project_template/dialogs/all/all_dialog_image_selector_menu/dialog_widget_business.dart'
-    as all_dialog_image_selector_menu_business;
 import 'package:flutter_project_template/dialogs/all/all_dialog_info/main_widget.dart'
     as all_dialog_info;
-import 'package:flutter_project_template/global_classes/todo_gc_delete.dart'
+import 'package:flutter_project_template/a_must_delete/todo_gc_delete.dart'
     as gc_template_classes;
 import 'package:flutter_project_template/repositories/spws/spw_auth_member_info.dart'
     as spw_auth_member_info;
@@ -587,17 +585,17 @@ class PageBusiness {
 
   // 프로필 이미지 클릭
   Future<void> onProfileImageTap() async {
-    final all_dialog_image_selector_menu_business.DialogWidgetBusiness
-        allDialogImageSelectorMenuBusiness =
-        all_dialog_image_selector_menu_business.DialogWidgetBusiness();
+    final GlobalKey<all_dialog_image_selector_menu.MainWidgetState>
+        allDialogImageSelectorMenuAreaGk = GlobalKey();
     if (!_context.mounted) return;
     var pageOutputVo = await showDialog(
         barrierDismissible: true,
         context: _context,
-        builder: (context) => all_dialog_image_selector_menu.DialogWidget(
-              business: allDialogImageSelectorMenuBusiness,
-              inputVo: const all_dialog_image_selector_menu.InputVo(),
-              onDialogCreated: () {},
+        builder: (context) => all_dialog_image_selector_menu.MainWidget(
+              key: allDialogImageSelectorMenuAreaGk,
+              inputVo: all_dialog_image_selector_menu.InputVo(
+                onDialogCreated: () {},
+              ),
             ));
 
     if (pageOutputVo != null) {

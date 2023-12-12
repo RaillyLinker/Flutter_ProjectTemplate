@@ -9,7 +9,7 @@ import 'page_view.dart' as page_view;
 import 'page_business.dart' as page_business;
 
 // (all)
-import 'package:flutter_project_template/global_classes/todo_gc_delete.dart'
+import 'package:flutter_project_template/a_must_delete/todo_gc_delete.dart'
     as gc_template_classes;
 
 // [페이지 진입 파일]

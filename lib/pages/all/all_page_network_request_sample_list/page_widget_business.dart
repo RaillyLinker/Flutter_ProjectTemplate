@@ -8,8 +8,8 @@ import 'page_widget.dart' as page_widget;
 // (all)
 import 'package:flutter_project_template/global_widgets/gw_slw_page_outer_frame.dart'
     as gw_slw_page_outer_frame;
-import 'package:flutter_project_template/global_widgets/todo_do_delete.dart'
-    as gw_sfw_wrapper;
+import 'package:flutter_project_template/a_must_delete/todo_do_delete.dart'
+    as todo_do_delete;
 import 'package:flutter_project_template/dialogs/all/all_dialog_info/main_widget.dart'
     as all_dialog_info;
 import 'package:flutter_project_template/dialogs/all/all_dialog_loading_spinner/main_widget.dart'
@@ -380,6 +380,6 @@ class PageWidgetViewModel {
   // (pageOutFrameBusiness)
   final gw_slw_page_outer_frame.SlwPageOuterFrameBusiness pageOutFrameBusiness =
       gw_slw_page_outer_frame.SlwPageOuterFrameBusiness();
-  final GlobalKey<gw_sfw_wrapper.SfwListViewBuilderState>
+  final GlobalKey<todo_do_delete.SfwListViewBuilderState>
       sfwListViewBuilderStateGk = GlobalKey();
 }

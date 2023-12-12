@@ -9,7 +9,7 @@ import 'page_widget.dart' as page_widget;
 // (all)
 import 'package:flutter_project_template/global_widgets/gw_slw_page_outer_frame.dart'
     as gw_slw_page_outer_frame;
-import 'package:flutter_project_template/global_widgets/todo_do_delete.dart'
+import 'package:flutter_project_template/a_must_delete/todo_do_delete.dart'
     as gw_do_delete;
 import 'package:flutter_project_template/dialogs/all/all_dialog_info/main_widget.dart'
     as all_dialog_info;
@@ -21,10 +21,8 @@ import 'package:flutter_project_template/dialogs/all/all_dialog_loading_spinner/
     as all_dialog_loading_spinner;
 import 'package:flutter_project_template/dialogs/all/all_dialog_modal_bottom_sheet_sample/main_widget.dart'
     as all_dialog_modal_bottom_sheet_sample;
-import 'package:flutter_project_template/dialogs/all/all_dialog_dialog_in_dialog/dialog_widget.dart'
+import 'package:flutter_project_template/dialogs/all/all_dialog_dialog_in_dialog/main_widget.dart'
     as all_dialog_dialog_in_dialog;
-import 'package:flutter_project_template/dialogs/all/all_dialog_dialog_in_dialog/dialog_widget_business.dart'
-    as all_dialog_dialog_in_dialog_business;
 import 'package:flutter_project_template/dialogs/all/all_dialog_context_menu_sample/dialog_widget.dart'
     as all_dialog_context_menu_sample;
 import 'package:flutter_project_template/dialogs/all/all_dialog_context_menu_sample/dialog_widget_business.dart'
@@ -215,16 +213,16 @@ class PageWidgetBusiness {
 
   void onDialogInDialogItemClicked() {
     // 다이얼로그에서 다른 다이얼로그를 호출하는 샘플
-    final all_dialog_dialog_in_dialog_business.DialogWidgetBusiness
-        allDialogDialogInDialogViewBusiness =
-        all_dialog_dialog_in_dialog_business.DialogWidgetBusiness();
+    final GlobalKey<all_dialog_dialog_in_dialog.MainWidgetState>
+        allDialogDialogInDialogViewStateGk = GlobalKey();
     showDialog(
         barrierDismissible: true,
         context: viewModel.context,
-        builder: (context) => all_dialog_dialog_in_dialog.DialogWidget(
-              business: allDialogDialogInDialogViewBusiness,
-              inputVo: const all_dialog_dialog_in_dialog.InputVo(),
-              onDialogCreated: () {},
+        builder: (context) => all_dialog_dialog_in_dialog.MainWidget(
+              key: allDialogDialogInDialogViewStateGk,
+              inputVo: all_dialog_dialog_in_dialog.InputVo(
+                onDialogCreated: () {},
+              ),
             )).then((outputVo) {});
   }
 

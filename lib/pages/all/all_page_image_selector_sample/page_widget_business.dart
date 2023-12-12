@@ -11,12 +11,10 @@ import 'page_widget.dart' as page_widget;
 // (all)
 import 'package:flutter_project_template/global_widgets/gw_slw_page_outer_frame.dart'
     as gw_slw_page_outer_frame;
-import 'package:flutter_project_template/global_classes/todo_gc_delete.dart'
+import 'package:flutter_project_template/a_must_delete/todo_gc_delete.dart'
     as gc_template_classes;
-import 'package:flutter_project_template/dialogs/all/all_dialog_image_selector_menu/dialog_widget.dart'
+import 'package:flutter_project_template/dialogs/all/all_dialog_image_selector_menu/main_widget.dart'
     as all_dialog_image_selector_menu;
-import 'package:flutter_project_template/dialogs/all/all_dialog_image_selector_menu/dialog_widget_business.dart'
-    as all_dialog_image_selector_menu_business;
 
 // [위젯 비즈니스]
 // 위젯의 비즈니스 로직 + State 변수 처리는 이 곳에서 합니다.
@@ -115,18 +113,18 @@ class PageWidgetBusiness {
 
   // (프로필 이미지 클릭)
   Future<void> onProfileImageTap() async {
-    final all_dialog_image_selector_menu_business.DialogWidgetBusiness
-        allDialogImageSelectorMenuBusiness =
-        all_dialog_image_selector_menu_business.DialogWidgetBusiness();
+    final GlobalKey<all_dialog_image_selector_menu.MainWidgetState>
+        allDialogImageSelectorMenuAreaGk = GlobalKey();
 
     if (!context.mounted) return;
     var pageOutputVo = await showDialog(
         barrierDismissible: true,
         context: context,
-        builder: (context) => all_dialog_image_selector_menu.DialogWidget(
-              business: allDialogImageSelectorMenuBusiness,
-              inputVo: const all_dialog_image_selector_menu.InputVo(),
-              onDialogCreated: () {},
+        builder: (context) => all_dialog_image_selector_menu.MainWidget(
+              key: allDialogImageSelectorMenuAreaGk,
+              inputVo: all_dialog_image_selector_menu.InputVo(
+                onDialogCreated: () {},
+              ),
             ));
 
     if (pageOutputVo != null) {
@@ -194,18 +192,18 @@ class PageWidgetBusiness {
       return;
     }
 
-    final all_dialog_image_selector_menu_business.DialogWidgetBusiness
-        allDialogImageSelectorMenuBusiness =
-        all_dialog_image_selector_menu_business.DialogWidgetBusiness();
+    final GlobalKey<all_dialog_image_selector_menu.MainWidgetState>
+        allDialogImageSelectorMenuAreaGk = GlobalKey();
 
     if (!context.mounted) return;
     var pageOutputVo = await showDialog(
         barrierDismissible: true,
         context: context,
-        builder: (context) => all_dialog_image_selector_menu.DialogWidget(
-              business: allDialogImageSelectorMenuBusiness,
-              inputVo: const all_dialog_image_selector_menu.InputVo(),
-              onDialogCreated: () {},
+        builder: (context) => all_dialog_image_selector_menu.MainWidget(
+              key: allDialogImageSelectorMenuAreaGk,
+              inputVo: all_dialog_image_selector_menu.InputVo(
+                onDialogCreated: () {},
+              ),
             ));
 
     // todo : 추가시 로딩 다이얼로그
