@@ -11,8 +11,8 @@ import 'page_widget_business.dart' as page_widget_business;
 // (all)
 import 'package:flutter_project_template/global_widgets/gw_slw_page_outer_frame.dart'
     as gw_slw_page_outer_frame;
-import 'package:flutter_project_template/a_must_delete/todo_gc_delete.dart'
-    as gc_template_classes;
+import 'package:flutter_project_template/a_must_delete/todo_do_delete.dart'
+    as todo_do_delete;
 
 // [위젯 뷰]
 // 위젯의 화면 작성은 여기서 합니다.
@@ -210,8 +210,8 @@ class WidgetUi {
                             margin: const EdgeInsets.only(top: 10),
                             child: BlocProvider(
                               create: (context) => business.input1TextFieldBloc,
-                              child: BlocBuilder<
-                                  gc_template_classes.RefreshableBloc, bool>(
+                              child: BlocBuilder<todo_do_delete.RefreshableBloc,
+                                  bool>(
                                 builder: (c, s) {
                                   return TextFormField(
                                     autofocus: true,
@@ -311,8 +311,8 @@ class WidgetUi {
                             margin: const EdgeInsets.only(top: 10),
                             child: BlocProvider(
                               create: (context) => business.input2TextFieldBloc,
-                              child: BlocBuilder<
-                                  gc_template_classes.RefreshableBloc, bool>(
+                              child: BlocBuilder<todo_do_delete.RefreshableBloc,
+                                  bool>(
                                 builder: (c, s) {
                                   return TextFormField(
                                     controller:
@@ -409,8 +409,8 @@ class WidgetUi {
                             margin: const EdgeInsets.only(top: 10),
                             child: BlocProvider(
                               create: (context) => business.input3TextFieldBloc,
-                              child: BlocBuilder<
-                                  gc_template_classes.RefreshableBloc, bool>(
+                              child: BlocBuilder<todo_do_delete.RefreshableBloc,
+                                  bool>(
                                 builder: (c, s) {
                                   return TextFormField(
                                     keyboardType:
@@ -517,8 +517,8 @@ class WidgetUi {
                             margin: const EdgeInsets.only(top: 10),
                             child: BlocProvider(
                               create: (context) => business.input3TextFieldBloc,
-                              child: BlocBuilder<
-                                  gc_template_classes.RefreshableBloc, bool>(
+                              child: BlocBuilder<todo_do_delete.RefreshableBloc,
+                                  bool>(
                                 builder: (c, s) {
                                   return TextFormField(
                                     keyboardType:
@@ -625,8 +625,8 @@ class WidgetUi {
                             margin: const EdgeInsets.only(top: 10),
                             child: BlocProvider(
                               create: (context) => business.input5TextFieldBloc,
-                              child: BlocBuilder<
-                                  gc_template_classes.RefreshableBloc, bool>(
+                              child: BlocBuilder<todo_do_delete.RefreshableBloc,
+                                  bool>(
                                 builder: (c, s) {
                                   return TextFormField(
                                     keyboardType:
@@ -733,8 +733,8 @@ class WidgetUi {
                             margin: const EdgeInsets.only(top: 10),
                             child: BlocProvider(
                               create: (context) => business.input6TextFieldBloc,
-                              child: BlocBuilder<
-                                  gc_template_classes.RefreshableBloc, bool>(
+                              child: BlocBuilder<todo_do_delete.RefreshableBloc,
+                                  bool>(
                                 builder: (c, s) {
                                   return TextFormField(
                                     keyboardType:
@@ -841,8 +841,8 @@ class WidgetUi {
                             margin: const EdgeInsets.only(top: 10),
                             child: BlocProvider(
                               create: (context) => business.input7TextFieldBloc,
-                              child: BlocBuilder<
-                                  gc_template_classes.RefreshableBloc, bool>(
+                              child: BlocBuilder<todo_do_delete.RefreshableBloc,
+                                  bool>(
                                 builder: (c, s) {
                                   return DropdownButton<bool>(
                                     value: business.input7Value,
@@ -926,8 +926,8 @@ class WidgetUi {
                             margin: const EdgeInsets.only(top: 10),
                             child: BlocProvider(
                               create: (context) => business.input8TextFieldBloc,
-                              child: BlocBuilder<
-                                  gc_template_classes.RefreshableBloc, bool>(
+                              child: BlocBuilder<todo_do_delete.RefreshableBloc,
+                                  bool>(
                                 builder: (c, s) {
                                   return DropdownButton<bool?>(
                                     value: business.input8Value,
@@ -1015,8 +1015,7 @@ class WidgetUi {
                                 BlocProvider(
                                   create: (context) => business.input9ListBloc,
                                   child: BlocBuilder<
-                                      gc_template_classes.RefreshableBloc,
-                                      bool>(
+                                      todo_do_delete.RefreshableBloc, bool>(
                                     builder: (c, s) {
                                       List<Widget> widgetList = [];
                                       for (int idx = 0;
@@ -1032,7 +1031,7 @@ class WidgetUi {
                                               create: (context) =>
                                                   tec.inputTextFieldBloc,
                                               child: BlocBuilder<
-                                                  gc_template_classes
+                                                  todo_do_delete
                                                   .RefreshableBloc,
                                                   bool>(
                                                 builder: (c, s) {
@@ -1206,8 +1205,7 @@ class WidgetUi {
                                 BlocProvider(
                                   create: (context) => business.input10ListBloc,
                                   child: BlocBuilder<
-                                      gc_template_classes.RefreshableBloc,
-                                      bool>(
+                                      todo_do_delete.RefreshableBloc, bool>(
                                     builder: (c, s) {
                                       List<Widget> widgetList = [];
                                       for (int idx = 0;
@@ -1223,7 +1221,7 @@ class WidgetUi {
                                               create: (context) =>
                                                   tec.inputTextFieldBloc,
                                               child: BlocBuilder<
-                                                  gc_template_classes
+                                                  todo_do_delete
                                                   .RefreshableBloc,
                                                   bool>(
                                                 builder: (c, s) {
@@ -1366,12 +1364,12 @@ class WidgetUi {
 // 이 경우 Stateful 위젯을 생성 해서 사용 하면 되지만,
 // 간단히 갱신 영역을 지정 하여 해당 구역만 갱신 하도록 하기 위해선 BLoC 갱신 구역을 설정 하여 사용 하면 됩니다.
 // Business 클래스 안에 BLoC 갱신 구역 조작 객체로
-// gc_template_classes.RefreshableBloc refreshableBloc = gc_template_classes.RefreshableBloc();
+// todo_do_delete.RefreshableBloc refreshableBloc = todo_do_delete.RefreshableBloc();
 // 위와 같이 선언 및 생성 하고,
 // Widget 에서는, 갱신 하려는 구역을
 // BlocProvider(
 //         create: (context) => business.refreshableBloc,
-//         child: BlocBuilder<gc_template_classes.RefreshableBloc, bool>(
+//         child: BlocBuilder<todo_do_delete.RefreshableBloc, bool>(
 //         builder: (c,s){
 //             return Text(business.sampleInt.toString());
 //         },

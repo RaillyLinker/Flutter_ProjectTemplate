@@ -8,8 +8,8 @@ import 'page_widget.dart' as page_widget;
 // (all)
 import 'package:flutter_project_template/global_widgets/gw_slw_page_outer_frame.dart'
     as gw_slw_page_outer_frame;
-import 'package:flutter_project_template/a_must_delete/todo_gc_delete.dart'
-    as gc_template_classes;
+import 'package:flutter_project_template/a_must_delete/todo_do_delete.dart'
+    as todo_do_delete;
 import 'package:flutter_project_template/repositories/network/apis/api_main_server.dart'
     as api_main_server;
 import 'package:flutter_project_template/dialogs/all/all_dialog_info/main_widget.dart'
@@ -118,59 +118,59 @@ class PageWidgetBusiness {
       TextEditingController()..text = "testString";
   final FocusNode input1TextFieldFocus = FocusNode();
   String? input1TextFieldErrorMsg;
-  gc_template_classes.RefreshableBloc input1TextFieldBloc =
-      gc_template_classes.RefreshableBloc();
+  todo_do_delete.RefreshableBloc input1TextFieldBloc =
+      todo_do_delete.RefreshableBloc();
 
   final TextEditingController input2TextFieldController =
       TextEditingController();
   final FocusNode input2TextFieldFocus = FocusNode();
   String? input2TextFieldErrorMsg;
-  gc_template_classes.RefreshableBloc input2TextFieldBloc =
-      gc_template_classes.RefreshableBloc();
+  todo_do_delete.RefreshableBloc input2TextFieldBloc =
+      todo_do_delete.RefreshableBloc();
 
   final TextEditingController input3TextFieldController =
       TextEditingController()..text = "1";
   final FocusNode input3TextFieldFocus = FocusNode();
   String? input3TextFieldErrorMsg;
-  gc_template_classes.RefreshableBloc input3TextFieldBloc =
-      gc_template_classes.RefreshableBloc();
+  todo_do_delete.RefreshableBloc input3TextFieldBloc =
+      todo_do_delete.RefreshableBloc();
 
   final TextEditingController input4TextFieldController =
       TextEditingController();
   final FocusNode input4TextFieldFocus = FocusNode();
   String? input4TextFieldErrorMsg;
-  gc_template_classes.RefreshableBloc input4TextFieldBloc =
-      gc_template_classes.RefreshableBloc();
+  todo_do_delete.RefreshableBloc input4TextFieldBloc =
+      todo_do_delete.RefreshableBloc();
 
   final TextEditingController input5TextFieldController =
       TextEditingController()..text = "1.0";
   final FocusNode input5TextFieldFocus = FocusNode();
   String? input5TextFieldErrorMsg;
-  gc_template_classes.RefreshableBloc input5TextFieldBloc =
-      gc_template_classes.RefreshableBloc();
+  todo_do_delete.RefreshableBloc input5TextFieldBloc =
+      todo_do_delete.RefreshableBloc();
 
   final TextEditingController input6TextFieldController =
       TextEditingController();
   final FocusNode input6TextFieldFocus = FocusNode();
   String? input6TextFieldErrorMsg;
-  gc_template_classes.RefreshableBloc input6TextFieldBloc =
-      gc_template_classes.RefreshableBloc();
+  todo_do_delete.RefreshableBloc input6TextFieldBloc =
+      todo_do_delete.RefreshableBloc();
 
   bool input7Value = true;
-  gc_template_classes.RefreshableBloc input7TextFieldBloc =
-      gc_template_classes.RefreshableBloc();
+  todo_do_delete.RefreshableBloc input7TextFieldBloc =
+      todo_do_delete.RefreshableBloc();
 
   bool? input8Value;
-  gc_template_classes.RefreshableBloc input8TextFieldBloc =
-      gc_template_classes.RefreshableBloc();
+  todo_do_delete.RefreshableBloc input8TextFieldBloc =
+      todo_do_delete.RefreshableBloc();
 
   List<Input9ListItemViewModel> input9List = [Input9ListItemViewModel()];
-  gc_template_classes.RefreshableBloc input9ListBloc =
-      gc_template_classes.RefreshableBloc();
+  todo_do_delete.RefreshableBloc input9ListBloc =
+      todo_do_delete.RefreshableBloc();
 
   List<Input10ListItemViewModel> input10List = [];
-  gc_template_classes.RefreshableBloc input10ListBloc =
-      gc_template_classes.RefreshableBloc();
+  todo_do_delete.RefreshableBloc input10ListBloc =
+      todo_do_delete.RefreshableBloc();
 
   // [private 변수]
 
@@ -399,8 +399,8 @@ class Input9ListItemViewModel {
     ..text = "testString";
   final FocusNode inputTextFieldFocus = FocusNode();
   String? inputTextFieldErrorMsg;
-  gc_template_classes.RefreshableBloc inputTextFieldBloc =
-      gc_template_classes.RefreshableBloc();
+  todo_do_delete.RefreshableBloc inputTextFieldBloc =
+      todo_do_delete.RefreshableBloc();
 }
 
 class Input10ListItemViewModel {
@@ -408,6 +408,6 @@ class Input10ListItemViewModel {
     ..text = "testString";
   final FocusNode inputTextFieldFocus = FocusNode();
   String? inputTextFieldErrorMsg;
-  gc_template_classes.RefreshableBloc inputTextFieldBloc =
-      gc_template_classes.RefreshableBloc();
+  todo_do_delete.RefreshableBloc inputTextFieldBloc =
+      todo_do_delete.RefreshableBloc();
 }

@@ -9,8 +9,8 @@ import 'page_widget.dart' as page_widget;
 // (all)
 import 'package:flutter_project_template/global_widgets/gw_slw_page_outer_frame.dart'
     as gw_slw_page_outer_frame;
-import 'package:flutter_project_template/a_must_delete/todo_gc_delete.dart'
-    as gc_template_classes;
+import 'package:flutter_project_template/a_must_delete/todo_do_delete.dart'
+    as todo_do_delete;
 import 'package:flutter_project_template/pages/all/all_page_home/main_widget.dart'
     as all_page_home;
 
@@ -158,8 +158,8 @@ class PageWidgetBusiness {
       TextEditingController();
   final FocusNode input1TextFieldFocus = FocusNode();
   String? input1TextFieldErrorMsg;
-  gc_template_classes.RefreshableBloc input1TextFieldBloc =
-      gc_template_classes.RefreshableBloc();
+  todo_do_delete.RefreshableBloc input1TextFieldBloc =
+      todo_do_delete.RefreshableBloc();
 
   // [private 변수]
 

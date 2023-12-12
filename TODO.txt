@@ -26,7 +26,7 @@
   all_page_change_password
   app_page_init_splash
 
-- 템플릿 다 적용하고 BLoC 라이브러리 제거 및 todo_gc_delete.dart 제거
+- 템플릿 다 적용하고 BLoC 라이브러리 제거 및 todo_do_delete.dart 제거
 
 - 리스트 아이템 순서 바꾸기
 - 리스트 아이템 순서 갱신시 애니메이션

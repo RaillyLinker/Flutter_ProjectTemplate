@@ -9,8 +9,8 @@ import 'page_view.dart' as page_view;
 import 'page_business.dart' as page_business;
 
 // (all)
-import 'package:flutter_project_template/a_must_delete/todo_gc_delete.dart'
-    as gc_template_classes;
+import 'package:flutter_project_template/a_must_delete/todo_do_delete.dart'
+    as todo_do_delete;
 
 // [페이지 진입 파일]
 
@@ -55,12 +55,12 @@ class PageEntrance extends StatelessWidget {
     var pageBusiness = page_business.PageBusiness(context);
 
     // Page Info BLoC 추가 (pageBusiness 를 context 전역에 저장)
-    blocProviders.add(
-        BlocProvider<gc_template_classes.BlocPageInfo>(create: (innerContext) {
+    blocProviders
+        .add(BlocProvider<todo_do_delete.BlocPageInfo>(create: (innerContext) {
       // pageBusiness 내의 bloc 객체 모음 생성
       pageBusiness.blocObjects = page_business.BLocObjects(innerContext);
-      return gc_template_classes.BlocPageInfo(
-          gc_template_classes.BlocPageInfoState<page_business.PageBusiness>(
+      return todo_do_delete.BlocPageInfo(
+          todo_do_delete.BlocPageInfoState<page_business.PageBusiness>(
               pageBusiness: pageBusiness));
     }));
 
@@ -107,8 +107,8 @@ class LifecycleWatcherState extends State<LifecycleWatcher>
 
   @override
   Widget build(BuildContext context) {
-    gc_template_classes.BlocPageInfoState blocPageInfoState =
-        BlocProvider.of<gc_template_classes.BlocPageInfo>(context).state;
+    todo_do_delete.BlocPageInfoState blocPageInfoState =
+        BlocProvider.of<todo_do_delete.BlocPageInfo>(context).state;
     _pageBusiness = blocPageInfoState.pageBusiness;
 
     return WillPopScope(

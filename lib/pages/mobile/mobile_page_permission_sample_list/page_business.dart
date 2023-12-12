@@ -11,8 +11,8 @@ import 'page_entrance.dart' as page_entrance;
 // (all)
 import 'package:flutter_project_template/global_widgets/gw_slw_page_outer_frame.dart'
     as gw_slw_page_outer_frame;
-import 'package:flutter_project_template/a_must_delete/todo_gc_delete.dart'
-    as gc_template_classes;
+import 'package:flutter_project_template/a_must_delete/todo_do_delete.dart'
+    as todo_do_delete;
 import 'package:flutter_project_template/dialogs/all/all_dialog_yes_or_no/main_widget.dart'
     as all_dialog_yes_or_no;
 import 'package:flutter_project_template/global_data/gd_const.dart' as gd_const;
@@ -36,8 +36,8 @@ class PageBusiness {
   late BLocObjects blocObjects;
 
   // 페이지 생명주기 관련 states
-  final gc_template_classes.PageLifeCycleStates pageLifeCycleStates =
-      gc_template_classes.PageLifeCycleStates();
+  final todo_do_delete.PageLifeCycleStates pageLifeCycleStates =
+      todo_do_delete.PageLifeCycleStates();
 
   // 페이지 파라미터 (아래 goRouterState 에서 가져와 대입하기)
   late page_entrance.PageInputVo pageInputVo;
@@ -2686,8 +2686,8 @@ class PageViewModel {
   final BuildContext _context;
 
   // 페이지 생명주기 관련 states
-  final gc_template_classes.PageLifeCycleStates pageLifeCycleStates =
-      gc_template_classes.PageLifeCycleStates();
+  final todo_do_delete.PageLifeCycleStates pageLifeCycleStates =
+      todo_do_delete.PageLifeCycleStates();
 
   // 페이지 파라미터 (아래 goRouterState 에서 가져와 대입하기)
   late page_entrance.PageInputVo pageInputVo;

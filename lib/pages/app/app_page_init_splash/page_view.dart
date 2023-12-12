@@ -7,8 +7,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'page_business.dart' as page_business;
 
 // (all)
-import 'package:flutter_project_template/a_must_delete/todo_gc_delete.dart'
-    as gc_template_classes;
+import 'package:flutter_project_template/a_must_delete/todo_do_delete.dart'
+    as todo_do_delete;
 
 // [페이지 화면 위젯 작성 파일]
 // 페이지 화면 구현을 담당합니다.
@@ -24,7 +24,7 @@ class PageView extends StatelessWidget {
   Widget build(BuildContext context) {
     // pageBusiness 객체
     page_business.PageBusiness pageBusiness =
-        BlocProvider.of<gc_template_classes.BlocPageInfo>(context)
+        BlocProvider.of<todo_do_delete.BlocPageInfo>(context)
             .state
             .pageBusiness;
 
@@ -114,7 +114,7 @@ class AnimationLogoState extends State<AnimationLogo>
   @override
   Widget build(BuildContext context) {
     // pageBusiness 객체
-    pageBusiness = BlocProvider.of<gc_template_classes.BlocPageInfo>(context)
+    pageBusiness = BlocProvider.of<todo_do_delete.BlocPageInfo>(context)
         .state
         .pageBusiness;
 

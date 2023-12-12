@@ -13,8 +13,8 @@ import 'inner_widgets/iw_crypt_result_text/sf_widget.dart'
 // (all)
 import 'package:flutter_project_template/global_widgets/gw_slw_page_outer_frame.dart'
     as gw_slw_page_outer_frame;
-import 'package:flutter_project_template/a_must_delete/todo_gc_delete.dart'
-    as gc_template_classes;
+import 'package:flutter_project_template/a_must_delete/todo_do_delete.dart'
+    as todo_do_delete;
 
 // [위젯 뷰]
 // 위젯의 화면 작성은 여기서 합니다.
@@ -163,8 +163,7 @@ class WidgetUi {
                                             create: (context) =>
                                                 business.input1TextFieldBloc,
                                             child: BlocBuilder<
-                                                gc_template_classes
-                                                .RefreshableBloc,
+                                                todo_do_delete.RefreshableBloc,
                                                 bool>(
                                               builder: (c, s) {
                                                 return TextFormField(
@@ -227,8 +226,7 @@ class WidgetUi {
                                             create: (context) =>
                                                 business.input2TextFieldBloc,
                                             child: BlocBuilder<
-                                                gc_template_classes
-                                                .RefreshableBloc,
+                                                todo_do_delete.RefreshableBloc,
                                                 bool>(
                                               builder: (c, s) {
                                                 return TextFormField(
@@ -295,8 +293,7 @@ class WidgetUi {
                                             create: (context) =>
                                                 business.input3TextFieldBloc,
                                             child: BlocBuilder<
-                                                gc_template_classes
-                                                .RefreshableBloc,
+                                                todo_do_delete.RefreshableBloc,
                                                 bool>(
                                               builder: (c, s) {
                                                 return TextFormField(
@@ -410,8 +407,7 @@ class WidgetUi {
                                             create: (context) =>
                                                 business.input4TextFieldBloc,
                                             child: BlocBuilder<
-                                                gc_template_classes
-                                                .RefreshableBloc,
+                                                todo_do_delete.RefreshableBloc,
                                                 bool>(
                                               builder: (c, s) {
                                                 return TextFormField(

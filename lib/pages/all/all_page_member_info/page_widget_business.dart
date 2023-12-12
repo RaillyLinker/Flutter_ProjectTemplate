@@ -9,8 +9,8 @@ import 'page_widget.dart' as page_widget;
 // (all)
 import 'package:flutter_project_template/global_widgets/gw_slw_page_outer_frame.dart'
     as gw_slw_page_outer_frame;
-import 'package:flutter_project_template/a_must_delete/todo_gc_delete.dart'
-    as gc_template_classes;
+import 'package:flutter_project_template/a_must_delete/todo_do_delete.dart'
+    as todo_do_delete;
 import 'package:flutter_project_template/repositories/spws/spw_auth_member_info.dart'
     as spw_auth_member_info;
 import 'package:flutter_project_template/global_functions/gf_my_functions.dart'
@@ -101,7 +101,7 @@ class PageWidgetBusiness {
 
   // [public 변수]
   // BLoC 객체 샘플 :
-  // final gc_template_classes.RefreshableBloc refreshableBloc = gc_template_classes.RefreshableBloc();
+  // final todo_do_delete.RefreshableBloc refreshableBloc = todo_do_delete.RefreshableBloc();
 
   late BuildContext context;
 
@@ -129,18 +129,18 @@ class PageWidgetBusiness {
   bool?
       authPasswordIsNull; // 계정 로그인 비밀번호 설정 Null 여부 (OAuth2 만으로 회원가입한 경우는 비밀번호가 없으므로 true)
 
-  final gc_template_classes.RefreshableBloc profileImageBloc =
-      gc_template_classes.RefreshableBloc();
-  final gc_template_classes.RefreshableBloc nicknameBloc =
-      gc_template_classes.RefreshableBloc();
-  final gc_template_classes.RefreshableBloc emailBloc =
-      gc_template_classes.RefreshableBloc();
-  final gc_template_classes.RefreshableBloc phoneNumberBloc =
-      gc_template_classes.RefreshableBloc();
-  final gc_template_classes.RefreshableBloc oAuth2Bloc =
-      gc_template_classes.RefreshableBloc();
-  final gc_template_classes.RefreshableBloc permissionBloc =
-      gc_template_classes.RefreshableBloc();
+  final todo_do_delete.RefreshableBloc profileImageBloc =
+      todo_do_delete.RefreshableBloc();
+  final todo_do_delete.RefreshableBloc nicknameBloc =
+      todo_do_delete.RefreshableBloc();
+  final todo_do_delete.RefreshableBloc emailBloc =
+      todo_do_delete.RefreshableBloc();
+  final todo_do_delete.RefreshableBloc phoneNumberBloc =
+      todo_do_delete.RefreshableBloc();
+  final todo_do_delete.RefreshableBloc oAuth2Bloc =
+      todo_do_delete.RefreshableBloc();
+  final todo_do_delete.RefreshableBloc permissionBloc =
+      todo_do_delete.RefreshableBloc();
 
   // [private 변수]
 

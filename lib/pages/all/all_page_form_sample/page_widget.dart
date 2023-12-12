@@ -11,8 +11,8 @@ import 'page_widget_business.dart' as page_widget_business;
 // (all)
 import 'package:flutter_project_template/global_widgets/gw_slw_page_outer_frame.dart'
     as gw_slw_page_outer_frame;
-import 'package:flutter_project_template/a_must_delete/todo_gc_delete.dart'
-    as gc_template_classes;
+import 'package:flutter_project_template/a_must_delete/todo_do_delete.dart'
+    as todo_do_delete;
 
 // [위젯 뷰]
 // 위젯의 화면 작성은 여기서 합니다.
@@ -150,8 +150,7 @@ class WidgetUi {
                   const SizedBox(height: 30.0),
                   BlocProvider(
                     create: (context) => business.input1TextFieldBloc,
-                    child:
-                        BlocBuilder<gc_template_classes.RefreshableBloc, bool>(
+                    child: BlocBuilder<todo_do_delete.RefreshableBloc, bool>(
                       builder: (c, s) {
                         return TextFormField(
                           autofocus: true,
@@ -195,8 +194,7 @@ class WidgetUi {
                   const SizedBox(height: 20.0),
                   BlocProvider(
                     create: (context) => business.input2TextFieldBloc,
-                    child:
-                        BlocBuilder<gc_template_classes.RefreshableBloc, bool>(
+                    child: BlocBuilder<todo_do_delete.RefreshableBloc, bool>(
                       builder: (c, s) {
                         return TextFormField(
                           keyboardType: TextInputType.text,
@@ -244,8 +242,7 @@ class WidgetUi {
                   const SizedBox(height: 10.0),
                   BlocProvider(
                     create: (context) => business.input3TextFieldBloc,
-                    child:
-                        BlocBuilder<gc_template_classes.RefreshableBloc, bool>(
+                    child: BlocBuilder<todo_do_delete.RefreshableBloc, bool>(
                       builder: (c, s) {
                         return TextFormField(
                           keyboardType: TextInputType.number,
@@ -292,8 +289,7 @@ class WidgetUi {
                   const SizedBox(height: 10.0),
                   BlocProvider(
                     create: (context) => business.input4TextFieldBloc,
-                    child:
-                        BlocBuilder<gc_template_classes.RefreshableBloc, bool>(
+                    child: BlocBuilder<todo_do_delete.RefreshableBloc, bool>(
                       builder: (c, s) {
                         return TextFormField(
                           keyboardType: TextInputType.text,

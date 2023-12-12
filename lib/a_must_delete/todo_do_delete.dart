@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:bloc/bloc.dart';
 
 // todo : refreshWrapper 적용 후 파일 삭제
 // (TextFormField)
@@ -279,76 +280,41 @@ class SfwTextFormFieldState extends State<SfwTextFormField> {
   }
 }
 
-// (ListView.Builder)
-class SfwListViewBuilder extends StatefulWidget {
-  const SfwListViewBuilder(
-      {required this.globalKey,
-      required this.itemWidgetList,
-      this.shrinkWrap = false,
-      this.primary})
-      : super(key: globalKey);
+// (오로지 리플래시만을 위한 BLoC 클래스)
+class RefreshableBloc extends Bloc<bool, bool> {
+  RefreshableBloc() : super(true) {
+    on<bool>((event, emit) {
+      emit(event);
+    });
+  }
 
-  // [콜백 함수]
-  @override
-  SfwListViewBuilderState createState() => SfwListViewBuilderState();
-
-  // [public 변수]
-  final GlobalKey<SfwListViewBuilderState> globalKey;
-
-  // !!!외부 입력 변수 선언 하기!!!
-  final List<Widget> itemWidgetList;
-
-  final bool shrinkWrap;
-
-  final bool? primary;
-
-  // [화면 작성]
-  Widget widgetUiBuild(
-      {required BuildContext context,
-      required SfwListViewBuilderState currentState}) {
-    // !!!뷰 위젯 반환 콜백 작성 하기!!!
-
-    return ListView.builder(
-      shrinkWrap: shrinkWrap,
-      primary: primary,
-      itemCount: currentState.itemWidgetList.length,
-      itemBuilder: (context, index) {
-        return currentState.itemWidgetList[index];
-      },
-    );
+  void refreshUi() {
+    add(!state);
   }
 }
 
-class SfwListViewBuilderState extends State<SfwListViewBuilder> {
-  SfwListViewBuilderState();
+// (페이지 정보 저장용 BLoC State)
+class BlocPageInfoState<pageBusinessType> {
+  BlocPageInfoState({required this.pageBusiness});
 
-  // [콜백 함수]
-  @override
-  Widget build(BuildContext context) {
-    return widget.widgetUiBuild(context: context, currentState: this);
-  }
+  // 하위 위젯에 전달할 비즈니스 객체
+  pageBusinessType pageBusiness;
+}
 
-  @override
-  void initState() {
-    super.initState();
-    // !!!initState 작성!!!
-    itemWidgetList = widget.itemWidgetList;
-  }
+// (페이지 정보 저장용 BLoC)
+// state 저장용이므로 이벤트 설정은 하지 않음.
+class BlocPageInfo extends Bloc<bool, BlocPageInfoState> {
+  BlocPageInfo(super.firstState);
+}
 
-  @override
-  void dispose() {
-    // !!!dispose 작성!!!
-    super.dispose();
-  }
+// (페이지 생명주기 관련 states)
+// 페이지 생명주기가 진행되며 자동적으로 갱신되며, 이외엔 열람 / 수정할 필요가 없음
+class PageLifeCycleStates {
+  bool isCanPop = false;
+  bool isNoCanPop = false;
+  bool isPageCreated = false;
+  bool isDisposed = false;
 
-  // [public 변수]
-  List<Widget> itemWidgetList = [];
-
-  // [private 변수]
-
-  // [public 함수]
-  // (Stateful Widget 화면 갱신)
-  void refreshUi() {
-    setState(() {});
-  }
+  // 페이지 뷰 최초 설정이 되었는지 여부
+  bool isPageViewInit = false;
 }

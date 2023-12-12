@@ -12,8 +12,8 @@ import 'package:flutter_project_template/global_widgets/gw_slw_page_outer_frame.
     as gw_slw_page_outer_frame;
 import 'package:flutter_project_template/global_functions/gf_crypto.dart'
     as gf_crypto;
-import 'package:flutter_project_template/a_must_delete/todo_gc_delete.dart'
-    as gc_template_classes;
+import 'package:flutter_project_template/a_must_delete/todo_do_delete.dart'
+    as todo_do_delete;
 
 // [위젯 비즈니스]
 // 위젯의 비즈니스 로직 + State 변수 처리는 이 곳에서 합니다.
@@ -99,32 +99,32 @@ class PageWidgetBusiness {
       TextEditingController();
   final FocusNode input1TextFieldFocus = FocusNode();
   String? input1TextFieldErrorMsg;
-  gc_template_classes.RefreshableBloc input1TextFieldBloc =
-      gc_template_classes.RefreshableBloc();
+  todo_do_delete.RefreshableBloc input1TextFieldBloc =
+      todo_do_delete.RefreshableBloc();
 
   // (input2TextField)
   final TextEditingController input2TextFieldController =
       TextEditingController();
   final FocusNode input2TextFieldFocus = FocusNode();
   String? input2TextFieldErrorMsg;
-  gc_template_classes.RefreshableBloc input2TextFieldBloc =
-      gc_template_classes.RefreshableBloc();
+  todo_do_delete.RefreshableBloc input2TextFieldBloc =
+      todo_do_delete.RefreshableBloc();
 
   // (input3TextField)
   final TextEditingController input3TextFieldController =
       TextEditingController();
   final FocusNode input3TextFieldFocus = FocusNode();
   String? input3TextFieldErrorMsg;
-  gc_template_classes.RefreshableBloc input3TextFieldBloc =
-      gc_template_classes.RefreshableBloc();
+  todo_do_delete.RefreshableBloc input3TextFieldBloc =
+      todo_do_delete.RefreshableBloc();
 
   // (input4TextField)
   final TextEditingController input4TextFieldController =
       TextEditingController();
   final FocusNode input4TextFieldFocus = FocusNode();
   String? input4TextFieldErrorMsg;
-  gc_template_classes.RefreshableBloc input4TextFieldBloc =
-      gc_template_classes.RefreshableBloc();
+  todo_do_delete.RefreshableBloc input4TextFieldBloc =
+      todo_do_delete.RefreshableBloc();
 
   final GlobalKey<iw_crypt_result_text_state.SfWidgetState>
       encryptResultTextGk = GlobalKey();

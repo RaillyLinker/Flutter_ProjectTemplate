@@ -16,8 +16,8 @@ import 'package:flutter_project_template/dialogs/all/all_dialog_info/main_widget
     as all_dialog_info;
 import 'package:flutter_project_template/dialogs/all/all_dialog_loading_spinner/main_widget.dart'
     as all_dialog_loading_spinner;
-import 'package:flutter_project_template/a_must_delete/todo_gc_delete.dart'
-    as gc_template_classes;
+import 'package:flutter_project_template/a_must_delete/todo_do_delete.dart'
+    as todo_do_delete;
 import 'package:flutter_project_template/repositories/spws/spw_auth_member_info.dart'
     as spw_auth_member_info;
 import 'package:flutter_project_template/global_functions/gf_my_functions.dart'
@@ -44,8 +44,8 @@ class PageBusiness {
   late BLocObjects blocObjects;
 
   // 페이지 생명주기 관련 states
-  final gc_template_classes.PageLifeCycleStates pageLifeCycleStates =
-      gc_template_classes.PageLifeCycleStates();
+  final todo_do_delete.PageLifeCycleStates pageLifeCycleStates =
+      todo_do_delete.PageLifeCycleStates();
 
   // 페이지 파라미터 (아래 goRouterState 에서 가져와 대입하기)
   late page_entrance.PageInputVo pageInputVo;
@@ -547,8 +547,8 @@ class PageViewModel {
   final BuildContext _context;
 
   // 페이지 생명주기 관련 states
-  final gc_template_classes.PageLifeCycleStates pageLifeCycleStates =
-      gc_template_classes.PageLifeCycleStates();
+  final todo_do_delete.PageLifeCycleStates pageLifeCycleStates =
+      todo_do_delete.PageLifeCycleStates();
 
   // 페이지 파라미터 (아래 goRouterState 에서 가져와 대입하기)
   late page_entrance.PageInputVo pageInputVo;
