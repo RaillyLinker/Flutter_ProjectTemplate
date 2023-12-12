@@ -12,10 +12,8 @@ import 'package:flutter_project_template/global_widgets/gw_slw_page_outer_frame.
     as gw_slw_page_outer_frame;
 import 'package:flutter_project_template/repositories/network/apis/api_main_server.dart'
     as api_main_server;
-import 'package:flutter_project_template/dialogs/all/all_dialog_auth_join_the_membership_email_verification/dialog_widget.dart'
+import 'package:flutter_project_template/dialogs/all/all_dialog_auth_join_the_membership_email_verification/main_widget.dart'
     as all_dialog_auth_join_the_membership_email_verification;
-import 'package:flutter_project_template/dialogs/all/all_dialog_auth_join_the_membership_email_verification/dialog_widget_business.dart'
-    as all_dialog_auth_join_the_membership_email_verification_business;
 import 'package:flutter_project_template/dialogs/all/all_dialog_info/main_widget.dart'
     as all_dialog_info;
 import 'package:flutter_project_template/dialogs/all/all_dialog_loading_spinner/main_widget.dart'
@@ -212,26 +210,26 @@ class PageBusiness {
 
           // 정상 응답
           // 검증번호 입력 다이얼로그 띄우기
-          all_dialog_auth_join_the_membership_email_verification_business
-              .DialogWidgetBusiness
-              allDialogAuthJoinTheMembershipEmailVerificationBusiness =
-              all_dialog_auth_join_the_membership_email_verification_business
-                  .DialogWidgetBusiness();
+          final GlobalKey<
+                  all_dialog_auth_join_the_membership_email_verification
+                  .MainWidgetState>
+              allDialogAuthJoinTheMembershipEmailVerificationAreaGk =
+              GlobalKey();
           if (!_context.mounted) return;
           var dialogResult = await showDialog(
               barrierDismissible: false,
               context: _context,
               builder: (context) =>
                   all_dialog_auth_join_the_membership_email_verification
-                      .DialogWidget(
-                    business:
-                        allDialogAuthJoinTheMembershipEmailVerificationBusiness,
+                      .MainWidget(
+                    key: allDialogAuthJoinTheMembershipEmailVerificationAreaGk,
                     inputVo:
                         all_dialog_auth_join_the_membership_email_verification
                             .InputVo(
-                                emailAddress: email,
-                                verificationUid: responseBody.verificationUid),
-                    onDialogCreated: () {},
+                      emailAddress: email,
+                      verificationUid: responseBody.verificationUid,
+                      onDialogCreated: () {},
+                    ),
                   ));
 
           if (dialogResult != null) {

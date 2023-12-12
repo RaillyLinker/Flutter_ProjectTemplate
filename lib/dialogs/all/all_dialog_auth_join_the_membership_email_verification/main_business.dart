@@ -2,12 +2,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-// (inner Folder)
-import 'dialog_widget.dart' as dialog_widget;
+// (inner_folder)
+import 'main_widget.dart' as main_widget;
 
 // (all)
-import 'package:flutter_project_template/a_must_delete/todo_do_delete.dart'
-    as gw_do_delete;
+import 'package:flutter_project_template/global_widgets/gw_sfw_wrapper.dart'
+    as gw_sfw_wrapper;
 import 'package:flutter_project_template/repositories/network/apis/api_main_server.dart'
     as api_main_server;
 import 'package:flutter_project_template/dialogs/all/all_dialog_info/main_widget.dart'
@@ -20,27 +20,30 @@ import 'package:flutter_project_template/global_functions/gf_my_functions.dart'
     as gf_my_functions;
 
 // [위젯 비즈니스]
-// 위젯의 비즈니스 로직 + State 변수 처리는 이 곳에서 합니다.
 
 //------------------------------------------------------------------------------
-// 페이지의 비즈니스 로직 담당
-// PageBusiness 인스턴스는 해당 페이지가 소멸하기 전까지 활용됩니다.
-class DialogWidgetBusiness {
-  // [콜백 함수]
-  // (전체 위젯 initState)
+class MainBusiness {
+  // [CallBack 함수]
+  // (진입 최초 단 한번 실행) - 아직 위젯이 생성 되기 전
   void initState() {
     // !!!initState 로직 작성!!!
-    viewModel.verificationUid = viewModel.inputVo.verificationUid;
+    verificationUid = inputVo.verificationUid;
   }
 
-  // (전체 위젯 dispose)
+  // (종료 시점 단 한번 실행)
   void dispose() {
-    // !!!initState 로직 작성!!!
+    // !!!dispose 로직 작성!!!
+    verificationCodeTextFieldController.dispose();
+    verificationCodeTextFieldFocus.dispose();
   }
 
-  // (전체 위젯의 FocusDetector 콜백들)
-  Future<void> onFocusGained() async {
-    // !!!onFocusGained 로직 작성!!!
+  // (위젯이 처음 build 된 후 단 한번 실행)
+  Future<void> onCreateWidget() async {
+    // !!!onFocusGainedAsync 로직 작성!!!
+  }
+
+  Future<void> onFocusGainedAsync() async {
+    // !!!onFocusGainedAsync 로직 작성!!!
 
     // 검증된 현재 회원 정보 가져오기 (비회원이라면 null)
     final spw_auth_member_info.SharedPreferenceWrapperVo? nowLoginMemberInfo =
@@ -48,45 +51,70 @@ class DialogWidgetBusiness {
 
     if (nowLoginMemberInfo != null) {
       // 로그인 상태라면 닫기
-      viewModel.context.pop();
+      context.pop();
       return;
     }
   }
 
-  Future<void> onFocusLost() async {
-    // !!!onFocusLost 로직 작성!!!
+  Future<void> onFocusLostAsync() async {
+    // !!!onFocusLostAsync 로직 작성!!!
   }
 
-  Future<void> onVisibilityGained() async {
-    // !!!onFocusLost 로직 작성!!!
+  Future<void> onVisibilityGainedAsync() async {
+    // !!!onVisibilityGainedAsync 로직 작성!!!
   }
 
-  Future<void> onVisibilityLost() async {
-    // !!!onVisibilityLost 로직 작성!!!
+  Future<void> onVisibilityLostAsync() async {
+    // !!!onVisibilityLostAsync 로직 작성!!!
   }
 
-  Future<void> onForegroundGained() async {
-    // !!!onForegroundGained 로직 작성!!!
+  Future<void> onForegroundGainedAsync() async {
+    // !!!onForegroundGainedAsync 로직 작성!!!
   }
 
-  Future<void> onForegroundLost() async {
-    // !!!onForegroundLost 로직 작성!!!
+  Future<void> onForegroundLostAsync() async {
+    // !!!onForegroundLostAsync 로직 작성!!!
   }
 
+  //----------------------------------------------------------------------------
+  // !!!메인 위젯에서 사용할 변수는 이곳에서 저장하여 사용하세요.!!!
   // [public 변수]
-  // (페이지 뷰모델 객체)
-  late PageWidgetViewModel viewModel;
+  // (위젯 입력값)
+  late main_widget.InputVo inputVo;
 
+  // (페이지 pop 가능 여부 변수) - false 로 설정시 pop 불가
+  bool canPop = true;
+
+  // (최초 실행 플래그)
+  bool needInitState = true;
+
+  // (context 객체)
+  late BuildContext context;
+
+  // (검증 요청 고유번호)
+  late int verificationUid;
+
+  // 검증 코드 입력창 AreaGk
+  final GlobalKey<gw_sfw_wrapper.SfwRefreshWrapperState>
+      verificationCodeTextFieldAreaGk = GlobalKey();
+  final TextEditingController verificationCodeTextFieldController =
+      TextEditingController();
+  final FocusNode verificationCodeTextFieldFocus = FocusNode();
+  String? verificationCodeTextFieldErrorMsg;
+  late BuildContext verificationCodeTextFieldContext;
+
+  // [private 변수]
+
+  //----------------------------------------------------------------------------
+  // !!!비즈니스 함수는 이 곳에서 저장 하여 사용 하세요.!!!
   // [public 함수]
-  // (Widget 화면 갱신) - WidgetUi.viewWidgetBuild 의 return 값을 다시 불러 옵니다.
+  // (메인 위젯 화면 갱신)
   late VoidCallback refreshUi;
 
   // (다이얼로그 종료 함수)
   void closeDialog() {
-    viewModel.context.pop();
+    context.pop();
   }
-
-// !!!사용 함수 추가하기!!!
 
   // (검증 이메일 다시 전송)
   void resendVerificationEmail() {
@@ -97,7 +125,7 @@ class DialogWidgetBusiness {
 
     showDialog(
         barrierDismissible: false,
-        context: viewModel.context,
+        context: context,
         builder: (context) => all_dialog_loading_spinner.MainWidget(
               key: allDialogLoadingSpinnerStateGk,
               inputVo:
@@ -106,7 +134,7 @@ class DialogWidgetBusiness {
                     .postService1TkV1AuthJoinTheMembershipEmailVerificationAsync(
                         requestBodyVo: api_main_server
                             .PostService1TkV1AuthJoinTheMembershipEmailVerificationAsyncRequestBodyVo(
-                                email: viewModel.inputVo.emailAddress));
+                                email: inputVo.emailAddress));
 
                 allDialogLoadingSpinnerStateGk.currentState?.mainBusiness
                     .closeDialog();
@@ -121,12 +149,12 @@ class DialogWidgetBusiness {
                         as api_main_server
                         .PostService1TkV1AuthJoinTheMembershipEmailVerificationAsyncResponseBodyVo;
 
-                    viewModel.verificationUid = responseBody.verificationUid;
+                    verificationUid = responseBody.verificationUid;
 
                     // 정상 응답
                     final GlobalKey<all_dialog_info.MainWidgetState>
                         allDialogInfoStateGk = GlobalKey();
-                    BuildContext context = viewModel.context;
+
                     if (!context.mounted) return;
                     await showDialog(
                         barrierDismissible: true,
@@ -136,21 +164,18 @@ class DialogWidgetBusiness {
                               inputVo: all_dialog_info.InputVo(
                                 dialogTitle: "이메일 재발송 성공",
                                 dialogContent:
-                                    "본인 인증 이메일이 재발송 되었습니다.\n(${viewModel.inputVo.emailAddress})",
+                                    "본인 인증 이메일이 재발송 되었습니다.\n(${inputVo.emailAddress})",
                                 checkBtnTitle: "확인",
                                 onDialogCreated: () {},
                               ),
                             ));
 
-                    if (!context.mounted) return;
-                    viewModel.gwTextFormFieldWrapperStateGk.currentState
-                        ?.textFieldController.text = "";
-                    viewModel.gwTextFormFieldWrapperStateGk.currentState
-                        ?.textFieldErrorMsg = null;
-                    viewModel.gwTextFormFieldWrapperStateGk.currentState
-                        ?.refreshUi();
-                    viewModel.gwTextFormFieldWrapperStateGk.currentState
-                        ?.requestFocus();
+                    if (!verificationCodeTextFieldContext.mounted) return;
+                    verificationCodeTextFieldController.text = "";
+                    verificationCodeTextFieldErrorMsg = null;
+                    verificationCodeTextFieldAreaGk.currentState?.refreshUi();
+                    FocusScope.of(verificationCodeTextFieldContext)
+                        .requestFocus(verificationCodeTextFieldFocus);
                   } else {
                     var responseHeaders = networkResponseObjectOk
                             .responseHeaders as api_main_server
@@ -162,7 +187,7 @@ class DialogWidgetBusiness {
                       final GlobalKey<all_dialog_info.MainWidgetState>
                           allDialogInfoStateGk =
                           GlobalKey<all_dialog_info.MainWidgetState>();
-                      BuildContext context = viewModel.context;
+
                       if (!context.mounted) return;
                       showDialog(
                           barrierDismissible: true,
@@ -187,7 +212,7 @@ class DialogWidgetBusiness {
                             final GlobalKey<all_dialog_info.MainWidgetState>
                                 allDialogInfoStateGk =
                                 GlobalKey<all_dialog_info.MainWidgetState>();
-                            BuildContext context = viewModel.context;
+
                             if (!context.mounted) return;
                             await showDialog(
                                 barrierDismissible: true,
@@ -218,7 +243,6 @@ class DialogWidgetBusiness {
                   final GlobalKey<all_dialog_info.MainWidgetState>
                       allDialogInfoStateGk =
                       GlobalKey<all_dialog_info.MainWidgetState>();
-                  BuildContext context = viewModel.context;
                   if (!context.mounted) return;
                   showDialog(
                       barrierDismissible: true,
@@ -246,18 +270,18 @@ class DialogWidgetBusiness {
     }
     isVerifyCodeAndGoNextDoing = true;
 
-    String? verificationCode = viewModel
-        .gwTextFormFieldWrapperStateGk.currentState?.textFieldController.text;
+    String? verificationCode = verificationCodeTextFieldController.text;
 
-    if (verificationCode == null || verificationCode.isEmpty) {
-      viewModel.gwTextFormFieldWrapperStateGk.currentState?.textFieldErrorMsg =
-          "이 항목을 입력 하세요.";
-      viewModel.gwTextFormFieldWrapperStateGk.currentState?.refreshUi();
-      viewModel.gwTextFormFieldWrapperStateGk.currentState?.requestFocus();
+    if (verificationCode.isEmpty) {
+      verificationCodeTextFieldErrorMsg = "이 항목을 입력 하세요.";
+      verificationCodeTextFieldAreaGk.currentState?.refreshUi();
+      FocusScope.of(verificationCodeTextFieldContext)
+          .requestFocus(verificationCodeTextFieldFocus);
       isVerifyCodeAndGoNextDoing = false;
       return;
     }
 
+    isVerifyCodeAndGoNextDoing = false;
     // 코드 검증
     // (로딩 스피너 다이얼로그 호출)
     GlobalKey<all_dialog_loading_spinner.MainWidgetState>
@@ -274,14 +298,14 @@ class DialogWidgetBusiness {
                     .getService1TkV1AuthJoinTheMembershipEmailVerificationCheckAsync(
                         requestQueryVo: api_main_server
                             .GetService1TkV1AuthJoinTheMembershipEmailVerificationCheckAsyncRequestQueryVo(
-                                verificationUid: viewModel.verificationUid,
-                                email: viewModel.inputVo.emailAddress,
+                                verificationUid: verificationUid,
+                                email: inputVo.emailAddress,
                                 verificationCode: verificationCode));
 
+                allDialogLoadingSpinnerStateGk.currentState?.mainBusiness
+                    .closeDialog();
                 if (responseVo.dioException == null) {
                   // Dio 네트워크 응답
-                  allDialogLoadingSpinnerStateGk.currentState?.mainBusiness
-                      .closeDialog();
                   var networkResponseObjectOk =
                       responseVo.networkResponseObjectOk!;
 
@@ -290,9 +314,9 @@ class DialogWidgetBusiness {
 
                     // 검증 완료
                     if (!context.mounted) return;
-                    context.pop(dialog_widget.OutputVo(
+                    context.pop(main_widget.OutputVo(
                         checkedVerificationCode: verificationCode,
-                        verificationUid: viewModel.verificationUid));
+                        verificationUid: verificationUid));
                   } else {
                     var responseHeaders = networkResponseObjectOk
                             .responseHeaders as api_main_server
@@ -372,12 +396,14 @@ class DialogWidgetBusiness {
                           {
                             // verificationCode 가 일치하지 않음
                             // 검증 실패
-                            viewModel.gwTextFormFieldWrapperStateGk.currentState
-                                ?.textFieldErrorMsg = "본인 인증 코드가 일치하지 않습니다.";
-                            viewModel.gwTextFormFieldWrapperStateGk.currentState
+                            verificationCodeTextFieldErrorMsg =
+                                "본인 인증 코드가 일치하지 않습니다.";
+                            verificationCodeTextFieldAreaGk.currentState
                                 ?.refreshUi();
-                            viewModel.gwTextFormFieldWrapperStateGk.currentState
-                                ?.requestFocus();
+                            if (!verificationCodeTextFieldContext.mounted)
+                              return;
+                            FocusScope.of(verificationCodeTextFieldContext)
+                                .requestFocus(verificationCodeTextFieldFocus);
                           }
                           break;
                         default:
@@ -389,8 +415,6 @@ class DialogWidgetBusiness {
                     }
                   }
                 } else {
-                  allDialogLoadingSpinnerStateGk.currentState?.mainBusiness
-                      .closeDialog();
                   final GlobalKey<all_dialog_info.MainWidgetState>
                       allDialogInfoStateGk =
                       GlobalKey<all_dialog_info.MainWidgetState>();
@@ -409,34 +433,9 @@ class DialogWidgetBusiness {
                           ));
                 }
               }),
-            )).then((outputVo) {
-      isVerifyCodeAndGoNextDoing = false;
-    });
+            )).then((outputVo) {});
   }
-}
 
-// (페이지에서 사용할 변수 저장 클래스)
-class PageWidgetViewModel {
-  PageWidgetViewModel({required this.context, required this.inputVo});
-
-  // (최초 실행 플래그)
-  bool needInitState = true;
-
-  // (페이지 pop 가능 여부 변수)
-  bool canPop = true;
-
-  // (페이지 컨텍스트 객체)
-  BuildContext context;
-
-  // (위젯 입력값)
-  dialog_widget.InputVo inputVo;
-
-// !!!페이지에서 사용할 변수를 아래에 선언하기!!!
-
-// !!!페이지에서 사용할 변수를 아래에 선언하기!!!
-  final GlobalKey<gw_do_delete.SfwTextFormFieldState>
-      gwTextFormFieldWrapperStateGk = GlobalKey();
-
-  // (검증 요청 고유번호)
-  late int verificationUid;
+  // [private 함수]
+  void _doNothing() {}
 }
