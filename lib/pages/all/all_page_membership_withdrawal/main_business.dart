@@ -22,7 +22,7 @@ import 'package:flutter_project_template/dialogs/all/all_dialog_loading_spinner/
     as all_dialog_loading_spinner;
 import 'package:flutter_project_template/dialogs/all/all_dialog_yes_or_no/main_widget.dart'
     as all_dialog_yes_or_no;
-import 'package:flutter_project_template/pages/all/all_page_home/page_widget.dart'
+import 'package:flutter_project_template/pages/all/all_page_home/main_widget.dart'
     as all_page_home;
 import 'package:flutter_project_template/pages/all/all_page_login/page_entrance.dart'
     as all_page_login;

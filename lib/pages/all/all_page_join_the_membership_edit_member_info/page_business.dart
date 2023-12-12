@@ -28,7 +28,7 @@ import 'package:flutter_project_template/repositories/spws/spw_auth_member_info.
     as spw_auth_member_info;
 import 'package:flutter_project_template/global_functions/gf_my_functions.dart'
     as gf_my_functions;
-import 'package:flutter_project_template/pages/all/all_page_home/page_widget.dart'
+import 'package:flutter_project_template/pages/all/all_page_home/main_widget.dart'
     as all_page_home;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]

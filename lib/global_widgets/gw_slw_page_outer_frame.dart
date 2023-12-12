@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 
 // (all)
-import 'package:flutter_project_template/pages/all/all_page_home/page_widget.dart'
+import 'package:flutter_project_template/pages/all/all_page_home/main_widget.dart'
     as all_page_home;
 
 // [위젯 뷰]
