@@ -1,6 +1,5 @@
 [TODO]
 - [home 페이지 이식]
-  all_page_dialog_sample_list
   all_page_etc_sample_list
   all_page_network_request_sample_list
   all_page_page_and_router_sample_list
@@ -9,7 +8,7 @@
   mobile_page_permission_sample_list
 
   all_page_form_sample
-  
+
   [network 리퀘스트 이식]
   all_page_get_request_sample
   all_page_post_request_sample1
