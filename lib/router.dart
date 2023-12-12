@@ -37,7 +37,7 @@ import 'pages/all/all_page_member_info/page_widget.dart'
     as all_page_member_info;
 import 'pages/all/all_page_membership_withdrawal/main_widget.dart'
     as all_page_membership_withdrawal;
-import 'pages/all/all_page_network_request_sample_list/page_widget.dart'
+import 'pages/all/all_page_network_request_sample_list/main_widget.dart'
     as all_page_network_request_sample_list;
 import 'pages/all/all_page_page_and_router_sample_list/page_widget.dart'
     as all_page_page_and_router_sample_list;
@@ -234,7 +234,7 @@ GoRouter getRouter() {
       pageBuilder: (c, s) {
         return CustomTransitionPage(
             key: s.pageKey,
-            child: all_page_network_request_sample_list.PageWidget(
+            child: all_page_network_request_sample_list.MainWidget(
                 goRouterState: s),
             transitionsBuilder:
                 all_page_network_request_sample_list.pageTransitionsBuilder);
