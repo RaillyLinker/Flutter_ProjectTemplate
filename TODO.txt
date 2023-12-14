@@ -1,8 +1,5 @@
 [TODO]
-- [home 페이지 이식]
-  mobile_page_permission_sample_list
-
-  [auth Dialog 의 formfield 이식]
+- [auth Dialog 의 formfield 이식]
   all_page_form_sample
 
   [network 리퀘스트 이식]

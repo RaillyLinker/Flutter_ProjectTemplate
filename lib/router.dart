@@ -82,7 +82,7 @@ import 'pages/app/app_page_server_sample/page_entrance.dart'
     as app_page_server_sample;
 
 // (mobile)
-import 'pages/mobile/mobile_page_permission_sample_list/page_entrance.dart'
+import 'pages/mobile/mobile_page_permission_sample_list/main_widget.dart'
     as mobile_page_permission_sample_list;
 
 // [프로그램 라우터 설정 파일]
@@ -588,7 +588,8 @@ GoRouter getRouter() {
           pageBuilder: (c, s) {
             return CustomTransitionPage(
                 key: s.pageKey,
-                child: mobile_page_permission_sample_list.PageEntrance(s),
+                child: mobile_page_permission_sample_list.MainWidget(
+                    goRouterState: s),
                 transitionsBuilder:
                     mobile_page_permission_sample_list.pageTransitionsBuilder);
           }));

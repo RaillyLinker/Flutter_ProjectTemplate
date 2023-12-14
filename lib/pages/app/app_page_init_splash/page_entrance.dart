@@ -10,7 +10,7 @@ import 'page_business.dart' as page_business;
 
 // (all)
 import 'package:flutter_project_template/a_must_delete/todo_do_delete.dart'
-    as todo_do_delete;
+as todo_do_delete;
 
 // [페이지 진입 파일]
 
@@ -22,8 +22,8 @@ const pageName = "app_page_init_splash";
 // !!!페이지 호출/반납 애니메이션!!!
 // 동적으로 변경이 가능합니다.
 Widget Function(BuildContext context, Animation<double> animation,
-        Animation<double> secondaryAnimation, Widget child)
-    pageTransitionsBuilder = (context, animation, secondaryAnimation, child) {
+    Animation<double> secondaryAnimation, Widget child)
+pageTransitionsBuilder = (context, animation, secondaryAnimation, child) {
   return FadeTransition(opacity: animation, child: child);
 };
 
@@ -49,7 +49,9 @@ class PageEntrance extends StatelessWidget {
   Widget build(BuildContext context) {
     // BLoC Provider 리스트
     List<BlocProvider<dynamic>> blocProviders =
-        page_business.BLocProviders().blocProviders;
+        page_business
+            .BLocProviders()
+            .blocProviders;
 
     // pageBusiness 객체 생성
     var pageBusiness = page_business.PageBusiness(context);
@@ -108,7 +110,9 @@ class LifecycleWatcherState extends State<LifecycleWatcher>
   @override
   Widget build(BuildContext context) {
     todo_do_delete.BlocPageInfoState blocPageInfoState =
-        BlocProvider.of<todo_do_delete.BlocPageInfo>(context).state;
+        BlocProvider
+            .of<todo_do_delete.BlocPageInfo>(context)
+            .state;
     _pageBusiness = blocPageInfoState.pageBusiness;
 
     return WillPopScope(
@@ -130,7 +134,7 @@ class LifecycleWatcherState extends State<LifecycleWatcher>
         },
         // 페이지 생명주기를 Business 에 넘겨주기
         child: FocusDetector(
-            // Businesses 에 focus 콜백 전달
+          // Businesses 에 focus 콜백 전달
             onFocusGained: () async {
               if (!_pageBusiness.pageLifeCycleStates.isPageCreated) {
                 _pageBusiness.pageLifeCycleStates.isPageCreated = true;

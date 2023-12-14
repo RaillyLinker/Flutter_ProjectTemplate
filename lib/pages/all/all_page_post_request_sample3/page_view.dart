@@ -9,9 +9,9 @@ import 'page_business.dart' as page_business;
 
 // (all)
 import 'package:flutter_project_template/global_widgets/gw_slw_page_outer_frame.dart'
-    as gw_slw_page_outer_frame;
+as gw_slw_page_outer_frame;
 import 'package:flutter_project_template/a_must_delete/todo_do_delete.dart'
-    as todo_do_delete;
+as todo_do_delete;
 
 // [페이지 화면 위젯 작성 파일]
 // 페이지 화면 구현을 담당합니다.
@@ -27,7 +27,8 @@ class PageView extends StatelessWidget {
   Widget build(BuildContext context) {
     // pageBusiness 객체
     page_business.PageBusiness pageBusiness =
-        BlocProvider.of<todo_do_delete.BlocPageInfo>(context)
+        BlocProvider
+            .of<todo_do_delete.BlocPageInfo>(context)
             .state
             .pageBusiness;
 
@@ -37,7 +38,7 @@ class PageView extends StatelessWidget {
       child: SingleChildScrollView(
         child: Container(
           margin:
-              const EdgeInsets.only(left: 10, right: 10, top: 20, bottom: 20),
+          const EdgeInsets.only(left: 10, right: 10, top: 20, bottom: 20),
           child: Column(
             children: [
               Container(
@@ -89,7 +90,7 @@ class PageView extends StatelessWidget {
                                 Expanded(
                                     child: Text("(Body ",
                                         style:
-                                            TextStyle(fontFamily: "MaruBuri"))),
+                                        TextStyle(fontFamily: "MaruBuri"))),
                                 Expanded(
                                     child: Text("String",
                                         style: TextStyle(
@@ -98,7 +99,7 @@ class PageView extends StatelessWidget {
                                 Expanded(
                                     child: Text(")",
                                         style:
-                                            TextStyle(fontFamily: "MaruBuri")))
+                                        TextStyle(fontFamily: "MaruBuri")))
                               ],
                             ),
                           )
@@ -149,7 +150,7 @@ class PageView extends StatelessWidget {
                                 Expanded(
                                     child: Text("(Body ",
                                         style:
-                                            TextStyle(fontFamily: "MaruBuri"))),
+                                        TextStyle(fontFamily: "MaruBuri"))),
                                 Expanded(
                                     child: Text("String?",
                                         style: TextStyle(
@@ -158,7 +159,7 @@ class PageView extends StatelessWidget {
                                 Expanded(
                                     child: Text(")",
                                         style:
-                                            TextStyle(fontFamily: "MaruBuri")))
+                                        TextStyle(fontFamily: "MaruBuri")))
                               ],
                             ),
                           )
@@ -209,7 +210,7 @@ class PageView extends StatelessWidget {
                                 Expanded(
                                     child: Text("(Body ",
                                         style:
-                                            TextStyle(fontFamily: "MaruBuri"))),
+                                        TextStyle(fontFamily: "MaruBuri"))),
                                 Expanded(
                                     child: Text("Int",
                                         style: TextStyle(
@@ -218,7 +219,7 @@ class PageView extends StatelessWidget {
                                 Expanded(
                                     child: Text(")",
                                         style:
-                                            TextStyle(fontFamily: "MaruBuri")))
+                                        TextStyle(fontFamily: "MaruBuri")))
                               ],
                             ),
                           )
@@ -236,8 +237,8 @@ class PageView extends StatelessWidget {
                             margin: const EdgeInsets.only(top: 10),
                             child: TextField(
                               keyboardType:
-                                  const TextInputType.numberWithOptions(
-                                      decimal: false, signed: false),
+                              const TextInputType.numberWithOptions(
+                                  decimal: false, signed: false),
                               inputFormatters: <TextInputFormatter>[
                                 FilteringTextInputFormatter.digitsOnly
                               ],
@@ -274,7 +275,7 @@ class PageView extends StatelessWidget {
                                 Expanded(
                                     child: Text("(Body ",
                                         style:
-                                            TextStyle(fontFamily: "MaruBuri"))),
+                                        TextStyle(fontFamily: "MaruBuri"))),
                                 Expanded(
                                     child: Text("Int?",
                                         style: TextStyle(
@@ -283,7 +284,7 @@ class PageView extends StatelessWidget {
                                 Expanded(
                                     child: Text(")",
                                         style:
-                                            TextStyle(fontFamily: "MaruBuri")))
+                                        TextStyle(fontFamily: "MaruBuri")))
                               ],
                             ),
                           )
@@ -301,8 +302,8 @@ class PageView extends StatelessWidget {
                             margin: const EdgeInsets.only(top: 10),
                             child: TextField(
                               keyboardType:
-                                  const TextInputType.numberWithOptions(
-                                      decimal: false, signed: false),
+                              const TextInputType.numberWithOptions(
+                                  decimal: false, signed: false),
                               inputFormatters: <TextInputFormatter>[
                                 FilteringTextInputFormatter.digitsOnly
                               ],
@@ -340,7 +341,7 @@ class PageView extends StatelessWidget {
                                 Expanded(
                                     child: Text("(Body ",
                                         style:
-                                            TextStyle(fontFamily: "MaruBuri"))),
+                                        TextStyle(fontFamily: "MaruBuri"))),
                                 Expanded(
                                     child: Text("Double",
                                         style: TextStyle(
@@ -349,7 +350,7 @@ class PageView extends StatelessWidget {
                                 Expanded(
                                     child: Text(")",
                                         style:
-                                            TextStyle(fontFamily: "MaruBuri")))
+                                        TextStyle(fontFamily: "MaruBuri")))
                               ],
                             ),
                           )
@@ -367,19 +368,19 @@ class PageView extends StatelessWidget {
                             margin: const EdgeInsets.only(top: 10),
                             child: TextField(
                               keyboardType:
-                                  const TextInputType.numberWithOptions(
-                                      decimal: true, signed: false),
+                              const TextInputType.numberWithOptions(
+                                  decimal: true, signed: false),
                               inputFormatters: [
                                 FilteringTextInputFormatter.allow(
                                     RegExp(r"[0-9.]")),
                                 TextInputFormatter.withFunction(
-                                    (oldValue, newValue) {
-                                  String text = newValue.text;
-                                  if (text.isNotEmpty) {
-                                    double.parse(text);
-                                  }
-                                  return newValue;
-                                }),
+                                        (oldValue, newValue) {
+                                      String text = newValue.text;
+                                      if (text.isNotEmpty) {
+                                        double.parse(text);
+                                      }
+                                      return newValue;
+                                    }),
                               ],
                               controller: pageBusiness.pageViewModel
                                   .networkRequestParamTextFieldController5,
@@ -415,7 +416,7 @@ class PageView extends StatelessWidget {
                                 Expanded(
                                     child: Text("(Body ",
                                         style:
-                                            TextStyle(fontFamily: "MaruBuri"))),
+                                        TextStyle(fontFamily: "MaruBuri"))),
                                 Expanded(
                                     child: Text("Double?",
                                         style: TextStyle(
@@ -424,7 +425,7 @@ class PageView extends StatelessWidget {
                                 Expanded(
                                     child: Text(")",
                                         style:
-                                            TextStyle(fontFamily: "MaruBuri")))
+                                        TextStyle(fontFamily: "MaruBuri")))
                               ],
                             ),
                           )
@@ -442,19 +443,19 @@ class PageView extends StatelessWidget {
                             margin: const EdgeInsets.only(top: 10),
                             child: TextField(
                               keyboardType:
-                                  const TextInputType.numberWithOptions(
-                                      decimal: true, signed: false),
+                              const TextInputType.numberWithOptions(
+                                  decimal: true, signed: false),
                               inputFormatters: [
                                 FilteringTextInputFormatter.allow(
                                     RegExp(r"[0-9.]")),
                                 TextInputFormatter.withFunction(
-                                    (oldValue, newValue) {
-                                  String text = newValue.text;
-                                  if (text.isNotEmpty) {
-                                    double.parse(text);
-                                  }
-                                  return newValue;
-                                }),
+                                        (oldValue, newValue) {
+                                      String text = newValue.text;
+                                      if (text.isNotEmpty) {
+                                        double.parse(text);
+                                      }
+                                      return newValue;
+                                    }),
                               ],
                               controller: pageBusiness.pageViewModel
                                   .networkRequestParamTextFieldController6,
@@ -490,7 +491,7 @@ class PageView extends StatelessWidget {
                                 Expanded(
                                     child: Text("(Body ",
                                         style:
-                                            TextStyle(fontFamily: "MaruBuri"))),
+                                        TextStyle(fontFamily: "MaruBuri"))),
                                 Expanded(
                                     child: Text("Boolean",
                                         style: TextStyle(
@@ -499,7 +500,7 @@ class PageView extends StatelessWidget {
                                 Expanded(
                                     child: Text(")",
                                         style:
-                                            TextStyle(fontFamily: "MaruBuri")))
+                                        TextStyle(fontFamily: "MaruBuri")))
                               ],
                             ),
                           )
@@ -529,8 +530,8 @@ class PageView extends StatelessWidget {
                               }).toList(),
                               onChanged: (bool? newValue) {
                                 pageBusiness.pageViewModel
-                                        .networkRequestParamTextFieldValue7 =
-                                    newValue!;
+                                    .networkRequestParamTextFieldValue7 =
+                                newValue!;
                               },
                             ),
                           )
@@ -561,7 +562,7 @@ class PageView extends StatelessWidget {
                                 Expanded(
                                     child: Text("(Body ",
                                         style:
-                                            TextStyle(fontFamily: "MaruBuri"))),
+                                        TextStyle(fontFamily: "MaruBuri"))),
                                 Expanded(
                                     child: Text("Boolean?",
                                         style: TextStyle(
@@ -570,7 +571,7 @@ class PageView extends StatelessWidget {
                                 Expanded(
                                     child: Text(")",
                                         style:
-                                            TextStyle(fontFamily: "MaruBuri")))
+                                        TextStyle(fontFamily: "MaruBuri")))
                               ],
                             ),
                           )
@@ -600,7 +601,7 @@ class PageView extends StatelessWidget {
                               }).toList(),
                               onChanged: (bool? newValue) {
                                 pageBusiness.pageViewModel
-                                        .networkRequestParamTextFieldValue8 =
+                                    .networkRequestParamTextFieldValue8 =
                                     newValue;
                               },
                             ),
@@ -632,7 +633,7 @@ class PageView extends StatelessWidget {
                                 Expanded(
                                     child: Text("(Body ",
                                         style:
-                                            TextStyle(fontFamily: "MaruBuri"))),
+                                        TextStyle(fontFamily: "MaruBuri"))),
                                 Expanded(
                                     child: Text("array[string]",
                                         style: TextStyle(
@@ -641,7 +642,7 @@ class PageView extends StatelessWidget {
                                 Expanded(
                                     child: Text(")",
                                         style:
-                                            TextStyle(fontFamily: "MaruBuri")))
+                                        TextStyle(fontFamily: "MaruBuri")))
                               ],
                             ),
                           )
@@ -663,21 +664,21 @@ class PageView extends StatelessWidget {
                               children: [
                                 BlocBuilder<
                                     page_business
-                                    .BlocNetworkRequestParamTextFieldValue9,
+                                        .BlocNetworkRequestParamTextFieldValue9,
                                     bool>(
                                   builder: (c, s) {
                                     List<Widget> widgetList = [];
                                     for (int idx = 0;
-                                        idx <
-                                            pageBusiness
-                                                .pageViewModel
-                                                .networkRequestParamTextFieldValue9
-                                                .length;
-                                        idx++) {
+                                    idx <
+                                        pageBusiness
+                                            .pageViewModel
+                                            .networkRequestParamTextFieldValue9
+                                            .length;
+                                    idx++) {
                                       TextEditingController tec = pageBusiness
-                                              .pageViewModel
-                                              .networkRequestParamTextFieldValue9[
-                                          idx];
+                                          .pageViewModel
+                                          .networkRequestParamTextFieldValue9[
+                                      idx];
 
                                       List<Widget> textFieldRow = [
                                         Expanded(
@@ -691,18 +692,18 @@ class PageView extends StatelessWidget {
                                       ];
 
                                       if (pageBusiness
-                                              .pageViewModel
-                                              .networkRequestParamTextFieldValue9
-                                              .length >
+                                          .pageViewModel
+                                          .networkRequestParamTextFieldValue9
+                                          .length >
                                           1) {
                                         textFieldRow.add(Container(
                                           margin:
-                                              const EdgeInsets.only(left: 5),
+                                          const EdgeInsets.only(left: 5),
                                           child: ElevatedButton(
                                               onPressed: () {
                                                 pageBusiness
                                                     .deleteNetworkRequestParamTextFieldValue9(
-                                                        idx);
+                                                    idx);
                                               },
                                               style: ElevatedButton.styleFrom(
                                                 backgroundColor: Colors.blue,
@@ -778,7 +779,7 @@ class PageView extends StatelessWidget {
                                 Expanded(
                                     child: Text("(Body ",
                                         style:
-                                            TextStyle(fontFamily: "MaruBuri"))),
+                                        TextStyle(fontFamily: "MaruBuri"))),
                                 Expanded(
                                     child: Text("array[string]?",
                                         style: TextStyle(
@@ -787,7 +788,7 @@ class PageView extends StatelessWidget {
                                 Expanded(
                                     child: Text(")",
                                         style:
-                                            TextStyle(fontFamily: "MaruBuri")))
+                                        TextStyle(fontFamily: "MaruBuri")))
                               ],
                             ),
                           )
@@ -809,21 +810,21 @@ class PageView extends StatelessWidget {
                               children: [
                                 BlocBuilder<
                                     page_business
-                                    .BlocNetworkRequestParamTextFieldValue10,
+                                        .BlocNetworkRequestParamTextFieldValue10,
                                     bool>(
                                   builder: (c, s) {
                                     List<Widget> widgetList = [];
                                     for (int idx = 0;
-                                        idx <
-                                            pageBusiness
-                                                .pageViewModel
-                                                .networkRequestParamTextFieldValue10
-                                                .length;
-                                        idx++) {
+                                    idx <
+                                        pageBusiness
+                                            .pageViewModel
+                                            .networkRequestParamTextFieldValue10
+                                            .length;
+                                    idx++) {
                                       TextEditingController tec = pageBusiness
-                                              .pageViewModel
-                                              .networkRequestParamTextFieldValue10[
-                                          idx];
+                                          .pageViewModel
+                                          .networkRequestParamTextFieldValue10[
+                                      idx];
 
                                       List<Widget> textFieldRow = [
                                         Expanded(
@@ -842,7 +843,7 @@ class PageView extends StatelessWidget {
                                             onPressed: () {
                                               pageBusiness
                                                   .deleteNetworkRequestParamTextFieldValue10(
-                                                      idx);
+                                                  idx);
                                             },
                                             style: ElevatedButton.styleFrom(
                                               backgroundColor: Colors.blue,
@@ -926,7 +927,7 @@ class PageView extends StatelessWidget {
                                 Expanded(
                                     child: Text("(Body ",
                                         style:
-                                            TextStyle(fontFamily: "MaruBuri"))),
+                                        TextStyle(fontFamily: "MaruBuri"))),
                                 Expanded(
                                     child: Text("MultipartFile",
                                         style: TextStyle(
@@ -935,7 +936,7 @@ class PageView extends StatelessWidget {
                                 Expanded(
                                     child: Text(")",
                                         style:
-                                            TextStyle(fontFamily: "MaruBuri")))
+                                        TextStyle(fontFamily: "MaruBuri")))
                               ],
                             ),
                           )
@@ -956,7 +957,7 @@ class PageView extends StatelessWidget {
                               children: [
                                 BlocBuilder<
                                     page_business
-                                    .BlocNetworkRequestParamMultipartPath11,
+                                        .BlocNetworkRequestParamMultipartPath11,
                                     bool>(
                                   builder: (c, s) {
                                     if (pageBusiness.pageViewModel.pickFile1 ==
@@ -1020,7 +1021,7 @@ class PageView extends StatelessWidget {
                                 Expanded(
                                     child: Text("(Body ",
                                         style:
-                                            TextStyle(fontFamily: "MaruBuri"))),
+                                        TextStyle(fontFamily: "MaruBuri"))),
                                 Expanded(
                                     child: Text("MultipartFile?",
                                         style: TextStyle(
@@ -1029,7 +1030,7 @@ class PageView extends StatelessWidget {
                                 Expanded(
                                     child: Text(")",
                                         style:
-                                            TextStyle(fontFamily: "MaruBuri")))
+                                        TextStyle(fontFamily: "MaruBuri")))
                               ],
                             ),
                           )
@@ -1050,7 +1051,7 @@ class PageView extends StatelessWidget {
                               children: [
                                 BlocBuilder<
                                     page_business
-                                    .BlocNetworkRequestParamMultipartPath12,
+                                        .BlocNetworkRequestParamMultipartPath12,
                                     bool>(
                                   builder: (c, s) {
                                     if (pageBusiness.pageViewModel.pickFile2 ==
@@ -1071,11 +1072,11 @@ class PageView extends StatelessWidget {
                                   margin: const EdgeInsets.only(top: 10),
                                   child: BlocBuilder<
                                       page_business
-                                      .BlocNetworkRequestParamMultipartPath12,
+                                          .BlocNetworkRequestParamMultipartPath12,
                                       bool>(
                                     builder: (c, s) {
                                       if (pageBusiness
-                                              .pageViewModel.pickFile2 ==
+                                          .pageViewModel.pickFile2 ==
                                           null) {
                                         return ElevatedButton(
                                             onPressed: () {

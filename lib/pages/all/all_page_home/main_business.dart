@@ -26,7 +26,7 @@ import 'package:flutter_project_template/pages/all/all_page_etc_sample_list/main
     as all_page_etc_sample_list;
 
 // (mobile)
-import 'package:flutter_project_template/pages/mobile/mobile_page_permission_sample_list/page_entrance.dart'
+import 'package:flutter_project_template/pages/mobile/mobile_page_permission_sample_list/main_widget.dart'
     as mobile_page_permission_sample_list;
 
 // [위젯 비즈니스]
