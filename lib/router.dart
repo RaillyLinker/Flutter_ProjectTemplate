@@ -70,7 +70,7 @@ import 'pages/all/all_page_context_menu_sample/main_widget.dart'
     as all_page_context_menu_sample;
 import 'pages/all/all_page_gesture_area_overlap_test/main_widget.dart'
     as all_page_gesture_area_overlap_test;
-import 'pages/all/all_page_form_sample/page_widget.dart'
+import 'pages/all/all_page_form_sample/main_widget.dart'
     as all_page_form_sample;
 import 'pages/all/all_page_horizontal_scroll_test/main_widget.dart'
     as all_page_horizontal_scroll_test;
@@ -526,7 +526,7 @@ GoRouter getRouter() {
       pageBuilder: (c, s) {
         return CustomTransitionPage(
             key: s.pageKey,
-            child: all_page_form_sample.PageWidget(goRouterState: s),
+            child: all_page_form_sample.MainWidget(goRouterState: s),
             transitionsBuilder: all_page_form_sample.pageTransitionsBuilder);
       }));
 

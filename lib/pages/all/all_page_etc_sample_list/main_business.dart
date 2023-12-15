@@ -31,7 +31,7 @@ import 'package:flutter_project_template/pages/all/all_page_context_menu_sample/
     as all_page_context_menu_sample;
 import 'package:flutter_project_template/pages/all/all_page_gesture_area_overlap_test/main_widget.dart'
     as all_page_gesture_area_overlap_test;
-import 'package:flutter_project_template/pages/all/all_page_form_sample/page_widget.dart'
+import 'package:flutter_project_template/pages/all/all_page_form_sample/main_widget.dart'
     as all_page_form_sample;
 import 'package:flutter_project_template/pages/all/all_page_horizontal_scroll_test/main_widget.dart'
     as all_page_horizontal_scroll_test;
