@@ -11,10 +11,15 @@ import 'package:gif/gif.dart';
 // (리플레시 래퍼 위젯)
 class SfwRefreshWrapper extends StatefulWidget {
   const SfwRefreshWrapper(
-      {required super.key, required this.childWidgetBuilder});
+      {required super.key,
+      required this.childWidgetBuilder,
+      this.onWidgetDispose});
 
   // !!!외부 입력 변수 선언 하기!!!
   final Widget Function(BuildContext context) childWidgetBuilder;
+
+  // (위젯 dispose 시점에 실행)
+  final void Function(BuildContext context)? onWidgetDispose;
 
   // [콜백 함수]
   @override
@@ -37,6 +42,9 @@ class SfwRefreshWrapperState extends State<SfwRefreshWrapper> {
   @override
   void dispose() {
     // !!!dispose 작성!!!
+    if (widget.onWidgetDispose != null) {
+      widget.onWidgetDispose!(context);
+    }
     super.dispose();
   }
 
