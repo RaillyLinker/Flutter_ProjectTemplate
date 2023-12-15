@@ -142,7 +142,7 @@ class MainWidgetState extends State<MainWidget> with WidgetsBindingObserver {
       pageTitle: "네트워크 요청 샘플 리스트",
       child: gw_sfw_wrapper.SfwRefreshWrapper(
         key: mainBusiness.hoveringTileViewModelListAreaGk,
-        childWidgetBuilder: (hoveringTileListAreaContext) {
+        widgetBuild: (hoveringTileListAreaContext) {
           mainBusiness.hoveringTileListAreaContext =
               hoveringTileListAreaContext;
           return ListView.builder(
@@ -154,7 +154,7 @@ class MainWidgetState extends State<MainWidget> with WidgetsBindingObserver {
 
               return gw_sfw_wrapper.SfwRefreshWrapper(
                 key: hoveringListTileViewModel.hoveringTileAreaGk,
-                childWidgetBuilder: (hoveringTileAreaContext) {
+                widgetBuild: (hoveringTileAreaContext) {
                   hoveringListTileViewModel.hoveringTileAreaContext =
                       hoveringTileAreaContext;
                   return Column(

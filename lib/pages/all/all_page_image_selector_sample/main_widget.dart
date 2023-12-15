@@ -157,7 +157,7 @@ class MainWidgetState extends State<MainWidget> with WidgetsBindingObserver {
                       children: [
                         gw_sfw_wrapper.SfwRefreshWrapper(
                           key: mainBusiness.profileImageAreaGk,
-                          childWidgetBuilder: (profileImageAreaContext) {
+                          widgetBuild: (profileImageAreaContext) {
                             mainBusiness.profileImageAreaContext =
                                 profileImageAreaContext;
 
@@ -253,7 +253,7 @@ class MainWidgetState extends State<MainWidget> with WidgetsBindingObserver {
                 child: Center(
                   child: gw_sfw_wrapper.SfwRefreshWrapper(
                     key: mainBusiness.imageListAreaGk,
-                    childWidgetBuilder: (imageListAreaContext) {
+                    widgetBuild: (imageListAreaContext) {
                       mainBusiness.imageListAreaContext = imageListAreaContext;
 
                       return ListView.builder(

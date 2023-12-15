@@ -183,7 +183,7 @@ class MainWidgetState extends State<MainWidget> with WidgetsBindingObserver {
                     margin: const EdgeInsets.only(bottom: 20),
                     child: gw_sfw_wrapper.SfwRefreshWrapper(
                       key: mainBusiness.sampleIntAreaGk,
-                      childWidgetBuilder: (context) {
+                      widgetBuild: (context) {
                         return Text("${mainBusiness.sampleInt}",
                             style: const TextStyle(
                                 fontSize: 20,

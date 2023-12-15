@@ -221,7 +221,7 @@ class MainWidgetState extends State<MainWidget> with WidgetsBindingObserver {
                           ),
                           gw_sfw_wrapper.SfwRefreshWrapper(
                             key: mainBusiness.withdrawalAgreeAreaGk,
-                            childWidgetBuilder: (withdrawalAgreeAreaContext) {
+                            widgetBuild: (withdrawalAgreeAreaContext) {
                               mainBusiness.withdrawalAgreeAreaContext =
                                   withdrawalAgreeAreaContext;
 

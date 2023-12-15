@@ -166,7 +166,7 @@ class MainWidgetState extends State<MainWidget> with WidgetsBindingObserver {
                       margin: const EdgeInsets.only(bottom: 20),
                       child: gw_sfw_wrapper.SfwRefreshWrapper(
                         key: mainBusiness.globalDataAreaGk,
-                        childWidgetBuilder: (globalDataAreaContext) {
+                        widgetBuild: (globalDataAreaContext) {
                           mainBusiness.globalDataAreaContext =
                               globalDataAreaContext;
 

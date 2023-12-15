@@ -200,7 +200,7 @@ class MainWidgetState extends State<MainWidget> with WidgetsBindingObserver {
                     child: Form(
                       child: gw_sfw_wrapper.SfwRefreshWrapper(
                         key: mainBusiness.verificationCodeTextFieldAreaGk,
-                        childWidgetBuilder: (context) {
+                        widgetBuild: (context) {
                           mainBusiness.verificationCodeTextFieldContext =
                               context;
                           return TextFormField(

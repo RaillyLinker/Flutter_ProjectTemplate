@@ -12,14 +12,13 @@ import 'package:gif/gif.dart';
 class SfwRefreshWrapper extends StatefulWidget {
   const SfwRefreshWrapper(
       {required super.key,
-      required this.childWidgetBuilder,
-      this.onWidgetDispose});
+      this.widgetInit,
+      required this.widgetBuild,
+      this.widgetDispose});
 
-  // !!!외부 입력 변수 선언 하기!!!
-  final Widget Function(BuildContext context) childWidgetBuilder;
-
-  // (위젯 dispose 시점에 실행)
-  final void Function(BuildContext context)? onWidgetDispose;
+  final void Function(BuildContext context)? widgetInit;
+  final Widget Function(BuildContext context) widgetBuild;
+  final void Function(BuildContext context)? widgetDispose;
 
   // [콜백 함수]
   @override
@@ -27,49 +26,29 @@ class SfwRefreshWrapper extends StatefulWidget {
 }
 
 class SfwRefreshWrapperState extends State<SfwRefreshWrapper> {
-  // [콜백 함수]
-  @override
-  Widget build(BuildContext context) {
-    return getScreenWidget(context: context);
-  }
-
   @override
   void initState() {
     super.initState();
-    // !!!initState 작성!!!
+    if (widget.widgetInit != null) {
+      widget.widgetInit!(context);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return widget.widgetBuild(context);
   }
 
   @override
   void dispose() {
-    // !!!dispose 작성!!!
-    if (widget.onWidgetDispose != null) {
-      widget.onWidgetDispose!(context);
+    if (widget.widgetDispose != null) {
+      widget.widgetDispose!(context);
     }
     super.dispose();
   }
 
-  //----------------------------------------------------------------------------
-  // !!!위젯 변수를 저장 하세요.!!!
-  // [public 변수]
-
-  // [private 변수]
-
-  //----------------------------------------------------------------------------
-  // !!!위젯 함수를 작성 하세요.!!!
-  // [public 함수]
-  // (Stateful Widget 화면 갱신)
   void refreshUi() {
     setState(() {});
-  }
-
-  // [private 함수]
-
-  //----------------------------------------------------------------------------
-  // [화면 작성]
-  Widget getScreenWidget({required BuildContext context}) {
-    // !!!위젯 화면을 작성 하세요.!!!
-
-    return widget.childWidgetBuilder(context);
   }
 }
 

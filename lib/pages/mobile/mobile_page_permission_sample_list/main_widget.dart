@@ -143,7 +143,7 @@ class MainWidgetState extends State<MainWidget> with WidgetsBindingObserver {
       pageTitle: "모바일 권한 샘플",
       child: gw_sfw_wrapper.SfwRefreshWrapper(
         key: mainBusiness.hoveringTileViewModelListAreaGk,
-        childWidgetBuilder: (hoveringTileListAreaContext) {
+        widgetBuild: (hoveringTileListAreaContext) {
           mainBusiness.hoveringTileListAreaContext =
               hoveringTileListAreaContext;
           return ListView.builder(
@@ -155,7 +155,7 @@ class MainWidgetState extends State<MainWidget> with WidgetsBindingObserver {
 
               return gw_sfw_wrapper.SfwRefreshWrapper(
                 key: hoveringListTileViewModel.hoveringTileAreaGk,
-                childWidgetBuilder: (hoveringTileAreaContext) {
+                widgetBuild: (hoveringTileAreaContext) {
                   hoveringListTileViewModel.hoveringTileAreaContext =
                       hoveringTileAreaContext;
                   return Column(
@@ -198,7 +198,7 @@ class MainWidgetState extends State<MainWidget> with WidgetsBindingObserver {
                               trailing: gw_sfw_wrapper.SfwRefreshWrapper(
                                 key: hoveringListTileViewModel
                                     .isSwitchCheckedAreaGk,
-                                childWidgetBuilder:
+                                widgetBuild:
                                     (isSwitchCheckedAreaContext) {
                                   hoveringListTileViewModel
                                       .isSwitchCheckedAreaContext =

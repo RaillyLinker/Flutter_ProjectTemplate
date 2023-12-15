@@ -145,7 +145,7 @@ class MainWidgetState extends State<MainWidget> with WidgetsBindingObserver {
           children: [
             gw_sfw_wrapper.SfwRefreshWrapper(
               key: mainBusiness.memberInfoAreaGk,
-              childWidgetBuilder: (memberInfoAreaContext) {
+              widgetBuild: (memberInfoAreaContext) {
                 mainBusiness.memberInfoAreaContext = memberInfoAreaContext;
 
                 return Container(
@@ -313,7 +313,7 @@ class MainWidgetState extends State<MainWidget> with WidgetsBindingObserver {
             ),
             gw_sfw_wrapper.SfwRefreshWrapper(
               key: mainBusiness.hoveringTileViewModelListAreaGk,
-              childWidgetBuilder: (hoveringTileListAreaContext) {
+              widgetBuild: (hoveringTileListAreaContext) {
                 mainBusiness.hoveringTileListAreaContext =
                     hoveringTileListAreaContext;
                 return ListView.builder(
@@ -327,7 +327,7 @@ class MainWidgetState extends State<MainWidget> with WidgetsBindingObserver {
 
                     return gw_sfw_wrapper.SfwRefreshWrapper(
                       key: hoveringListTileViewModel.hoveringTileAreaGk,
-                      childWidgetBuilder: (hoveringTileAreaContext) {
+                      widgetBuild: (hoveringTileAreaContext) {
                         hoveringListTileViewModel.hoveringTileAreaContext =
                             hoveringTileAreaContext;
                         return Column(
