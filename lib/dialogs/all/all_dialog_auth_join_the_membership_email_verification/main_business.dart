@@ -97,11 +97,11 @@ class MainBusiness {
   // 검증 코드 입력창 AreaGk
   final GlobalKey<gw_sfw_wrapper.SfwRefreshWrapperState>
       verificationCodeTextFieldAreaGk = GlobalKey();
+  late BuildContext verificationCodeTextFieldContext;
   final TextEditingController verificationCodeTextFieldController =
       TextEditingController();
   final FocusNode verificationCodeTextFieldFocus = FocusNode();
   String? verificationCodeTextFieldErrorMsg;
-  late BuildContext verificationCodeTextFieldContext;
 
   // [private 변수]
 
