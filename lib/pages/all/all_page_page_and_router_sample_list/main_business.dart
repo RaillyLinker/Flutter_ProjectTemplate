@@ -11,7 +11,7 @@ import 'package:flutter_project_template/global_widgets/gw_slw_page_outer_frame.
     as gw_slw_page_outer_frame;
 import 'package:flutter_project_template/global_widgets/gw_sfw_wrapper.dart'
     as gw_sfw_wrapper;
-import 'package:flutter_project_template/pages/all/all_page_input_and_output_push_test/page_widget.dart'
+import 'package:flutter_project_template/pages/all/all_page_input_and_output_push_test/main_widget.dart'
     as all_page_input_and_output_push_test;
 import 'package:flutter_project_template/a_templates/all_page_template/main_widget.dart'
     as all_page_template;

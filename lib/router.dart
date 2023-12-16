@@ -26,7 +26,7 @@ import 'pages/all/all_page_get_request_sample/main_widget.dart'
 import 'pages/all/all_page_global_variable_state_test_sample/main_widget.dart'
     as all_page_global_variable_state_test_sample;
 import 'pages/all/all_page_home/main_widget.dart' as all_page_home;
-import 'pages/all/all_page_input_and_output_push_test/page_widget.dart'
+import 'pages/all/all_page_input_and_output_push_test/main_widget.dart'
     as all_page_input_and_output_push_test;
 import 'pages/all/all_page_join_the_membership_edit_member_info/page_entrance.dart'
     as all_page_join_the_membership_edit_member_info;
@@ -177,7 +177,7 @@ GoRouter getRouter() {
       pageBuilder: (c, s) {
         return CustomTransitionPage(
             key: s.pageKey,
-            child: all_page_input_and_output_push_test.PageWidget(
+            child: all_page_input_and_output_push_test.MainWidget(
                 goRouterState: s),
             transitionsBuilder:
                 all_page_input_and_output_push_test.pageTransitionsBuilder);
