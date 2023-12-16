@@ -1,19 +1,6 @@
 import 'package:bloc/bloc.dart';
 
 // todo : refreshWrapper 적용 후 파일 삭제
-// (오로지 리플래시만을 위한 BLoC 클래스)
-class RefreshableBloc extends Bloc<bool, bool> {
-  RefreshableBloc() : super(true) {
-    on<bool>((event, emit) {
-      emit(event);
-    });
-  }
-
-  void refreshUi() {
-    add(!state);
-  }
-}
-
 // (페이지 정보 저장용 BLoC State)
 class BlocPageInfoState<pageBusinessType> {
   BlocPageInfoState({required this.pageBusiness});

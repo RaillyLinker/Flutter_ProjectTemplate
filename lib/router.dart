@@ -13,7 +13,7 @@ import 'pages/all/all_page_authorization_test_sample_list/main_widget.dart'
     as all_page_authorization_test_sample_list;
 import 'pages/all/all_page_change_password/page_entrance.dart'
     as all_page_change_password;
-import 'pages/all/all_page_crypt_sample/page_widget.dart'
+import 'pages/all/all_page_crypt_sample/main_widget.dart'
     as all_page_crypt_sample;
 import 'pages/all/all_page_dialog_sample_list/main_widget.dart'
     as all_page_dialog_sample_list;
@@ -461,7 +461,7 @@ GoRouter getRouter() {
       pageBuilder: (c, s) {
         return CustomTransitionPage(
             key: s.pageKey,
-            child: all_page_crypt_sample.PageWidget(goRouterState: s),
+            child: all_page_crypt_sample.MainWidget(goRouterState: s),
             transitionsBuilder: all_page_crypt_sample.pageTransitionsBuilder);
       }));
 
