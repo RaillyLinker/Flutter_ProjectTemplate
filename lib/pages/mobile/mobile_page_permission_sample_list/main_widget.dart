@@ -9,9 +9,9 @@ import 'main_business.dart' as main_business;
 
 // (all)
 import 'package:flutter_project_template/global_widgets/gw_slw_page_outer_frame.dart'
-as gw_slw_page_outer_frame;
+    as gw_slw_page_outer_frame;
 import 'package:flutter_project_template/global_widgets/gw_sfw_wrapper.dart'
-as gw_sfw_wrapper;
+    as gw_sfw_wrapper;
 
 // [위젯 뷰]
 
@@ -21,8 +21,8 @@ const pageName = "mobile_page_permission_sample_list";
 
 // !!!페이지 호출/반납 애니메이션!!! - 동적으로 변경이 가능합니다.
 Widget Function(BuildContext context, Animation<double> animation,
-    Animation<double> secondaryAnimation, Widget child)
-pageTransitionsBuilder = (context, animation, secondaryAnimation, child) {
+        Animation<double> secondaryAnimation, Widget child)
+    pageTransitionsBuilder = (context, animation, secondaryAnimation, child) {
   return FadeTransition(opacity: animation, child: child);
 };
 
@@ -91,7 +91,7 @@ class MainWidgetState extends State<MainWidget> with WidgetsBindingObserver {
     mainBusiness.mainContext = context;
     mainBusiness.refreshUi = refreshUi;
     final InputVo? inputVo =
-    mainBusiness.onCheckPageInputVo(goRouterState: widget.goRouterState);
+        mainBusiness.onCheckPageInputVo(goRouterState: widget.goRouterState);
     if (inputVo == null) {
       mainBusiness.inputError = true;
     } else {
@@ -150,8 +150,8 @@ class MainWidgetState extends State<MainWidget> with WidgetsBindingObserver {
             itemCount: mainBusiness.hoveringTileViewModelList.length,
             itemBuilder: (context, index) {
               final main_business.HoveringListTileViewModel
-              hoveringListTileViewModel =
-              mainBusiness.hoveringTileViewModelList[index];
+                  hoveringListTileViewModel =
+                  mainBusiness.hoveringTileViewModelList[index];
 
               return gw_sfw_wrapper.SfwRefreshWrapper(
                 key: hoveringListTileViewModel.hoveringTileAreaGk,
@@ -198,10 +198,9 @@ class MainWidgetState extends State<MainWidget> with WidgetsBindingObserver {
                               trailing: gw_sfw_wrapper.SfwRefreshWrapper(
                                 key: hoveringListTileViewModel
                                     .isSwitchCheckedAreaGk,
-                                widgetBuild:
-                                    (isSwitchCheckedAreaContext) {
+                                widgetBuild: (isSwitchCheckedAreaContext) {
                                   hoveringListTileViewModel
-                                      .isSwitchCheckedAreaContext =
+                                          .isSwitchCheckedAreaContext =
                                       isSwitchCheckedAreaContext;
                                   return Switch(
                                     value: hoveringListTileViewModel

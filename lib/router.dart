@@ -21,7 +21,7 @@ import 'pages/all/all_page_etc_sample_list/main_widget.dart'
     as all_page_etc_sample_list;
 import 'pages/all/all_page_find_password_with_email/page_entrance.dart'
     as all_page_find_password_with_email;
-import 'pages/all/all_page_get_request_sample/page_widget.dart'
+import 'pages/all/all_page_get_request_sample/main_widget.dart'
     as all_page_get_request_sample;
 import 'pages/all/all_page_global_variable_state_test_sample/main_widget.dart'
     as all_page_global_variable_state_test_sample;
@@ -43,13 +43,13 @@ import 'pages/all/all_page_page_and_router_sample_list/main_widget.dart'
     as all_page_page_and_router_sample_list;
 import 'pages/all/all_page_page_transition_animation_sample_list/main_widget.dart'
     as all_page_page_transition_animation_sample_list;
-import 'pages/all/all_page_post_request_sample1/page_entrance.dart'
+import 'pages/all/all_page_post_request_sample1/main_widget.dart'
     as all_page_post_request_sample1;
-import 'pages/all/all_page_post_request_sample2/page_entrance.dart'
+import 'pages/all/all_page_post_request_sample2/main_widget.dart'
     as all_page_post_request_sample2;
-import 'pages/all/all_page_post_request_sample3/page_entrance.dart'
+import 'pages/all/all_page_post_request_sample3/main_widget.dart'
     as all_page_post_request_sample3;
-import 'pages/all/all_page_post_request_sample4/page_entrance.dart'
+import 'pages/all/all_page_post_request_sample4/main_widget.dart'
     as all_page_post_request_sample4;
 import 'pages/all/all_page_shared_preferences_sample/page_entrance.dart'
     as all_page_shared_preferences_sample;
@@ -247,7 +247,7 @@ GoRouter getRouter() {
       pageBuilder: (c, s) {
         return CustomTransitionPage(
             key: s.pageKey,
-            child: all_page_get_request_sample.PageWidget(goRouterState: s),
+            child: all_page_get_request_sample.MainWidget(goRouterState: s),
             transitionsBuilder:
                 all_page_get_request_sample.pageTransitionsBuilder);
       }));
@@ -258,7 +258,7 @@ GoRouter getRouter() {
       pageBuilder: (c, s) {
         return CustomTransitionPage(
             key: s.pageKey,
-            child: all_page_post_request_sample1.PageEntrance(s),
+            child: all_page_post_request_sample1.MainWidget(goRouterState: s),
             transitionsBuilder:
                 all_page_post_request_sample1.pageTransitionsBuilder);
       }));
@@ -269,7 +269,7 @@ GoRouter getRouter() {
       pageBuilder: (c, s) {
         return CustomTransitionPage(
             key: s.pageKey,
-            child: all_page_post_request_sample2.PageEntrance(s),
+            child: all_page_post_request_sample2.MainWidget(goRouterState: s),
             transitionsBuilder:
                 all_page_post_request_sample2.pageTransitionsBuilder);
       }));
@@ -280,7 +280,7 @@ GoRouter getRouter() {
       pageBuilder: (c, s) {
         return CustomTransitionPage(
             key: s.pageKey,
-            child: all_page_post_request_sample3.PageEntrance(s),
+            child: all_page_post_request_sample3.MainWidget(goRouterState: s),
             transitionsBuilder:
                 all_page_post_request_sample3.pageTransitionsBuilder);
       }));
@@ -291,7 +291,7 @@ GoRouter getRouter() {
       pageBuilder: (c, s) {
         return CustomTransitionPage(
             key: s.pageKey,
-            child: all_page_post_request_sample4.PageEntrance(s),
+            child: all_page_post_request_sample4.MainWidget(goRouterState: s),
             transitionsBuilder:
                 all_page_post_request_sample4.pageTransitionsBuilder);
       }));

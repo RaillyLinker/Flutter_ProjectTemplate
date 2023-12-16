@@ -17,15 +17,15 @@ import 'package:flutter_project_template/dialogs/all/all_dialog_loading_spinner/
     as all_dialog_loading_spinner;
 import 'package:flutter_project_template/repositories/network/apis/api_main_server.dart'
     as api_main_server;
-import 'package:flutter_project_template/pages/all/all_page_get_request_sample/page_widget.dart'
+import 'package:flutter_project_template/pages/all/all_page_get_request_sample/main_widget.dart'
     as all_page_get_request_sample;
-import 'package:flutter_project_template/pages/all/all_page_post_request_sample1/page_entrance.dart'
+import 'package:flutter_project_template/pages/all/all_page_post_request_sample1/main_widget.dart'
     as all_page_post_request_sample1;
-import 'package:flutter_project_template/pages/all/all_page_post_request_sample2/page_entrance.dart'
+import 'package:flutter_project_template/pages/all/all_page_post_request_sample2/main_widget.dart'
     as all_page_post_request_sample2;
-import 'package:flutter_project_template/pages/all/all_page_post_request_sample3/page_entrance.dart'
+import 'package:flutter_project_template/pages/all/all_page_post_request_sample3/main_widget.dart'
     as all_page_post_request_sample3;
-import 'package:flutter_project_template/pages/all/all_page_post_request_sample4/page_entrance.dart'
+import 'package:flutter_project_template/pages/all/all_page_post_request_sample4/main_widget.dart'
     as all_page_post_request_sample4;
 
 // [위젯 비즈니스]
