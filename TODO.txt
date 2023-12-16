@@ -1,6 +1,5 @@
 [TODO]
-- app_page_init_splash
-  all_page_url_launcher_sample
+- all_page_url_launcher_sample
   all_page_shared_preferences_sample
 
   all_page_login

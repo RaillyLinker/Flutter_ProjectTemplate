@@ -1,16 +1,15 @@
 // (external)
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'dart:async';
 import 'dart:io';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:store_redirect/store_redirect.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-// (page)
-import 'page_entrance.dart' as page_entrance;
+// (inner_folder)
+import 'main_widget.dart' as main_widget;
 
 // (all)
 import 'package:flutter_project_template/repositories/network/apis/api_main_server.dart'
@@ -23,39 +22,98 @@ import 'package:flutter_project_template/dialogs/all/all_dialog_yes_or_no/main_w
     as all_dialog_yes_or_no;
 import 'package:flutter_project_template/global_classes/gc_my_classes.dart'
     as gc_my_classes;
-import 'package:flutter_project_template/a_must_delete/todo_do_delete.dart'
-    as todo_do_delete;
 import 'package:flutter_project_template/global_data/gd_const_config.dart'
     as gd_const_config;
 import 'package:flutter_project_template/pages/all/all_page_home/main_widget.dart'
     as all_page_home;
+import 'package:flutter_project_template/global_widgets/gw_sfw_wrapper.dart'
+    as gw_sfw_wrapper;
 
-// [페이지 비즈니스 로직 및 뷰모델 작성 파일]
-// todo : 템플릿 적용
+// [위젯 비즈니스]
+// todo : 비즈니스 부분만 검증하기(모바일에서 focus lost gained 반복) + 스레드 합류시 Stream 아이디 부여하여 동일 아이디로 요청시 무시하도록 처리
 
 //------------------------------------------------------------------------------
-// 페이지의 비즈니스 로직 담당
-// PageBusiness 인스턴스는 해당 페이지가 소멸하기 전까지 활용됩니다.
-class PageBusiness {
-  PageBusiness(this._context) {
-    pageViewModel = PageViewModel(_context);
+class MainBusiness {
+  // [CallBack 함수]
+  // (inputVo 확인 콜백)
+  // State 클래스의 initState 에서 실행 되며, Business 클래스의 initState 실행 전에 실행 됩니다.
+  // 필수 정보 누락시 null 을 반환, null 이 반환 되었을 때는 inputError 가 true 가 됩니다.
+  main_widget.InputVo? onCheckPageInputVo(
+      {required GoRouterState goRouterState}) {
+    // !!!pageInputVo 체크!!!
+    // ex :
+    // if (!goRouterState.uri.queryParameters.containsKey("inputValueString")) {
+    //   return null;
+    // }
+
+    // !!!PageInputVo 입력!!!
+    return const main_widget.InputVo();
   }
 
-  // 페이지 컨텍스트 객체
-  final BuildContext _context;
+  // (진입 최초 단 한번 실행) - 아직 위젯이 생성 되기 전
+  void initState() {
+    // !!!initState 로직 작성!!!
+  }
 
-  // BLoC 객체 모음
-  late BLocObjects blocObjects;
+  // (종료 시점 단 한번 실행)
+  void dispose() {
+    // !!!dispose 로직 작성!!!
+  }
 
-  // 페이지 생명주기 관련 states
-  final todo_do_delete.PageLifeCycleStates pageLifeCycleStates =
-      todo_do_delete.PageLifeCycleStates();
+  // (위젯이 처음 build 된 후 단 한번 실행)
+  Future<void> onCreateWidget() async {
+    // !!!onFocusGainedAsync 로직 작성!!!
 
-  // 페이지 파라미터 (아래 goRouterState 에서 가져와 대입하기)
-  late page_entrance.PageInputVo pageInputVo;
+    _checkAppVersionAsync();
+  }
 
-  // 페이지 뷰모델 객체
-  late PageViewModel pageViewModel;
+  Future<void> onFocusGainedAsync() async {
+    // !!!onFocusGainedAsync 로직 작성!!!
+
+    // 화면 대기시간 카운팅 개시/재개 (비동기 카운팅)
+    _countDownScreenWaitingTime();
+  }
+
+  Future<void> onFocusLostAsync() async {
+    // !!!onFocusLostAsync 로직 작성!!!
+
+    // 화면 대기시간 카운팅 멈추기
+    _screenWaitingTimer?.cancel();
+  }
+
+  Future<void> onVisibilityGainedAsync() async {
+    // !!!onVisibilityGainedAsync 로직 작성!!!
+  }
+
+  Future<void> onVisibilityLostAsync() async {
+    // !!!onVisibilityLostAsync 로직 작성!!!
+  }
+
+  Future<void> onForegroundGainedAsync() async {
+    // !!!onForegroundGainedAsync 로직 작성!!!
+  }
+
+  Future<void> onForegroundLostAsync() async {
+    // !!!onForegroundLostAsync 로직 작성!!!
+  }
+
+  //----------------------------------------------------------------------------
+  // !!!메인 위젯에서 사용할 변수는 이곳에서 저장하여 사용하세요.!!!
+  // [public 변수]
+  // (위젯 입력값)
+  late main_widget.InputVo inputVo;
+
+  // (페이지 pop 가능 여부 변수) - false 로 설정시 pop 불가
+  bool canPop = true;
+
+  // (최초 실행 플래그)
+  bool needInitState = true;
+
+  // (입력값 미충족 여부)
+  bool inputError = false;
+
+  // (context 객체)
+  late BuildContext mainContext;
 
   // 화면 대기 시간 카운트 객체
   Timer? _screenWaitingTimer;
@@ -69,91 +127,44 @@ class PageBusiness {
             _onAppInitLogicThreadComplete();
           });
 
-  ////
-  // [페이지 생명주기]
-  // - 페이지 최초 실행 : onPageCreateAsync -> onPageResumeAsync
-  // - 다른 페이지 호출 / 복귀, 화면 끄기 / 켜기, 모바일에서 다른 앱으로 이동 및 복귀시 :
-  // onPagePauseAsync -> onPageResumeAsync -> onPagePauseAsync -> onPageResumeAsync 반복
-  // - 페이지 종료 : onPageWillPopAsync -(return true 일 때)-> onPagePauseAsync -> onPageDestroyAsync 실행
+  // 프로그램 최초 실행 로직 수행 여부
+  bool doStartProgramLogic = false;
 
-  // (onPageCreateAsync 실행 전 PageInputVo 체크)
-  // onPageCreateAsync 과 완전히 동일하나, 입력값 체크만을 위해 분리한 생명주기
-  Future<void> onCheckPageInputVoAsync(GoRouterState goRouterState) async {
-    // !!!pageInputVo 체크!!!
-    // ex :
-    // if (!goRouterState.uri.queryParameters
-    //     .containsKey("inputValueString")) {
-    //   // 필수 파라미터가 없는 경우에 대한 처리
-    // }
+  // (페이지 대기 카운트 숫자)
+  final GlobalKey<gw_sfw_wrapper.SfwRefreshWrapperState> countNumberAreaGk =
+      GlobalKey();
+  late BuildContext countNumberAreaContext;
+  int countNumber = 1;
 
-    // !!!PageInputVo 입력!!!
-    pageInputVo = page_entrance.PageInputVo();
-  }
+  // (네트워크 에러로 인한 로그인 재시도 횟수)
+  int signInRetryCount = 0;
 
-  // (페이지 최초 실행)
-  Future<void> onPageCreateAsync() async {
-    // !!!페이지 최초 실행 로직 작성!!!
+  int signInRetryCountLimit = 2;
 
-    await _checkAppVersionAsync();
-  }
+  // [private 변수]
 
-  // (페이지 최초 실행 or 다른 페이지에서 복귀)
-  Future<void> onPageResumeAsync() async {
-    // !!!위젯 최초 실행 및, 다른 페이지에서 복귀 로직 작성!!!
-    // 화면 대기시간 카운팅 개시/재개 (비동기 카운팅)
-    _countDownScreenWaitingTime();
-  }
+  //----------------------------------------------------------------------------
+  // !!!비즈니스 함수는 이 곳에서 저장 하여 사용 하세요.!!!
+  // [public 함수]
+  // (메인 위젯 화면 갱신)
+  late VoidCallback refreshUi;
 
-  // (페이지 종료 or 다른 페이지로 이동 (강제 종료는 탐지 못함))
-  Future<void> onPagePauseAsync() async {
-    // !!!위젯 종료 및, 다른 페이지로 이동 로직 작성!!!
-    // 화면 대기시간 카운팅 멈추기
-    _screenWaitingTimer?.cancel();
-  }
-
-  // (페이지 종료 (강제 종료, web 에서 브라우저 뒤로가기 버튼을 눌렀을 때는 탐지 못함))
-  Future<void> onPageDestroyAsync() async {
-    // !!!페이지 종료 로직 작성!!!
-  }
-
-  // (Page Pop 요청)
-  // context.pop() 호출 직후 호출
-  // return 이 true 라면 onWidgetPause 부터 onPageDestroyAsync 까지 실행 되며 페이지 종료
-  // return 이 false 라면 pop 되지 않고 그대로 대기
-  Future<bool> onPageWillPopAsync() async {
-    // !!!onWillPop 로직 작성!!!
-
-    return true;
-  }
-
-////
-// [비즈니스 함수]
-// !!!외부에서 사용할 비즈니스 로직은 아래에 공개 함수로 구현!!!
-// ex :
-//   void changeSampleNumber(int newSampleNumber) {
-//     // BLoC 위젯 관련 상태 변수 변경
-//     pageViewModel.sampleNumber = newSampleNumber;
-//     // BLoC 위젯 변경 트리거 발동
-//     blocObjects.blocSample.refresh();
-//   }
-
-////
-// [내부 함수]
-// !!!내부에서만 사용할 함수를 아래에 구현!!!
+  // [private 함수]
+  void _doNothing() {}
 
   // (스크린 대기시간 비동기 카운트 다운)
   void _countDownScreenWaitingTime() {
-    if (pageViewModel.countNumber <= 0) {
+    if (countNumber <= 0) {
       _screenWaitingTimer?.cancel();
       // 스레드 완료를 알리기
       _appInitLogicThreadConfluenceObj.threadComplete();
     } else {
       _screenWaitingTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
         // 뷰모델 State 변경 및 자동 이벤트 발동
-        pageViewModel.countNumber = pageViewModel.countNumber - 1;
-        blocObjects.blocCountDownNumber.refresh();
+        countNumber = countNumber - 1;
+        countNumberAreaGk.currentState?.refreshUi();
 
-        if (pageViewModel.countNumber <= 0) {
+        if (countNumber <= 0) {
           // 카운팅 완료
           timer.cancel();
           // 스레드 완료를 알리기
@@ -238,10 +249,10 @@ class PageBusiness {
             final GlobalKey<all_dialog_info.MainWidgetState>
                 allDialogInfoStateGk =
                 GlobalKey<all_dialog_info.MainWidgetState>();
-            if (!_context.mounted) return;
+            if (!mainContext.mounted) return;
             showDialog(
                 barrierDismissible: true,
-                context: _context,
+                context: mainContext,
                 builder: (context) => all_dialog_info.MainWidget(
                       key: allDialogInfoStateGk,
                       inputVo: all_dialog_info.InputVo(
@@ -267,10 +278,10 @@ class PageBusiness {
             final GlobalKey<all_dialog_info.MainWidgetState>
                 allDialogInfoStateGk =
                 GlobalKey<all_dialog_info.MainWidgetState>();
-            if (!_context.mounted) return;
+            if (!mainContext.mounted) return;
             showDialog(
                 barrierDismissible: true,
-                context: _context,
+                context: mainContext,
                 builder: (context) => all_dialog_info.MainWidget(
                       key: allDialogInfoStateGk,
                       inputVo: all_dialog_info.InputVo(
@@ -296,10 +307,10 @@ class PageBusiness {
         // 정상 코드가 아님
         final GlobalKey<all_dialog_yes_or_no.MainWidgetState>
             allDialogYesOrNoStateGk = GlobalKey();
-        if (!_context.mounted) return;
+        if (!mainContext.mounted) return;
         showDialog(
             barrierDismissible: false,
-            context: _context,
+            context: mainContext,
             builder: (context) => all_dialog_yes_or_no.MainWidget(
                   key: allDialogYesOrNoStateGk,
                   inputVo: all_dialog_yes_or_no.InputVo(
@@ -326,10 +337,10 @@ class PageBusiness {
       // Dio 네트워크 에러
       final GlobalKey<all_dialog_yes_or_no.MainWidgetState>
           allDialogYesOrNoStateGk = GlobalKey();
-      if (!_context.mounted) return;
+      if (!mainContext.mounted) return;
       showDialog(
           barrierDismissible: false,
-          context: _context,
+          context: mainContext,
           builder: (context) => all_dialog_yes_or_no.MainWidget(
                 key: allDialogYesOrNoStateGk,
                 inputVo: all_dialog_yes_or_no.InputVo(
@@ -395,7 +406,7 @@ class PageBusiness {
                 as api_main_server
                 .PostService1TkV1AuthReissueAsyncResponseBodyVo;
 
-            pageViewModel.signInRetryCount = 0;
+            signInRetryCount = 0;
 
             // SSW 정보 갱신
             List<spw_auth_member_info.SharedPreferenceWrapperVoOAuth2Info>
@@ -477,16 +488,15 @@ class PageBusiness {
             if (responseHeaders.apiResultCode == null) {
               // 비정상 응답이면서 서버에서 에러 원인 코드가 전달되지 않았을 때
 
-              if (pageViewModel.signInRetryCount ==
-                  pageViewModel.signInRetryCountLimit) {
-                pageViewModel.signInRetryCount = 0;
+              if (signInRetryCount == signInRetryCountLimit) {
+                signInRetryCount = 0;
                 final GlobalKey<all_dialog_info.MainWidgetState>
                     allDialogInfoStateGk =
                     GlobalKey<all_dialog_info.MainWidgetState>();
-                if (!_context.mounted) return;
+                if (!mainContext.mounted) return;
                 await showDialog(
                     barrierDismissible: true,
-                    context: _context,
+                    context: mainContext,
                     builder: (context) => all_dialog_info.MainWidget(
                           key: allDialogInfoStateGk,
                           inputVo: all_dialog_info.InputVo(
@@ -506,10 +516,10 @@ class PageBusiness {
 
               final GlobalKey<all_dialog_yes_or_no.MainWidgetState>
                   allDialogYesOrNoStateGk = GlobalKey();
-              if (!_context.mounted) return;
+              if (!mainContext.mounted) return;
               showDialog(
                   barrierDismissible: false,
-                  context: _context,
+                  context: mainContext,
                   builder: (context) => all_dialog_yes_or_no.MainWidget(
                         key: allDialogYesOrNoStateGk,
                         inputVo: all_dialog_yes_or_no.InputVo(
@@ -526,7 +536,7 @@ class PageBusiness {
                   exit(0);
                 } else {
                   // positive 버튼을 눌렀을 때
-                  pageViewModel.signInRetryCount++;
+                  signInRetryCount++;
 
                   // 다시 실행
                   await _checkAutoLoginAsync();
@@ -559,16 +569,15 @@ class PageBusiness {
             }
           }
         } else {
-          if (pageViewModel.signInRetryCount ==
-              pageViewModel.signInRetryCountLimit) {
-            pageViewModel.signInRetryCount = 0;
+          if (signInRetryCount == signInRetryCountLimit) {
+            signInRetryCount = 0;
             final GlobalKey<all_dialog_info.MainWidgetState>
                 allDialogInfoStateGk =
                 GlobalKey<all_dialog_info.MainWidgetState>();
-            if (!_context.mounted) return;
+            if (!mainContext.mounted) return;
             await showDialog(
                 barrierDismissible: true,
-                context: _context,
+                context: mainContext,
                 builder: (context) => all_dialog_info.MainWidget(
                       key: allDialogInfoStateGk,
                       inputVo: all_dialog_info.InputVo(
@@ -589,10 +598,10 @@ class PageBusiness {
           // Dio 네트워크 에러
           final GlobalKey<all_dialog_yes_or_no.MainWidgetState>
               allDialogYesOrNoStateGk = GlobalKey();
-          if (!_context.mounted) return;
+          if (!mainContext.mounted) return;
           showDialog(
               barrierDismissible: false,
-              context: _context,
+              context: mainContext,
               builder: (context) => all_dialog_yes_or_no.MainWidget(
                     key: allDialogYesOrNoStateGk,
                     inputVo: all_dialog_yes_or_no.InputVo(
@@ -609,7 +618,7 @@ class PageBusiness {
               exit(0);
             } else {
               // positive 버튼을 눌렀을 때
-              pageViewModel.signInRetryCount++;
+              signInRetryCount++;
 
               // 다시 실행
               await _checkAutoLoginAsync();
@@ -626,109 +635,6 @@ class PageBusiness {
   // (앱 초기화 로직 스레드가 모두 완료되었을 때)
   void _onAppInitLogicThreadComplete() {
     // 다음 페이지(홈 페이지)로 이동
-    _context.goNamed(all_page_home.pageName);
+    mainContext.goNamed(all_page_home.pageName);
   }
-}
-
-// (페이지 뷰 모델 클래스)
-// 페이지 전역의 데이터는 여기에 정의되며, Business 인스턴스 안의 pageViewModel 변수로 저장 됩니다.
-class PageViewModel {
-  PageViewModel(this._context);
-
-  // 페이지 컨텍스트 객체
-  final BuildContext _context;
-
-  // 페이지 생명주기 관련 states
-  final todo_do_delete.PageLifeCycleStates pageLifeCycleStates =
-      todo_do_delete.PageLifeCycleStates();
-
-  // 페이지 파라미터 (아래 goRouterState 에서 가져와 대입하기)
-  late page_entrance.PageInputVo pageInputVo;
-
-  // !!!페이지 데이터 정의!!!
-  // ex :
-  // int sampleNumber = 0;
-
-  // 프로그램 최초 실행 로직 수행 여부
-  bool doStartProgramLogic = false;
-
-  AnimationLogoControllers? animationLogoControllers;
-
-  // (페이지 대기 카운트 숫자)
-  int countNumber = 1;
-
-  // (네트워크 에러로 인한 로그인 재시도 횟수)
-  int signInRetryCount = 0;
-
-  int signInRetryCountLimit = 2;
-}
-
-class AnimationLogoControllers {
-  AnimationLogoControllers(
-    this.animationController,
-    this.fadeAnimation,
-    this.scaleAnimation,
-  );
-
-  AnimationController animationController;
-  Animation<double> fadeAnimation;
-  Animation<double> scaleAnimation;
-}
-
-// (BLoC 클래스)
-// ex :
-// class BlocSample extends Bloc<bool, bool> {
-//   BlocSample() : super(true) {
-//     on<bool>((event, emit) {
-//       emit(event);
-//     });
-//   }
-//
-//   // BLoC 위젯 갱신 함수
-//   void refresh() {
-//     add(!state);
-//   }
-// }
-
-// [카운트 다운 숫자]
-class BlocCountDownNumber extends Bloc<bool, bool> {
-  BlocCountDownNumber() : super(true) {
-    on<bool>((event, emit) {
-      emit(event);
-    });
-  }
-
-  // BLoC 위젯 갱신 함수
-  void refresh() {
-    add(!state);
-  }
-}
-
-// (BLoC 프로바이더 클래스)
-// 본 페이지에서 사용할 BLoC 객체를 모아두어 PageEntrance 에서 페이지 전역 설정에 사용 됩니다.
-class BLocProviders {
-// !!!이 페이지에서 사용할 "모든" BLoC 클래스들에 대한 Provider 객체들을 아래 리스트에 넣어줄 것!!!
-  List<BlocProvider<dynamic>> blocProviders = [
-    // ex :
-    // BlocProvider<BlocSample>(create: (context) => BlocSample())
-    BlocProvider<BlocCountDownNumber>(
-        create: (context) => BlocCountDownNumber()),
-  ];
-}
-
-class BLocObjects {
-  BLocObjects(this._context) {
-    // !!!BLoC 조작 객체 생성!!!
-    // ex :
-    // blocSample = BlocProvider.of<BlocSample>(_context);
-    blocCountDownNumber = BlocProvider.of<BlocCountDownNumber>(_context);
-  }
-
-  // 페이지 컨텍스트 객체
-  final BuildContext _context;
-
-  // !!!BLoC 조작 객체 변수 선언!!!
-  // ex :
-  // late BlocSample blocSample;
-  late BlocCountDownNumber blocCountDownNumber;
 }
