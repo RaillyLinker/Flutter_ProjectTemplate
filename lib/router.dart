@@ -78,7 +78,7 @@ import 'pages/all/all_page_horizontal_scroll_test/main_widget.dart'
 // (app)
 import 'pages/app/app_page_init_splash/page_entrance.dart'
     as app_page_init_splash;
-import 'pages/app/app_page_server_sample/page_entrance.dart'
+import 'pages/app/app_page_server_sample/main_widget.dart'
     as app_page_server_sample;
 
 // (mobile)
@@ -572,7 +572,7 @@ GoRouter getRouter() {
         pageBuilder: (c, s) {
           return CustomTransitionPage(
               key: s.pageKey,
-              child: app_page_server_sample.PageEntrance(s),
+              child: app_page_server_sample.MainWidget(goRouterState: s),
               transitionsBuilder:
                   app_page_server_sample.pageTransitionsBuilder);
         }));

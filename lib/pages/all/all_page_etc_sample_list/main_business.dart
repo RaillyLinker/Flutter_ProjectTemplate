@@ -37,7 +37,7 @@ import 'package:flutter_project_template/pages/all/all_page_horizontal_scroll_te
     as all_page_horizontal_scroll_test;
 
 // (app)
-import 'package:flutter_project_template/pages/app/app_page_server_sample/page_entrance.dart'
+import 'package:flutter_project_template/pages/app/app_page_server_sample/main_widget.dart'
     as app_page_server_sample;
 
 // [위젯 비즈니스]

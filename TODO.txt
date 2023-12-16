@@ -1,9 +1,7 @@
 [TODO]
-- [form 페이지 이식]
-  app_page_server_sample
+- app_page_init_splash
   all_page_url_launcher_sample
   all_page_shared_preferences_sample
-  app_page_init_splash
 
   all_page_login
   all_page_find_password_with_email
