@@ -33,7 +33,7 @@ import 'pages/all/all_page_join_the_membership_edit_member_info/page_entrance.da
 import 'pages/all/all_page_join_the_membership_email_verification/page_entrance.dart'
     as all_page_join_the_membership_email_verification;
 import 'pages/all/all_page_login/page_entrance.dart' as all_page_login;
-import 'pages/all/all_page_member_info/page_widget.dart'
+import 'pages/all/all_page_member_info/main_widget.dart'
     as all_page_member_info;
 import 'pages/all/all_page_membership_withdrawal/main_widget.dart'
     as all_page_membership_withdrawal;
@@ -336,7 +336,7 @@ GoRouter getRouter() {
       pageBuilder: (c, s) {
         return CustomTransitionPage(
             key: s.pageKey,
-            child: all_page_member_info.PageWidget(goRouterState: s),
+            child: all_page_member_info.MainWidget(goRouterState: s),
             transitionsBuilder: all_page_member_info.pageTransitionsBuilder);
       }));
 

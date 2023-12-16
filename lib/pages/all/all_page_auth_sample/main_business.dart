@@ -24,7 +24,7 @@ import 'package:flutter_project_template/dialogs/all/all_dialog_loading_spinner/
     as all_dialog_loading_spinner;
 import 'package:flutter_project_template/pages/all/all_page_login/page_entrance.dart'
     as all_page_login;
-import 'package:flutter_project_template/pages/all/all_page_member_info/page_widget.dart'
+import 'package:flutter_project_template/pages/all/all_page_member_info/main_widget.dart'
     as all_page_member_info;
 import 'package:flutter_project_template/pages/all/all_page_authorization_test_sample_list/main_widget.dart'
     as all_page_authorization_test_sample_list;
