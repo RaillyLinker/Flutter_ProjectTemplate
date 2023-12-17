@@ -6,6 +6,7 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:intl/intl.dart';
 import 'package:store_redirect/store_redirect.dart';
+import 'package:sync/semaphore.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 // (inner_folder)
@@ -20,8 +21,6 @@ import 'package:flutter_project_template/dialogs/all/all_dialog_info/main_widget
     as all_dialog_info;
 import 'package:flutter_project_template/dialogs/all/all_dialog_yes_or_no/main_widget.dart'
     as all_dialog_yes_or_no;
-import 'package:flutter_project_template/global_classes/gc_my_classes.dart'
-    as gc_my_classes;
 import 'package:flutter_project_template/global_data/gd_const_config.dart'
     as gd_const_config;
 import 'package:flutter_project_template/pages/all/all_page_home/main_widget.dart'
@@ -30,7 +29,6 @@ import 'package:flutter_project_template/global_widgets/gw_sfw_wrapper.dart'
     as gw_sfw_wrapper;
 
 // [위젯 비즈니스]
-// todo : 비즈니스 부분만 검증하기(모바일에서 focus lost gained 반복) + 스레드 합류시 Stream 아이디 부여하여 동일 아이디로 요청시 무시하도록 처리
 
 //------------------------------------------------------------------------------
 class MainBusiness {
@@ -71,7 +69,25 @@ class MainBusiness {
     // !!!onFocusGainedAsync 로직 작성!!!
 
     // 화면 대기시간 카운팅 개시/재개 (비동기 카운팅)
-    _countDownScreenWaitingTime();
+    if (countNumber > 0) {
+      _screenWaitingTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
+        // 뷰모델 State 변경 및 자동 이벤트 발동
+        countNumber = countNumber - 1;
+        countNumberAreaGk.currentState?.refreshUi();
+
+        if (countNumber <= 0) {
+          // 카운팅 완료
+          timer.cancel();
+
+          _screenWaitingTimer = null;
+          timerComplete = true;
+          _onApplicationInitLogicComplete();
+        }
+      });
+    } else {
+      timerComplete = true;
+      _onApplicationInitLogicComplete();
+    }
   }
 
   Future<void> onFocusLostAsync() async {
@@ -79,6 +95,7 @@ class MainBusiness {
 
     // 화면 대기시간 카운팅 멈추기
     _screenWaitingTimer?.cancel();
+    _screenWaitingTimer = null;
   }
 
   Future<void> onVisibilityGainedAsync() async {
@@ -118,15 +135,6 @@ class MainBusiness {
   // 화면 대기 시간 카운트 객체
   Timer? _screenWaitingTimer;
 
-  // 앱 초기화 로직 스레드 합류 객체 (비동기로 진행되는 화면 대기 타이머와 초기화 로직이 모두 끝나면 콜백이 실행됨)
-  // _appInitLogicThreadConfluenceObj.threadComplete(); 이 함수가 2번 호출되어야 콜백이 실행됨
-  late final gc_my_classes.ThreadConfluenceObj
-      _appInitLogicThreadConfluenceObj = gc_my_classes.ThreadConfluenceObj(
-          numberOfThreadsBeingJoined: 2,
-          onComplete: () {
-            _onAppInitLogicThreadComplete();
-          });
-
   // 프로그램 최초 실행 로직 수행 여부
   bool doStartProgramLogic = false;
 
@@ -151,28 +159,6 @@ class MainBusiness {
 
   // [private 함수]
   void _doNothing() {}
-
-  // (스크린 대기시간 비동기 카운트 다운)
-  void _countDownScreenWaitingTime() {
-    if (countNumber <= 0) {
-      _screenWaitingTimer?.cancel();
-      // 스레드 완료를 알리기
-      _appInitLogicThreadConfluenceObj.threadComplete();
-    } else {
-      _screenWaitingTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
-        // 뷰모델 State 변경 및 자동 이벤트 발동
-        countNumber = countNumber - 1;
-        countNumberAreaGk.currentState?.refreshUi();
-
-        if (countNumber <= 0) {
-          // 카운팅 완료
-          timer.cancel();
-          // 스레드 완료를 알리기
-          _appInitLogicThreadConfluenceObj.threadComplete();
-        }
-      });
-    }
-  }
 
   // (앱 버전 확인)
   Future<void> _checkAppVersionAsync() async {
@@ -380,7 +366,8 @@ class MainBusiness {
         // login_user_info SPW 비우기
         spw_auth_member_info.SharedPreferenceWrapper.set(value: null);
 
-        _appInitLogicThreadConfluenceObj.threadComplete();
+        initLogicComplete = true;
+        _onApplicationInitLogicComplete();
       } else {
         var postAutoLoginOutputVo =
             await api_main_server.postService1TkV1AuthReissueAsync(
@@ -478,7 +465,8 @@ class MainBusiness {
             spw_auth_member_info.SharedPreferenceWrapper.set(
                 value: loginMemberInfo);
 
-            _appInitLogicThreadConfluenceObj.threadComplete();
+            initLogicComplete = true;
+            _onApplicationInitLogicComplete();
           } else {
             // 액세스 토큰 재발급 비정상 응답
             var responseHeaders = networkResponseObjectOk.responseHeaders
@@ -510,7 +498,8 @@ class MainBusiness {
 
                 // login_user_info SSW 비우기 (= 로그아웃 처리)
                 spw_auth_member_info.SharedPreferenceWrapper.set(value: null);
-                _appInitLogicThreadConfluenceObj.threadComplete();
+                initLogicComplete = true;
+                _onApplicationInitLogicComplete();
                 return;
               }
 
@@ -557,7 +546,8 @@ class MainBusiness {
                     // login_user_info SSW 비우기 (= 로그아웃 처리)
                     spw_auth_member_info.SharedPreferenceWrapper.set(
                         value: null);
-                    _appInitLogicThreadConfluenceObj.threadComplete();
+                    initLogicComplete = true;
+                    _onApplicationInitLogicComplete();
                   }
                   break;
                 default:
@@ -591,7 +581,8 @@ class MainBusiness {
 
             // login_user_info SSW 비우기 (= 로그아웃 처리)
             spw_auth_member_info.SharedPreferenceWrapper.set(value: null);
-            _appInitLogicThreadConfluenceObj.threadComplete();
+            initLogicComplete = true;
+            _onApplicationInitLogicComplete();
             return;
           }
 
@@ -628,12 +619,25 @@ class MainBusiness {
       }
     } else {
       // 자동 로그인 불필요
-      _appInitLogicThreadConfluenceObj.threadComplete();
+      initLogicComplete = true;
+      _onApplicationInitLogicComplete();
     }
   }
 
-  // (앱 초기화 로직 스레드가 모두 완료되었을 때)
-  void _onAppInitLogicThreadComplete() {
+  // (앱 초기화 로직 코드가 모두 완료 되었을 때)
+  final Semaphore _onApplicationInitLogicCompleteSemaphore = Semaphore(1);
+  bool timerComplete = false;
+  bool initLogicComplete = false;
+
+  void _onApplicationInitLogicComplete() {
+    _onApplicationInitLogicCompleteSemaphore.acquire();
+    if (!timerComplete || !initLogicComplete) {
+      _onApplicationInitLogicCompleteSemaphore.acquire();
+      return;
+    }
+
+    _onApplicationInitLogicCompleteSemaphore.acquire();
+
     // 다음 페이지(홈 페이지)로 이동
     mainContext.goNamed(all_page_home.pageName);
   }
