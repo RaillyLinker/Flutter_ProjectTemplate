@@ -19,6 +19,8 @@ import 'package:flutter_project_template/pages/all/all_page_membership_withdrawa
     as all_page_membership_withdrawal;
 import 'package:flutter_project_template/pages/all/all_page_login/page_entrance.dart'
     as all_page_login;
+import 'package:flutter_project_template/pages/all/all_page_change_password/page_entrance.dart'
+    as all_page_change_password;
 
 // [위젯 비즈니스]
 // todo : 회원 정보 페이지에서 닉네임 변경 기능 추가
@@ -210,6 +212,10 @@ class MainBusiness {
     roleList = nowLoginMemberInfo.roleList;
 
     authPasswordIsNull = nowLoginMemberInfo.authPasswordIsNull;
+  }
+
+  void goToChangePasswordPage() {
+    mainContext.pushNamed(all_page_change_password.pageName);
   }
 
   // [private 함수]

@@ -307,12 +307,20 @@ class MainWidgetState extends State<MainWidget> with WidgetsBindingObserver {
                             flex: 20,
                             child: Container(
                               color: Colors.orange,
-                              child: const Text(
-                                "수정하기",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: Colors.blueAccent,
-                                    fontFamily: "MaruBuri"),
+                              child: GestureDetector(
+                                onTap: () {
+                                  mainBusiness.goToChangePasswordPage();
+                                },
+                                child: const MouseRegion(
+                                  cursor: SystemMouseCursors.click,
+                                  child: Text(
+                                    "수정하기",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        color: Colors.blueAccent,
+                                        fontFamily: "MaruBuri"),
+                                  ),
+                                ),
                               ),
                             )),
                       ],

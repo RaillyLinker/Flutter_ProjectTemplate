@@ -415,7 +415,8 @@ GoRouter getRouter() {
       pageBuilder: (c, s) {
         return CustomTransitionPage(
             key: s.pageKey,
-            child: all_page_shared_preferences_sample.MainWidget(goRouterState: s),
+            child:
+                all_page_shared_preferences_sample.MainWidget(goRouterState: s),
             transitionsBuilder:
                 all_page_shared_preferences_sample.pageTransitionsBuilder);
       }));
