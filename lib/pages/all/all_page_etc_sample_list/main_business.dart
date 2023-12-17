@@ -17,7 +17,7 @@ import 'package:flutter_project_template/pages/all/all_page_global_variable_stat
     as all_page_global_variable_state_test_sample;
 import 'package:flutter_project_template/pages/all/all_page_shared_preferences_sample/page_entrance.dart'
     as all_page_shared_preferences_sample;
-import 'package:flutter_project_template/pages/all/all_page_url_launcher_sample/page_entrance.dart'
+import 'package:flutter_project_template/pages/all/all_page_url_launcher_sample/main_widget.dart'
     as all_page_url_launcher_sample;
 import 'package:flutter_project_template/pages/all/all_page_widget_change_animation_sample_list/main_widget.dart'
     as all_page_widget_change_animation_sample_list;
