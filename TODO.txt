@@ -1,6 +1,5 @@
 [TODO]
-- all_page_change_password
-  all_page_find_password_with_email
+- all_page_find_password_with_email
   all_page_join_the_membership_email_verification
   all_page_join_the_membership_edit_member_info
 

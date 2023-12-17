@@ -19,7 +19,7 @@ import 'package:flutter_project_template/pages/all/all_page_membership_withdrawa
     as all_page_membership_withdrawal;
 import 'package:flutter_project_template/pages/all/all_page_login/main_widget.dart'
     as all_page_login;
-import 'package:flutter_project_template/pages/all/all_page_change_password/page_entrance.dart'
+import 'package:flutter_project_template/pages/all/all_page_change_password/main_widget.dart'
     as all_page_change_password;
 
 // [위젯 비즈니스]
