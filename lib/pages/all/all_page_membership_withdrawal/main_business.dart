@@ -24,7 +24,7 @@ import 'package:flutter_project_template/dialogs/all/all_dialog_yes_or_no/main_w
     as all_dialog_yes_or_no;
 import 'package:flutter_project_template/pages/all/all_page_home/main_widget.dart'
     as all_page_home;
-import 'package:flutter_project_template/pages/all/all_page_login/page_entrance.dart'
+import 'package:flutter_project_template/pages/all/all_page_login/main_widget.dart'
     as all_page_login;
 import 'package:flutter_project_template/global_functions/gf_my_functions.dart'
     as gf_my_functions;

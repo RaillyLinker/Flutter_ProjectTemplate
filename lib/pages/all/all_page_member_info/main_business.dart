@@ -17,7 +17,7 @@ import 'package:flutter_project_template/global_functions/gf_my_functions.dart'
     as gf_my_functions;
 import 'package:flutter_project_template/pages/all/all_page_membership_withdrawal/main_widget.dart'
     as all_page_membership_withdrawal;
-import 'package:flutter_project_template/pages/all/all_page_login/page_entrance.dart'
+import 'package:flutter_project_template/pages/all/all_page_login/main_widget.dart'
     as all_page_login;
 import 'package:flutter_project_template/pages/all/all_page_change_password/page_entrance.dart'
     as all_page_change_password;

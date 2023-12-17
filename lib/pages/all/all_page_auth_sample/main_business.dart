@@ -22,7 +22,7 @@ import 'package:flutter_project_template/dialogs/all/all_dialog_info/main_widget
     as all_dialog_info;
 import 'package:flutter_project_template/dialogs/all/all_dialog_loading_spinner/main_widget.dart'
     as all_dialog_loading_spinner;
-import 'package:flutter_project_template/pages/all/all_page_login/page_entrance.dart'
+import 'package:flutter_project_template/pages/all/all_page_login/main_widget.dart'
     as all_page_login;
 import 'package:flutter_project_template/pages/all/all_page_member_info/main_widget.dart'
     as all_page_member_info;

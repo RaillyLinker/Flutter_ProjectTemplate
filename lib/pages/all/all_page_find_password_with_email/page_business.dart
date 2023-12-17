@@ -27,7 +27,7 @@ import 'package:flutter_project_template/pages/all/all_page_home/main_widget.dar
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
 // todo : 입력 부분 Form 방식 변경
-// todo : 템플릿 적용
+// todo : 템플릿 적용, 완료 후 홈으로 이동
 
 //------------------------------------------------------------------------------
 // 페이지의 비즈니스 로직 담당

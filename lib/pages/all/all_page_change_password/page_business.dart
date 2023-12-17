@@ -24,11 +24,11 @@ import 'package:flutter_project_template/repositories/spws/spw_auth_member_info.
     as spw_auth_member_info;
 import 'package:flutter_project_template/global_functions/gf_my_functions.dart'
     as gf_my_functions;
-import 'package:flutter_project_template/pages/all/all_page_login/page_entrance.dart'
+import 'package:flutter_project_template/pages/all/all_page_login/main_widget.dart'
     as all_page_login;
 
 // [페이지 비즈니스 로직 및 뷰모델 작성 파일]
-// todo : 템플릿 적용
+// todo : 템플릿 적용, 완료 후 홈으로 이동
 
 //------------------------------------------------------------------------------
 // 페이지의 비즈니스 로직 담당
