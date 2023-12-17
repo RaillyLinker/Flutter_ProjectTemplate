@@ -1,9 +1,9 @@
 [TODO]
 - all_page_login
+  all_page_change_password
   all_page_find_password_with_email
   all_page_join_the_membership_email_verification
   all_page_join_the_membership_edit_member_info
-  all_page_change_password
 
 - 템플릿 다 적용하고 BLoC 라이브러리 제거 및 todo_do_delete.dart 제거
 
