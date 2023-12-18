@@ -19,7 +19,7 @@ import 'pages/all/all_page_dialog_sample_list/main_widget.dart'
     as all_page_dialog_sample_list;
 import 'pages/all/all_page_etc_sample_list/main_widget.dart'
     as all_page_etc_sample_list;
-import 'pages/all/all_page_find_password_with_email/page_entrance.dart'
+import 'pages/all/all_page_find_password_with_email/main_widget.dart'
     as all_page_find_password_with_email;
 import 'pages/all/all_page_get_request_sample/main_widget.dart'
     as all_page_get_request_sample;
@@ -380,7 +380,8 @@ GoRouter getRouter() {
       pageBuilder: (c, s) {
         return CustomTransitionPage(
             key: s.pageKey,
-            child: all_page_find_password_with_email.PageEntrance(s),
+            child:
+                all_page_find_password_with_email.MainWidget(goRouterState: s),
             transitionsBuilder:
                 all_page_find_password_with_email.pageTransitionsBuilder);
       }));

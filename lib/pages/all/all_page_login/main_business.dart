@@ -19,7 +19,7 @@ import 'package:flutter_project_template/dialogs/all/all_dialog_info/main_widget
     as all_dialog_info;
 import 'package:flutter_project_template/dialogs/all/all_dialog_loading_spinner/main_widget.dart'
     as all_dialog_loading_spinner;
-import 'package:flutter_project_template/pages/all/all_page_find_password_with_email/page_entrance.dart'
+import 'package:flutter_project_template/pages/all/all_page_find_password_with_email/main_widget.dart'
     as all_page_find_password_with_email;
 import 'package:flutter_project_template/pages/all/all_page_join_the_membership_email_verification/page_entrance.dart'
     as all_page_join_the_membership_email_verification;
