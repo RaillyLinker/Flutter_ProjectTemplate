@@ -357,7 +357,6 @@ class MainBusiness {
       showToast(
         "이메일 검증이 필요합니다.",
         context: mainContext,
-        position: StyledToastPosition.center,
         animation: StyledToastAnimation.scale,
       );
       FocusScope.of(emailTextFieldContext).requestFocus(emailTextFieldFocus);

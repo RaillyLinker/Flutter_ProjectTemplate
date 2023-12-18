@@ -21,7 +21,7 @@ import 'package:flutter_project_template/dialogs/all/all_dialog_loading_spinner/
     as all_dialog_loading_spinner;
 import 'package:flutter_project_template/pages/all/all_page_find_password_with_email/main_widget.dart'
     as all_page_find_password_with_email;
-import 'package:flutter_project_template/pages/all/all_page_join_the_membership_email_verification/page_entrance.dart'
+import 'package:flutter_project_template/pages/all/all_page_join_the_membership_email_verification/main_widget.dart'
     as all_page_join_the_membership_email_verification;
 import 'package:flutter_project_template/global_functions/gf_my_functions.dart'
     as gf_my_functions;
