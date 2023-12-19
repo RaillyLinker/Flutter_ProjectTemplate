@@ -78,7 +78,7 @@ class MainWidgetState extends State<MainWidget> with WidgetsBindingObserver {
         onForegroundLost: () async {
           await mainBusiness.onForegroundLostAsync();
         },
-        child: getScreenWidget(context: context),
+        child: getScreenWidget(),
       ),
     );
   }
@@ -124,7 +124,7 @@ class MainWidgetState extends State<MainWidget> with WidgetsBindingObserver {
 
   //----------------------------------------------------------------------------
   // [화면 작성]
-  Widget getScreenWidget({required BuildContext context}) {
+  Widget getScreenWidget() {
     // !!!화면 위젯 작성 하기!!!
 
     if (mainBusiness.inputError == true) {
@@ -296,8 +296,7 @@ class MainWidgetState extends State<MainWidget> with WidgetsBindingObserver {
                                     },
                                     onEditingComplete: () {
                                       mainBusiness
-                                          .onVerificationCodeFieldSubmitted(
-                                              context: context);
+                                          .onVerificationCodeFieldSubmitted();
                                     },
                                   );
                                 },
@@ -312,7 +311,7 @@ class MainWidgetState extends State<MainWidget> with WidgetsBindingObserver {
                 const SizedBox(height: 30.0),
                 ElevatedButton(
                   onPressed: () {
-                    mainBusiness.findPassword(context: context);
+                    mainBusiness.findPassword();
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue,

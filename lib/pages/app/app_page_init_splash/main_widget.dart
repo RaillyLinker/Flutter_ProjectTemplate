@@ -79,7 +79,7 @@ class MainWidgetState extends State<MainWidget> with WidgetsBindingObserver {
         onForegroundLost: () async {
           await mainBusiness.onForegroundLostAsync();
         },
-        child: getScreenWidget(context: context),
+        child: getScreenWidget(),
       ),
     );
   }
@@ -125,7 +125,7 @@ class MainWidgetState extends State<MainWidget> with WidgetsBindingObserver {
 
   //----------------------------------------------------------------------------
   // [화면 작성]
-  Widget getScreenWidget({required BuildContext context}) {
+  Widget getScreenWidget() {
     // !!!화면 위젯 작성 하기!!!
 
     // Mobile 앱 status bar 색상 변경
@@ -220,7 +220,7 @@ class AnimationLogoState extends State<AnimationLogo>
   // [콜백 함수]
   @override
   Widget build(BuildContext context) {
-    return getScreenWidget(context: context);
+    return getScreenWidget();
   }
 
   @override
@@ -290,7 +290,7 @@ class AnimationLogoState extends State<AnimationLogo>
 
   //----------------------------------------------------------------------------
   // [화면 작성]
-  Widget getScreenWidget({required BuildContext context}) {
+  Widget getScreenWidget() {
     // !!!위젯 화면을 작성 하세요.!!!
 
     // 애니메이션 적용 위젯 반환

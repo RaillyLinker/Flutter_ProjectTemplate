@@ -176,7 +176,7 @@ class MainBusiness {
   }
 
   // (검증 코드 입력창에서 엔터를 친 경우)
-  void onVerificationCodeFieldSubmitted({required BuildContext context}) {
+  void onVerificationCodeFieldSubmitted() {
     if (verificationCodeTextFieldController.text.trim() == "") {
       verificationCodeTextFieldErrorMsg = "본인 인증 코드를 입력하세요.";
       verificationCodeTextFieldAreaGk.currentState?.refreshUi();
@@ -185,7 +185,7 @@ class MainBusiness {
       return;
     }
 
-    findPassword(context: context);
+    findPassword();
   }
 
   // (인증 이메일 발송)
@@ -347,7 +347,7 @@ class MainBusiness {
   }
 
   // (비밀번호 찾기)
-  Future<void> findPassword({required BuildContext context}) async {
+  Future<void> findPassword() async {
     emailTextFieldErrorMsg = null;
     verificationCodeTextFieldErrorMsg = null;
     emailTextFieldAreaGk.currentState?.refreshUi();

@@ -79,7 +79,7 @@ class MainWidgetState extends State<MainWidget> with WidgetsBindingObserver {
         onForegroundLost: () async {
           await mainBusiness.onForegroundLostAsync();
         },
-        child: getScreenWidget(context: context),
+        child: getScreenWidget(),
       ),
     );
   }
@@ -125,7 +125,7 @@ class MainWidgetState extends State<MainWidget> with WidgetsBindingObserver {
 
   //----------------------------------------------------------------------------
   // [화면 작성]
-  Widget getScreenWidget({required BuildContext context}) {
+  Widget getScreenWidget() {
     // !!!화면 위젯 작성 하기!!!
 
     if (mainBusiness.inputError == true) {

@@ -264,7 +264,7 @@ class MainBusiness {
   // (코드 검증 후 다음 단계로 이동)
   bool isVerifyCodeAndGoNextDoing = false;
 
-  void verifyCodeAndGoNext({required BuildContext context}) {
+  void verifyCodeAndGoNext() {
     if (isVerifyCodeAndGoNextDoing) {
       return;
     }

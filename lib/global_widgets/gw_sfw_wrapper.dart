@@ -76,7 +76,7 @@ class SfwContextMenuRegionState extends State<SfwContextMenuRegion> {
   // [콜백 함수]
   @override
   Widget build(BuildContext context) {
-    return getScreenWidget(context: context);
+    return getScreenWidget();
   }
 
   @override
@@ -155,7 +155,7 @@ class SfwContextMenuRegionState extends State<SfwContextMenuRegion> {
 
   //----------------------------------------------------------------------------
   // [화면 작성]
-  Widget getScreenWidget({required BuildContext context}) {
+  Widget getScreenWidget() {
     // !!!위젯 화면을 작성 하세요.!!!
 
     return GestureDetector(
@@ -206,7 +206,7 @@ class SfwGifWidgetState extends State<SfwGifWidget>
   // [콜백 함수]
   @override
   Widget build(BuildContext context) {
-    return getScreenWidget(context: context);
+    return getScreenWidget();
   }
 
   @override
@@ -246,7 +246,7 @@ class SfwGifWidgetState extends State<SfwGifWidget>
 
   //----------------------------------------------------------------------------
   // [화면 작성]
-  Widget getScreenWidget({required BuildContext context}) {
+  Widget getScreenWidget() {
     // !!!위젯 화면을 작성 하세요.!!!
 
     return Gif(

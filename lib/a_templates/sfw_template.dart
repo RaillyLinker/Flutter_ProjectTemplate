@@ -20,7 +20,7 @@ class SfwTemplateState extends State<SfwTemplate> {
   // [콜백 함수]
   @override
   Widget build(BuildContext context) {
-    return getScreenWidget(context: context);
+    return getScreenWidget();
   }
 
   @override
@@ -53,7 +53,7 @@ class SfwTemplateState extends State<SfwTemplate> {
 
   //----------------------------------------------------------------------------
   // [화면 작성]
-  Widget getScreenWidget({required BuildContext context}) {
+  Widget getScreenWidget() {
     // !!!위젯 화면을 작성 하세요.!!!
 
     return const Text("Sample");

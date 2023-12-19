@@ -184,7 +184,7 @@ class MainBusiness {
   }
 
   // (Password 입력창에서 엔터를 쳤을 때)
-  void onPasswordFieldSubmitted({required BuildContext context}) {
+  void onPasswordFieldSubmitted() {
     String id = idTextFieldController.text;
     String pw = passwordTextFieldController.text;
 
