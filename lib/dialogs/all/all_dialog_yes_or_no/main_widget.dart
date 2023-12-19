@@ -63,14 +63,17 @@ class MainWidgetState extends State<MainWidget> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     mainBusiness.mainContext = context;
     mainBusiness.refreshUi = refreshUi;
+    if (mainBusiness.pageInitFirst) {
+      mainBusiness.pageInitFirst = false;
+      mainBusiness.onCreate();
+    }
     return PopScope(
       canPop: mainBusiness.canPop,
       child: FocusDetector(
         onFocusGained: () async {
-          if (mainBusiness.needInitState) {
-            mainBusiness.needInitState = false;
+          if (mainBusiness.needCallOnDialogCreated) {
+            mainBusiness.needCallOnDialogCreated = false;
             widget.inputVo.onDialogCreated();
-            await mainBusiness.onCreateWidget();
           }
           await mainBusiness.onFocusGainedAsync();
         },

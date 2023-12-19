@@ -65,6 +65,11 @@ class MainBusiness {
     _checkAppVersionAsync();
   }
 
+  // (최초 실행시 단 한번 실행) - 위젯 build 바로 직전, 모든 것이 준비 되었을 때
+  void onCreate() {
+    // !!!onCreate 로직 작성!!!
+  }
+
   Future<void> onFocusGainedAsync() async {
     // !!!onFocusGainedAsync 로직 작성!!!
 
@@ -123,14 +128,14 @@ class MainBusiness {
   // (페이지 pop 가능 여부 변수) - false 로 설정시 pop 불가
   bool canPop = true;
 
-  // (최초 실행 플래그)
-  bool needInitState = true;
-
   // (입력값 미충족 여부)
   bool inputError = false;
 
   // (context 객체)
   late BuildContext mainContext;
+
+  // (최초 실행 플래그)
+  bool pageInitFirst = true;
 
   // 화면 대기 시간 카운트 객체
   Timer? _screenWaitingTimer;
