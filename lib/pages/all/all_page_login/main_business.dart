@@ -218,14 +218,14 @@ class MainBusiness {
         animation: StyledToastAnimation.scale,
       );
     } else {
-      accountLoginAsync(context: context);
+      accountLoginAsync();
     }
   }
 
   // (계정 로그인 버튼 클릭)
   bool accountLoginAsyncClicked = false;
 
-  void accountLoginAsync({required BuildContext context}) {
+  void accountLoginAsync() {
     if (accountLoginAsyncClicked) {
       return;
     }

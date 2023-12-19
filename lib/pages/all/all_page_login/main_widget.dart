@@ -323,7 +323,7 @@ class MainWidgetState extends State<MainWidget> with WidgetsBindingObserver {
                 constraints: const BoxConstraints(minWidth: 200),
                 child: ElevatedButton(
                   onPressed: () {
-                    mainBusiness.accountLoginAsync(context: context);
+                    mainBusiness.accountLoginAsync();
                   },
                   style: ElevatedButton.styleFrom(
                       foregroundColor: Colors.white,
