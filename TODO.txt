@@ -1,10 +1,4 @@
 [TODO]
-- all_page_join_the_membership_edit_member_info
-
-- 템플릿 다 적용하고 BLoC 라이브러리 제거 및 todo_do_delete.dart 제거
-
-- 페이지의 잘못된 접근 위젯 변경
-
 - 리스트 아이템 순서 바꾸기
 - 리스트 아이템 순서 갱신시 애니메이션
 - 파일 / 파일 리스트 선택 및 멀티파트 전송

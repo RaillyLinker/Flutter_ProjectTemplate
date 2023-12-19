@@ -131,11 +131,9 @@ class MainWidgetState extends State<MainWidget> with WidgetsBindingObserver {
 
     if (mainBusiness.inputError == true) {
       // 입력값이 미충족 되었을 때의 화면
-      return const Center(
-        child: Text(
-          "잘못된 접근입니다.",
-          style: TextStyle(color: Colors.red, fontFamily: "MaruBuri"),
-        ),
+      return gw_slw_page_outer_frame.ErrorPageWidget(
+        business: gw_slw_page_outer_frame.ErrorPageWidgetBusiness(),
+        errorMsg: "잘못된 접근입니다.",
       );
     }
 

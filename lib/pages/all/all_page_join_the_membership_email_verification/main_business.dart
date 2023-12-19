@@ -19,7 +19,7 @@ import 'package:flutter_project_template/dialogs/all/all_dialog_info/main_widget
     as all_dialog_info;
 import 'package:flutter_project_template/dialogs/all/all_dialog_loading_spinner/main_widget.dart'
     as all_dialog_loading_spinner;
-import 'package:flutter_project_template/pages/all/all_page_join_the_membership_edit_member_info/page_entrance.dart'
+import 'package:flutter_project_template/pages/all/all_page_join_the_membership_edit_member_info/main_widget.dart'
     as all_page_join_the_membership_edit_member_info;
 import 'package:flutter_project_template/repositories/spws/spw_auth_member_info.dart'
     as spw_auth_member_info;
@@ -556,8 +556,7 @@ class MainBusiness {
         });
 
     if (pageResult != null &&
-        (pageResult
-                as all_page_join_the_membership_edit_member_info.PageOutputVo)
+        (pageResult as all_page_join_the_membership_edit_member_info.OutputVo)
             .registerComplete) {
       if (!mainContext.mounted) return;
       mainContext.pop();

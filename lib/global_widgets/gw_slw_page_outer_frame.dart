@@ -227,3 +227,97 @@ class HomeIconButtonState extends State<HomeIconButton> {
     );
   }
 }
+
+// (에러 페이지)
+class ErrorPageWidget extends StatelessWidget {
+  const ErrorPageWidget({
+    super.key,
+    required this.business,
+    required this.errorMsg,
+  });
+
+  final ErrorPageWidgetBusiness business;
+
+  // !!!외부 입력 변수 선언 하기!!!
+  final String errorMsg;
+
+  //----------------------------------------------------------------------------
+  // [콜백 함수]
+  @override
+  Widget build(BuildContext context) {
+    business.context = context;
+    return business.getScreenWidget(context: context, widget: this);
+  }
+}
+
+class ErrorPageWidgetBusiness {
+  // !!!위젯 변수를 저장 하세요.!!!
+  // [public 변수]
+  // (context 객체) - 처음 위젯이 build 되기 전에는 null, 이후는 not null
+  BuildContext? context;
+
+  // [private 변수]
+
+  //----------------------------------------------------------------------------
+  // !!!위젯 함수를 작성 하세요.!!!
+  // [public 함수]
+
+  // [private 함수]
+
+  //----------------------------------------------------------------------------
+  // [화면 작성]
+  Widget getScreenWidget(
+      {required BuildContext context, required ErrorPageWidget widget}) {
+    // !!!위젯 화면을 작성 하세요.!!!
+
+    // Mobile 앱 status bar 색상 변경
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+        statusBarColor: Colors.blue,
+        statusBarIconBrightness: Brightness.dark,
+        statusBarBrightness: Brightness.dark));
+
+    return Scaffold(
+      appBar: AppBar(
+          automaticallyImplyLeading: !kIsWeb,
+          title: const Text(
+            "에러",
+            style: TextStyle(color: Colors.white, fontFamily: "MaruBuri"),
+          ),
+          backgroundColor: Colors.blue,
+          iconTheme:
+              const IconThemeData(color: Colors.white //change your color here
+                  )),
+      backgroundColor: Colors.white,
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              widget.errorMsg,
+              style:
+                  const TextStyle(color: Colors.black, fontFamily: "MaruBuri"),
+            ),
+            MouseRegion(
+              cursor: SystemMouseCursors.click,
+              child: GestureDetector(
+                onTap: () {
+                  context.goNamed(all_page_home.pageName);
+                },
+                child: Container(
+                  decoration: const BoxDecoration(
+                    border: Border(bottom: BorderSide(color: Colors.blue)),
+                  ),
+                  margin: const EdgeInsets.only(top: 10),
+                  child: const Text("홈으로",
+                      style: TextStyle(
+                          color: Colors.blue, fontFamily: "MaruBuri")),
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
