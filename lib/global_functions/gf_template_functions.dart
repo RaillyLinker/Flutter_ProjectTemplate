@@ -104,10 +104,12 @@ class GetPageSettingValueOutputVo {
     required this.brightnessModeSetting,
   });
 
-  // 페이지 국가 설정 (KOR, USA, ...)
+  // 페이지 국가 설정 (KR, US, Jpan, ...)
+  // WidgetsBinding.instance.platformDispatcher.locale.countryCode 에서 나오는 값
   String? countrySetting;
 
-  // 페이지 언어 설정 (kor, eng, ...)
+  // 페이지 언어 설정 (ko, en, jpa, ...)
+  // WidgetsBinding.instance.platformDispatcher.locale.languageCode 에서 나오는 값
   String languageSetting;
 
   // 페이지 밝기 모드 설정 (DARK, LIGHT)
