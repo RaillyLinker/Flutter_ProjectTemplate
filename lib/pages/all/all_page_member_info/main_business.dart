@@ -142,6 +142,19 @@ class MainBusiness {
   // (최초 실행 플래그)
   bool pageInitFirst = true;
 
+  // (페이지 설정 정보)
+  // onCreate, onFocusGainedAsync, didChangePlatformBrightness, didChangeLocales 실행 직전마다 갱신됨
+  // 페이지 국가 설정 (KR, US, Jpan, ...)
+  // WidgetsBinding.instance.platformDispatcher.locale.countryCode 에서 나오는 값
+  late String? countrySetting;
+
+  // 페이지 언어 설정 (ko, en, jpa, ...)
+  // WidgetsBinding.instance.platformDispatcher.locale.languageCode 에서 나오는 값
+  late String languageSetting;
+
+  // 페이지 밝기 모드 설정 (DARK, LIGHT)
+  late String brightnessModeSetting;
+
   // (pageOutFrameBusiness)
   final gw_slw_page_outer_frame.SlwPageOuterFrameBusiness pageOutFrameBusiness =
       gw_slw_page_outer_frame.SlwPageOuterFrameBusiness();
