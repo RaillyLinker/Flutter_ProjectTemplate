@@ -142,11 +142,11 @@ class MainBusiness {
 
   // (페이지 설정 정보)
   // onCreate, onFocusGainedAsync, didChangePlatformBrightness, didChangeLocales 실행 직전 마다 갱신됨
-  // 페이지 국가 설정 (KR, US, Jpan, ...)
+  // 페이지 국가 설정 (KR, US, JP, ...)
   // WidgetsBinding.instance.platformDispatcher.locale.countryCode 에서 나오는 값
   late String? countrySetting;
 
-  // 페이지 언어 설정 (ko, en, jpa, ...)
+  // 페이지 언어 설정 (ko, en, ja, ...)
   // WidgetsBinding.instance.platformDispatcher.locale.languageCode 에서 나오는 값
   late String languageSetting;
 
