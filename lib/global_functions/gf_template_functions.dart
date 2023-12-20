@@ -112,6 +112,6 @@ class GetPageSettingValueOutputVo {
   // WidgetsBinding.instance.platformDispatcher.locale.languageCode 에서 나오는 값
   String languageSetting;
 
-  // 페이지 밝기 모드 설정 (DARK, LIGHT)
+  // 페이지 밝기 모드 설정 (dark, light)
   String brightnessModeSetting;
 }

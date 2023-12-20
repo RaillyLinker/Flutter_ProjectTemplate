@@ -74,6 +74,11 @@ class MainBusiness {
     // !!!didChangeLocales 로직 작성!!!
   }
 
+  // (화면 크기 변경시 실행)
+  void didChangeMetrics() {
+    // !!!didChangeMetrics 로직 작성!!!
+  }
+
   // (최초 실행시 단 한번 실행) - 위젯 build 바로 직전, 모든 것이 준비 되었을 때
   void onCreate() {
     // !!!onCreate 로직 작성!!!
@@ -131,8 +136,14 @@ class MainBusiness {
   // WidgetsBinding.instance.platformDispatcher.locale.languageCode 에서 나오는 값
   late String languageSetting;
 
-  // 페이지 밝기 모드 설정 (DARK, LIGHT)
+  // 페이지 밝기 모드 설정 (dark, light)
   late String brightnessModeSetting;
+
+  // 화면 너비
+  late double screenWidth;
+
+  // 화면 높이
+  late double screenHeight;
 
   // (pageOutFrameBusiness)
   final gw_slw_page_outer_frame.SlwPageOuterFrameBusiness pageOutFrameBusiness =

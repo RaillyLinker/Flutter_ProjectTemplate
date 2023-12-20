@@ -7,7 +7,8 @@ import 'package:go_router/go_router.dart';
 import 'main_business.dart' as main_business;
 
 // (all)
-import 'package:flutter_project_template/global_functions/gf_template_functions.dart' as gf_template_functions;
+import 'package:flutter_project_template/global_functions/gf_template_functions.dart'
+    as gf_template_functions;
 import 'package:flutter_project_template/global_widgets/gw_slw_page_outer_frame.dart'
     as gw_slw_page_outer_frame;
 import 'package:flutter_project_template/global_widgets/gw_sfw_wrapper.dart'
@@ -59,7 +60,11 @@ class MainWidgetState extends State<MainWidget> with WidgetsBindingObserver {
       var systemSettingValue = gf_template_functions.getNowProgramSetting();
       mainBusiness.countrySetting = systemSettingValue.countrySetting;
       mainBusiness.languageSetting = systemSettingValue.languageSetting;
-      mainBusiness.brightnessModeSetting = systemSettingValue.brightnessModeSetting;
+      mainBusiness.brightnessModeSetting =
+          systemSettingValue.brightnessModeSetting;
+      MediaQueryData mediaQueryData = MediaQuery.of(context);
+      mainBusiness.screenWidth = mediaQueryData.size.width;
+      mainBusiness.screenHeight = mediaQueryData.size.height;
       mainBusiness.onCreate();
     }
     return PopScope(
@@ -69,7 +74,11 @@ class MainWidgetState extends State<MainWidget> with WidgetsBindingObserver {
           var systemSettingValue = gf_template_functions.getNowProgramSetting();
           mainBusiness.countrySetting = systemSettingValue.countrySetting;
           mainBusiness.languageSetting = systemSettingValue.languageSetting;
-          mainBusiness.brightnessModeSetting = systemSettingValue.brightnessModeSetting;
+          mainBusiness.brightnessModeSetting =
+              systemSettingValue.brightnessModeSetting;
+          MediaQueryData mediaQueryData = MediaQuery.of(context);
+          mainBusiness.screenWidth = mediaQueryData.size.width;
+          mainBusiness.screenHeight = mediaQueryData.size.height;
           await mainBusiness.onFocusGainedAsync();
         },
         onFocusLost: () async {
@@ -119,22 +128,30 @@ class MainWidgetState extends State<MainWidget> with WidgetsBindingObserver {
 
   @override
   void didChangePlatformBrightness() {
-    super.didChangePlatformBrightness();
     var systemSettingValue = gf_template_functions.getNowProgramSetting();
     mainBusiness.countrySetting = systemSettingValue.countrySetting;
     mainBusiness.languageSetting = systemSettingValue.languageSetting;
-    mainBusiness.brightnessModeSetting = systemSettingValue.brightnessModeSetting;
+    mainBusiness.brightnessModeSetting =
+        systemSettingValue.brightnessModeSetting;
     mainBusiness.didChangePlatformBrightness();
   }
 
   @override
   void didChangeLocales(List<Locale>? locales) {
-    super.didChangeLocales(locales);
     var systemSettingValue = gf_template_functions.getNowProgramSetting();
     mainBusiness.countrySetting = systemSettingValue.countrySetting;
     mainBusiness.languageSetting = systemSettingValue.languageSetting;
-    mainBusiness.brightnessModeSetting = systemSettingValue.brightnessModeSetting;
+    mainBusiness.brightnessModeSetting =
+        systemSettingValue.brightnessModeSetting;
     mainBusiness.didChangeLocales();
+  }
+
+  @override
+  void didChangeMetrics() {
+    MediaQueryData mediaQueryData = MediaQuery.of(context);
+    mainBusiness.screenWidth = mediaQueryData.size.width;
+    mainBusiness.screenHeight = mediaQueryData.size.height;
+    mainBusiness.didChangeMetrics();
   }
 
   // [public 변수]
