@@ -117,15 +117,8 @@ class SharedPreferenceWrapperVo {
     required this.settingBrightnessMode,
   });
 
-  // 프로그램 국가 설정 ("KOR", "USA", ...) - "SYSTEM_SETTING" 이라면 시스템 설정을 따르기
-  // String? systemCountry = WidgetsBinding.instance.platformDispatcher.locale.countryCode;
+  // 입출력값은 global_functions/gf_template_functions.dart 안의 GetPageSettingValueOutputVo 클래스 주석을 참고하세요.
   String? settingCountry;
-
-  // 프로그램 언어 설정 ("kor", "eng", ...) - "SYSTEM_SETTING" 이라면 시스템 설정을 따르기
-  // String systemLanguage = WidgetsBinding.instance.platformDispatcher.locale.languageCode;
   String settingLanguage;
-
-  // 프로그램 밝기 모드 설정 ("DARK", "LIGHT") - "SYSTEM_SETTING" 이라면 시스템 설정을 따르기
-  // String systemBrightness = MediaQuery.platformBrightnessOf(mainContext) == Brightness.dark ? "dark" : "light";
   String settingBrightnessMode;
 }
