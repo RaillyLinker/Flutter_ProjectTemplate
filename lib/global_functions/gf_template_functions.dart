@@ -49,8 +49,7 @@ String mergeNetworkQueryParam(
 
 // (현재 프로그램 세팅 정보를  반환 하는 함수)
 // SPW 에 저장된 설정이 없다면 시스템 설정을 반환 하고, SPW 에 저장된 설정이 있다면 저장된 설정을 반환 합니다.
-GetPageSettingValueOutputVo getNowProgramSetting(
-    {required BuildContext context}) {
+GetPageSettingValueOutputVo getNowProgramSetting() {
   String? countrySetting;
   String languageSetting;
   String brightnessModeSetting;
@@ -62,7 +61,8 @@ GetPageSettingValueOutputVo getNowProgramSetting(
     languageSetting =
         WidgetsBinding.instance.platformDispatcher.locale.languageCode;
     brightnessModeSetting =
-        MediaQuery.platformBrightnessOf(context) == Brightness.dark
+        WidgetsBinding.instance.platformDispatcher.platformBrightness ==
+                Brightness.dark
             ? "dark"
             : "light";
   } else {
@@ -82,7 +82,8 @@ GetPageSettingValueOutputVo getNowProgramSetting(
 
     if (systemSettingSpw.settingBrightnessMode == "SYSTEM_SETTING") {
       brightnessModeSetting =
-          MediaQuery.platformBrightnessOf(context) == Brightness.dark
+          WidgetsBinding.instance.platformDispatcher.platformBrightness ==
+                  Brightness.dark
               ? "dark"
               : "light";
     } else {
