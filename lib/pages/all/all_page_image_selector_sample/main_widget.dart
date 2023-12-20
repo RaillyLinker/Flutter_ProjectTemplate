@@ -109,6 +109,18 @@ class MainWidgetState extends State<MainWidget> with WidgetsBindingObserver {
     super.dispose();
   }
 
+  @override
+  void didChangePlatformBrightness() {
+    super.didChangePlatformBrightness();
+    mainBusiness.didChangePlatformBrightness();
+  }
+
+  @override
+  void didChangeLocales(List<Locale>? locales) {
+    super.didChangeLocales(locales);
+    mainBusiness.didChangeLocales();
+  }
+
   // [public 변수]
   // (mainBusiness) - 데이터 변수 및 함수 저장 역할
   final main_business.MainBusiness mainBusiness = main_business.MainBusiness();

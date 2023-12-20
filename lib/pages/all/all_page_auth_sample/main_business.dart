@@ -61,6 +61,16 @@ class MainBusiness {
     // !!!dispose 로직 작성!!!
   }
 
+  // (시스템 밝기 설정 변경시 실행)
+  void didChangePlatformBrightness() {
+    // !!!didChangePlatformBrightness 로직 작성!!!
+  }
+
+  // (시스템 언어/국가 설정 변경시 실행)
+  void didChangeLocales() {
+    // !!!didChangeLocales 로직 작성!!!
+  }
+
   // (최초 실행시 단 한번 실행) - 위젯 build 바로 직전, 모든 것이 준비 되었을 때
   void onCreate() {
     // !!!onCreate 로직 작성!!!
