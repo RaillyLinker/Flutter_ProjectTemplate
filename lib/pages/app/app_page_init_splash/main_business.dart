@@ -58,16 +58,10 @@ class MainBusiness {
     // !!!dispose 로직 작성!!!
   }
 
-  // (위젯이 처음 build 된 후 단 한번 실행)
-  Future<void> onCreateWidget() async {
-    // !!!onFocusGainedAsync 로직 작성!!!
-
-    _checkAppVersionAsync();
-  }
-
   // (최초 실행시 단 한번 실행) - 위젯 build 바로 직전, 모든 것이 준비 되었을 때
   void onCreate() {
     // !!!onCreate 로직 작성!!!
+    _checkAppVersionAsync();
   }
 
   Future<void> onFocusGainedAsync() async {
@@ -167,6 +161,7 @@ class MainBusiness {
 
   // (앱 버전 확인)
   Future<void> _checkAppVersionAsync() async {
+    print("d");
     // 플랫폼 코드 (1 : web, 2 : android, 3 : ios, 4 : windows, 5 : macos, 6 : linux)
     int platformCode;
 

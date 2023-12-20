@@ -35,14 +35,6 @@ class MainBusiness {
     }
   }
 
-  // (위젯이 처음 build 된 후 단 한번 실행)
-  Future<void> onCreateWidget() async {
-    // !!!onFocusGainedAsync 로직 작성!!!
-    if (kDebugMode) {
-      print("+++ onCreateWidget 호출됨");
-    }
-  }
-
   // (최초 실행시 단 한번 실행) - 위젯 build 바로 직전, 모든 것이 준비 되었을 때
   void onCreate() {
     // !!!onCreate 로직 작성!!!
