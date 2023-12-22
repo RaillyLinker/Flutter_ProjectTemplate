@@ -71,21 +71,6 @@ class MainBusiness {
     // !!!dispose 로직 작성!!!
   }
 
-  // (시스템 밝기 설정 변경시 실행)
-  void didChangePlatformBrightness() {
-    // !!!didChangePlatformBrightness 로직 작성!!!
-  }
-
-  // (시스템 언어/국가 설정 변경시 실행)
-  void didChangeLocales() {
-    // !!!didChangeLocales 로직 작성!!!
-  }
-
-  // (화면 크기 변경시 실행)
-  void didChangeMetrics() {
-    // !!!didChangeMetrics 로직 작성!!!
-  }
-
   // (최초 실행시 단 한번 실행) - 위젯 build 바로 직전, 모든 것이 준비 되었을 때
   void onCreate() {
     // !!!onCreate 로직 작성!!!
@@ -132,18 +117,6 @@ class MainBusiness {
 
   // (최초 실행 플래그)
   bool pageInitFirst = true;
-
-  // (페이지 설정 정보)
-  // 반환값은 global_functions/gf_template_functions.dart 안의 GetPageSettingValueOutputVo 클래스 주석을 참고 하세요.
-  // onCreate 직전, focusGained 직전, 각 설정 변경 콜백 실행 직전에 갱신됩니다.
-  late String? countrySetting;
-  late String languageSetting;
-  late String brightnessModeSetting;
-
-  // 화면 사이즈
-  // onCreate 직전, focusGained 직전, 화면 사이지 변경 콜백 실행 직전에 갱신됩니다.
-  late double screenWidth;
-  late double screenHeight;
 
   // (pageOutFrameBusiness)
   final gw_slw_page_outer_frame.SlwPageOuterFrameBusiness pageOutFrameBusiness =
