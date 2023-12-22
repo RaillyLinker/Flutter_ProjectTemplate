@@ -136,12 +136,15 @@ class MainBusiness {
   // (최초 실행 플래그)
   bool pageInitFirst = true;
 
-  // (페이지 설정 정보) - global_functions/gf_template_functions.dart 안의 GetPageSettingValueOutputVo 클래스 주석을 참고하세요.
+  // (페이지 설정 정보)
+  // 반환값은 global_functions/gf_template_functions.dart 안의 GetPageSettingValueOutputVo 클래스 주석을 참고 하세요.
+  // onCreate 직전, focusGained 직전, 각 설정 변경 콜백 실행 직전에 갱신됩니다.
   late String? countrySetting;
   late String languageSetting;
   late String brightnessModeSetting;
 
   // 화면 사이즈
+  // onCreate 직전, focusGained 직전, 화면 사이지 변경 콜백 실행 직전에 갱신됩니다.
   late double screenWidth;
   late double screenHeight;
 
