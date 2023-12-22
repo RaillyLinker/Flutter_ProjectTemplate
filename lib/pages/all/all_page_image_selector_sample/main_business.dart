@@ -113,10 +113,8 @@ class MainBusiness {
   late String languageSetting;
   late String brightnessModeSetting;
 
-  // 화면 너비
+  // 화면 사이즈
   late double screenWidth;
-
-  // 화면 높이
   late double screenHeight;
 
   // (pageOutFrameBusiness)
