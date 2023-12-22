@@ -66,6 +66,7 @@ class MainWidgetState extends State<MainWidget> with WidgetsBindingObserver {
       MediaQueryData mediaQueryData = MediaQuery.of(context);
       mainBusiness.screenWidth = mediaQueryData.size.width;
       mainBusiness.screenHeight = mediaQueryData.size.height;
+      refreshUi();
       mainBusiness.onCreate();
     }
     return PopScope(
@@ -80,6 +81,7 @@ class MainWidgetState extends State<MainWidget> with WidgetsBindingObserver {
           MediaQueryData mediaQueryData = MediaQuery.of(context);
           mainBusiness.screenWidth = mediaQueryData.size.width;
           mainBusiness.screenHeight = mediaQueryData.size.height;
+          refreshUi();
           await mainBusiness.onFocusGainedAsync();
         },
         onFocusLost: () async {
@@ -134,6 +136,7 @@ class MainWidgetState extends State<MainWidget> with WidgetsBindingObserver {
     mainBusiness.languageSetting = systemSettingValue.languageSetting;
     mainBusiness.brightnessModeSetting =
         systemSettingValue.brightnessModeSetting;
+    refreshUi();
     mainBusiness.didChangePlatformBrightness();
   }
 
@@ -144,6 +147,7 @@ class MainWidgetState extends State<MainWidget> with WidgetsBindingObserver {
     mainBusiness.languageSetting = systemSettingValue.languageSetting;
     mainBusiness.brightnessModeSetting =
         systemSettingValue.brightnessModeSetting;
+    refreshUi();
     mainBusiness.didChangeLocales();
   }
 
@@ -152,6 +156,7 @@ class MainWidgetState extends State<MainWidget> with WidgetsBindingObserver {
     MediaQueryData mediaQueryData = MediaQuery.of(context);
     mainBusiness.screenWidth = mediaQueryData.size.width;
     mainBusiness.screenHeight = mediaQueryData.size.height;
+    refreshUi();
     mainBusiness.didChangeMetrics();
   }
 
