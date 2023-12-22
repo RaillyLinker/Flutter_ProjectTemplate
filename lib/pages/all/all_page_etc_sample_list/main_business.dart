@@ -1,4 +1,6 @@
 // (external)
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:go_router/go_router.dart';
@@ -39,6 +41,10 @@ import 'package:flutter_project_template/pages/all/all_page_horizontal_scroll_te
 // (app)
 import 'package:flutter_project_template/pages/app/app_page_server_sample/main_widget.dart'
     as app_page_server_sample;
+
+// (pc)
+import 'package:flutter_project_template/pages/pc/pc_page_flutter_resource_image_resize/main_widget.dart'
+    as pc_page_flutter_resource_image_resize;
 
 // [위젯 비즈니스]
 
@@ -258,6 +264,19 @@ class MainBusiness {
             mainContext.pushNamed(all_page_form_sample.pageName);
           }),
     );
+
+    if (!kIsWeb && !Platform.isAndroid && !Platform.isIOS) {
+      // pc
+      hoveringListTileViewModel.add(
+        HoveringListTileViewModel(
+            itemTitle: "플러터 이미지 리소스 리사이징",
+            itemDescription: "플러터 이미지 리소스 리사이징",
+            onItemClicked: () {
+              mainContext
+                  .pushNamed(pc_page_flutter_resource_image_resize.pageName);
+            }),
+      );
+    }
 
     return hoveringListTileViewModel;
   }

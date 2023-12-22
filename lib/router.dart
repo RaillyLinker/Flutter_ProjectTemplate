@@ -74,6 +74,8 @@ import 'pages/all/all_page_form_sample/main_widget.dart'
     as all_page_form_sample;
 import 'pages/all/all_page_horizontal_scroll_test/main_widget.dart'
     as all_page_horizontal_scroll_test;
+import 'pages/pc/pc_page_flutter_resource_image_resize/main_widget.dart'
+    as pc_page_flutter_resource_image_resize;
 
 // (app)
 import 'pages/app/app_page_init_splash/main_widget.dart'
@@ -615,6 +617,17 @@ GoRouter getRouter() {
       // (PC 환경)
       // !!!초기 진입 라우트 경로 설정!!!
       // !!!사용할 라우터 리스트 추가!!!
+      subRouteListEtcSampleList.add(GoRoute(
+          path: "flutter-resource-image-resize",
+          name: pc_page_flutter_resource_image_resize.pageName,
+          pageBuilder: (c, s) {
+            return CustomTransitionPage(
+                key: s.pageKey,
+                child: pc_page_flutter_resource_image_resize.MainWidget(
+                    goRouterState: s),
+                transitionsBuilder: pc_page_flutter_resource_image_resize
+                    .pageTransitionsBuilder);
+          }));
 
       // -----------------------------------------------------------------------
       if (Platform.isWindows) {
